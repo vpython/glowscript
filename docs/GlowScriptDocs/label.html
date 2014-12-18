@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>label</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+-->
+</style>
+<style type="text/css">
+<!--
+.style2 {
+	font-size: x-large;
+	font-weight: bold;
+}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="230" height="30" border="0">
+  <tr>
+    <td width="66"><a name="top" id="top"></a><a href="index.html"><strong>Home</strong></a></td>
+    <td width="154"><span class="Normal"><a href="primitives.html"><strong>Pictures</strong></a> of 3D objects</span></td>
+  </tr>
+</table>
+<table width="438" height="30" border="0">
+  <tr>
+    <td width="151"><select id="menu1" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="163"><select id="menu2" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="110"><select id="menu3" onchange="jumpMenu(this)">
+    </select></td>
+  </tr>
+</table>
+<table width="454" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="454" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+          <table width="96%" border="1">
+            <tr>
+              <td width="64%"><div align="center"><span class="style2"><font color="#0000A0">label</font></span></div></td>
+              <td width="36%"><div align="center"><img src="images/label.jpg" width="192" height="159" alt="label" /><a href="arrow.html"></a></div></td>
+            </tr>
+          </table>
+          <p class="Normal"> With the label object you can display 2D text in
+            a box, and the label always faces forward, even if you rotate the
+            scene. Here is a simple example:</p>
+
+      <p class="program"> label( pos=vec(0,0.25,0), text='Hello!' )      
+      <table width="450" border="0">
+        <tr>
+          <td width="292"><p class="Normal">There are many additional 
+            label options. In the accompanying diagram, a sphere representing the Earth 
+            (whose center is at <span class="attribute"> earth.pos</span>) has an associated 
+            label with the text &quot;Earth&quot; in a box, connected to the sphere 
+            by a line which stops at the surface of the sphere:</p>
+            <p class="program"> var Elabel = label( <br />
+&nbsp;&nbsp;&nbsp;&nbsp;              &nbsp;pos:earth.pos,<br />
+  &nbsp;&nbsp;&nbsp;              &nbsp;&nbsp;text:'Earth', <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  xoffset:80,<br />
+  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;yoffset:60,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  space:earth.radius,<br />
+  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;height:20, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:6,<br />
+&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;font:'Verdana' )</p>
+            <p class="Normal"> A unique feature of the label object is that several attributes 
+              are given in terms of screen pixels instead of the usual &quot;world-space&quot; 
+              coordinates. For example, the height of the text is given in pixels, with 
+              the result that the text remains readable even when the sphere object is 
+              moved far away. Other pixel-oriented attributes include <span class="attribute">xoffset</span>, <span class="attribute">yoffset</span>, and <span class="attribute">border</span>. 
+          Here are the label attributes:</p></td>
+          <td width="169"><span class="Normal"><img src="images/VisualRef-7.gif" alt="label" width="172" height="197" align="right" /></span></td>
+        </tr>
+      </table>
+      <p class="attributes"> <span class="attribute">pos</span> The
+              point in world space being labeled. If there are no offsets (see
+              diagram), the center of the text is at <span class="attribute">pos</span></p>
+<p class="attributes"> <span class="attribute">text</span> The text to be 
+              displayed, such as 'Earth'</p>
+<p class="attributes"><span class="attribute">visible</span> If False, 
+  
+  object is not displayed; e.g. <span class="attribute">Elabel.visible = False</span><em class="program"><br />
+    </em>Use <span class="attribute">Elabel.visible =  True</span> to make the object 
+            
+      visible again.</p>
+      <p class="attributes"> <span class="attribute">align</span> 'left' for left-adjusted, to the right of <span class="attribute">pos</span>, 'right' for right-adjusted, to the left of <span class="attribute">pos</span>, and 'center' for centered on <span class="attribute">pos</span> (the default).<span class="attribute"></span></p>
+      <p class="attributes"> <span class="attribute">xoffset</span>, <span class="attribute">yoffset</span> The
+        x and y components of the line, <em><strong>in pixels</strong></em> (see diagram). </p>
+            <p class="attributes"> <span class="attribute">font</span> Name of the desired 
+              font; for example, 'Verdana', or 'Times', or 'Courier'.</p>
+            <p class="attributes"> <span class="attribute">height</span> Height
+              of the font  in pixels; default is 13 pixels</p>
+            <p class="attributes"> <span class="attribute">color</span> Color of the text; default is white unless scene.background is white, in which case the default is black</p>
+            <p class="attributes"> <span class="attribute">background</span> Color of the background of the box; default is scene.background</p>
+            <p class="attributes"> <span class="attribute">opacity</span> Opacity of the background of the box, default 0.66<br />
+            (0 transparent, 1 opaque, for objects behind the box) </p>
+            <p class="attributes"> <span class="attribute">border</span> Distance
+              in pixels  from the text to the surrounding box; default is 5 pixels</p>
+            <p class="attributes"> <span class="attribute">box</span> True if the box should 
+              be drawn (default), else False</p>
+            <p class="attributes"> <span class="attribute">line</span> true if the line from 
+              the box to pos should be drawn (default), else false</p>
+            <p class="attributes"> <span class="attribute">linecolor</span> Color of the line 
+              and box; default is white unless scene.background is white, in which case the default is black; if the label's color is specified, the default linecolor is the same</p>
+            <p class="attributes"> <span class="attribute">linewidth</span> The width in pixels of the line and box</p>
+            <p class="attributes"> <span class="attribute">space</span> Radius 
+      in real-world coordinates of a sphere surrounding pos,      into which the connecting line does not go.</p>
+            <p class="attributes"> <span class="attribute">pixel_pos</span> If true, pos and offsets are in terms of pixel locations, with (0,0,0) at the upper corner of the canvas, and the z component of <span class="attribute">pos</span> is ignored. A positive y value for pos or offsets goes downward from the top of the canvas. Note that the width and height of the canvas in pixels are given by <span class="attribute">scene.width</span> and <span class="attribute">scene.height</span>. By default, <span class="attribute">pixel_pos</span> is false.</p>
+            <p class="Normal">When you run a  program, for convenience GlowScript 
+            creates a <a href="display.html">canvas</a> on the web page and names it <span class="attribute">scene</span>. 
+            Objects that you create are drawn on this canvas. If you have more than one canvas, you can specify  in which canvas to place a new object, as in box(canvas=myscene); in JavaScript this would be box( {canvas:myscene} ) and in CoffeeScript box(canvas:myscene).. If you don't specify a canvas, the new object goes into the most recently created canvas, or the most recently selected canvas as specified by setting <span class="attribute">canvas.selected</span>.</p>
+            <div>
+              <div></div>
+            </div>
+            <div> </div>
+            <p class="Normal"><strong><font color="#0000a0">JavaScript or CoffeeScript</font></strong></p>
+            <p class="Normal">See the <a href="cylinder.html"><strong>cylinder</strong></a> documentation for how to create an object in JavaScript or CoffeeScript. When creating an object you use &quot;<strong>:</strong>&quot; instead of &quot;<strong>=</strong>&quot;, and for JavaScript you need to include the initial specifications inside braces. Also, with JavaScript, if you name the object, the name must be preceded by &quot;<strong>var</strong>&quot;. Specify true or false instead of True or False for <span class="attribute">visible</span> or <span class="attribute">emissive</span>.</p>
+            <p class="Normal"></p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+</table>
+<p><a href="#top"><strong>Top of page</strong></a></p>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

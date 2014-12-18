@@ -1,0 +1,39 @@
+application: glowscript
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+builtins:
+- admin_redirect: on
+
+handlers:  
+- url: /css
+  static_dir: css
+
+- url: /
+  static_files: ide/index.html
+  upload: ide/index.html
+
+- url: /ide.js
+  static_files: ide/ide.js
+  upload: ide/ide.js
+
+- url: /lib
+  static_dir: lib
+
+- url: /package
+  static_dir: package
+
+- url: /docs
+  static_dir: docs
+
+- url: /api/.*
+  script: ide.api.app
+  
+- url: /favicon\.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon\.ico
+
+- url: /untrusted
+  static_dir: untrusted

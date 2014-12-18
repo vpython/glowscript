@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>math functions</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="230" height="30" border="0">
+  <tr>
+    <td width="66"><a name="top" id="top"></a><a href="index.html"><strong>Home</strong></a></td>
+    <td width="154"><span class="Normal"><a href="primitives.html"><strong>Pictures</strong></a> of 3D objects</span></td>
+  </tr>
+</table>
+<table width="438" height="30" border="0">
+  <tr>
+    <td width="151"><select id="menu1" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="163"><select id="menu2" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="110"><select id="menu3" onchange="jumpMenu(this)">
+    </select></td>
+  </tr>
+</table>
+<table width="454" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="454" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <h1 class="Heading-1"> <font color="#0000A0">Math functions</font></h1>
+
+        <p class="Normal">The following math functions are provided:</p>
+        <p class="program">abs(x)<br />
+          sqrt(x)<br />
+          sin(x)<br />
+          cos(x)<br />
+          tan(x)<br />
+          asin(x) &nbsp;&nbsp;&nbsp;# arc sine<br />
+          acos(x) &nbsp;&nbsp;&nbsp;# arc cosine<br />
+          atan(x) &nbsp;&nbsp;&nbsp;# arc tangent<br />
+          atan2(y,x) # angle whose tangent is y/x<br />
+          exp(x) &nbsp;&nbsp;&nbsp;&nbsp;# e to the x<br />
+          log(x)  &nbsp;&nbsp;&nbsp;&nbsp;# natural log, base e<br />
+ # log(x)/log(10) gives log base 10<br />
+          pow(x,y) &nbsp;&nbsp;# x to the power y<br />
+          pi    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 3.14159.... <br />
+        </p>
+        <p class="Normal">The quantities above are simplified forms of the JavaScript functions Math.abs(x), Math.sqrt(x), etc. There are a few other Math functions, which require the &quot;Math&quot; prefix:</p>
+        <p class="program"> Math.ceil(x) &nbsp;# integer closest to x, &lt;=x<br />
+          Math.floor(x) # integer closest to x, &gt;=x<br />
+          Math.round(x) # integer closest to x
+          <br />
+          Math.max(a,b,c,..) # maximum of these<br />
+          Math.min(a,b,c,..) # minimum of these<br />
+          Math.random() # pseudorandom number 0 to 1
+</p>
+      <p class="Normal">There are functions for converting between degrees and
+        radians, where there are 2*pi radians in 360 degrees: </p>
+      <p class="program">radians(360) &nbsp;# equal to 2*pi<br />
+      degrees(2*pi) # equal to 360</p>
+      <p class="Normal">See JavaScript documentation on the <strong>Date</strong> object which provides methods for determining the current time. Here is an example for determining elapsed time in milliseconds. The displayed text is approximately 1500.</p>
+      <p class="program">t1 = Date().getTime()<br />
+        sleep(1.5,wait)<br />
+        t2 = new Date().getTime()<br />
+      print(t2-t1)</p>
+      <p class="Normal">CoffeeScript:</p>
+      <p class="program">t1 = new Date().getTime()<br />
+        sleep(1.5,wait)<br />
+        t2 = new Date().getTime()<br />
+        print(t2-t1)</p>
+      <p class="Normal">JavaScript:</p>
+      <p class="program">var t1 = new Date().getTime()<br />
+        sleep(1.5,wait)<br />
+        var t2 = new Date().getTime()<br />
+        print(t2-t1)</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+</table>
+<p><a href="#top"><strong>Top of page</strong></a></p>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

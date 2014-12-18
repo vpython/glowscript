@@ -1,0 +1,8 @@
+The files redmondbef1.1/jquery-ui.custom.css and redmond1.1/jquery-ui.custom.css are actually copies of versions/1.8.23/jquery-ui-1.8.23.custom.css
+The file redmondIDE/jquery-ui.custom.css is actually a copy of versions/1.10.4/jquery-ui-1.10.4.custom.css
+
+In all cases, the images folder located with the jquery-ui.custom.css file, corresponds to that file.
+
+We use a generic name to make it possible to upgrade to later compatible
+versions of the file without causing problems for user programs embedded
+in user web sites, which reference our .css file.

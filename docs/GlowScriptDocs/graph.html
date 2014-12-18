@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>graph</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="230" height="30" border="0">
+  <tr>
+    <td width="66"><a name="top" id="top"></a><a href="index.html"><strong>Home</strong></a></td>
+    <td width="154"><span class="Normal"><a href="primitives.html"><strong>Pictures</strong></a> of 3D objects</span></td>
+  </tr>
+</table>
+<table width="438" height="30" border="0">
+  <tr>
+    <td width="151"><select id="menu1" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="163"><select id="menu2" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="110"><select id="menu3" onchange="jumpMenu(this)">
+    </select></td>
+  </tr>
+</table>
+<table width="454" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="454" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <table width="98%" border="1">
+              <tr>
+                <td width="47%"><div align="center"><span class="style1 style2"><font color="#0000A0">Graphs</font></span></div></td>
+                <td width="53%"><div align="center"><a href="arrow.html"></a><a href="graph.html"><img src="images/graph.jpg" alt="graph" width="324" height="141" /></a></div></td>
+              </tr>
+        </table>
+      </div>
+      <p class="Normal">In this section we describe features for plotting graphs 
+          
+          with tick marks and labels. If you move the mouse over the graph, crosshairs and the x,y position are displayed. See the example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/MakeGraphs" target="_blank">MakeGraphs</a>.</p>
+  <p class="Normal">Here is a simple example of how to plot a line graph, with connected points:</p>
+          <p class="program">f1 = series(color=color.cyan)<br />
+            # x goes from 0 to 8 in steps of 0.01:<br />
+            for x in range(0,8,0.01):	<br />
+&nbsp;&nbsp;&nbsp;&nbsp;f1.plot(x,5*cos(2*x)*exp(-0.2*x))</p>
+          <p class="Normal"> A set of data to be plotted is a <span class="attribute">series</span>, and there can be more than one series on a graph. A series can be represented by connected points (<span class="attribute">line</span>), which is the default, by
+            disconnected points (<span class="attribute">scatter</span>), 
+  or by vertical bars (<span class="attribute">bar</span>). To display a series as a scatter or bar graph, set the series <span class="attribute">type</span>:</p>
+          <p class="program">series( type='scatter' ... )<br />
+          series( type='bar' ... )</p>
+          <p class="Normal">After  creating a <span class="attribute"></span> series you can plot one or more points like this:</p>
+          <p class="program"> f1.plot(2,4)<br />
+          f1.plot([ [1,5],[3,-2],[6,4] ])</p>
+          <p class="Normal">When creating a <span class="attribute"></span> series you can optionally give a list of data points:</p>
+      <p class="program"> vb=series(data=[ [1,5],[3,-2],[6,4] ])</p>
+          <p class="Normal">After displaying the series as a line type, you can change the display of the data simply by changing the series type:</p>
+          <p class="program">vb.type = 'bar'</p>
+          <p class="Normal">After creating one of these graphing objects, you can reset the data to a list of  points:</p>
+      <p class="program"> vb.data = [ [1,-2], [3,2], [8,3], [12,4] ]<br />
+      </p>
+      <p class="Normal"> You can plot more than one thing on the same graph, and specify labels. The following statements produce the graph displayed above:</p>
+      <p class="program">p = series( color=color.red, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        &nbsp;&nbsp;label='sin(x)' )<br />
+        q = series()<br />
+       # Can set color after making a series:<br />
+        q.color = color.green <br />
+        q.label = 'cos(x)'<br />
+        <br />
+        for i in range(0,11,0.2):
+        <br />
+&nbsp;&nbsp;&nbsp;&nbsp;rate(100,wait)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p.plot(i+5, 3+2*sin(i))<br />
+&nbsp;&nbsp;&nbsp;&nbsp;q.plot(i+5, 3+2*cos(i))      </p>
+      <div>
+        <div></div>
+      </div>
+      <div> <strong><font color="#0000a0">JavaScript or CoffeeScript</font></strong></div>
+<p class="Normal">Here is the CoffeeScript version:</p>
+      <p class="program">p = series( color:color.red, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        &nbsp;&nbsp;label='sin(x)' )<br />
+q = series()<br />
+# Can set color after making a series:<br />
+q.color = color.green <br />
+q.label = 'cos(x)'<br />
+<br />
+for i in [0..11] by 0.2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;rate(100,wait)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;p.plot(i+5, 3+2*sin(i))<br />
+&nbsp;&nbsp;&nbsp;&nbsp;q.plot(i+5, 3+2*cos(i))</p>
+      <div></div>
+      <p class="Normal">And  the JavaScript version:</p>
+      <p class="program">var p = series( {color:color.red, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        &nbsp;&nbsp;label='sin(x)'} )<br />
+        var q = series()<br />
+        # Can set color after making a series:<br />
+        q.color = color.green <br />
+        q.label = 'cos(x)'<br />
+  <br />
+        for (var i=0; i&lt;=11; i+=0.2) {<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;rate(100,wait)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;p.plot(i+5, 3+2*sin(i))<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;q.plot(i+5, 3+2*cos(i))<br />
+  }
+      </p>
+      <p class="Normal"><strong><font color="#0000A0">Summary of options that affect a series</font></strong></p>
+      <p class="attributes"><span class="attribute">color</span> Color of the series</p>
+      <p class="attributes"><span class="attribute">label</span> Text of the label for the series</p>
+      <p class="attributes"><span class="attribute">width</span> Width in pixels of a line, or the edge of a scatter circle or bar</p>
+      <p class="attributes"><span class="attribute">radius</span> Radius in pixels of a scatter circle (default is 3 pixels)</p>
+      <p class="attributes"><span class="attribute">delta</span> Width of a bar (default = 1)</p>
+      <p class="attributes"><span class="attribute">horizontal</span> true for horizontal bars (default is false, giving vertical bars)</p>
+      <p class="program"></p>
+      <p class="Normal"><strong><font color="#0000A0">Special option for a line series</font></strong></p>
+      <p class="Normal">For a line series, if you
+        specify <span class="attribute">dot=true</span> the current plotting
+        point is highlighted with a dot, which is particularly useful if
+        a graph retraces its path. You can specify a <span class="attribute">dot_radius</span> attribute,
+        which  specifies the width of the dot in pixels (default is 1 pixel more than half the width of the line).
+        By default the dot has the same color as the line, but you can
+        specify a different color, as in <span class="attribute">dot_color=color.green</span>.</p>
+      <p class="Normal"><strong><font color="#0000A0">Overall graph options</font></strong></p>
+          <p class="Normal">You can establish a <span class="attribute">graph</span> object to set the size of the graph window before creating a series for that graph::</p>
+
+          <p class="program"> gd = graph( width=600, height=150 )</p>
+          <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
+            
+      are <span class="attribute">width=640</span>, <span class="attribute">height=200</span>, fully autoscaled. You can optionally specify minimum and maximum x or y values with <span class="attribute">xmin</span>, <span class="attribute">xmax</span>, <span class="attribute">ymin</span>, <span class="attribute">ymax</span>. The following will set minimum values for x and y, with the maximum values determined by the actual data:</p>
+          <p class="program"> gd = graph( width=600, height=150,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmin=-5, ymin=10          } )</p>
+        <p class="Normal">After creating a graph, you can change any of these graph attributes:</p>
+        <p class="program">gd.xmin = 4<br />
+          gd.width = 300
+        </p>
+          <p class="Normal">You can have more than one graph window: just create another <span class="attribute"> graph</span>. By default, any graphing objects 
+            
+            created following a <span class="attribute">graph </span> belong to that 
+            
+        graph, or you can  specify which graph a new object belongs to: </p>
+
+          <p class="program"> E = series(graph=graph2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            type='scatter',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.blue)</p>
+          <p class="Normal"></p>
+          <p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
+          <p class="Normal"> When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>; in JavaScript or CoffeeScript, true.  <strong>All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc. Do not specify a logx axis for horizontal bars, or logy for vertical bars, because the starting point of a bar is 0, and the log of 0 is negative infinity. </p>
+      <p class="Normal"><strong><font color="#0000A0">graph vs. canvas</font></strong></p>
+          <p class="Normal">A graph region is similar to a canvas region. The main difference 
+          is that a graph is essentially two-dimensional and has nonuniform x and 
+          y scale factors.          </p>
+      <p class="Normal"><strong><font color="#0000A0">For more information</font></strong></p>
+          <p class="Normal">GlowScript incorporates the Flot 2D graphing package, and <a href="http://www.flotcharts.org" target="_blank">more information</a> is available on the many features that Flot offers. The  data atttribute is essentially the same as the data attribute of Flot graphs, except that GlowScript RGB colors (with components in the range 0 to 1) are converted to Flot RGB colors (with components in the range 0-255).</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+</table>
+<p><a href="#top"><strong>Top of page</strong></a></p>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

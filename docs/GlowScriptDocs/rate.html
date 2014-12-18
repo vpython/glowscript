@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>rate</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="230" height="30" border="0">
+  <tr>
+    <td width="66"><a name="top" id="top"></a><a href="index.html"><strong>Home</strong></a></td>
+    <td width="154"><span class="Normal"><a href="primitives.html"><strong>Pictures</strong></a> of 3D objects</span></td>
+  </tr>
+</table>
+<table width="438" height="30" border="0">
+  <tr>
+    <td width="151"><select id="menu1" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="163"><select id="menu2" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="110"><select id="menu3" onchange="jumpMenu(this)">
+    </select></td>
+  </tr>
+</table>
+<table width="454" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="454" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <h1 class="Heading-1"> <font color="#0000A0">Limiting the Animation Rate</font></h1>
+      </div>
+      <div>
+        <div>
+          <p class="program"> rate( frequency, wait )</p>
+          <p class="Normal"> Halts computations until 1/frequency seconds after the previous 
+            
+            call to <span class="attribute">rate()</span>.</p>
+          <p class="Normal"> For example, <span class="attribute">rate(50, wait)</span> will 
+            halt computations long enough to make sure that at least 1.0/50.0 second 
+            has elapsed since the last execution. If this much time has already elapsed, no halt is performed. 
+            If you place <span class="attribute">rate(50, wait)</span> inside a computational 
+            loop, the loop will execute at a maximum of 50 times per second, even if 
+            the computer can run faster than this. This makes animations look about 
+            the same on computers of different speeds, as long as the computers are 
+            capable of carrying out 50 computations per second.          </p>
+      <p class="Normal"><font color="#0000A0"><strong>Functions and &quot;wait&quot;</strong></font></p>
+          <p class="Normal">For technical reasons, a function that contains statements that include the <span class="attribute">wait</span> keyword must also contain this keyword among the arguments to that function:</p>
+          <p class="program">def pause(T,wait):<br />
+&nbsp;&nbsp;&nbsp;scene.caption.text('Wait '+T+' sec')<br />
+&nbsp;&nbsp;&nbsp;sleep(T,wait)<br />
+<br />
+b = box()<br />
+pause(3,wait)<br />
+b.color = color.red<br />
+scene.caption.text('Done')</p>
+      <p class="Normal"><font color="#0000A0"><strong>Related options</strong></font></p>
+          <div></div>
+          <p class="program"> sleep(2,wait) # wait 2 seconds&nbsp;<br />
+            <br />
+            update(wait) &nbsp;# let web page update <br />
+            <br />
+            # Wait for a click, with an icon prompt:<br />
+            scene.pause(wait)<br />
+            <br />
+            # Wait for a click, with a text prompt:<br />
+            scene.pause(&quot;Click to proceed&quot;,wait)
+            <br />
+            <br />
+            # Wait till next web page update:            <br />
+              scene.waitfor(&quot;redraw&quot;,wait)<br />
+              <br />
+            # Wait till end of next web page update:             <br />
+      scene.waitfor(&quot;draw_complete&quot;,wait) </p>
+          <p class="Normal">The difference between <span class="attribute">update(wait)</span> and <span class="attribute">scene.waitfor(&quot;redraw&quot;,wait)</span> is that if the browser has nothing to do, update takes only a few milliseconds, whereas <span class="attribute">scene.waitfor(&quot;redraw&quot;,wait)</span> waits until the start of the next canvas update to be performed, which may wait for as much as 1/60th of a second (about 16 milliseconds). <span class="attribute">scene.waitfor(&quot;draw_complete&quot;,wait)</span> waits until the end of the next canvas update</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+</table>
+<p><a href="#top"><strong>Top of page</strong></a></p>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

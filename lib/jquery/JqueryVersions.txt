@@ -1,0 +1,20 @@
+bef1.1/jquery.min.js is a copy of versions/jquery-1.6.2.min.js
+1.1/jquery.min.js is a copy of versions/jquery-1.8.0.min.js
+IDE/jquery.min.js is a copy of versions/jquery-1.11.1.min.js
+
+bef1.1/jquery-ui.custom.min.js is a copy of versions/jquery-ui-1.8.23.custom.min.js
+1.1/jquery-ui.custom.min.js is a copy of versions/jquery-ui-1.11.0.custom.min.js
+IDE/jquery-ui.custom.min.js is a copy of versions/jquery-ui-1.11.0.custom.min.js
+
+bef1.1/jquery.mousewheel.js is a copy of versions/jquery.mousewheel-3.0.6.js
+1.1/jquery.mousewheel.js is a copy of versions/jquery.mousewheel-3.1.11.js
+IDE/jquery.mousewheel.js is a copy of versions/jquery.mousewheel-3.1.11.js
+
+jquery-1.6.2.min.js and jquery-ui-1.8.16.custom.min.js are maintained here
+because until Aug. 26, 2012, these were the files referenced in share
+packages users may have place on their own web sites.
+
+In the future, as we update to later, compatible versions of jquery, jquery-ui, etc.,
+we expect to continue to name them simply jquery, jquery-ui, etc., without the
+version numbers, so that programs on user web sites will continue to work and
+get the benefit of later jquery/jquery-ui/etc. versions.

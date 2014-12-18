@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal">What's new in <a href="new_features.html">VPython 6</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <table width="100%" border="1">
+              <tr>
+                <td width="47%"><div align="center"><span class="style1 style2"><font color="#0000A0">Graphs</font></span></div></td>
+                <td width="53%"><div align="center"><a href="arrow.html"></a><a href="graph.html"><img src="images/graph.jpg" alt="graph" width="450" height="207" /></a></div></td>
+              </tr>
+            </table>
+          </div>
+          <p class="Normal">In this section we describe features for plotting graphs 
+          
+          with tick marks and labels. In the image above the user is dragging the mouse to see the coordinates at the intersection of the crosshairs.  Graphs can also be log-log or semilog (see below).</p>
+      <p class="Normal">Here is a simple example of how to plot a graph (arange creates a numeric array running from 0 to 8, stopping short of 8.1):</p>
+          <p class="program">f1 = gcurve(color=color.cyan)		# a graphics curve<br />
+          for x in arange(0, 8.05, 0.1):		# x goes from 0 to 8<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;f1.plot(pos=(x,5*cos(2*x)*exp(-0.2*x)))	# plot          </p>
+          <p class="Normal"> A connected curve (<span class="attribute">gcurve</span>) 
+            is just one of several kinds of graph plotting objects. Other options are 
+            disconnected dots (<span class="attribute">gdots</span>), 
+            vertical bars (<span class="attribute">gvbars</span>), horizontal bars (<span class="attribute">ghbars</span>), 
+            and binned data displayed as vertical bars (<span class="attribute">ghistogram</span>; 
+  see later discussion). </p>
+          <p class="Normal">When creating <span class="attribute">gcurve</span>, <span class="attribute">gdots</span>, <span class="attribute">gvbars</span>, or <span class="attribute">ghbars</span>, you can optionally give a list of data points, such as pos=[(10,20), (50,30), (-5,-3)], or specify 
+            a color, such as color=color.cyan. After creating one of these graphing objects, you can add a single point or a list of additional points:</p>
+      <p class="program"> f1.plot(pos=(100,-30)) # add a single point<br />
+        f1.plot(pos=[(100,-30),(20,50),(0,-10)]) # add a list<br />
+      </p>
+<p class="Normal">When you add points, you can optionally specify a  color for these points that is different from the default color of the object:</p>
+<p class="program"> f1.plot(pos=(100,-30), color=color.red)</p>
+<p class="Normal"> You can plot more than one thing on the same graph:</p>
+<p class="program"> f1 = gcurve(color=color.cyan) <br />
+  f2 = gvbars(delta=0.05, color=color.blue)<br />
+  for x in arange(0., 8.05, 0.1): <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;f1.plot(pos=(x,5*cos(2*x)*exp(-0.2*x)))	&nbsp;# curve<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;f2.plot(pos=(x,4*cos(0.5*x)*exp(-0.1*x)))# vbars</p>
+<p class="Normal"><strong><font color="#0000A0">Special options for gcurve, gdots, gvbars, and ghbars</font></strong></p>
+<p class="Normal">For <span class="attribute">gcurve</span> if you
+            specify  <span class="attribute">dot=True</span> the current plotting
+            point is highlighted with a dot, which is particularly useful if
+            a graph retraces its path. You can specify a <span class="attribute">shape</span> attribute &quot;round&quot; or &quot;square&quot; (default
+            is <span class="attribute">shape=&quot;round&quot;</span>) and a <span class="attribute">size</span> attribute,
+            which  specifies the width of the dot in pixels (default is <span class="attribute">size=8</span>).
+            By default the dot has the same color as the gcurve, but you can
+      specify a different color, as in <span class="attribute">dot_color=color.green</span>.</p>
+<p class="Normal">For <span class="attribute">gdots</span> you can  specify a <span class="attribute">shape</span> attribute &quot;round&quot; or &quot;square&quot; (default is <span class="attribute">shape=&quot;round&quot;</span>) and a <span class="attribute">size</span> attribute, which 
+  specifies the width of the dot in pixels (default is <span class="attribute">size=5</span>).</p>
+          <p class="Normal">For <span class="attribute">gvbars</span> and <span class="attribute">ghbars</span> you can  specify a <span class="attribute">delta</span> attribute, which 
+            specifies the width of the bar (the default is <span class="attribute">delta=1</span>). </p>
+<p class="Normal"><strong><font color="#0000A0">Overall gdisplay options</font></strong></p>
+          <p class="Normal">You can establish a <span class="attribute">gdisplay</span> to set the size, position, and title for the title bar of the graph window, 
+            
+            specify titles for the x and y axes, and specify maximum values for each 
+            
+            axis, before creating <span class="attribute">gcurve</span> or other kind 
+            
+            of graph plotting object (the foreground color is always white and the background color always black):</p>
+
+          <p class="program"> gd = gdisplay(x=0, y=0, width=600, height=150, <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='N 
+            
+            vs. t', xtitle='t', ytitle='N',  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmax=50, 
+            
+            xmin=-20, ymax=5E3, ymin=-2E3)</p>
+          <p class="Normal"> In this example, the graph window will be located at (0,0), 
+            
+            with a size of 600 by 150 pixels, and the title bar will say 'N vs. t'. 
+            
+            The graph will have a title 't' on the horizontal axis and 'N' on the vertical 
+            
+        axis.             </p>
+          <p class="Normal">Instead of autoscaling the graph to display all the data, the graph in this example  
+            
+            will have fixed limits. The horizontal axis will extend from -20 to +50, 
+            
+    and the vertical axis will extend from -200 to +5000. If you specify <span class="attribute">xmax</span> but not <span class="attribute">xmin</span>, it is as though you had also specified <span class="attribute">xmin</span> to be 0; similarly, if you specify <span class="attribute">xmin</span> but not <span class="attribute">xmax</span>, <span class="attribute">xmax</span> will be 0. The same rule holds for <span class="attribute">ymax</span> and <span class="attribute">ymin</span>.</p>
+          <p class="Normal"><strong>Offsets:</strong> If you specify <span class="attribute">xmin</span> or <span class="attribute">ymin</span> to be greater than zero, or <span class="attribute">xmax</span> or <span class="attribute">ymax</span> to be less than zero, the crossing point (origin) of the x and y axes will no longer be at (0,0), and the graphing will be offset. If you offset the origin of the graph, you must specify <span class="attribute">xmax</span> to be greater than <span class="attribute">xmin</span>, and/or <span class="attribute">ymax</span> to be greater than <span class="attribute">ymin</span>.</p>
+          <p class="Normal">If you simply say <span class="attribute">gdisplay()</span>, the defaults 
+            
+            are <span class="attribute">x=0</span>, <span class="attribute">y=0</span>, <span class="attribute">width=800</span>, <span class="attribute">height=400</span>, 
+            
+      no titles, fully autoscaled.</p>
+          <p class="Normal">You can have more than one graph window: just create another <span class="attribute"> gdisplay</span>. By default, any graphing objects 
+            
+            created following a <span class="attribute">gdisplay</span> belong to that 
+            
+        window, or you can  specify which window a new object belongs to: </p>
+
+          <p class="program"> energy = gdots(gdisplay=graph2, color=color.blue)</p>
+<p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
+          <p class="Normal">When creating a gdisplay, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc.</p>
+<p class="Normal"><strong><font color="#0000A0">Histograms (sorted, binned data)</font></strong></p>
+          <p class="Normal">There is no ghistogram option in GlowScript. However, the program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/HardSphereGas" target="_blank">HardSphereGas</a> provides an example of how to make a histogram.</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

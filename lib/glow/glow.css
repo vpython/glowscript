@@ -1,0 +1,52 @@
+.glowscript-canvas-wrapper.ui-state-disabled {
+  opacity: 1;
+  filter:Alpha(Opacity=100);
+}
+
+.ui-menu {
+	display: none;
+}
+.ui-menu-item {
+  background-color: #BBB;
+}
+
+.gsmenubar,
+.gsmenubar ul,
+.gsmenubar li,
+.gsmenubar a {
+  margin: 0 0;
+  padding: 0 0;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #000;
+  text-decoration: none;
+  font-weight: normal;
+}
+.gsmenubar {
+  background-color: #BBB;
+  position: relative;
+  text-align: left;
+  /*display: inline-block;*/
+  /*float: left*/
+}
+.gsmenubar > li {
+  /*float: left;*/
+  display: inline-block;
+  border: 1px solid #777;
+}
+.gsmenubar a,visited {
+  display: block;
+  padding: 2px 10px;
+  text-decoration: none;
+}
+.gsmenubar > li:hover {
+  background-color: #DDD;
+}
+.gsmenubar > li:hover > .ui-menu {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  /*bottom: 0%;*/
+  /*border-bottom: 1px solid transparent;*/
+}

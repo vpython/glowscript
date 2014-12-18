@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" /><!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal">What's new in <a href="new_features.html">VPython 6</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <h1 class="Heading-1"> <font color="#0000A0">Controlling One or More VPython 
+          
+          Displays</font></h1>
+      <p class="Normal"> Initially, there is one VPython display named <span class="attribute">scene</span>. 
+        Display objects do not create windows on the screen unless they are used, so 
+        if you immediately create your own display object early in your program you 
+        will not need to worry about scene. If you simply begin creating objects such 
+        as sphere they will go into scene.</p>
+        <p class="attributes"> <span class="attribute">display()</span> Creates a display 
+          with the specified attributes, makes it the selected display, and returns 
+          it. For example, the following creates another VPython display  600 by 
+          200, with its upper left corner at the upper left corner of the screen (y is measured down from the top of the screen), with 'Examples of Tetrahedrons' in the title bar, centered on location (5,0,0), and with 
+          a background color of cyan filling the window.</p>
+
+            <p class="program"> scene2 = display(title='<span class="attributes">Examples of Tetrahedrons</span>',<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x=0, y=0, width=600, height=200,<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;center=(5,0,0), background=(0,1,1))</p>
+            <p class="Normal"><strong> <font color="#0000A0">Exiting a VPython program</font></strong></p>
+            <p class="Normal"> By default, one exits from a VPython program by clicking the close box on a display window (and  the <span class="attribute"><a href="#exit"><strong>exit</strong></a></span> option described below lets you specify whether all windows close or just the display window that was clicked). You can also exit a VPython program under program control:</p>
+            <p class="program">exit() </p>
+          <p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong></p>
+          <p class="attributes"> <span class="attribute">select()</span> Makes the specified 
+            display the &quot;selected display&quot;, so that objects will be drawn 
+            into this display by default; e.g. <span class="attribute">scene.select() </span></p>
+ 
+            <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">display.get_selected()</font> returns
+               a reference to the display in which objects are currently being
+               created.</p>
+
+          <p class="attributes"> <span class="attribute">foreground</span> Set color 
+            to be used by default in creating new objects such as sphere; default is 
+            white. Example: <span class="attribute">scene.foreground = (1,0,0)</span> </p>
+          <p class="attributes"> <span class="attribute">background</span> Set color 
+            to be used to fill the display window; default is black.</p>
+          <p class="attributes"><span class="attribute">ambient</span> Color
+            of nondirectional  (&quot;ambient&quot;) lighting. Default is color.gray(0.2);
+            for compatibility with earlier versions of VPython, this can 
+            be expressed as scene.ambient=0.2. </p>
+      <p class="attributes"><span class="attribute">lights</span> List of light
+            objects created for this display. By default, scene.lights is this list:<br />
+            &nbsp;&nbsp;&nbsp;<span class="attribute">[distant_light(direction=(0.22, 0.44, 0.88), color=color.gray(0.8))</span>,<br /> 
+            <span class="attribute">&nbsp;&nbsp;&nbsp;distant_light(direction=(-0.88, -0.22, -0.44),
+              color=color.gray(0.3))]</span><br />
+            These are equivalent to the default lights in VPython prior to version
+            5. For how to create your own distant and local lights, see <a href="lights.html">Lighting</a>. <br />
+      </p>
+          <p class="attributes"><span class="attribute"><font color="#000000">To obtain </font>camera position</span>, see <a href="mouse.html">Mouse Interactions</a>.</p>
+          <p class="attributes"><span class="attribute">cursor.visible</span> By
+            setting <span class="attribute">scene.cursor.visible = False</span>,
+            the mouse cursor  becomes invisible. This is often appropriate while
+            dragging an object using  the mouse. Restore the cursor with <span class="attribute">scene.cursor.visible
+            = True</span>.  If <span class="attribute">scene</span> is part of a wxPython window that includes other elements such as buttons, and you want to hide the cursor everywhere in a window<span class="Normal"> named </span><span class="attribute">w</span><span class="Normal">, use </span><span class="attribute">w.cursor.visible = False</span> (this does not currently work on a Macintosh).</p>
+      <p class="attributes"><span class="attribute">objects</span> A list
+            of all the visible objects in the display; invisible objects and
+            lights are not listed (<span class="attribute">scene.lights</span> is a list of existing lights).
+            For example, the following makes all visible boxes in the scene red: </p>
+<p class="program">&nbsp;&nbsp;&nbsp;&nbsp;for obj in scene2.objects: <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if isinstance(obj, box):<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red</p>
+<p class="attributes"><span class="attribute">window</span> There is no wxPython window in GlowScript.</p>
+<p class="attributes"><span class="attribute">delete</span> You can delete a display named <strong>d</strong> with <strong>d.delete()</strong> without stopping your program, then create a new display. The delete function deletes all the objects and lights before deleting the display itself. If the display is inside a wxPython window, the window and other widgets in the window remain. You can delete an entire wxPython window named <strong>w</strong> with all its widgets with <strong>w.delete()</strong>. You can delete all windows and displays with <strong>window.delete_all().</strong> Note that it is <strong>window.delete_all()</strong>, not <strong>w.delete_all()</strong>, because the operation affects all windows, not one particular window.</p>
+<p class="attributes"><span class="attribute">stereo</span> Stereo is currently not supported in GlowScript.</p>
+<p class="Normal"><strong><font color="#0000A0">Controlling the display</font></strong></p>
+          <p class="Normal">The  attributes <span class="attribute">x</span>, <span class="attribute">y</span>, <span class="attribute">width</span>, <span class="attribute">height</span>,
+            and <span class="attribute">title</span> cannot be changed while
+            a window is active; they are used to create a display, not to change
+            one. If these parameters are such as to place part of the display off screen, the width and height are adjusted to fit all of the display onto the screen.</p>
+          <p class="attributes"> <span class="attribute">x</span>, <span class="attribute">y</span> Position of the display on the screen or within a wxPython window (pixels from upper left)</p>
+          <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
+            and height of the display area in pixels: scene.height = 200 (includes
+          title bar). </p>
+          <p class="attributes"> <span class="attribute">title</span> Text in the window's 
+            
+            title bar: scene.title = 'Planetary Orbit'</p>
+          <p class="attributes"><span class="attribute">fullscreen</span> Not currently supported in GlowScript.</p>
+          <p class="attributes"> <span class="attribute">visible</span> Make
+            sure the display is visible; <span class="attribute">scene2.visible
+            = True</span><em class="program"> </em> makes the display named <span class="attribute">scene2</span> visible.
+            This is automatically called when new primitives are added to the
+            display, or the mouse is referenced. Setting <span class="attribute">visible</span> to
+            False hides the display. If <span class="attribute">scene2</span> is part of a wxPython window that includes other elements such as buttons, <span class="attribute">scene2.visible
+            = False </span><span class="Normal">gives an error; if the window is named </span><span class="attribute">w</span><span class="Normal">, use </span><span class="attribute">w.visible = False</span><span class="Normal">.</span></p>
+      <p class="attributes"> <span class="attribute"><a name="exit" id="exit"></a>exit</span> If <span class="attribute">sceneb.exit</span><span class="Body"> is Fals</span><span class="Body">e</span>, the program does not quit when the close box of the <span class="attribute">sceneb</span> display is clicked. The default is <span class="attribute">sceneb.exit = 
+              True</span>, in which case clicking the close box does make the program quit. If <span class="attribute">sceneb</span> is part of a wxPython window that includes other elements such as buttons, <span class="attribute">sceneb.exit
+            = False </span><span class="Normal">has no effect; if the window is named </span><span class="attribute">w</span><span class="Normal">, use </span><span class="attribute">w.exit = False</span><span class="Normal">.</span></p>
+      <p class="Normal">At times you may need to know how large is the display region inside a window: <strong>window.dwidth</strong>and <strong>window.dheight</strong> are the extra width and height of windows compared to the display region.       </p>
+  <p class="Normal"><strong><font color="#0000A0">Controlling the view</font></strong>  </p>
+  <p class="Normal">It is useful to run the  VPython example program <strong>camera.py</strong>, which illustrates how the following display options affect the view the user sees.  </p>
+          <p class="attributes"> <span class="attribute">center</span> Location at which 
+            
+            the camera continually looks, even as the user rotates the position of the 
+            
+            camera. If you change <span class="attribute">center</span>, the camera 
+            
+            moves to continue to look in the same &quot;compass&quot; direction toward 
+            
+            the new center, unless you also change <span class="attribute">forward</span> (see next attribute). Default (0,0,0).</p>
+          <p class="attributes"><span class="attribute">autocenter</span> scene.center 
+            
+            is continuously updated to be the center of the smallest axis-aligned box 
+            
+            containing the scene. This means that if your program moves the entire scene, 
+            
+            the center of that scene will continue to be centered in the window.</p>
+          <p class="attributes"> <span class="attribute">forward</span> Vector pointing 
+            
+            in the same direction as the camera looks (that is, from the current camera 
+            
+            location, given by scene.mouse.camera, toward scene.center). The user rotation 
+            
+            controls, when active, will change this vector continuously. When <span class="attribute">forward</span> is changed, the camera position changes to continue looking at <span class="attribute">center</span>. 
+            
+            Default (0,0,-1).</p>
+          <p class="attributes"> <span class="attribute">fov</span> Field of view of 
+            
+            the camera in radians. This is defined as the maximum of the horizontal 
+            
+            and vertical fields of view. You can think of it as the angular size of 
+            
+            an object of size range, or as the angular size of the longer axis of the 
+            
+            window as seen by the user. Default pi/3.0 radians (60 degrees).</p>
+          <p class="attributes"> <span class="attribute">range</span> The extent
+            of  
+            the region of interest to the left or right of <span class="attribute">center</span>. This is the inverse of scale, so use either <span class="attribute">range</span> or <span class="attribute">scale</span> depending
+            on which makes the most
+            sense in your program. Setting range to 10 is the same as setting
+            it to (10,10,10). Setting range to (10,10,10) means that scene.center+scene.range
+            will be at the right edge of a square window. A sphere of radius
+            10 will fill the window. A cubical box whose half-width is 10 will
+            overfill the window, because the front of the box in 3D appears larger
+            than the xy plane passing through scene.center, unless the field
+        of view is very small.</p>
+          <p class="attributes"> <span class="attribute">scale</span> A scaling
+            factor  
+            which scales the region of interest into the sphere with unit radius.
+            This  
+            is the inverse of range, so use either <span class="attribute">range</span> or <span class="attribute">scale</span> depending
+            on which makes the most
+            sense in your program. Setting scale to 0.1 is the same as setting
+            it to (0.1,0.1,0.1) or setting range to (10,10,10).</p>
+          <p class="attributes"> &nbsp;<span class="attribute">up</span> A vector representing 
+            
+            world-space up. This vector will always project to a vertical line on the 
+            
+            screen (think of the camera as having a &quot;plumb bob&quot; that keeps 
+            
+            the top of the screen oriented toward up). The camera also rotates around 
+            
+            this axis when the user rotates &quot;horizontally&quot;. By default the 
+            
+            y axis is the <span class="attribute">up</span> vector.</p>
+          <p class="attributes"> There is an interaction between <span class="attribute">up</span> and <span class="attribute">forward</span>, the direction that the camera 
+            
+            is pointing. By default, the camera points in the -z direction (0,0,-1). 
+            
+            In this case, you can make the x or y axes (or anything between) be the <span class="attribute">up</span> vector, but you cannot make the z axis 
+            
+            be the <span class="attribute">up</span> vector, because this is the axis 
+            
+            about which the camera rotates when you set the <span class="attribute">up</span> attribute. If you want the z axis to point up, first set <span class="attribute">forward</span> to something other than the -z axis, for example (1,0,0).</p>
+          <p class="attributes"> <span class="attribute">autoscale = False</span> no automatic 
+            
+            scaling (set range or scale explicitly);<span class="attribute">&nbsp;autoscale 
+              
+              = True</span> automatic scaling (default). It is often useful to let VPython 
+            
+            make an initial display with autoscaling, then turn autoscaling off to prevent 
+            
+            further automated changes.</p>
+          <p class="attributes"> <span class="attribute">userzoom = False</span> user cannot zoom in and out of the scene</p>
+          <p class="attributes"><span class="attribute">userzoom = True</span> user can zoom (default)</p>
+          <p class="attributes"> <span class="attribute">userspin = False</span> user cannot rotate the scene</p>
+          <p class="attributes"> <span class="attribute">userspin = True</span> user can rotate (default)</p>
+
+<!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

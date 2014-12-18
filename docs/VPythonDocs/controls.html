@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal">What's new in <a href="new_features.html">VPython 6</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <table width="100%" border="1">
+        <tr>
+          <td width="56%"><div align="center">
+            <h1><font color="#0000A0">Widgets:
+              buttons, sliders, menus</font></h1>
+          </div></td>
+          <td width="44%"><a href="controls.html"><img src="images/gswidgets.png" alt="controls" width="244" height="281" /></a><a href="arrow.html"></a></td>
+        </tr>
+      </table>
+      <div></div>
+      <div class="Normal">
+        <p class="Normal">In classic VPython, the example shown above, <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython/edit" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, would use wxPython to display buttons and sliders. In the browser environment, this has to be done in a different way. Run the program and inspect the program code to see how to create buttons, sliders, and drop-down menus to control the execution of a 3D animation.</p>
+        <div class="Normal">
+          <p class="Normal">You'll see dollar signs (&quot;$&quot;) all through the  example. It is a standard abbreviation for jQuery, a widely used library for making connections between a JavaScript program and the HTML of a web page. You may wish to study a <strong><a href="http://www.w3schools.com/jquery/" target="_blank">jQuery tutorial</a></strong>. GlowScript imports the jQuery and jQuery-ui libraries. </p>
+        </div>
+        <p class="Normal">Full understanding of the jQuery mechanisms requires a good knowledge of HTML coding as well as knowledge of jQuery itself. However, the examples shown in the program above should provide you with enough information to be able to use controls in your own GlowScript programs.</p>
+        <p class="Normal"><strong>Important:</strong> Do not use character strings to specify a function as an argument in a jquery statement, as the character string is evaluated in a global context outside the GlowScript context, and your function will not be found. For example, say something like<span class="attribute"> $(&quot;&lt;button/&gt;&quot;).click(handle_click)</span> rather than something like <span class="attribute">$(&quot;&lt;button onclick='handle_click'&gt;&lt;/button&quot;)</span></p>
+        <div class="Normal">
+          <p class="Normal">It is common practice in JavaScript programs and jQuery   statements to use what are called &quot;anonymous&quot; functions, and the   RapydScript-to-JavaScript compiler extends Python to permit the use of such functions. Consider the following code, which binds the function   &quot;process_click&quot; to a click event, so that when you click, the function   is executed:</p>
+          <div>
+            <p class="program"> def process_click():<br />
+&nbsp;&nbsp;&nbsp;&nbsp;print('You clicked.')<br />
+<br />
+scene.bind('click', process_click)            </p>
+            <p class="Normal">Now consider the equivalent code in which the function is &quot;anonymous&quot;:</p>
+            <div>
+              <p class="program"> scene.bind('click', def():<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;print('You clicked.')<br />
+                )            </p>
+              <p class="Normal">As usual, the body of the function must be indented.</p>
+            </div>
+          </div>
+        </div>
+        <div> </div>
+      </div>
+      <div>
+        <div> </div>
+      </div>
+      <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

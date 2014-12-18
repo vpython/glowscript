@@ -1,0 +1,23 @@
+The originals of the ACE files used by GlowScript are found here:
+
+https://github.com/ajaxorg/ace-builds/tree/master/src
+(At https://github.com/ajaxorg/ace-builds are src-min, src-noconflict, and src-min-noconflict,
+but we need the unminified form of the worker files in order to make changes shown below.
+One can later minify the files if desired.)
+
+The ACE files are imported by ide/index.html and used by the pages.edit section of ide/ide.js.
+
+Small modifications to the ACE files for GlowScript purposes:
+
+    In worker-javascript.js, disable giving an error for .1 as opposed to 0.1,
+    because this is deemed to be an annoying and unnecessary style requirement.
+    
+    In worker-coffee.js, skip the header line ("GlowScript X.Y CoffeeScript").
+    
+ Search for GlowScript in these files to find the modifications.
+ 
+ If the ACE files are updated, these modifications should be made.
+ Note that between May 2011 and August 2012 there were significant
+ changes to ACE which required different (simpler) modifications
+ than had been made in 2011. This occurred again in 2014.
+ 

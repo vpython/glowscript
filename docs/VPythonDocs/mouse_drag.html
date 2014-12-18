@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal">What's new in <a href="new_features.html">VPython 6</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br />
+      <a href="http://www.python.org/doc/2.5.2/lib/module-math.html" target="_blank">Math module</a> (sqrt etc.)<br />
+    <a href="http://www.scipy.org/Documentation" target="_blank">Numpy module</a> (arrays)    </p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <h1 class="Heading-1"><font color="#0000A0">Drag Example</font></h1>
+      <p class="Normal">Here we show how to drag  a sphere across the screen.</p>
+<p class="Normal">&nbsp;</p>
+      <div>
+        <p class="Normal"><strong><font color="#0000A0">Handling dragging with callbacks</font></strong>        </p>
+        <p class="Normal">Here is the sequence of mouse events involved in dragging something:</p>
+        <p class="Normal">1) On a 'mousedown' event, see what object (if any) has been &quot;picked&quot; (lies under the mouse).</p>
+        <p class="Normal">2) On a 'mousemove' event, update the position of the object based on the new mouse position.</p>
+        <p class="Normal"> 3) On a 'mouseup' event, stop dragging the object. </p>
+      </div>
+      <p class="Normal">Here is a callback version of a program in which you can drag a sphere or box across the screen.  Copy this into an edit window and try it. (You may have to adjust the indents.)</p>
+      <p class="program">scene.range = 5 # fixed size, no autoscaling<br />
+        ball = sphere(pos=vector(-3,0,0), color=color.cyan)<br />
+        cube = box(pos=vector(+3,0,0), size=vector(2,2,2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.red)<br />
+        drag_obj = None # no object picked yet<br />
+        drag_pos = None<br />
+        <br />
+        def grab(evt):<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;global drag_object, drag_pos<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if evt.pick != None:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_obj = evt.pick<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_pos = evt.pos<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.bind('mousemove', move)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.bind('mouseup', drop)<br />
+        <br />
+        def move(evt):<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;global drag_object, drag_pos<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;# project onto xy plane, even if scene rotated:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;new_pos = scene.mouse.project(normal=vector(0,0,1))<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if new_pos != drag_pos: # if mouse has moved<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# displace the object:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_obj.pos = drag_obj.pos+(new_pos-drag_pos)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_pos = new_pos<br />
+        <br />
+        def drop(evt):<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;scene.unbind('mousemove', move)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;scene.unbind('mouseup', drop)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;scene.bind('mousedown', grab) </p>
+      <p class="Normal">First, we bind 'mousedown' events to the function named grab, which checks to see whether the sphere has been touched. If so, it binds future 'mousemove' and 'mouseup' events to the move and drop functions. </p>
+<p class="Normal">If you do a lot of processing of each mouse movement, or you 
+        are leaving a trail behind the moving object, you may need to check whether 
+        the &quot;new&quot; mouse position is in fact different from the previous position 
+        before processing the &quot;move&quot;, as is done in the example above. For 
+        example, a trail drawn with a curve object that contains a huge number of points 
+      all at the same location may not display properly.</p>
+<p class="Normal">Most VPython objects can be &quot;picked&quot; by 
+  touching them. Here is a more general routine 
+  which lets you drag either the tail or the tip of an arrow. Copy this into an edit window and try it. (You may need to adjust the indents.)</p>
+      <p class="program">scene.range = 8 # fixed size, no autoscaling<br />
+        arr = arrow(pos=vector(2,0,0),axis=vector(0,5,0))<br />
+        by = 1 # touch this close to tail or tip<br />
+        drag_loc = None<br />
+        drag_pos = None<br />
+        <br />
+        def grab(evt):<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;global drag_loc, drag_pos<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;drag_loc = None<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if mag(arr.pos-evt.pos) &lt;= by:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_loc = 'tail' # near tail of arrow<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;elif mag((arr.pos+arr.axis)-evt.pos) &lt;= by:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_loc = 'tip' # near tip of arrow<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if drag_loc is not None:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_pos = evt.pos # save mousedown location<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.bind('mousemove', move)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.bind('mouseup', drop)<br />
+        <br />
+        def move(evt):<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;global drag_pos<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;new_pos = evt.pos<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if new_pos != drag_pos: # if mouse has moved<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displace = new_pos - drag_pos # how far <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drag_pos = new_pos # update drag position<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if drag_loc == 'tail':<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arr.pos = arr.pos + displace # displace tail<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arr.axis = arr.axis + displace # displace tip<br />
+        <br />
+        def drop(evt):<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;scene.unbind('mousemove', move)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;scene.unbind('mouseup', drop)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;        scene.bind('mousedown', grab) </p>
+<p class="program">&nbsp;</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

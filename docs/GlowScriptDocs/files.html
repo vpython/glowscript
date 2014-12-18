@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>files</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<table width="230" height="30" border="0">
+  <tr>
+    <td width="66"><a name="top" id="top"></a><a href="index.html"><strong>Home</strong></a></td>
+    <td width="154"><span class="Normal"><a href="primitives.html"><strong>Pictures</strong></a> of 3D objects</span></td>
+  </tr>
+</table>
+<table width="438" height="30" border="0">
+  <tr>
+    <td width="151"><select id="menu1" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="163"><select id="menu2" onchange="jumpMenu(this)">
+    </select></td>
+    <td width="110"><select id="menu3" onchange="jumpMenu(this)">
+    </select></td>
+  </tr>
+</table>
+<table width="454" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="454" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <h1 class="Heading-1"> <font color="#0000a0">File operations</font>        </h1>
+        <p class="Normal">You can import an external JavaScript library or read a file on the user's local computer.      </p>
+<h1 class="Heading-1"><font color="#0000a0">get_library: import a library</font></h1>
+      <p class="Normal">To import a JavaScript library that is not included with GlowScript, do this:</p>
+      <p class="program">get_library(&quot;http://xyz.org/lib.js&quot;, wait)</p>
+      <p class="Normal">The &quot;wait&quot; argument is required because GlowScript must wait until the library file has been transferred to your computer (in VPython, the keyword &quot;wait&quot; is optional). If the file cannot be found within a reasonable amount of time, an error message is displayed. For use with your own callback function, see <a href="libraryuse.html">Using GlowScript as a JavaScript library</a>.</p>
+      <p class="Normal"> Currently the library must be written in JavaScript, not CoffeeScript, RapydScript, or VPython. Moreover, there are restrictions  imposed because the library doesn't go through the  special preprocessing that occurs when you run your program at glowscript.org. The library cannot include options that require using <strong>&quot;wait&quot;</strong>, and the following vector operations must be rewritten as shown, where <strong>A</strong> and <strong>B</strong> are vectors and <strong>k</strong> is an ordinary number:</p>
+      <p class="program">A+B -&gt; A.add(B)<br />
+        A-B -&gt; A.sub(B)<br />
+        k*A -&gt; A.multiply(k)<br />
+        A/k -&gt; A.divide(k)
+        <br />
+      </p>
+      <p class="Normal">However, when editing a file at glowscript.org in any language, clicking &quot;Share this program&quot; outputs  code that has been converted to executable JavaScript, so you may find it useful to start from, say, RapydScript or VPython. You may have to make minor adjustments to the generated JavaScript.</p>
+      <p class="Normal">Note that in order to make it possible to add and subtract 3D vectors, and to be able to multiple or divide a vector by a scalar, <em><strong>all</strong></em> add, subtract, multiply, and divide operations are converted into function calls. Although this is done in such a way as to run quite fast, for highest execution speed you can turn off this &quot;operator overloading&quot; by placing the following statement at the start of a function that you want to run as fast as possible:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="program">&quot;no overloading&quot;</strong></p>
+      <p class="Normal">It is not currently possible to import from your own glowscript.org files, so the library must be placed on your own web site.</p>
+      <div></div>
+      <div class="Normal"></div>
+<h1 class="Heading-1"><font color="#0000a0">read_local_file: user chooses a file</font></h1>
+      <p class="Normal">You can ask the user of your program to choose a text file on the user's computer and then use the contents of the file. The function <strong>read_local_file</strong> appends a button on the screen at the location specified. When the user clicks that button, a file dialog appears which lets the user choose a file. Then the button is removed, and information about the file is returned:</p>
+      <p class="program">f = read_local_file(scene.title, wait)<br />
+        print(f.name) // The file name<br />
+        print(f.size) // File size in bytes<br />
+        print(f.type) // What kind of file<br />
+        print(f.date) // Creation date if available<br />
+        print('*************')<br />
+      print(f.text) // The file contents</p>
+<p class="Normal">The &quot;wait&quot; argument is required because GlowScript must wait until the  file has been transferred to GlowScript (in VPython, the keyword &quot;wait&quot; is optional). For use with your own callback function, see <a href="libraryuse.html">Using GlowScript as a JavaScript library</a>.</p>
+      <p class="Normal">If you say <strong>read_local_file(wait)</strong>, the button is appended to the bottom of the window, corresponding to the jQuery location $('body').</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+</table>
+<p><a href="#top"><strong>Top of page</strong></a></p>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>
