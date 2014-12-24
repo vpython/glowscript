@@ -75,7 +75,7 @@
 <p class="Normal">You can delete the region from the screen with this statement:</p>
       <p class="program">print_options(delete=True)</p>
       <p class="Normal">After deleting the region, another print statement will recreate it, with the previously specified width and height.      </p>
-      <p class="Normal">By default the print area appears underneath the canvas (pos = 'bottom') but you can make it appear to the right of the canvas with this statement:</p>
+      <p class="Normal">By default the print area appears underneath the canvas (pos = 'bottom') but you can make it appear to the right of the canvas with the following statement (you may have to include something like width=100, because if the window is too narrow to fit the display and the text area side by side, the text area goes below the display):</p>
       <p class="program">print_options(pos='right')</p>
       <p class="Normal">You can obtain the current contents of the print region as a character string:</p>
       <p class="program">text = print_options(contents=True)</p>

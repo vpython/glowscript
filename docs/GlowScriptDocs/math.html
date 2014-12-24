@@ -50,7 +50,12 @@
  # log(x)/log(10) gives log base 10<br />
           pow(x,y) &nbsp;&nbsp;# x to the power y<br />
           pi    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 3.14159.... <br />
-        </p>
+          ceil(x)&nbsp;&nbsp;&nbsp;&nbsp;# round up to nearest integer<br />
+        floor(x)&nbsp;&nbsp;&nbsp;# round down to nearest integer<br />
+        round(x)   &nbsp;&nbsp;# round to nearest integer <br />
+        max(x,y,z) # the largest of x,y,z<br />
+        min(x,y,z) # the smallest of x,y,z<br />
+        random()   &nbsp;&nbsp;# random number between 0 and 1</p>
         <p class="Normal">The quantities above are simplified forms of the JavaScript functions Math.abs(x), Math.sqrt(x), etc. There are a few other Math functions, which require the &quot;Math&quot; prefix:</p>
         <p class="program"> Math.ceil(x) &nbsp;# integer closest to x, &lt;=x<br />
           Math.floor(x) # integer closest to x, &gt;=x<br />
@@ -64,20 +69,21 @@
         radians, where there are 2*pi radians in 360 degrees: </p>
       <p class="program">radians(360) &nbsp;# equal to 2*pi<br />
       degrees(2*pi) # equal to 360</p>
-      <p class="Normal">See JavaScript documentation on the <strong>Date</strong> object which provides methods for determining the current time. Here is an example for determining elapsed time in milliseconds. The displayed text is approximately 1500.</p>
-      <p class="program">t1 = Date().getTime()<br />
+      <p class="Normal">See JavaScript documentation on the <strong><a href="http://www.w3schools.com/jsref/jsref_obj_date.asp" target="_blank">Date</a></strong> object which provides methods for determining the current day etc. </p>
+      <p class="Normal">Here is a way to determine elapsed time in milliseconds, with microsecond accuracy. The displayed text is approximately 1500.</p>
+      <p class="program">t1 = performance.now()<br />
         sleep(1.5,wait)<br />
-        t2 = new Date().getTime()<br />
+        t2 = performance.now()<br />
       print(t2-t1)</p>
       <p class="Normal">CoffeeScript:</p>
-      <p class="program">t1 = new Date().getTime()<br />
+      <p class="program">t1 = performance.now()<br />
         sleep(1.5,wait)<br />
-        t2 = new Date().getTime()<br />
+        t2 = performance.now()<br />
         print(t2-t1)</p>
       <p class="Normal">JavaScript:</p>
-      <p class="program">var t1 = new Date().getTime()<br />
+      <p class="program">var t1 = performance.now()<br />
         sleep(1.5,wait)<br />
-        var t2 = new Date().getTime()<br />
+        var t2 = performance.now()<br />
         print(t2-t1)</p>
     <!-- InstanceEndEditable --></td>
   </tr>

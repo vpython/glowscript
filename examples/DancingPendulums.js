@@ -32,9 +32,9 @@ var link = $("<a/>").prop("href", "http://sciencedemonstrations.fas.harvard.edu/
 link.text("Based on this video")
 link.appendTo( $("<div/>").appendTo( canvas.container ) )
 
-var start = new Date().getTime()
+var start = performance.now()
 while (true) {
-  var t = (new Date().getTime() - start)*.001
+  var t = (performance.now() - start)*.001
   scene.caption.text("t=" + t.toFixed(1))
   for(var i=0; i<pendulums.length; i++) {
       var p = pendulums[i]

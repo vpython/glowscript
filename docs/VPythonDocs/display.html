@@ -89,33 +89,26 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             5. For how to create your own distant and local lights, see <a href="lights.html">Lighting</a>. <br />
       </p>
           <p class="attributes"><span class="attribute"><font color="#000000">To obtain </font>camera position</span>, see <a href="mouse.html">Mouse Interactions</a>.</p>
-          <p class="attributes"><span class="attribute">cursor.visible</span> By
-            setting <span class="attribute">scene.cursor.visible = False</span>,
-            the mouse cursor  becomes invisible. This is often appropriate while
-            dragging an object using  the mouse. Restore the cursor with <span class="attribute">scene.cursor.visible
-            = True</span>.  If <span class="attribute">scene</span> is part of a wxPython window that includes other elements such as buttons, and you want to hide the cursor everywhere in a window<span class="Normal"> named </span><span class="attribute">w</span><span class="Normal">, use </span><span class="attribute">w.cursor.visible = False</span> (this does not currently work on a Macintosh).</p>
-      <p class="attributes"><span class="attribute">objects</span> A list
+<p class="attributes"><span class="attribute">objects</span> A list
             of all the visible objects in the display; invisible objects and
             lights are not listed (<span class="attribute">scene.lights</span> is a list of existing lights).
             For example, the following makes all visible boxes in the scene red: </p>
 <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;for obj in scene2.objects: <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if isinstance(obj, box):<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red</p>
-<p class="attributes"><span class="attribute">window</span> There is no wxPython window in GlowScript.</p>
-<p class="attributes"><span class="attribute">delete</span> You can delete a display named <strong>d</strong> with <strong>d.delete()</strong> without stopping your program, then create a new display. The delete function deletes all the objects and lights before deleting the display itself. If the display is inside a wxPython window, the window and other widgets in the window remain. You can delete an entire wxPython window named <strong>w</strong> with all its widgets with <strong>w.delete()</strong>. You can delete all windows and displays with <strong>window.delete_all().</strong> Note that it is <strong>window.delete_all()</strong>, not <strong>w.delete_all()</strong>, because the operation affects all windows, not one particular window.</p>
-<p class="attributes"><span class="attribute">stereo</span> Stereo is currently not supported in GlowScript.</p>
+<p class="attributes"><span class="attribute">cursor.visible</span> Currently not supported in GlowScript.</p>
+<p class="attributes"><span class="attribute">window </span>Currently not supported in GlowScript.</p>
+<p class="attributes"><span class="attribute">delete </span>Currently not supported in GlowScript.</p>
+<p class="attributes"><span class="attribute">stereo</span> Currently not supported in GlowScript.</p>
 <p class="Normal"><strong><font color="#0000A0">Controlling the display</font></strong></p>
-          <p class="Normal">The  attributes <span class="attribute">x</span>, <span class="attribute">y</span>, <span class="attribute">width</span>, <span class="attribute">height</span>,
+          <p class="Normal">The  attributes <span class="attribute">width</span>, <span class="attribute">height</span>,
             and <span class="attribute">title</span> cannot be changed while
             a window is active; they are used to create a display, not to change
             one. If these parameters are such as to place part of the display off screen, the width and height are adjusted to fit all of the display onto the screen.</p>
-          <p class="attributes"> <span class="attribute">x</span>, <span class="attribute">y</span> Position of the display on the screen or within a wxPython window (pixels from upper left)</p>
-          <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
+<p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
             and height of the display area in pixels: scene.height = 200 (includes
           title bar). </p>
-          <p class="attributes"> <span class="attribute">title</span> Text in the window's 
-            
-            title bar: scene.title = 'Planetary Orbit'</p>
+          <p class="attributes"> <span class="attribute">title</span> Text above the display: scene.title = 'Planetary Orbit'</p>
           <p class="attributes"><span class="attribute">fullscreen</span> Not currently supported in GlowScript.</p>
           <p class="attributes"> <span class="attribute">visible</span> Make
             sure the display is visible; <span class="attribute">scene2.visible
@@ -166,23 +159,13 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             window as seen by the user. Default pi/3.0 radians (60 degrees).</p>
           <p class="attributes"> <span class="attribute">range</span> The extent
             of  
-            the region of interest to the left or right of <span class="attribute">center</span>. This is the inverse of scale, so use either <span class="attribute">range</span> or <span class="attribute">scale</span> depending
-            on which makes the most
-            sense in your program. Setting range to 10 is the same as setting
-            it to (10,10,10). Setting range to (10,10,10) means that scene.center+scene.range
+            the region of interest to the left or right of <span class="attribute">center</span>. Setting range to10 means that scene.center.x+scene.range
             will be at the right edge of a square window. A sphere of radius
             10 will fill the window. A cubical box whose half-width is 10 will
             overfill the window, because the front of the box in 3D appears larger
             than the xy plane passing through scene.center, unless the field
         of view is very small.</p>
-          <p class="attributes"> <span class="attribute">scale</span> A scaling
-            factor  
-            which scales the region of interest into the sphere with unit radius.
-            This  
-            is the inverse of range, so use either <span class="attribute">range</span> or <span class="attribute">scale</span> depending
-            on which makes the most
-            sense in your program. Setting scale to 0.1 is the same as setting
-            it to (0.1,0.1,0.1) or setting range to (10,10,10).</p>
+          <p class="attributes"> <span class="attribute">scale</span> Currently not supported in GlowScript; the inverse of range.      </p>
           <p class="attributes"> &nbsp;<span class="attribute">up</span> A vector representing 
             
             world-space up. This vector will always project to a vertical line on the 
