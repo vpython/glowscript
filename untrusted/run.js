@@ -186,16 +186,12 @@ function ideRun() {
             }
         })
     }
-    
-    //if (Error !== undefined && Error.prepareStackTrace !== undefined)
-    Error.prepareStackTrace = function (e, s) { return s } // makes error.stack be set up correctly for V8 compiler
-    Error.stackTraceLimit = 15
 
     function reportScriptError(program, err) { // This machinery only works on Chrome
-        // err.stack: https://code.google.com/p/v8/wiki/JavaScriptStackTraceApi
-    	//console.log('error',err)
+        // err.stack: https://code.google.com/p/v8-wiki/wiki/JavaScriptStackTraceApi
+    	// TraceKit - Cross browser stack traces: https://github.com/occ/TraceKit
     	var referror = (err.__proto__.name === 'ReferenceError')
-    	var unpack = /[ ]*at[ ]([^ ]*)[^:]*:(\d*):(\d*)/
+    	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
     	var traceback = []
         if (err.cursor) {
         	//console.log('err.cursor',err.cursor)
@@ -214,7 +210,7 @@ function ideRun() {
                 var rawStack
                 if (typeof err.stack == 'string') rawStack = err.stack.split('\n')
                 else rawStack = err.stack
-                for (var i=0; i<rawStack.length; i++) console.log(rawStack[i])
+                //for (var i=0; i<rawStack.length; i++) console.log(i, rawStack[i])
 
                 // TODO: Selection and highlighting in the dialog
                 var first = true
@@ -233,9 +229,10 @@ function ideRun() {
                 			(caller[0] == '_' || caller == 'main' || caller.slice(0,4) == 'http')) continue
                     var L = window.__linenumbers[jsline-1]
 	                if (L === undefined) continue
+	                var N = Number(L)+1
 	                // Index original text with L-2; 1 for the header line (GlowScript X.Y) and 1 for counting from 0 in the text array:
-	                if (first) traceback.push('Line '+L+': '+window.__original.text[L-2])
-	                else traceback.push('Called from line '+L+': '+window.__original.text[L-2])
+	                if (first) traceback.push('Line '+N+': '+window.__original.text[L-2])
+	                else traceback.push('Called from line '+N+': '+window.__original.text[L-2])
 	                first = false
                     traceback.push("")
 	                if (referror) break
