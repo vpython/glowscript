@@ -136,7 +136,9 @@ function ideRun() {
             //WHY? window.translations = options.translations = [program]
             options.translations = [program]
             var program = glowscript_compile(program, options)
-            var main = eval_script(program)
+            //var p = program.split('\n')
+        	//for (var i=0; i<p.length; i++) console.log(i, p[i])
+        	var main = eval_script(program)
             window.userMain = main
 
             $("#loading").remove()

@@ -1,3 +1,5 @@
+from __future__ import print_function, division
+
 """This python program converts various parts of glowscript from the most
 convenient format for modification into the most convenient format for
 deployment.
@@ -77,7 +79,7 @@ glowscript_libraries = {
 
 def combine(inlibs):
     all = [
-        "/*This is a combined, compressed file.  Look at https://bitbucket.org/davidscherer/glowscript for source code and copyright information.*/",
+        "/*This is a combined, compressed file.  Look at https://github.com/BruceSherwood/glowscript for source code and copyright information.*/",
         ";(function(){})();"
         ]
     for fn in inlibs:
@@ -89,7 +91,7 @@ def minify(inlibs, inlibs_nomin, outlib):
     all = combine(inlibs)
     outf = open(outlib, "wb")
     
-    if True:
+    if True: # minify if True
         env = os.environ.copy()
         env["NODE_PATH"] = "build-tools/UglifyJS"
         uglify = subprocess.Popen( "build-tools/node.exe build-tools/UglifyJS/bin/uglifyjs",
@@ -99,14 +101,14 @@ def minify(inlibs, inlibs_nomin, outlib):
             )
         uglify.communicate( all )
         rc = uglify.wait()
-        print "uglify " + outlib + ":", rc
+        print("uglify " + outlib + ":", rc)
         if rc != 0:
             print("Something went wrong")
     else:
         outf.write(all)
     outf.write( combine(inlibs_nomin) )
     outf.close()
-    
+  
 minify( glowscript_libraries["run"], [], "package/glow." + version + ".min.js" )
 print('Finished glow run-time package')
 minify( glowscript_libraries["compile"], [], "package/compiler." + version + ".min.js" )

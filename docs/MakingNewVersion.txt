@@ -73,3 +73,8 @@ that 0.4dev programs give an error, that 0.4 is the default version for a new pr
 and that 0.5dev programs work.
 
 Update examples to use version 0.4.
+
+--------------------------
+On Windows:
+I used a binary installer found at http://nodejs.org/download/ to install 64-bit node to C:\Program Files.
+I then in Cygwin executed "npm install uglify-js -g" to install uglify into AppData\Roaming\npm\node_modules\uglify-js.
