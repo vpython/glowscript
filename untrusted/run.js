@@ -89,6 +89,7 @@ function ideRun() {
                 packages.push("../css/redmond/" + choose + "/jquery-ui.custom.css",
                               "../lib/jquery/"  + choose + "/jquery.min.js",
                               "../lib/jquery/"  + choose + "/jquery-ui.custom.min.js")
+                if (choose == "1.1") packages.push("../lib/jquery/"  + choose + "/jquery.ui.touch-punch.min.js")
                 if (message.unpackaged) {
                     packages.push.apply(packages, glowscript_libraries.run)
                     if (message.lang == 'rapydscript' || message.lang == 'vpython') {
@@ -97,8 +98,9 @@ function ideRun() {
                     } else packages.push.apply(packages, glowscript_libraries.compile)
                 } else {
                     packages.push("../package/glow." + message.version + ".min.js")
-                    if (message.lang == 'rapydscript' || message.lang == 'vpython') {
+                    if (choose == "1.1" && (message.lang == 'rapydscript' || message.lang == 'vpython')) {
                         packages.push("../package/RScompiler." + message.version + ".min.js")
+                        packages.push("../package/RSrun." + message.version + ".min.js")
                     } else
                  	    packages.push("../package/compiler." + message.version + ".min.js")
                 }
