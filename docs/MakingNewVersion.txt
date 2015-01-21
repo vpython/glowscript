@@ -1,3 +1,5 @@
+Note: After installing nodejs, on Windows you must copy node.exe into the build-tools folder.
+
 There are now two different procedures to handling versioning:
 
 1) Deploy the development version to the website.  
