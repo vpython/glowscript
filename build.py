@@ -24,7 +24,7 @@ shader_file.append("}});")
 shader_file = "\n".join(shader_file)
 open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "1.1"
+version = "1.2dev"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
