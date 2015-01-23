@@ -33,7 +33,7 @@
   <tr>
     <td width="454" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
 
-        <h1 class="Heading-1"> <font color="#0000A0">Math functions</font></h1>
+        <h1 class="Heading-1"> <font color="#0000A0">Math Functions</font></h1>
 
         <p class="Normal">The following math functions are provided:</p>
         <p class="program">abs(x)<br />
@@ -67,21 +67,23 @@
       <p class="program">radians(360) &nbsp;# equal to 2*pi<br />
       degrees(2*pi) # equal to 360</p>
       <p class="Normal">See JavaScript documentation on the <strong><a href="http://www.w3schools.com/jsref/jsref_obj_date.asp" target="_blank">Date</a></strong> object which provides methods for determining the current day etc. </p>
-      <p class="Normal">Here is a way to determine elapsed time in milliseconds, with microsecond accuracy. The displayed text is approximately 1500.</p>
-      <p class="program">t1 = window.performance.now()<br />
+      <p class="Normal">Here is a way to determine elapsed time in seconds, with microsecond accuracy, using the clock() function that is also available in the standard Python &quot;time&quot; module.  The displayed text is approximately 1.5:</p>
+      <p class="program">t1 = clock()<br />
         sleep(1.5,wait)<br />
-        t2 = window.performance.now()<br />
+        t2 = clock()<br />
       print(t2-t1)</p>
       <p class="Normal">CoffeeScript:</p>
-      <p class="program">t1 = window.performance.now()<br />
+      <p class="program">t1 = clock()<br />
         sleep(1.5,wait)<br />
-        t2 = window.performance.now()<br />
+        t2 = clock()<br />
         print(t2-t1)</p>
       <p class="Normal">JavaScript:</p>
-      <p class="program">var t1 = window.performance.now()<br />
+      <p class="program">var t1 = clock()<br />
         sleep(1.5,wait)<br />
-        var t2 = window.performance.now()<br />
+        var t2 = clock()<br />
         print(t2-t1)</p>
+      <p class="Normal"></p>
+      <p class="Normal">There is also a function msclock() which gives the time in milliseconds instead of seconds.</p>
     <!-- InstanceEndEditable --></td>
   </tr>
 </table>
