@@ -4,6 +4,7 @@ body
 {
 	font-family: Verdana, Sans-Serif;
 	background:	#f1f2f4;
+	font-size: 90%;
 }
 
 body .ideBody
@@ -257,6 +258,7 @@ a.button
 	border: 0;
 	width: 100%; height: 100%;
 	margin:0; padding:0;
+    font-size:80%;
 }
 
 .form-dialog input.text { margin-bottom:12px; width:95%; padding: .4em; }
@@ -283,7 +285,7 @@ a.button
 .ace-custom.ace_editor 
 {
   font-family:"Inconsolata",monospace;
-  font-size:80%;
+  font-size:90%;
 }
 .ace-custom .ace_text-layer {
   font-family:"Inconsolata",monospace;

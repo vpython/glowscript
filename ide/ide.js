@@ -1031,16 +1031,6 @@ $(function () {
             editor.getSession().setMode(new mode())
             editor.getSession().setValue(progData.source)
             editor.setReadOnly( !isWritable )
-            
-            /*
-            if (lang == 'javascript') {
-            	editor.getSession().setMode("ace/mode/javascript")
-            } else {
-            	editor.getSession().setMode("ace/mode/coffee")
-            }
-            editor.getSession().setValue(progData.source)
-            editor.setReadOnly( !isWritable )
-            */
 
             if (isWritable) {
                 var save = saver( {user:username, folder:folder, program:program},
