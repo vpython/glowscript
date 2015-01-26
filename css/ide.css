@@ -284,9 +284,7 @@ a.button
 
 .ace-custom.ace_editor 
 {
-  /* Formerly Inconsolata, font-size:90%, not bold */
-  /* Now courier, font-size:10pt, font-weight:bold, white background */
-  /* Another possibility is Inconsolata, 11 pt, not bold */
+  /* Editing was formerly font-size:90%, with gray background */
   font-family:"Inconsolata",monospace;
   font-size:95%;
   background-color:#ffffff;
