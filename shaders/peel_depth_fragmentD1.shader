@@ -31,32 +31,14 @@ float decode(vec4 d) {
 }
 
 void main(void) {
-    // create depth maps D0 (5), D1 (6), D2 (7), and D3 (8)
+    // create depth map D1 (6)
     vec4 c = encode(1.0-gl_FragCoord.z);
     float z = decode(c);
-    if (minormode == 5) { // D0
+    vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
+    float zmin = decode(texture2D(D0, loc)); 
+    if (z > zmin) {
         gl_FragColor = c;
     } else {
-        vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
-        float zmin = decode(texture2D(D0, loc));
-        float zmax;
-        if (minormode == 6) { // create D1
-            if (z > zmin) {
-                gl_FragColor = c;
-            } else {
-                discard;
-            }
-        } else {
-            if (minormode == 7) {
-                zmax = decode(texture2D(D1, loc)); // create D2
-            } else {
-                zmax = decode(texture2D(D2, loc)); // create D3
-            }
-            if (zmin < z && z < zmax) {
-                gl_FragColor = c;
-            } else {
-                discard;
-            }
-        }
+        discard;
     }
 }

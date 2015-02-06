@@ -13,14 +13,15 @@ uniform vec3 light_ambient;
 #define LP(i) light_pos[i]
 #define LC(i) light_color[i]
 uniform vec2 canvas_size;
-// minormode = 0 render, 1 pick, 2 autoscale, 4 C0, 5 D0, 6 D1, 7 D2, 8 D1b, 9 C1, 10 C2, 11 C3, 12 C4
+// minormode = 0 render, 1 pick, 2 autoscale, 3 render_texture, 4 C0, 5 D0, 6 D1, 7 D2, 8 D3, 9 C1, 10 C2, 11 C3, 12 C4, 13 MERGE
 uniform int minormode;
 
 uniform sampler2D texmap;  // TEXTURE0 - user texture
 uniform sampler2D bumpmap; // TEXTURE1 - user bumpmap
 uniform sampler2D D0; // TEXTURE3 - opaque depth map (minormode 5)
-uniform sampler2D D1; // TEXTURE4 - 1st of two ping-pong depth maps (minormode 6)
-uniform sampler2D D2; // TEXTURE5 - 2nd of two ping-pong depth maps (minormode 7); also used for C4
+uniform sampler2D D1; // TEXTURE4 - depth map (minormode 6)
+uniform sampler2D D2; // TEXTURE5 - depth map (minormode 7)
+uniform sampler2D D3; // TEXTURE6 - depth map (minormode 8)
 
 varying vec3 es_position;     // eye space surface position
 varying vec3 es_normal;       // eye space surface normal
@@ -129,10 +130,12 @@ void main(void) {
             discard;
         }
     } else {
-        if (minormode == 11) { // C3 (11)
-            zmax = decode(texture2D(D2, loc));
-        } else { // C2 (10) or C4 (12)
+    	if (minormode == 10) { // C2
             zmax = decode(texture2D(D1, loc));
+        } else if (minormode == 11) { // C3
+            zmax = decode(texture2D(D2, loc));
+        } else { // C4 (12)
+            zmax = decode(texture2D(D3, loc));
         }
         if (zmin < z && z < zmax) {
             gl_FragColor = vec4( color, vcolor.a );

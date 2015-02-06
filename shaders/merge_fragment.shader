@@ -7,10 +7,10 @@ precision mediump float;
 #endif
 
 uniform sampler2D C0; // TEXTURE2 - opaque color map (minormode 4)
-uniform sampler2D C1; // TEXTURE6 - color map for transparency render 1 (minormode 9)
-uniform sampler2D C2; // TEXTURE7 - color map for transparency render 2 (minormode 10)
-uniform sampler2D C3; // TEXTURE8 - color map for transparency render 3 (minormode 11)
-uniform sampler2D D2; // TEXTURE5 - 2nd of two ping-pong depth maps (minormode 8); also used for C4
+uniform sampler2D C1; // TEXTURE5 - color map for transparency render 1 (minormode 9)
+uniform sampler2D C2; // TEXTURE6 - color map for transparency render 2 (minormode 10)
+uniform sampler2D C3; // TEXTURE7 - color map for transparency render 3 (minormode 11)
+uniform sampler2D C4; // TEXTURE8 - color map for transparency render 4 (minormode 12)
 uniform vec2 canvas_size;
 
 void main(void) {
@@ -20,7 +20,7 @@ void main(void) {
     vec4 c1 = texture2D(C1, loc);
     vec4 c2 = texture2D(C2, loc);
     vec4 c3 = texture2D(C3, loc);
-    vec4 c4 = texture2D(D2, loc);
+    vec4 c4 = texture2D(C4, loc);
     vec3 mcolor = c1.rgb*c1.a + 
                  (1.0-c1.a)*(c2.rgb*c2.a +
                  (1.0-c2.a)*(c3.rgb*c3.a +
