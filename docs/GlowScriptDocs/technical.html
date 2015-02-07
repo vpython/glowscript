@@ -52,9 +52,9 @@
           <strong>D1</strong> -- frontmost transparent depth texture, corresponding to C1<br />
           <strong>C2</strong> -- transparent color texture for the next deeper &quot;peel&quot; after C1; if the pixel does not have a depth between that of D0 and D1, the pixel is discarded<br />
           <strong>D2</strong> -- transparent depth texture corresponding to C2<br />
-          <strong>C3</strong> -- next deeper transparent color texture; discard a pixel if z not between D1 and D2<br />
-          <strong>D1</strong> -- transparent depth texture corresponding to C3; note the &quot;ping-pong&quot; with D2, which is possible because we're done with the information recorded in D1<br />
-          <strong>C4</strong> -- deepest transparent color texture, actually rendered into D2, which is no longer needed</p>
+          <strong>C3</strong> -- next deeper transparent color texture; discard a pixel if z not between D0 and D2<br />
+          <strong>D3</strong> -- transparent depth texture corresponding to C3 (actually writes to D1, which is now available)<br />
+          <strong>C4</strong> -- deepest transparent color texture; discard a pixel if z not between D0 and D3        </p>
         <p class="Normal"><strong>MERGE</strong> -- The final render is a merge of C0, C1, C2, C3, and C4:</p>
         <p class="program">vec3 color = C1.rgb*C1.a + <br />
   &nbsp;&nbsp;&nbsp;(1.0-C1.a)*(C2.rgb*C2.a +<br />
