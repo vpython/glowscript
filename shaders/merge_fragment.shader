@@ -21,10 +21,12 @@ void main(void) {
     vec4 c2 = texture2D(C2, loc);
     vec4 c3 = texture2D(C3, loc);
     vec4 c4 = texture2D(C4, loc);
+    
     vec3 mcolor = c1.rgb*c1.a + 
                  (1.0-c1.a)*(c2.rgb*c2.a +
                  (1.0-c2.a)*(c3.rgb*c3.a +
                  (1.0-c3.a)*(c4.rgb*c4.a + 
                  (1.0-c4.a)*c0.rgb)));
+           
     gl_FragColor = vec4 (mcolor, 1.0);
 }
