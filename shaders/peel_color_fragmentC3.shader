@@ -105,6 +105,7 @@ vec4 encode(float k) { // assumes k is >= 0
         0.0);
 }
 
+
 float decode(vec4 d) {
     if (length(d) == 0.0) return 0.0;
     return (256.0*d[0] + d[1])/65536.0;
@@ -118,7 +119,7 @@ void main(void) {
     specular_color = vec3(.8,.8,.8);
     lightAt(); // determine color from lighting
     vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
-    float z = decode(encode(1.0-gl_FragCoord.z)); // bigger number => closer to camera; distance out of screen
+    float z = decode(encode(1.0 - gl_FragCoord.z)); // bigger number => closer to camera; distance out of screen
     float zmin = decode(texture2D(D0, loc));
     float zmax = decode(texture2D(D2, loc));
     if (zmin < z && z < zmax) {

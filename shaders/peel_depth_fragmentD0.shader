@@ -22,8 +22,9 @@ vec4 encode(float k) { // assumes k is >= 0
         0.0);
 }
 
+
 void main(void) {
     // create depth map D0 (5)
-    vec4 c = encode(1.0-gl_FragCoord.z);
+    vec4 c = encode(1.0 - gl_FragCoord.z);
     gl_FragColor = c;
 }

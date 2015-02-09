@@ -31,7 +31,7 @@ float decode(vec4 d) {
 
 void main(void) {
     // create depth map D2 (7)
-    vec4 c = encode(1.0-gl_FragCoord.z);
+    vec4 c = encode(1.0 - gl_FragCoord.z);
     vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
     float z = decode(c);
     float zmin = decode(texture2D(D0, loc));
