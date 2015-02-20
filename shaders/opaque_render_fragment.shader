@@ -12,6 +12,7 @@ uniform vec3 light_color[8];
 uniform vec3 light_ambient;
 #define LP(i) light_pos[i]
 #define LC(i) light_color[i]
+uniform vec2 canvas_size;
 
 uniform sampler2D texmap;  // TEXTURE0 - user texture
 uniform sampler2D bumpmap; // TEXTURE1 - user bumpmap

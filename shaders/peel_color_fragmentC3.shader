@@ -13,8 +13,6 @@ uniform vec3 light_ambient;
 #define LP(i) light_pos[i]
 #define LC(i) light_color[i]
 uniform vec2 canvas_size;
-// minormode = 0 render, 1 pick, 2 autoscale, 3 render_texture, 4 C0, 5 D0, 6 D1, 7 D2, 8 D3, 9 C1, 10 C2, 11 C3, 12 C4, 13 MERGE
-uniform int minormode;
 
 uniform sampler2D texmap;  // TEXTURE0 - user texture
 uniform sampler2D bumpmap; // TEXTURE1 - user bumpmap
@@ -105,23 +103,24 @@ vec4 encode(float k) { // assumes k is >= 0
         0.0);
 }
 
-
 float decode(vec4 d) {
     if (length(d) == 0.0) return 0.0;
-    return (256.0*d[0] + d[1])/65536.0;
+    return 255.0*(d[0] + d[1]/256.0)/256.0;
 }
 
 void main(void) {
     // create transparency color map - C1 (9), C2 (10), C3 (11), C4 (12)
+    float z = decode(encode(1.0 - gl_FragCoord.z)); // bigger number => closer to camera; distance out of screen
+    vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
+    float zmin = decode(texture2D(D0, loc));
+    float zmax = decode(texture2D(D2, loc));
+    
     normal = normalize(es_normal);
     pos = es_position;
     diffuse_color = vcolor.rgb;
     specular_color = vec3(.8,.8,.8);
     lightAt(); // determine color from lighting
-    vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
-    float z = decode(encode(1.0 - gl_FragCoord.z)); // bigger number => closer to camera; distance out of screen
-    float zmin = decode(texture2D(D0, loc));
-    float zmax = decode(texture2D(D2, loc));
+    
     if (zmin < z && z < zmax) {
         gl_FragColor = vec4( color, vcolor.a );
     } else {

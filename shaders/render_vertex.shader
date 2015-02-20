@@ -1,6 +1,3 @@
-// Vertex shader for rendering standard 'objects' parameterized by
-// pos, axis, up, size, color
-
 #ifdef GL_ES
 #  ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
@@ -65,6 +62,7 @@ void main(void) {
     mat_pos = texpos;
     vcolor = vec4(color*objectColor.rgb, opacity*objectColor.a);
     gl_Position = posp;
+    
     float f = flags; // turn, flipy, flipx, sides, right, left, bumpmap, texture
     float turn = floor(f/128.0);
     f -= 128.0*turn;
