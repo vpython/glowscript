@@ -36,7 +36,6 @@ vec3 diffuse_color;
 vec3 specular_color;
 vec3 color;
 
-
 void calc_color(vec4 lpos, vec3 lcolor)
 {
     vec3 L = lpos.xyz - pos*lpos.w; // w == 0 for distant_light
@@ -94,25 +93,33 @@ void lightAt()
     calc_color(LP(7), LC(7));
 }
 
-vec4 encode(float k) { // assumes k is >= 0
-    if (k <= 0.0) return vec4(0.0, 0.0, 0.0, 0.0);
-    return vec4(
-        floor(256.0*k)/255.0,
-        floor(256.0*fract(256.0*k))/255.0,
-        0.0,
-        0.0);
+ivec4 encode(float k) { // assumes k is >= 0
+    if (k <= 0.0) return ivec4(0, 0, 0, 0);
+    k = 3.0*128.0*k;
+    int b1 = int(k);
+    int b2 = int(256.0*fract(k));
+    return ivec4(
+    	b1,
+    	b2,
+    	0,
+    	0);
 }
 
-float decode(vec4 d) {
-    if (length(d) == 0.0) return 0.0;
-    return 255.0*(d[0] + d[1]/256.0)/256.0;
+int decode(ivec4 d) {
+    return int(256*d[0] + d[1]);
 }
+
+int fdecode(vec4 d) {
+    return int(255.0*(256.0*d[0] + d[1]));
+}
+
 void main(void) {
     // create transparency color map - C1 (9), C2 (10), C3 (11), C4 (12)
-    float z = decode(encode(1.0 - gl_FragCoord.z)); // bigger number => closer to camera; distance out of screen
+    ivec4 c = encode(1.0 - gl_FragCoord.z);
+    int z = decode(c);
     vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
-    float zmin = decode(texture2D(D0, loc));
-    float zmax = decode(texture2D(D3, loc));
+    int zmin = fdecode(texture2D(D0, loc));
+    int zmax = fdecode(texture2D(D3, loc));
     
     normal = normalize(es_normal);
     pos = es_position;

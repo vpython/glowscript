@@ -14,29 +14,35 @@ uniform sampler2D D2; // TEXTURE5 - 2nd transparency depth map (minormode 7)
 
 // minormode = 0 render, 1 pick, 2 autoscale, 4 C0, 5 D0, 6 D1, 7 D2, 8 D3, 9 C1, 10 C2, 11 C3, 12 C4
 
-vec4 encode(float k) { // assumes k is >= 0
-    if (k <= 0.0) return vec4(0.0, 0.0, 0.0, 0.0);
-    return vec4(
-        floor(256.0*k)/255.0,
-        floor(256.0*fract(256.0*k))/255.0,
-        0.0,
-        0.0);
+ivec4 encode(float k) { // assumes k is >= 0
+    if (k <= 0.0) return ivec4(0, 0, 0, 0);
+    k = 3.0*128.0*k;
+    int b1 = int(k);
+    int b2 = int(256.0*fract(k));
+    return ivec4(
+    	b1,
+    	b2,
+    	0,
+    	0);
 }
 
-float decode(vec4 d) {
-    if (length(d) == 0.0) return 0.0;
-    return 255.0*(d[0] + d[1]/256.0)/256.0;
+int decode(ivec4 d) {
+    return int(256*d[0] + d[1]);
+}
+
+int fdecode(vec4 d) {
+    return int(255.0*(256.0*d[0] + d[1]));
 }
 
 void main(void) {
     // create depth map D3 (8)
-    vec4 c = encode(1.0 - gl_FragCoord.z);
-    float z = decode(c);
+    ivec4 c = encode(1.0 - gl_FragCoord.z);
+    int z = decode(c);
     vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
-    float zmin = decode(texture2D(D0, loc));
-    float zmax = decode(texture2D(D2, loc));
+    int zmin = fdecode(texture2D(D0, loc));
+    int zmax = fdecode(texture2D(D2, loc));
     if (zmin < z && z < zmax) {
-        gl_FragColor = c;
+        gl_FragColor = vec4(float(c.r)/255.0, float(c.g)/255.0, 0, 0);
     } else {
         discard;
     }

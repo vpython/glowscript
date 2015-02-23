@@ -27,6 +27,5 @@ void main(void) {
                  (1.0-c2.a)*(c3.rgb*c3.a +
                  (1.0-c3.a)*(c4.rgb*c4.a + 
                  (1.0-c4.a)*c0.rgb)));
-    //mcolor = c3.rgb;
     gl_FragColor = vec4 (mcolor, 1.0);
 }

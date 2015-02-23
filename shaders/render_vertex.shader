@@ -33,7 +33,7 @@ varying vec3 es_normal;       // eye space surface normal
 varying vec2 mat_pos;         // surface material position in [0,1]^2
 varying vec4 vcolor;
 varying vec3 bumpX;
-varying vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, flipy, turn
+varying vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, flipy, turn=
 
 mat3 getObjectRotation() {
     // Construct the object rotation matrix.
