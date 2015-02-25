@@ -10,9 +10,9 @@ precision mediump float;
 
 uniform vec2 canvas_size;
 uniform sampler2D D0; // TEXTURE3 - opaque depth map (minormode 5)
-uniform sampler2D D2; // TEXTURE5 - 2nd transparency depth map (minormode 7)
+uniform sampler2D D2; // TEXTURE7 - 2nd transparency depth map (minormode 9)
 
-// minormode = 0 render, 1 pick, 2 autoscale, 4 C0, 5 D0, 6 D1, 7 D2, 8 D3, 9 C1, 10 C2, 11 C3, 12 C4
+// minormode = 0 render, 1 pick, 2 autoscale, 4 C0, 5 D0, 6 C1, 7 D1, 8 C2, 9 D2, 10 C3, 11 D3, 12 C4
 
 ivec4 encode(float k) { // assumes k is >= 0
     if (k <= 0.0) return ivec4(0, 0, 0, 0);

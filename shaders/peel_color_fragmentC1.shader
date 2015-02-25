@@ -113,7 +113,7 @@ int fdecode(vec4 d) {
 }
 
 void main(void) {
-    // create transparency color map - C1 (9), C2 (10), C3 (11), C4 (12)
+    // create transparency color map - C1 (minormode 6), C2 (8), C3 (19), C4 (12)
     ivec4 c = encode(1.0 - gl_FragCoord.z);
     int z = decode(c);
     vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);

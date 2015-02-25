@@ -7,10 +7,10 @@ precision mediump float;
 #endif
 
 uniform sampler2D C0; // TEXTURE2 - opaque color map (minormode 4)
-uniform sampler2D C1; // TEXTURE5 - color map for transparency render 1 (minormode 9)
-uniform sampler2D C2; // TEXTURE6 - color map for transparency render 2 (minormode 10)
-uniform sampler2D C3; // TEXTURE7 - color map for transparency render 3 (minormode 11)
-uniform sampler2D C4; // TEXTURE8 - color map for transparency render 4 (minormode 12)
+uniform sampler2D C1; // TEXTURE4 - color map for transparency render 1 (minormode 6)
+uniform sampler2D C2; // TEXTURE6 - color map for transparency render 2 (minormode 8)
+uniform sampler2D C3; // TEXTURE8 - color map for transparency render 3 (minormode 10)
+uniform sampler2D C4; // TEXTURE10 - color map for transparency render 4 (minormode 12)
 uniform vec2 canvas_size;
 
 void main(void) {
