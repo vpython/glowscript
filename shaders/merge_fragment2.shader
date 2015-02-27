@@ -11,7 +11,7 @@ uniform sampler2D C1; // TEXTURE4 - color map for transparency render 1 (minormo
 uniform vec2 canvas_size;
 
 void main(void) {
-    // need to combine colors from C0, C1, C2
+    // need to combine colors from C0 and C1
     // This is used with mobile devices that have few texture image units.
     vec2 loc = vec2( gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
     vec4 c0 = texture2D(C0, loc);
