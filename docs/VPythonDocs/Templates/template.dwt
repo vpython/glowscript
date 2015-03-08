@@ -1,30 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {
-	color: #FF0000;
-	font-weight: bold;
-}
--->
-</style>
-<style type="text/css">
-<!--
-.style2 {
-	font-size: x-large;
-	font-weight: bold;
-}
-.style2 {font-size: xx-large}
--->
-</style>
-<!-- InstanceEndEditable -->
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>Template</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
 <script type="text/javascript">
 <!--
 function MM_jumpMenu(targ,selObj,restore){ //v3.0
@@ -33,7 +14,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 }
 //-->
 </script>
-<link href="VPythonDocs/VisualRef.css" rel="stylesheet" type="text/css" />
+<link href="../VPythonDocs/VisualRef.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -56,17 +37,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <a href="license.txt" target="_blank">VPython license</a><br />
       <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
     <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
-
-          <table width="100%" border="1">
-            <tr>
-              <td width="62%"><div align="center"><span class="style2"><font color="#0000A0">text</font></span></div></td>
-              <td width="38%"><div align="center"><img src="images/text3d.jpg" width="233" height="183" alt="text" /><a href="arrow.html"></a></div></td>
-            </tr>
-          </table>
-      <p class="Normal">This 3D text object and the extrusion object on which it is based are not currently available in GlowScript.</p>
-<p class="Normal">See the <a href="text_output.html"><strong>Text Output</strong></a> discussion for how to output text in the GlowScript environment.</p>
-    <!-- InstanceEndEditable --></td>
+    <td width="586" rowspan="2" valign="top"><!-- TemplateBeginEditable name="content" --><!-- TemplateEndEditable --></td>
   </tr>
   <tr>
     <td height="16" colspan="4"></td>
@@ -74,4 +45,4 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 </table>
 </body>
 <script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+</html>
