@@ -41,7 +41,7 @@ def firstpass(pname):
     rerange = re.compile('\.range\s*=\s*\((\s*\w*\s*,\s*\w*\s*,\s*\w*\s*)\)')
 
     def replacements(line):
-        line = line.replace('mouse.getclick()','waitfor("click")')
+        line = line.replace('mouse.getclick()',"waitfor('click')")
         line = line.replace('arcsin', 'asin')
         line = line.replace('arccos', 'acos')
         line = line.replace('arctan', 'atan')
@@ -55,7 +55,6 @@ def firstpass(pname):
     linenumber = 0
     reblank = re.compile(r'^[\s]*$')
     recomment = re.compile(r'^[\s]*#')
-    add('# Converted from the VPython program '+pname)
 
     while linenumber < nlines:
         line = lines[linenumber][:-1] # remove final carriage return
@@ -70,7 +69,7 @@ def firstpass(pname):
             add(lines[linenumber-1][:-1])
             continue
 
-        # Simple replacements such as display -> canvas
+        # Simple replacements such as arcsin -> asin
         line = replacements(line)
 
         # Build dictionary of names that reference VPython primitives
@@ -146,48 +145,32 @@ def firstpass(pname):
         if len(comments) > 0: add(comments[:-1]) # delete final carriage return, which add will attach
 
         # replace '(x,y,z)' with 'vector(x,y,z)'
-        parenlist = [] # where we encountered a left paren or bracket: [loc, previous_alphanum]
-        lastc = ':' # previous non-space character
-        commas = 0  # count commas in (x,y,z) tuples
-        commalevel = 0 # length of the parenlist at the time a comma is encountered
-        i = 0
-        while i < len(line):
-            c = line[i]
-            i += 1
-            if c == ' ': continue
-            if c == "'":
-                while i < len(line):
-                    c = line[i]
-                    i += 1
-                    if c == "'": break
-                continue
-            if c == '"':
-                while i < len(line):
-                    c = line[i]
-                    i += 1
-                    if c == '"': break
-                continue
-            elif c == '(':
-                parenlist.append([i-1, lastc.isalnum() or lastc == '_'])
-            elif c == ')':
-                if commas == 2:
-                    if len(parenlist) > commalevel: # z component contains parens
-                        parenlist = parenlist[:-1]
-                        continue
-                    if not parenlist[-1][1]: # if char preceding (x,y,z) is not alphnumeric, it's a tuple
-                        startvec = parenlist[-1][0]
-                        line = line[:startvec]+'vector'+line[startvec:] # (x,y,z) -> vector(x,y,z)
-                        i += len('vector')
-                    parenlist = []
-                    commas = 0
-                else:
-                    parenlist = parenlist[:-1]
-                    if len(parenlist) == 0: commas = 0
-            elif c == ',':
-                if len(parenlist) > 0:
-                    commas += 1
-                    commalevel = len(parenlist)
-            lastc = c
+##        parenlist = [] # where we encountered a left paren or bracket: [loc, previous_alphanum]
+##        lastc = ':' # previous non-space character
+##        commas = 0  # count commas in (x,y,z) tuples
+##        commalevel = 0 # length of the parenlist at the time a comma is encountered
+
+        if line.find('.plot') < 0:
+            i = 0
+            while i < len(line):
+                c = line[i]
+                i += 1
+                if c == ' ': continue
+                if c == "'":
+                    while i < len(line):
+                        c = line[i]
+                        i += 1
+                        if c == "'": break
+                    continue
+                if c == '"':
+                    while i < len(line):
+                        c = line[i]
+                        i += 1
+                        if c == '"': break
+                    continue
+                elif c == '(' and lastc == '=':
+                    line = line[:i-1]+'vector'+line[i-1:] # (x,y,z) -> vector(x,y,z)
+                lastc = c
         add(line)
 
     return output
@@ -237,18 +220,21 @@ def secondpass(lines):
 
     return out
 
+outputdir = 'Converted'
+if not os.path.exists(outputdir):
+    os.makedirs(outputdir)
 
 for filename in allfiles:
     pname = filename.split('.')
     if pname[-1] != 'py': continue
     pname = filename[:-3]
     # How does one get the name of this converter file? __file__ gives an error
-    if pname == 'VPtoGS': continue
+    if pname[:6] == 'VPtoGS': continue
     
     lines = firstpass(pname)
     final = secondpass(lines)
 
-    fd = open(pname+'.gs', 'w')
+    fd = open(outputdir+'/'+pname+'.py', 'w')
     fd.write(final)
     fd.close()
 
