@@ -6,8 +6,8 @@ from __future__ import division , print_function
 import os
 import re
 
-allfiles = os.listdir(os.curdir)
-#allfiles = ['aaa.py'] # for testing purposes, convert just this one file
+#allfiles = os.listdir(os.curdir)
+allfiles = ['aaa.py'] # for testing purposes, convert just this one file
 
 # VPython objects:
 prims = ['arrow', 'box', 'cone', 'curve', 'cylinder',
@@ -28,7 +28,7 @@ primtypes = {'arrow':'rect', 'box':'rect', 'cone':'radial', 'curve':'curve', 'cy
 symbols = {} # variables which refer to VPython objects, in form var:prim
 
 def firstpass(pname):
-    
+    global symbols
     print('--------------------')
     print('Processing '+pname)
     output = []
@@ -41,6 +41,7 @@ def firstpass(pname):
     rerange = re.compile('\.range\s*=\s*\((\s*\w*\s*,\s*\w*\s*,\s*\w*\s*)\)')
 
     def replacements(line):
+        line = line.replace('vector()', 'vector(0,0,0)')
         line = line.replace('mouse.getclick()',"waitfor('click')")
         line = line.replace('arcsin', 'asin')
         line = line.replace('arccos', 'acos')
@@ -90,7 +91,7 @@ def firstpass(pname):
                     begin = m.start(1)+1 # location of '(' after primitive name
                     foundprim = True
                     break
-
+        
         # Concatenate any continuation lines and move end-of-line comment to previous line
         reindent = re.compile('^\s*')
         parens = 0
@@ -144,13 +145,9 @@ def firstpass(pname):
             
         if len(comments) > 0: add(comments[:-1]) # delete final carriage return, which add will attach
 
-        # replace '(x,y,z)' with 'vector(x,y,z)'
-##        parenlist = [] # where we encountered a left paren or bracket: [loc, previous_alphanum]
-##        lastc = ':' # previous non-space character
-##        commas = 0  # count commas in (x,y,z) tuples
-##        commalevel = 0 # length of the parenlist at the time a comma is encountered
-
-        if line.find('.plot') < 0:
+        # replace '(x,y,z)' in a constructor with 'vector(x,y,z)'
+        if foundprim: # insert "vector" only in VPython primitive constructors
+            lastc = ''
             i = 0
             while i < len(line):
                 c = line[i]
@@ -168,19 +165,37 @@ def firstpass(pname):
                         i += 1
                         if c == '"': break
                     continue
-                elif c == '(' and lastc == '=':
-                    line = line[:i-1]+'vector'+line[i-1:] # (x,y,z) -> vector(x,y,z)
+                elif c == '(' and lastc == '=': # need to test for =(x,y,z) or =(x,y)
+                    start = i
+                    commas = 0
+                    parens = 1
+                    while i < len(line):
+                        c = line[i]
+                        i += 1
+                        if c == ' ': continue
+                        elif c == ',': commas += 1
+                        elif c == '(': parens += 1
+                        elif c == ')':
+                            parens -= 1
+                            if parens == 0:
+                                if commas == 1: # (x,y) -> vector(x,y,0)
+                                    line = line[:start-1]+'vector'+line[start-1:i-1] + ',0' + line[i-1:]
+                                    i += 8
+                                elif commas == 2: # (x,y,z) -> vector(x,y,z)
+                                    line = line[:start-1]+'vector'+line[start-1:]
+                                    i += 6
+                                break
                 lastc = c
         add(line)
 
     return output
 
-# Replace obj.x with obj.pos.x, and convert obj.attr += vector with ob.jattr = obj.attr + vector
+# Replace obj.x with obj.pos.x, and convert obj.attr += vector to ob.jattr = obj.attr + vector
 out = ''
 def secondpass(lines):
     global out
     out = ''
-    attrs = {'x':'pos.x', 'y':'pos.y',  'z':'pos.z'}
+    attrs = {'x':'pos.x', 'y':'pos.y', 'z':'pos.z'}
     objattrs = ['pos', 'axis', 'up']
     patt = re.compile('(\w+)\.(\w+)')
     findeq = re.compile('\s+=')
@@ -199,7 +214,7 @@ def secondpass(lines):
                 attr = m.group(2)
                 if name in symbols:
                     prim = symbols[name]
-                    if attr in attrs:
+                    if (attr in attrs) and (prim != 'curve'): # curve.x is legal in classic VPython
                         newattr = attrs[attr]
                         line = line[:m.start(1)+start]+name+'.'+newattr+line[m.end(2)+start:]
                         start += m.end(2) + len(newattr) - len(attr)
@@ -230,7 +245,7 @@ for filename in allfiles:
     pname = filename[:-3]
     # How does one get the name of this converter file? __file__ gives an error
     if pname[:6] == 'VPtoGS': continue
-    
+
     lines = firstpass(pname)
     final = secondpass(lines)
 
