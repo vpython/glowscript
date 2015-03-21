@@ -6,11 +6,11 @@ from __future__ import division , print_function
 import os
 import re
 
-#allfiles = os.listdir(os.curdir)
-allfiles = ['aaa.py'] # for testing purposes, convert just this one file
+allfiles = os.listdir(os.curdir)
+#allfiles = ['aaa.py'] # for testing purposes, convert just this one file
 
 # VPython objects:
-prims = ['arrow', 'box', 'cone', 'curve', 'cylinder',
+prims = ['arrow', 'box', 'cone', 'curve', 'cylinder', 'display',
             'ellipsoid', 'extrusion', 'faces', 'helix',
             'label', 'pyramid', 'ring', 'sphere', 'frame',
             'text', 'local_light', 'distant_light']
@@ -23,16 +23,41 @@ posobjects = ['arrow', 'box', 'cone', 'curve', 'cylinder', 'ellipsoid', 'label',
 primtypes = {'arrow':'rect', 'box':'rect', 'cone':'radial', 'curve':'curve', 'cylinder':'radial',
             'ellipsoid':'rect', 'extrusion':'not_implemented', 'faces':'not_implemented', 'helix':'radial',
             'label':'label', 'pyramid':'rect', 'ring':'radial', 'sphere':'radial', 'frame':'not_implemented',
-            'text':'not_implemented', 'local_light':'light', 'distant_light':'light'}
+            'text':'not_implemented', 'local_light':'light', 'distant_light':'light', 'display':'display'}
 
 symbols = {} # variables which refer to VPython objects, in form var:prim
+
+# A left paren was found at location i in the string line;
+# convert (x,y,z) -> vector(x,y,z) and (x,y) -> vector(x,y,0) and return new line and advanced i
+# But don't convert xxx.plot(pos=(x,y)).
+def insert_vector(line, i):
+    start = i
+    commas = 0
+    parens = 1
+    while i < len(line):
+        c = line[i]
+        i += 1
+        if c == ' ': continue
+        elif c == ',': commas += 1
+        elif c == '(': parens += 1
+        elif c == ')':
+            parens -= 1
+            if parens == 0:
+                if commas == 1: # (x,y) -> vector(x,y,0)
+                    line = line[:start-1]+'vector'+line[start-1:i-1] + ',0' + line[i-1:]
+                    i += 8
+                elif commas == 2: # (x,y,z) -> vector(x,y,z)
+                    line = line[:start-1]+'vector'+line[start-1:]
+                    i += 6
+                break
+    return [line, i]
 
 def firstpass(pname):
     global symbols
     print('--------------------')
     print('Processing '+pname)
     output = []
-    symbols = {}
+    symbols = {'scene':'display'} # predefined name of a primitive
     lines = open(pname+'.py', 'r').readlines()
 
     def add(s):
@@ -83,14 +108,6 @@ def firstpass(pname):
                 begin = m.start(2)+1 # location of '(' after primitive name
                 foundprim = True
                 break
-        else:
-            for prim in prims:
-                p = re.compile('[^\w]*'+prim+'\s*(\()')
-                m = p.search(line)
-                if m:
-                    begin = m.start(1)+1 # location of '(' after primitive name
-                    foundprim = True
-                    break
         
         # Concatenate any continuation lines and move end-of-line comment to previous line
         reindent = re.compile('^\s*')
@@ -139,14 +156,17 @@ def firstpass(pname):
         
         if foundprim and (primtypes[prim] == 'not_implemented'):
             print('The '+prim+' object is not yet implemented in GlowScript')
-            add('## The '+prim+' object is not yet implemented in GlowScript')
-            add('## '+line)
+            add(line)
             continue
             
         if len(comments) > 0: add(comments[:-1]) # delete final carriage return, which add will attach
 
-        # replace '(x,y,z)' in a constructor with 'vector(x,y,z)'
-        if foundprim: # insert "vector" only in VPython primitive constructors
+        # Replace ' = (x,y,z)' in a constructor with ' = vector(x,y,z)'
+        # If it is ' = (x,y)', replace with ' = vector(x,y,0)'
+        p = re.compile('\.plot\s*\(')
+        m = p.search(line) # look for xxx.plot(pos=(x,y)) and don't insert 'vector'
+        if not m:
+            # Could use regex to find '= (' instead of marching through the line one character at a time.
             lastc = ''
             i = 0
             while i < len(line):
@@ -166,26 +186,9 @@ def firstpass(pname):
                         if c == '"': break
                     continue
                 elif c == '(' and lastc == '=': # need to test for =(x,y,z) or =(x,y)
-                    start = i
-                    commas = 0
-                    parens = 1
-                    while i < len(line):
-                        c = line[i]
-                        i += 1
-                        if c == ' ': continue
-                        elif c == ',': commas += 1
-                        elif c == '(': parens += 1
-                        elif c == ')':
-                            parens -= 1
-                            if parens == 0:
-                                if commas == 1: # (x,y) -> vector(x,y,0)
-                                    line = line[:start-1]+'vector'+line[start-1:i-1] + ',0' + line[i-1:]
-                                    i += 8
-                                elif commas == 2: # (x,y,z) -> vector(x,y,z)
-                                    line = line[:start-1]+'vector'+line[start-1:]
-                                    i += 6
-                                break
+                    line, i = insert_vector(line, i)
                 lastc = c
+                
         add(line)
 
     return output
@@ -196,9 +199,8 @@ def secondpass(lines):
     global out
     out = ''
     attrs = {'x':'pos.x', 'y':'pos.y', 'z':'pos.z'}
-    objattrs = ['pos', 'axis', 'up']
+    objattrs = ['pos', 'axis', 'up', 'size', 'color']
     patt = re.compile('(\w+)\.(\w+)')
-    findeq = re.compile('\s+=')
     pluseq = re.compile('(\w+)\.(\w+)\s*([\+\-\*\/]=\s*)')
 
     def add(s):
@@ -214,7 +216,8 @@ def secondpass(lines):
                 attr = m.group(2)
                 if name in symbols:
                     prim = symbols[name]
-                    if (attr in attrs) and (prim != 'curve'): # curve.x is legal in classic VPython
+                    # Replace obj.x with obj.pos.x
+                    if (attr in attrs) and (prim != 'curve') and (prim != 'display'): # curve.x and scene.x are legal
                         newattr = attrs[attr]
                         line = line[:m.start(1)+start]+name+'.'+newattr+line[m.end(2)+start:]
                         start += m.end(2) + len(newattr) - len(attr)
@@ -226,6 +229,7 @@ def secondpass(lines):
         for objattr in objattrs:
             m = pluseq.search(line)
             if m:
+                # Replace obj.attr += vector with ob.jattr = obj.attr + vector
                 if m.group(1) in symbols and m.group(2) == objattr:
                     if (m.group(3)[0] == '+'):
                         line = line[:m.start(3)-1]+' = '+m.group(1)+'.'+m.group(2)+'+'+line[m.end(3):]
