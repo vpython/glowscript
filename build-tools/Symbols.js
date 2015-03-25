@@ -3,7 +3,7 @@ var ver = glowscript.version
 
 console.log( glowscript.glowscript )
 
-var names = [ "$", "jQuery", "console", "scene", "__context" ]
+var names = [ "$", "jQuery", "console", "scene", "__context", "version" ]
 
 $.each( glowscript, function(name,value) {
     if (window.hasOwnProperty(name))
