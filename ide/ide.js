@@ -549,7 +549,8 @@ $(function () {
                 if (name == 'Add Folder') return false;
                 name = name.replace(/ /g,'') // There are problems with spaces or underscores in names
                 name = name.replace(/_/g,'')
-                apiPut({user:username, folder:name}, {}, function () {
+                var p = $dlg.find('input[name="isPublic"]').is(":checked") // true is checked, which means public
+                apiPut({user:username, folder:name}, {public:p}, function () {
                     navigate( {page:"folder", user:username, folder:name} )
                 })
             })
@@ -933,7 +934,7 @@ $(function () {
                         alert("Failed to load compiler from package: " + compiler_url)
                         return
                     }
-                    var embedScript = window.glowscript_compile(header.source, {lang: header.lang})
+                    var embedScript = window.glowscript_compile(header.source, {lang: header.lang, version: header.version.substr(0,3)})
                     var divid = "glowscript"
                     var remove = header.version==='0.3' ? '' : '.removeAttr("id")'
                     var main = 'main()'

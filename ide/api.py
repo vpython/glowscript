@@ -32,8 +32,10 @@ import os, re, base64, logging
 def chrange(b,e): return set(chr(x) for x in range(ord(b), ord(e)+1))
 unreserved = chrange('A','Z') | chrange('a','z') | chrange('0','9') | set("-_.~")
 
+# See documentation of db.Model at https://cloud.google.com/appengine/docs/python/datastore/modelclass
+
 class AppSecrets (db.Model):
-    """A singleton containing secrets that shouldn't be exposed at bitbucket"""
+    """A singleton containing secrets that shouldn't be exposed at GitHub"""
     sso_secret = db.StringProperty(indexed=False)
 # Loading this once at startup means the app needs to be restarted after changing secrets in the datastore!
 secrets = AppSecrets.get( db.Key.from_path("AppSecrets","instance") )
@@ -180,7 +182,7 @@ class ApiUser(ApiRequest):
         #self.redirect( "/api/login" ) # routing now done in ide.js
 
 class ApiUserFolders(ApiRequest):
-    def get(self, user):
+    def get(self, user):                                                        ##### display all public or owned folders                                           
         m = re.search(r'/user/([^/]+)', self.request.path)
         user = m.group(1)
         if not self.authorize(): return
@@ -190,7 +192,7 @@ class ApiUserFolders(ApiRequest):
         self.respond( {"user" : user, "folders" : folders} )
 
 class ApiUserFolder(ApiRequest):
-    def put(self, user, folder):
+    def put(self, user, folder):                                                ##### create a new folder
         m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)
@@ -199,9 +201,16 @@ class ApiUserFolder(ApiRequest):
         db_user = User.get( db.Key.from_path("User",user) )
         if not db_user:
             return self.error(404)
+        #import cgi
+        #params = cgi.parse_qs(self.request.body)
+        #req_program = params['program'][0]
+        #changes = json.loads( req_program )
+        #folder = Folder( parent = db_user, key_name = folder, isPublic = changes['public'] )
+        ### Also change public=True in My Programs, above
         folder = Folder( parent = db_user, key_name = folder, public=True )
         folder.put()
-    def delete(self, user, folder):
+        
+    def delete(self, user, folder):                                             ##### delete an existing folder
         m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)
@@ -217,7 +226,7 @@ class ApiUserFolder(ApiRequest):
         db_folder.delete()
 
 class ApiUserFolderPrograms(ApiRequest):
-    def get(self, user, folder):
+    def get(self, user, folder):                                                ##### display all programs in a public or owned folder
         m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)
@@ -225,6 +234,12 @@ class ApiUserFolderPrograms(ApiRequest):
         if not self.validate(user, folder): return
         # TODO: Check that folder exists!
         # TODO: Check that folder is public or user is authorized
+        #db_folder = Folder.get(db.Key.from_path("User",user,"Folder",folder))
+        #try:
+        #	pub = db_folder.isPublic # before March 2015, isPublic wasn't set
+        #except:
+        #	pub = True
+        #if not pub: return
         programs = [
             { "name": p.key().name(),
               "description": unicode(p.description or unicode()),
@@ -233,7 +248,7 @@ class ApiUserFolderPrograms(ApiRequest):
         self.respond( {"user":user, "folder" : folder, "programs":programs} )
 
 class ApiUserFolderProgram(ApiRequest):
-    def get(self, user, folder, name):
+    def get(self, user, folder, name):                                          ##### access a public or owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)
@@ -249,7 +264,8 @@ class ApiUserFolderProgram(ApiRequest):
             "description": unicode(db_program.description or unicode()),
             "screenshot": str(db_program.screenshot or ""),
             "source": unicode(db_program.source or unicode())} )
-    def put(self, user, folder, name):
+            
+    def put(self, user, folder, name):                                          ##### write an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)
@@ -274,7 +290,8 @@ class ApiUserFolderProgram(ApiRequest):
         if "screenshot" in changes:  db_program.screenshot = db.Blob(str(changes["screenshot"]))
         if "source" in changes: db_program.source = changes["source"]
         db_program.put()
-    def delete(self, user, folder, name):
+        
+    def delete(self, user, folder, name):                                       ##### delete an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)

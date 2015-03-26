@@ -114,7 +114,7 @@ function ideRun() {
                     var container = $("#glowscript")
                     if (message.version !== "0.3") container.removeAttr("id")
 
-                    compileAndRun(message.program, container, message.lang)
+                    compileAndRun(message.program, container, message.lang, progver)
                     if (message.autoscreenshot)
                         setTimeout(function () {
                             if (!window.lasterr)
@@ -131,10 +131,10 @@ function ideRun() {
         }
     }
 
-    function compileAndRun(program, container, lang) {
+    function compileAndRun(program, container, lang, version) {
         try {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
-            var options = {lang: lang}
+            var options = {lang: lang, version: version}
             //WHY? window.translations = options.translations = [program]
             options.translations = [program]
             var program = glowscript_compile(program, options)
