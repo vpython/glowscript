@@ -218,18 +218,19 @@ function ideRun() {
 
                 // TODO: Selection and highlighting in the dialog
                 var first = true
-                for (var i=1; i<rawStack.length; i++) {
-                    var m = rawStack[i].match(unpack)
-                    if (m === null) continue
-	                var caller = m[1]
-	                var jsline = m[2]
-	                var jschar = m[3]
+                var i, m, caller, jsline, jschar
+                for (i=1; i<rawStack.length; i++) {
+                    m = rawStack[i].match(unpack)
+	                    if (m === null) continue
+	                caller = m[1]
+	                jsline = m[2]
+	                jschar = m[3]
                 	if (caller == 'new') {
                 		m = rawStack[i].match(/[ ]*at[ ]new[ ]*([^ ]*)/)
                 		caller = m[1]
                 	}
                     if (caller == 'compileAndRun') break
-                	if (!referror && caller !== '__$main' &&
+                	if (!referror && 
                 			(caller[0] == '_' || caller == 'main' || caller.slice(0,4) == 'http')) continue
                     var L = window.__linenumbers[jsline-1]
 	                if (L === undefined) continue
