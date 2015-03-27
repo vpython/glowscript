@@ -195,6 +195,7 @@ function ideRun() {
         // err.stack: https://code.google.com/p/v8-wiki/wiki/JavaScriptStackTraceApi
     	// TraceKit - Cross browser stack traces: https://github.com/occ/TraceKit
     	var referror = (err.__proto__.name === 'ReferenceError')
+    	//var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
     	var traceback = []
         if (err.cursor) {
@@ -230,7 +231,7 @@ function ideRun() {
                 		caller = m[1]
                 	}
                     if (caller == 'compileAndRun') break
-                	if (!referror && 
+                	if (!referror && !caller == '__$main' &&
                 			(caller[0] == '_' || caller == 'main' || caller.slice(0,4) == 'http')) continue
                     var L = window.__linenumbers[jsline-1]
 	                if (L === undefined) continue
