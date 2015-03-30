@@ -98,26 +98,28 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p class="Normal"><strong><font color="#0000A0">Overall gdisplay options</font></strong></p>
           <p class="Normal">You can establish a <span class="attribute">gdisplay</span> to set the size, position, and title for the title bar of the graph window, 
             
-            specify titles for the x and y axes, and specify maximum values for each 
+            specify titles for the x and y axes,  specify maximum values for each 
             
-            axis, before creating <span class="attribute">gcurve</span> or other kind 
+            axis, and set foreground and background colors, before creating <span class="attribute">gcurve</span> or other kind 
             
-            of graph plotting object (the foreground color is always white and the background color always black):</p>
-
+            of graph plotting object:          </p>
           <p class="program"> gd = gdisplay(x=0, y=0, width=600, height=150, <br />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='N 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='N 
             
-            vs. t', xtitle='t', ytitle='N',  <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmax=50, 
+            vs. t', xtitle='t', ytitle='N', <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreground=color.black, 
             
-            xmin=-20, ymax=5E3, ymin=-2E3)</p>
-          <p class="Normal"> In this example, the graph window will be located at (0,0), 
+            background=color.white, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmax=50, 
+            
+      xmin=-20, ymax=5E3, ymin=-2E3)</p>
+      <p class="Normal"> In this example, the graph window will be located at (0,0), 
             
             with a size of 600 by 150 pixels, and the title bar will say 'N vs. t'. 
             
             The graph will have a title 't' on the horizontal axis and 'N' on the vertical 
             
-        axis.             </p>
+            axis. The foreground color is black (the default), and the background color is white (the default).</p>
           <p class="Normal">Instead of autoscaling the graph to display all the data, the graph in this example  
             
             will have fixed limits. The horizontal axis will extend from -20 to +50, 

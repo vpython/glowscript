@@ -130,12 +130,15 @@ for i in [0..11] by 0.2<br />
         By default the dot has the same color as the line, but you can
         specify a different color, as in <span class="attribute">dot_color=color.green</span>.</p>
       <p class="Normal"><strong><font color="#0000A0">Overall graph options</font></strong></p>
-          <p class="Normal">You can establish a <span class="attribute">graph</span> object to set the size of the graph window before creating a series for that graph::</p>
+          <p class="Normal">You can establish a <span class="attribute">graph</span> object to set the size and color of the graph window before creating a series for that graph::</p>
 
-          <p class="program"> gd = graph( width=600, height=150 )</p>
+          <p class="program"> gd = graph( width=600, height=150,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreground=color.black,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background=color.white )</p>
           <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
             
-      are <span class="attribute">width=640</span>, <span class="attribute">height=200</span>, fully autoscaled. You can optionally specify minimum and maximum x or y values with <span class="attribute">xmin</span>, <span class="attribute">xmax</span>, <span class="attribute">ymin</span>, <span class="attribute">ymax</span>. The following will set minimum values for x and y, with the maximum values determined by the actual data:</p>
+      are <span class="attribute">width=640</span>, <span class="attribute">height=200</span>, fully autoscaled. Black foreground and white background are the defaults.</p>
+          <p class="Normal">You can optionally specify minimum and maximum x or y values with <span class="attribute">xmin</span>, <span class="attribute">xmax</span>, <span class="attribute">ymin</span>, <span class="attribute">ymax</span>. The following will set minimum values for x and y, with the maximum values determined by the actual data:</p>
           <p class="program"> gd = graph( width=600, height=150,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmin=-5, ymin=10          } )</p>
         <p class="Normal">After creating a graph, you can change any of these graph attributes:</p>
