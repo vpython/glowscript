@@ -47,13 +47,56 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
     <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
 
-        <table width="100%" border="1">
+    <table width="100%" border="1">
           <tr>
-            <td width="73%"><div align="center"><span class="style1 style2"><font color="#0000A0">extrusion</font></span></div></td>
-            <td width="27%"><div align="center"><img src="images/extrusion.jpg" width="211" height="174" alt="extrusion" /><a href="arrow.html"></a></div></td>
+            <td width="99%"><div align="center"><span class="style1 style2"><font color="#0000A0">extrusion</font></span></div></td>
+            <td width="1%"><div align="center"><a href="arrow.html"></a></div></td>
           </tr>
         </table>
-        <p class="Normal">The extrusion object extrudes a 2D shape along a path. It is currently not supported in GlowScript.</p>
+        <p class="Normal">The extrusion object extrudes a 2D shape along a path. The GlowScript extrusion object is currently more limited than the classic VPython extrusion object. Here is the minimal syntax:</p>
+      <p align="center" class="program">ex = extrusion(pos=..., shape=...)</p>
+      <p class="Normal"> The <span class="attribute">pos</span> attribute is a list of points like the <span class="attribute">pos</span> attribute of a curve object. The <span class="attribute">shape</span> attribute is a list of x-y pairs describing the perimeter of a 2D surface, such as<span class="program">[ [2,0], [0,4], [-2,0], [2,0] ]</span>. </p>
+<p class="Normal"><strong><font color="#0000a0">The three steps to make an extrusion</font></strong></p>
+        <p class="Normal"><strong>1)</strong> Create a 2D shape, either by giving a list of points or by choosing a shape from a supplied library of common shapes. Here are two examples. The first creates a triangle by providing 3 points to the Polygon function. The second creates a circular shape from a library of shapes, and the third creates a rectangular shape (it is intended to provide a larger variety of shapes in the future.)</p>
+        <p class="program">tri = [ [2,0], [0,4], [-2,0], [2,0] ]</p>
+        <p class="program">circ = shapes.circle(radius=0.8)</p>
+      <p class="program">rect = shapes.rectangle(width=0.2, height=0.4)<br />
+      </p>
+      <p class="Normal">Currently a shape must be closed. That is, the last point must be the same as the first point.</p>
+        <p class="Normal"><strong>2)</strong> Create a path along which to extrude your shape (just like the <span class="attribute">pos</span> attribute of a curve object), either by giving a list of points or by choosing a path from a supplied library of common paths. Here are two examples. The first is a triangular path. The second chooses a circular path in the xz plane, and the third chooses a rectangular path in the xz plane.</p>
+        <p class="program">tripath = [ vector(1,0,0), vector(0,0,-2), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        vector(-1,0,0], vector(1,0,0) ]</p>
+        <p class="program">circpath = paths.circle(radius=3)</p>
+        <p class="program">rectpath = paths.rectangle(width=4, height=2)<br />
+        </p>
+      <p class="Normal">Currently a path must be closed. That is, the last point must be the same as the first point.</p>
+      <p class="Normal"><strong>3)</strong> Create an extrusion object to extrude your shape along your path. For example, using paths and shapes defined above,</p>
+      <p class="program">extrusion(pos=circpath, shape=rect)</p>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div></div>
+              </div>
+              <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
+                <p class="Normal">The paths in the paths library all go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
+              <div>
+                  <div></div>
+                </div>
+                <p class="Normal"><strong><font color="#0000a0">Dynamic change of attributes</font></strong> </p>
+                <div>
+                  <div></div>
+              </div>
+            </div>
+        </div>
+<p class="Normal">The extrusion object is rendered quite rapidly, so unusual effects are possible. An extrusion object is treated like a compound object, and you can dynamically change its pos (a vector), axis, size, color, and up attributes, as with other objects.</p>
+<p class="Normal"><strong><font color="#0000a0">How the extrusion machinery works</font></strong></p>
+            <p class="Normal">At every point along the <span class="attribute">pos</span> path this point plus the preceding and following points define a plane. A 2D plane is established perpendicular to the tangent to the circle at this point. The 2D shape is drawn in this 2D plane. A shape should be positioned so that its center is approximately at the location of the <span class="attribute">pos</span> locations. If you offset the shape far from the path, you may get odd results, because there is enhanced danger of two adjacent drawing planes  intersecting each other. Also, making sharp turns of wide extrusions may lead to one segment overlapping another. </p>
+            <p class="Normal">If the bending angle from one point to the next is large, the fitted circle is abandoned, and the orientation of the 2D plane is determined from the direction from the previous point to the current point and the direction from the current point to the next point, giving a mitered joint. The bending angle is considered to be large if its cosine if greater than 0.95 (an angle of about 18 degrees). </p>
+        </div>
+        <div></div>
+      </div>
     <!-- InstanceEndEditable --></td>
   </tr>
   <tr>
