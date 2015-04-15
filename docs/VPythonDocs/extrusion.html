@@ -73,6 +73,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">Currently a path must be closed. That is, the last point must be the same as the first point.</p>
       <p class="Normal"><strong>3)</strong> Create an extrusion object to extrude your shape along your path. For example, using paths and shapes defined above,</p>
       <p class="program">extrusion(pos=circpath, shape=rect)</p>
+      <p class="Normal"><strong>Point positions are relative:</strong> A point whose pos  is <span class="program">vector</span>(2, 1, 0) is of course normally displayed at location <span class="program">vector</span>(2, 1, 0). However, the position of a point is <em>relative</em> to an extrusion's own <span class="attribute">origin</span> value, which by default is <span class="program">vector</span>(0, 0, 0). If you change the extrusion's <span class="attribute">origin</span> value to <span class="program">vector</span>(10, 6, 5), the point is displayed at the location <span class="program">vector</span>(12, 7, 5); that is, the point is displayed 2 to the right, 6 above, and 0 in front of the extrusion's position <span class="program">vector</span>(10, 6, 5). Another way of saying this is that the display location is the vector sum, <span class="program">vector</span>(10, 6, 5) + <span class="program">vector</span>(2, 1, 0). This means that you can quickly and efficiently move the entire extrusion just by changing the extrusion's <span class="attribute">origin</span> value. The <span class="attribute">pos</span> value of an individual point does not change; it's just that the point is displayed in a shifted position. As a result, moving an entire extrusion is very fast.</p>
       <div>
         <div>
           <div>
@@ -84,7 +85,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 <p class="Normal">The paths in the paths library all go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
               <div>
                   <div></div>
-                </div>
+          </div>
                 <p class="Normal"><strong><font color="#0000a0">Dynamic change of attributes</font></strong> </p>
                 <div>
                   <div></div>
