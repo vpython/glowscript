@@ -176,7 +176,9 @@ class ApiUser(ApiRequest):
         db_user = User( key_name = username, gaeUser = gaeUser, secret = base64.urlsafe_b64encode(os.urandom(16)) )
         db_user.put()
 
-        db_my_programs = Folder( parent = db_user, key_name = "My%20Programs", public=True )
+        db_my_programs = Folder( parent = db_user, key_name = "Public", isPublic=True )
+        db_my_programs.put()
+        db_my_programs = Folder( parent = db_user, key_name = "Private", isPublic=False )
         db_my_programs.put()
 
         #self.redirect( "/api/login" ) # routing now done in ide.js
@@ -187,8 +189,13 @@ class ApiUserFolders(ApiRequest):
         user = m.group(1)
         if not self.authorize(): return
         if not self.validate(user): return
-        # TODO: If user is not authorized, return only public folders
-        folders = [ k.name() for k in Folder.all(keys_only=True).ancestor(db.Key.from_path("User",user)) ]
+        gaeUser = users.get_current_user()
+        db_user = User.get( db.Key.from_path("User",user) )
+        folders = []
+        for k in Folder.all().ancestor(db.Key.from_path("User",user)):
+        	if k.isPublic != None and not k.isPublic and gaeUser != db_user.gaeUser: continue
+        	folders.append(k.key().name())
+        #folders = [ k.name() for k in Folder.all(keys_only=True).ancestor(db.Key.from_path("User",user)) ]
         self.respond( {"user" : user, "folders" : folders} )
 
 class ApiUserFolder(ApiRequest):
@@ -201,13 +208,13 @@ class ApiUserFolder(ApiRequest):
         db_user = User.get( db.Key.from_path("User",user) )
         if not db_user:
             return self.error(404)
-        #import cgi
-        #params = cgi.parse_qs(self.request.body)
-        #req_program = params['program'][0]
-        #changes = json.loads( req_program )
-        #folder = Folder( parent = db_user, key_name = folder, isPublic = changes['public'] )
+        import cgi
+        params = cgi.parse_qs(self.request.body)
+        req_program = params['program'][0]
+        changes = json.loads( req_program )
+        folder = Folder( parent = db_user, key_name = folder, isPublic = changes['public'] )
         ### Also change public=True in My Programs, above
-        folder = Folder( parent = db_user, key_name = folder, public=True )
+        #folder = Folder( parent = db_user, key_name = folder, public=True )
         folder.put()
         
     def delete(self, user, folder):                                             ##### delete an existing folder
@@ -232,14 +239,15 @@ class ApiUserFolderPrograms(ApiRequest):
         folder = m.group(2)
         if not self.authorize(): return
         if not self.validate(user, folder): return
-        # TODO: Check that folder exists!
-        # TODO: Check that folder is public or user is authorized
-        #db_folder = Folder.get(db.Key.from_path("User",user,"Folder",folder))
-        #try:
-        #	pub = db_folder.isPublic # before March 2015, isPublic wasn't set
-        #except:
-        #	pub = True
-        #if not pub: return
+        db_folder = Folder.get(db.Key.from_path("User",user,"Folder",folder))
+        gaeUser = users.get_current_user()
+        db_user = User.get( db.Key.from_path("User",user) )
+        try:
+        	pub = db_folder.isPublic is None or db_folder.isPublic or gaeUser == db_user.gaeUser # before March 2015, isPublic wasn't set
+        except:
+        	pub = True
+        if not pub:
+            return self.error(405)
         programs = [
             { "name": p.key().name(),
               "description": unicode(p.description or unicode()),
@@ -255,11 +263,18 @@ class ApiUserFolderProgram(ApiRequest):
         name = m.group(3)
         if not self.authorize(): return
         if not self.validate(user, folder, name): return
-        # TODO: Check that folder is public or user is authorized
+        db_folder = Folder.get(db.Key.from_path("User",user,"Folder",folder))
+        gaeUser = users.get_current_user()
+        db_user = User.get( db.Key.from_path("User",user) )
+        try:
+        	pub = db_folder.isPublic is None or db_folder.isPublic or gaeUser == db_user.gaeUser # before March 2015, isPublic wasn't set
+        except:
+        	pub = True
+        if not pub:
+            return self.error(405)
         db_program = Program.get( db.Key.from_path("User",user,"Folder",folder,"Program",name) )
         if not db_program:
-            self.error(404)
-            return
+            return self.error(404)
         self.respond( {"user":user,"folder":folder,"name":name,
             "description": unicode(db_program.description or unicode()),
             "screenshot": str(db_program.screenshot or ""),
