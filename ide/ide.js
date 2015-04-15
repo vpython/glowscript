@@ -588,12 +588,9 @@ $(function () {
             for (var i = 0; i < folders.length; i++) {
                 var h = folderTemplate.clone().removeClass("template").addClass("templated")
                 var name = decode(folders[i])
-                console.log(name, folder)
                 if (name == folder) h.addClass("ui-tabs-active").addClass("ui-state-active")
-                console.log(username, name)
                 h.find(".folder-name").text(name).prop("href", unroute({page:"folder", user:username, folder:name}))
                 h.insertBefore(before)
-                console.log(h)
             }
         })
 
