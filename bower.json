@@ -1,0 +1,31 @@
+{
+  "name": "glowscript",
+  "version": "v1.1.0",
+  "homepage": "http://www.glowscript.org/",
+  "authors": [
+    "Bruce Sherwood <bruce.sherwood@gmail.com>"
+  ],
+  "description": "GlowScript is an easy-to-use, powerful environment for creating 3D animations and publishing them on the web.",
+  "main": [
+    "package/glow.1.1.min.js",
+    "package/compiler.1.1.min.js",
+    "package/RSrun.1.1.min.js",
+    "package/RScompiler.1.1.min.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BruceSherwood/glowscript.git"
+  },
+  "keywords": [
+    "vpython",
+    "webgl",
+    "javascript"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
