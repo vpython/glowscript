@@ -7,13 +7,6 @@ precision mediump float;
 #endif
 
 attribute vec3 pos;
-attribute vec3 normal;
-attribute vec3 color;
-attribute float opacity;
-attribute float shininess;
-attribute float emissive;
-attribute vec2 texpos;
-attribute vec3 bumpaxis;
 
 uniform vec4 objectData[5];
 #define objectPos objectData[0].xyz
@@ -51,8 +44,6 @@ void main(void) {
     // The position of this vertex in world space
     vec3 ws_pos = rot*(objectScale*pos) + objectPos;
     vec4 pos4 = viewMatrix * vec4( ws_pos, 1.0);
-    es_position = pos4.xyz;
-    es_normal = (viewMatrix * vec4(rot*normal, 0.0)).xyz;
     vec4 posp = projMatrix * pos4;
     gl_Position = posp;
 }

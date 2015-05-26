@@ -57,8 +57,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">The GlowScript extrusion object is currently more limited than the classic VPython extrusion object. Here is the minimal syntax:</p>
       <p align="center" class="program">ex = extrusion(pos=..., shape=...)</p>
       <p class="Normal"> The <span class="attribute">pos</span> attribute is a list of points like the <span class="attribute">pos</span> attribute of a curve object. The <span class="attribute">shape</span> attribute is a list of x-y pairs describing the perimeter of a 2D surface, such as<span class="program">[ [2,0], [0,4], [-2,0], [2,0] ]</span>. </p>
-<p class="Normal"><strong><font color="#0000a0">The three steps to make an extrusion</font></strong></p>
-        <p class="Normal"><strong>1)</strong> Create a 2D shape, either by giving a list of points or by choosing a shape from a supplied library of common shapes. Here are two examples. The first creates a triangle by providing 3 points to the Polygon function. The second creates a circular shape from a library of shapes, and the third creates a rectangular shape (it is intended to provide a larger variety of shapes in the future.)</p>
+<p class="Normal"><strong><font color="#0000a0">The three steps to making an extrusion</font></strong></p>
+        <p class="Normal"><strong>1)</strong> Create a 2D shape, either by giving a list of points or by choosing a shape from a supplied library of common shapes. Here are two examples. The first creates a triangle by providing 3 points to the Polygon function. The second creates a circular shape from a library of shapes, and the third creates a rectangular shape (it is intended to provide a larger variety of shapes in the future).</p>
         <p class="program">tri = [ [2,0], [0,4], [-2,0], [2,0] ]</p>
         <p class="program">circ = shapes.circle(radius=0.8)</p>
       <p class="program">rect = shapes.rectangle(width=0.2, height=0.4)<br />
@@ -83,6 +83,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               </div>
               <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
                 <p class="Normal">The paths in the paths library all go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
+                <p class="Normal">However, when specifying a path from the paths library (currently paths.circle and paths.rectangle), you can specify a pos and axis. The path of the following extrusion will have a center at the location vector(1,2,0) oriented perpendicular to the axis at vector(1,0,0):</p>
+                <p class="program">extrusion(path=paths.circle(pos=vector(1,2,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(1,0,0), radius=2),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.cyan)</p>
                 <div>
                   <div>
                     <div>
@@ -90,8 +93,6 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                         <div>
                           <div></div>
                         </div>
-                        <p class="Normal"><strong><font color="#0000a0">Compounds</font></strong></p>
-                        <p class="Normal">You can use extrusions.in <strong><a href="compound.html">compound</a></strong> objects.</p>
                       </div>
                     </div>
                   </div>
@@ -99,13 +100,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 <div>
                   <div>
                     <div>
-                      <div>
-                        <div>
-                          <div></div>
-                        </div>
-                        <p class="Normal"><strong><font color="#0000a0">Clones</font></strong> </p>
-                        <p class="Normal">As with  other objects, you can make a <strong><a href="clone.html">clone</a></strong> of an extrusion, and this is a good way to make multiple copies of a complicated object. When you create an extrusion its shape and other characteristics become a &quot;model&quot; that is just as fundamental as the model of a box or cylinder object and is stored in the Graphic Processing Unit (GPU) memory for rapid display. If you clone your extrusion, this model can be used in the displaying of all of the clones.</p>
-                      </div>
+                      <div> </div>
                     </div>
                   </div>
               </div>
