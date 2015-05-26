@@ -21,9 +21,6 @@ uniform vec4 objectData[5];
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 
-varying vec3 es_position;     // eye space surface position
-varying vec3 es_normal;       // eye space surface normal
-
 mat3 getObjectRotation() {
     // Construct the object rotation matrix.
     float vmax = max( max( abs(objectAxis.x), abs(objectAxis.y) ), abs(objectAxis.z) );
