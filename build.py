@@ -108,7 +108,7 @@ def minify(inlibs, inlibs_nomin, outlib):
         outf.write(all)
     outf.write( combine(inlibs_nomin) )
     outf.close()
-  
+
 minify( glowscript_libraries["run"], [], "package/glow." + version + ".min.js" )
 print('Finished glow run-time package')
 minify( glowscript_libraries["compile"], [], "package/compiler." + version + ".min.js" )
