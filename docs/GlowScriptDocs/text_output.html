@@ -61,6 +61,57 @@
       <p class="program">var v = vec(1,2,3)<br />
         print(&quot;Look:&quot;, {end:&quot;---&quot;})<br />
         print(&quot;v =&quot;, v, &quot;.&quot;, {sep=&quot;_&quot;, end=&quot;!!&quot;})</p>
+      <p class="Normal"></p>
+      <h1 class="Heading-1"><font color="#0000a0"> String formatting</font></h1>
+      <div>
+        <p class="Normal">Python has a powerful mechanism for formatting a string. This has now been implemented in GlowScript (for VPython, RapydScript, CoffeeScript, and JavaScript). Here is an example (in VPython):</p>
+      </div>
+      <div></div>
+      <div>
+        <p class="program">V = 13.47<br />
+          s = &quot;There are {:.1f} {}.&quot;<br />
+          p = s.format(V, 'liters')<br />
+          print(p) # &quot;There are 13.5 liters.&quot; </p>
+      </div>
+      <div>
+        <p class="Normal">Or more compactly,</p>
+        <p class="program">print( &quot;There are {:.1f} {}.&quot;.format(V, 'liters') )</p>
+      </div>
+      <div>
+        <p class="Normal">The element &quot;{:.1f}&quot; indicates &quot;fixed format&quot; with &quot;.1&quot; indicating that one digit should be shown after the decimal point. The value 13.47 is rounded to 13.5. If you specify &quot;{:12.3f}&quot;, what will be displayed is &quot;      13.470&quot;, with 6 spaces before the number, plus the 6 digits of &quot;13.470&quot; (3 after the decimal point), for a total of 12 characters.</p>
+      </div>
+      <div></div>
+      <div>
+        <p class="Normal">The element &quot;{}&quot; indicates that the default method for representing an argument should be used. In this case &quot;bucket&quot; is displayed.</p>
+      </div>
+      <div></div>
+      <div>
+        <p class="Normal">There are many formats available: b for binary (base 2), o for octal (base 8), x for hexidecimal (base 16; 28 displays as 1c), d for decimal integer, e for exponential (e.g. 5.32e-7), c for character code (e.g. converts &quot;b&quot; to 97), % for percent (displays 0.34 as 34%). The E exponential format gives 5.32E-7 and the X hexidecimal format gives 1C. </p>
+      </div>
+      <div></div>
+      <div>
+        <p class="Normal">The g format (g for general) is particularly useful because it flips between fixed and exponential formats depending on the size of the number.</p>
+        <p class="Normal">The following statement</p>
+        <div></div>
+        <div>
+          <p class="program">print(&quot;The {} {} {}.&quot;.format(&quot;quick&quot;,&quot;brown&quot;,&quot;fox&quot;))</p>
+        </div>
+        <div>
+          <p class="Normal">produces &quot;The quick brown fox&quot;. You can specify a different order of the arguments. The following statement</p>
+        </div>
+        <div></div>
+        <div>
+          <p class="program">print(&quot;The {2} {0} {1}.&quot;.format(&quot;quick&quot;,&quot;brown&quot;,&quot;fox&quot;))<br />
+          </p>
+        </div>
+        <div>
+          <p class="Normal">produces &quot;The fox quick brown.&quot; In other words, {N} refers to the Nth argument, counting from zero.</p>
+          <p class="Normal">Moreover, you can combine specifying which argument to display with the format to use:</p>
+          <div>
+            <p class="program">s = &quot;Here are fixed format ({0:.3f}) and exponential format ({0:.3e}) versions.&quot;.format(127.73) </p>
+          </div>
+        </div>
+      </div>
       <h1 class="Heading-1"><font color="#0000a0"> Print options</font>      </h1>
       <p class="Normal">With <strong>print_options</strong> you can change the default size of the print region, allow the user to edit the text, clear the text from the region,  destroy the region, or obtain the current contents of the print region. </p>
       <p class="Normal">The following statement changes both the width (default 400) and height (default 100) of the print region. If you execute this before your first print statement, the initial size will be 500 by 300. If you execute this after executing print statements, the size of the region will change (but will retain its contents).</p>

@@ -60,8 +60,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       </p>
 <p class="Normal">A convenient way to wait for a mouse event is to use <span class="attribute">scene.pause()</span>, which is equivalent to scene.waitfor('click') but which is not yet available in classic VPython. You can also show a message to the user at the bottom of the display: <span class="attribute">scene.pause('Click to proceed')</span>.</p>
 <p class="Normal">You can obtain a package of information about the event that caused the end of the wait, with the added information of whether it was a mouse or keyboard event:</p>
-      <p class="program"> from visual import *<br />
-        box()<br />
+      <p class="program">        box()<br />
         ev = scene.waitfor('mousedown mouseup')<br />
         if ev.event == 'mousedown':<br />
   &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the mouse button')<br />
