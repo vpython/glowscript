@@ -1020,33 +1020,47 @@ $(function () {
             }
         }
 
-        apiGet( {user:username, folder:folder, program:program}, function (progData) {
-            var editor = ace.edit(page.find(".program-editor").get(0));
-            window.editor = editor
-            
+        apiGet( {user:username, folder:folder, program:program}, function (progData) {            
             var lang = parseVersionHeader(progData.source).lang
             if (!(lang == 'javascript' || lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython')) lang = 'javascript'
             
-            customACEMode(lang, progData.source)
-            var mode = require("ace/mode/visualjs").Mode
-            editor.setTheme({ cssClass: "ace-custom" })
-            editor.getSession().setMode(new mode())
-            editor.getSession().setValue(progData.source)
-            editor.setReadOnly( !isWritable )
-
-            if (isWritable) {
-                var save = saver( {user:username, folder:folder, program:program},
-                    function () { return editor.getSession().getValue() },
-                    function (status) {
-                        page.find(".program-status").text(" ("+status+")");
-                    }
-                )
-                // Save immediately when navigating away from this page
-                onNavigate.on(function (cb) { save(0, cb) })
-                editor.getSession().on('change', function () {
-                    save(1000)  // Save after 1 second of not typing
-                });
+            if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
+	        	var editor = GSedit
+	            window.editor = editor
+	            editor.init(page.find(".program-editor"), progData.source, !isWritable)
+	            if (isWritable) {
+	                var save = saver( {user:username, folder:folder, program:program},
+	                    function () { return editor.getValue() },
+	                    function (status) { page.find(".program-status").text(" ("+status+")") }
+	                )
+	                // Save immediately when navigating away from this page
+	                onNavigate.on(function (cb) { save(0, cb) })
+	                editor.change = function () {
+	                    save(1000)  // Save after 1 second of not typing
+	                }
+	            }            	
+            } else {
+	            var editor = ace.edit(page.find(".program-editor").get(0));
+	            window.editor = editor
+	            customACEMode(lang, progData.source)
+	            var mode = require("ace/mode/visualjs").Mode
+	            editor.setTheme({ cssClass: "ace-custom" })
+	            editor.getSession().setMode(new mode())
+	            editor.getSession().setValue(progData.source)
+	            editor.setReadOnly( !isWritable )
+	            if (isWritable) {
+	                var save = saver( {user:username, folder:folder, program:program},
+		                function () { return editor.getSession().getValue() },
+	                    function (status) { page.find(".program-status").text(" ("+status+")") }
+	                )
+	                // Save immediately when navigating away from this page
+	                onNavigate.on(function (cb) { save(0, cb) })
+	                editor.getSession().on('change', function () {
+	                    save(1000)  // Save after 1 second of not typing
+	                })
+	            }
             }
+            
         })
     }
 
