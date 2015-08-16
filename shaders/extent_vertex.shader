@@ -70,7 +70,7 @@ void main(void) {
     vec4 pos4 = viewMatrix * vec4( ws_pos, 1.0);
     es_position = pos4.xyz;
     es_normal = (viewMatrix * vec4(rot*normal, 0.0)).xyz;
-    vec4 posp = projMatrix * pos4;
+    //gl_Position = posp;
     bumpX = (viewMatrix * vec4(rot*bumpaxis, 0.0)).xyz;
     mat_pos = texpos;
     float extent = abs(ws_pos.x-center.x);
@@ -79,6 +79,6 @@ void main(void) {
     mat_color = vec4(encode_float(extent), 1.0);
     // Setting gl_Position.xy to (-1.0, -1.0) should store into pixel (0, 0), but doesn't work:
     gl_Position = vec4(-1.0, -1.0, 1e-20*extent, 1.0);
-    //gl_Position = posp;
+
     parameters = vec4(objectShininess, objectEmissive, 0.0, 0.0);
 }

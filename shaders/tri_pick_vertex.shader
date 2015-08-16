@@ -17,9 +17,6 @@ uniform mat4 projMatrix;
 varying vec4 vcolor;
 
 void main(void) {
-    vec3 normal = vec3(0.0, 0.0, 1.0);
-    vec4 pos4 = viewMatrix * vec4( pos, 1.0);
-    vec4 posp = projMatrix * pos4;
-    gl_Position = posp;
+    gl_Position = projMatrix * viewMatrix * vec4( pos, 1.0);
     vcolor = color;
 }

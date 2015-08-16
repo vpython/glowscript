@@ -52,7 +52,6 @@ void main(void) {
     vec3 adjpos = (R2*pos.x/xmodel)*xhat +  (R1 + yz)*Rhat;         // adjusted point in model space
     vec3 ws_pos = rot*(adjpos) + objectPos;                         // point in world space
     vec4 pos4 = viewMatrix * vec4( ws_pos, 1.0);
-    vec4 posp = projMatrix * pos4;
-    gl_Position = posp;
+    gl_Position = projMatrix * pos4;
     vcolor = objectColor;
 }

@@ -112,7 +112,7 @@ $(function () {
     }
     function apiGet(route, callback) {
         var url = apiURL(route)
-    	console.log(url, route)
+    	//console.log(url, route)
         $.ajax({
             type: 'GET',
             url: url,
@@ -341,7 +341,8 @@ $(function () {
 
         // For readability, our virtual urls are escaped in a nonstandard way.  Spaces are represented by _, and slashes
         //   are not representable (even escaped).  % and _ are escaped using percent encoding.  Non-ascii characters are NOT escaped.
-
+    	// Later (2014?): There were problems with this scheme, and now spaces etc. are not allowed in names of entities.
+    	
         var h = (location.hash || "#").substr(1)
 
         var components = h.split("/")
@@ -1015,6 +1016,8 @@ $(function () {
                 ev.preventDefault()
                 // If I don't pass anything for features, I get a new tab instead
                 var features = "titlebar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes"
+                //window.open("/#/", "GlowScriptRun", features, true)
+                //window.open(run_link, "GlowScriptRun", features, true)
                 window.open("/#/", "GlowScriptRun", features, true)
                 window.open(run_link, "GlowScriptRun", features, true)
             }

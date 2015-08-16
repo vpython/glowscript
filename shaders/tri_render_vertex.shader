@@ -33,10 +33,9 @@ void main(void) {
     vec4 pos4 = viewMatrix * vec4( pos, 1.0);
     es_position = pos4.xyz;
     es_normal = (viewMatrix * vec4(normal, 0.0)).xyz;
-    vec4 posp = projMatrix * pos4;
+    gl_Position = projMatrix * pos4;
     bumpX = (viewMatrix * vec4(bumpaxis, 0.0)).xyz;
     mat_pos = texpos;
     vcolor = vec4(color, opacity);
-    gl_Position = posp;
     parameters = vec4(shininess, emissive, T, B);
 }

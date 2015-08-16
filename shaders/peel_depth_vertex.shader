@@ -41,6 +41,5 @@ void main(void) {
     // The position of this vertex in world space
     vec3 ws_pos = rot*(objectScale*pos) + objectPos;
     vec4 pos4 = viewMatrix * vec4( ws_pos, 1.0);
-    vec4 posp = projMatrix * pos4;
-    gl_Position = posp;
+    gl_Position = projMatrix * pos4;
 }
