@@ -1066,6 +1066,8 @@ $(function () {
             
         })
     }
+    
+    // NOTE: We use the "require" function found in ace.js
 
     /*********** Customization of the ACE editor *************/
     // See https://github.com/ajaxorg/ace/wiki/Creating-or-Extending-an-Edit-Mode

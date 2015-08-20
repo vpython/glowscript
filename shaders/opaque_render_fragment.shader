@@ -42,7 +42,7 @@ void calc_color(vec4 lpos, vec3 lcolor)
     color += (lcolor * N)*diffuse_color;
     if (shininess > 0.0) {
         vec3 R = reflect(L,normal);
-        color += specular_color * LC(0) * pow(max(dot(R,normalize(pos)),0.0),100.0*shininess);
+        color += specular_color * lcolor * pow(max(dot(R,normalize(pos)),0.0),100.0*shininess);
     }
 }
 
