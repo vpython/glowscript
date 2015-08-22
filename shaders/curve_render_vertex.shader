@@ -109,7 +109,7 @@ void main(void) {
 
     vec4 pos4 = viewMatrix * vec4( ws_pos, 1.0);
     es_position = pos4.xyz;
-    es_normal = (viewMatrix * vec4(rot * normal, 0.0)).xyz;
+    es_normal = (viewMatrix * vec4(rot * (normal/objectScale), 0.0)).xyz;
     
     // no texture or bump map yet for curve object:
     parameters = vec4(objectShininess, objectEmissive, 0.0, 0.0);
