@@ -86,7 +86,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;turn: -3 } )
 </p>
 <p class="Normal">Currently you have to give all the information in one package, as in the example above, rather than specifing an individual parameter such as texture.turn.  You can retrieve this information as <strong>var T = b.texture</strong>, which gives you the information in the form { file: ...., bumpmap:...., etc. }, so that <strong>T.turn</strong> would be -3.</p>
-<p class="Normal"><strong>Color:</strong> Textures have their own colors, but you if you specify a non-white color for a fully textured object, that color is mixed into the texture color, so that you can have for example green stucco. If only portions of the object are textured, the object color is not mixed with the texture color, and non-textured portions are shown with the specified object color.</p>
+<p class="Normal"><strong>Color:</strong> Textures have their own colors, but  if you specify a non-white color for a fully textured object, that color is mixed into the texture color, so that you can have for example green stucco. If only portions of the object are textured, the object color is not mixed with the texture color, and non-textured portions are shown with the specified object color.</p>
 <p class="Normal"><strong>Textures loaded:</strong> It takes time to load a texture from the specified file, so it may be important in your program to wait for all textures to be loaded before displaying the scene. The following sequence will achieve this effect: </p>
 <div></div>
 <div>
