@@ -45,7 +45,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         Using VPython</font> </h1>
       <div>
         <h3 class="Heading-1"> <font color="#0000A0">I. Getting started</font></h3>
-        <p class="Normal">To write a VPython program in the browser, sign in at glowscript.org, click the link to your programs, then click Create New Program. A blank edit page will open with a header line that says &quot;GlowScript 1.1 VPython&quot;. Start typing your program on the second line. Click &quot;Run this program&quot; to try out your program.</p>
+        <p class="Normal">To write a VPython program in the browser, sign in at glowscript.org, click the link to your programs, then click Create New Program. A blank edit page will open with a header line that says something like &quot;GlowScript 1.1 VPython&quot;. Start typing your program on the second line. Click &quot;Run this program&quot; to try out your program.</p>
       </div>
       <div>
         <h3 class="Heading2"> <font color="#0000A0">The Display window</font></h3>
@@ -268,7 +268,9 @@ else:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# any other case<br />
           use the &quot;print&quot; option:</p>
         <p class="program"> print(Europa.momentum)</p>
         <p class="Normal"> To print a text message, enclose it in quotes:</p>
-        <p class="program"> print(&quot;We   crashed on the Moon with speed&quot;, v, &quot;m/s.&quot;)</p>
+        <p class="program"> print(&quot;We   crashed with speed&quot;, v, &quot;m/s.&quot;)</p>
+        <p class="Normal"> This could also be done like this:</p>
+        <p class="program"> print(&quot;We   crashed with speed {} m/s.&quot;.format(v))</p>
       <h3 class="Heading2"><font color="#0000A0">More Information about Python</font></h3>
         <p class="Normal">We have summarized a  small but important subset of the Python programming
           language. Extensive Python information is available on the internet.</p>
