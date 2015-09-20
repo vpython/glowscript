@@ -7,7 +7,7 @@ threadsafe: true
 builtins:
 - admin_redirect: on
 
-handlers:  
+handlers:
 - url: /css
   static_dir: css
 
