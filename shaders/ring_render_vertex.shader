@@ -52,6 +52,8 @@ mat3 getObjectRotation() {
 
 void main(void) {
 	mat3 rot = getObjectRotation();
+	
+	
     // Adjust model pos based on specified R1 and R2 of ring
     float zmodel = 0.5;  // default 0.5*size.z (outer radius of ring): ring mesh made with R1=0.5-0.05, R2=0.05
     float xmodel = 0.05; // default 0.5*size.x (radius of cross section of ring)
@@ -62,6 +64,17 @@ void main(void) {
     vec3 xhat = vec3(1.0,0.0,0.0);                                  // unit vector in direction of axis of ring
     float yz = (length(Rproj) - (zmodel - xmodel))*R2/xmodel;
     vec3 adjpos = (R2*pos.x/xmodel)*xhat +  (R1 + yz)*Rhat;         // adjusted point in model space
+    
+    /*
+    float R2 = 0.05;                     // radius of cross-section of model
+    float R1 = 0.05 - R2;                // radius of centerline of model
+    vec3 Ryz = vec3(0.0,pos.y,pos.z);    // from center to projection of model point in yz plane
+    vec3 r1 = R1*normalize(Ryz);         // location of circular centerline in yz plane in model
+    vec3 offset = (pos - r1)/objectScale;              // vector from centerline to pos
+    vec3 r2 = r1*objectScale;            // resize the circular centerline to an ellipse in yz plane
+    vec3 adjpos = r2 + offset;
+    */
+    
     vec3 ws_pos = rot*(adjpos) + objectPos;                         // point in world space
     vec4 pos4 = viewMatrix * vec4( ws_pos, 1.0);
     es_position = pos4.xyz;
