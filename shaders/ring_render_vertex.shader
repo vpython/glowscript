@@ -52,33 +52,20 @@ mat3 getObjectRotation() {
 
 void main(void) {
 	mat3 rot = getObjectRotation();
-	
-	
     // Adjust model pos based on specified R1 and R2 of ring
-    float zmodel = 0.5;  // default 0.5*size.z (outer radius of ring): ring mesh made with R1=0.5-0.05, R2=0.05
-    float xmodel = 0.05; // default 0.5*size.x (radius of cross section of ring)
-    float R2 = 0.5*objectScale.x;                                   // R2 = radius of cross section
-    float R1 = 0.5*objectScale.z - R2;                              // R1 = radius of centerline of ring
-    vec3 Rproj = vec3(0.0,pos.y,pos.z);                             // from center to projection of point in yz plane
-    vec3 Rhat = normalize(Rproj);                                   // unit vector from center to yz projection of pos
-    vec3 xhat = vec3(1.0,0.0,0.0);                                  // unit vector in direction of axis of ring
-    float yz = (length(Rproj) - (zmodel - xmodel))*R2/xmodel;
-    vec3 adjpos = (R2*pos.x/xmodel)*xhat +  (R1 + yz)*Rhat;         // adjusted point in model space
+    float R1 = 0.5;                          // radius of centerline of model
+    float R2 = 0.05;                         // radius of cross-section of model
+    vec3 Rp = vec3(0.0,pos.y,pos.z);         // from center of ring to projection of model vertex onto yz plane
+    vec3 rc1 = (R1-R2)*normalize(Rp);        // from center of ring to centerline
+    vec3 rc2 = rc1*objectScale; 			 // from center of ring to centerline, world coordinates
+    vec3 nr2 = normalize(rc1/objectScale);   // lies in the plane of the cross section at this location
+    vec3 adjpos = rc2 + 0.5*objectScale.x*(pos.x*vec3(1,0,0) + dot(Rp-rc1,normalize(Rp))*nr2)/R2; // world coordinates
+    vec3 N = adjpos - rc2;                   // normal, world coordinates
     
-    /*
-    float R2 = 0.05;                     // radius of cross-section of model
-    float R1 = 0.05 - R2;                // radius of centerline of model
-    vec3 Ryz = vec3(0.0,pos.y,pos.z);    // from center to projection of model point in yz plane
-    vec3 r1 = R1*normalize(Ryz);         // location of circular centerline in yz plane in model
-    vec3 offset = (pos - r1)/objectScale;              // vector from centerline to pos
-    vec3 r2 = r1*objectScale;            // resize the circular centerline to an ellipse in yz plane
-    vec3 adjpos = r2 + offset;
-    */
-    
-    vec3 ws_pos = rot*(adjpos) + objectPos;                         // point in world space
+    vec3 ws_pos = rot*(adjpos) + objectPos;  // point in world space
     vec4 pos4 = viewMatrix * vec4( ws_pos, 1.0);
     es_position = pos4.xyz;
-    es_normal = (viewMatrix * vec4(rot*(normal/objectScale), 0.0)).xyz;
+    es_normal = (viewMatrix * vec4(rot*N, 0.0)).xyz;
     gl_Position = projMatrix * pos4;
     bumpX = (viewMatrix * vec4(rot*bumpaxis, 0.0)).xyz;
     mat_pos = texpos;
