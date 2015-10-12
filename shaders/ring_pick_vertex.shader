@@ -44,11 +44,9 @@ void main(void) {
     float R1 = 0.5;                          // radius of centerline of model
     float R2 = 0.05;                         // radius of cross-section of model
     vec3 Rp = vec3(0.0,pos.y,pos.z);         // from center of ring to projection of model vertex onto yz plane
-    vec3 r1 = R1*normalize(Rp);              // from center of ring to outer edge of model in yz plane
     vec3 rc1 = (R1-R2)*normalize(Rp);        // from center of ring to centerline
-    vec3 r2 = r1*objectScale;                // resize the circular centerline to an ellipse in yz plane
-    vec3 nr2 = normalize(r2);
-    vec3 rc2 = (length(r2)-0.5*objectScale.x)*nr2; // from center of ring to centerline, world coordinates
+    vec3 rc2 = rc1*objectScale; 			 // from center of ring to centerline, world coordinates
+    vec3 nr2 = normalize(rc1/objectScale);   // lies in the plane of the cross section at this location
     vec3 adjpos = rc2 + 0.5*objectScale.x*(pos.x*vec3(1,0,0) + dot(Rp-rc1,normalize(Rp))*nr2)/R2; // world coordinates
     vec3 N = adjpos - rc2;                   // normal, world coordinates
     
