@@ -52,15 +52,11 @@ mat3 getObjectRotation() {
 
 void main(void) {
 	mat3 rot = getObjectRotation();
-    // Adjust model pos based on specified R1 and R2 of ring
-    float R1 = 0.5;                          // radius of centerline of model
-    float R2 = 0.05;                         // radius of cross-section of model
-    vec3 Rp = vec3(0.0,pos.y,pos.z);         // from center of ring to projection of model vertex onto yz plane
-    vec3 rc1 = (R1-R2)*normalize(Rp);        // from center of ring to centerline
-    vec3 rc2 = rc1*objectScale; 			 // from center of ring to centerline, world coordinates
-    vec3 nr2 = normalize(rc1/objectScale);   // lies in the plane of the cross section at this location
-    vec3 adjpos = rc2 + 0.5*objectScale.x*(pos.x*vec3(1,0,0) + dot(Rp-rc1,normalize(Rp))*nr2)/R2; // world coordinates
-    vec3 N = adjpos - rc2;                   // normal, world coordinates
+	// See mesh.js for details on mesh; default radius of cross section is 0.05 (default outer radius is 0.5)
+    vec3 r = normal*objectScale;           // from center of ring to outer edge of circular cross section
+    vec3 n = normalize(r/objectScale);     // lies in the plane of the cross section at this location, perpendicular to outer edge
+    vec3 adjpos = r + (objectScale.x/0.1)*(pos.x*vec3(1,0,0) + pos.z*n);    // vertex in world coordinates
+    vec3 N = adjpos - (r-0.5*objectScale.x*n);                              // normal in world coordinates
     
     vec3 ws_pos = rot*(adjpos) + objectPos;  // point in world space
     vec4 pos4 = viewMatrix * vec4( ws_pos, 1.0);
