@@ -73,7 +73,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p><select id="menu2" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu3" onchange="jumpMenu(this)"></select></p>
         
-    <p class="Normal">What's new in <a href="new_features.html">VPython 6</a></p>
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
     <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
       <a href="license.txt" target="_blank">VPython license</a><br />
       <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
@@ -109,7 +109,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal"><span class="style1">Using the text editor, etc.</span></p>
       <p class="Normal">See the basic GlowScript <strong><a href="../GlowScriptDocs/index.html">Help</a></strong> for details about how to use the text editor, how to share your programs, etc.</p>
       <p class="Normal"><span class="style1">Rotate and zoom</span></p>
-      <p class="Normal">To rotate the camera around the scene, drag with the right button down, or with the Ctrl key down. To zoom in or out, drag with both the left and right buttons down or with the Alt key down (also called Option on the Macintosh). </p>
+      <p class="Normal">To rotate the camera around the scene, drag with the right button down, or with the Ctrl key down. To zoom in or out, drag with both the left and right buttons down or with the Alt key down (also called Option on the Macintosh). On a touch screen, pinch/extend to zoom, swipe or two-finger rotate; touch and hold briefly before dragging an object.<br />
+      </p>
       <div></div>
       <p class="Normal"><span class="style1">Descriptions of the options available in the left margin</span></p>
       <blockquote>
@@ -158,7 +159,6 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   <br />
   The conversion program makes these changes, and similar changes for -=, *=, and /=. The program also converts <strong>scene.mouse.getclick() =&gt; scene.waitfor('click')</strong>, which works in both environments.</p>
 <p class="Normal">In GlowScript you can use the shorthand &quot;vec&quot; for &quot;vector&quot;, and it is intended to have classic VPython also allow either form. If you wish to use a GlowScript program containing &quot;vec&quot; in the classic VPython environment, just add the statement &quot;vec = vector&quot; at the start of the program.</p>
-<p class="Normal">In addition to classic VPython and this new VPython in the GlowScript browser environment, a third way to run a VPython program is in an <strong><a href="http://ipython.org/notebook.html" target="_blank">IPython notebook</a></strong>, in a browser, thanks to the <strong><a href="https://pypi.python.org/pypi/IVisual/" target="_blank">ivisual</a></strong> module created by John Coady.</p>
 <p class="Normal"><span class="style1">Limitations</span></p>
 <p class="Normal">A few VPython objects are not currently available in  GlowScript: convex, faces, frame, and the 3D text object. The GlowScript objects <a href="../GlowScriptDocs/vector.html" target="_blank">vertex</a>, <a href="../GlowScriptDocs/triangle.html" target="_blank">triangle</a>, and <a href="../GlowScriptDocs/triangle.html" target="_blank">quad</a> represent a more powerful alternative to faces and are candidates for implementing in classic VPython. Many applications of frame can be handled with the GlowScript <a href="../GlowScriptDocs/compound.html" target="_blank">compound</a> object.  The extrusion object (and the paths and shapes libraries) currently has many fewer features than the classic version.</p>
 <p class="Normal">One way to deal with differences is to check the elements of the &quot;version&quot; variable that is available in both classic VPython and the GlowScript version and do different things in the different environments:</p>

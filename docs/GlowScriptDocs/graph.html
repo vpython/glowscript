@@ -66,7 +66,7 @@
       <p class="program"> vb=series(data=[ [1,5],[3,-2],[6,4] ])</p>
           <p class="Normal">After displaying the series as a line type, you can change the display of the data simply by changing the series type:</p>
           <p class="program">vb.type = 'bar'</p>
-          <p class="Normal">After creating one of these graphing objects, you can reset the data to a list of  points:</p>
+          <p class="Normal">After creating one of these graphing objects, you can reset the data to a list of  points (an empty list will remove this data from the graph):</p>
       <p class="program"> vb.data = [ [1,-2], [3,2], [8,3], [12,4] ]<br />
       </p>
       <p class="Normal"> You can plot more than one thing on the same graph, and specify labels. The following statements produce the graph displayed above:</p>
@@ -82,6 +82,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;rate(100,wait)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;p.plot(i+5, 3+2*sin(i))<br />
 &nbsp;&nbsp;&nbsp;&nbsp;q.plot(i+5, 3+2*cos(i))      </p>
+      <p class="Normal"></p>
+      <p class="Normal"><strong><font color="#0000A0">Deleting an entire gdisplay</font></strong></p>
+      <p class="Normal">If you say g = graph(), you can deleted the entire graph by saying g.delete().</p>
       <div>
         <div></div>
       </div>

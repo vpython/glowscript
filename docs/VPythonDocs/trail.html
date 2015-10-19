@@ -40,7 +40,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p><select id="menu2" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu3" onchange="jumpMenu(this)"></select></p>
         
-    <p class="Normal">What's new in <a href="new_features.html">VPython 6</a></p>
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
     <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
       <a href="license.txt" target="_blank">VPython license</a><br />
       <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
@@ -64,14 +64,16 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval=10, retain=50)</p>
         <p class="Normal">The trail of this sphere will show individual points rather than a continuous line, it will display spheres at every 10th sphere location, and it will retain only the most recent 50 of these points.</p>
         <p class="Normal">At any time during the moving of the object, you can specify <span class="attribute">ball.make_trail=False</span>, in which case no more points are added to the ball's trail until you set <span class="attribute">ball.make_trail=True</span> again. Note however that with the default <span class="attribute">trail_type=&quot;curve&quot;</span>, when you resume adding points to the curve there will be a line drawn from the last location to the current location.</p>
-        <p class="Normal">When you create a sphere with <span class="attribute">make_trail=True</span> or <span class="attribute">make_trail=False</span>, a curve object or a list of spheres is created as a <span class="attribute">trail_objec</span>t attribute of the sphere object. If you say <span class="attribute">ball.trail_object.color=color.orange</span>, you will change the color of the curve or spheres to orange. Similarly, you can change the radius with <span class="attribute">ball.trail_object.radius=0.3</span>. The default radius is 0.2 times the radius (0.1 times the height or size.y) of the moving object.</p>
         <p class="Normal"><strong><font color="#0000a0">Summary</font></strong></p>
         <p class="attributes"> <span class="attribute">make_trail</span> Must be mentioned when creating the moving object; if False, no points will be added to the trail until you say <span class="attribute">ball.make_trail = True</span> (assuming the moving object is named ball)</p>
         <p class="attributes"> <span class="attribute">trail_type</span> Default is &quot;curve&quot;, but can be &quot;points&quot;</p>
         <p class="attributes"> <span class="attribute">interval</span> If interval=10, a point is added to the trail only every 10th move of the object; if interval is 0, no trail is shown; the default is interval=1</p>
         <p class="attributes"> <span class="attribute">retain</span> If retain=50, only the 50 most recently added points will be retained </p>
-        <p class="attributes"> <span class="attribute">trail_object</span> The curve or points object; <span class="Normal"><span class="attribute">ball.trail_object.color=color.orange</span> will change the color of the trail to orange</span>        </p>
+        <p class="attributes"> <span class="attribute">trail_color</span> The color of the curve or points<span class="Normal"></span> (default is the object's color)   </p>
+        <p class="attributes"> <span class="attribute">trail_radius</span> The radius of the curve or points<span class="Normal"></span> (default is <span class="Normal">0.2 times the radius, 0.1 times the height or size.y, of the moving object.</span></p>
         <p class="Normal"> GlowScript (but currently not classic VPython) offers more powerful mechanisms for leaving trails, <a href="../GlowScriptDocs/trail.html" target="_blank">attach_trail</a> and <a href="../GlowScriptDocs/trail.html">attach_arrow</a>.</p>
+        <p class="Normal"><strong><font color="#0000a0">An older scheme: trail_object</font></strong></p>
+        <p class="Normal">An older scheme exists for changing the color or radius of the trail. When you create a sphere with <span class="attribute">make_trail=True</span> or <span class="attribute">make_trail=False</span>, a curve object or a list of spheres is created as a <span class="attribute">trail_object</span> attribute of the sphere object. If you say <span class="attribute">ball.trail_object.color=color.orange</span>, you will change the color of the curve or spheres to orange. Similarly, you can change the radius with <span class="attribute">ball.trail_object.radius=0.3</span>.</p>
         <p class="Normal"></p>
     <!-- InstanceEndEditable --></td>
   </tr>

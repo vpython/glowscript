@@ -40,7 +40,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p><select id="menu2" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu3" onchange="jumpMenu(this)"></select></p>
         
-    <p class="Normal">What's new in <a href="new_features.html">VPython 6</a></p>
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
     <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
       <a href="license.txt" target="_blank">VPython license</a><br />
       <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
@@ -94,6 +94,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             specifies the width of the bar (the default is <span class="attribute">delta=1</span>). </p>
           <p class="Normal">If you say g = gcurve(), <span class="attribute">g.gcurve</span> is the object used to represent the gcurve, so that for example g.gcurve.color = color.red will change the color of the gcurve.</p>
           <p class="Normal">If you say g = gdots(), <span class="attribute">g.dots</span> is the object used to represent the gcurve, so that for example g.gdots.color = color.red will change the color of the gcurve.</p>
+          <p class="Normal"><strong><font color="#0000A0">Deleting data or an entire gdisplay</font></strong></p>
+          <p class="Normal">If you create a gcurve, gdots, gvbars, or ghbars entity and name it g, you can delete the associated data from a graph by saying g.delete(). Similarly, if you say gd = gdisplay(), you can deleted the entire graph by saying gd.delete().</p>
 <p class="Normal"><strong><font color="#0000A0">Overall gdisplay options</font></strong></p>
           <p class="Normal">You can establish a <span class="attribute">gdisplay</span> to set the size, position, and title for the title bar of the graph window, 
             

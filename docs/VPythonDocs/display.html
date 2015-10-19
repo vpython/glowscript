@@ -33,7 +33,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p><select id="menu2" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu3" onchange="jumpMenu(this)"></select></p>
         
-    <p class="Normal">What's new in <a href="new_features.html">VPython 6</a></p>
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
     <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
       <a href="license.txt" target="_blank">VPython license</a><br />
       <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
@@ -65,12 +65,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">display.get_selected()</font> returns
                a reference to the display in which objects are currently being
                created.</p>
-
-          <p class="attributes"> <span class="attribute">foreground</span> Set color 
-            to be used by default in creating new objects such as sphere; default is 
-            white. Example: <span class="attribute">scene.foreground = (1,0,0)</span> </p>
           <p class="attributes"> <span class="attribute">background</span> Set color 
-            to be used to fill the display window; default is black.</p>
+        to be used to fill the display window; default is black.</p>
           <p class="attributes"><span class="attribute">ambient</span> Color
             of nondirectional  (&quot;ambient&quot;) lighting. Default is color.gray(0.2);
             for compatibility with earlier versions of VPython, this can 
@@ -84,6 +80,16 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             5. For how to create your own distant and local lights, see <a href="lights.html">Lighting</a>. <br />
       </p>
           <p class="attributes"><span class="attribute"><font color="#000000">To obtain </font>camera position</span>, see <a href="mouse.html">Mouse Interactions</a>.</p>
+          <p class="attributes"><span class="attribute">camera.follow</span> If you say <span class="attribute">scene.camera.follow(ball)</span>, the center of the scene will continually be reset to the current position of the ball object. To stop following the object, execute <span class="attribute">scene.camera.follow(None)</span>. This is not currently available in classic VPython.</p>
+          <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instead of specifying an object to follow, you can provide a  function of your own:</p>
+          <p class="program"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;def f():<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 2*ball.pos<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.camera.follow(f)</p>
+          <p class="attributes"></p>
+          <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alternatively, you can specify an &quot;anonymous&quot; (unnamed) function:</p>
+          <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.camera.follow(def ():<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 2*ball.pos<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      )</p>
 <p class="attributes"><span class="attribute">objects</span> A list
             of all the visible objects in the display; invisible objects and
             lights are not listed (<span class="attribute">scene.lights</span> is a list of existing lights).
@@ -91,9 +97,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;for obj in scene2.objects: <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if isinstance(obj, box):<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red</p>
+<p class="attributes"></p>
+<p class="attributes"><span class="attribute">delete </span>Deletes all the objects in this display and then deletes the display itself</p>
+<p class="attributes"><span class="attribute">pixel_to_world</span> Gives the width of a pixel in &quot;world&quot; coordinates (that is, the coordinates you use to position objects). This is read-only; you cannot set it. It is determined from the current value of scene.range. An example of its use is that if you want the radius of a curve object to be 5 pixels, set the radius to 5*scene.pixel_to_world. This is not currently available in classic VPython.</p>
 <p class="attributes"><span class="attribute">cursor.visible</span> Currently not supported in GlowScript.</p>
 <p class="attributes"><span class="attribute">window </span>Currently not supported in GlowScript.</p>
-<p class="attributes"><span class="attribute">delete </span>Currently not supported in GlowScript.</p>
 <p class="attributes"><span class="attribute">stereo</span> Currently not supported in GlowScript.</p>
 <p class="Normal"><strong><font color="#0000A0">Controlling the display</font></strong></p>
           <p class="Normal">The  attributes <span class="attribute">width</span>, <span class="attribute">height</span>,
