@@ -109,14 +109,24 @@ is always<br />
         read_local_file(get) // establish callback   </p>
       <p class="Normal">The function <span class="attribute">get_library()</span> times out if the library cannot be loaded and posts an alert to the user, asking whether the user wants to attempt the operation again. Here is a way to use this function without the keyword <span class="attribute">wait</span>:</p>
       <p class="program">var loaded = false<br />
-        function load() { loaded = true }<br />
-        <br />
-      get_library(&quot;http://....&quot;, load)<br />
+        var start = new Date().getSeconds()<br />
+      var load = function() { loaded = true }<br />
       <br />
-while (true) {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;if (loaded) { break }<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;rate(30,wait)<br />
-      }</p>
+      get_library(file, load)<br />
+      <br />
+      var wait_for_load = function() {<br />
+        &nbsp;&nbsp;if (loaded) {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;print('Got library')<br />
+        &nbsp;&nbsp;} else {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;var t = new Date().getSeconds()<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if (t - start &gt; 2) {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        print(&quot;Takes more than 2 sec&quot;)<br />
+        &nbsp;&nbsp;} else {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        rate(30,wait_for_load)<br />
+        &nbsp;&nbsp;}<br />
+      }<br />
+      <br />
+      wait_for_load()</p>
 <p class="Normal">The same structure can be used  with <span class="attribute">scene.waitfor('textures',load)</span>, with the difference that there is no timeout; if any of the textures requested for objects cannot be found, the load() function will never be called. This structure can also be used with <span class="attribute">scene.pause('Click to see something',load)</span>.</p>
       <p class="Normal">&nbsp;</p>
     <!-- InstanceEndEditable --></td>
