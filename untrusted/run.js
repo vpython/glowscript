@@ -44,8 +44,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/rapydscript/utils.js",
         "../lib/rapydscript/ast.js",
         "../lib/rapydscript/output.js",
-        "../lib/rapydscript/parse.js"
-        ],
+        "../lib/rapydscript/parse.js"],
     ide: []
 }
 
