@@ -234,7 +234,7 @@ function ideRun() {
                 			(caller[0] == '_' || caller == 'main' || caller.slice(0,4) == 'http')) continue
                     var L = window.__linenumbers[jsline-1]
 	                if (L === undefined) continue
-	                var N = Number(L)+1
+	                var N = Number(L)
 	                // Index original text with L-2; 1 for the header line (GlowScript X.Y) and 1 for counting from 0 in the text array:
 	                if (first) traceback.push('Line '+N+': '+window.__original.text[L-2])
 	                else traceback.push('Called from line '+N+': '+window.__original.text[L-2])
