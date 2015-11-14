@@ -61,8 +61,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div>
           <p class="program"> myell = ellipsoid(pos=vector(x0,y0,z0), <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            length=L, height=H, 
-            width=W) </p>
-          <p class="Normal"> The given position is in the center of the ellipsoid, at 
+            width=W)          </p>
+          <p class="Normal">You can also make an ellipsoid simply by specifying the size of a sphere as <span class="attributes">vector(length, height, 
+          width)</span>, where length, height, and width aren't all the same.</p>
+          <p class="Normal">The given position is in the center of the ellipsoid, at 
             (x0, y0, z0). This is different from cylinder, whose pos attribute is at 
             one end of the cylinder. Just as with a cylinder, we can refer to the individual 
             vector components of the ellipsoid as<span class="attribute"> myell.pos.x</span>, <span class="attribute">myell.pos.y</span>, and <span class="attribute">myell.pos.z</span>. 
@@ -94,7 +96,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             in the simple case, default is 1</p>
           <p class="attributes"> <span class="attribute">width</span> In the z direction 
             in the simple case, default is 1</p>
-          <p class="attributes"> <span class="attribute">size</span> (length, height, 
+          <p class="attributes"> <span class="attribute">size</span> vector(length, height, 
             width), default is vector(1,1,1)<br />
             <span class="attribute"> myell.size=vector(20,10,12) </span>sets length=20, height=10, 
             width=12</p>

@@ -56,7 +56,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         </div>
     <div>
         <p class="Normal"> <img src="ring.gif" alt="ring" width="153" height="247" align="right" /> The ring object 
-          is circular, with a specified  radius and thickness and with its center 
+          is by default circular, with a specified  radius and thickness and with its center 
           given by the <span class="attribute">pos</span> attribute:</p>
         <div>
           <p class="program"> ring(pos=vector(1,1,1), <br />
@@ -67,8 +67,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
              which is color.white</font></span>, <span class="attribute">red<font color="#000000"> (1)</font></span>, <span class="attribute">green<font color="#000000"> (1)</font></span>, <span class="attribute">blue<font color="#000000"> (1)</font></span>, <span class="attribute">opacity</span> (1),
              <span class="attribute">shininess</span> (0.6), <span class="attribute">emissive</span> (False), <a href="../GlowScriptDocs/textures.html"><strong>texture</strong></a>, and <span class="attribute">up<font color="#000000"> (0,1,0)</font></span>.
               As with cylinders, <span class="attribute">up</span> has a subtle
-              effect  on the 3D appearance of a ring unless a non-smooth material
-              is specified. The <span class="attribute">axis</span> attribute
+              effect  on the 3D appearance of a ring unless a non-smooth texture
+              is specified or the ring is oval. The <span class="attribute">axis</span> attribute
               only affects the orientation of the ring; the magnitude of the <span class="attribute">axis</span> attribute
           is irrelevant. Additional  ring attributes:</p>
           <p class="attributes"> <span class="attribute">radius</span> Radius 
@@ -78,7 +78,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <p class="attributes"> <span class="attribute">thickness</span> The
             radius of the cross section of the ring (1/10th of radius if not
             specified), not the full diameter as you might
-            expect.</p>
+            expect. </p>
+          <p class="attributes"> <span class="attribute">size</span> Instead of specifying radius and thickness, you can make the ring be oval by specifying its size as size=vector(length,height,width), with different height and width..</p>
       <p class="Normal"> Note that the <span class="attribute">pos</span> attribute 
             for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
             whereas for a ring, sphere, and box it corresponds to the center of the 
