@@ -133,11 +133,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">Do not use &quot;wait&quot; as a variable name. All GlowScript languages (VPython, RapydScrpt, CoffeeScript, JavaScript) use &quot;wait&quot; as a special signal for the compilation process. In the VPython case this signal is inserted for you where needed.</p>
       <p class="Normal"><span class="style1">For experienced programmers</span></p>
       <p class="Normal">As a convenience to novice programmers to provide everything that is needed to get started, GlowScript by default imports all of the VPython features and includes standard math functions such as sqrt.</p>
-      <p class="Normal">If you want to import selectively, import  from the  vis or visual module:</p>
-      <p class="program">from vis import (box, color)<br />
-        box(color=color.orange) </p>
-      <p class="Normal">You can also execute &quot;import vis&quot; or &quot;import visual&quot; but in fact for technical reasons object names not preceded by &quot;vis.&quot; or &quot;.visual&quot; are still recognized.</p>
-      <p class="Normal">The documentation is written as though &quot;from visual import *&quot; were present.</p>
+<p class="Normal">You can  execute &quot;import vis&quot; or &quot;import visual&quot;, in which case you must refer to &quot;vis.color&quot; or &quot;visual.color&quot; for all VPython entities.</p>
+<p class="Normal">Here is another way to  import selectively  from the  vis or visual module:</p>
+<p class="program">from vis import box, color # or (box, color)<br />
+  box(color=color.orange) </p>
+<p class="Normal">The documentation is written as though &quot;from visual import *&quot; were present.</p>
       <div> </div>
       <p class="Normal"><span class="style1">For those who have used classic VPython</span></p>
       <p class="Normal">The difference between RapydScript and VPython programs in the GlowScript context is that the VPython option attempts to mimic exactly the syntax and semantics of classic VPython programs, whereas the RapydScript option implements the same semantics for 3D objects as that of JavaScript and CoffeeScript programs. For example, in a RapydScript program the sphere object has a size attribute but no radius attribute, and like box, the default size of the sphere is 1x1x1. Also, changing the length of the axis in a RapydScript program has no effect on the size (except for an arrow, which has a special axis_and_length attribute), but in a VPython program, as in classic VPython, changing the length of the axis also changes the length of the object (the first component of the object's size).</p>
