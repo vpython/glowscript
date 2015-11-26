@@ -53,8 +53,8 @@ mat3 getObjectRotation() {
 void main(void) {
 	mat3 rot = getObjectRotation();
 	// See mesh.js for details on mesh; default radius of cross section is 0.05 (default outer radius is 0.5)
-    vec3 r = normal*objectScale;           // from center of ring to outer edge of circular cross section
-    vec3 n = normalize(r/objectScale);     // lies in the plane of the cross section at this location, perpendicular to outer edge
+    vec3 r = normal*objectScale;  // from center of ring to outer edge of circular cross section
+    vec3 n = normalize(normal);   // lies in the plane of the cross section at this location, perpendicular to outer edge
     vec3 adjpos = r + (objectScale.x/0.1)*(pos.x*vec3(1,0,0) + pos.z*n);    // vertex in world coordinates
     vec3 N = adjpos - (r-0.5*objectScale.x*n);                              // normal in world coordinates
     

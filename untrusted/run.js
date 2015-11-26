@@ -134,8 +134,6 @@ function ideRun() {
         try {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
             var options = {lang: lang, version: version}
-            //WHY? window.translations = options.translations = [program]
-            options.translations = [program]
             var program = glowscript_compile(program, options)
             //var p = program.split('\n')
         	//for (var i=0; i<p.length; i++) console.log(i, p[i])
