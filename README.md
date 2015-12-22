@@ -8,7 +8,7 @@ Full documentation for users is provided: at glowscript.org, click Help at the u
 
    http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bounce-VPython
 
-GlowScript was inspired by VPython and has similar syntax. The project was begun in 2011 by David Scherer and Bruce Sherwood.
+GlowScript was inspired by VPython (http://vpython.org). The project was begun in 2011 by David Scherer and Bruce Sherwood. Originally programs had to be written in JavaScript or CoffeeScript, but in November 2014 it became possible to use Python, thanks to the RapydScript Python-to-JavaScript compiler (http://www.rapydscript.com).
 
 In December 2014 the original GlowScript repository was corrupted in such a way that it could not be reconstituted, but a backup that contains the history of commits is here:
 
