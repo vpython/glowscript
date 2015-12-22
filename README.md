@@ -6,7 +6,7 @@ That's it. That's the whole program (except for the GlowScript version header li
 
 Full documentation for users is provided: at glowscript.org, click Help at the upper right or click VPython Help. There is an extensive set of example programs available from the first page of glowscript.org. Programs can be created and stored at glowscript.org, but it is also possible to export a program to place on your own web page, or use the GlowScript library without storing the program at glowscript.org. For programs stored at glowscript.org, you can share a link with someone and they can run your program simply by clicking on the link. Here is an example:
 
-   http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bounce
+   http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bounce-VPython
 
 GlowScript was inspired by VPython and has similar syntax. The project was begun in 2011 by David Scherer and Bruce Sherwood.
 
