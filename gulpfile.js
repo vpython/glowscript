@@ -31,33 +31,21 @@ glowscript_libraries = {
     "lib/glow/shaders.gen.js"
   ],
   "compiler": [
-    "lib/narcissus/lib/jsdefs.js",
-    "lib/narcissus/lib/jslex.js",
-    "lib/narcissus/lib/jsparse.js",
-    "lib/narcissus/lib/jsdecomp.js",
-    "lib/streamline/compiler/format.js",
-    "lib/streamline/compiler/transform.js",
-    "lib/compiler.js",
-    "lib/coffee-script.js"
-  ],
-  "RSrun": [
-    "lib/rapydscript/stdlib.js"
-  ],
-  "RScompiler": [
-    "lib/narcissus/lib/jsdefs.js",
-    "lib/narcissus/lib/jslex.js",
-    "lib/narcissus/lib/jsparse.js",
-    "lib/narcissus/lib/jsdecomp.js",
-    "lib/streamline/compiler/format.js",
-    "lib/streamline/compiler/transform.js",
-    "lib/compiler.js",
-    "lib/rapydscript/utils.js",
-    "lib/rapydscript/ast.js",
-    "lib/rapydscript/output.js",
-    "lib/rapydscript/parse.js",
-    "lib/rapydscript/baselib.js",
-    "lib/rapydscript/stdlib.js"
-  ],
+               "../lib/compiler.js",
+               "../lib/papercomp.js",
+               "../lib/transform-all.js",
+               "../lib/coffee-script.js"],
+           RSrun: [
+               "../lib/rapydscript/stdlib.js"],
+           RScompile: [
+               "../lib/compiler.js",
+               "../lib/papercomp.js",
+               "../lib/transform-all.js",
+               "../lib/rapydscript/baselib.js",
+               "../lib/rapydscript/utils.js",
+               "../lib/rapydscript/ast.js",
+               "../lib/rapydscript/output.js",
+               "../lib/rapydscript/parse.js"],
 };
 
 gulp.task('default', function() {

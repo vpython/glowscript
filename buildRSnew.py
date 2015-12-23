@@ -48,33 +48,22 @@ glowscript_libraries = {
         "../lib/glow/shaders.gen.js"
         ],
     "compile": [
-        "../lib/narcissus/lib/jsdefs.js",
-        "../lib/narcissus/lib/jslex.js",
-        "../lib/narcissus/lib/jsparse.js",
-        "../lib/narcissus/lib/jsdecomp.js",
-        "../lib/streamline/compiler/format.js",
-        "../lib/streamline/compiler/transform.js",
         "../lib/compiler.js",
-        "../lib/coffee-script.js"
-        ],
+        "../lib/papercomp.js",
+        "../lib/transform-all.js",
+        "../lib/coffee-script.js"],
     "RSrun": [
         "../lib/rapydscript/stdlib.js"
         ],
     "RScompile": [
-        "../lib/narcissus/lib/jsdefs.js",
-        "../lib/narcissus/lib/jslex.js",
-        "../lib/narcissus/lib/jsparse.js",
-        "../lib/narcissus/lib/jsdecomp.js",
-        "../lib/streamline/compiler/format.js",
-        "../lib/streamline/compiler/transform.js",
         "../lib/compiler.js",
-        "../lib/rapydscript/lib/baselib.js",
-        "../lib/rapydscript/lib/utils.js",
-        "../lib/rapydscript/lib/ast.js",
-        "../lib/rapydscript/lib/output.js",
-        "../lib/rapydscript/lib/parse.js",
-        "../lib/rapydscript/importer.js"
-        ],
+        "../lib/papercomp.js",
+        "../lib/transform-all.js",
+        "../lib/rapydscript/baselib.js",
+        "../lib/rapydscript/utils.js",
+        "../lib/rapydscript/ast.js",
+        "../lib/rapydscript/output.js",
+        "../lib/rapydscript/parse.js"],
     "ide": []
     }
 
