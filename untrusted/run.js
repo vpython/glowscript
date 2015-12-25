@@ -181,8 +181,9 @@ function ideRun() {
     }
 
     function reportScriptError(program, err) { // This machinery only works on Chrome
-        // err.stack: https://code.google.com/p/v8-wiki/wiki/JavaScriptStackTraceApi
-    	// TraceKit - Cross browser stack traces: https://github.com/occ/TraceKit
+    	// TraceKit - Cross browser stack traces: https://github.com/csnover/TraceKit
+    	//console.log('Error', err)
+    	//console.log('Stack', err.stack)
     	var referror = (err.__proto__.name === 'ReferenceError')
     	//var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
