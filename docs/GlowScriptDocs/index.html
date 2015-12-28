@@ -258,9 +258,15 @@ zippy()
       <p class="Normal">The text editor automatically inserts a header of the form &quot;GlowScript X.Y VPython&quot; at the start of every new program, where X.Y is the current version number. If future development of GlowScript should cause incompatibilities with earlier versions, old programs will be run with old versions of GlowScript, thereby ensuring to the extent possible that all programs will continue to work as they did originally.            The &quot;version&quot; variable provides information about the version number:</p>
       <p class="program">version is ['X.Y', 'glowscript']</p>
       <p class="Normal"><strong><font color="#0000A0">Technical issue with execution speed</font></strong></p>
-      <p class="Normal">In order to make it possible to add and subtract 3D vectors, and to be able to multiple or divide a vector by a scalar, <em><strong>all</strong></em> add, subtract, multiply, and divide operations are converted into function calls. Although this is done in such a way as to run quite fast, for highest execution speed you can turn off this &quot;operator overloading&quot; by placing the following statement at the start of a function that you want to run as fast as possible:<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="program">&quot;no overloading&quot;</strong><br />
-      The Example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Stars" target="_blank"><strong>Stars</strong></a> uses this technique in the computeForces function. In a function without operator overloading, you must handle vectors differently: see <a href="libraryuse.html"><strong>this discussion</strong></a>.</p>
+      <p class="Normal">In order to make it possible to add and subtract 3D vectors, and to be able to multiple or divide a vector by a scalar, <em><strong>all</strong></em> add, subtract, multiply, and divide operations are converted into function calls. If you have a critical function that needs to run as fast as possible, use the following vector operations, where <strong>A</strong> and <strong>B</strong> are vectors and <strong>k</strong> is an ordinary number:</p>
+      <p class="program">A+B -&gt; A.add(B)<br />
+        A-B -&gt; A.sub(B)<br />
+        k*A -&gt; A.multiply(k)<br />
+        A/k -&gt; A.divide(k) </p>
+      <p class="Normal">        The Example program <a href="http://tinyurl.com/SurfaceCharge" target="_blank"><strong>SurfaceCharge</strong></a> uses this technique in the <strong>Efield</strong> function. Here is one of the expressions in that function&quot;</p>
+      <p class="program">Etiles.add(norm(r).divide(mag2(r)).multiply(qs[i]))</p>
+      <p class="Normal"> This corresponds to the following expression:</p>
+      <p class="program">Etiles + qs[i]*norm(r)/mag2(r)</p>
       <p class="Normal"><strong><font color="#0000A0">For users of VPython</font></strong></p>
       <p class="Normal">See this <strong><a href="VPython-vs-GlowScript.html" target="_blank">comparison of VPython and GlowScript</a></strong>.</p>
 <div> </div>
