@@ -74,10 +74,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div>
           <p class="program">c = curve( pos=[vector(-1,0,0),vector(0,1,0),<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector(0,0,1)], color=color.cyan )</p>
+          <p class="Normal"><strong><font color="#0000a0">Retaining a limited number of points</font></strong></p>
         </div>
         <p class="Normal">When appending a point to a curve you can specify how many points should be retained. The following statement specifies that if there are already 30 points in the curve, the oldest one should be deleted and the new point added.</p>
         <p class="program">c.append( pos=vector(2,-1,0), retain=30)</p>
-        <p class="Normal">Here are attributes for individual points or for the curve as a whole:</p>
+        <p class="Normal"><strong><font color="#0000a0">The curve attributes</font></strong></p>
+<p class="Normal">Here are attributes for individual points or for the curve as a whole:</p>
         <p class="attributes"> <span class="attribute">color </span> Color
           of a point; if specified for the curve as a whole, it specifies the color of any points for which no specific color was given.</p>
         <p class="attributes"> <span class="attribute">radius</span> Radius of
@@ -85,7 +87,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="attributes"><span class="attribute">visible</span> If False, 
           
           point is not displayed; if False for the curve as a whole, no points are displayed.</p>
-        <p class="Normal"><strong>No texture, opacity, or compounding:</strong> Currently curves cannot be transparent, it is not possible to apply a texture, and a curve cannot be part of a compound object.</p>
+        <p class="attributes"><span class="attribute">retain</span> Specify how many points to retain.</p>
+        <p class="attributes"><span class="attribute">npoints</span> The total number of points in the curve.</p>
+<p class="Normal"><strong>No texture, opacity, or compounding:</strong> Currently curves cannot be transparent, it is not possible to apply a texture, and a curve cannot be part of a compound object.</p>
         <p class="Normal"><strong><font color="#0000a0">Moving, reorienting, and resizing a curve</font></strong></p>
         <p class="Normal">In addition to <span class="attribute">color</span>, <span class="attribute">radius</span>, and <span class="attribute">visible</span>, a curve has the  attributes <span class="attribute">origin</span>, <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>. </p>
         <p class="Normal"><strong>Point positions are relative:</strong> A point whose pos  is <span class="program">vector</span>(2, 1, 0) is of course normally displayed at location <span class="program">vector</span>(2, 1, 0). However, the position of a point is <em>relative</em> to a curve's own <span class="attribute">origin</span> value, which by default is <span class="program">vector</span>(0, 0, 0). If you change the curve's <span class="attribute">origin</span> value to <span class="program">vector</span>(10, 6, 5), the point is displayed at the location <span class="program">vector</span>(12, 7, 5); that is, the point is displayed 2 to the right, 6 above, and 0 in front of the curve's position <span class="program">vector</span>(10, 6, 5). Another way of saying this is that the display location is the vector sum <span class="program">vector</span>(10, 6, 5) + <span class="program">vector</span>(2, 1, 0). This means that you can quickly and efficiently move the entire curve just by changing the curve's <span class="attribute">origin</span> value. The <span class="attribute">pos</span> value of an individual point does not change; it's just that the point is displayed in a shifted position. As a result, moving an entire curve is very fast.</p>
