@@ -59,7 +59,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal"><strong><font color="#0000a0">Difference from classic VPython curve</font></strong></p>
       <p class="Normal">The GlowScript curve object is rather different from the classic VPython curve object. You don't modify the array of points directly but instead use a powerful set of functions, and this change makes it possible to display curves much more rapidly. In classic VPython, the possibility of direct modification of the positions meant that the entire curve had to be reprocessed every time it was rendered, on the chance that some undetected change had occurred. Also, the curve object as a whole has the usual GlowScript  size, axis, color, and up attributes and an origin attribute which makes it possible to move or rotate the entire curve with a single statement.</p>
       <p class="Normal"><strong><font color="#0000a0">Details of the GlowScript curve object</font></strong></p>
-      <p class="Normal">Each point along a curve has attributes <span class="attribute">pos</span>, <span class="attribute">color</span>, and <span class="attribute">radius</span>, and these attributes can be different for each point. Here we create a curve with overall attributes of color and radius, then add four points to the curve:</p>
+      <p class="Normal">Each point along a curve has attributes <span class="attribute">pos</span>, <span class="attribute">color</span>,  <span class="attribute">radius</span>, and <span class="attribute">retain</span>, and these attributes can be different for each point. Here we create a curve with overall attributes of color and radius, then add four points to the curve:</p>
       <div>
         <p class="program">square = curve( color=color.yellow, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.05 )</p>
         <p class="program">square.append( pos=vector(0,0,0), color=color.cyan )<br />
@@ -88,16 +88,19 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           
           point is not displayed; if False for the curve as a whole, no points are displayed.</p>
         <p class="attributes"><span class="attribute">retain</span> Specify how many points to retain.</p>
-        <p class="attributes"><span class="attribute">npoints</span> The total number of points in the curve.</p>
+        <p class="attributes"><span class="attribute">npoints</span> The total number of points currently in the curve.</p>
 <p class="Normal"><strong>No texture, opacity, or compounding:</strong> Currently curves cannot be transparent, it is not possible to apply a texture, and a curve cannot be part of a compound object.</p>
         <p class="Normal"><strong><font color="#0000a0">Moving, reorienting, and resizing a curve</font></strong></p>
         <p class="Normal">In addition to <span class="attribute">color</span>, <span class="attribute">radius</span>, and <span class="attribute">visible</span>, a curve has the  attributes <span class="attribute">origin</span>, <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>. </p>
         <p class="Normal"><strong>Point positions are relative:</strong> A point whose pos  is <span class="program">vector</span>(2, 1, 0) is of course normally displayed at location <span class="program">vector</span>(2, 1, 0). However, the position of a point is <em>relative</em> to a curve's own <span class="attribute">origin</span> value, which by default is <span class="program">vector</span>(0, 0, 0). If you change the curve's <span class="attribute">origin</span> value to <span class="program">vector</span>(10, 6, 5), the point is displayed at the location <span class="program">vector</span>(12, 7, 5); that is, the point is displayed 2 to the right, 6 above, and 0 in front of the curve's position <span class="program">vector</span>(10, 6, 5). Another way of saying this is that the display location is the vector sum <span class="program">vector</span>(10, 6, 5) + <span class="program">vector</span>(2, 1, 0). This means that you can quickly and efficiently move the entire curve just by changing the curve's <span class="attribute">origin</span> value. The <span class="attribute">pos</span> value of an individual point does not change; it's just that the point is displayed in a shifted position. As a result, moving an entire curve is very fast.</p>
-        <p class="Normal">Similarly, changes to <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span> immediately and quickly change the size of the curve, its orientation in space, and the appearance of its surface. When you specify the position of a point, it is relative to an origin at <span class="program">vector</span>(0,0,0) and with the standard axis <span class="program">vector</span>(1,0,0). Changing the <span class="attribute">size</span> does not change the <span class="attribute">radius</span>; it just moves the points closer or farther apart.</p>
-        <p class="Normal"><strong><font color="#0000a0">Curve methods</font></strong></p>
+        <p class="Normal">Similarly, changes to <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span> immediately and quickly change the size of the curve, its orientation in space, and the appearance of its surface. When you specify the position of a point, it is relative to an origin at <span class="program">vector</span>(0,0,0) and with the standard axis <span class="program">vector</span>(1,0,0). Changing the <span class="attribute">size</span> does not change the <span class="attribute">radius</span>; it just moves the points closer or farther apart.<br />
+        </p>
+<p class="Normal"><strong><font color="#0000a0">Curve methods</font></strong></p>
         <p class="Normal">One way to change the orientation of the entire curve is to change the curve's <span class="attribute">axis</span>. You can also rotate the entire curve about a specified axis. If you don't specify an origin, rotation will occur around the origin of the curve:</p>
         <p class="program">c.rotate( angle=ang, axis=a, origin=o )</p>
         <p class="program">c.rotate( angle=ang, axis=a )</p>
+        <p class="Normal"></p>
+        <p class="Normal"><strong><font color="#0000a0">Appending points</font></strong></p>
         <div>
           <p class="Normal">Suppose you have created a curve named c. You can add points to the curve one at a time, like this:</p>
           <p class="program">c.append(pos=vector(-1,0,0), color=color.red,<br />
@@ -110,21 +113,36 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             <p class="Normal">This creates the following image:</p>
             <p align="center" class="Normal"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/curve_append.png" width="250" height="151" alt="curve" /></p>
             <div>
-              <p class="Normal">If you don't need to specify color or radius you can just give a list of positions:</p>
-              <p class="program">c.append( [vector(-1,0,0) vector(0,1,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector(1,0,0)] )</p>
+              <p class="Normal">If you don't need to specify color or radius you can just give a list of positions, either as individual positions or in a list of positions:</p>
+              <p class="program">c.append( vector(-1,0,0), vector(0,1,0), vector(1,0,0) )<br />
+              c.append([vector(-1,0,0), vector(0,1,0), vector(1,0,0)])</p>
+              <div>
+                <p class="Normal">Suppose you have created a curve named c, and p represents either just a position vector (as just shown above) or a full description of a point in the form <br />
+                  &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = {pos:vector, color:vector, radius:number, visible:true or false}</strong></span>.</p>
+                <div>
+                  <p class="Normal"></p>
+                </div>
+                <p class="program">c.append( p1, p2, p3 ) # add several points</p>
+              </div>
+              <p class="program">c.append([p1, p2, p3]) # add several points</p>
+              <p class="program">pts = [p1, p2, p3]<br />
+                c.append(pts) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# add several points</p>
+              <div>
+                <p class="Normal">You can also add several points that all have the same color, radius, etc.:</p>
+              </div>
+<div></div>
+              <p class="program">c.append(pos=[p1, p2, p3], color=color.green) </p>
+<p class="Normal"></p>
+              <p class="Normal"><strong><font color="#0000a0">Manipulating points</font></strong></p>
             </div>
           </div>
           <div>
-            <p class="Normal">There is a variety of methods available to manipulate the list of points in a curve object, patterned after similar methods for manipulating JavaScript arrays such as [10,5,3,6]. Suppose you have created a curve named c, and p represents either just a position vector (as just shown above) or a full description of a point in the form <br />
-              &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = {pos:vector, color:vector, radius:number, visible:true or false}</strong></span>.</p>
+            <p class="Normal">There is a variety of methods available to manipulate the list of points in a curve object, patterned after similar methods for manipulating JavaScript arrays such as [10,5,3,6]. </p>
           </div>
-          <p class="program">c.append([p1, p2, p3]) # add several points</p>
-          <p class="program">pts = [p1, p2, p3]<br />
-            c.append(pts) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# add several points</p>
-          <p class="program">L=c.pop() &nbsp; # get &amp; remove last point</p>
+<p class="program">L=c.pop() &nbsp; # get &amp; remove last point</p>
           <p class="program">F=c.shift() # get &amp; remove first point</p>
           <p class="program">S=c.slice(2,4) # get an array of<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;# points from point #2 through point #3,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# points from point no. 2 through point no. 3,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;# each in the form<br />
             &nbsp;&nbsp;&nbsp;&nbsp;# {pos:p, color:c, radius:r, visible:v}<br />
           (The first point is 0, the last point is -1)</p>
