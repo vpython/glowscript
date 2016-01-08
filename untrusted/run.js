@@ -182,11 +182,14 @@ function ideRun() {
 
     function reportScriptError(program, err) { // This machinery only works on Chrome
     	// TraceKit - Cross browser stack traces: https://github.com/csnover/TraceKit
+    	var prog = program.split('\n')
+    	//for(var i=0; i<prog.length; i++) console.log(i, prog[i])
+    	var referror = (err.__proto__.name === 'ReferenceError')
     	//console.log('Error', err)
     	//console.log('Stack', err.stack)
-    	var referror = (err.__proto__.name === 'ReferenceError')
-    	//var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
+    	//console.log('referror', referror)
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
+    	var getlinenumber = /[ ]*\"(\d*)\";/
     	var traceback = []
         if (err.cursor) {
         	//console.log('err.cursor',err.cursor)
@@ -212,7 +215,7 @@ function ideRun() {
                 var i, m, caller, jsline, jschar
                 for (i=1; i<rawStack.length; i++) {
                     m = rawStack[i].match(unpack)
-	                    if (m === null) continue
+	                if (m === null) continue
 	                caller = m[1]
 	                jsline = m[2]
 	                jschar = m[3]
@@ -221,17 +224,33 @@ function ideRun() {
                 		caller = m[1]
                 	}
                     if (caller == 'compileAndRun') break
-                	if (!referror && !caller == '__$main' &&
-                			(caller[0] == '_' || caller == 'main' || caller.slice(0,4) == 'http')) continue
-                    var L = window.__linenumbers[jsline-1]
-	                if (L === undefined) continue
+                    if (caller == 'main') continue
+
+                	var line = prog[jsline-1]
+                	var L = undefined
+                	var end = undefined
+                	for (var c=jschar; c>=0; c--) {  // look for preceding "linenumber";
+                		if (line[c] == ';') {
+                			if (c > 0 && line[c-1] == '"') {
+	                			var end = c-1 // rightmost digit in "23";
+	                			c--
+                			}
+                		} else if (line[c] == '"' && end !== undefined) {
+                			L = line.slice(c+1,end)
+                			break
+                		} else if (c === 0) {
+                			jsline--
+                			line = prog[jsline-1]
+                			c = line.length
+                		}
+                	}
+                	if (L === undefined) continue
 	                var N = Number(L)
-	                // Index original text with L-2; 1 for the header line (GlowScript X.Y) and 1 for counting from 0 in the text array:
-	                if (first) traceback.push('Line '+N+': '+window.__original.text[L-2])
-	                else traceback.push('Called from line '+N+': '+window.__original.text[L-2])
+	                if (first) traceback.push('Line '+N+': '+window.__original.text[N-2])
+	                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
 	                first = false
                     traceback.push("")
-	                if (referror) break
+	                //if (referror) break
                 }
             } catch (ignore) {
             }
