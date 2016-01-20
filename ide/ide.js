@@ -1047,8 +1047,8 @@ $(function () {
 	            window.editor = editor
 	            customACEMode(lang, progData.source)
 	            var mode = require("ace/mode/visualjs").Mode
+		        editor.getSession().setMode(new mode())
 	            editor.setTheme({ cssClass: "ace-custom" })
-	            editor.getSession().setMode(new mode())
 	            editor.getSession().setValue(progData.source)
 	            editor.setReadOnly( !isWritable )
 	            if (isWritable) {
