@@ -30,6 +30,8 @@ version = "1.2dev"
 glowscript_libraries = {
     "run": [
         "../lib/jquery/jquery.mousewheel.js",
+        "../lib/jquery/1.1/jquery.ui.touch-punch.min.js",
+        "../lib/transform-all.js",
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
         "../lib/glMatrix.js",
