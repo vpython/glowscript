@@ -1051,6 +1051,7 @@ $(function () {
 	            editor.setTheme({ cssClass: "ace-custom" })
 	            editor.getSession().setValue(progData.source)
 	            editor.setReadOnly( !isWritable )
+	            editor.selection.moveCursorDown() // position cursor at start of line 2, below GlowScript header
 	            if (isWritable) {
 	                var save = saver( {user:username, folder:folder, program:program},
 		                function () { return editor.getSession().getValue() },

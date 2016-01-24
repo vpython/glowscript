@@ -77,11 +77,11 @@ function ideRun() {
                 var packages = []
                 var choose = progver
                 if (Number(progver)<1.1) {choose = "bef1.1"}
-                else if (Number(progver)<=1.2) {choose = "1.1"}
+                choose = "1.1"
                 packages.push("../css/redmond/" + choose + "/jquery-ui.custom.css",
                               "../lib/jquery/"  + choose + "/jquery.min.js",
                               "../lib/jquery/"  + choose + "/jquery-ui.custom.min.js")
-                if (choose == "1.1") packages.push("../lib/jquery/"  + choose + "/jquery.ui.touch-punch.min.js")
+                if (choose >= "1.1") packages.push("../lib/jquery/"  + choose + "/jquery.ui.touch-punch.min.js")
                 if (message.unpackaged) {
                     packages.push.apply(packages, glowscript_libraries.run)
                     if (message.lang == 'rapydscript' || message.lang == 'vpython') {
@@ -90,7 +90,7 @@ function ideRun() {
                     } else packages.push.apply(packages, glowscript_libraries.compile)
                 } else {
                     packages.push("../package/glow." + message.version + ".min.js")
-                    if (choose == "1.1" && (message.lang == 'rapydscript' || message.lang == 'vpython')) {
+                    if (Number(progver) >= 1.1 && (message.lang == 'rapydscript' || message.lang == 'vpython')) {
                         packages.push("../package/RScompiler." + message.version + ".min.js")
                         packages.push("../package/RSrun." + message.version + ".min.js")
                     } else
@@ -186,11 +186,10 @@ function ideRun() {
     	var prog = program.split('\n')
     	//for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     	var referror = (err.__proto__.name === 'ReferenceError')
-    	//console.log('Error', err)
-    	//console.log('Stack', err.stack)
-    	//console.log('referror', referror)
+    	console.log('Error', err)
+    	console.log('Stack', err.stack)
+    	console.log('referror', referror)
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
-    	var getlinenumber = /[ ]*\"(\d*)\";/
     	var traceback = []
         if (err.cursor) {
         	//console.log('err.cursor',err.cursor)
@@ -220,12 +219,14 @@ function ideRun() {
 	                caller = m[1]
 	                jsline = m[2]
 	                jschar = m[3]
+                    /*
                 	if (caller == 'new') {
                 		m = rawStack[i].match(/[ ]*at[ ]new[ ]*([^ ]*)/)
                 		caller = m[1]
                 	}
+                	*/
                     if (caller == 'compileAndRun') break
-                    if (caller == 'main') continue
+                    if (caller == 'main') break
 
                 	var line = prog[jsline-1]
                 	var L = undefined
@@ -251,6 +252,7 @@ function ideRun() {
 	                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
 	                first = false
                     traceback.push("")
+                    if (caller == '__$main') break
 	                //if (referror) break
                 }
             } catch (ignore) {
