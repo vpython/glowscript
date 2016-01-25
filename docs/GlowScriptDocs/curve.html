@@ -126,7 +126,7 @@ c.append(pos=vec(1,0,0), color=color.red,<br />
               </div>
               <div></div>
               <p class="program">c.append(pos=[p1, p2], color=color.green) </p></div>
-            <p class="Normal">In JavaScript or CoffeeScript, say c.push() instead of c.append(). You can optionally use c.push() in RapydScript, too, but this is different from usage in Python, which RapydScript is similar to.            </p>
+            <p class="Normal">In JavaScript, say c.push() instead of c.append(). You can optionally use c.push() in RapydScript, too, but this is different from usage in Python, which RapydScript is similar to.            </p>
             <div>
               <div>
                 <p class="program"></p>
@@ -179,7 +179,7 @@ c.splice(start,howmany,points) # insert          </p>
 # add another orange point:<br />
   c.append( pos=vec(1,0,0), <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;color=color.orange ) </p>
-<p class="Normal">In the image shown here, the upper thick curve, made without the second blue point, has three pos and color points, blue, orange, orange, left to right, so the blue fades into the orange. The lower curve includes the extra blue point and has four pos and color points, blue, blue, orange, orange, so there is a sharp break between blue and orange. (Again, in JavaScript or CoffeeScript use &quot;push&quot; instead of &quot;append&quot;.)</p>
+<p class="Normal">In the image shown here, the upper thick curve, made without the second blue point, has three pos and color points, blue, orange, orange, left to right, so the blue fades into the orange. The lower curve includes the extra blue point and has four pos and color points, blue, blue, orange, orange, so there is a sharp break between blue and orange. (Again, in JavaScript use &quot;push&quot; instead of &quot;append&quot;.)</p>
 <table width="450" border="0">
   <tr>
     <td width="450"><div align="center"><span class="Normal"><img src="images/colors_abutting.jpg" width="312" height="200" alt="colors abutting" /></span></div></td>
@@ -187,13 +187,13 @@ c.splice(start,howmany,points) # insert          </p>
 </table>
 <p class="Normal">When you run a  program, for convenience GlowScript 
   creates a <a href="display.html">canvas</a> on the web page and names it <span class="attribute">scene</span>. 
-  Objects that you create are drawn on this canvas. If you have more than one canvas, you can specify  in which canvas to place a new object, as in box(canvas=myscene); in JavaScript this would be box( {canvas:myscene} ) and in CoffeeScript box(canvas:myscene).. If you don't specify a canvas, the new object goes into the most recently created canvas, or the most recently selected canvas as specified by setting <span class="attribute">canvas.selected</span>.</p>
+  Objects that you create are drawn on this canvas. If you have more than one canvas, you can specify  in which canvas to place a new object, as in box(canvas=myscene); in JavaScript this would be box( {canvas:myscene} ). If you don't specify a canvas, the new object goes into the most recently created canvas, or the most recently selected canvas as specified by setting <span class="attribute">canvas.selected</span>.</p>
 <div>
   <div></div>
 </div>
 <div> </div>
-<p class="Normal"><strong><font color="#0000a0">JavaScript or CoffeeScript</font></strong></p>
-<p class="Normal">See the <a href="cylinder.html"><strong>cylinder</strong></a> documentation for how to create an object in JavaScript or CoffeeScript. When creating an object you use &quot;<strong>:</strong>&quot; instead of &quot;<strong>=</strong>&quot;, and for JavaScript you need to include the initial specifications inside braces. Also, with JavaScript, if you name the object, the name must be preceded by &quot;<strong>var</strong>&quot;. Specify true or false instead of True or False for <span class="attribute">visible</span> or <span class="attribute">emissive</span>.</p>
+<p class="Normal"><strong><font color="#0000a0">JavaScript</font></strong></p>
+<p class="Normal">See the <a href="cylinder.html"><strong>cylinder</strong></a> documentation for how to create an object in JavaScript.</p>
     <!-- InstanceEndEditable --></td>
   </tr>
 </table>

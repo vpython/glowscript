@@ -39,6 +39,7 @@ so that the 0.4 package doesn't get overwritten by accident.
 
 In ide.js, update parseVersionHeader.defaultVersion.
 In run.js, update choice of jquery libraries.
+Add to css/redmond a folder with the new name
 
 If you're just fixing a bug in 0.4, all you need to do is Deploy from the Google App Engine Launcher,
 to update the package files produced in the previous step that involved build.py and property.js.

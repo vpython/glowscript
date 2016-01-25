@@ -18,3 +18,12 @@ In the future, as we update to later, compatible versions of jquery, jquery-ui, 
 we expect to continue to name them simply jquery, jquery-ui, etc., without the
 version numbers, so that programs on user web sites will continue to work and
 get the benefit of later jquery/jquery-ui/etc. versions.
+
+Later (Jan. 2016): Decided to make separate folders for versions (which change seldom).
+So the jquery-related files in jquery/bef1.1 are for versions earlier than 1.1,
+jquery/1.1 contains files for version 1.1, and jquery/2.0 contains files for version 2.0
+There are also files in the jquery folder itself, used in some cases by older exported programs.
+The jquery/versions folder contains saved files with version numbers if available.
+The folders 1.1 and 2.0 contain up-to-date files with the version numbers removed.
+For version 2.0, the files are jquery-1.9.1.min.js, jquery-ui-1.8.23.custom.min.js,
+jquery.mousewheel-3.1.11.js, jquery.ui.touch-punch.min-0.2.3.js.

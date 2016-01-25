@@ -29,7 +29,7 @@ $(function () {
         var rest = source.substr( header.length+1 )
         var ret = {
             version: null,
-            lang: '', // 'vpython' (default) or 'rapydscript' or 'javascript' or 'coffeescript' or a string that is neither (e.g. when editing header)
+            lang: '', // 'vpython' (default) or 'rapydscript' or 'javascript' or a string that is neither (e.g. when editing header)
             source: rest,
             ok: false,
             unpackaged: false,
@@ -47,7 +47,7 @@ $(function () {
         ret.lang = 'javascript' // the default if no language is specified
         if (elements.length == 3) {
             ret.lang = elements[2].toLowerCase()
-            if (!(ret.lang == 'rapydscript' || ret.lang == 'coffeescript' || ret.lang == 'javascript' || ret.lang == 'vpython')) return ret
+            if (!(ret.lang == 'javascript' || ret.lang == 'coffeescript' || ret.lang == 'rapydscript' || ret.lang == 'vpython')) return ret
         }
         var ver = elements[1]
         var okv = parseVersionHeader.okVersions[ver]
@@ -62,7 +62,8 @@ $(function () {
             isCurrent: okv && (unpackaged || ver==parseVersionHeader.defaultVersion) 
         }
     }
-    parseVersionHeader.defaultVersion = "1.1"
+    
+    parseVersionHeader.defaultVersion = "2.0"
     parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
     parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
@@ -75,13 +76,14 @@ $(function () {
         "0.7": "0.7",
         "1.0": "1.0",
         "1.1": "1.1",
+        "2.0": "2.0",
         "0.4dev" : "0.4",
         "0.5dev" : "0.5",
         "0.6dev" : "0.6",
         "0.7dev" : "0.7",
         "1.0dev" : "1.0",
         "1.1dev" : "1.1",
-        "1.2dev" : "unpackaged",
+        "2.1dev" : "unpackaged",
     }
 
     /******** Functions to talk to the API on the server ***********/
@@ -746,7 +748,7 @@ $(function () {
                 unsentMessages.push(message)
         }
         function findLine(line,w) {
-            // w.indent is the indentation of javascript or coffeescript code by the GlowScript wrapping.
+            // w.indent is the indentation of javascript code by the GlowScript wrapping.
             var indent = w.indent+' ' // Error messages indent an additional space
             indent = new RegExp('^'+indent)
             line = line.replace(indent, '')
@@ -804,86 +806,15 @@ $(function () {
             }
             if (message.error) {
                 // Only Chrome (Aug. 2012) gives line numbers in error messages!
-                // And even Chrome sometimes reports an error on line 1, which is impossible (maybe it's an error in Streamline)
-                var w = message.linenumbers
-                var parsepattern = /Parse error on line ([\d]*)/
                 var syntaxpattern = /(SyntaxError[^\d]*)([\d]*)/
-                var findparse = message.error.match(parsepattern)
                 var findsyntax = message.error.match(syntaxpattern)
-                if (findparse !== null) { // coffeescript parse error
-                    var N = findparse[1] // for parse error, window.__linenumbers not built yet
-                    var lineno = insertLineNumbers(N)                    
-                    message.error = message.error.replace(parsepattern,"Parse error on line "+lineno)
-                    message.traceback = sourceLines[lineno-1]
-                } else if (findsyntax !== null) {
-                    // SyntaxError: message.traceback can be null
-                    if (parseVersionHeader(null).lang == 'coffeescript') {
-                        var N = findsyntax[2]
-                        var lineno = insertLineNumbers(N)                    
-                        message.error = findsyntax[1]+lineno
-                        message.traceback = sourceLines[lineno-1]
-                    } else {
-                    	/*
-                        var m = message.traceback.match(/(\s*.*)\n/)
-                        var line = m[1], test
-                        for (var i in w) {
-                            test = sourceLines[w[i]-1]
-                            if (test == line) {
-                                var preamble = 'Line '+w[i]+' or similar line: '
-                                var indent = ''
-                                var traces = message.traceback.split('\n')
-                                if (traces.length > 1) {
-                                    indent = '\n'
-                                    for (var sp=0; sp<preamble.length; sp++) indent += ' '
-                                    indent += traces[1]
-                                }
-                                message.traceback = preamble+line+indent
-                                break
-                            }
-                        }
-                        */
-                    }
-                } else if (parseVersionHeader(null).lang !== 'rapydscript' && parseVersionHeader(null).lang !== 'vpython') {
+                if (findsyntax === null && parseVersionHeader(null).lang == 'javascript') {
                 	var u = message.error.split('\n')
                 	var m = u[0].match(/:(\d*):\d*:.*:(.*)/)
                 	if (m !== null) {
 	                	message.error = 'Error in line '+(m[1]-5)+':'+m[2]
-	                	// window.linenumbers doesn't exist yet:
-	                	//var L = window.__linenumbers[m[1]]
-	                	//message.traceback = 'Line '+L+': '+window.__original.text[L-2]
 	                	message.traceback = u[1]+'\n'+u[2]
-                	}
-                	
-                    //var m = message.traceback
-                    //var w = message.linenumbers
-                    
-                    // There's an extra space between /*   37 */ and the (indented) line
-                	/*
-                    var p1 = /(\/\*\s*)(\d*)\s*\*\/(.*)/
-                    var feedback = ""
-                    var f, get, lineno, errors = 0
-                    while (true) {
-                        if (m === null) break
-                        get = m.match(p1)
-                        if (get === null) break
-                        lineno = parseInt(get[2],10)
-                        if (lineno == 1) { // The compiler returning 1 is an error in Streamline (?)
-                            lineno = findLine(get[3],w)
-                            f = 'Line '+lineno+' or similar line: '+sourceLines[w[lineno]-1]+'\n'
-                        } else {
-                            var m2 = m.split('\n')
-                            var extra = (m2.length > 2) ? m2[2] : ''
-                            if (w === undefined || w[lineno] === undefined) f = get[3]
-                            else f = 'Line '+w[lineno]+': '+ sourceLines[w[lineno]-1]+'\n'+extra+'\n'
-                        }
-                        if (errors == 1) feedback += '\nCalled from:\n'
-                        feedback += f
-                        errors++
-                        m = m.replace(p1,'')
-                    }
-                    message.traceback = feedback
-                    */
-                    
+                	}                    
                 }
                 if ($dialog) $dialog.dialog("close")
                 $dialog = $("#program-error-dialog").clone().removeClass("template")
@@ -954,7 +885,10 @@ $(function () {
                     }
                     embedScript = ";(function() {" + embedScript + '\n;$(function(){ window.__context = { glowscript_container: $("#' + divid + '")'+remove+' }; '+main+' })})()'
                     embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
-                    var verdir = Number(header.version.substr(0,3))<1.1 ? "bef1.1" : header.version.substr(0,3)
+                    var v = Number(header.version.substr(0,3))
+                    var verdir = "bef1.1"
+                    if (v == 1.1) verdir = "1.1"
+                    else verdir = header.version.substr(0,3)
                     var runner = ''
                     if (header.lang == 'vpython' || header.lang == 'rapydscript') 
                     	runner = '<script type="text/javascript" src="http://www.glowscript.org/package/RSrun.' + header.version + '.min.js"></script>\n'
@@ -1023,8 +957,8 @@ $(function () {
             }
         }
 
-        apiGet( {user:username, folder:folder, program:program}, function (progData) {            
-            var lang = parseVersionHeader(progData.source).lang
+        apiGet( {user:username, folder:folder, program:program}, function (progData) { 
+        	var lang = parseVersionHeader(progData.source).lang
             if (!(lang == 'javascript' || lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython')) lang = 'javascript'
             
             if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
@@ -1076,7 +1010,7 @@ $(function () {
     // These modules in turn load worker-javascript.js and worker-coffee.js in lib/ace.
     // See lib/ace/FileSource.txt for where to find updated ACE files, and how they
     // were modified in minor ways for GlowScript use.
-    var customACEMode = function(lang, source) { // lang is "javascript" or "coffeescript" or some fragment
+    var customACEMode = function(lang, source) { // lang is "javascript" or some fragment
         
         var lib = "identifier.builtin"
         var attr = "attribute.builtin"
@@ -1105,17 +1039,17 @@ $(function () {
             if (libraryWords[id] == lib) globals.push(id)
         }
         
-        // The "//" at the end of lintPrefix comments out the line "GlowScript 1.1", hence ignored by the worker looking at JavaScript syntax
+        // The "//" at the end of lintPrefix comments out the line "GlowScript X.Y", hence ignored by the worker looking at JavaScript syntax
         var lintPrefix = "/*jslint asi:true, undef:true*/ /*global wait " + globals.join(" ") + "*/\n//"
 
         define('ace/mode/visualjs_highlight_rules', function (require, exports, module) {
             var oop = require("ace/lib/oop")
-            if (lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython') var Rules = require("ace/mode/coffee_highlight_rules").CoffeeHighlightRules
+            if (lang == 'rapydscript' || lang == 'vpython') var Rules = require("ace/mode/coffee_highlight_rules").CoffeeHighlightRules
             else var Rules = require("ace/mode/javascript_highlight_rules").JavaScriptHighlightRules
 
             var VisualHighlightRules = function () {
                 this.$rules = (new Rules()).getRules()
-                if (lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython') this.$rules.start = [{ regex: /GlowScript\s+[\d\.]*[dev]*\s+[A-Za-z]*/, token: "keyword.version_header" } ].concat(this.$rules.start)
+                if (lang == 'rapydscript' || lang == 'vpython') this.$rules.start = [{ regex: /GlowScript\s+[\d\.]*[dev]*\s+[A-Za-z]*/, token: "keyword.version_header" } ].concat(this.$rules.start)
                 else this.$rules.start = [{ regex: /GlowScript\s+[\d\.]*[dev]*/, token: "keyword.version_header" } ].concat(this.$rules.start)
                 for(var id in libraryWords) {
                     this.$rules.start = [{ regex: id, token: libraryWords[id] } ].concat(this.$rules.start)
@@ -1129,8 +1063,7 @@ $(function () {
         //------------------------------------------------------------------------------------------------------
         define('ace/mode/visualjs', function (require, exports, module) {
             var oop = require("ace/lib/oop")
-            if (lang == 'coffeescript') var BaseMode = require("ace/mode/coffee").Mode
-            else if (lang == 'rapydscript' || lang == 'vpython') var BaseMode = require("ace/mode/python").Mode
+            if (lang == 'rapydscript' || lang == 'vpython') var BaseMode = require("ace/mode/python").Mode
             else var BaseMode = require("ace/mode/javascript").Mode
             var Tokenizer = require("ace/tokenizer").Tokenizer
             var VisualHighlightRules = require("ace/mode/visualjs_highlight_rules").VisualHighlightRules
@@ -1148,13 +1081,12 @@ $(function () {
                     
                     if (worker !== undefined && worker !== null) worker.terminate() // stop a previous worker
                     
-                    if (lang == 'coffeescript') worker = new WorkerClient(["ace"], "ace/mode/coffee_worker", "Worker")
-                    else if (lang == 'javascript') worker = new WorkerClient(["ace"], "ace/mode/javascript_worker", "JavaScriptWorker")
+                    if (lang == 'javascript') worker = new WorkerClient(["ace"], "ace/mode/javascript_worker", "JavaScriptWorker")
                     
                     var doc = session.getDocument()
                     if (worker !== undefined && worker !== null) worker.$doc = doc // must set this in order to be able to execute worker.terminate()
                     
-                    if (lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython') worker.call("setValue", [''])
+                    if (lang == 'rapydscript' || lang == 'vpython') worker.call("setValue", [''])
                     else worker.call("setValue", [lintPrefix])
 
                     var header = null

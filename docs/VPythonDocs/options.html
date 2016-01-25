@@ -56,26 +56,26 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           into a specified frame, as in <span class="attribute">ball = sphere(frame 
             
         = f1)</span> <strong>NOTE: frame is not yet available in GlowScript.</strong></p>
-        <p class="attributes"> <span class="attribute">display</span> When you start 
+        <p class="attributes"> <span class="attribute">canvas</span> When you start 
           
-          a VPython program, for convenience VPython creates a display window and names 
+          a VPython program, for convenience VPython creates a canvas and names 
           
           it <span class="attribute">scene</span>. By default, objects you create go 
           
-          into that display window. You can choose to put an object in a different display 
+          into that canvas. You can choose to put an object in a different canvas 
           
           like this: </p>
         <p class="attributes"> <span class="attribute">make_trail</span> You can specify that a trail be left behind a moving arrow, box, cone, cylinder, ellipsoid, pyramid, ring, or sphere object. For details, see <strong><a href="trail.html">Leaving a Trail</a></strong>.</p>
 
           <p class="program">scene2 = display( title = &quot;Act IV, Scene 2&quot; ) <br />
           rod = cylinder( display = scene2 )</p>
-          <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">display.get_selected()</font> returns
-            a reference to the display in which objects are currently being 
-            created. Given a specific display named scene2, <span class="attribute">scene2.select()</span><span class="attributes"> makes
-            scene2 be the &quot;selected display&quot;, so that objects
+          <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">canvas.get_selected()</font> returns
+            a reference to the canvas in which objects are currently being 
+            created. Given a specific canvas named scene2, <span class="attribute">scene2.select()</span><span class="attributes"> makes
+            scene2 be the &quot;selected canvas&quot;, so that objects
             will be drawn into scene2 by default. </span></p>
         <p class="Normal">See <a href="display.html">Controlling One or More VPython 
-          Display Windows</a> for more information on creating and manipulating display 
+          Canvases</a> for more information on creating and manipulating display 
       objects.</p>
         <p class="Normal">&nbsp;</p>
 

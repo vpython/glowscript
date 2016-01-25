@@ -76,7 +76,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prose.text = prose.text[:-1] # erase letter<br />
             <br />
             scene.bind('keydown', keyInput)</p>
-          <p class="Normal">We define a &quot;function&quot; named &quot;keyInput&quot;. Then we &quot;bind&quot; this function to 'keydown' events occurring in the display named &quot;scene&quot;. Whenever VPython detects that a 'keydown' event has occurred, VPython calls the bound function, which in this case adds the input to the text of the label object.</p>
+          <p class="Normal">We define a &quot;function&quot; named &quot;keyInput&quot;. Then we &quot;bind&quot; this function to 'keydown' events occurring in the canvas named &quot;scene&quot;. Whenever VPython detects that a 'keydown' event has occurred, VPython calls the bound function, which in this case adds the input to the text of the label object.</p>
           <p class="Normal">Note that <strong>evt.ctrl</strong>, <strong>evt.alt</strong>, and <strong>evt.shift</strong> are True if the corresponding key is down at the time of the event (evt.shift is also True if Caps Lock is in effect).</p>
           <p class="Normal">This operation is called a &quot;callback&quot; because with scene.bind you register with VPython that you want to be called back any time there is a 'keydown' event. Here are the built-in events that you can specify in a bind operation:</p>
           <p class="program">Keyboard: keydown, keyup<br />

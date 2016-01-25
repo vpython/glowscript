@@ -330,8 +330,8 @@ class ApiAdminUpgrade(ApiRequest):
         self.respond( {"processed":len(programs), "changed":changeCount} )
 
     def upgradeProgram(self, p):
-        if not p.source.startswith("GlowScript 1.1\n"):
-            p.source = "GlowScript 1.1 RapydScript\n" + p.source
+        if not p.source.startswith("GlowScript 2.0\n"):
+            p.source = "GlowScript 2.0 VPython\n" + p.source
             return True
 
 app = web.WSGIApplication(

@@ -2,8 +2,8 @@
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     run: [
-        "../lib/jquery/1.1/jquery.mousewheel.js",
-        "../lib/jquery/1.1/jquery.ui.touch-punch.min.js",
+        "../lib/jquery/2.0/jquery.mousewheel.js",
+        "../lib/jquery/2.0/jquery.ui.touch-punch.min.js",
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
         "../lib/glMatrix.js",
@@ -77,7 +77,8 @@ function ideRun() {
                 var packages = []
                 var choose = progver
                 if (Number(progver)<1.1) {choose = "bef1.1"}
-                choose = "1.1"
+                else if (Number(progver)==1.1) {choose = "1.1"}
+                else {choose = "2.0"}
                 packages.push("../css/redmond/" + choose + "/jquery-ui.custom.css",
                               "../lib/jquery/"  + choose + "/jquery.min.js",
                               "../lib/jquery/"  + choose + "/jquery-ui.custom.min.js")
@@ -186,9 +187,9 @@ function ideRun() {
     	var prog = program.split('\n')
     	//for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     	var referror = (err.__proto__.name === 'ReferenceError')
-    	console.log('Error', err)
-    	console.log('Stack', err.stack)
-    	console.log('referror', referror)
+    	//console.log('Error', err)
+    	//console.log('Stack', err.stack)
+    	//console.log('referror', referror)
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
     	var traceback = []
         if (err.cursor) {

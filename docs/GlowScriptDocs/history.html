@@ -47,7 +47,21 @@
         </table>
         </div>
     <div>
-        <p class="Normal">2015 Dec. 21: Update of files that permit operator overloading (being able to add two vectors a and b simply as a+b) and the ability to use synchronous code (such as infinite loops)  thanks to files supplied by Salvatore di Dio. Changes to Firefox made this update necessary. An added bonus was that GlowScript now runs on Internet Explorer and Edge.</p>
+        <p class="Normal">2016 Jan. 24: <strong>GlowScript 2.0</strong><br />
+          * Fixes a serious problem in make_trail, that long trails were very slow. New trail-related features: trail_color, trail_radius, pps (points per second), clear() which deletes existing points. Setting make_trail False stops leaving a trail; setting make_trail True turns the trail on again, without drawing an undesirable line between the stop and start points.<br />
+          <br />
+          * 
+If v is a vector, v.mag() must now be written as v.mag and v.mag2() must now be written as v.mag2. The older form was a mistake and is incompatible with the new Jupyter version of VPython.<br />
+<br />
+* display should be written as canvas; gdisplay as graph. The older names still work at present but are incompatible with the new Jupyter version of VPython.<br />
+<br />
+*
+      The points object has a radius, not a size (size was a scalar and confusing given that size is a scalar elsewhere; size_units can still be used to specify whether the radius is in pixels or real-world measure).<br />
+      <br />
+      * Because it is hardly being used, CoffeeScript is not supported in GlowScript 2.0. It can still be used with &quot;GlowScript 1.1 CoffeeScript&quot;.
+      </p>
+        <p class="Normal">&nbsp;</p>
+<p class="Normal">2015 Dec. 21: Update of files that permit operator overloading (being able to add two vectors a and b simply as a+b) and the ability to use synchronous code (such as infinite loops)  thanks to files supplied by Salvatore di Dio. Changes to Firefox made this update necessary. An added bonus was that GlowScript now runs on Internet Explorer and Edge.</p>
         <p class="Normal">2015 Oct. 18: Implement display.delete(), gdisplay.delete(), and the ability to delete a set of data from a graph. Add to the make_trail machinery the ability to set trail_color and trail_radius without having to reference trail_object.</p>
       <p class="Normal">2015 Oct. 15: scene.mouse.pos now always contains the up-to-date mouse information, which makes it possible to drag objects with the mouse buttons up.</p>
         <p class="Normal">2015 Sept. 19: Implement the standard Python string.format mechanism.</p>

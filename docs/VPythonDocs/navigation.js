@@ -48,8 +48,8 @@ s += '<option value="factorial.html">factorial/combin</option>'
 document.getElementById("menu2").innerHTML = s
 
 s = ''
-s += '<option>Displays/Events</option>'
-s += '<option value="display.html">Displays</option>'
+s += '<option>Canvases/Events</option>'
+s += '<option value="display.html">Canvases</option>'
 s += '<option value="mouse.html">Mouse Events</option>'
 s += '<option value="mouse_click.html">&nbsp;&nbsp;&nbsp;Mouse Click</option>'
 s += '<option value="mouse_drag.html">&nbsp;&nbsp;&nbsp;Mouse Drag</option>'

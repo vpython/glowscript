@@ -67,19 +67,10 @@
                 and z=1. Its <span class="attribute">axis</span> lies along the x axis, vec(1,0,0), which points to the right (y points up, z points out of the screen toward you). The <span class="attribute">size</span> or bounding box is 5 in the direction of the axis, so that the other 
       end of the cylinder is at (5,2,1). The lateral size of the cylinder, the diameter, is 1. If you specify the <span class="attribute">size</span> to be vec(3,1,2), the cylinder will have an elliptical cross section.</p>
       <p class="Normal"><strong><font color="#0000a0">JavaScript</font></strong></p>
-      <p class="Normal">Here is the form to use in  JavaScript (if you change &quot;RapydScript&quot; to &quot;JavaScript&quot; in the header line of your program):</p>
+      <p class="Normal">Here is the form to use in  JavaScript (if you specify &quot;JavaScript&quot; in the header line of your program):</p>
       <p class="program">var rod = cylinder( {pos:vec(0,2,1),<br />
   &nbsp;&nbsp;&nbsp;axis:vec(1,0,0), size:vec(5,1,1)} )</p>
-      <p class="Normal">Note the required &quot;var&quot; and required braces.</p>
-      <p class="Normal"><strong><font color="#0000a0">CoffeeScript</font></strong></p>
-      <p class="Normal">Here is the form to use in  CoffeeScript (if you change &quot;RapydScript&quot; to &quot;CoffeeScript&quot; in the header line of your program):</p>
-      <p class="program">rod = cylinder<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;pos:vec(0,2,1) <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;axis:vec(1,0,0) <br />
-      &nbsp;&nbsp;&nbsp;&nbsp;size:vec(5,1,1)</p>
-      <p class="Normal">Another CoffeeScript scheme is the following, where '\' means &quot;continue the line&quot;, used here due to the narrow column. Note the lack of braces:</p>
-      <p class="program">rod = cylinder( pos:vec(0,2,1),\<br />
-  &nbsp;&nbsp;&nbsp;      axis:vec(1,0,0), size:vec(5,1,1) )      </p>
+      <p class="Normal">Note the required &quot;var&quot; and required braces. Also, True and False are spelled true and false.</p>
       <p class="Normal"><strong><font color="#0000a0">Modifying attributes</font></strong></p>
       <p class="Normal">You can modify the position attribute of the cylinder after it has 
         been created, which has the effect of moving it immediately to the new position:</p>
@@ -112,7 +103,7 @@
     which is color.white.</p>
       <p class="attributes"> <span class="attribute">opacity</span> Opacity of object, default = 1 (fully opaque); 0 is completely transparent.</p>
       <p class="attributes"> <span class="attribute">shininess</span> 0 to 1, default 0.6; governs the amount of specular reflections.</p>
-      <p class="attributes"> <span class="attribute">emissive</span> If True, local and distant lights are ignored, and the brightness is governed by the object's own color.   An example of its use is to put an emissive sphere at the location of a local_light, which looks like a glowing lamp.   The default for emissive is False. (For JavaScript or CoffeeScript, specify true or false instead of True or False.)</p>
+      <p class="attributes"> <span class="attribute">emissive</span> If True, local and distant lights are ignored, and the brightness is governed by the object's own color.   An example of its use is to put an emissive sphere at the location of a local_light, which looks like a glowing lamp.   The default for emissive is False. (For JavaScript, specify true or false instead of True or False.)</p>
           <p class="attributes"><span class="attribute">up</span> Which side
             of the  cylinder is &quot;up&quot;; this has only a subtle effect
             on the 3D appearance  of a cylinder unless the cross section is not circular or a texture is applied; default = vec(0,1,0).</p>
@@ -121,7 +112,7 @@
           object is not displayed; e.g. <span class="attribute">rod.visible = False</span><em class="program"><br />
           </em> Use <span class="attribute">rod.visible = True</span> to make the object 
           
-          visible again. (For JavaScript or CoffeeScript, specify true or false instead of True or False.)</p>
+          visible again. (For JavaScript, specify true or false instead of True or False.)</p>
           <p class="attributes"><span class="attribute">texture</span> You can specify a texture to apply to the object's surface. See the <a href="textures.html">Textures</a> documentation.</p>
           <p class="Normal"> <strong>End vs center:</strong> The <span class="attribute">pos</span> attribute 
             for arrow, cone, cylinder, helix, and pyramid corresponds to one end of the object, 
@@ -130,7 +121,7 @@
           <p class="Normal">See <a href="rotation.html"><strong>Rotating an Object</strong></a> for an easy way to change the orientation of an object.</p>
           <p class="Normal">When you run a  program, for convenience GlowScript 
             creates a <a href="display.html">canvas</a> on the web page and names it <span class="attribute">scene</span>. 
-          Objects that you create are drawn on this canvas. If you have more than one canvas, you can specify  in which canvas to place a new object, as in box(canvas=myscene); in JavaScript this would be box( {canvas:myscene} ) and in CoffeeScript box(canvas:myscene).. If you don't specify a canvas, the new object goes into the most recently created canvas, or the most recently selected canvas as specified by setting <span class="attribute">canvas.selected</span>.</p>
+          Objects that you create are drawn on this canvas. If you have more than one canvas, you can specify  in which canvas to place a new object, as in box(canvas=myscene); in JavaScript this would be box( {canvas:myscene} ). If you don't specify a canvas, the new object goes into the most recently created canvas, or the most recently selected canvas as specified by setting <span class="attribute">canvas.selected</span>.</p>
     <!-- InstanceEndEditable --></td>
   </tr>
 </table>

@@ -52,18 +52,17 @@
       <p class="program">points(pos=[vec(-1,0,0), vec(1,0,0)], <br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size=50, color=color.red)</p>
       <p class="Normal">The points object is similar to a curve, but with
-        disconnected points. As with curve, the <span class="attribute">pos</span> attribute is an array
-        of points. The size of the points is specified by <span class="attribute">size</span> (not a vector) and the default size is 5, meaning a sphere whose diameter is 5 pixels. The size attribute is in screen
-        pixels if <span class="attribute">size_units=&quot;pixels&quot;</span> (the
-        default), but if <span class="attribute">size_units=&quot;world&quot;</span>,
-        the size is in the usual world coordinates. Setting the size to 0 is the same as not specifying a size, in which case the diameter will be 5 pixels, just as a curve is thin if its radius is specified as 0.</p>
+          disconnected points. As with curve, the <span class="attribute">pos</span> attribute is an array
+          of points. The size of the points is specified by <span class="attribute">radius</span> and the default radius is 2.5, meaning a sphere whose radius is 2.5 pixels (a diameter of 5 pixels). The radius attribute is in screen
+          pixels if <span class="attribute">size_units=&quot;pixels&quot;</span> (the
+      default), but if <span class="attribute">size_units=&quot;world&quot;</span>, the radius is in the same terms as other objects.  Setting the size to 0 is the same as not specifying a size, in which case the diameter will be 5 pixels, just as a curve is thin if its radius is specified as 0.</p>
       <p class="Normal">The options for manipulating a <strong><a href="curve.html">curve</a></strong> can also be used with the points object, but when appending an additional point you can't specify the point size; you can only specify the pos and color.</p>
       <div>
         <div></div>
       </div>
       <div> </div>
-      <p class="Normal"><strong><font color="#0000a0">JavaScript or CoffeeScript</font></strong></p>
-      <p class="Normal">See the <a href="cylinder.html"><strong>cylinder</strong></a> documentation for how to create an object in JavaScript or CoffeeScript. When creating an object you use &quot;<strong>:</strong>&quot; instead of &quot;<strong>=</strong>&quot;, and for JavaScript you need to include the initial specifications inside braces. Also, with JavaScript, if you name the object, the name must be preceded by &quot;<strong>var</strong>&quot;. Specify true or false instead of True or False for <span class="attribute">visible</span>.</p>
+      <p class="Normal"><strong><font color="#0000a0">JavaScript</font></strong></p>
+      <p class="Normal">See the <a href="cylinder.html"><strong>cylinder</strong></a> documentation for how to create an object in JavaScript.</p>
       <p class="Normal">&nbsp;</p>
     <!-- InstanceEndEditable --></td>
   </tr>

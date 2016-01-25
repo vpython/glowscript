@@ -38,9 +38,7 @@
       scene.height = 400 &nbsp;# default is 400</p>
       <p class="Normal">You can also create your own canvas, like this:</p>
       <p class="program">cv = canvas( width=300, height=200 )</p>
-      <p class="Normal">In JavaScript: var cv = canvas( {width:300, height:200} )<br />
-        In CoffeeScript: cv = canvas( width:300, height:200 )
-      </p>
+      <p class="Normal">In JavaScript: var cv = canvas( {width:300, height:200} )</p>
       <p class="Normal">After creating your own canvas, but before creating any 3D objects, you can set the width and height like this instead of setting them in the canvas statement:</p>
       <p class="program">cv.width = 200<br />
         cv.height = 400</p>
@@ -112,10 +110,6 @@
   &nbsp;&nbsp;&nbsp;&nbsp;if obj.constructor == box:<br />
   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red</p>
 <p class="Normal">You could also write <span class="program"><strong>if (obj.constructor.name == 'box')</strong></span>.</p>
-<p class="Normal">CoffeeScript version (no final colons):</p>
-<p class="program">for obj in scene.objects<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;if obj.constructor == box<br />
-  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red</p>
 <p class="Normal">JavaScript version:</p>
 <p class="program">for (var obj in scene.objects) {<br />
 &nbsp;&nbsp;&nbsp;&nbsp;var o = scene.objects[obj]  <br />

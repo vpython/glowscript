@@ -63,11 +63,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="program">points(pos=[vector(-1,0,0), vector(1,0,0)], size=50, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.red)</p>
         <p class="Normal">The points object is similar to a curve, but with
           disconnected points. As with curve, the <span class="attribute">pos</span> attribute is an array
-          of points. The size of the points is specified by <span class="attribute">size</span> (not a vector) and the default size is 5, meaning a sphere whose diameter is 5 pixels. The size attribute is in screen
+          of points. The size of the points is specified by <span class="attribute">radius</span> and the default radius is 2.5, meaning a sphere whose radius is 2.5 pixels (a diameter of 5 pixels). The radius attribute is in screen
           pixels if <span class="attribute">size_units=&quot;pixels&quot;</span> (the
-          default), but if <span class="attribute">size_units=&quot;world&quot;</span>,
-          the size is in the usual world coordinates. Setting the size to 0 is the same as not specifying a size, in which case the diameter will be 5 pixels, just as a curve is thin if its radius is specified as 0.</p>
-        <p class="Normal">The options for manipulating a <strong><a href="curve.html">curve</a></strong> can also be used with the points object, but when appending an additional point you can't specify the point size; you can only specify the pos and color.</p>
+          default), but if <span class="attribute">size_units=&quot;world&quot;</span>, the radius is in the same terms as other objects.
+  Setting the size to 0 is the same as not specifying a size, in which case the diameter will be 5 pixels, just as a curve is thin if its radius is specified as 0.</p>
+        <p class="Normal">The options for manipulating a <strong><a href="curve.html">curve</a></strong> can also be used with the points object, but when appending an additional point you can't specify the point radius; you can only specify the pos and color.</p>
         <div>
     <!-- InstanceEndEditable --></td>
   </tr>

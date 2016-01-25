@@ -1,4 +1,4 @@
-GlowScript makes it easy to write programs in JavaScript, CoffeeScript, RapydScript (a Python look-alike that compiles Python to JavaScript), or VPython (which uses the RapydScript compiler) that generate navigable real-time 3D animations, using the WebGL 3D graphics library available in modern browsers (with modern GPU-based graphics cards). For example, the following complete program creates a 3D canvas in the browser, displays a white 3D cube, creates default lighting, places the camera so that the cube fills the scene, and enables mouse controls to rotate and zoom the camera:
+GlowScript makes it easy to write programs in JavaScript, RapydScript (a Python look-alike that compiles Python to JavaScript), or VPython (which uses the RapydScript compiler) that generate navigable real-time 3D animations, using the WebGL 3D graphics library available in modern browsers (with modern GPU-based graphics cards). For example, the following complete program creates a 3D canvas in the browser, displays a white 3D cube, creates default lighting, places the camera so that the cube fills the scene, and enables mouse controls to rotate and zoom the camera:
 
    box()
 
@@ -8,7 +8,7 @@ Full documentation for users is provided: at glowscript.org, click Help at the u
 
    http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bounce-VPython
 
-GlowScript was inspired by VPython (http://vpython.org). The project was begun in 2011 by David Scherer and Bruce Sherwood. Originally programs had to be written in JavaScript or CoffeeScript, but in November 2014 it became possible to use Python, thanks to the RapydScript Python-to-JavaScript compiler (http://www.rapydscript.com).
+GlowScript was inspired by VPython (http://vpython.org). The project was begun in 2011 by David Scherer and Bruce Sherwood. Originally programs had to be written in JavaScript, but in November 2014 it became possible to use Python, thanks to the RapydScript Python-to-JavaScript compiler (http://www.rapydscript.com).
 
 In December 2014 the original GlowScript repository was corrupted in such a way that it could not be reconstituted, but a backup that contains the history of commits is here:
 

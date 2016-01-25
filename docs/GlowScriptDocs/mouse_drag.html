@@ -91,32 +91,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;nonlocal drag, s<br />
         &nbsp;&nbsp;&nbsp;&nbsp;s.color = color.cyan<br />
         &nbsp;&nbsp;&nbsp;&nbsp;drag = False<br />)</p>
-      <p class="Normal"></p>
-      <p class="Normal">CoffeeScript, with anonymous functions:</p>
-      <p class="program">scene.range = 5<br />
-        box()<br />
-        <br />
-        drag = false<br />
-        s = null # declare s to be used below<br />
-        <br />
-        scene.bind(&quot;mousedown&quot;, () -&gt;<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;s = sphere<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pos:scene.mouse.pos<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color:color.red<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size:0.2*vec(1,1,1)<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;drag = true<br />
-        )<br />
-        <br />
-        scene.bind(&quot;mousemove&quot;, () -&gt;<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;if drag # mouse button is down<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.pos = scene.mouse.pos<br />
-        )<br />
-        <br />
-        scene.bind(&quot;mouseup&quot;, () -&gt;<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;s.color = color.cyan<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;drag = false<br />
-        )</p>
-      <p class="Normal"></p>
       <p class="Normal">JavaScript, with anonymous functions:</p>
       <p class="program">scene.range = 5<br />
         box()<br />

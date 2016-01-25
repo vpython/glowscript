@@ -21,7 +21,7 @@ posobjects = ['arrow', 'box', 'cone', 'curve', 'cylinder', 'ellipsoid', 'label',
 
 # Basic categories with respect to radius, length, etc. are arrow, box, cylinder, ring, sphere, curve:
 primtypes = {'arrow':'rect', 'box':'rect', 'cone':'radial', 'curve':'curve', 'cylinder':'radial',
-            'ellipsoid':'rect', 'extrusion':'not_implemented', 'faces':'not_implemented', 'helix':'radial',
+            'ellipsoid':'rect', 'extrusion':'rect', 'faces':'not_implemented', 'helix':'radial',
             'label':'label', 'pyramid':'rect', 'ring':'radial', 'sphere':'radial', 'frame':'not_implemented',
             'text':'not_implemented', 'local_light':'light', 'distant_light':'light', 'display':'display'}
 
@@ -71,6 +71,8 @@ def firstpass(pname):
         line = line.replace('arcsin', 'asin')
         line = line.replace('arccos', 'acos')
         line = line.replace('arctan', 'atan')
+        line = line.replace('gdisplay', 'graph')
+        line = line.replace('display', 'canvas')
         m = rerange.search(line)
         if m:
             line = line.replace('('+m.group(1),m.group(1)+'  # range was ('+m.group(1))

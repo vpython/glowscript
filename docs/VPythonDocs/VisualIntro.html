@@ -48,31 +48,31 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">To write a VPython program in the browser, sign in at glowscript.org, click the link to your programs, then click Create New Program. A blank edit page will open with a header line that says something like &quot;GlowScript 1.1 VPython&quot;. Start typing your program on the second line. Click &quot;Run this program&quot; to try out your program.</p>
       </div>
       <div>
-        <h3 class="Heading2"> <font color="#0000A0">The Display window</font></h3>
-        <p class="Normal"> When using VPython the display window shows objects in 3D.</p>
-        <p class="Normal"> (0,0,0) is in the center of the display window<img src="axes.gif" alt="axes" align="right" /> . The +x axis runs to the right, the +y axis runs up, and the +z axis points out of the screen, toward you.</p>
+        <h3 class="Heading2"> <font color="#0000A0">The canvas</font></h3>
+        <p class="Normal"> When using VPython the canvas shows objects in 3D.</p>
+        <p class="Normal"> (0,0,0) is in the center of the canvas<img src="axes.gif" alt="axes" align="right" /> . The +x axis runs to the right, the +y axis runs up, and the +z axis points out of the screen, toward you.</p>
         <p class="Normal"> x, y, and z are measured in whatever units you choose; 
           
-          the display is automatically scaled appropriately. (You could, for example, 
+          the canvas is automatically scaled appropriately. (You could, for example, 
           
           create a sphere with a radius of 1E-15 m to represent a nucleus, or a sphere 
           
           with a radius of 1E6 m to represent a planet, though it wouldn't make sense 
           
-          to put both of these objects in the same display!)</p>
+          to put both of these objects in the same canvas!)</p>
 
         <h3 class="Heading2"> <font color="#0000A0">The Output window</font></h3>
         <p class="Normal"> The output of any -print- statements you execute in your program goes to  a scrolling text window underneath the graphics window. You can use this window to print values of variables, print lists, print messages, etc.</p>
 
         <h3 class="Heading2"> <font color="#0000A0">The Code window</font></h3>
         <p class="Normal">If you type or copy the following simple program into the program editor and run it (click &quot;Run this program&quot; or press Ctrl-1 or Ctrl-2), you will see 
-          a display like the one shown in the figure. </p>
+          a canvas like the one shown in the figure. </p>
         <p class="program">        redbox=box(pos=vector(4,2,3),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        size=vector(8,4,6),color=color.red)<br />
       ball=sphere(pos=vector(4,7,3),radius=2,color=color.green)</p>
         <p class="Normal"> <span class="Heading-1"><img src="spherebox.gif" alt="sphere" align="right" /></span></p>
       <h3 class="Heading2"><font color="#0000A0">Viewing the scene</font></h3>
-        <p class="Normal"> In the display window, click and drag with the right mouse 
+        <p class="Normal"> In the canvas, click and drag with the right mouse 
           button (or hold down the Ctrl key while dragging). Drag left or right, and 
           you rotate around the scene. To rotate around a horizontal axis, drag up 
           or down. Click and drag up or down with the 

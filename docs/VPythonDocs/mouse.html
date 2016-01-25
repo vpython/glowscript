@@ -45,7 +45,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">For basic examples of mouse handling, 
           see <a href="mouse_click.html">Click example</a> or <a href="mouse_drag.html">Drag 
         example</a>.</p>
-        <p class="Normal">The simplest mouse interaction is to wait for the user to click before proceeding in the program. Suppose the 3D display is in <span class="attribute">scene</span>, the default window created by VPython. Here is a way to wait for a mouse click, which  is defined as the mouse button being pressed and released without moving the mouse (the event occurs when the mouse button is released):        </p>
+        <p class="Normal">The simplest mouse interaction is to wait for the user to click before proceeding in the program. Suppose the 3D canvas is in <span class="attribute">scene</span>, the default canvas created by VPython. Here is a way to wait for a mouse click, which  is defined as the mouse button being pressed and released without moving the mouse (the event occurs when the mouse button is released):        </p>
         <p class="program">ev = scene.waitfor('click')</p>
         <p class="Normal">You can use the package of information contained in the variable &quot;ev&quot;:</p>
         <p class="program">sphere(pos=ev.pos, radius=0.1)</p>
@@ -58,7 +58,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           scene.waitfor('keyup')  &nbsp;&nbsp;# wait for keyboard key release<br />
           scene.waitfor('click keydown') # click or keyboard<br />
       </p>
-<p class="Normal">A convenient way to wait for a mouse event is to use <span class="attribute">scene.pause()</span>, which is equivalent to scene.waitfor('click') but which is not yet available in classic VPython. You can also show a message to the user at the bottom of the display: <span class="attribute">scene.pause('Click to proceed')</span>.</p>
+<p class="Normal">A convenient way to wait for a mouse event is to use <span class="attribute">scene.pause()</span>, which is equivalent to scene.waitfor('click') but which is not yet available in classic VPython. You can also show a message to the user at the bottom of the canvas: <span class="attribute">scene.pause('Click to proceed')</span>.</p>
 <p class="Normal">You can obtain a package of information about the event that caused the end of the wait, with the added information of whether it was a mouse or keyboard event:</p>
       <p class="program">        box()<br />
         ev = scene.waitfor('mousedown mouseup')<br />
@@ -110,7 +110,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.color = color.cyan<br />
 <br />
 scene.bind('click', change)</p>
-        <p class="Normal">We define a &quot;function&quot; named &quot;change&quot;. Then we &quot;bind&quot; this function to click events occurring in the display named &quot;scene&quot;. Whenever VPython detects that a click event has occurred, VPython calls the bound function, which in this case toggles the sphere's color between cyan and red. (In classic VPython one could say &quot;if s.color == color.cyan&quot;, but in GlowScript it is necesary to use the &quot;equals&quot; function to compare two vectors.</p>
+        <p class="Normal">We define a &quot;function&quot; named &quot;change&quot;. Then we &quot;bind&quot; this function to click events occurring in the canvas named &quot;scene&quot;. Whenever VPython detects that a click event has occurred, VPython calls the bound function, which in this case toggles the sphere's color between cyan and red. (In classic VPython one could say &quot;if s.color == color.cyan&quot;, but in GlowScript it is necesary to use the &quot;equals&quot; function to compare two vectors.</p>
         <p class="Normal">This operation is called a &quot;callback&quot; because with scene.bind you register that you want to be called back any time there is a click event. Here are the built-in events that you can specify in a bind operation:</p>
         <p class="program">Mouse: &nbsp;&nbsp;&nbsp;click, mousedown, mousemove, mouseup<br />
           Keyboard: keydown, keyup<br />

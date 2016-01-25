@@ -42,37 +42,37 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
         <h1 class="Heading-1"> <font color="#0000A0">Controlling One or More VPython 
           
-          Displays</font></h1>
-      <p class="Normal"> Initially, there is one VPython display named <span class="attribute">scene</span>. 
+          Canvases</font></h1>
+      <p class="Normal"> Initially, there is one VPython canvas named <span class="attribute">scene</span>. 
         Display objects do not create windows on the screen unless they are used, so 
-        if you immediately create your own display object early in your program you 
+        if you immediately create your own canvas early in your program you 
         will not need to worry about scene. If you simply begin creating objects such 
-        as sphere they will go into scene.</p>
-        <p class="attributes"> <span class="attribute">display()</span> Creates a display 
-          with the specified attributes, makes it the selected display, and returns 
-          it. For example, the following creates another VPython display  600 by 
+    as sphere they will go into scene.</p>
+        <p class="attributes"> <span class="attribute">canvas()</span> Creates a canvas 
+          with the specified attributes, makes it the selected canvas, and returns 
+          it. For example, the following creates another VPython canvas  600 by 
           200, with its upper left corner at the upper left corner of the screen (y is measured down from the top of the screen), with 'Examples of Tetrahedrons' in the title bar, centered on location (5,0,0), and with 
-          a background color of cyan filling the window.</p>
+a background color of cyan filling the window.</p>
 
-            <p class="program"> scene2 = display(title='<span class="attributes">Examples of Tetrahedrons</span>',<br />
+            <p class="program"> scene2 = canvas(title='<span class="attributes">Examples of Tetrahedrons</span>',<br />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x=0, y=0, width=600, height=200,<br />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;center=(5,0,0), background=(0,1,1))</p>
           <p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong></p>
           <p class="attributes"> <span class="attribute">select()</span> Makes the specified 
-            display the &quot;selected display&quot;, so that objects will be drawn 
-            into this display by default; e.g. <span class="attribute">scene.select() </span></p>
+            canvas the &quot;selected canvas&quot;, so that objects will be drawn 
+into this canvas by default; e.g. <span class="attribute">scene.select() </span></p>
  
-            <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">display.get_selected()</font> returns
-               a reference to the display in which objects are currently being
-               created.</p>
+            <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">canvas.get_selected()</font> returns
+               a reference to the canvas in which objects are currently being
+  created.</p>
           <p class="attributes"> <span class="attribute">background</span> Set color 
-        to be used to fill the display window; default is black.</p>
+  to be used to fill the canvas; default is black.</p>
           <p class="attributes"><span class="attribute">ambient</span> Color
             of nondirectional  (&quot;ambient&quot;) lighting. Default is color.gray(0.2);
             for compatibility with earlier versions of VPython, this can 
             be expressed as scene.ambient=0.2. </p>
       <p class="attributes"><span class="attribute">lights</span> List of light
-            objects created for this display. By default, scene.lights is this list:<br />
+        objects created for this canvas. By default, scene.lights is this list:<br />
             &nbsp;&nbsp;&nbsp;<span class="attribute">[distant_light(direction=(0.22, 0.44, 0.88), color=color.gray(0.8))</span>,<br /> 
             <span class="attribute">&nbsp;&nbsp;&nbsp;distant_light(direction=(-0.88, -0.22, -0.44),
               color=color.gray(0.3))]</span><br />
@@ -91,40 +91,37 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 2*ball.pos<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      )</p>
 <p class="attributes"><span class="attribute">objects</span> A list
-            of all the visible objects in the display; invisible objects and
+            of all the visible objects in the canvas; invisible objects and
             lights are not listed (<span class="attribute">scene.lights</span> is a list of existing lights).
             For example, the following makes all visible boxes in the scene red: </p>
 <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;for obj in scene2.objects: <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if isinstance(obj, box):<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red</p>
 <p class="attributes"></p>
-<p class="attributes"><span class="attribute">delete </span>Deletes all the objects in this display and then deletes the display itself</p>
+<p class="attributes"><span class="attribute">delete </span>Deletes all the objects in this canvas and then deletes the canvas itself</p>
 <p class="attributes"><span class="attribute">pixel_to_world</span> Gives the width of a pixel in &quot;world&quot; coordinates (that is, the coordinates you use to position objects). This is read-only; you cannot set it. It is determined from the current value of scene.range. An example of its use is that if you want the radius of a curve object to be 5 pixels, set the radius to 5*scene.pixel_to_world. This is not currently available in classic VPython.</p>
 <p class="attributes"><span class="attribute">cursor.visible</span> Currently not supported in GlowScript.</p>
 <p class="attributes"><span class="attribute">window </span>Currently not supported in GlowScript.</p>
 <p class="attributes"><span class="attribute">stereo</span> Currently not supported in GlowScript.</p>
-<p class="Normal"><strong><font color="#0000A0">Controlling the display</font></strong></p>
+<p class="Normal"><strong><font color="#0000A0">Controlling the canvas</font></strong></p>
           <p class="Normal">The  attributes <span class="attribute">width</span>, <span class="attribute">height</span>,
             and <span class="attribute">title</span> cannot be changed while
-            a window is active; they are used to create a display, not to change
-            one. If these parameters are such as to place part of the display off screen, the width and height are adjusted to fit all of the display onto the screen.</p>
+            a window is active; they are used to create a canvas, not to change
+      one. If these parameters are such as to place part of the canvas off screen, the width and height are adjusted to fit all of the canvas onto the screen.</p>
 <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
-            and height of the display area in pixels: scene.height = 200 (includes
-          title bar). </p>
-          <p class="attributes"> <span class="attribute">title</span> Text above the display: scene.title = 'Planetary Orbit'</p>
+            and height of the canvas area in pixels: scene.height = 200 (includes
+  title bar). </p>
+          <p class="attributes"> <span class="attribute">title</span> Text above the canvas: scene.title = 'Planetary Orbit'</p>
           <p class="attributes"><span class="attribute">fullscreen</span> Not currently supported in GlowScript.</p>
           <p class="attributes"> <span class="attribute">visible</span> Make
-            sure the display is visible; <span class="attribute">scene2.visible
-            = True</span><em class="program"> </em> makes the display named <span class="attribute">scene2</span> visible.
+            sure the canvas is visible; <span class="attribute">scene2.visible
+            = True</span><em class="program"> </em> makes the canvas named <span class="attribute">scene2</span> visible.
             This is automatically called when new primitives are added to the
-            display, or the mouse is referenced. Setting <span class="attribute">visible</span> to
-            False hides the display. If <span class="attribute">scene2</span> is part of a wxPython window that includes other elements such as buttons, <span class="attribute">scene2.visible
+            canvas, or the mouse is referenced. Setting <span class="attribute">visible</span> to
+            False hides the canvas. If <span class="attribute">scene2</span> is part of a wxPython window that includes other elements such as buttons, <span class="attribute">scene2.visible
             = False </span><span class="Normal">gives an error; if the window is named </span><span class="attribute">w</span><span class="Normal">, use </span><span class="attribute">w.visible = False</span><span class="Normal">.</span></p>
-      <p class="attributes"> <span class="attribute"><a name="exit" id="exit"></a>exit</span> If <span class="attribute">sceneb.exit</span><span class="Body"> is Fals</span><span class="Body">e</span>, the program does not quit when the close box of the <span class="attribute">sceneb</span> display is clicked. The default is <span class="attribute">sceneb.exit = 
-              True</span>, in which case clicking the close box does make the program quit. If <span class="attribute">sceneb</span> is part of a wxPython window that includes other elements such as buttons, <span class="attribute">sceneb.exit
-            = False </span><span class="Normal">has no effect; if the window is named </span><span class="attribute">w</span><span class="Normal">, use </span><span class="attribute">w.exit = False</span><span class="Normal">.</span></p>
       <p class="Normal"><strong> <font color="#0000A0">Displaying text</font></strong></p>
-      <p class="Normal"> You can use the label object to display text on the display. You can also display text just above the display with <span class="attribute">scene.title = &quot;My Program&quot;</span> or <span class="attribute">scene.title.text(&quot;My Program&quot;)</span> and just below the display with <span class="attribute">scene.caption = &quot;Click anywhere&quot; or scene.caption.text(&quot;My Program&quot;)</span>. You can change (overwrite) the message by executing another such statement:</p>
+      <p class="Normal"> You can use the label object to display text on the canvas. You can also display text just above the canvas with <span class="attribute">scene.title = &quot;My Program&quot;</span> or <span class="attribute">scene.title.text(&quot;My Program&quot;)</span> and just below the canvas with <span class="attribute">scene.caption = &quot;Click anywhere&quot; or scene.caption.text(&quot;My Program&quot;)</span>. You can change (overwrite) the message by executing another such statement:</p>
       <p class="program">scene.caption = &quot;Hello&quot;<br />
         sleep(3,wait) # wait for 3 seconds<br />
         scene.caption = &quot;Goodbye&quot;</p>
@@ -140,11 +137,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         newlines.''')
       </p>
       <p class="Normal">If you specify html instead of text, <span class="attribute">scene.title.html(.....)</span>, or <span class="attribute">scene.caption.html(.....)</span> you can include html directives such as this: &lt;b&gt;This is bold.&lt;/b&gt;</p>
-      <p class="Normal"><span class="attribute">scene.wrapper</span> is the web page component which contains the display and its overlay (the overlay is a 2D canvas on which label objects and the prompt generated by scene.pause() are displayed). For example, you can say <span class="attribute" id="internal-source-marker_0.8369674684945494">scene.wrapper.css(&quot;float&quot;, &quot;right&quot;) </span>to move the display+overlay to the right side of the web page. Similarly, if you have a graph named <span class="attribute">g</span>, you can say <span class="attribute">g.wrapper.css(&quot;float&quot;, &quot;right&quot;)</span> to move the graph to the right.</p>
-      <p class="Normal">Similarly, <span class="attribute">scene.display</span> refers to the 3D display and <span class="attribute">scene.elements</span> refers to the 3D display and the 2D overlay.</p>
-      <p class="Normal">(The following additional connections to the web page are not yet documented here: scene.events, display.container.)</p>
+      <p class="Normal"><span class="attribute">scene.wrapper</span> is the web page component which contains the canvas and its overlay (the overlay is a 2D canvas on which label objects and the prompt generated by scene.pause() are displayed). For example, you can say <span class="attribute" id="internal-source-marker_0.8369674684945494">scene.wrapper.css(&quot;float&quot;, &quot;right&quot;) </span>to move the canvas+overlay to the right side of the web page. Similarly, if you have a graph named <span class="attribute">g</span>, you can say <span class="attribute">g.wrapper.css(&quot;float&quot;, &quot;right&quot;)</span> to move the graph to the right.</p>
+      <p class="Normal">Similarly, <span class="attribute">scene.canvas</span> refers to the 3D canvas and <span class="attribute">scene.elements</span> refers to the 3D canvas and the 2D overlay.</p>
+      <p class="Normal">(The following additional connections to the web page are not yet documented here: scene.events, canvas.container.)</p>
   <p class="Normal"><strong><font color="#0000A0">Controlling the view</font></strong>  </p>
-  <p class="Normal">It is useful to run the  VPython example program <strong>camera.py</strong>, which illustrates how the following display options affect the view the user sees.  </p>
+  <p class="Normal">It is useful to run the  VPython example program <strong>camera.py</strong>, which illustrates how the following canvas options affect the view the user sees.  </p>
           <p class="attributes"> <span class="attribute">center</span> Location at which 
             
             the camera continually looks, even as the user rotates the position of the 
@@ -214,7 +211,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               
               = True</span> automatic scaling (default). It is often useful to let VPython 
             
-            make an initial display with autoscaling, then turn autoscaling off to prevent 
+            make an initial canvas with autoscaling, then turn autoscaling off to prevent 
             
             further automated changes.</p>
           <p class="attributes"> <span class="attribute">userzoom = False</span> user cannot zoom in and out of the scene</p>

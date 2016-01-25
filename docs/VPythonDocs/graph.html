@@ -95,17 +95,17 @@ f1.plot([ [1,2[, [3,4], [5,6] ])</p>
   specifies the width of the dot in pixels (default is <span class="attribute">size=5</span>).</p>
           <p class="Normal">For <span class="attribute">gvbars</span> and <span class="attribute">ghbars</span> you can  specify a <span class="attribute">delta</span> attribute, which 
             specifies the width of the bar (the default is <span class="attribute">delta=1</span>).</p>
-      <p class="Normal"><strong><font color="#0000A0">Deleting data or an entire gdisplay</font></strong></p>
-          <p class="Normal">If you create a gcurve, gdots, gvbars, or ghbars entity and name it g, you can delete the associated data from a graph by saying g.delete(). Similarly, if you say gd = gdisplay(), you can delete the entire graph by saying gd.delete().</p>
-<p class="Normal"><strong><font color="#0000A0">Overall gdisplay options</font></strong></p>
-          <p class="Normal">You can establish a <span class="attribute">gdisplay</span> to set the size, position, and title for the title bar of the graph window, 
+      <p class="Normal"><strong><font color="#0000A0">Deleting data or an entire graph</font></strong></p>
+          <p class="Normal">If you create a gcurve, gdots, gvbars, or ghbars entity and name it g, you can delete the associated data from a graph by saying g.delete(). Similarly, if you say gd = graph(), you can delete the entire graph by saying gd.delete().</p>
+<p class="Normal"><strong><font color="#0000A0">Overall graph options</font></strong></p>
+          <p class="Normal">You can establish a <span class="attribute">graph</span> to set the size, position, and title for the title bar of the graph window, 
             
             specify titles for the x and y axes,  specify maximum values for each 
             
             axis, and set foreground and background colors, before creating <span class="attribute">gcurve</span> or other kind 
             
             of graph plotting object:          </p>
-          <p class="program"> gd = gdisplay(width=600, height=150, <br />
+          <p class="program"> gd = graph(width=600, height=150, <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='N 
             
             vs. t', xtitle='t', ytitle='N', <br />
@@ -126,20 +126,20 @@ f1.plot([ [1,2[, [3,4], [5,6] ])</p>
             
     and the vertical axis will extend from -200 to +5000. If you specify <span class="attribute">xmax</span> but not <span class="attribute">xmin</span>, it is as though you had also specified <span class="attribute">xmin</span> to be 0; similarly, if you specify <span class="attribute">xmin</span> but not <span class="attribute">xmax</span>, <span class="attribute">xmax</span> will be 0. The same rule holds for <span class="attribute">ymax</span> and <span class="attribute">ymin</span>.</p>
           <p class="Normal"><strong>Offsets:</strong> If you specify <span class="attribute">xmin</span> or <span class="attribute">ymin</span> to be greater than zero, or <span class="attribute">xmax</span> or <span class="attribute">ymax</span> to be less than zero, the crossing point (origin) of the x and y axes will no longer be at (0,0), and the graphing will be offset. If you offset the origin of the graph, you must specify <span class="attribute">xmax</span> to be greater than <span class="attribute">xmin</span>, and/or <span class="attribute">ymax</span> to be greater than <span class="attribute">ymin</span>.</p>
-          <p class="Normal">If you simply say <span class="attribute">gdisplay()</span>, the defaults 
+          <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
             
             are <span class="attribute">width=640</span>, <span class="attribute">height=400</span>, 
             
   no titles, fully autoscaled.</p>
-          <p class="Normal">You can have more than one graph window: just create another <span class="attribute"> gdisplay</span>. By default, any graphing objects 
+          <p class="Normal">You can have more than one graph window: just create another <span class="attribute"> graph</span>. By default, any graphing objects 
             
-            created following a <span class="attribute">gdisplay</span> belong to that 
+            created following a <span class="attribute">graph</span> belong to that 
             
         window, or you can  specify which window a new object belongs to: </p>
 
-          <p class="program"> energy = gdots(gdisplay=graph2, color=color.blue)</p>
+          <p class="program"> energy = gdots(graph=graph2, color=color.blue)</p>
 <p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
-          <p class="Normal">When creating a gdisplay, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc.</p>
+          <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc.</p>
 <p class="Normal"><strong><font color="#0000A0">Histograms (sorted, binned data)</font></strong></p>
           <p class="Normal">There is no ghistogram option in GlowScript. However, the program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/HardSphereGas" target="_blank">HardSphereGas</a> provides an example of how to make a histogram.</p>
     <!-- InstanceEndEditable --></td>

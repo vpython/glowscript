@@ -89,21 +89,8 @@
       <div>
         <div></div>
       </div>
-      <div> <strong><font color="#0000a0">JavaScript or CoffeeScript</font></strong></div>
-<p class="Normal">Here is the CoffeeScript version:</p>
-      <p class="program">p = series( color:color.red, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        &nbsp;&nbsp;label='sin(x)' )<br />
-q = series()<br />
-# Can set color after making a series:<br />
-q.color = color.green <br />
-q.label = 'cos(x)'<br />
-<br />
-for i in [0..11] by 0.2<br />
-&nbsp;&nbsp;&nbsp;&nbsp;rate(100,wait)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;p.plot(i+5, 3+2*sin(i))<br />
-&nbsp;&nbsp;&nbsp;&nbsp;q.plot(i+5, 3+2*cos(i))</p>
+      <div> <strong><font color="#0000a0">JavaScript version</font></strong></div>
       <div></div>
-      <p class="Normal">And  the JavaScript version:</p>
       <p class="program">var p = series( {color:color.red, <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        &nbsp;&nbsp;label='sin(x)'} )<br />
         var q = series()<br />
@@ -116,7 +103,7 @@ for i in [0..11] by 0.2<br />
   &nbsp;&nbsp;&nbsp;&nbsp;p.plot(i+5, 3+2*sin(i))<br />
   &nbsp;&nbsp;&nbsp;&nbsp;q.plot(i+5, 3+2*cos(i))<br />
   }
-      </p>
+    </p>
       <p class="Normal"><strong><font color="#0000A0">Summary of options that affect a series</font></strong></p>
       <p class="attributes"><span class="attribute">color</span> Color of the series</p>
       <p class="attributes"><span class="attribute">label</span> Text of the label for the series</p>
@@ -160,7 +147,7 @@ for i in [0..11] by 0.2<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.blue)</p>
           <p class="Normal"></p>
           <p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
-          <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>; in JavaScript or CoffeeScript, true.  <strong>All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc. Do not specify a logx axis for horizontal bars, or logy for vertical bars, because the starting point of a bar is 0, and the log of 0 is negative infinity. </p>
+          <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>; in JavaScript, true.  <strong>All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc. Do not specify a logx axis for horizontal bars, or logy for vertical bars, because the starting point of a bar is 0, and the log of 0 is negative infinity. </p>
       <p class="Normal"><strong><font color="#0000A0">graph vs. canvas</font></strong></p>
           <p class="Normal">A graph region is similar to a canvas region. The main difference 
           is that a graph is essentially two-dimensional and has nonuniform x and 
