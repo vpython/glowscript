@@ -1044,7 +1044,7 @@ $(function () {
 
         define('ace/mode/visualjs_highlight_rules', function (require, exports, module) {
             var oop = require("ace/lib/oop")
-            if (lang == 'rapydscript' || lang == 'vpython') var Rules = require("ace/mode/coffee_highlight_rules").CoffeeHighlightRules
+            if (lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython') var Rules = require("ace/mode/coffee_highlight_rules").CoffeeHighlightRules
             else var Rules = require("ace/mode/javascript_highlight_rules").JavaScriptHighlightRules
 
             var VisualHighlightRules = function () {
