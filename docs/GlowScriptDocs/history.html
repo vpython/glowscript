@@ -55,6 +55,8 @@ If v is a vector, v.mag() must now be written as v.mag and v.mag2() must now be 
 <br />
 * display should be written as canvas; gdisplay as graph. The older names still work at present but are incompatible with the new Jupyter version of VPython.<br />
 <br />
+* The list of positions in a curve named c cannot be referenced directly as c.pos. If the curve is named c and N is the nth point in the curve, c.point(N) returns {pos:p, color:col, radius:r, visible:v}. To change the nth point, use c.modify(N, pos=p, color=col, radius=r, visible=v). See the documentation for the curve object for the full list of methods available for accessing or changing an existing curve.<br />
+<br />
 *
       The points object has a radius, not a size (size was a scalar and confusing given that size is a scalar elsewhere; size_units can still be used to specify whether the radius is in pixels or real-world measure).<br />
       <br />
