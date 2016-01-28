@@ -50,7 +50,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <table width="100%" border="1">
           <tr>
             <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">Leaving a Trail</font></span></div></td>
-            <td width="23%"><div align="center"><img src="images/trail.jpg" width="414" height="113" alt="trails" /><a href="arrow.html"></a></div></td>
+            <td width="23%"><div align="center"><img src="images/trail.png" width="414" height="113" alt="trails" /><a href="arrow.html"></a></div></td>
           </tr>
         </table>
         </div>
@@ -63,17 +63,18 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="program"> ball = sphere(make_trail=True, trail_type=&quot;points&quot;,<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval=10, retain=50)</p>
         <p class="Normal">The trail of this sphere will show individual points rather than a continuous line, it will display spheres at every 10th sphere location, and it will retain only the most recent 50 of these points.</p>
-        <p class="Normal">At any time during the moving of the object, you can specify <span class="attribute">ball.make_trail=False</span>, in which case no more points are added to the ball's trail until you set <span class="attribute">ball.make_trail=True</span> again. </p>
-        <p class="Normal"><strong><font color="#0000a0">Summary</font></strong></p>
+        <p class="Normal">At any time during the moving of the object, you can specify <span class="attribute">ball.make_trail=False</span>, in which case no more points are added to the ball's trail until you set <span class="attribute">ball.make_trail=True</span> again (at which point a new trail is started at the ball's current position).</p>
+        <p class="Normal">If you do not specify a position when creating the ball, the first point along the trail will occur when a position is later assigned to the ball. If you do specify a position when creating the ball, and make_trail is True, the first point along the trail is that specified position.</p>
+      <p class="Normal"><strong><font color="#0000a0">Summary</font></strong></p>
         <p class="attributes"> <span class="attribute">make_trail</span> Must be mentioned when creating the moving object; if False, no points will be added to the trail until you say <span class="attribute">ball.make_trail = True</span> (assuming the moving object is named ball)</p>
         <p class="attributes"> <span class="attribute">trail_type</span> Default is &quot;curve&quot;, but can be &quot;points&quot;</p>
-        <p class="attributes"> <span class="attribute">interval</span> If interval=10, a point is added to the trail only every 10th move of the object; if interval is 0, no trail is shown; the default is interval=1 if trail_type is &quot;points&quot;. If trail_type is &quot;curve&quot; (the default), and no interval is specified, updates to the trail are made every time a new image is rendered, typically about 30 times a second, which works fine for curves, but points need to be displayed accurately spaced in order to look right.</p>
+        <p class="attributes"> <span class="attribute">interval</span> If interval=10, a point is added to the trail only every 10th move of the object; if interval is 0, no trail is shown; the default is interval=1 if trail_type is &quot;points&quot;. If trail_type is &quot;curve&quot; (the default), and no interval is specified, updates to the trail are made every time a new image is rendered, typically about 30 to 60 times a second, which works fine for curves, but points need to be displayed accurately spaced in order to look right.</p>
       <p class="attributes"> <span class="attribute">pps</span> If trail_type is &quot;curve&quot;, and no interval is specified, pps=15 means &quot;add a point to the curve approximately 15 times per second&quot;.</p>
         <p class="attributes"> <span class="attribute">retain</span> If retain=50, only the 50 most recently added points will be retained </p>
-        <p class="attributes"> <span class="attribute">trail_color</span> The color of the curve or points<span class="Normal"></span> (default is the object's color)   </p>
-        <p class="attributes"> <span class="attribute">trail_radius</span> The radius of the curve or points<span class="Normal"></span> (default is <span class="Normal">0.2 times the radius, 0.1 times the height or size.y, of the moving object.</span></p>
+        <p class="attributes"> <span class="attribute">trail_color</span> The color of the curve or points<span class="Normal"></span> (default is the object's color). If you change this during the motion, later portions of the trail will have this color.</p>
+        <p class="attributes"> <span class="attribute">trail_radius</span> The radius of the curve or points<span class="Normal"></span> (default is <span class="Normal">0.2 times the radius, 0.1 times the height or size.y, of the moving object).</span> If you change this during the motion, later portions of the trail will have this radius.</p>
       <p class="attributes"> <span class="attribute">clear_trail()</span> Clears all points from the existing trail before adding more. Note that setting make_trail to False stops adding more points.</p>
-        <p class="Normal"> GlowScript offers more powerful mechanisms for leaving trails, <a href="../GlowScriptDocs/trail.html" target="_blank">attach_trail</a> and <a href="../GlowScriptDocs/trail.html">attach_arrow</a>.</p>
+        <p class="Normal"> GlowScript offers more powerful mechanisms for leaving trails, <a href="../GlowScriptDocs/trail.html" target="_blank"><strong>attach_trail</strong></a> and <a href="../GlowScriptDocs/trail.html"><strong>attach_arrow</strong></a>, which include the ability to specify an arbitrary function to be called to provide a position rather than using the position of an object.</p>
         <p class="Normal"></p>
     <!-- InstanceEndEditable --></td>
   </tr>
