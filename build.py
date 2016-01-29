@@ -54,6 +54,7 @@ glowscript_libraries = {
         "../lib/transform-all.js",
         "../lib/coffee-script.js"],
     "RSrun": [
+        "../lib/rapydscript/baselib.js",
         "../lib/rapydscript/stdlib.js"
         ],
     "RScompile": [
