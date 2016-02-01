@@ -59,7 +59,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p class="Normal"><strong><font color="#0000a0">Details of the GlowScript curve object</font></strong></p>
       <p class="Normal">Each point along a curve has attributes <span class="attribute">pos</span>, <span class="attribute">color</span>,  <span class="attribute">radius</span>, and <span class="attribute">retain</span>, and these attributes can be different for each point. Here we create a curve with overall attributes of color and radius, then add four points to the curve:</p>
       <div>
-        <p class="program">square = curve( color=color.yellow, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.05 )</p>
+        <p class="program">square = curve( color=color.yellow, radius=0.05 )</p>
         <p class="program">square.append( pos=vector(0,0,0), color=color.cyan )<br />
           square.append( vector(0,1,0) ) # shorthand<br />
           square.append( vector(1,1,0) )<br />
@@ -105,7 +105,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <p class="Normal">The following are useful for modifying a curve named &quot;c&quot; (full documentation below):</p>
           <p class="attributes"><span class="attribute">c.npoints</span> The total number of points currently in the curve.          </p>
           <p class="attributes"><span class="attribute">c.append(...)</span> Add a point or several points to the end.</p>
-<p class="attributes"><span class="attribute">c.unshif(...)</span> Insert a point or several points at the start.</p>
+<p class="attributes"><span class="attribute">c.unshift(...)</span> Insert a point or several points at the start.</p>
 <p class="attributes"><span class="attribute">c.splice(...)</span> Insert a point or several points anywhere.</p>
 <p class="attributes"><span class="attribute">c.modify(...)</span> Modify the Nth point.</p>
 <p class="attributes"><span class="attribute">c.clear()</span> Remove all points.</p>
@@ -155,39 +155,44 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           </div>
           <div>
             <p class="Normal">Here are details on getting data about points in a curve named &quot;c&quot;, or modifying them.</p>
+            <p class="Normal"><span class="attribute">npoints</span></p>
           </div>
 <p class="program">c.npoints &nbsp; # the number of points in the curve</p>
-<p class="program">&nbsp;</p>
+<p class="Normal"></p>
+<p class="Normal"><span class="attribute">append</span></p>
 <p class="program">c.append(...) &nbsp;# add points at the end (see above)</p>
-<p class="program"><br />
-</p>
+<p class="Normal"></p>
+<p class="Normal"><span class="attribute">unshift</span></p>
 <p class="program">c.unshift(p1, p2, p3) &nbsp;# insert points at start</p>
 <p class="program">pts = [p1, p2, p3]<br />
   c.unshift(pts) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # insert points at start</p>
-<p class="program">&nbsp;</p>
-<p class="Normal">The splice method inserts new points starting at location &quot;start&quot; (where 0 is the first point of the curve), deleting &quot;howmany&quot; points before doing the insertion:</p>
+<p class="Normal">The <span class="attribute">splice</span> method inserts new points starting at location &quot;start&quot; (where 0 is the first point of the curve), deleting &quot;howmany&quot; points before doing the insertion:</p>
 <p class="program">c.splice(start,howmany,p1,p2,p3) # insert</p>
 <p class="program">pts = [p1, p2, p3]<br />
   c.splice(start,howmany,pts) # insert </p>
 <p class="program"></p>
-<p class="program">&nbsp;</p>
-<p class="Normal">The modify method lets you change specified attributes of a point:</p>
+<p class="Normal">The <span class="attribute">modify</span> method lets you change specified attributes of a point:</p>
 <p class="program"> c.modify(N, # modify point number N<br />
   &nbsp;&nbsp;&nbsp;            pos=p, color=c, radius=r, visible=v)<br />
   c.modify(N, x=3, y=5) # changing x and y but not z<br />
   c.modify(N, vector(x,y,z)) # change only pos</p>
-<p class="program">&nbsp;</p>
+<p class="Normal"></p>
+<p class="Normal"><span class="attribute">clear</span></p>
 <p class="program">c.clear() # remove all points from curve</p>
-<p class="program">&nbsp;</p>
+<p class="Normal"></p>
+<p class="Normal"><span class="attribute">pop</span></p>
 <p class="program">data = c.pop() &nbsp;&nbsp;# get &amp; remove last point</p>
-<p class="program">&nbsp;</p>
+<p class="Normal"></p>
+<p class="Normal"><span class="attribute">shift</span></p>
 <p class="program">data = c.shift() # get &amp; remove first point</p>
-<p class="program">&nbsp;</p>
+<p class="Normal"></p>
+<p class="Normal"><span class="attribute">point</span></p>
 <p class="program">P = c.point(N) # get a point in the form<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            # {pos:p, color:c, radius:r, visible:v}<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# P.pos is p, P.color is c, etc.</p>
-<p class="program">&nbsp;</p>
-          <p class="program">data = c.slice(2,4) # get a list of<br />
+<p class="Normal"></p>
+<p class="Normal"><span class="attribute">slice</span></p>
+<p class="program">data = c.slice(2,4) # get a list of<br />
             &nbsp;&nbsp;&nbsp;&nbsp;# points from point no. 2 through point no. 3,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;# each in the form<br />
             &nbsp;&nbsp;&nbsp;&nbsp;# {pos:p, color:c, radius:r, visible:v}<br />
@@ -197,13 +202,13 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal"><strong><font color="#0000a0">Interpolation of colors</font></strong></p>
       <div>
         <p class="Normal">The curve machinery interpolates colors from one point to the next.  If you want an abrupt change in color,  add another
-          point at the same location. In the following example, adding a blue
+          point at the same location. In the following example, adding a cyan 
           point at the same location as the orange point makes the first
-          segment be purely blue. </p>
+          segment be purely cyan. </p>
       </div>
-      <p class="program">c = curve(color=color.blue, radius=0.1)<br />
+      <p class="program">c = curve(color=color.cyan, radius=0.1)<br />
         c.append( vector(-1,0,0) ) <br />
-        # add an extra blue point: <br />
+        # add an extra cyan point: <br />
         c.append( vector(0,0,0) )<br />
         # repeat the same point: <br />
         c.append( pos=vector(0,0,0), <br />
@@ -211,15 +216,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         # add another orange point:<br />
         c.append( pos=vector(1,0,0), <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;color=color.orange ) </p>
-      <p class="Normal">In the image shown here, the upper thick curve, made without the second blue point, has three pos and color points, blue, orange, orange, left to right, so the blue fades into the orange. The lower curve includes the extra blue point and has four pos and color points, blue, blue, orange, orange, so there is a sharp break between blue and orange.</p>
+      <p class="Normal">In the image shown here, the upper thick curve, made without the second cyan point, has three pos and color points, cyan, orange, orange, left to right, so the blue fades into the orange. The lower curve includes the extra cyan point and has four pos and color points, cyan, cyan, orange, orange, so there is a sharp break between blue and orange.</p>
       <table width="450" border="0">
         <tr>
-          <td width="450"><div align="center"><span class="Normal"><img src="images/colors_abutting.jpg" width="312" height="200" alt="colors abutting" /></span></div></td>
+          <td width="450"><div align="center"><span class="Normal"><img src="images/colors_abutting.png" width="312" height="200" alt="colors abutting" /></span></div></td>
         </tr>
       </table>
-      <p class="Normal">When you run a  program, for convenience GlowScript 
-        creates a canvas on the web page and names it <span class="attribute">scene</span>. 
-        Objects that you create are drawn in this canvas. If you have more than one canvas, you can specify  in which canvas to place a new object, as in box(canvas=myscene).. If you don't specify a canvas, the new object goes into the most recently created canvas, or the most recently selected canvas as specified by setting <span class="attribute">canvas.selected</span>.</p>
       <div>
         <div></div>
       </div>
