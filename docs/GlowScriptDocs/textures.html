@@ -53,20 +53,15 @@
           <div>
             <p class="program"> box( texture=textures.stucco ) </p>
           </div>
-          <p class="Normal">A collection of ready-to-use textures is provided; &quot;textures.stucco&quot; actually represents a character string giving the name of the image file. For the complete set of existing built-in textures, see the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures" target="_blank">Textures</a></strong>.</p>
-          <p class="Normal">An equivalent form is the following:</p>
-          <div></div>
-          <div>
-            <p class="program"> box( texture={file:textures.stucco} )</p>
-          </div>
-</div>
+          <p class="Normal">A collection of ready-to-use textures is provided; &quot;textures.stucco&quot; actually represents a character string giving the name of the image file. For the complete set of existing built-in textures, see the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures" target="_blank">Textures</a></strong>.        </p>
+        </div>
         <div>
-          <p class="Normal">You can optionally specify that only portions of the object should be textured. The following statement places the texture only on the right face of the box, leaving the rest of the box green:&nbsp; </p>
+<p class="Normal">You can optionally specify that only portions of the object should be textured. The following statement places the texture only on the right face of the box, leaving the rest of the box green (&quot;dict&quot; is a function that produces a &quot;dictionary&quot; of the form {file:textures.stucco, place:'right'} needed by JavaScript):&nbsp; </p>
           <div></div>
           <div>
             <p class="program"> box( color=color.green, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;texture={file:textures.stucco, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place:'right'} )</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;texture=dict(file=textures.stucco, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;place='right') )</p>
             <p class="Normal"><strong>Using images from other web sites:</strong> You can  use an image from another web site as a texture by specifying its URL, if that web site is &quot;CORS enabled&quot; (CORS = Cross-Origin Resource Sharing). For example,<br />
               <br />
 <strong>texture=&quot;https://s3.amazonaws.com/glowscript/textures/cors_test.jpg&quot;</strong> <br />
@@ -83,14 +78,14 @@ a CORS-enabled site,<strong> <a href="http://i.imgur.com/" target="_blank" rel=
         <div>
 <p class="Normal">You can combine these options: <span class="attribute">place =['left', 'sides']</span> will place the texture on the left end and the sides.</p>
 <p class="Normal"><strong>Flipping and rotating:</strong> You can change the orientation of a texture on an object by specifying <span class="attribute">flipx = true</span> (reflect left &lt;-&gt; right), <span class="attribute">flipy = true</span> (reflect up &lt;-&gt; down), <span class="attribute">turn = N</span> (rotate counterclockwise N 90-degree angles; if N is negative, the turning is clockwise). These transformations are applied in the order flipx, flipy, turn.</p>
-<p class="Normal">All the parameters for a texture are seen in the following example. Note the extra braces around the various texture-related parameters.</p>
+<p class="Normal">All the parameters for a texture are seen in the following example.</p>
 <p class="program">b = box(  pos=vec(-1,2,0),<br />
-  &nbsp; texture={ file: textures.stucco, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bumpmap: bumpmaps.stucco,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place: ['right', 'sides'],<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flipx: true,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flipy: true,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;turn: -3 } )
+  &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;texture=dict(file=textures.stucco, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bumpmap=bumpmaps.stucco,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place=['right', 'sides'],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flipx=true,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flipy=true,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;turn=-3)
 </p>
 <p class="Normal">Currently you have to give all the information in one package, as in the example above, rather than specifing an individual parameter such as texture.turn.  You can retrieve this information as <strong>var T = b.texture</strong>, which gives you the information in the form { file: ...., bumpmap:...., etc. }, so that <strong>T.turn</strong> would be -3.</p>
 <p class="Normal"><strong>Color:</strong> Textures have their own colors, but  if you specify a non-white color for a fully textured object, that color is mixed into the texture color, so that you can have for example green stucco. If only portions of the object are textured, the object color is not mixed with the texture color, and non-textured portions are shown with the specified object color.</p>
@@ -106,15 +101,22 @@ a CORS-enabled site,<strong> <a href="http://i.imgur.com/" target="_blank" rel=
 <p class="Normal">First, make  the scene invisible, create the objects (which won't be visible), then wait for all textures to have been loaded. Then make the scene visible, and you'll see the objects with their textures.This is the technique used in  the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures" target="_blank">Textures</a></strong>.</p>
 <p class="Normal">You can also check the status of an individual  object B: the quantity <span class="attribute">B.ready</span> is true if the texture has been loaded (or if B has no texture).</p>
 <p class="Normal">Textured objects are not displayed until the texture has been loaded. If you don't wait with scene.waitfor(&quot;textures&quot;,wait), you may see objects become visible in a random sequence, depending on when the various textures have been loaded.</p>
-<p class="Normal"><strong>Removing a texture:</strong> If you set <span class="attribute">texture=null</span>, no texture is displayed.</p>
+<p class="Normal"><strong>Removing a texture:</strong> If you set <span class="attribute">texture=None</span>, no texture is displayed.</p>
 <p class="Normal"><strong><font color="#0000A0">Bump maps</font></strong></p>
-<p class="Normal">Another option is to specify a &quot;bump map&quot;. Bump maps make small distortions in a surface to give the illusion of a non-smooth surface. There are several kinds of bump maps, but the type of bump map currently supported in GlowScript is a &quot;normals map&quot;, in which the normals (perpendiculars) to the surface, which affect the lighting of the surface, are varied across a surface in such a way that the surface no longer seems smooth. When you move the surface or the lights you will see an enhanced 3D effect. Bump maps can be produced from images by using computer tools made for this purpose, and a few bumpmaps have been provided in GlowScript. For example, bumpmaps.stucco is a normals map that enhances the 3D appearance of textures.stucco. Here is the statement which adds the built-in bump map to the built-in texture:</p>
+<p class="Normal">Another option is to specify a &quot;bump map&quot;. Bump maps make small distortions in a surface to give the illusion of a non-smooth surface. There are several kinds of bump maps, but the type of bump map currently supported in GlowScript is a &quot;normals map&quot;, in which the normals (perpendiculars) to the surface, which affect the lighting of the surface, are varied across a surface in such a way that the surface no longer seems smooth. When you move the surface or the lights you will see an enhanced 3D effect. Bump maps can be produced from images by using computer tools made for this purpose, and a few bumpmaps have been provided in GlowScript. For example, bumpmaps.stucco is a normals map that enhances the 3D appearance of textures.stucco. Here is the statement that adds the built-in bump map to the built-in texture:</p>
 <div></div>
 <div>
-  <p class="program"> box( texture={textures.stucco,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bumpmap:bumpmaps.stucco} ) </p>
+  <p class="program"> box(texture=dict(file=textures.stucco,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;bumpmap=bumpmaps.stucco)</p>
   <p class="Normal">The example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bumpmaps" target="_blank">Bumpmaps</a></strong> lets you move the lighting around as well as rotate the object so that you can see the effects of adding a bumpmap.</p>
   <p class="Normal">The bump maps currently available are bumpmaps.gravel (to accompany textures.gravel), bumpmaps.rock (to accompany textures.rock), bumpmaps.stones (to accompany textures.stones), bumpmaps.stucco (to accompany textures.stucco), and bumpmaps.wood_old (to accompany textures.wood_old).</p>
+  <p class="Normal"><strong><font color="#0000A0">JavaScript</font></strong></p>
+  <p class="Normal">Here is the JavaScript version of the previous example:</p>
+  <div></div>
+  <div>
+    <p class="program"> box( texture={file=textures.stucco,<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;bumpmap=bumpmaps.stucco} )</p>
+  </div>
 </div>
         </div>
         <div> </div></div><!-- InstanceEndEditable --></td>

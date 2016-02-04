@@ -421,45 +421,6 @@ $(function () {
         onNavigate.trigger( function() { pages[ navigatingTo.page ]( navigatingTo ) } )
     }
 
-    /********* Help *********/
-    var helpActive = false
-    var helpRoot = $(".help-button").prop("href")
-    $(".help-button").click( function(ev) {
-        if (ev.which == 1) {
-            helpActive = !helpActive
-            var iframe = $(".help-panel iframe")
-            if (helpActive) {
-                $(this).text("Hide Help")
-                iframe.prop("src", helpRoot)
-                iframe.on( "load", function(ev) {
-                    var loc = helpRoot
-                    try {
-                        loc = iframe.get(0).contentWindow.location.href || loc
-                    } catch (e) {}
-                    $(".help-button").prop("href", loc)
-                })
-            } else {
-                $(this).text("Help")
-                iframe.off("load")
-                $(".help-button").prop("href", helpRoot)
-            }
-
-            // Animation just isn't smooth; do without for now
-            $("#ajaxBody").css("right", helpActive ? "500px" : "0px")
-            $(".help-panel").css("display", helpActive ? "block" : "none")
-
-            /*$("#ajaxBody").animate( { right: helpActive ? "500px" : "0px" }, {queue:false} )
-            if (helpActive) { $(".help-panel").css("display", "block").css("right", "-500px") }
-
-            $(".help-panel").animate({ right: helpActive ? "0px" : "-500px" }, {queue:false, complete: function() { 
-                if (!helpActive) $(".help-panel").css("display", "none")
-            }})*/
-
-            ev.preventDefault()
-            return false
-        }
-    })
-
     /********** Pages **********/
     // Each of these replaces pageBody with the contents of a page
     var pageBody = $("#ajaxBody")

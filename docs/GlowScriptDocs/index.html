@@ -101,7 +101,7 @@
         Also available is <a href="../VPythonDocs/index.html" target="_blank">VPython Help</a>.</strong><strong><br />
   <br />
 </strong></p>
-      <p class="Normal">GlowScript (&quot;Graphics Library on Web&quot;) makes it easy to write real-time navigable 3D animations that run in a browser. It is based on the JavaScript language plus the WebGL 3D graphics library, both of which are included in most <a href="#browsers">modern browsers</a>. Programs can be written in JavaScript, RapydScript, or they can use VPython syntax.</p>
+      <p class="Normal">GlowScript (&quot;Graphics Library on Web&quot;) makes it easy to write real-time navigable 3D animations that run in a browser. It is based on the JavaScript language plus the WebGL 3D graphics library, both of which are included in most <a href="#browsers">modern browsers</a>. Programs can be written in JavaScript or RapydScript, or they can use VPython syntax.</p>
       <p class="Normal">The design of GlowScript is based on that of <a href="http://vpython.org" target="_blank"><strong>VPython.</strong></a> Development of GlowScript was initiated by David Scherer and Bruce Sherwood
         <script>
 
@@ -158,7 +158,7 @@ zippy()
       <p class="Normal">You can  write programs using the syntax of <a href="http://vpython.org" target="_blank"><strong>VPython</strong></a>, or to run many existing VPython programs. The <strong><a href="../VPythonDocs/index.html" target="_blank">VPython Help</a></strong> documents this syntax for the GlowScript context. The VPython Help also includes a Python program that can convert an existing VPython program to a form that will run in the GlowScript browser environment.</p>
       <p class="Normal">When you create a new program, a header line is inserted that looks like this:</p>
       <p class="program">GlowScript 2.0 VPython</p>
-      <p class="Normal">You can change &quot;VPython&quot; to &quot;RapydScript&quot; or &quot;CoffeeScript&quot; if you want to use one of these other language options. After making such a change, replot the browser page. You don't need to capitalize these language names: you can also use &quot;vpython&quot;, &quot;rapydscript&quot;, &quot;javascript&quot;.</p>
+      <p class="Normal">You can change &quot;VPython&quot; to &quot;RapydScript&quot; if you want to use one of these other language options. After making such a change, replot the browser page. You don't need to capitalize these language names: you can also use &quot;vpython&quot;, &quot;rapydscript&quot;, &quot;javascript&quot;.</p>
       <p class="Normal">If you are new to programming or to RapydScript/Python, you'll find the Python tutorials at <a href="http://www.codecademy.com" target="_blank">www.codecademy.com</a> very helpful</p>
       <p class="Normal"><strong><font color="#0000A0">JavaScript</font></strong><br />
       </p>
@@ -182,13 +182,6 @@ zippy()
           <p class="Normal">To invoke JavaScript, change the GlowScript header line:</p>
           <p class="program">GlowScript 2.0 JavaScript</p>
           <p class="Normal">You need not use upper-case letters; &quot;javascript&quot; will also work. After making such a change, replot the browser page. If no language is specified following &quot;GlowScript 1.1&quot; the language is JavaScript.</p>
-          <p class="Normal"><strong><font color="#0000A0">CoffeeScript</font></strong><br />
-          </p>
-          <p class="Normal">You may choose to write GlowScript programs in <a href="http://coffeescript.org" target="_blank"><strong>CoffeeScript</strong></a>, which is an alternative to JavaScript. It has a simpler, cleaner syntax, yet it is in a sense just JavaScript, because it gets converted to standard JavaScript, while in the process avoiding various flaws in JavaScript. CoffeeScript has some similarities to RapydScript (and therefore to Python), but it is mainly suitable for those who already have significant JavaScript experience.</p>
-          <p class="Normal">To invoke CoffeeScript with GlowScript 1.0 or 1.1, just add CoffeeScript to the GlowScript header:</p>
-          <p class="program">GlowScript 2.0 CoffeeScript</p>
-          <p class="Normal">You need not use upper-case letters; &quot;coffeescript&quot; will also work. After making such a change, replot the browser page. CoffeeScript is not available in GlowScript 2.0 or later, due to there being very little use of it now that VPython is available.</p>
-          <p class="Normal"><strong>Conversion from JavaScript:</strong> There exists a JavaScript-to-CoffeeScript converter at <a href="http://js2coffee.org" target="_blank">js2coffee.org</a> (don't include the initial &quot;GlowScript&quot; statement when using this converter). In the GlowScript <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank"><strong>example programs</strong></a> are some programs that have been converted using the js2coffee.org tool.</p>
           <div>
             <div>
               <p class="Normal"></p>
@@ -265,9 +258,16 @@ zippy()
           <p class="program">E+qs[i]*norm(r)/mag2(r)</p>
           <p class="Normal"><strong><font color="#0000A0">For users of VPython</font></strong></p>
           <p class="Normal">See this <strong><a href="VPython-vs-GlowScript.html" target="_blank">comparison of VPython and GlowScript</a></strong>.</p>
+          <p class="Normal">&nbsp;</p>
+          <p class="Normal"><strong><font color="#0000A0">CoffeeScript</font></strong><br />
+          </p>
+          <p class="Normal">You may choose to write GlowScript programs in <a href="http://coffeescript.org" target="_blank"><strong>CoffeeScript</strong></a>, which is an alternative to JavaScript. It has a simpler, cleaner syntax, yet it is in a sense just JavaScript, because it gets converted to standard JavaScript, while in the process avoiding various flaws in JavaScript. CoffeeScript has some similarities to RapydScript (and therefore to Python), but it is mainly suitable for those who already have significant JavaScript experience.</p>
+          <p class="Normal">To invoke CoffeeScript with GlowScript 1.0 or 1.1, just add CoffeeScript to the GlowScript header:</p>
+          <p class="program">GlowScript 2.0 CoffeeScript</p>
+          <p class="Normal">You need not use upper-case letters; &quot;coffeescript&quot; will also work. After making such a change, replot the browser page. CoffeeScript is not available in GlowScript 2.0 or later, due to there being very little use of it now that VPython is available.</p>
+          <p class="Normal"><strong>Conversion from JavaScript:</strong> There exists a JavaScript-to-CoffeeScript converter at <a href="http://js2coffee.org" target="_blank">js2coffee.org</a> (don't include the initial &quot;GlowScript&quot; statement when using this converter). In the GlowScript <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank"><strong>example programs</strong></a> are some programs that have been converted using the js2coffee.org tool.</p>
         </div>
       </div>
-      <p>&nbsp;</p>
     <!-- InstanceEndEditable --></td>
   </tr>
 </table>
