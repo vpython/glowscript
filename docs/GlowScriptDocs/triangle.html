@@ -66,10 +66,9 @@
         c = vertex( pos=vec(1,1,0) )<br />
         d = vertex( pos=vec(0,1,0) )<br />
         Q = quad( v0=a, v1=b, v2=c, v3=d )</p>
-      <p class="Normal">The vertices of a triangle or quad must be given in &quot;counter-clockwise&quot; order, as shown here:</p>
-      <p class="Normal"></p>
-      <p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/triangle.jpg" width="389" height="230" alt="triangle" /></p>
-      <p align="center" class="Normal">Note the blending of colors when the vertices have different colors. The role of the &quot;normals&quot;, shown here as arrows perpendicular to the plane of the triangle, is discussed in detail below.</p>
+      <p class="Normal">The vertices of a triangle or quad can have their own colors, which are blended between vertices:</p>
+      <p align="center" class="Normal"><img src="images/triangle.png" width="440" height="230" alt="triangle" /></p>
+      <p align="center" class="Normal">The role of the &quot;normals&quot;, shown here as arrows perpendicular to the plane of the triangle, is discussed in detail below.</p>
       <p class="Normal"><strong><font color="#0000a0">The power of triangles and quads</font></strong></p>
       <p class="Normal">There are two powerful capabilities of triangles and/or quads: First, any surface can be approximated by a mesh of  triangles, so <em><strong>you can make any shape you like</strong></em>. Second, by changing the attributes of vertex objects, <strong><em>you can change the shape of a surface dynamically</em></strong>. A vertex object can be shared by several adjacent triangles, and changing that vertex object simultaneously affects all of the triangles that include that vertex object.</p>
 <p class="Normal">In the rug example pictured above, the rug is divided into a rectangular mesh of vertex objects, and quad objects are created from these vertex objects. The same vertex may be shared by as many as four adjacent quad objects. Changing the z position of a shared vertex object affects all those quads that refer to that vertex, which makes it easy to create a moving pulse simply by modifying the vertex positions. In the rug program the quad objects are needed to display the rug, but once the quads have been created all further calculations refer just to the underlying vertex objects.</p>
