@@ -140,6 +140,32 @@ zippy()
       <p class="Normal">Be sure to explore the many <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank"><strong>example programs</strong></a> that are available. </p>
       <div>
         <div>
+          <p class="Normal"></p>
+        </div>
+      </div>
+      <p class="Normal"><strong><font color="#0000A0">Using the GlowScript editor </font></strong></p>
+      <div>
+        <div> </div>
+      </div>
+      <p class="Normal">GlowScript uses the ACE text editor. Here is a list of <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank"><strong>keyboard shortcuts</strong></a> for find, replace, etc. While editing, press <strong>Ctrl-1</strong> to run your program in the same window. Press <strong>Ctrl-2</strong> to run your program in a separate window, which can be convenient for comparing the program with its behavior. If you  change your program, press <strong>Ctrl-2</strong> again in the editor display to re-run the program with the new changes. Because ACE doesn't work on mobile devices, a simpler editor is used there.</p>
+      <p class="Normal"><strong>A simple program:</strong> In the editor, after the GlowScript header, enter the statement &quot;sphere()&quot; and choose &quot;Run this program&quot;. You should see a 3D sphere. Read the Help discussions on <a href="cylinder.html">cylinder</a> and <a href="box.html">box</a> objects to learn how to customize 3D objects (position, color, size, etc.).</p>
+      <p class="Normal"><strong>Rotate and zoom:</strong> You can rotate and zoom the camera using the mouse; for instructions, see the Example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/AtomicSolid" target="_blank"><strong>AtomicSolid</strong></a>.</p>
+      <p class="Normal"><strong>Errors and debugging:</strong> If you are using JavaScript, watch for little yellow triangles or red squares to the left of a program statement and move the mouse over the icon. You'll see a message describing an error with that line. (This capability is not yet  active for VPython or RapydScript.) When you run the program you may see other error messages. <strong><span class="attribute1">Only with the Chrome browser is it usually possible for GlowScript to display  the line number of the error, so when developing programs it is strongly advised to use Chrome.</span></strong> Some program errors are reported only to the &quot;console&quot;. To enable the console, in Chrome, press shift-ctrl-j on Windows or Ubuntu, or option-cmd-j on  Mac. In Firefox, on Windows choose Firefox &gt; Web Developer &gt; Web Console, and on Ubuntu choose Tools &gt; Web Developer &gt; Web Console. The output will be found at the end of the console output </p>
+      <p class="Normal">When developing a program it can be very useful to comment out a block of code temporarily. Here is how to do this in the three languages:</p>
+      <p class="program"># VPython or RapydScript (can also use '''):<br />
+  &quot;&quot;&quot;<br />
+        a = 5<br />
+        b = 3<br />
+  &quot;&quot;&quot;<br />
+  <br />
+        // JavaScript:<br />
+        /*<br />
+        var a = 5<br />
+        var b = 3<br />
+        */</p>
+      <p class="program">&nbsp;</p>
+      <div>
+        <div>
           <p class="Normal"><strong><a name="browsers" id="browsers"></a><font color="#0000A0">Browsers that support GlowScript</font></strong></p>
         </div>
       </div>
@@ -182,33 +208,6 @@ zippy()
           <p class="Normal">To invoke JavaScript, change the GlowScript header line:</p>
           <p class="program">GlowScript 2.0 JavaScript</p>
           <p class="Normal">You need not use upper-case letters; &quot;javascript&quot; will also work. After making such a change, replot the browser page. If no language is specified following &quot;GlowScript 1.1&quot; the language is JavaScript.</p>
-          <div>
-            <div>
-              <p class="Normal"></p>
-            </div>
-          </div>
-          <p class="Normal"><strong><font color="#0000A0">Using the GlowScript editor </font></strong></p>
-          <div>
-            <div> </div>
-          </div>
-          <p class="Normal">GlowScript uses the ACE text editor. Here is a list of <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank"><strong>keyboard shortcuts</strong></a> for find, replace, etc. While editing, press <strong>Ctrl-1</strong> to run your program in the same window. Press <strong>Ctrl-2</strong> to run your program in a separate window, which can be convenient for comparing the program with its behavior. If you  change your program, press <strong>Ctrl-2</strong> again in the editor display to re-run the program with the new changes. Because ACE doesn't work on mobile devices, a simpler editor is used there.</p>
-          <p class="Normal"><strong>A simple program:</strong> In the editor, after the GlowScript header, enter the statement &quot;sphere()&quot; and choose &quot;Run this program&quot;. You should see a 3D sphere. Read the Help discussions on <a href="cylinder.html">cylinder</a> and <a href="box.html">box</a> objects to learn how to customize 3D objects (position, color, size, etc.).</p>
-          <p class="Normal"><strong>Rotate and zoom:</strong> You can rotate and zoom the camera using the mouse; for instructions, see the Example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/AtomicSolid" target="_blank"><strong>AtomicSolid</strong></a>.</p>
-          <p class="Normal"><strong>Errors and debugging:</strong> If you are using JavaScript, watch for little yellow triangles or red squares to the left of a program statement and move the mouse over the icon. You'll see a message describing an error with that line. (This capability is not yet  active for VPython or RapydScript.) When you run the program you may see other error messages. <strong><span class="attribute1">Only with the Chrome browser is it usually possible for GlowScript to display  the line number of the error, so when developing programs it is strongly advised to use Chrome.</span></strong> Some program errors are reported only to the &quot;console&quot;. To enable the console, in Chrome, press shift-ctrl-j on Windows or Ubuntu, or option-cmd-j on  Mac. In Firefox, on Windows choose Firefox &gt; Web Developer &gt; Web Console, and on Ubuntu choose Tools &gt; Web Developer &gt; Web Console. The output will be found at the end of the console output </p>
-          <p class="Normal">When developing a program it can be very useful to comment out a block of code temporarily. Here is how to do this in the three languages:</p>
-          <p class="program"># VPython or RapydScript (can also use '''):<br />
-  &quot;&quot;&quot;<br />
-            a = 5<br />
-            b = 3<br />
-  &quot;&quot;&quot;<br />
-  <br />
-            // JavaScript:<br />
-            /*<br />
-            var a = 5<br />
-            var b = 3<br />
-            */</p>
-          <p class="Normal"><strong><font color="#0000A0">Help</font></strong></p>
-          <p class="Normal">By default, clicking &quot;Help&quot; displays the documentation in the right side of the edit window; click &quot;Hide Help&quot;  to hide the documentation. If you prefer to put the documentation in a separate window, right-click &quot;Help&quot; and choose &quot;new window&quot;.</p>
           <p class="Normal"> Post to the <a href="https://groups.google.com/forum/?fromgroups#!forum/glowscript-users" target="_blank"><strong>GlowScript Forum</strong></a> or write to
             <script>
 
@@ -236,9 +235,7 @@ zippy()
             </script>
             <font size="-1" face="Arial, Helvetica, sans-serif"> if you
               don't find what you need, or to tell us how you are using GlowScript.</font> To prevent spam, your first post will be reviewed before becoming public. </p>
-          <p class="Normal"><strong><font color="#0000A0">Letting others run your programs</font></strong></p>
-          <p class="Normal">On the GlowScript edit page, click <strong>Share this program</strong> to see how to let other people run your program.</p>
-          <p class="Normal"><strong><font color="#0000A0">Using the GlowScript libraries</font></strong></p>
+<p class="Normal"><strong><font color="#0000A0">Using the GlowScript libraries</font></strong></p>
           <p class="Normal">It is possible for knowledgeable programmers to use the GlowScript libraries in their own JavaScript programs. Here are <a href="libraryuse.html"><strong>details</strong></a>.</p>
           <p class="Normal"><strong><font color="#0000A0">Running locally</font></strong></p>
           <p class="Normal">It is possible to use GlowScript locally, without an internet connection, though you will need to copy and paste your programs to glowscript.org if you want them stored in the cloud. Here are the <a href="local.html"><strong>instructions</strong></a>.</p>
