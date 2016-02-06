@@ -49,27 +49,54 @@
           points, and if the points are sufficiently close together you get the
       appearance of a smooth curve.</p>
       <p class="Normal"><strong><font color="#0000a0">Details of the GlowScript curve object</font></strong></p>
-      <p class="Normal">Each point along a curve has attributes <span class="attribute">pos</span>, <span class="attribute">color</span>, <span class="attribute">radius</span>, and <span class="attribute">retain</span>, and these attributes can be different for each point. Here we create a curve with overall attributes of color and radius, then add four points to the curve:</p>
+      <p class="Normal">The simplest example of a curve is the following statement, which draws a white straight line of length 2, between the position &lt; -1,-1,0 &gt; and the position &lt; 1,--1,0 &gt;:</p>
       <div>
-        <p class="program">square = curve( color=color.yellow, radius=0.05 )</p>
-        <p class="program">square.append( pos=vector(0,0,0), color=color.cyan )<br />
-          square.append( vector(0,1,0) ) # shorthand<br />
-          square.append( vector(1,1,0) )<br />
-          square.append( pos=vector(1,0,0), radius=0.1 )<br />
-          square.append( vector(0,0,0) ) </p>
-        <p class="Normal">Setting <span class="attribute">radius</span> (of the cross section of the curve) or <span class="attribute">color</span> for individual points overrides the color and radius specified for the curve as a whole.  The default radius is 0, which draws a thin curve. A nonzero radius
-          makes a &quot;thick&quot; curve, but a very small radius may make a curve that is
-          too thin to see.</p>
-        <p class="Normal">You can also specify a list of  points when creating a curve:</p>
+        <p class="program">c = curve(vector(-1,-1,0), vector(1,-1,0))</p>
+      </div>
+      <p class="Normal">You can add additional points to this curve like this, completing a square of width 2 whose center is at location &lt; 0,0,0 &gt;:</p>
+      <div>
+        <p class="program">c.append(vector(1,1,0), vector(-1,1,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector(-1,-1,0))</p>
+      </div>
+      <p class="Normal">Suppose you have two vectors named <strong>v1</strong> and <strong>v2</strong>. Any of the following  schemes will draw a white straight line from postion <strong>v1</strong> to position <strong>v2</strong>:</p>
+      <div>
+        <p class="program">1) c = curve(v1,v2)</p>
+        <p class="program">2) c = curve([v1,v2])</p>
+        <p class="program">3) c = curve(pos=[v1,v2])</p>
+        <p class="program">4) c = curve(v1)<br />
+          &nbsp;&nbsp;&nbsp;c.append(v2)</p>
+        <p class="program">5) c = curve()<br />
+          &nbsp;&nbsp;&nbsp;c.append(v1,v2)</p>
+        <p class="Normal"><strong><font color="#0000a0">Specifying  overall color and radius</font></strong></p>
+        <p class="Normal">By default a curve is white, with a radius of the cross-section of only a few pixels. You can change the default color and radius for all points, using either of the following schemes: </p>
         <div>
-          <p class="program">c = curve( pos=[vector(-1,0,0),vector(0,1,0),<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector(0,0,1)], color=color.cyan )</p>
+          <p class="program">1) c = curve(pos=[v1,v2], color=color.cyan, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.3)</p>
+        </div>
+        <div>
+          <p class="program">2) c = curve(color=color.cyan, radius=0.3) <br />
+            &nbsp;&nbsp;&nbsp;c.append(v1,v2)</p>
+          <div>
+            <p class="Normal"><strong><font color="#0000a0">Specifying  the color and radius of individual points</font></strong></p>
+            <p class="Normal">You can specify the color and radius of individual points that override the color and radius specified for the curve as a whole. The following sequence will create two &quot;dictionaries&quot; to use as individual points, then will use them to draw a line whose color shades from red to blue and whose radius increases from 0.1 to 0.3:</p>
+            <div>
+              <p class="program">p1 = dict(pos=v1, color=color.red, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.1)<br />
+                p2 = dict(pos=v2, color=color.blue, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.3)<br />
+                curve(p1,p2) </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="Normal">In addition to the  attributes <span class="attribute">pos</span>, <span class="attribute">color</span>, <span class="attribute">radius</span>, each point has a <span class="attribute">visible</span> attribute, which makes that particular point visible or invisible.</p>
+      <div>
+        <div>
           <p class="Normal"><strong><font color="#0000a0">Retaining a limited number of points</font></strong></p>
         </div>
-        <p class="Normal">When appending a point to a curve you can specify how many points should be retained. The following statement specifies that if there are already 30 points in the curve, the oldest one should be deleted and the new point added.</p>
+        <p class="Normal">When creating a curve, or when appending a point to a curve, you can specify how many points should be retained. The following statement specifies that only the most recent 150 points should be retained as you add points to the curve:</p>
+        <p class="program">c = curve(retain=150)</p>
+        <p class="Normal">The following statement specifies that if there are already 30 points in the curve, the oldest one should be deleted and the new point added.</p>
         <p class="program">c.append( pos=vector(2,-1,0), retain=30)</p>
         <p class="Normal"><strong><font color="#0000a0">The curve attributes</font></strong></p>
-        <p class="Normal">Here are attributes for individual points or for the curve as a whole:</p>
+        <p class="Normal">Here is a summary of the attributes for individual points or for the curve as a whole:</p>
+        <p class="attributes"> <span class="attribute">pos </span> A vector position or list of positions.</p>
         <p class="attributes"> <span class="attribute">color </span> Color
           of a point; if specified for the curve as a whole, it specifies the color of any points for which no specific color was given.</p>
         <p class="attributes"> <span class="attribute">radius</span> Radius of
@@ -79,10 +106,12 @@
           point is not displayed; if False for the curve as a whole, no points are displayed.</p>
         <p class="attributes"><span class="attribute">retain</span> Specify how many points to retain.</p>
         <p class="Normal"></p>
-        <p class="Normal">A curve also has the  attributes <span class="attribute">origin</span>, <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>. </p>
+        <p class="Normal">A curve also has the standard attributes <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>. </p>
         <p class="Normal"><strong>No texture, opacity, or compounding:</strong> Currently curves cannot be transparent, it is not possible to apply a texture, and a curve cannot be part of a compound object.</p>
         <p class="Normal"><strong><font color="#0000a0">Moving, reorienting, and resizing a curve</font></strong></p>
-        <p class="Normal"><strong>Point positions are relative:</strong> A point whose pos  is <span class="program">vector</span>(2, 1, 0) is of course normally displayed at location <span class="program">vector</span>(2, 1, 0). However, the position of a point is <em>relative</em> to a curve's own <span class="attribute">origin</span> value, which by default is <span class="program">vector</span>(0, 0, 0). If you change the curve's <span class="attribute">origin</span> value to <span class="program">vector</span>(10, 6, 5), the point is displayed at the location <span class="program">vector</span>(12, 7, 5); that is, the point is displayed 2 to the right, 6 above, and 0 in front of the curve's position <span class="program">vector</span>(10, 6, 5). Another way of saying this is that the display location is the vector sum <span class="program">vector</span>(10, 6, 5) + <span class="program">vector</span>(2, 1, 0). This means that you can quickly and efficiently move the entire curve just by changing the curve's <span class="attribute">origin</span> value. The <span class="attribute">pos</span> value of an individual point does not change; it's just that the point is displayed in a shifted position. As a result, moving an entire curve is very fast.</p>
+        <p class="Normal"><strong>Point positions are relative; the use of <span class="attribute">origin</span>:</strong> A point whose pos  is <span class="program">vector</span>(2, 1, 0) is of course normally displayed at location <span class="program">vector</span>(2, 1, 0). However, the position of a point is <em>relative</em> to a curve's own <span class="attribute">origin</span> value, which by default is <span class="program">vector</span>(0, 0, 0). If you change the curve's <span class="attribute">origin</span> value to <span class="program">vector</span>(10, 6, 5), the point is displayed at the location <span class="program">vector</span>(12, 7, 5); that is, the point is displayed 2 to the right, 6 above, and 0 in front of the curve's position <span class="program">vector</span>(10, 6, 5). Another way of saying this is that the display location is the vector sum <span class="program">vector</span>(10, 6, 5) + <span class="program">vector</span>(2, 1, 0). This means that you can quickly and efficiently move the entire curve just by changing the curve's <span class="attribute">origin</span> value. The <span class="attribute">pos</span> value of an individual point does not change; it's just that the point is displayed in a shifted position. As a result, moving an entire curve is very fast.</p>
+      </div>
+      <div>
         <p class="Normal">Similarly, changes to <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span> immediately and quickly change the size of the curve, its orientation in space, and the appearance of its surface. When you specify the position of a point, it is relative to an origin at <span class="program">vector</span>(0,0,0) and with the standard axis <span class="program">vector</span>(1,0,0). Changing the <span class="attribute">size</span> does not change the <span class="attribute">radius</span>; it just moves the points closer or farther apart.<br />
         </p>
         <p class="Normal"><strong><font color="#0000a0">Rotating a curve</font></strong></p>
@@ -128,14 +157,15 @@
                     <div>
                       <div>
                         <p class="Normal">If you don't need to specify color or radius you can just give a list of positions, either as individual positions or in a list of positions:</p>
-                        <p class="program">c.append( vector(-1,0,0), vector(0,1,0), vector(1,0,0) )<br />
-                          c.append([vector(-1,0,0), vector(0,1,0), vector(1,0,0)])</p>
+                        <p class="program">c.append( vector(-1,0,0), vector(0,1,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector(1,0,0) )<br />
+                          c.append([vector(-1,0,0), vector(0,1,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector(1,0,0)])</p>
                         <div>
                           <p class="Normal">Suppose you have created a curve named c, and p represents either just a position vector (as just shown above) or a full description of a point in either of the following forms:<br />
                             <br />
                             &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = {pos:vector, color:a vector, radius:a number, visible:true or false}</strong></span><br />
                             <br />
-                            &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = dict(pos=a vector, color=a vector, radius=a number, visible=true or false)</strong></span></p>
+                            &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = dict(pos=a vector, color=a vector, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                            radius=a number, visible=true or false)</strong></span></p>
                           <div>
                             <p class="Normal"></p>
                           </div>
@@ -157,15 +187,16 @@
                       <p class="Normal">Here are details on getting data about points in a curve named &quot;c&quot;, or modifying them.</p>
                       <p class="Normal"><span class="attribute">npoints</span></p>
                     </div>
-                    <p class="program">c.npoints &nbsp; # the number of points in the curve</p>
+                    <p class="program">c.npoints &nbsp; # number of points in the curve</p>
                     <p class="Normal"></p>
                     <p class="Normal"><span class="attribute">append</span></p>
-                    <p class="program">c.append(...) &nbsp;# add points at the end (see above)</p>
+                    <p class="program">c.append(...) # add points at end <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#                    (see above)</p>
                     <p class="Normal"></p>
                     <p class="Normal"><span class="attribute">unshift</span></p>
-                    <p class="program">c.unshift(p1, p2, p3) &nbsp;# insert points at start</p>
+                    <p class="program">c.unshift(p1, p2, p3) &nbsp;# insert points at &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# start</p>
                     <p class="program">pts = [p1, p2, p3]<br />
-                      c.unshift(pts) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # insert points at start</p>
+                      c.unshift(pts) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # insert points at &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# start</p>
                     <p class="Normal">The <span class="attribute">splice</span> method inserts new points starting at location &quot;start&quot; (where 0 is the first point of the curve), deleting &quot;howmany&quot; points before doing the insertion:</p>
                     <p class="program">c.splice(start,howmany,p1,p2,p3) # insert</p>
                     <p class="program">pts = [p1, p2, p3]<br />
@@ -174,7 +205,8 @@
                     <p class="Normal">The <span class="attribute">modify</span> method lets you change specified attributes of a point:</p>
                     <p class="program"> c.modify(N, # modify point number N<br />
                       &nbsp;&nbsp;&nbsp;            pos=p, color=c, radius=r, visible=v)<br />
-                      c.modify(N, x=3, y=5) # changing x and y but not z<br />
+                      c.modify(N, x=3, y=5) # changing x and y<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#                      but not z<br />
                       c.modify(N, vector(x,y,z)) # change only pos</p>
                     <p class="Normal"></p>
                     <p class="Normal"><span class="attribute">clear</span></p>
@@ -188,15 +220,16 @@
                     <p class="Normal"></p>
                     <p class="Normal"><span class="attribute">point</span></p>
                     <p class="program">P = c.point(N) # get a point in the form<br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            # {pos:p, color:c, radius:r, visible:v}<br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            # {pos:p, color:c, radius:r, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;visible:v}<br />
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# P.pos is p, P.color is c, etc.</p>
                     <p class="Normal"></p>
                     <p class="Normal"><span class="attribute">slice</span></p>
                     <p class="program">data = c.slice(2,4) # get a list of<br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;# points from point no. 2 through point no. 3,<br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;# points from point 2 through  point 3,<br />
                       &nbsp;&nbsp;&nbsp;&nbsp;# each in the form<br />
                       &nbsp;&nbsp;&nbsp;&nbsp;# {pos:p, color:c, radius:r, visible:v}<br />
-                      &nbsp;&nbsp;&nbsp;&nbsp;# The first point is 0, the last point is -1</p>
+                      &nbsp;&nbsp;&nbsp;&nbsp;# The first point is 0, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;#                       the last point is -1</p>
                   </div>
                 </div>
                 <p class="Normal"><strong><font color="#0000a0">Interpolation of colors</font></strong></p>
