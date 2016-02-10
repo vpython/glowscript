@@ -831,7 +831,7 @@ $(function () {
                     var embedScript = window.glowscript_compile(header.source, {lang: header.lang, version: header.version.substr(0,3)})
                     var divid = "glowscript"
                     var remove = header.version==='0.3' ? '' : '.removeAttr("id")'
-                    var main = 'main()'
+                    var main
                     var fsearch = ' (function()'
                     var where = embedScript.indexOf(fsearch)
                     if (where > 0) {
@@ -844,9 +844,12 @@ $(function () {
                         where = embedScript.indexOf('}).call(this)')
                         embedScript = embedScript.slice(0,where+1) + embedScript.slice(where+13,embedScript.length)
                     }
-                    embedScript = ";(function() {" + embedScript + '\n;$(function(){ window.__context = { glowscript_container: $("#' + divid + '")'+remove+' }; '+main+' })})()'
-                    embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
                     var v = Number(header.version.substr(0,3))
+                    if (v >= 2.0) main = 'main(__func)' // Starting Dec. 2015, using Streamline files from Salvatore di Dio
+                    else main = 'main()'
+                    embedScript = ";(function() {" + embedScript + '\n;$(function(){ window.__context = { glowscript_container: $("#' + divid + '")'+remove+' }; '+main+' })})()'
+
+                    embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
                     var verdir = "bef1.1"
                     if (v == 1.1) verdir = "1.1"
                     else verdir = header.version.substr(0,3)

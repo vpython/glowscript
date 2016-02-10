@@ -20,15 +20,15 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/color.js",
         "../lib/glow/primitives.js",
         "../lib/glow/api_misc.js",
-        "../lib/glow/shaders.gen.js"
+        "../lib/glow/shaders.gen.js",
+        "../lib/transform-all.js" // needed for running programs embedded in other web sites
         ],
     compile: [
         "../lib/compiler.js",
         "../lib/papercomp.js",
         "../lib/transform-all.js",
         "../lib/coffee-script.js"],
-    RSrun: [
-        "../lib/rapydscript/stdlib.js"],
+    RSrun: ["../lib/rapydscript/stdlib.js"],
     RScompile: [
         "../lib/compiler.js",
         "../lib/papercomp.js",
@@ -129,6 +129,7 @@ function ideRun() {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
             var options = {lang: lang, version: version}
             var program = glowscript_compile(program, options)
+            //console.log('run program')
             //var p = program.split('\n')
         	//for (var i=0; i<p.length; i++) console.log(i, p[i])
         	var main = eval_script(program)

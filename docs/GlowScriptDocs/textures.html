@@ -64,7 +64,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;place='right') )</p>
             <p class="Normal"><strong>Using images from other web sites:</strong> You can  use an image from another web site as a texture by specifying its URL, if that web site is &quot;CORS enabled&quot; (CORS = Cross-Origin Resource Sharing). For example,<br />
               <br />
-<strong>texture=&quot;https://s3.amazonaws.com/glowscript/textures/cors_test.jpg&quot;</strong> <br />
+<strong>texture=&quot;https://s3.amazonaws.com/glowscript/textures/flower_texture.jpg&quot;</strong> <br />
 <br />
 will fetch an image consisting of the word &quot;CORS&quot;. For technical reasons, if the image has a width or height that is not a power of 2 (that is, not 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, etc.), the image is stretched to the next larger width or height that is a power of 2. <br />
 <br />
@@ -73,7 +73,7 @@ a CORS-enabled site,<strong> <a href="http://i.imgur.com/" target="_blank" rel=
 <p class="Normal">If you use &quot;Share this program&quot; in the GlowScript editor and copy code to a page on your own web site, you can fetch an image to use as a texture from the same web site, even if your web site isn't CORS-enabled.</p>
 <div></div>
           </div>
-          <p class="Normal"><strong>Placing a texture on portions of the object:</strong> Placement options are <span class="attribute">'left'</span>, <span class="attribute">'right'</span>, <span class="attribute">'sides'</span> (all but the left and right ends), <span class="attribute">'ends'</span> (both left and right), and <span class="attribute">'all'</span> (the default). The meaing of left and right is that by default GlowScript objects have their axis in the (1,0,0) direction (+x), and the right end is on the right initially, before possible later changes of axis. In the case of a cylinder, 'sides' specifies the curving surface.</p>
+          <p class="Normal"><strong>Placing a texture on portions of the object:</strong> Placement options are <span class="attribute">'left'</span>, <span class="attribute">'right'</span>, <span class="attribute">'sides'</span> (all but the left and right ends), <span class="attribute">'ends'</span> (both left and right), and <span class="attribute">'all'</span> (the default). The meaning of left and right is that by default GlowScript objects have their axis in the (1,0,0) direction (+x), and the right end is on the right initially, before possible later changes of axis. In the case of a cylinder, 'sides' specifies the curving surface.</p>
         </div>
         <div>
 <p class="Normal">You can combine these options: <span class="attribute">place =['left', 'sides']</span> will place the texture on the left end and the sides.</p>
@@ -83,8 +83,8 @@ a CORS-enabled site,<strong> <a href="http://i.imgur.com/" target="_blank" rel=
   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;texture=dict(file=textures.stucco, <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bumpmap=bumpmaps.stucco,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place=['right', 'sides'],<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flipx=true,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flipy=true,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flipx=True,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flipy=True,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;turn=-3)
 </p>
 <p class="Normal">Currently you have to give all the information in one package, as in the example above, rather than specifing an individual parameter such as texture.turn.  You can retrieve this information as <strong>var T = b.texture</strong>, which gives you the information in the form { file: ...., bumpmap:...., etc. }, so that <strong>T.turn</strong> would be -3.</p>

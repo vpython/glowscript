@@ -46,7 +46,8 @@ glowscript_libraries = {
         "../lib/glow/color.js",
         "../lib/glow/primitives.js",
         "../lib/glow/api_misc.js",
-        "../lib/glow/shaders.gen.js"
+        "../lib/glow/shaders.gen.js",
+        "../lib/transform-all.js" # needed for running programs embedded in other web sites
         ],
     "compile": [
         "../lib/compiler.js",
