@@ -83,6 +83,9 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
   for x in arange(0., 8.05, 0.1): <br />
   &nbsp;&nbsp;&nbsp;&nbsp;f1.plot([x,5*cos(2*x)*exp(-0.2*x])	&nbsp;# curve<br />
   &nbsp;&nbsp;&nbsp;&nbsp;f2.plot([x,4*cos(0.5*x)*exp(-0.1*x])# vbars</p>
+<p class="Normal">You can replace all of the points in a  <span class="attribute">gcurve</span>, <span class="attribute">gdots</span>, <span class="attribute">gvbars</span>, or <span class="attribute">ghbars</span> object like this:</p>
+<p class="program"> f1.data = [ [10,20], [30,40], [50,60] ]</p>
+<p class="Normal">This is equivalent to deleting all the points from the graph and then adding the new ones.</p>
 <p class="Normal"><strong><font color="#0000A0">Special options for gcurve, gdots, gvbars, and ghbars</font></strong></p>
 <p class="Normal">For <span class="attribute">gcurve</span> your can specify a <span class="attribute">width</span> of the line in pixels. If you
             specify <span class="attribute">dot=True</span> the current plotting

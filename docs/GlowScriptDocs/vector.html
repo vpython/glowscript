@@ -85,9 +85,13 @@
           mag(vec(1,1,1)) &nbsp;# = sqrt(3) = 1.732...<br />
           mag2(vec(1,1,1)) # = 3; magnitude
             squared</p>
-          <p class="Normal"> You can also obtain the magnitude in the form <span
- class="attribute">v2.mag</span> and the square of the magnitude as <span
- class="attribute">v2.mag2</span>.</p>
+          <p class="Normal">It is possible to reset the magnitude or the
+            magnitude squared of a vector:</p>
+          <p class="program"> v2.mag = 5 # sets magnitude to 5;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#            no change in direction<br />
+            v2.mag2 = 2.7 # sets squared magnitude<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#            of v2 to
+      2.7</p>
   <p class="Normal">You can reset the magnitude to 1 with norm():</p>
 
           <p class="program">norm(A) # A/|A|, normalized; magnitude 1<br />
@@ -99,8 +103,9 @@
                   of the angles of the two vectors):</p>
 
             <p class="program">ang = v1.diff_angle(v2)</p>
-            <p class="Normal"> For convenience, if either of the vectors has zero 
-          magnitude, the difference of the angles is calculated to be zero<span class="attribute"></span>.</p>
+            <p class="Normal"> You can also write <span class="attribute">v1.diff_angle(v2)</span><span
+ class="attribute"></span>. For convenience, if either of the vectors has zero 
+              magnitude, the difference of the angles is calculated to be zero<span class="attribute"></span>.</p>
 
           <p class="Normal"> <strong>A.cross(B)</strong> gives the cross product of two vectors, a vector perpendicular to the plane defined by <strong>A</strong> and <strong>B</strong>, 
             in a direction defined by the right-hand rule: if the fingers of the right 
@@ -123,9 +128,6 @@
           <p class="program">radians(360) &nbsp;is equivalent to 2*pi<br />
           degrees(2*pi) is equivalent to  360</p>
           <p class="Normal"></p>
-          <p class="Normal"><font color="#0000a0"><strong>Displaying a vector</strong></font></p>
-          <p class="Normal">The toString function converts a vector into a character string for display purposes. The following will display the vector <strong>A</strong> as &lt; x, y, z &gt;:</p>
-          <p class="program"> scene.caption.text(A.toString())</p>
     <!-- InstanceEndEditable --></td>
   </tr>
 </table>
