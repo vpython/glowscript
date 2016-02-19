@@ -10,7 +10,7 @@ Full documentation for users is provided: At glowscript.org, click Help at the u
 
 GlowScript was inspired by VPython (http://vpython.org). The project was begun in 2011 by David Scherer and Bruce Sherwood. Originally programs had to be written in JavaScript, but in November 2014 it became possible to use Python, thanks to the RapydScript Python-to-JavaScript compiler (http://www.rapydscript.com).
 
-A new project lets you run VPython programs in a Jupyter notebook: see vpython.org.
+A new project lets you run VPython programs in a Jupyter notebook: see http://vpython.org. The syntax is the same as GlowScript VPython but uses an installed standard Python which provides access to the large number of Python modules.
 
 In December 2014 the original GlowScript repository was corrupted in such a way that it could not be reconstituted, but a backup that contains the history of commits is here:
 
