@@ -59,6 +59,15 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           scene.waitfor('click keydown') # click or keyboard<br />
       </p>
 <p class="Normal">A convenient way to wait for a mouse event is to use <span class="attribute">scene.pause()</span>, which is equivalent to scene.waitfor('click') but which is not yet available in classic VPython. You can also show a message to the user at the bottom of the canvas: <span class="attribute">scene.pause('Click to proceed')</span>.</p>
+<p class="Normal">You can  set up a function to be called when a mouse or keyboard event occurs. The following will display the type of  event (mouse click or keydown) and, in the case of a keydown event, which key is involved:</p>
+<p class="program">def process(event):<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;print(event.event, event.which)<br />
+  <br />
+  scene.bind('click keydown', process)</p>
+<p class="Normal">The quantity <span class="attribute">event.event</span> will be 'keydown' if a key was pressed or 'mousedown' if the left mouse button was pressed. The quantity <span class="attribute">event.which</span> is the numerical key code or mouse button indicator (mouse button is always 1 for now). For example, <span class="attribute">event.which</span> is 65 for the 'a' key. The quantity <span class="attribute">event.key</span> is the corresponding character string, such as 'a' or 'delete'. </p>
+<p class="Normal">The quantity <span class="attribute">event.canvas</span> is the canvas associated with the event. You can bind events on different canvases to the same function and be able to tell in which canvas the event occurred.</p>
+<p class="Normal">Note  that <span class="attribute">scene.mouse.shift</span> is true if the shift key is down at the time of the keyboard event; similarly for <span class="attribute">scene.mouse.ctrl</span> and <span class="attribute">scene.mouse.alt</span>.</p>
+<p class="Normal">It is possible to use &quot;anonymous&quot; (unnamed) functions in this situation. For examples, see the <strong><a href="mouse_drag.html" target="_blank">mouse drag</a></strong> discussion.</p>
 <p class="Normal">You can obtain a package of information about the event that caused the end of the wait, with the added information of whether it was a mouse or keyboard event:</p>
       <p class="program">        box()<br />
         ev = scene.waitfor('mousedown mouseup')<br />
