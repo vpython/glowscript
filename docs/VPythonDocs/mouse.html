@@ -53,7 +53,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="program">scene.waitfor('mousedown') # wait for mouse button press<br />
           scene.waitfor('mouseup') # wait for mouse button release<br />
           scene.waitfor('mousemove') # wait for mouse to be moved<br />
-      scene.waitfor('mousedown mousemove') # either event<br />
+      scene.waitfor('mouseenter') # when move into canvas<br />
+scene.waitfor('mouseleave') # when leave canvas<br />
+scene.waitfor('mousedown mousemove') # either event<br />
           scene.waitfor('keydown') # wait for keyboard key press<br />
           scene.waitfor('keyup')  &nbsp;&nbsp;# wait for keyboard key release<br />
           scene.waitfor('click keydown') # click or keyboard<br />

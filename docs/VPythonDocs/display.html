@@ -111,7 +111,8 @@ into this canvas by default; e.g. <span class="attribute">scene.select() </span>
 <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
             and height of the canvas area in pixels: scene.height = 200 (includes
   title bar). </p>
-          <p class="attributes"> <span class="attribute">title</span> Text above the canvas: scene.title = 'Planetary Orbit'</p>
+          <p class="attributes"> <span class="attribute">title</span> Text above the canvas: scene.title.text('Planetary Orbit')</p>
+          <p class="attributes"> <span class="attribute">canvas</span> Text below the canvas: scene.caption.text('Some explanation')</p>
           <p class="attributes"><span class="attribute">fullscreen</span> Not currently supported in GlowScript.</p>
           <p class="attributes"> <span class="attribute">visible</span> Make
             sure the canvas is visible; <span class="attribute">scene2.visible
@@ -132,7 +133,7 @@ into this canvas by default; e.g. <span class="attribute">scene.select() </span>
         scene.title.text(saved)<br />
         ...<br />
         print(saved)</p>
-      <p class="Normal">Currently you can say <span class="attribute">scene.title = &quot;Hello&quot;</span> but later versions of GlowScript will remove this form because scene.title and scene.caption are locations on the web page, not the text displayed there.</p>
+      <p class="Normal">Currently  <span class="attribute">scene.title = &quot;Hello&quot;</span> is not caught as an error but it can cause problems, and later versions of GlowScript will remove this form because scene.title and scene.caption are locations on the web page, not the text displayed there.</p>
 <p class="Normal">You can put end-of-line markers (&quot;\n&quot;) in the text to make multiline displays, or use the Python triplequote form to make a paragraph:</p>
       <p class="program">scene.caption.text('''This is a<br />
         multiline paragraph with<br />
