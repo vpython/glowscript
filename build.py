@@ -24,13 +24,13 @@ shader_file.append("}});")
 shader_file = "\n".join(shader_file)
 open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "2.1dev"
+version = "2.2dev"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
     "run": [
-        "../lib/jquery/"+version+"/jquery.mousewheel.js",
-        "../lib/jquery/"+version+"/jquery.ui.touch-punch.min.js",
+        "../lib/jquery/"+"2.0"+"/jquery.mousewheel.js",
+        "../lib/jquery/"+"2.0"+"/jquery.ui.touch-punch.min.js",
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
         "../lib/glMatrix.js",

@@ -136,6 +136,7 @@ class ApiLogin(ApiRequest):
 class ApiUsers(ApiRequest):
     def get(self):
         if not self.authorize(): return
+        if not self.authorize_user("Bruce_Sherwood"): return
         users = [ k.name() for k in User.all(keys_only=True) ]
         self.respond( {"users" : users} )
 
@@ -330,8 +331,8 @@ class ApiAdminUpgrade(ApiRequest):
         self.respond( {"processed":len(programs), "changed":changeCount} )
 
     def upgradeProgram(self, p):
-        if not p.source.startswith("GlowScript 2.0\n"):
-            p.source = "GlowScript 2.0 VPython\n" + p.source
+        if not p.source.startswith("GlowScript 2.1\n"):
+            p.source = "GlowScript 2.1 VPython\n" + p.source
             return True
 
 app = web.WSGIApplication(
