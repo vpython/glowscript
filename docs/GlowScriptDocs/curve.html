@@ -57,7 +57,7 @@
       <div>
         <p class="program">c.append(vector(1,1,0), vector(-1,1,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vector(-1,-1,0))</p>
       </div>
-      <p class="Normal">Suppose you have two vectors named <strong>v1</strong> and <strong>v2</strong>. Any of the following  schemes will draw a white straight line from postion <strong>v1</strong> to position <strong>v2</strong>:</p>
+      <p class="Normal">Suppose you have two vectors named <strong>v1</strong> and <strong>v2</strong>. Any of the following  schemes will draw a white straight line from position <strong>v1</strong> to position <strong>v2</strong>:</p>
       <div>
         <p class="program">1) c = curve(v1,v2)</p>
         <p class="program">2) c = curve([v1,v2])</p>
@@ -66,7 +66,12 @@
           &nbsp;&nbsp;&nbsp;c.append(v2)</p>
         <p class="program">5) c = curve()<br />
           &nbsp;&nbsp;&nbsp;c.append(v1,v2)</p>
-        <p class="Normal"><strong><font color="#0000a0">Specifying  overall color and radius</font></strong></p>
+        <p class="Normal"><strong><font color="#0000a0">Shorthand</font></strong></p>
+        <p class="Normal">When specifying a list of points as pos = [....] you can use lists or tuples without the keyword &quot;vector&quot;:</p>
+        <div>
+          <p class="program">curve( pos=[(1,1,0, (-1,1,0)], color=...)</p>
+        </div>
+<p class="Normal"><strong><font color="#0000a0">Specifying  overall color and radius</font></strong></p>
         <p class="Normal">By default a curve is white, with a radius of the cross-section of only a few pixels. You can change the default color and radius for all points, using either of the following schemes: </p>
         <div>
           <p class="program">1) c = curve(pos=[v1,v2], color=color.cyan, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.3)</p>
