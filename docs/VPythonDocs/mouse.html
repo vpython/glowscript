@@ -105,6 +105,28 @@ scene.waitfor('mousedown mousemove') # either event<br />
           key is down, otherwise False        </p>
         <p class="Normal"><strong><font color="#0000A0">Different kinds of mouse</font></strong></p>
         <p class="Normal">The mouse routines in GlowScript currently handle only the left (or only) mouse button.</p>
+        <p class="Normal"><font color="#0000A0"><a name="alternative" id="alternative"></a><strong>Projecting 
+          mouse position onto a given plane</strong></font></p>
+        <p class="Normal"> Here is a way to get the mouse position relative to a particular 
+          plane in space:</p>
+        <p class="program"> temp = scene.mouse.project(<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          normal=vec(0,1,0),<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;point=vec(0,3,0) )<br />
+          # null if no intersection with plane:<br />
+          if temp != null) ball.pos = temp</p>
+        <p class="Normal"> This projects the mouse cursor onto a plane that is perpendicular 
+          to the specified normal. If the second parameter is not 
+          specified, the plane passes through the origin. It returns a 3D position, 
+          or null if the projection of the mouse misses the plane (scene.mouse.ray is parallel to the plane).</p>
+        <p class="Normal"> In the example shown above, the user of your program will 
+          be able to use the mouse to place balls in a plane parallel to the xy plane, 
+          a height of 3 above the xy plane, no matter how the user has rotated the point 
+          of view.</p>
+        <p class="Normal">You can instead specify a perpendicular distance from the origin to the plane that is perpendicular to the specified normal. 
+          The example above is equivalent to</p>
+        <p class="program"> temp=scene.mouse.project(<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normal=vec(0,1,0),
+          d=3 )</p>
     <p class="Normal"><strong><font color="#0000A0">Polling and callback</font></strong></p>
         <p class="Normal">There are two different ways to get a mouse event, &quot;polling&quot; and &quot;callback&quot;. In polling, you continually check <strong>scene.mouse.events</strong> to see whether any events are waiting to be processed, and you use <strong>scene.mouse.getevent()</strong> to get the next event to process. Prior to VPython 6, this was the only way you could handle mouse or keyboard events, but this scheme is not available in GlowScript</p>
         <p class="Normal">In the callback method, you specify a function to be executed when a specific type of event occurs, and the function is sent the event information when the specified type of event occurs. For many purposes this is a better way to handle mouse and keyboard events, and it works in both classic VPython and in GlowScript.</p>
