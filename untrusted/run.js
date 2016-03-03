@@ -2,7 +2,7 @@
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     run: [
-        "../lib/jquery/2.0/jquery.mousewheel.js",         // also used with 2.1
+        "../lib/jquery/2.1/jquery.mousewheel.js",
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
 //        "../lib/micromarkdown.min.js", // markdown, not ready to use yet
@@ -77,8 +77,7 @@ function ideRun() {
                 var packages = []
                 var choose = progver
                 if (Number(progver)<1.1) {choose = "bef1.1"}
-                else if (Number(progver)==1.1) {choose = "1.1"}
-                else {choose = "2.0"}
+                else {choose = progver} // currently 1.1, 2.0, or 2.1
                 packages.push("../css/redmond/" + choose + "/jquery-ui.custom.css",
                               "../lib/jquery/"  + choose + "/jquery.min.js",
                               "../lib/jquery/"  + choose + "/jquery-ui.custom.min.js")
