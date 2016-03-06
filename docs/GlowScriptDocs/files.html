@@ -53,14 +53,15 @@
       <div></div>
       <div class="Normal"></div>
 <h1 class="Heading-1"><font color="#0000a0">read_local_file: user chooses a file</font></h1>
-      <p class="Normal">You can ask the user of your program to choose a text file on the user's computer and then use the contents of the file. The function <strong>read_local_file</strong> appends a button on the screen at the location specified. When the user clicks that button, a file dialog appears which lets the user choose a file. Then the button is removed, and information about the file is returned:</p>
-      <p class="program">f = read_local_file(scene.title, wait)<br />
-        print(f.name) // The file name<br />
-        print(f.size) // File size in bytes<br />
-        print(f.type) // What kind of file<br />
-        print(f.date) // Creation date if available<br />
+      <p class="Normal">You can ask the user of your program to choose a text file on the user's computer and then use the contents of the file. The function <strong>read_local_file</strong> appends a button that says &quot;Choose File&quot; on the screen at the location specified, such as scene.title_anchor or scene.caption_anchor. When the user clicks that button, a file dialog appears which lets the user choose a file. Then the button is removed, and information about the file is returned.</p>
+      <p class="program">f = read_local_file(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        scene.title_anchor, wait)<br />
+        print(f.name) # The file name<br />
+        print(f.size) # File size in bytes<br />
+        print(f.type) # What kind of file<br />
+        print(f.date) # Creation date if available<br />
         print('*************')<br />
-      print(f.text) // The file contents</p>
+      print(f.text) # The file contents</p>
 <p class="Normal">The &quot;wait&quot; argument is required because GlowScript must wait until the  file has been transferred to GlowScript (in VPython, the keyword &quot;wait&quot; is optional). For use with your own callback function, see <a href="libraryuse.html">Using GlowScript as a JavaScript library</a>.</p>
       <p class="Normal">If you say <strong>read_local_file(wait)</strong>, the button is appended to the bottom of the window, corresponding to the jQuery location $('body').</p>
     <!-- InstanceEndEditable --></td>

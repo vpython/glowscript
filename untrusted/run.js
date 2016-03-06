@@ -28,16 +28,20 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/papercomp.js",
         "../lib/transform-all.js",
         "../lib/coffee-script.js"],
-    RSrun: ["../lib/rapydscript/stdlib.js"],
+    RSrun: [
+            "../lib/rapydscript/baselib.js",
+            "../lib/rapydscript/stdlib.js"
+            ],
     RScompile: [
         "../lib/compiler.js",
         "../lib/papercomp.js",
         "../lib/transform-all.js",
-        "../lib/rapydscript/baselib.js",
         "../lib/rapydscript/utils.js",
         "../lib/rapydscript/ast.js",
         "../lib/rapydscript/output.js",
-        "../lib/rapydscript/parse.js"],
+        "../lib/rapydscript/parse.js",
+        "../lib/rapydscript/baselib.js"
+        ],
     ide: []
 }
 
@@ -76,12 +80,14 @@ function ideRun() {
                 var progver = message.version.substr(0,3)
                 var packages = []
                 var choose = progver
-                if (Number(progver)<1.1) {choose = "bef1.1"}
-                else {choose = progver} // currently 1.1, 2.0, or 2.1
+                var ver = Number(progver)
+                if (ver < 1.1) choose = "bef1.1"
+                else if (ver <= 2.1) choose = progver // currently 1.1, 2.0, or 2.1
+                else choose = 2.1 // 2.2dev
                 packages.push("../css/redmond/" + choose + "/jquery-ui.custom.css",
                               "../lib/jquery/"  + choose + "/jquery.min.js",
                               "../lib/jquery/"  + choose + "/jquery-ui.custom.min.js")
-                if (choose >= "1.1") packages.push("../lib/jquery/"  + choose + "/jquery.ui.touch-punch.min.js")
+                if (ver >= 1.1 && ver < 2.1) packages.push("../lib/jquery/"  + choose + "/jquery.ui.touch-punch.min.js")
                 if (message.unpackaged) {
                     packages.push.apply(packages, glowscript_libraries.run)
                     if (message.lang == 'rapydscript' || message.lang == 'vpython') {
@@ -90,7 +96,7 @@ function ideRun() {
                     } else packages.push.apply(packages, glowscript_libraries.compile)
                 } else {
                     packages.push("../package/glow." + message.version + ".min.js")
-                    if (Number(progver) >= 1.1 && (message.lang == 'rapydscript' || message.lang == 'vpython')) {
+                    if (ver >= 1.1 && (message.lang == 'rapydscript' || message.lang == 'vpython')) {
                         packages.push("../package/RScompiler." + message.version + ".min.js")
                         packages.push("../package/RSrun." + message.version + ".min.js")
                     } else
@@ -100,8 +106,8 @@ function ideRun() {
                 head.load(packages, function() {
                     // All the libraries are ready; run the program
                     if (message.version === "0.3") window.glowscript = { version: "0.3" }
-                    if (glowscript.version !== message.version && !message.unpackaged)
-                        alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
+                    //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
+                    //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
 
                     var container = $("#glowscript")
                     if (message.version !== "0.3") container.removeAttr("id")

@@ -55,7 +55,15 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       </table>
       <div></div>
       <div>
-        <p class="Normal">The reading and writing of files is very different in a web browser. GlowScript provides an altenative mechanism; here is the <strong><a href="../GlowScriptDocs/files.html">description</a></strong>.</p>
+        <p class="Normal">The reading and writing of files is very different in a web browser. You can ask the user of your program to choose a text file on the user's computer and then use the contents of the file. The function <strong>read_local_file</strong> appends a button that says &quot;Choose File&quot; on the screen at the location specified, such as <strong>scene.title_anchor</strong> or <strong>scene.caption_anchor</strong>. When the user clicks that button, a file dialog appears which lets the user choose a file. Then the button is removed, and information about the file is returned.</p>
+        <p class="program">f = read_local_file(scene.title_anchor)<br />
+          print(f.name) # The file name<br />
+          print(f.size) # File size in bytes<br />
+          print(f.type) # What kind of file<br />
+          print(f.date) # Creation date if available<br />
+          print('-------------------')<br />
+      print(f.text) # The file contents</p>
+        <p class="Normal">If you say <strong>read_local_file()</strong>, the button is appended to the bottom of the window, corresponding to the jQuery location $('body').</p>
     <!-- InstanceEndEditable --></td>
   </tr>
   <tr>

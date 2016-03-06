@@ -54,6 +54,8 @@ since the IDE doesn't yet dynamically load symbols based on the version header.
 
 Also change “Welcome to GlowScript X.Y” appropriately in ide/index.html.
 
+There is a version reference in run.html.
+
 There is a reference to version number in ide/api.py upgradeProgram().
 Not clear that this is ever used.
 
