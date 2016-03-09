@@ -39,7 +39,7 @@
       <p class="Normal">You can also create your own canvas, like this:</p>
       <p class="program">cv = canvas( width=300, height=200 )</p>
       <p class="Normal">In JavaScript: var cv = canvas( {width:300, height:200} )</p>
-      <p class="Normal">After creating your own canvas, but before creating any 3D objects, you can set the width and height like this instead of setting them in the canvas statement:</p>
+      <p class="Normal">After creating your own canvas, you can set the width and height like this instead of setting them in the canvas statement:</p>
       <p class="program">cv.width = 200<br />
         cv.height = 400</p>
       <p class="Normal">You can have more than one canvas active on the web page. After creating a canvas, by default any objects you create later will appear in the most recently mentioned canvas, but you can specify which canvas you want the object to be in:</p>
@@ -54,8 +54,7 @@
       ring(canvas=c2, pos=vec(-1,0,0))</p>
       <p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong>      </p>
       <p class="Normal"> You can specify various properties of the default scene or other canvas, not just width and height:</p>
-      <p class="attributes"> <span class="attribute">visible</span> If false, no objects are shown.</p>
-      <p class="attributes"><span class="attribute">background</span> Set color 
+<p class="attributes"><span class="attribute">background</span> Set color 
         to be used to fill the display region; default is color.black.</p>
           <p class="attributes"><span class="attribute">ambient</span> Color
             of nondirectional  (&quot;ambient&quot;) lighting. Default is color.gray(0.2). </p>
@@ -65,8 +64,17 @@
             <span class="attribute">direction:vec(-0.88, -0.22, -0.44),
               colo:color.gray(0.3) </span><br />
       For how to create your own distant and local lights, see <a href="lights.html"><strong>Lighting</strong></a>. To change the color of the first of the two default lights, do this, where 0 refers to the first of the two lights:      </p>
-      <p class="program"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.lights[0].color = color.red</p>
-      <p class="attributes"></p>
+      <p class="program"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.lights[0].color = color.red      </p>
+      <p class="attributes"><span class="attribute">objects</span> A list
+        of all the visible objects in the canvas; invisible objects and
+        lights are not listed (<span class="attribute">scene.lights</span> is a list of existing lights).
+        For example, the following makes all visible boxes in the scene red: </p>
+      <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;for obj in scene2.objects: <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if isinstance(obj, box):<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red </p>
+      <p class="attributes"> <span class="attribute">visible</span> Setting scene.visible = false means that no objects are displayed, until scene.visible is set true again.</p>
+      <p class="attributes"><span class="attribute">delete() </span>Deletes all the objects in this canvas and then deletes the canvas itself</p>
+      <p class="attributes"><span class="attribute"><font color="#000000">To obtain the current location of the camera, <a href="#camera"><strong>see </strong></a></font></span><strong><a href="#camera">below</a></strong> for details of <span class="attribute">scene.camera.pos</span><font color="#000000">.</font></p>
       <p class="attributes"><span class="attribute">camera.follow</span> If you say <span class="attribute">scene.camera.follow(ball)</span>, the center of the scene will continually be reset to the current position of the ball object. To stop following the object, execute <span class="attribute">scene.camera.follow(null)</span>.</p>
       <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instead of specifying an object to follow, you can provide a  function of your own:</p>
       <p class="program"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;def f():<br />
@@ -77,9 +85,7 @@
       <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.camera.follow(def ():<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 2*ball.pos<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      )</p>
-<p class="attributes"></p>
-      <p class="attributes"><span class="attribute">delete </span>Deletes all the objects in this display and then deletes the display itself</p>
-      <p class="attributes"></p>
+      <p class="Normal"></p>
       <p class="attributes"><span class="attribute">pixel_to_world</span> Gives the width of a pixel in &quot;world&quot; coordinates (that is, the coordinates you use to position objects). This is read-only; you cannot set it. It is determined from the current value of scene.range. An example of its use is that if you want the radius of a curve object to be 5 pixels, set the radius to 5*scene.pixel_to_world.</p>
       <p class="Normal">Here are  canvas options to wait for canvas updates:</p>
       <p class="attributes"><span class="attribute">scene.waitfor(&quot;redraw&quot;,wait) </span>Wait for the start of the next update of the canvas by the web browser</p>
@@ -175,6 +181,11 @@
             overfill the window, because the front of the box in 3D appears larger
             than the xy plane passing through scene.center, unless the field
             of view is very small.</p>
+          <p class="attributes"> &nbsp;<span class="attribute">camera.pos</span><span class="Normal"> <strong><font color="#0000A0"><a name="camera" id="camera2"></a></font></strong>The current 
+            location of the camera, whether due to your own settings,  autoscaling, or as positioned by the user, is <span class="attribute">scene.camera.pos</span><font color="#000000">. 
+              For example, <span class="attribute">mag(scene.camera.pos-scene.center)</span> is the distance from the center of the scene to the current position of the 
+              camera. </font>The vectors <span class="attribute">scene.camera.pos</span> and <span class="attribute">scene.mouse.ray</span> together define all of the 
+            3D points under the mouse cursor.</span> <span class="Normal"><font color="#000000">You can place the camera where you want it by executing <span class="attribute">scene.camera.pos = vector(x,y,z)</span></font><font color="#000000">. </font>In the new location the camera will continue to point at <span class="attribute">scene.center</span><font color="#000000">.</font> This will  turn off autoscaling. Be careful: if for example you place the camera very far away from the center of the scene you won't see anything at all.</span></p>
 <p class="attributes"> &nbsp;<span class="attribute">up</span> A vector representing 
             
             world-space up. This vector will always project to a vertical line on the 
