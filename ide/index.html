@@ -1,249 +1,245 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-<title>GlowScript IDE </title>
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link type="text/css" href="css/redmond/IDE/jquery-ui.custom.css" rel="stylesheet" />
-<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
-<link type="text/css" href="css/ide.css" rel="stylesheet" />
-
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-35037019-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-</head>
-<body class="ideBody">
-
-<div id="ajaxBody">
-Loading...
-</div>
-
-<div class="right-header spacer">
-<div style="text-align:right">
-    <span class="userstatus template">checking...</span>
-    <span class="not_logged_in userstatus template"><a href="#SignIn" class="signin">Sign in</a></span>
-    <span class="logged_in userstatus template">Signed in as <a class="signedin_user signedin_user_link" href="#">username</a>(<a href="#SignOut" class="signout">Sign out</a>)</span>
-</div>
-<div style="text-align:right">
-    <a href="../docs/VPythonDocs/index.html" target="_blank">Help</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-    &nbsp&nbsp&nbsp&nbsp&nbsp
-</div>
-</div>
-
-<!-- END HEADER 1 HELP/SIGN-IN TEXT -->
-
-</div>
-</div>
-
-<div class="welcomePage template">
-
-    <div class="header">
-    <div class="headerInner">
-        <h2>glowscript.org</h2>
-    </div>
-    </div>
-    
-<div class="after-header"></div>
-
-<div id="pageWrapperIDE">
-
-    <div style="position:relative;width:100%;padding:3px;">
-
-    <img src="../docs/GlowScriptDocs/images/cover.jpg" width="226" height="240" class="right">
-
-    <p>GlowScript is an easy-to-use, powerful environment for creating 3D animations and publishing them on the web.  
-    Here at glowscript.org, you can write and run GlowScript programs right in your browser, store them in the 
-    cloud for free, and easily share them with others. Thanks to the <a href="http://rapydscript.com" target="_blank">RapydScript</a> compiler, you can use VPython here.</p>
-	
-	<p><b>New in GlowScript 2.1:</b> <b>Improved and simplified scene.title and scene.caption; minor incompatibility with GlowScript 2.0; see 
-	<a href="http://www.glowscript.org/docs/GlowScriptDocs/history.html"  target="_blank">summary</a></b></p>
-    </div>
-
-    The Help provides full documentation.
-
-    <div class="not_logged_in userstatus">
-        <br>See the <a href="/#/user/GlowScriptDemos/folder/Examples/" target="_blank">Example programs</a>.<br>To get started writing your own programs you need to Sign in.
-    </div>
-    <div class="logged_in userstatus template">
-        <br>You are signed in as <b><span class="signedin_user">username</span></b> and your programs are 
-        <a href="#MyPrograms" class="signedin_user_link">here</a>.<br>
-        Your files are quite secure, but you might wish to keep your own copies. 
-    </div>
-
-</div>
-
-<br/>
-
-<div id="footerWrap"> 
-<div id="footerInner">
-<h2>G l o w S c r i p t&nbsp;&nbsp; 2.1</h2>
-    <a href="/#/user/GlowScriptDemos/folder/Examples/" target="_blank">Example programs</a> |
-    <a href="https://groups.google.com/forum/?fromgroups#!forum/glowscript-users" target="_blank">Forum</a></div>
-</div>
-
-</div>
-
-<div class="folderPage template">
-    <div class="header">
-        <div class="spacer">
-            <span class="username">User</span>'s <a href="#/">GlowScript</a> Programs
-            <div class="folderTabs ui-tabs ui-widget">
-                <ul class="folderList ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-corner-all">
-                    <li class="folderListItem template ui-state-default ui-corner-top"><a class="folder-name"></a></li>
-                    <li class="folder-new-tab ui-state-default ui-corner-top"><a href="#newFolder" class="folder-new">Add Folder</a></li>
-                </ul>
-                <div id="Public" style="display:none"></div>
-                <div id="Scratch" style="display:none"></div>
+    <head>
+        <title>GlowScript IDE </title>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link type="text/css" href="css/redmond/IDE/jquery-ui.custom.css" rel="stylesheet" />
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+        <link type="text/css" href="css/ide.css" rel="stylesheet" />
+        
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-35037019-1']);
+            _gaq.push(['_trackPageview']);
+            
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        
+    </head>
+    <body class="ideBody">
+        
+        <div id="ajaxBody">
+            Loading...
+        </div>
+        
+        <div class="right-header spacer">
+            <div style="text-align:right">
+                <span class="userstatus template">checking...</span>
+                <span class="not_logged_in userstatus template"><a href="#SignIn" class="signin">Sign in</a></span>
+                <span class="logged_in userstatus template">Signed in as <a class="signedin_user signedin_user_link" href="#">username</a>(<a href="#SignOut" class="signout">Sign out</a>)</span>
+            </div>
+            <div style="text-align:right">
+                <a href="../docs/VPythonDocs/index.html" target="_blank">Help</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp
             </div>
         </div>
-    </div>
+        
+        <!-- END HEADER 1 HELP/SIGN-IN TEXT -->
+        
+        <div class="welcomePage template">
 
-    <div class="after-header"></div>
-    
-    <a href="#newProgram" class="program-new button">Create New Program</a>
-    <a href="#delFolder" class="folder-delete template button">Delete this folder</a>
-
-    <div class="programs">
-        <div class="program template">
-            <img class="prog-screenshot" />
-            <div class="prog-header">
-                <div class="prog-name"></div>
-                <a href="#Run" class="prog-run button">Run</a>
-                <a href="#Edit" class="prog-edit button">Edit</a> 
-                <a href="#Delete" class="prog-delete button">Delete</a>
+            <div class="header">
+                <div class="headerInner">
+                    <h2>glowscript.org</h2>
+                </div>
             </div>
-            <div class="prog-description"></div>
+            
+            <div class="after-header"></div>
+            
+            <div id="pageWrapperIDE">
+                
+                <div style="position:relative;width:100%;padding:3px;">
+                    
+                    <img src="../docs/GlowScriptDocs/images/cover.jpg" width="226" height="240" class="right">
+                    
+                    <p>GlowScript is an easy-to-use, powerful environment for creating 3D animations and publishing them on the web.  
+                    Here at glowscript.org, you can write and run GlowScript programs right in your browser, store them in the 
+                    cloud for free, and easily share them with others. Thanks to the <a href="http://rapydscript.com" target="_blank">RapydScript</a> compiler, you can use VPython here.</p>
+                    
+                    <p><b>New in GlowScript 2.1:</b> <b>Improved and simplified scene.title and scene.caption; minor incompatibility with GlowScript 2.0; see 
+                    <a href="http://www.glowscript.org/docs/GlowScriptDocs/history.html"  target="_blank">summary</a></b></p>
+                </div>
+                
+                The Help provides full documentation.
+                
+                <div class="not_logged_in userstatus">
+                    <br>See the <a href="/#/user/GlowScriptDemos/folder/Examples/" target="_blank">Example programs</a>.<br>To get started writing your own programs you need to Sign in.
+                </div>
+                <div class="logged_in userstatus template">
+                    <br>You are signed in as <b><span class="signedin_user">username</span></b> and your programs are 
+                    <a href="#MyPrograms" class="signedin_user_link">here</a>.<br>
+                    Your files are quite secure, but you might wish to keep your own copies. 
+                </div>
+                
+            </div>
+            
+            <br/>
+            
+            <div id="footerWrap"> 
+                <div id="footerInner">
+                    <h2>G l o w S c r i p t&nbsp;&nbsp; 2.1</h2>
+                    <a href="/#/user/GlowScriptDemos/folder/Examples/" target="_blank">Example programs</a> |
+                    <a href="https://groups.google.com/forum/?fromgroups#!forum/glowscript-users" target="_blank">Forum</a>
+                </div>
+            </div>
+            
         </div>
-    </div>
-
-
-</div>
-
-<div id="newUser-dialog" class="form-dialog template" title="Welcome to GlowScript.org!">
-    <p>
-    To use GlowScript.org you will need to choose a unique name for yourself.  This name will be visible to other
-    internet users and will be part of the URLs you can use to share programs.  You can use your own name or a pseudonym, but
-    please try not to offend others.
-    </p>
-
-    <form>
-        <label for="name">Name</label>
-        <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
-        <p class="validateTips"></p>
-    </form>
-</div>
-
-<div id="prog-new-dialog" class="form-dialog template" title="Create New Program">
-    <form>
-        <label for="name">Name</label>
-        <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
-    </form>
-</div>
-
-<div id="prog-delete-dialog" class="form-dialog template" title="Delete Program">
-    Are you sure you want to delete <span class="name prog-name">this program</span>?  This action cannot be undone!
-</div>
-
-<div id="folder-new-dialog" class="form-dialog template" title="Create New Folder">
-    <form>
-        <label for="name">Name</label>
-        <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
-        <label for="isPublic">Public</label>
-        <input type="checkbox" name="isPublic" checked="checked"/>
-    </form>
-</div>
-
-<div id="folder-delete-dialog" class="form-dialog template" title="Delete Folder">
-    Are you sure you want to delete <span class="name folder-name">this folder</span>?
-</div>
-
-<div id="version-error-dialog" class="form-dialog error-dialog template" title="Error in program">
-    <p>Program does not start with the required version declaration:</p>
-    <pre class="desired-version code-preformat"></pre>
-</div>
-
-<div id="program-error-dialog" class="form-dialog error-dialog template" title="Error in program">
-    <p><span class="error-details"></span></p>
-    <pre class="error-traceback code-preformat"></pre>
-</div>
-
-<div class="runPage template">
-    <div class="header">
-        <span class="programname">Program</span> by <a class="username">User</a>
-        <div>
-            <a href="#Edit" class="prog-edit button">Edit this program</a>
-            <a href="#Screenshot" class="prog-screenshot button template" title="Change the thumbnail image for this program to its current display">Screenshot</a>
+        
+        <div class="folderPage template">
+            <div class="header">
+                <div class="spacer">
+                    <span class="username">User</span>'s <a href="#/">GlowScript</a> Programs
+                    <div class="folderTabs ui-tabs ui-widget">
+                        <ul class="folderList ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-corner-all">
+                            <li class="folderListItem template ui-state-default ui-corner-top"><a class="folder-name"></a></li>
+                            <li class="folder-new-tab ui-state-default ui-corner-top"><a href="#newFolder" class="folder-new">Add Folder</a></li>
+                        </ul>
+                        <div id="Public" style="display:none"></div>
+                        <div id="Scratch" style="display:none"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="after-header"></div>
+            
+            <a href="#newProgram" class="program-new button">Create New Program</a>
+            <a href="#delFolder" class="folder-delete template button">Delete this folder</a>
+            
+            <div class="programs">
+                <div class="program template">
+                    <img class="prog-screenshot" />
+                    <div class="prog-header">
+                        <div class="prog-name"></div>
+                        <a href="#Run" class="prog-run button">Run</a>
+                        <a href="#Edit" class="prog-edit button">Edit</a> 
+                        <a href="#Delete" class="prog-delete button">Delete</a>
+                    </div>
+                    <div class="prog-description"></div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="after-header"></div>
-
-    <div class="run-container">
-        <iframe class="untrusted-frame" frameborder=20></iframe>
-    </div>
-</div>
-
-<div class="editPage template">
-    <div class="header">
-        <span class="programname">Program</span> by <a class="username">User</a>
-        <span class="readonly template"> (read only)</span>
-        <span class="program-status"></span>
-        <div>
-            <a href="#Run" class="prog-run button">Run this program</a>
-            <a href="#Share" class="prog-share button">Share or export this program</a>
+        
+        <div id="newUser-dialog" class="form-dialog template" title="Welcome to GlowScript.org!">
+            <p>
+                To use GlowScript.org you will need to choose a unique name for yourself.  This name will be visible to other
+                internet users and will be part of the URLs you can use to share programs.  You can use your own name or a pseudonym, but
+                please try not to offend others.
+            </p>
+            
+            <form>
+                <label for="name">Name</label>
+                <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
+                <p class="validateTips"></p>
+            </form>
         </div>
-    </div>
-    <div class="after-header"></div>
-    <pre class="program-editor"></pre>
-</div>
-
-<div class="sharePage template">
-    <div class="header">
-        Sharing <span class="programname">Program</span> by <a class="username">User</a>
-        <div>
-            <a href="#Edit" class="prog-edit button">Edit this program</a>
+        
+        <div id="prog-new-dialog" class="form-dialog template" title="Create New Program">
+            <form>
+                <label for="name">Name</label>
+                <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
+            </form>
         </div>
-    </div>
-    <div class="after-header"></div>
-    There are several ways to share or export a program:
-
-    <ul>
-    <li>You can publish a <em>link</em> to <a class="run-link"></a>. Anyone can run the program here
-    at glowscript.org, or view its source, without having to sign in. 
-    <b>The program must be in a public folder, not a private folder.</b></li>
-    <li>You can publish a link to an entire <b>public</b> folder: <a class="folder-link"></a>.</li>
-    <li>Export: you can <em>embed</em> the program, including from a private folder,
-    directly in your own web page, using the following HTML.
-    If your page already uses jquery, you should delete that &lt;script&gt; tag.
-    <span class="embedWarning errorText"></span>
-    <p><textarea class="embedSource"></textarea></p>
-    </li>
-    <!--
-    <li>You can <em>frame</em> the program, using the following HTML
-    (<b>Warning:</b> this doesn't actually work yet!):
-    <p><textarea class="frameSource"></pre></textarea></p>
-    </ul>
-    -->
-</div>
-
-<script type="text/javascript" language="javascript" src="lib/jquery/IDE/jquery.min.js"></script>
-<script type="text/javascript" language="javascript" src="lib/jquery/IDE/jquery.textchange.custom.js"></script>
-<script type="text/javascript" language="javascript" src="lib/jquery/IDE/jquery-ui.custom.min.js"></script>
-<script type="text/javascript" language="javascript" src="lib/ace/ace.js"></script>
-<script type="text/javascript" language="javascript" src="lib/editor.js"></script>
-<script type="text/javascript" language="javascript" src="lib/ace/mode-javascript.js"></script>
-<script type="text/javascript" language="javascript" src="lib/ace/mode-coffee.js"></script>
-<script type="text/javascript" language="javascript" src="lib/ace/mode-python.js"></script>
-<script type="text/javascript" language="javascript" src="package/symbols.2.1.min.js"></script>
-<script type="text/javascript" language="javascript" src="ide.js"></script>
-
-</body>
+        
+        <div id="prog-delete-dialog" class="form-dialog template" title="Delete Program">
+            Are you sure you want to delete <span class="name prog-name">this program</span>?  This action cannot be undone!
+        </div>
+        
+        <div id="folder-new-dialog" class="form-dialog template" title="Create New Folder">
+            <form>
+                <label for="name">Name</label>
+                <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
+                <label for="isPublic">Public</label>
+                <input type="checkbox" name="isPublic" checked="checked"/>
+            </form>
+        </div>
+        
+        <div id="folder-delete-dialog" class="form-dialog template" title="Delete Folder">
+            Are you sure you want to delete <span class="name folder-name">this folder</span>?
+        </div>
+        
+        <div id="version-error-dialog" class="form-dialog error-dialog template" title="Error in program">
+            <p>Program does not start with the required version declaration:</p>
+            <pre class="desired-version code-preformat"></pre>
+        </div>
+        
+        <div id="program-error-dialog" class="form-dialog error-dialog template" title="Error in program">
+            <p><span class="error-details"></span></p>
+            <pre class="error-traceback code-preformat"></pre>
+        </div>
+        
+        <div class="runPage template">
+            <div class="header">
+                <span class="programname">Program</span> by <a class="username">User</a>
+                <div>
+                    <a href="#Edit" class="prog-edit button">Edit this program</a>
+                    <a href="#Screenshot" class="prog-screenshot button template" title="Change the thumbnail image for this program to its current display">Screenshot</a>
+                </div>
+            </div>
+            <div class="after-header"></div>
+            
+            <div class="run-container">
+                <iframe class="untrusted-frame" frameborder=20></iframe>
+            </div>
+        </div>
+        
+        <div class="editPage template">
+            <div class="header">
+                <span class="programname">Program</span> by <a class="username">User</a>
+                <span class="readonly template"> (read only)</span>
+                <span class="program-status"></span>
+                <div>
+                    <a href="#Run" class="prog-run button">Run this program</a>
+                    <a href="#Share" class="prog-share button">Share or export this program</a>
+                </div>
+            </div>
+            <div class="after-header"></div>
+            <pre class="program-editor"></pre>
+        </div>
+        
+        <div class="sharePage template">
+            <div class="header">
+                Sharing <span class="programname">Program</span> by <a class="username">User</a>
+                <div>
+                    <a href="#Edit" class="prog-edit button">Edit this program</a>
+                </div>
+            </div>
+            <div class="after-header"></div>
+            There are several ways to share or export a program:
+            
+            <ul>
+                <li>You can publish a <em>link</em> to <a class="run-link"></a>. Anyone can run the program here
+                    at glowscript.org, or view its source, without having to sign in. 
+                <b>The program must be in a public folder, not a private folder.</b></li>
+                <li>You can publish a link to an entire <b>public</b> folder: <a class="folder-link"></a>.</li>
+                <li>Export: you can <em>embed</em> the program, including from a private folder,
+                    directly in your own web page, using the following HTML.
+                    If your page already uses jquery, you should delete that &lt;script&gt; tag.
+                    <span class="embedWarning errorText"></span>
+                    <p><textarea class="embedSource"></textarea></p>
+                </li>
+                <!--
+                    <li>You can <em>frame</em> the program, using the following HTML
+                    (<b>Warning:</b> this doesn't actually work yet!):
+                    <p><textarea class="frameSource"></pre></textarea></p>
+                -->
+            </ul>
+        </div>
+        
+        <script type="text/javascript" language="javascript" src="lib/jquery/IDE/jquery.min.js"></script>
+        <script type="text/javascript" language="javascript" src="lib/jquery/IDE/jquery.textchange.custom.js"></script>
+        <script type="text/javascript" language="javascript" src="lib/jquery/IDE/jquery-ui.custom.min.js"></script>
+        <script type="text/javascript" language="javascript" src="lib/ace/ace.js"></script>
+        <script type="text/javascript" language="javascript" src="lib/editor.js"></script>
+        <script type="text/javascript" language="javascript" src="lib/ace/mode-javascript.js"></script>
+        <script type="text/javascript" language="javascript" src="lib/ace/mode-coffee.js"></script>
+        <script type="text/javascript" language="javascript" src="lib/ace/mode-python.js"></script>
+        <script type="text/javascript" language="javascript" src="package/symbols.2.1.min.js"></script>
+        <script type="text/javascript" language="javascript" src="ide.js"></script>
+        
+    </body>
 </html>
