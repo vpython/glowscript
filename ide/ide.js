@@ -101,6 +101,8 @@ $(function () {
     function apiURL( route ) {
         if (route.login !== undefined)
             return 'api/login'
+        if (route.abort !== undefined)
+            return 'api/abort';
         if (route.user !== undefined) {
             var u = "api/user/" + encode(route.user)  // user might be LIST, to get the list
             if (route.folder !== undefined) {
@@ -308,6 +310,7 @@ $(function () {
 
             $dialog.dialog({
                 width: 300,
+                dialogClass: "no-close",
                 modal: true,
                 autoOpen: true,
                 buttons: {
@@ -327,7 +330,12 @@ $(function () {
                             }
                         })
                     },
-                    //"Cancel": function () { $(this).dialog("close"); }
+                    "Abort": function () {
+                        $(this).dialog("close");
+                        apiGet({abort:1}, function(stat) {
+                            window.location.assign(stat.logout_url);    // Go to logout url. Maybe its better to use redirect().
+                        })
+                    }
                 },
                 close: function () { }
             }).submit(function(ev){

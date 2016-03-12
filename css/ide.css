@@ -223,6 +223,10 @@ a.button
     color: Blue;
 }
 
+.no-close .ui-dialog-titlebar-close {
+    display: none;
+}
+
 .template
 {
     display:none
