@@ -459,3 +459,9 @@ a.disabled
     background: rgb(250, 250, 255);
     border: 1px solid rgb(200, 200, 250);
 }
+
+.ide-state-non-owned
+{
+    background: #f0e5ff; /* url("ui-bg_flat_55_f0e5ff_40x100.png") 50% 50% repeat-x; */
+	border: 1px solid #c8bfe7;  /* OLD WAS #a098b8 */
+}

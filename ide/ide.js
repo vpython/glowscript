@@ -109,6 +109,10 @@ $(function () {
                 u += "/folder/" + encode(route.folder)  // folder might be LIST, to get the list
                 if (route.program !== undefined) {
                     u += "/program/" + encode(route.program)  // program might be LIST, to get the list
+                } else if (route.pin == 1) {
+                    u += "/pin";
+                } else if (route.pin == 0) {
+                    u += "/unpin";
                 }
             }
             return u;
@@ -173,11 +177,60 @@ $(function () {
             }
         })
     }
-    var folderList = null
+
+    var pinnedFolderList = null;
     function getFolderList(username, callback) {
-        if (folderList) callback(folderList)
-        apiGet({user:username, folder:LIST}, function (nfl) { folderList = nfl; callback(nfl); })
+        var folderSets = [];
+        var isLoggedIn = ( loginStatus.state === "logged_in" );
+        var isWritable = ( username === loginStatus.username );
+        if (pinnedFolderList) {
+            folderSets.push.apply(folderSets, pinnedFolderList);
+        } else if (!pinnedFolderList && isLoggedIn) {
+            apiGet({user:loginStatus.username, folder:LIST}, function (nfl) {
+                pinnedFolderList = [];
+                pinnedFolderList.push.apply(pinnedFolderList,decodeFolderPins(nfl));
+                getFolderList(username, callback);
+            });
+            return;
+        }
+        if (isWritable) {
+            folderSets.push({user:"", folders:[]});
+            callback(folderSets);
+        } else apiGet({user:username, folder:LIST}, function (nfl) {
+            for (var i = 1; i < folderSets.length; i++) {
+                if (folderSets[i].user == nfl.user) {
+                    for (var j = 0; j < folderSets[i].folders.length; j++) {
+                        var n = nfl.folders.indexOf(folderSets[i].folders[j]);
+                        if (n > -1) nfl.folders.splice(n,1);
+                    }
+                    break;
+                }
+            }
+            folderSets.push(nfl);
+            callback(folderSets);
+        })
     }
+    
+    function decodeFolderPins(nfl) {
+        var fo = []; fo.push({user: nfl.user, folders: []});
+        var fu = []; fu.push(nfl.user);
+        for (var n = 0; n < nfl.folders.length; n++) {
+            if ( nfl.folders[n].indexOf("/") == -1 ) {fo[0].folders.push(nfl.folders[n]);}
+            else {
+                var spl = nfl.folders[n].split("/");
+                var i = fu.indexOf(spl[0])
+                if (i == -1) {
+                    fu.push(spl[0]);
+                    fo.push({user: spl[0], folders: [] });
+                    fo[fo.length-1].folders.push(spl[1]);
+                } else {
+                    fo[i].folders.push(spl[1]);
+                }
+            }
+        }
+        return fo;
+    }
+    
     function saver(uri, getProgramSource, setStatus) {
         var saveTimeout = null
         var saving = false
@@ -456,16 +509,15 @@ $(function () {
     pages.folder = function (route) {
         var username = route.user, folder = route.folder
         var isWritable = route.user === loginStatus.username
+        var isLoggedIn = (loginStatus.state === "logged_in");
 
         var page = $(".folderPage.template").clone().removeClass("template")
         var programTemplate = page.find(".program.template")
         var folderTemplate = page.find(".folderListItem.template")
 
-        if (!isWritable) {
-            page.find(".program-new.button").addClass("template")
-            page.find(".folder-new-tab").addClass("template")
-        }
+        if (!isWritable) page.find(".program-new.button").addClass("template");
 
+        if (!isLoggedIn) page.find(".folder-new-tab").addClass("template");
         page.find(".username").text(username) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during run.
         page.find(".foldername").text(folder)
         pageBody.html(page)
@@ -525,8 +577,9 @@ $(function () {
                 name = name.replace(/ /g,'') // There are problems with spaces or underscores in names
                 name = name.replace(/_/g,'')
                 var p = $dlg.find('input[name="isPublic"]').is(":checked") // true is checked, which means public
-                apiPut({user:username, folder:name}, {public:p}, function () {
-                    navigate( {page:"folder", user:username, folder:name} )
+                pinnedFolderList=null;
+                apiPut({user:loginStatus.username, folder:name}, {public:p}, function () {
+                    navigate( {page:"folder", user:loginStatus.username, folder:name} )
                 })
             })
             return false;
@@ -535,6 +588,7 @@ $(function () {
         page.find(".folder-delete").click(function (ev) {
             ev.preventDefault();
             return delProgramOrFolder("#folder-delete-dialog", folder, function() {
+                pinnedFolderList=null;
                 apiDelete( {user:username, folder:folder}, function () {
                     navigate( {page:"user", user:username} )                
                 })                
@@ -554,17 +608,34 @@ $(function () {
             return false;
         })
 
-        // Get a list of folders.  May return multiple times if list is updated
+        // Get a list of non-owned folders, user-owned folders, and pinned folders.
+        // Pass the list to the folder-tab creator.
         getFolderList(username, function (data) {
             page.find(".folderList > .templated").remove()
             var before = folderTemplate.next()
-            var folders = data.folders
-            for (var i = 0; i < folders.length; i++) {
-                var h = folderTemplate.clone().removeClass("template").addClass("templated")
-                var name = decode(folders[i])
-                if (name == folder) h.addClass("ui-tabs-active").addClass("ui-state-active")
-                h.find(".folder-name").text(name).prop("href", unroute({page:"folder", user:username, folder:name}))
-                h.insertBefore(before)
+            for (var i = 0; i < data.length; i++) {
+                var folders = data[i].folders;
+                for (var j = 0; j < folders.length; j++) {
+                    var h = folderTemplate.clone().removeClass("template").addClass("templated");
+                    var name = decode(folders[j]);
+                    if (((i == 0 && isWritable) || (i > 0 && username == data[i].user)) && name == folder) h.addClass("ui-tabs-active").addClass("ui-state-active");
+                    if (i == 0) {   // TODO: Setup program sorting in owned folders.
+                    } else {  // if more than one grouping of folders
+                        h.addClass("ide-state-non-owned");
+                        h.children("a").first().prop('title','Owned by '+data[i].user+'.');
+                        var hpin = h.children("input").first();
+                        if (i<data.length-1) hpin.prop("checked", true);
+                        hpin.removeClass("template")
+                        hpin.data({'username': data[i].user, 'folder': name});
+                        hpin.click(function(){
+                            pinnedFolderList = null;
+                            var pinroute = { user: $(this).data('username'), folder: $(this).data('folder'), pin: $(this).is(":checked")?1:0 };
+                            apiPut( pinroute, {}, function(pinned) { /*console.log(pinned);*/ })
+                        });
+                    }
+                    h.find(".folder-name").text(name).prop("href", unroute({page:"folder", user:data[i].user, folder:name}));
+                    h.insertBefore(before);
+                }
             }
         })
 
