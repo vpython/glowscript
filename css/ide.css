@@ -181,9 +181,9 @@ img.right
     font-size: 80%;
 }
 
-.folderPage .programs .program .prog-run
+.folderPage .programs .program .prog-run    /* Removed */
 {
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 }
 
 .folderPage .programs .program .prog-screenshot
@@ -194,21 +194,40 @@ img.right
     height:90px;
 }
 
-.prog-description
-{
-    float: left;
-    margin-left: 20px;
-    font-size: 80%;
-}
-
 .folderPage .programs .program .prog-header
 {
     margin-bottom: 5px;
+    margin-left:165px;  /* Added */
+}
+
+.programname, .prog-name    /* Added */
+{
+    font-size: 120%;
 }
 
 .prog-name, .programname, .folder-name
 {
     font-weight: bold;
+}
+
+.prog-name, .prog-buttons   /* Added */
+{
+    margin-bottom: 5px;
+}
+
+.prog-buttons   /* Added */
+{
+    margin-left: 20px;
+}
+*/
+
+.prog-description
+{
+    /*float: left;*/    /* Removed */
+    margin-left: 20px;
+    margin-bottom: 4px; /* Added */
+    font-size: 80%;
+    font-weight: bold;  /* Added */
 }
 
 .help-highlight
@@ -219,8 +238,14 @@ img.right
 
 a.button
 {
-    margin-left: 50px;
+    margin-right: 25px; /* Changed */
     color: Blue;
+}
+
+a.disabled
+{
+	pointer-events: none;
+	color: #888888;
 }
 
 .no-close .ui-dialog-titlebar-close {

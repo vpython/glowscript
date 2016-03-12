@@ -578,8 +578,9 @@ $(function () {
                     var p = programTemplate.clone().removeClass("template")
                     var name = decode(prog.name)
                     var proute = { user:username, folder:folder, program:name }
-                    p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
-                    p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
+                    p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}));
+                    p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}));
+                    p.find(".prog-share.button").prop("href", unroute({page:"share", user:username, folder:folder, program:name}));
                     p.find(".prog-name").text(name)
 
                     // TODO: Apply a sanitizer + markdown?
@@ -614,11 +615,14 @@ $(function () {
             var isWritable = route.user === loginStatus.username
 
             var page = $(".runPage.template").clone().removeClass("template")
+            page.prepend($("#page-header.template").clone().removeClass("template"));
             page.find("a.username").prop("href", unroute(route, {page:"user"}))
             page.find(".username").text(username)
             page.find(".foldername").text(folder)
             page.find(".programname").text(program) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during run.
-            page.find(".prog-edit.button").prop("href", unroute(route, {page:"edit"}))
+            page.find(".prog-run.button").addClass("disabled");
+            page.find(".prog-edit.button").prop("href", unroute(route, {page:"edit"}));
+            page.find(".prog-share.button").prop("href", unroute({page:"share", user:username, folder:folder, program:program}));
             pageBody.html(page)
 
             // Validate that the browser supports Object.defineProperty (not ie8)
@@ -800,11 +804,15 @@ $(function () {
         var username = route.user, folder = route.folder, program = route.program
 
         var page = $(".sharePage.template").clone().removeClass("template")
+        page.prepend($("#page-header.template").clone().removeClass("template"));
         page.find("a.username").prop("href", unroute(route, {page:"user"}))
         page.find(".username").text(username)
         page.find(".foldername").text(folder)
         page.find(".programname").text(program) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during share.
+        var progrun = unroute({page:"run", user:username, folder:folder, program:program});
+        page.find(".prog-run.button").prop("href", progrun).prop("title", "Press Ctrl-1 to run\nPress Ctrl-2 to run in another window");
         page.find(".prog-edit.button").prop("href", unroute(route, {page:"edit"}))
+        page.find(".prog-share.button").addClass("disabled");
         var base_link = window.location.protocol + "//" + window.location.host + window.location.pathname
         var folder_link = base_link + unroute(route, {page:"folder"})
         var run_link = base_link + unroute(route, {page:"run"})
@@ -896,12 +904,14 @@ $(function () {
         var isWritable = route.user === loginStatus.username
 
         var page = $(".editPage.template").clone().removeClass("template")
+        page.prepend($("#page-header.template").clone().removeClass("template"));
         page.find("a.username").prop("href", unroute({page:"user", user:username}))
         page.find(".username").text(username)
         page.find(".foldername").text(folder)
         page.find(".programname").text(program) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during edit.
-        var run_link = unroute({page:"run", user:username, folder:folder, program:program})
-        page.find(".prog-run.button").prop("href", run_link).prop("title", "Press Ctrl-1 to run\nPress Ctrl-2 to run in another window")
+        var progrun = unroute({page:"run", user:username, folder:folder, program:program})
+        page.find(".prog-run.button").prop("href", progrun).prop("title", "Press Ctrl-1 to run\nPress Ctrl-2 to run in another window")
+        page.find(".prog-edit.button").addClass("disabled");
         page.find(".prog-share.button").prop("href", unroute({page:"share", user:username, folder:folder, program:program}))
         if (!isWritable) page.find(".readonly").removeClass("template")
 
