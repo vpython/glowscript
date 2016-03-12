@@ -15,7 +15,7 @@ $(function () {
                 callback()
             else
                 for (var i = 0; i < cbs.length; i++)
-                    cbs[i](function () { if (! --count) callback() })
+                    cbs[i](function () { if (! --count) callback() })   // Is the value of 'count' set at first call, or on callback? Assuming the pointer is passed, value is checked at callback.
         }
     }
 
@@ -235,8 +235,11 @@ $(function () {
     onNavigate.on( getLoginStatus )
     function getLoginStatus( cb ) {
         apiGet({login:1}, function(stat) {
-            onLoginStatusChange(stat)
-            cb() 
+            if (stat === null) getLoginStatus(cb);  // Apparently timing issues can lead to stat === null at startup
+            else {
+                onLoginStatusChange(stat);
+                cb();
+            }
         })
     }
     function onLoginStatusChange(stat) {
@@ -246,11 +249,7 @@ $(function () {
         // stat = {state: "not_logged_in", login_url: "/_ah/login?continue=http%3A//localhost%3A8080/%23/action/loggedin"}
         // stat = {username: "test", state: "logged_in", secret: "qwie9Mnddk0zYnz3Qxov7g==", 
         //              logout_url: "/_ah/login?continue=http%3A//localhost%3A8080/%23/action/loggedout&action=Logout"}
-        if (stat === null) {  // Apparently timing issues can lead to stat === null at startup
-            stat = {'state': 'checking'}
-            window.onhashchange() // try again
-        }
-        loginStatus = stat
+        loginStatus = stat;
         if (loginStatus.username) loginStatus.username = decode(loginStatus.username)
 
         var $userstatus = $(".userstatus")
