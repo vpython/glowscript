@@ -100,8 +100,8 @@ into this canvas by default; e.g. <span class="attribute">scene.select() </span>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      )</p>
 <p class="attributes"><span class="attribute">pixel_to_world</span> Gives the width of a pixel in &quot;world&quot; coordinates (that is, the coordinates you use to position objects). This is read-only; you cannot set it. It is determined from the current value of scene.range. An example of its use is that if you want the radius of a curve object to be 5 pixels, set the radius to 5*scene.pixel_to_world. This is not currently available in classic VPython.</p>
 <p class="Normal">Here are  canvas options to wait for canvas updates:</p>
-<p class="attributes"><span class="attribute">scene.waitfor(&quot;redraw&quot;,wait) </span>Wait for the start of the next update of the canvas by the web browser</p>
-<p class="attributes"><span class="attribute">scene.waitfor(&quot;draw_complete&quot;,wait) </span>Wait for the end of the next update of the canvas by the web browser</p>
+<p class="attributes"><span class="attribute">scene.waitfor(&quot;redraw&quot;) </span>Wait for the start of the next update of the canvas by the web browser</p>
+<p class="attributes"><span class="attribute">scene.waitfor(&quot;draw_complete&quot;) </span>Wait for the end of the next update of the canvas by the web browser</p>
 <p class="Normal"><strong> <font color="#0000A0">Displaying text</font></strong></p>
       <p class="Normal"> You can use the label object to display text on the canvas. You can also place a title just above the canvas and/or a caption just below when you create a canvas:</p>
 <p class="program">canvas(title='Some title', caption='A caption')</p>
