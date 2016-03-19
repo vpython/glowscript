@@ -79,8 +79,6 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <strong>comp(A,B) = A.comp(B) = dot(A,norm(B))</strong>, the scalar projection of A along B<br />
         <br />
         <strong>diff_angle(A,B) = A.diff_angle(B)</strong>, the angle between two vectors, in radians<br />
-        <br />
-        <strong>rotate(A,theta,B) = A.rotate(theta,B) = rotate(vector=A, angle=theta, axis=B)</strong>,  result of rotating A through theta around B<br />
       <br />
       Some examples:</p>
 
@@ -120,12 +118,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             between the vectors, which is often useful.          </p>
 <p class="Normal"><font color="#0000a0"><strong>Rotating a vector</strong></font></p>
           <p class="Normal"> There is a function for rotating a vector:<font color="#0000a0"></font></p>
-          <p class="program"> v2 = rotate(v1, angle=theta, axis=vector(1,1,1))</p>
+          <p class="program"> v2 = rotate(v1, angle=a, axis=vector(x,y,z))</p>
           <p class="Normal">The angle must be in radians. The default axis is
             (0,0,1), for a rotation in the xy plane around the z axis. There
             is no origin for rotating a vector. You can also write <span class="attribute">v2
-            = v1.rotate(angle=theta, axis=vector(1,1,1))</span>. 
-            There is also a <a href="rotation.html">rotate capability for 
+            = v1.rotate(angle=a, axis=vector(x,y,z))</span>. There is also a <a href="rotation.html">rotate capability for 
               objects</a>.</p>
           <p class="Normal">There are functions for converting between degrees
             and radians, where there are 2*pi radians in 360 degrees: </p>

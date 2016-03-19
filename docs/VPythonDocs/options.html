@@ -50,7 +50,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           object is not displayed; e.g. <span class="attribute">ball.visible = False</span><em class="program"><br />
         </em> Use <span class="attribute">ball.visible = True</span> to make the ball 
           
-          visible again.</p>
+          visible again.        </p>
+        <p class="attributes"> <span class="attribute">rotate() </span> An object B can be rotated with <span class="attribute">B.rotate(angle=theta, axis=a, origin=org)</span><span class="Normal">. By default, the axis is <span class="attribute">B.axis</span>.</span> and the origin is <span class="Normal"><span class="attribute">B.pos</span></span>.</p>
       <p class="attributes"><span class="attribute">frame</span> Place this object 
           
           into a specified frame, as in <span class="attribute">ball = sphere(frame 
@@ -65,15 +66,14 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           into that canvas. You can choose to put an object in a different canvas 
           
           like this: </p>
+        <p class="program">scene2 = canvas( title = &quot;Act IV, Scene 2&quot; ) <br />
+          rod = cylinder( canvas = scene2 )</p>
         <p class="attributes"> <span class="attribute">make_trail</span> You can specify that a trail be left behind a moving arrow, box, cone, cylinder, ellipsoid, pyramid, ring, or sphere object. For details, see <strong><a href="trail.html">Leaving a Trail</a></strong>.</p>
-
-          <p class="program">scene2 = display( title = &quot;Act IV, Scene 2&quot; ) <br />
-          rod = cylinder( display = scene2 )</p>
-          <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">canvas.get_selected()</font> returns
+<p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">canvas.get_selected()</font> returns
             a reference to the canvas in which objects are currently being 
             created. Given a specific canvas named scene2, <span class="attribute">scene2.select()</span><span class="attributes"> makes
             scene2 be the &quot;selected canvas&quot;, so that objects
-            will be drawn into scene2 by default. </span></p>
+          will be drawn into scene2 by default. </span></p>
         <p class="Normal">See <a href="canvas.html">Controlling One or More VPython 
           Canvases</a> for more information on creating and manipulating display 
       objects.</p>

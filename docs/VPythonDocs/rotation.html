@@ -43,13 +43,18 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
         <h1 class="Heading-1"> <font color="#0000A0">Rotating an Object</font></h1>
 
-        <p class="Normal"> Objects other than curve, convex, faces, and points
-          can be rotated about a specified origin (to rotate these other objects,
-          put them in a frame and rotate the frame).</p>
-
-      <p class="program"> obj.rotate(angle=pi/4, axis=axis, origin=pos)</p>
-      <p class="Normal"> The rotate function applies a transformation to the specified object (sphere, box, etc.). The transformation is a rotation of <span class="attribute">angle</span> radians, counterclockwise around the line defined by <span class="attribute">origin</span> and <span class="attribute">origin+axis</span>. By default, rotations are 
-            around the object's own <span class="attribute">pos</span> and <span class="attribute">axis</span>. There are no defaults for the extrusion object, and one must specify all parameters: angle, axis, and origin.</p>
+        <p class="Normal">The following statement will rotate the object named &quot;obj&quot; through an angle (measured in radians) about an axis relative to an origin:</p>
+        <p class="program"> obj.rotate(angle=a, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vec(x,y,z), <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; origin=vector(xo,yo,zo))</p>
+        <p class="Normal"> If the origin is not given, rotation is relative to obj.pos:</p>
+        <p class="program"> # relative to obj.pos:<br />
+          obj.rotate(angle=a, axis=vector(x,y,z)) </p>
+        <p class="Normal"> If neither the axis nor the origin is specified, rotation is about obj.axis, relative to obj.pos:</p>
+        <p class="program"> # about obj.axis, relative to obj.pos:<br />
+          obj.rotate(angle=a) </p>
+        <p class="Normal"> The rotate function applies a transformation to the specified object (sphere, box, etc.). The transformation is a rotation of <span class="attribute">angle</span> radians, counterclockwise around the line defined by <span class="attribute">origin</span> and <span class="attribute">origin+axis</span>. By default, rotations are 
+          around the object's own <span class="attribute">pos</span> and <span class="attribute">axis</span>. </p>
       <p class="Normal">There are functions for converting between degrees and
         radians, where there are 2*pi radians in 360 degrees: </p>
       <p class="program">radians(360) is equal to 2*pi</p>
