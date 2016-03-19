@@ -60,7 +60,7 @@
   scene.bind('click keydown', process)</p>
 <p class="Normal"><strong><font color="#0000A0">More on mouse events</font></strong></p>
         <p class="Normal"> Mouse objects are obtained from the mouse attribute of a 
-          display object such as <span class="attribute">scene</span>. For example, 
+          canvas object such as <span class="attribute">scene</span>. For example, 
           to obtain mouse input from the default window created by GlowScript, refer to the object  <span class="attribute">scene.mouse.</span> For specific examples of mouse handling, 
           see <a href="mouse_click.html"><strong>Click example</strong></a> and <a href="mouse_drag.html"><strong>Drag 
           example</strong></a>. A mouse object has a group of attributes corresponding to 
@@ -87,7 +87,7 @@
       <p class="Normal"><strong> <font color="#0000A0">Current state of mouse and control keys</font></strong></p>
         <p class="attributes"> <span class="attribute">pos</span> The current 3D position 
           of the mouse cursor; <span class="attribute">scene.mouse.pos</span>. GlowScript 
-          always chooses a point in the plane parallel to the screen and passing through <span class="attribute">display.center</span>. (See <a href="#alternative">Projecting 
+          always chooses a point in the plane parallel to the screen and passing through <span class="attribute">canvas.center</span>. (See <a href="#alternative">Projecting 
             mouse information onto a given plane</a> for other options.)        </p>
         <p class="attributes"> <span class="attribute">ray</span> A unit vector pointing 
           from camera in the direction of the mouse cursor. The points under the mouse 

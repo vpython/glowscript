@@ -55,11 +55,11 @@
       <p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong>      </p>
       <p class="Normal"> You can specify various properties of the default scene or other canvas, not just width and height:</p>
 <p class="attributes"><span class="attribute">background</span> Set color 
-        to be used to fill the display region; default is color.black.</p>
+        to be used to fill the canvas region; default is color.black.</p>
           <p class="attributes"><span class="attribute">ambient</span> Color
             of nondirectional  (&quot;ambient&quot;) lighting. Default is color.gray(0.2). </p>
       <p class="attributes"><span class="attribute">lights</span> List of light
-            objects created for this display. By default, scene.lights is a list of distant_lights with these properties:<br />
+            objects created for this canvas. By default, scene.lights is a list of distant_lights with these properties:<br />
         <span class="attribute">direction:vec(0.22, 0.44, 0.88), color:color.gray(0.8) </span><br /> 
             <span class="attribute">direction:vec(-0.88, -0.22, -0.44),
               colo:color.gray(0.3) </span><br />
@@ -115,7 +115,7 @@
 <p class="Normal"><strong> <font color="#0000A0">List of  objects</font></strong></p>
 <p class="attributes"></p>
 <p class="attributes"><span class="attribute">objects</span> A list
-  of all the visible objects in the display; invisible objects and
+  of all the visible objects in the canvas; invisible objects and
   lights are not listed (<span class="attribute">scene.lights</span> is a list of existing lights).
   For example, the following makes all visible boxes in the scene turn red:</p>
 <p class="program">for obj in scene.objects:<br />
@@ -150,7 +150,7 @@
               
               = true</span> automatic scaling (default). It is often useful to let GlowScript 
             
-            make an initial display with autoscaling, then turn autoscaling off to prevent 
+            make an initial canvas with autoscaling, then turn autoscaling off to prevent 
             
         further automated changes. With autoscaling in effect, scene.range is updated to correspond to the current size of the scene.</p>
           <p class="attributes"> <span class="attribute">forward</span> Vector pointing 
@@ -199,7 +199,9 @@
           <p class="Normal">The mechanisms described above for controlling the view are designed to try to make sure that the objects are visible no matter how the user rotates or zooms the view, because the camera direction is always automatically adjusted to point toward scene.center, which by default is at the origin, and scene.range is automatically adjusted to correspond to the user zoom.</p>
           <p class="Normal">However, if you want to &quot;fly&quot; through the scene, with scene.center necessarily varying but zoom held constant, it is more convenient to move and point the camera directly. <span class="attribute"><strong><em>WARNING: </em></strong></span>When you take direct control of the camera, there is increased risk of seeing nothing, due to unintentionally pointing the camera  away from the objects, or  moving the camera far away from the objects. </p>
           <p class="Normal">An example of controlling the camera directly is the fly-through in the program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Stonehenge-VPython" target="_blank">Stonehenge</a></strong>, in which changing <span class="attribute">scene.camera.pos</span> (the location of the camera) and <span class="attributes">&nbsp;<span class="attribute">scene.camera.axis</span></span> (the direction the camera is pointing) is a convenient way to move through the scene.</p>
-          <p class="attributes"> &nbsp;<span class="attribute">scene.camera.pos</span><span class="Normal"> The current 
+          <p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/camera2.png" width="440" height="175" alt="canvas" /></p>
+          <p class="attributes">&nbsp; </p>
+          <p class="attributes">&nbsp;<span class="attribute">scene.camera.pos</span><span class="Normal"> The current 
             location of the camera, whether due to your own settings,  autoscaling, or as positioned by the user, is <span class="attribute">scene.camera.pos</span><font color="#000000">. 
               For example, <span class="attribute">mag(scene.center - scene.camera.pos)</span> is the distance from the current position of the 
               camera to the center of the scene. </font>The vectors <span class="attribute">scene.camera.pos</span> and <span class="attribute">scene.mouse.ray</span> together define all of the 
