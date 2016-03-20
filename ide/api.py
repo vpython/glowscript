@@ -136,9 +136,10 @@ class ApiLogin(ApiRequest):
 class ApiUsers(ApiRequest):
     def get(self):
         if not self.authorize(): return
-        if not self.authorize_user("Bruce_Sherwood"): return
+        #if not self.authorize_user("Bruce_Sherwood"): return
         users = [ k.name() for k in User.all(keys_only=True) ]
-        self.respond( {"users" : users} )
+        #self.respond( {"users" : users} )
+        self.respond("Nusers = "+str(len(users)))
 
 class ApiUser(ApiRequest):
     def get(self, username):
