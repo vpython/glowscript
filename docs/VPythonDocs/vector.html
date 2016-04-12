@@ -85,7 +85,7 @@ A/|A|,  a unit vector in the direction of the vector; an alternative to A.norm()
       <br />
       Some examples:</p>
 
-          <p class="program"> mag( vector ) # calculates length of vector <br />
+          <p class="program"> mag(A) # calculates length of A<br />
           mag(vector(1,1,1)) &nbsp;# = sqrt(3) = 1.732...<br />
           mag2(vector(1,1,1)) # = 3, the magnitude
             squared</p>
@@ -98,13 +98,15 @@ A/|A|,  a unit vector in the direction of the vector; an alternative to A.norm()
 
           <p class="Normal">You can reset the magnitude to 1 with norm():</p>
 
-          <p class="program">norm( vector ) # normalized; magnitude of 1<br />
+          <p class="program">norm(A) # A/|A|, normalized; magnitude of 1<br />
           norm(vector(1,1,1)) = vector(1,1,1)/sqrt(3)</p>
           <p class="Normal">You can also write <span class="attribute">v1.norm()</span><span
- class="attribute"></span>. For convenience, <span class="attribute">norm(vector(0,0,0))</span> is calculated to be <span class="attribute">vector(0,0,0)</span>. <span class="attribute"></span> </p>
-  
-                <p class="Normal">To calculate the angle between two vectors (the &quot;difference&quot; 
-                  of the angles of the two vectors).</p>
+ class="attribute"></span> or <span class="attribute">v1.hat</span>. For convenience, <span class="attribute">norm(vec(0,0,0))</span> is calculated to be <span class="attribute">vec(0,0,0)</span>. <span class="attribute"></span></p>
+          <p class="Normal">You can change the direction of a vector without changing its magnitude:</p>
+      <p class="program"> v2.hat = v1 # changes the direction of v2 to that of v1<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# but not the magnitude of v2</p>
+          <p class="Normal">To calculate the angle between two vectors (the &quot;difference&quot; 
+            of the angles of the two vectors).</p>
 
             <p class="program">diff_angle(v1,v2)</p>
             <p class="Normal"> You can also write <span class="attribute">v1.diff_angle(v2)</span><span

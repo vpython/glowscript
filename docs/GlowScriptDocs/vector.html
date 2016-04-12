@@ -97,10 +97,14 @@ A/|A|,  a unit vector in the direction of the vector; an alternative to A.norm()
           <p class="program">norm(A) # A/|A|, normalized; magnitude 1<br />
           norm(vec(1,1,1)) # vec(1,1,1)/sqrt(3)</p>
           <p class="Normal">You can also write <span class="attribute">v1.norm()</span><span
- class="attribute"></span>. For convenience, <span class="attribute">norm(vec(0,0,0))</span> is calculated to be <span class="attribute">vec(0,0,0)</span>. <span class="attribute"></span> </p>
+ class="attribute"></span> or <span class="attribute">v1.hat</span>. For convenience, <span class="attribute">norm(vec(0,0,0))</span> is calculated to be <span class="attribute">vec(0,0,0)</span>. <span class="attribute"></span> </p>
+          <p class="Normal">You can change the direction of a vector without changing its magnitude:</p>
+      <p class="program"> v2.hat = v1 # changes the direction of v2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# but not its magnitude<br />
+      </p>
   
                 <p class="Normal">To calculate the angle between two vectors (the &quot;difference&quot; 
-                  of the angles of the two vectors):</p>
+            of the angles of the two vectors):</p>
 
             <p class="program">ang = v1.diff_angle(v2)</p>
             <p class="Normal"> You can also write <span class="attribute">v1.diff_angle(v2)</span><span
