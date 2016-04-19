@@ -68,7 +68,7 @@
               <p class="Normal">By default, the trail is a curve (connected points), but you can make a trail of separated spheres:</p>
               <div></div>
               <div>
-                <p class="program">attach_trail(ball, type='spheres' )</p>
+                <p class="program">attach_trail(ball, type='points' )</p>
                 <p class="Normal">Instead of specifying an object whose position is used to add points to the curve or set of spheres, you can specify a function which yields a vector to be used as a position. If you have a function named &quot;center&quot; that returns a vector position, you can say this:</p>
                 <div></div>
                 <div>
@@ -93,7 +93,7 @@
                       ...<br />
                       b.clear()</p>
                     <p class="Normal"><strong><font color="#0000A0">Attach an arrow</font></strong></p>
-                    <p class="Normal">You can attach an arrow to a moving object. The following statement will automatically display a green arrow at the current location of the ball. The arrow will have shaftwidth=0.3, and its axis_and_length attribute is determined by scale*ball.axis:</p>
+                    <p class="Normal">You can attach an arrow to a moving object. The following statement will automatically display a green arrow at the current location of the ball. The arrow will have shaftwidth=0.3, and its axis and length  is determined by scale*ball.axis:</p>
                     <div></div>
                     <div>
                       <p class="program">attach_arrow(ball, &quot;axis&quot;, scale=1e3,<br />

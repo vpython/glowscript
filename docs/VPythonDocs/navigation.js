@@ -42,7 +42,7 @@ s += '<option value="math.html">Math Functions</option>'
 s += '<option value="controls.html">Widgets: Buttons etc.</option>'
 s += '<option value="graph.html">Graphs</option>'
 s += '<option value="files.html">Read/Write Files</option>'
-s += '<option value="trail.html">Leaving a Trail</option>'
+s += '<option value="trail.html">Attach a Trail or Arrow</option>'
 s += '<option value="vector.html">Vector Operations </option>'
 s += '<option value="factorial.html">factorial/combin</option>'
 document.getElementById("menu2").innerHTML = s
