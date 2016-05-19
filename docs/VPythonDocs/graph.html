@@ -86,6 +86,8 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
 <p class="Normal">You can replace all of the points in a  <span class="attribute">gcurve</span>, <span class="attribute">gdots</span>, <span class="attribute">gvbars</span>, or <span class="attribute">ghbars</span> object like this:</p>
 <p class="program"> f1.data = [ [10,20], [30,40], [50,60] ]</p>
 <p class="Normal">This is equivalent to deleting all the points from the graph and then adding the new ones.</p>
+<p class="Normal">It is often the case that skipping points may hardly affect the display but will make graph plotting much faster, in which case it's useful to specify an interval between plotting of points:</p>
+<p class="attributes"><span class="attribute">interval</span> If interval=10, a point is added to the plot only every 10th time you ask to add a point. If interval is 0, no plot is shown. If interval is -1, no points are skipped.</p>
 <p class="Normal"><strong><font color="#0000A0">Special options for gcurve, gdots, gvbars, and ghbars</font></strong></p>
 <p class="Normal">For <span class="attribute">gcurve</span> your can specify a <span class="attribute">width</span> of the line in pixels. If you
             specify <span class="attribute">dot=True</span> the current plotting

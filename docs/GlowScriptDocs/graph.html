@@ -82,6 +82,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;rate(100,wait)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;p.plot(i+5, 3+2*sin(i))<br />
 &nbsp;&nbsp;&nbsp;&nbsp;q.plot(i+5, 3+2*cos(i))      </p>
+      <p class="Normal">It is often the case that skipping points may hardly affect the display but will make graph plotting much faster, in which case it's useful to specify an interval between plotting of points:</p>
+      <p class="attributes"><span class="attribute">interval</span> If interval=10, a point is added to the plot only every 10th time you ask to add a point. If interval is 0, no plot is shown. If interval is -1, no points are skipped.</p>
       <p class="Normal"></p>
       <p class="Normal"><strong><font color="#0000A0">Deleting an entire graph</font></strong></p>
       <p class="Normal">If you say g = graph(), you can delete the entire graph by saying g.delete().</p>
@@ -111,6 +113,7 @@
       <p class="attributes"><span class="attribute">radius</span> Radius in pixels of a scatter circle (default is 3 pixels)</p>
       <p class="attributes"><span class="attribute">delta</span> Width of a bar (default = 1)</p>
       <p class="attributes"><span class="attribute">horizontal</span> true for horizontal bars (default is false, giving vertical bars)</p>
+      <p class="attributes"><span class="attribute">interval</span> Skip points (see discussion above)</p>
       <p class="program"></p>
       <p class="Normal"><strong><font color="#0000A0">Special option for a line series</font></strong></p>
       <p class="Normal">For a line series, if you
