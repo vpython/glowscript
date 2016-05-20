@@ -38,7 +38,6 @@ s += '<option value="math.html">Math Functions</option>'
 s += '<option value="vector.html">Vector Operations </option>'
 s += '<option value="MathJax.html">LaTeX Math Displays</option>'
 s += '<option value="files.html">Libraries &amp; Files</option>'
-s += '<option value="factorial.html">factorial/combin</option>'
 document.getElementById("menu2").innerHTML = s
 
 s = ''

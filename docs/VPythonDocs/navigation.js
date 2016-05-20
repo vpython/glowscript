@@ -44,7 +44,7 @@ s += '<option value="graph.html">Graphs</option>'
 s += '<option value="files.html">Read/Write Files</option>'
 s += '<option value="trail.html">Attach a Trail or Arrow</option>'
 s += '<option value="vector.html">Vector Operations </option>'
-s += '<option value="factorial.html">factorial/combin</option>'
+s += '<option value="MathJax.html">LaTeX Math Displays</option>'
 document.getElementById("menu2").innerHTML = s
 
 s = ''
