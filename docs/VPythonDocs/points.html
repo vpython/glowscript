@@ -58,15 +58,15 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">The points object is essentially the same as  the <strong><a href="curve.html">curve</a></strong> object except that it displays individual points at the specified positions instead of connecting them with lines, and it does not have origin, axis, or up attributes. The points are rendered as spheres.</p>
         <p class="Normal">The points object takes a list of points for <span
  class="attribute">pos</span>, like the curve object. The following statement
-        will display two points, each of diameter 50 pixels:</p>
+        will display two points, each of radius 50 pixels:</p>
         <div>
-        <p class="program">points(pos=[vector(-1,0,0), vector(1,0,0)], size=50, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.red)</p>
+        <p class="program">points(pos=[vector(-1,0,0), vector(1,0,0)], radius=50, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.red)</p>
         <p class="Normal">The points object is similar to a curve, but with
           disconnected points. As with curve, the <span class="attribute">pos</span> attribute is an array
           of points. The size of the points is specified by <span class="attribute">radius</span> and the default radius is 2.5, meaning a sphere whose radius is 2.5 pixels (a diameter of 5 pixels). The radius attribute is in screen
           pixels if <span class="attribute">size_units=&quot;pixels&quot;</span> (the
           default), but if <span class="attribute">size_units=&quot;world&quot;</span>, the radius is in the same terms as other objects.
-  Setting the size to 0 is the same as not specifying a size, in which case the diameter will be 5 pixels, just as a curve is thin if its radius is specified as 0.</p>
+  Setting the radius to 0 is the same as not specifying a size, in which case the radius will be 2.5 pixels, just as a curve is thin if its radius is specified as 0.</p>
         <p class="Normal">The options for manipulating a <strong><a href="curve.html">curve</a></strong> can also be used with the points object, but when appending an additional point you can't specify the point radius; you can only specify the pos and color.</p>
         <div>
     <!-- InstanceEndEditable --></td>
