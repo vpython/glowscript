@@ -56,53 +56,42 @@
               <td width="36%"><div align="center"><img src="images/label.jpg" width="192" height="159" alt="label" /><a href="arrow.html"></a></div></td>
             </tr>
           </table>
-          <p class="Normal"> With the label object you can display 2D text in
+          <p class="Normal"> With the label object you can display  text in
             a box, and the label always faces forward, even if you rotate the
-            scene. Here is a simple example:</p>
+            scene (for 3D text, see the <a href="text.html"><strong>text</strong></a> object). Here is a simple example:</p>
 
       <p class="program"> label( pos=vec(0,0.25,0), text='Hello!' )      
-      <table width="450" border="0">
+      <table width="542" border="0">
         <tr>
           <td width="292"><p class="Normal">There are many additional 
-            label options. In the accompanying diagram, a sphere representing the Earth 
-            (whose center is at <span class="attribute"> earth.pos</span>) has an associated 
-            label with the text &quot;Earth&quot; in a box, connected to the sphere 
-            by a line which stops at the surface of the sphere:</p>
-            <p class="program"> var Elabel = label( <br />
-&nbsp;&nbsp;&nbsp;&nbsp;              &nbsp;pos:earth.pos,<br />
-  &nbsp;&nbsp;&nbsp;              &nbsp;&nbsp;text:'Earth', <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  xoffset:80,<br />
-  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;yoffset:60,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  space:earth.radius,<br />
-  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;height:20, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;border:6,<br />
-&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;font:'Verdana' )</p>
+            label options. In the diagram to the right, an object located at &quot;obj.pos&quot; has an associated 
+            label with the text &quot;Early&quot; in a box, connected to the object.</p>
+            <p class="program">L = label(pos=obj.pos,<br />
+&nbsp;&nbsp;&nbsp;              text='Early', &nbsp;&nbsp;&nbsp;&nbsp;xoffset=20,<br />
+&nbsp;&nbsp;&nbsp; yoffset=50, space=30,<br />
+&nbsp;&nbsp;&nbsp; height=16, border=4,<br />
+&nbsp;&nbsp;&nbsp; font='sans')</p>
             <p class="Normal"> A unique feature of the label object is that several attributes 
               are given in terms of screen pixels instead of the usual &quot;world-space&quot; 
               coordinates. For example, the height of the text is given in pixels, with 
               the result that the text remains readable even when the sphere object is 
               moved far away. Other pixel-oriented attributes include <span class="attribute">xoffset</span>, <span class="attribute">yoffset</span>, and <span class="attribute">border</span>. 
           Here are the label attributes:</p></td>
-          <td width="169"><span class="Normal"><img src="images/VisualRef-7.gif" alt="label" width="172" height="197" align="right" /></span></td>
+          <td width="169"><span class="Normal"><img src="images/label2.png" alt="label" width="224" height="314" align="right" /></span></td>
         </tr>
       </table>
       <p class="attributes"> <span class="attribute">pos</span> The
-              point in world space being labeled. If there are no offsets (see
-              diagram), the center of the text is at <span class="attribute">pos</span></p>
-<p class="attributes"> <span class="attribute">text</span> The text to be 
-              displayed, such as 'Earth'<br />
-(Line breaks can be included as \n, as in label.text = &quot;Three\nlines\nof 
-              text&quot;)<br />
-You can give a number or numerical expression; it will be converted to a string. </p>
-<p class="attributes"><span class="attribute">visible</span> If False, 
-  
-  object is not displayed; e.g. <span class="attribute">Elabel.visible = False</span><em class="program"><br />
-    </em>Use <span class="attribute">Elabel.visible =  True</span> to make the object 
-            
-      visible again.</p>
-      <p class="attributes"> <span class="attribute">align</span> 'left' for left-adjusted, to the right of <span class="attribute">pos</span>, 'right' for right-adjusted, to the left of <span class="attribute">pos</span>, and 'center' for centered on <span class="attribute">pos</span> (the default).<span class="attribute"></span></p>
+              point in world space being labeled.</p>
+      <p class="attributes"> <span class="attribute">pixel_pos</span><span class="attribute"></span> If True, <span class="attribute">pos</span> is the position in terms of pixels, with vec(0,0,0) in the lower left corner.</p>
+      <p class="attributes"><span class="attribute">align</span><span class="attribute"></span> Specify 'left', 'right', or 'center'. When you specify 'center', which is the default,  the  center of the topmost line of text is at the location given by pos. When you specify 'left', the start of the topmost line of text is at the location given by pos. When you specify 'right', the right end of the topmost line of text is at the location given by pos.</p>
       <p class="attributes"> <span class="attribute">xoffset</span>, <span class="attribute">yoffset</span> The
-        x and y components of the line, <em><strong>in pixels</strong></em> (see diagram). </p>
-            <p class="attributes"> <span class="attribute">font</span> Name of the desired 
+        x and y components of the line, <em><strong>in pixels</strong></em> (see diagram). Unless you specify a value for align, text above or below pos is centered, text to the left of pos is right-adjusted, and text to the right of pos is left-adjusted.</p>
+<p class="attributes"> <span class="attribute">text</span> The text to be 
+              displayed, such as 'Earth'. 
+              You can give a number or numerical expression; it will be converted to a string.
+      Multiple lines can be displayed by inserting line breaks: &quot;Three\nlines\nof 
+      text&quot;.</p>
+<p class="attributes"> <span class="attribute">font</span> Name of the desired 
               font; for example, 'Verdana', or 'Times', or 'Courier'.</p>
             <p class="attributes"> <span class="attribute">height</span> Height
               of the font  in pixels; default is 13 pixels</p>
@@ -121,7 +110,7 @@ You can give a number or numerical expression; it will be converted to a string.
             <p class="attributes"> <span class="attribute">linewidth</span> The width in pixels of the line and box</p>
             <p class="attributes"> <span class="attribute">space</span> Radius 
       in real-world coordinates of a sphere surrounding pos,      into which the connecting line does not go.</p>
-            <p class="attributes"> <span class="attribute">pixel_pos</span> If true, pos and offsets are in terms of pixel locations, with (0,0,0) at the upper corner of the canvas, and the z component of <span class="attribute">pos</span> is ignored. A positive y value for pos or offsets goes downward from the top of the canvas. Note that the width and height of the canvas in pixels are given by <span class="attribute">scene.width</span> and <span class="attribute">scene.height</span>. By default, <span class="attribute">pixel_pos</span> is false.</p>
+            <p class="attributes"> <span class="attribute">visible</span> Label is not displayed if False</p>
             <p class="Normal">When you run a  program, for convenience GlowScript 
             creates a <a href="canvas.html">canvas</a> on the web page and names it <span class="attribute">scene</span>. 
 <span class="attribute">canvas.selected</span>.</p>
