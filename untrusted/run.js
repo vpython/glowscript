@@ -236,6 +236,11 @@ function ideRun() {
                     if (caller == 'main') break
 
                 	var line = prog[jsline-1]
+                    if (window.__GSlang == 'javascript') { // Currently unable to embed line numbers in JavaScript programs
+    	                traceback.push(line)
+                        traceback.push("")
+                        break
+                    }
                 	var L = undefined
                 	var end = undefined
                 	for (var c=jschar; c>=0; c--) {  // look for preceding "linenumber";
