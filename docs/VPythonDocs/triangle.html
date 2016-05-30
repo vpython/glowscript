@@ -70,14 +70,17 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      v0=vertex( pos=vec(0,0,0) ),<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      v1=vertex( pos=vec(1,0,0) ),<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      v2=vertex( pos=vec(1,1,0) ) )</p>
-          <p class="Normal"></p>
+          <p class="Normal">Another option is to give a list of vertex objects:</p>
+          <p class="program"> T = triangle(&nbsp;vs=[a,b,c] )          </p>
           <p class="Normal">Often it is convenient to divide a surface into rectangles instead of triangles, which is done with a <strong>quad</strong> object. The following statements are equivalent to creating two triangles with vertices (a, b, c) and (a, c, d):</p>
           <p class="program"> a = vertex( pos=vec(0,0,0) )<br />
             b = vertex( pos=vec(1,0,0) )<br />
             c = vertex( pos=vec(1,1,0) )<br />
             d = vertex( pos=vec(0,1,0) )<br />
             Q = quad( v0=a, v1=b, v2=c, v3=d )</p>
-          <p class="Normal">The vertices of a triangle or quad can have their own colors, which are blended between vertices:</p>
+          <p class="Normal">You could also write this:</p>
+          <p class="program">Q = quad( vs=[a,b,c,d] )</p>
+<p class="Normal">The vertices of a triangle or quad can have their own colors, which are blended between vertices:</p>
           <p class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/triangle.png" width="440" height="230" alt="triangle" /></p>
           <p align="center" class="Normal">The role of the &quot;normals&quot;, shown here as arrows perpendicular to the plane of the triangle, is discussed in detail below.</p>
           <p class="Normal"><strong><font color="#0000a0">The power of triangles and quads</font></strong></p>

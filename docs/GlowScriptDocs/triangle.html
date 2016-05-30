@@ -59,13 +59,16 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      v0=vertex( pos=vec(0,0,0) ),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      v1=vertex( pos=vec(1,0,0) ),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      v2=vertex( pos=vec(1,1,0) ) )</p>
-      <p class="Normal"></p>
+      <p class="Normal">Another option is to give a list of vertex objects:</p>
+      <p class="program"> T = triangle(&nbsp;vs=[a,b,c] )      </p>
       <p class="Normal">Often it is convenient to divide a surface into rectangles instead of triangles, which is done with a <strong>quad</strong> object. The following statements are equivalent to creating two triangles with vertices (a, b, c) and (a, c, d):</p>
       <p class="program"> a = vertex( pos=vec(0,0,0) )<br />
         b = vertex( pos=vec(1,0,0) )<br />
         c = vertex( pos=vec(1,1,0) )<br />
         d = vertex( pos=vec(0,1,0) )<br />
         Q = quad( v0=a, v1=b, v2=c, v3=d )</p>
+      <p class="Normal">You could also write this:</p>
+      <p class="program">Q = quad( vs=[a,b,c,d] )</p>
       <p class="Normal">The vertices of a triangle or quad can have their own colors, which are blended between vertices:</p>
       <p align="center" class="Normal"><img src="images/triangle.png" width="440" height="230" alt="triangle" /></p>
       <p align="center" class="Normal">The role of the &quot;normals&quot;, shown here as arrows perpendicular to the plane of the triangle, is discussed in detail below.</p>
@@ -74,7 +77,7 @@
 <p class="Normal">In the <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Rug" target="_blank">rug example</a></strong> pictured above, the rug is divided into a rectangular mesh of vertex objects, and quad objects are created from these vertex objects. The same vertex may be shared by as many as four adjacent quad objects. Changing the z position of a shared vertex object affects all those quads that refer to that vertex, which makes it easy to create a moving pulse simply by modifying the vertex positions. In the rug program the quad objects are needed to display the rug, but once the quads have been created all further calculations refer just to the underlying vertex objects.</p>
       <p class="Normal">For a triangle or quad, in addition to specifying vertex objects you can specify <span class="attribute">texture</span> or <span class="attribute">visible</span>, but the usual attributes for other objects such as <span class="attribute">pos</span> or <span class="attribute">color</span> don't apply; this information is specified in the vertex objects. (It is not possible to specify place, flipx, flipy, or turn for a triangle or quad texture. These effects can be achieved by  the way <span class="attribute">texpos</span> is specified in the vertex objects.)</p>
       <p class="Normal">If you wish to specify a <span class="attribute">bumpmap</span> to go with a <span class="attribute">texture</span>, use the same scheme used with other objects:</p>
-      <p class="program">quad(v0=a, v1=b, v2=c, v3=d, &nbsp;&nbsp;&nbsp;&nbsp;texture=dict(file=textures.stucco, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bumpmap=bumpmaps.stucco)) </p>
+      <p class="program">quad(vs=[a,b,c,d], &nbsp;&nbsp;&nbsp;&nbsp;texture=dict(file=textures.stucco, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bumpmap=bumpmaps.stucco)) </p>
       <p class="Normal"><strong>Display speedup:</strong> Typically you will use many triangles to create a complex object. For clarity you might wish to keep them all in a list: tris = [ triangle1, triangle2, ....]. If the object's internal shape need not change (unlike the case of the rug), you can say &quot;s = compound(tris)&quot; in which case you can move and resize and rotate the object &quot;s&quot; very rapidly, just as though it were a built-in object such as a sphere.</p>
 <p class="Normal"><strong><font color="#0000a0">Vertex attributes</font></strong></p>
       <p class="Normal">The attributes of a vertex object are <span class="attribute">pos</span>, <span class="attribute">normal</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">texpos</span>, <span class="attribute">bumpaxis</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>. The <span class="attribute">pos</span> attribute represents the location of the vertex in 3D space. </p>
