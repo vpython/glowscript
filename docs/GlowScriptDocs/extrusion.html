@@ -80,7 +80,7 @@
                 <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
                 <p class="Normal">The paths in the paths library all go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
                 <p class="Normal">However, when specifying a path from the paths library (currently paths.circle and paths.rectangle), you can specify a pos and axis. The path of the following extrusion will have a center at the location vector(1,2,0) oriented perpendicular to the axis, vector(1,0,0):</p>
-                <p class="program">extrusion(path=paths.circle(pos=vector(1,2,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(1,0,0), radius=2),<br />
+                <p class="program">extrusion(pos=paths.circle(pos=vector(1,2,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(1,0,0), radius=2),<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.cyan)</p>
                 <div>
                   <div>
