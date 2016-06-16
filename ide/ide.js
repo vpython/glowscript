@@ -947,7 +947,7 @@ $(function () {
 	            var editor = ace.edit(page.find(".program-editor").get(0));
 	            window.editor = editor
 	            customACEMode(lang, progData.source)
-	            var mode = require("ace/mode/visualjs").Mode
+	            var mode = ace_require("ace/mode/visualjs").Mode
 		        editor.getSession().setMode(new mode())
 	            editor.setTheme({ cssClass: "ace-custom" })
 	            editor.getSession().setValue(progData.source)
@@ -969,7 +969,7 @@ $(function () {
         })
     }
     
-    // NOTE: We use the "require" function found in ace.js
+    // NOTE: We use the "ace_require" function found in ace.js
 
     /*********** Customization of the ACE editor *************/
     // See https://github.com/ajaxorg/ace/wiki/Creating-or-Extending-an-Edit-Mode
@@ -1009,10 +1009,10 @@ $(function () {
         // The "//" at the end of lintPrefix comments out the line "GlowScript X.Y", hence ignored by the worker looking at JavaScript syntax
         var lintPrefix = "/*jslint asi:true, undef:true*/ /*global wait " + globals.join(" ") + "*/\n//"
 
-        define('ace/mode/visualjs_highlight_rules', function (require, exports, module) {
-            var oop = require("ace/lib/oop")
-            if (lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython') var Rules = require("ace/mode/coffee_highlight_rules").CoffeeHighlightRules
-            else var Rules = require("ace/mode/javascript_highlight_rules").JavaScriptHighlightRules
+        define('ace/mode/visualjs_highlight_rules', function (ace_require, exports, module) {
+            var oop = ace_require("ace/lib/oop")
+            if (lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython') var Rules = ace_require("ace/mode/coffee_highlight_rules").CoffeeHighlightRules
+            else var Rules = ace_require("ace/mode/javascript_highlight_rules").JavaScriptHighlightRules
 
             var VisualHighlightRules = function () {
                 this.$rules = (new Rules()).getRules()
@@ -1028,13 +1028,13 @@ $(function () {
         
         
         //------------------------------------------------------------------------------------------------------
-        define('ace/mode/visualjs', function (require, exports, module) {
-            var oop = require("ace/lib/oop")
-            if (lang == 'rapydscript' || lang == 'vpython') var BaseMode = require("ace/mode/python").Mode
-            else var BaseMode = require("ace/mode/javascript").Mode
-            var Tokenizer = require("ace/tokenizer").Tokenizer
-            var VisualHighlightRules = require("ace/mode/visualjs_highlight_rules").VisualHighlightRules
-            var WorkerClient = require("ace/worker/worker_client").WorkerClient // *****************************************************
+        define('ace/mode/visualjs', function (ace_require, exports, module) {
+            var oop = ace_require("ace/lib/oop")
+            if (lang == 'rapydscript' || lang == 'vpython') var BaseMode = ace_require("ace/mode/python").Mode
+            else var BaseMode = ace_require("ace/mode/javascript").Mode
+            var Tokenizer = ace_require("ace/tokenizer").Tokenizer
+            var VisualHighlightRules = ace_require("ace/mode/visualjs_highlight_rules").VisualHighlightRules
+            var WorkerClient = ace_require("ace/worker/worker_client").WorkerClient // *****************************************************
 
             var Mode = function () {
                 BaseMode.call(this)
