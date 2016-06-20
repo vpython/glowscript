@@ -33,7 +33,7 @@ License
 
 The license is found at [lib/glow/LICENSE.txt](https://github.com/BruceSherwood/glowscript/blob/master/lib/glow/LICENSE.txt).
 
-For [Software Archaeology](https://en.wikipedia.org/wiki/Software_archaeology)
+Early version
 ------------------------------------------------------------------------------
 In December 2014 the original GlowScript repository was corrupted in such a way that it could not be reconstituted, but a backup that contains the history of commits is here:
 
