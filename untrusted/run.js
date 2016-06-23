@@ -21,6 +21,9 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/primitives.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
+        "../lib/glow/opentype.js",
+        "../lib/glow/poly2tri.js",
+        "../lib/glow/extrude.js",
         "../lib/transform-all.js" // needed for running programs embedded in other web sites
         ],
     compile: [
