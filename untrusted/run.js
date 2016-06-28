@@ -10,6 +10,9 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/webgl-utils.js",
 //        "../lib/glow/glow.css", // not ready to use yet
         "../lib/glow/property.js",
+        "../lib/glow/opentype.js",
+        "../lib/glow/poly2tri.js",
+        "../lib/glow/extrude.js",
         "../lib/glow/vectors.js",
         "../lib/glow/mesh.js",
         "../lib/glow/canvas.js",
@@ -21,9 +24,6 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/primitives.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
-        "../lib/glow/opentype.js",
-        "../lib/glow/poly2tri.js",
-        "../lib/glow/extrude.js",
         "../lib/transform-all.js" // needed for running programs embedded in other web sites
         ],
     compile: [
@@ -107,28 +107,45 @@ function ideRun() {
                 }
                 
                 head.load(packages, function() {
-                    // All the libraries are ready; run the program
-                    if (message.version === "0.3") window.glowscript = { version: "0.3" }
-                    //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
-                    //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
+                	// Load font to be used by text object
+                    var f = '../lib/fonts/Roboto-Medium.ttf' // a sans serif font
+                    opentype.load(f, function(err, fontref) {
+                        if (err) throw new Error('Font ' + f + ' could not be loaded: ' + err)
+                    	window.__font_sans = fontref // an opentype.js Font object
+                    })
+                    
+                    // Wait until font is loaded
+                    var t = msclock()
+                    setTimeout(fontLoading, 15)
+	                function fontLoading() {
+	                	if (!window.__font_sans && (msclock()-t < 1500)) {
+	                		setTimeout(fontLoading, 15)
+	                	} else {
+	                        // All the libraries are ready; run the program
+	                        if (message.version === "0.3") window.glowscript = { version: "0.3" }
+	                        //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
+	                        //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
 
-                    var container = $("#glowscript")
-                    if (message.version !== "0.3") container.removeAttr("id")
+	                        var container = $("#glowscript")
+	                        if (message.version !== "0.3") container.removeAttr("id")
 
-                    compileAndRun(message.program, container, message.lang, progver)
-                    if (message.autoscreenshot)
-                        setTimeout(function () {
-                            if (!window.lasterr)
-                                screenshot(true)
-                        }, 2000)
+	                        compileAndRun(message.program, container, message.lang, progver)
+	                        if (message.autoscreenshot)
+	                            setTimeout(function () {
+	                                if (!window.lasterr)
+	                                    screenshot(true)
+	                            }, 2000)
+                            if (message.event !== undefined) {
+                                message.event.fromParentFrame = true
+                                $(document).trigger(message.event)
+                            }
+                            if (message.screenshot !== undefined)
+                                screenshot(false)
+	                	}
+	                }
+                    
                 });
             }
-            if (message.event !== undefined) {
-                message.event.fromParentFrame = true
-                $(document).trigger(message.event)
-            }
-            if (message.screenshot !== undefined)
-                screenshot(false)
         }
     }
 
