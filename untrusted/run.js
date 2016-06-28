@@ -10,9 +10,6 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/webgl-utils.js",
 //        "../lib/glow/glow.css", // not ready to use yet
         "../lib/glow/property.js",
-        "../lib/glow/opentype.js",
-        "../lib/glow/poly2tri.js",
-        "../lib/glow/extrude.js",
         "../lib/glow/vectors.js",
         "../lib/glow/mesh.js",
         "../lib/glow/canvas.js",
@@ -22,6 +19,9 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/graph.js",
         "../lib/glow/color.js",
         "../lib/glow/primitives.js",
+        "../lib/glow/opentype.js",
+        "../lib/glow/poly2tri.js",
+        "../lib/glow/extrude.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
         "../lib/transform-all.js" // needed for running programs embedded in other web sites
