@@ -5,6 +5,10 @@ convenient format for modification into the most convenient format for
 deployment.
 
 * Take shaders from shaders/*.shader and combine them into lib/glow/shaders.gen.js
+* Extract glowscript libraries list from ``untrusted/run.js``.
+  In the implementation, we need ``slimit`` as our dependency::
+
+      $ pip install slimit
 
 TODO
 
@@ -21,59 +25,49 @@ import subprocess
 
 from functools import partial
 from collections import namedtuple
+from pprint import pprint
+
+from slimit import ast
+from slimit.parser import Parser as JSParser
+from slimit.visitors import nodevisitor
 
 
 version = "2.2dev"
 src_dir = os.path.dirname(__file__)
 
-# TODO: Extract this information from run.js
-glowscript_libraries = {
-    "run": [
-        "../lib/jquery/{}/jquery.mousewheel.js".format(version),
-        "../lib/flot/jquery.flot.min.js",
-        "../lib/flot/jquery.flot.crosshair_GS.js",
-        "../lib/glMatrix.js",
-        "../lib/webgl-utils.js",
-        "../lib/glow/property.js",
-        "../lib/glow/vectors.js",
-        "../lib/glow/mesh.js",
-        "../lib/glow/canvas.js",
-        "../lib/glow/orbital_camera.js",
-        "../lib/glow/autoscale.js",
-        "../lib/glow/WebGLRenderer.js",
-        "../lib/glow/graph.js",
-        "../lib/glow/color.js",
-        "../lib/glow/primitives.js",
-        "../lib/glow/api_misc.js",
-        "../lib/glow/shaders.gen.js",
-        "../lib/transform-all.js" # needed for running programs embedded in other web sites
-        ],
-    "compile": [
-        "../lib/compiler.js",
-        "../lib/papercomp.js",
-        "../lib/transform-all.js",
-        "../lib/coffee-script.js"],
-    "RSrun": [
-        "../lib/rapydscript/baselib.js",
-        "../lib/rapydscript/stdlib.js"
-        ],
-    "RScompile": [
-        "../lib/compiler.js",
-        "../lib/papercomp.js",
-        "../lib/transform-all.js",
-        "../lib/rapydscript/utils.js",
-        "../lib/rapydscript/ast.js",
-        "../lib/rapydscript/output.js",
-        "../lib/rapydscript/parse.js",
-        "../lib/rapydscript/baselib.js"
-        ],
-    "ide": []
-    }
+
+def extract_glow_lib():
+    runjs = norm_path('untrusted/run.js')
+    parser = JSParser()
+
+    with open(runjs) as f:
+        tree = parser.parse(f.read())
+
+    for node in nodevisitor.visit(tree):
+        if (isinstance(node, ast.Assign) and
+            isinstance(node.left, ast.DotAccessor) and
+            node.left.identifier.value == 'glowscript_libraries' and
+            isinstance(node.right, ast.Object)):
+                break
+    else:
+        print('Parsing {} failed'.format(runjs))
+        exit(-1)
+
+    return preproc_lib_path({
+        prop.left.value:
+            [
+                eval(lib.value)
+                for lib in prop.right.items
+                if isinstance(lib, ast.String)
+            ]
+            for prop in node.right.properties
+    })
 
 
 def preproc_lib_path(libs):
     pjoin = partial(os.path.join, src_dir, 'untrusted')
-    return {pkg: map(pjoin, paths) for pkg, paths in libs.items()}
+    return {pkg: map(os.path.normpath, (map(pjoin, paths)))
+                 for pkg, paths in libs.items()}
 
 
 def build_shader():
@@ -99,7 +93,7 @@ def norm_path(p):
     :param p: path related to source dir
 
     >>> norm_path('lib/glow/graph.js')
-    '/path/to/src/dir/lib/glow/graph.js'
+    'path/to/src/dir/lib/glow/graph.js'
     '''
     return os.path.normpath(os.path.join(src_dir, p))
 
@@ -115,7 +109,7 @@ def combine(inlibs):
         yield ";(function(){})();"
 
         for fn in inlibs:
-            with open(norm_path(fn), 'r') as f:
+            with open(fn, 'r') as f:
                 yield f.read()
 
     return "\n".join(gen())
@@ -136,7 +130,7 @@ def minify(inlibs, inlibs_nomin, outlib, no_min=False):
     node_cmd = os.environ.get('NODE_PATH', 'node')
     uglifyjs = norm_path('build-tools/UglifyJS/bin/uglifyjs')
 
-    with open(norm_path(outlib), 'w') as outf:
+    with open(outlib, 'w') as outf:
         if not no_min:
             uglify = subprocess.Popen(
                 [node_cmd, uglifyjs],
@@ -155,8 +149,21 @@ def minify(inlibs, inlibs_nomin, outlib, no_min=False):
             outf.write(combine(inlibs_nomin))
 
 
-def build_package(no_min=False):
+def build_package(libs, no_min=False):
     '''
+    :param libs: the dictionary contain all glowscript libraries::
+
+        {
+            "package_1": [
+                'lib 1'
+                ...
+            ],
+            "package_2": [
+                ...
+            ],
+            ...
+        }
+
     :param no_min: if True, we build no minified libraries only.
     '''
     Package = namedtuple('Package',
@@ -182,24 +189,33 @@ def build_package(no_min=False):
     )
 
     for pkg in pkgs:
-        minify(glowscript_libraries[pkg.inlibs],
-               pkg.inlibs_nomin, 'package/{}'.format(pkg.outlib),
+        minify(libs[pkg.inlibs],
+               pkg.inlibs_nomin,
+               norm_path('package/{}'.format(pkg.outlib)),
                no_min=no_min)
         print('Finished {}'.format(pkg.comment))
 
 
-if __name__ == '__main__':
-    glowscript_libraries = preproc_lib_path(glowscript_libraries)
+def cmd_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-s', '--shader', action='store_true', default=False,
                         help="Build shader file 'lib/glow/shaders.gen.js' only")
     parser.add_argument('--no-min', dest='no_min', action='store_true',
                         default=False, help="Build non-minified libraries only")
+    parser.add_argument('-l', '--libs', action='store_true', default=False,
+                        help='Show glowscript libraries and exit')
 
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    if args.shader:
-        build_shader()
+
+if __name__ == '__main__':
+    glowscript_libraries = extract_glow_lib()
+    args = cmd_args()
+
+    if args.libs:
+        pprint(glowscript_libraries)
+    elif args.shader:
+        build_shader(glowscript_libraries)
     else:  # default: build all
         build_shader()
-        build_package(no_min=args.no_min)
+        build_package(glowscript_libraries, no_min=args.no_min)
