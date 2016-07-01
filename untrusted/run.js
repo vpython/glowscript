@@ -106,44 +106,58 @@ function ideRun() {
                  	    packages.push("../package/compiler." + message.version + ".min.js")
                 }
                 
+                function finish() {
+                    // All the libraries are ready; run the program
+                    if (message.version === "0.3") window.glowscript = { version: "0.3" }
+                    //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
+                    //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
+
+                    var container = $("#glowscript")
+                    if (message.version !== "0.3") container.removeAttr("id")
+
+                    compileAndRun(message.program, container, message.lang, progver)
+                    if (message.autoscreenshot)
+                        setTimeout(function () {
+                            if (!window.lasterr)
+                                screenshot(true)
+                        }, 2000)
+                    if (message.event !== undefined) {
+                        message.event.fromParentFrame = true
+                        $(document).trigger(message.event)
+                    }
+                    if (message.screenshot !== undefined)
+                        screenshot(false)
+            	}
+                
                 head.load(packages, function() {
-                	// Load font to be used by text object
-                    var f = '../lib/fonts/Roboto-Medium.ttf' // a sans serif font
-                    opentype.load(f, function(err, fontref) {
-                        if (err) throw new Error('Font ' + f + ' could not be loaded: ' + err)
-                    	window.__font_sans = fontref // an opentype.js Font object
+	                // Load serif and sans serif fonts to be used by text object
+                	var fsans, fserif
+                	if (navigator.onLine) {
+                		fsans =  'https://s3.amazonaws.com/glowscript/fonts/Roboto-Medium.ttf' // a sans serif font
+                    	fserif = 'https://s3.amazonaws.com/glowscript/fonts/NimbusRomNo9L-Med.otf' // a serif font
+                	} else {
+	                    fsans =  '../FilesInAWS/Roboto-Medium.ttf' // a sans serif font
+	            		fserif = '../FilesInAWS/NimbusRomNo9L-Med.otf' // a serif font
+                	}
+            		opentype.load(fsans, function(err, fontrefsans) {
+                        if (err) throw new Error('Font ' + fsans + ' could not be loaded: ' + err)
+                    	window.__font_sans = fontrefsans // an opentype.js Font object
+                    })
+                    opentype.load(fserif, function(err, fontrefserif) {
+                        if (err) throw new Error('Font ' + fserif + ' could not be loaded: ' + err)
+                    	window.__font_serif = fontrefserif // an opentype.js Font object
                     })
                     
-                    // Wait until font is loaded
+                    // Wait until fonts are loaded
                     var t = msclock()
                     setTimeout(fontLoading, 15)
 	                function fontLoading() {
-	                	if (!window.__font_sans && (msclock()-t < 1500)) {
+	                	if ( (msclock()-t < 1500) && (!window.__font_sans || !window.__font_serif) ) {
 	                		setTimeout(fontLoading, 15)
 	                	} else {
-	                        // All the libraries are ready; run the program
-	                        if (message.version === "0.3") window.glowscript = { version: "0.3" }
-	                        //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
-	                        //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
-
-	                        var container = $("#glowscript")
-	                        if (message.version !== "0.3") container.removeAttr("id")
-
-	                        compileAndRun(message.program, container, message.lang, progver)
-	                        if (message.autoscreenshot)
-	                            setTimeout(function () {
-	                                if (!window.lasterr)
-	                                    screenshot(true)
-	                            }, 2000)
-                            if (message.event !== undefined) {
-                                message.event.fromParentFrame = true
-                                $(document).trigger(message.event)
-                            }
-                            if (message.screenshot !== undefined)
-                                screenshot(false)
+	                		finish()
 	                	}
 	                }
-                    
                 });
             }
         }
