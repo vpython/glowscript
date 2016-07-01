@@ -136,8 +136,8 @@ function ideRun() {
                 		fsans =  'https://s3.amazonaws.com/glowscript/fonts/Roboto-Medium.ttf' // a sans serif font
                     	fserif = 'https://s3.amazonaws.com/glowscript/fonts/NimbusRomNo9L-Med.otf' // a serif font
                 	} else {
-	                    fsans =  '../FilesInAWS/Roboto-Medium.ttf' // a sans serif font
-	            		fserif = '../FilesInAWS/NimbusRomNo9L-Med.otf' // a serif font
+	                    fsans =  '../lib/FilesInAWS/Roboto-Medium.ttf' // a sans serif font
+	            		fserif = '../lib/FilesInAWS/NimbusRomNo9L-Med.otf' // a serif font
                 	}
             		opentype.load(fsans, function(err, fontrefsans) {
                         if (err) throw new Error('Font ' + fsans + ' could not be loaded: ' + err)
