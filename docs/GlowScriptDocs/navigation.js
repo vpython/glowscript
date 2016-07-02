@@ -18,6 +18,7 @@ s += '<option value="points.html">points</option>'
 s += '<option value="pyramid.html">pyramid</option>'
 s += '<option value="ring.html">ring</option>'
 s += '<option value="sphere.html">sphere</option>'
+s += '<option value="text.html">text</option>'
 s += '<option value="triangle.html">triangle/quad</option>'
 document.getElementById("menu1").innerHTML = s
 
