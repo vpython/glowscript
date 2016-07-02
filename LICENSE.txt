@@ -39,3 +39,10 @@ Supporting the VPython API in a browser is possible thanks to the work of
 When the GlowScript project was launched in 2011 by David Scherer and Bruce Sherwood,
 Scherer implemented operator overloading and synchronous code using libraries existing at that time.
 In 2015 it became necessary to upgrade to newer libraries because compilation failed on some browsers.
+
+Tessellation with multiple holes, JavaScript version: https://github.com/r3mi/poly2tri.js
+For explanation of poly2tri, see http://sites-final.uclouvain.be/mema/Poly2Tri
+
+Font manipulation: https://github.com/nodebox/opentype.js
+Public-domain sans serif font Roboto-Medium.ttf from http://www.1001freefonts.com/roboto.font
+Public-domain serif font NimbusRomNo9L-Med.otf from http://www.1001fonts.com/nimbus-roman-no9-l-font.html
