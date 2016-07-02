@@ -113,16 +113,15 @@ function ideRun() {
                  	    packages.push("../package/compiler." + message.version + ".min.js")
                 }
                 
+                if (message.version === "0.3") window.glowscript = { version: "0.3" }
+                //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
+                //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
+
+                container = $("#glowscript")
+                if (message.version !== "0.3") container.removeAttr("id")
+                
                 function finish() {
-                    // All the libraries are ready; run the program
-                    if (message.version === "0.3") window.glowscript = { version: "0.3" }
-                    //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
-                    //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
-
-                    var container = $("#glowscript")
-                    if (message.version !== "0.3") container.removeAttr("id")
-
-                    compileAndRun(message.program, container, message.lang, progver)
+                    runProgram()
                     if (message.autoscreenshot)
                         setTimeout(function () {
                             if (!window.lasterr)
@@ -155,6 +154,8 @@ function ideRun() {
                     	window.__font_serif = fontrefserif // an opentype.js Font object
                     })
                     
+                    compileProgram(message.program, container, message.lang, progver) // start compile while loading fonts
+                    
                     // Wait until fonts are loaded
                     var t = msclock()
                     setTimeout(fontLoading, 15)
@@ -170,15 +171,26 @@ function ideRun() {
         }
     }
 
-    function compileAndRun(program, container, lang, version) {
+    var container
+    var compiled_program
+    
+    function compileProgram(program, container, lang, version) {
         try {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
             var options = {lang: lang, version: version}
-            var program = glowscript_compile(program, options)
+            compiled_program = glowscript_compile(program, options)
             //console.log('run program')
             //var p = program.split('\n')
         	//for (var i=0; i<p.length; i++) console.log(i, p[i])
-        	var main = eval_script(program)
+        } catch (err) {
+            window.lasterr = err
+            reportScriptError(program, err);
+        }
+    }
+    
+    function runProgram() { // run the compiled program after the fonts have been loaded
+        try {
+        	var main = eval_script(compiled_program)
             window.userMain = main
 
             $("#loading").remove()
@@ -193,7 +205,7 @@ function ideRun() {
             })
         } catch (err) {
             window.lasterr = err
-            reportScriptError(program, err);
+            reportScriptError(compiled_program, err);
         }
     }
 
