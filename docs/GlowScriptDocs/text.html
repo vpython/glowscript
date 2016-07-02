@@ -41,56 +41,61 @@
       <div>
         <table width="100%" border="1">
           <tr>
-            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">text</font></span></div></td>
-            <td width="51%"><div align="center"><a href="arrow.html"></a></div></td>
+            <td width="89%"><div align="center"><span class="style1 style2"><font color="#0000A0">text</font></span></div></td>
           </tr>
         </table>
       </div>
       <div>
+        <p class="Normal"><img src="images/text3D.png" alt="3D text" width="503" height="232" /></p>
         <p class="Normal">See the <a href="text_output.html"><strong>Text Output</strong></a> discussion for additional ways to output text in the GlowScript environment.</p>
         <p class="program"> text(text='My text is\ngreen',<br />
   &nbsp;&nbsp;&nbsp;&nbsp;align='center', depth=-0.3, <br />
 &nbsp;&nbsp;&nbsp;  color=color.green)</p>
+        <p class="Normal"></p>
         <p class="Normal">Here
-          is a  list of text attributes:</p>
+          is a  list of text attributes, in addition to the usual attributes of color, shininess, and opacity:</p>
         <p class="attributes"> <span class="attribute">pos</span>; <span class="attribute">x</span>,<span class="attribute">y</span>,<span class="attribute">z</span> The
           location of the baseline of the text, to the left, to the right,
           or at the center of the text, as per align.<span class="attribute"></span><span class="attribute"></span></p>
         <p class="attributes"> <span class="attribute">align </span>Specify 'left'
           (default), 'right', or 'center'.</p>
         <p class="attributes"> <span class="attribute">text</span> The text to
-          be  displayed, such as &quot;My text is green&quot; in the example above. 
+          be  displayed, such as &quot;My text is\ngreen&quot; in the example above ('\n' is a new line character). 
           Unicode strings are supported. After creating the object, the text is read-only -- it cannot be changed. The reason for this is that it takes a significant portion of a second to create a 3D text object. If you need to change the text, make the current object invisible (visible=False) and create a new object.</p>
         <p class="attributes"> <span class="attribute">font</span> Name of
-          the desired  font; the default is &quot;sans&quot; (for sans serif), which is currently the only option available.</p>
+          the desired  font; the default is &quot;sans&quot; (for sans serif), which is currently the only option available. This is read-only.</p>
         <p class="attributes"> <span class="attribute">height</span> Height
           of an uppercase letter (see above); default is 1. Specifying the
           height and depth sets the scale for the entire text display. Changing
-          the height also changes descent and vertical_spacing, but not depth.</p>
+          the height also changes descent and vertical_spacing, but not depth.After creating the 3D text, you can change the height. For example, if you say T.height = 0.5*T.height, the letters become shorter but the length stays the same.</p>
+        <p class="attributes"><span class="attribute">length</span> length
+          of the displayed text. After creating the 3D text, you can change this. For example, if you say T.length = 0.5*T.length, the letters become narrower but the height stays the same.</p>
         <p class="attributes"><span class="attribute">depth</span> Depth
           of the text; the default is 0.2 times the height. A positive number means extrude toward you, out of the screen; negative
-          means extruded away from you, into the screen.</p>
-        <p class="attributes"><span class="attribute">length</span> length
-          of the displayed text. This is &quot;read-only&quot; and is determined
-          by the text. </p>
-        <p class="attributes"><span class="attribute">size</span> You change the size, which does not affect the axis. The size is multiplicative, as the text object is actually a compound object; see the <a href="compound.html">documentation</a> on compound objects.</p>
-        <p class="attributes"><span class="attribute">axis</span> The axis
-          points along the baseline; changing the axis changes the orientation
-          of text.  The default is (1,0,0), with text going toward the right. Changing the axis only affects the direction of the line of text, not the length or size.</p>
-        <p class="attributes"><span class="attribute">descent</span> Height
+          means extruded away from you, into the screen. After creating the 3D text, you can change this. For example, if you say T.depth = 2*T.length, the letters become twice as thick..</p>
+        <p class="attributes"><span class="attribute">descender</span> Height
           of the descender on lower-case letters such as y (whether or not
           there is such a letter in the text). This is typically about 0.3
-          times the height. This is read-only.</p>
+          times the height. This is read-only but is affected by changes in height.</p>
         <p class="attributes"> <span class="attribute">upper_left, upper_right,
           lower_right, lower_left </span>The bounding box of the displayed
           text; all of these are read-only. For example, if you create <span class="program"><strong>title = text(text=&quot;My Text&quot;)</strong></span>,
           you can place a sphere at the upper left corner with the statement <strong>sphere(pos=title.upper_left</strong>).</p>
         <p class="attributes"> <span class="attribute">start, end </span> The left-most and right-most
-          locations on the baseline. These are read-only.</p>
-      <p class="attributes"> <span class="attribute">up</span> Controls
+          locations on the baseline. These are read-only. If align is 'left', pos is the same as start. If align is 'right', pos is the same as end.</p>
+        <p class="attributes"><span class="attribute">vertical_spacing</span> Vertical
+          distance from one baseline to the next in a multiline text. This is read-only.</p>
+        <p class="Normal"></p>
+        <p class="attributes"><span class="attribute">size</span> You change the size, which does not affect the axis. The size is multiplicative, as the text object is actually a compound object; see the <a href="compound.html">documentation</a> on compound objects.</p>
+        <p class="attributes"><span class="attribute">axis</span> The axis
+          points along the baseline; changing the axis changes the orientation
+          of text.  The default is (1,0,0), with text going toward the right. Changing the axis only affects the direction of the line of text, not the length or size. <span class="attribute">up</span> Controls
           the up attribute of the frame; changing up makes the text tip away
+          from the vertical</p>
+        <p class="attributes"> <span class="attribute">up</span> Controls
+          the up attribute of the text; changing up makes the text tip away
           from the vertical.</p>
-        <div>
+<div>
       <p class="Normal"></p>
     <!-- InstanceEndEditable --></td>
   </tr>
