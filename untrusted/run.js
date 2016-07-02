@@ -136,36 +136,47 @@ function ideRun() {
             	}
                 
                 head.load(packages, function() {
-	                // Load serif and sans serif fonts to be used by text object
-                	var fsans, fserif
-                	if (navigator.onLine) {
-                		fsans =  'https://s3.amazonaws.com/glowscript/fonts/Roboto-Medium.ttf' // a sans serif font
-                    	fserif = 'https://s3.amazonaws.com/glowscript/fonts/NimbusRomNo9L-Med.otf' // a serif font
-                	} else {
-	                    fsans =  '../lib/FilesInAWS/Roboto-Medium.ttf' // a sans serif font
-	            		fserif = '../lib/FilesInAWS/NimbusRomNo9L-Med.otf' // a serif font
-                	}
-            		opentype.load(fsans, function(err, fontrefsans) {
-                        if (err) throw new Error('Font ' + fsans + ' could not be loaded: ' + err)
-                    	window.__font_sans = fontrefsans // an opentype.js Font object
-                    })
-                    opentype.load(fserif, function(err, fontrefserif) {
-                        if (err) throw new Error('Font ' + fserif + ' could not be loaded: ' + err)
-                    	window.__font_serif = fontrefserif // an opentype.js Font object
-                    })
+                	// Look for text object in program
+                	// findtext finds "...text  (....." and findstart finds "text  (...." at start of program
+                	var findtext = /[\n\W\s]text[\ ]*\(/
+	                var findstart = /^text[\ ]*\(/
+                	var mustload = findtext.exec(message.program)
+	                if (!mustload) mustload = findstart.exec(message.program)
+                	if (mustload) { // Load serif and sans serif fonts to be used by text object
+	                	var fsans, fserif
+	                	if (navigator.onLine) {
+	                		fsans =  'https://s3.amazonaws.com/glowscript/fonts/Roboto-Medium.ttf' // a sans serif font
+	                    	fserif = 'https://s3.amazonaws.com/glowscript/fonts/NimbusRomNo9L-Med.otf' // a serif font
+	                	} else {
+		                    fsans =  '../lib/FilesInAWS/Roboto-Medium.ttf' // a sans serif font
+		            		fserif = '../lib/FilesInAWS/NimbusRomNo9L-Med.otf' // a serif font
+	                	}
+	            		opentype.load(fsans, function(err, fontrefsans) {
+	                        if (err) throw new Error('Font ' + fsans + ' could not be loaded: ' + err)
+	                    	window.__font_sans = fontrefsans // an opentype.js Font object
+	                    })
+	                    opentype.load(fserif, function(err, fontrefserif) {
+	                        if (err) throw new Error('Font ' + fserif + ' could not be loaded: ' + err)
+	                    	window.__font_serif = fontrefserif // an opentype.js Font object
+	                    })
+	                }
                     
                     compileProgram(message.program, container, message.lang, progver) // start compile while loading fonts
                     
-                    // Wait until fonts are loaded
-                    var t = msclock()
-                    setTimeout(fontLoading, 15)
-	                function fontLoading() {
-	                	if ( (msclock()-t < 1500) && (!window.__font_sans || !window.__font_serif) ) {
-	                		setTimeout(fontLoading, 15)
-	                	} else {
-	                		finish()
-	                	}
-	                }
+                    if (mustload) {
+	                    // Wait until fonts are loaded
+	                    var t = msclock()
+	                    setTimeout(fontLoading, 15)
+		                function fontLoading() {
+		                	if ( (msclock()-t < 1500) && (!window.__font_sans || !window.__font_serif) ) {
+		                		setTimeout(fontLoading, 15)
+		                	} else {
+		                		finish()
+		                	}
+		                }
+                    } else {
+                    	finish()
+                    }
                 });
             }
         }
