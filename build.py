@@ -44,20 +44,26 @@ glowscript_libraries = {
         "../lib/glow/graph.js",
         "../lib/glow/color.js",
         "../lib/glow/primitives.js",
+        "../lib/glow/poly2tri.js",
+        "../lib/glow/opentype.js",
+        "../lib/glow/extrude.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
         "../lib/transform-all.js" # needed for running programs embedded in other web sites
         ],
     "compile": [
+        "../lib/glow/opentype.js",
         "../lib/compiler.js",
         "../lib/papercomp.js",
         "../lib/transform-all.js",
-        "../lib/coffee-script.js"],
+        "../lib/coffee-script.js"
+        ],
     "RSrun": [
         "../lib/rapydscript/baselib.js",
         "../lib/rapydscript/stdlib.js"
         ],
     "RScompile": [
+        "../lib/glow/opentype.js",
         "../lib/compiler.js",
         "../lib/papercomp.js",
         "../lib/transform-all.js",

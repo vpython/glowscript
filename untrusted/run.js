@@ -19,14 +19,15 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/graph.js",
         "../lib/glow/color.js",
         "../lib/glow/primitives.js",
-        "../lib/glow/opentype.js",
         "../lib/glow/poly2tri.js",
+        "../lib/glow/opentype.js",
         "../lib/glow/extrude.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
         "../lib/transform-all.js" // needed for running programs embedded in other web sites
         ],
     compile: [
+        //"../lib/glow/opentype.js",
         "../lib/compiler.js",
         "../lib/papercomp.js",
         "../lib/transform-all.js",
@@ -36,6 +37,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
             "../lib/rapydscript/stdlib.js"
             ],
     RScompile: [
+        //"../lib/glow/opentype.js",
         "../lib/compiler.js",
         "../lib/papercomp.js",
         "../lib/transform-all.js",
@@ -67,6 +69,11 @@ function ideRun() {
         msg = JSON.stringify(msg)
         window.parent.postMessage(msg, trusted_origin)
         if (also_trusted) window.parent.postMessage(msg, also_trusted)
+    }
+    
+    function msclock() {
+    	if (performance.now) return performance.now()
+    	else return new Date().getTime()
     }
 
     function waitScript() {
