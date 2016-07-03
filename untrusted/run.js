@@ -51,7 +51,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
 }
 
 function ideRun() {
-    "use strict";
+    //"use strict";
     function eval_script(x) {
         return eval(x)
     }
