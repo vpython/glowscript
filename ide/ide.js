@@ -831,7 +831,16 @@ $(function () {
                         alert("Failed to load compiler from package: " + compiler_url)
                         return
                     }
-                    var embedScript = window.glowscript_compile(header.source, {lang: header.lang, version: header.version.substr(0,3)})
+                    
+                    // Look for text object in program
+                	// findtext finds "...text  (....." and findstart finds "text  (...." at start of program
+                	var findtext = /[\n\W\s]text[\ ]*\(/
+	                var findstart = /^text[\ ]*\(/
+                	var loadfonts = findtext.exec(header.source)
+	                if (!loadfonts) loadfonts = findstart.exec(header.source)                    
+
+                    var embedScript = window.glowscript_compile(header.source,
+                    		{lang: header.lang, version: header.version.substr(0,3), loadfonts: loadfonts, exporting: true})
                     var divid = "glowscript"
                     var remove = header.version==='0.3' ? '' : '.removeAttr("id")'
                     var main

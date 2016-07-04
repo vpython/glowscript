@@ -52,6 +52,9 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
 
 function ideRun() {
     //"use strict";
+	// The problem with using strict mode here is that 
+	// "Strict mode does not allow function declarations in a lexically nested statement"
+	// whereas it is necessary here to put the fetching of font files inside an if.
     function eval_script(x) {
         return eval(x)
     }
@@ -71,10 +74,12 @@ function ideRun() {
         if (also_trusted) window.parent.postMessage(msg, also_trusted)
     }
     
+    /*
     function msclock() {
     	if (performance.now) return performance.now()
     	else return new Date().getTime()
     }
+    */
 
     function waitScript() {
         $(window).bind("message", receiveMessage)
@@ -113,95 +118,66 @@ function ideRun() {
                  	    packages.push("../package/compiler." + message.version + ".min.js")
                 }
                 
-                if (message.version === "0.3") window.glowscript = { version: "0.3" }
-                //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
-                //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
-
-                container = $("#glowscript")
-                if (message.version !== "0.3") container.removeAttr("id")
-                
-                function finish() {
-                    runProgram()
-                    if (message.autoscreenshot)
-                        setTimeout(function () {
-                            if (!window.lasterr)
-                                screenshot(true)
-                        }, 2000)
-                    if (message.event !== undefined) {
-                        message.event.fromParentFrame = true
-                        $(document).trigger(message.event)
-                    }
-                    if (message.screenshot !== undefined)
-                        screenshot(false)
-            	}
-                
                 head.load(packages, function() {
-                	// Look for text object in program
+                    if (message.version === "0.3") window.glowscript = { version: "0.3" }
+                    //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
+                    //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
+
+                    container = $("#glowscript")
+                    if (message.version !== "0.3") container.removeAttr("id")
+                    
+                    // Look for text object in program
                 	// findtext finds "...text  (....." and findstart finds "text  (...." at start of program
                 	var findtext = /[\n\W\s]text[\ ]*\(/
 	                var findstart = /^text[\ ]*\(/
-                	var mustload = findtext.exec(message.program)
-	                if (!mustload) mustload = findstart.exec(message.program)
-                	if (mustload) { // Load serif and sans serif fonts to be used by text object
-	                	var fsans, fserif
-	                	if (navigator.onLine) {
-	                		fsans =  'https://s3.amazonaws.com/glowscript/fonts/Roboto-Medium.ttf' // a sans serif font
-	                    	fserif = 'https://s3.amazonaws.com/glowscript/fonts/NimbusRomNo9L-Med.otf' // a serif font
-	                	} else {
-		                    fsans =  '../lib/FilesInAWS/Roboto-Medium.ttf' // a sans serif font
-		            		fserif = '../lib/FilesInAWS/NimbusRomNo9L-Med.otf' // a serif font
-	                	}
+                	var loadfonts = findtext.exec(message.program)
+	                if (!loadfonts) loadfonts = findstart.exec(message.program)
+	                
+	                if (loadfonts) {
+	                	var fsans
+	                	if (navigator.onLine) fsans =  'https://s3.amazonaws.com/glowscript/fonts/Roboto-Medium.ttf' // a sans serif font
+	                	else fsans =  '../lib/FilesInAWS/Roboto-Medium.ttf' // a sans serif font
 	            		opentype.load(fsans, function(err, fontrefsans) {
 	                        if (err) throw new Error('Font ' + fsans + ' could not be loaded: ' + err)
 	                    	window.__font_sans = fontrefsans // an opentype.js Font object
 	                    })
+	                }
+                	if (loadfonts) {
+	                	var fserif
+	                	if (navigator.onLine) fserif = 'https://s3.amazonaws.com/glowscript/fonts/NimbusRomNo9L-Med.otf' // a serif font
+	                	else fserif = '../lib/FilesInAWS/NimbusRomNo9L-Med.otf' // a serif font
 	                    opentype.load(fserif, function(err, fontrefserif) {
 	                        if (err) throw new Error('Font ' + fserif + ' could not be loaded: ' + err)
 	                    	window.__font_serif = fontrefserif // an opentype.js Font object
 	                    })
 	                }
                     
-                    compileProgram(message.program, container, message.lang, progver) // start compile while loading fonts
-                    
-                    if (mustload) {
-	                    // Wait until fonts are loaded
-	                    var t = msclock()
-	                    setTimeout(fontLoading, 15)
-		                function fontLoading() {
-		                	if ( (msclock()-t < 1500) && (!window.__font_sans || !window.__font_serif) ) {
-		                		setTimeout(fontLoading, 15)
-		                	} else {
-		                		finish()
-		                	}
-		                }
-                    } else {
-                    	finish()
-                    }
+                    compileAndRun(message.program, container, message.lang, progver, loadfonts)
+                    if (message.autoscreenshot)
+                        setTimeout(function () {
+                            if (!window.lasterr)
+                                screenshot(true)
+                        }, 2000)
                 });
             }
+            if (message.event !== undefined) {
+                message.event.fromParentFrame = true
+                $(document).trigger(message.event)
+            }
+            if (message.screenshot !== undefined)
+                screenshot(false)
         }
-    }
+    }    
 
-    var container
-    var compiled_program
-    
-    function compileProgram(program, container, lang, version) {
+    function compileAndRun(program, container, lang, version, loadfonts) {
         try {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
-            var options = {lang: lang, version: version}
-            compiled_program = glowscript_compile(program, options)
+            var options = {lang: lang, version: version, loadfonts: loadfonts, exporting: false} // not exporting to user web site
+            var program = glowscript_compile(program, options)
             //console.log('run program')
             //var p = program.split('\n')
         	//for (var i=0; i<p.length; i++) console.log(i, p[i])
-        } catch (err) {
-            window.lasterr = err
-            reportScriptError(program, err);
-        }
-    }
-    
-    function runProgram() { // run the compiled program after the fonts have been loaded
-        try {
-        	var main = eval_script(compiled_program)
+        	var main = eval_script(program)
             window.userMain = main
 
             $("#loading").remove()
@@ -216,7 +192,7 @@ function ideRun() {
             })
         } catch (err) {
             window.lasterr = err
-            reportScriptError(compiled_program, err);
+            reportScriptError(program, err);
         }
     }
 
@@ -255,8 +231,8 @@ function ideRun() {
     function reportScriptError(program, err) { // This machinery only works on Chrome
     	// TraceKit - Cross browser stack traces: https://github.com/csnover/TraceKit
     	var prog = program.split('\n')
-    	//for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     	var referror = (err.__proto__.name === 'ReferenceError')
+    	//for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     	//console.log('Error', err)
     	//console.log('Stack', err.stack)
     	//console.log('referror', referror)
