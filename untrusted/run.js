@@ -51,10 +51,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
 }
 
 function ideRun() {
-    //"use strict";
-	// The problem with using strict mode here is that 
-	// "Strict mode does not allow function declarations in a lexically nested statement"
-	// whereas it is necessary here to put the fetching of font files inside an if.
+    "use strict";
     function eval_script(x) {
         return eval(x)
     }
@@ -123,7 +120,7 @@ function ideRun() {
                     //if (glowscript.version !== message.version && !message.unpackaged) // can't work; at this point glowscript.version is undefined
                     //    alert("Library version mismatch: package is '" + message.version + "' but glowscript.version is '" + glowscript.version + "'")
 
-                    container = $("#glowscript")
+                    var container = $("#glowscript")
                     if (message.version !== "0.3") container.removeAttr("id")
                     
                     // Look for text object in program
@@ -132,25 +129,7 @@ function ideRun() {
 	                var findstart = /^text[\ ]*\(/
                 	var loadfonts = findtext.exec(message.program)
 	                if (!loadfonts) loadfonts = findstart.exec(message.program)
-	                
-	                if (loadfonts) {
-	                	var fsans
-	                	if (navigator.onLine) fsans =  'https://s3.amazonaws.com/glowscript/fonts/Roboto-Medium.ttf' // a sans serif font
-	                	else fsans =  '../lib/FilesInAWS/Roboto-Medium.ttf' // a sans serif font
-	            		opentype.load(fsans, function(err, fontrefsans) {
-	                        if (err) throw new Error('Font ' + fsans + ' could not be loaded: ' + err)
-	                    	window.__font_sans = fontrefsans // an opentype.js Font object
-	                    })
-	                }
-                	if (loadfonts) {
-	                	var fserif
-	                	if (navigator.onLine) fserif = 'https://s3.amazonaws.com/glowscript/fonts/NimbusRomNo9L-Med.otf' // a serif font
-	                	else fserif = '../lib/FilesInAWS/NimbusRomNo9L-Med.otf' // a serif font
-	                    opentype.load(fserif, function(err, fontrefserif) {
-	                        if (err) throw new Error('Font ' + fserif + ' could not be loaded: ' + err)
-	                    	window.__font_serif = fontrefserif // an opentype.js Font object
-	                    })
-	                }
+	                if (loadfonts) fontloading() // in api_misc.js, trigger loading of fonts files for 3D text
                     
                     compileAndRun(message.program, container, message.lang, progver, loadfonts)
                     if (message.autoscreenshot)
