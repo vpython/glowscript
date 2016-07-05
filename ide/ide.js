@@ -837,9 +837,9 @@ $(function () {
                 	var findtext = /[\n\W\s]text[\ ]*\(/
 	                var findstart = /^text[\ ]*\(/
                 	var loadfonts = findtext.exec(header.source)
-	                if (!loadfonts) loadfonts = findstart.exec(header.source)                    
+	                if (!loadfonts) loadfonts = findstart.exec(header.source)
 
-                    var embedScript = window.glowscript_compile(header.source,
+					var embedScript = window.glowscript_compile(header.source,
                     		{lang: header.lang, version: header.version.substr(0,3), loadfonts: loadfonts, exporting: true})
                     var divid = "glowscript"
                     var remove = header.version==='0.3' ? '' : '.removeAttr("id")'
