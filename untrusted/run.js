@@ -129,7 +129,7 @@ function ideRun() {
 	                var findstart = /^text[\ ]*\(/
                 	var loadfonts = findtext.exec(message.program)
 	                if (!loadfonts) loadfonts = findstart.exec(message.program)
-	                if (loadfonts) fontloading() // in api_misc.js, trigger loading of fonts files for 3D text
+	                if (loadfonts) fontloading() // in api_misc.js, trigger loading of font files for 3D text
                     
                     compileAndRun(message.program, container, message.lang, progver, loadfonts)
                     if (message.autoscreenshot)
