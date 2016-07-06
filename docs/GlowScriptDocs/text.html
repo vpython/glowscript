@@ -64,7 +64,7 @@
           Unicode strings are supported. After creating the object, the text is read-only -- it cannot be changed. The reason for this is that it takes a significant portion of a second to create a 3D text object. If you need to change the text, make the current object invisible (visible=False) and create a new object.</p>
         <p class="attributes"> <span class="attribute">font</span> Name of
           the desired  font, either &quot;sans&quot; (sans serif, the default) or &quot;serif&quot;. This is read-only.</p>
-        <p class="attributes"><span class="attribute">billboard</span> In computer graphics &quot;billboard&quot; behavior means that the object always faces you, no matter how you reorient the camera. Specifying billboard = True turns this on, and you can change it at any time. Because lighting changes as you rotate the camera, you may wish to specify emissive = True, so that the text is always bright.</p>
+        <p class="attributes"><span class="attribute">billboard</span> In computer graphics &quot;billboard&quot; behavior means that the object always faces you, no matter how you reorient the camera. Specifying billboard = True when creating the text turns this on, and then is read-only.  Because lighting changes as you rotate the camera, you may wish to specify emissive = True, so that the text is always bright.</p>
         <p class="attributes"> <span class="attribute">height</span> Height
           of an uppercase letter (see above); default is 1. Specifying the
           height and depth sets the scale for the entire text display. Changing
