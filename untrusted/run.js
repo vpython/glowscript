@@ -123,15 +123,7 @@ function ideRun() {
                     var container = $("#glowscript")
                     if (message.version !== "0.3") container.removeAttr("id")
                     
-                    // Look for text object in program
-                	// findtext finds "...text  (....." and findstart finds "text  (...." at start of program
-                	var findtext = /[\n\W\s]text[\ ]*\(/
-	                var findstart = /^text[\ ]*\(/
-                	var loadfonts = findtext.exec(message.program)
-	                if (!loadfonts) loadfonts = findstart.exec(message.program)
-	                if (loadfonts) fontloading() // in api_misc.js, trigger loading of font files for 3D text
-                    
-                    compileAndRun(message.program, container, message.lang, progver, loadfonts)
+                    compileAndRun(message.program, container, message.lang, progver)
                     if (message.autoscreenshot)
                         setTimeout(function () {
                             if (!window.lasterr)
@@ -148,10 +140,10 @@ function ideRun() {
         }
     }    
 
-    function compileAndRun(program, container, lang, version, loadfonts) {
+    function compileAndRun(program, container, lang, version) {
         try {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
-            var options = {lang: lang, version: version, loadfonts: loadfonts, exporting: false} // not exporting to user web site
+            var options = {lang: lang, version: version, exporting: false} // not exporting to user web site
             var program = glowscript_compile(program, options)
             //console.log('run program')
             //var p = program.split('\n')
