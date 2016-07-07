@@ -1,5 +1,9 @@
 from __future__ import print_function, division
 
+# This is the original Python 2.7 build file, used in building GlowScript
+# according to the scheme described in docs/MakingNewVersion.txt.
+# A more sophisticated build program is build_cli.py contributed by Iblis Lin.
+
 """This python program converts various parts of glowscript from the most
 convenient format for modification into the most convenient format for
 deployment.
@@ -24,7 +28,7 @@ shader_file.append("}});")
 shader_file = "\n".join(shader_file)
 open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "2.2dev"
+version = "2.1"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {

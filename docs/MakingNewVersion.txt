@@ -1,5 +1,9 @@
 Note: After installing nodejs, on Windows you must copy node.exe into the build-tools folder.
 
+This description of how to build GlowScript is written in terms of the original build
+program, now named build_original.py. 
+A more sophisticated build program is build_cli.py contributed by Iblis Lin.
+
 There are now two different procedures to handling versioning:
 
 1) Deploy the development version to the website.  
