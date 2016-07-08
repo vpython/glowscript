@@ -840,7 +840,7 @@ $(function () {
 	                if (!loadfonts) loadfonts = findstart.exec(header.source)
 
 					var embedScript = window.glowscript_compile(header.source,
-                    		{lang: header.lang, version: header.version.substr(0,3), loadfonts: loadfonts, exporting: true})
+                    		{lang: header.lang, version: header.version.substr(0,3), loadfonts: loadfonts})
                     var divid = "glowscript"
                     var remove = header.version==='0.3' ? '' : '.removeAttr("id")'
                     var main

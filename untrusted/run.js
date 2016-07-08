@@ -143,7 +143,7 @@ function ideRun() {
     function compileAndRun(program, container, lang, version) {
         try {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
-            var options = {lang: lang, version: version, exporting: false} // not exporting to user web site
+            var options = {lang: lang, version: version}
             var program = glowscript_compile(program, options)
             //console.log('run program')
             //var p = program.split('\n')
