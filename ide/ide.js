@@ -871,16 +871,16 @@ $(function () {
                     var embedHTML = (
                         '<div id="' + divid + '" class="glowscript">\n' + 
                         '<link type="text/css" href="http://www.glowscript.org/css/redmond/' + verdir + '/jquery-ui.custom.css" rel="stylesheet" />\n' + 
-                        '<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">\n' + 
+                        '<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css" />\n' + 
                         '<link type="text/css" href="http://www.glowscript.org/css/ide.css" rel="stylesheet" />\n' + 
                         '<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>\n' +
                         '<script type="text/javascript" src="http://www.glowscript.org/lib/jquery/' + verdir + '/jquery.min.js"></script>\n' +
                         '<script type="text/javascript" src="http://www.glowscript.org/lib/jquery/' + verdir + '/jquery-ui.custom.min.js"></script>\n' +
                         '<script type="text/javascript" src="http://www.glowscript.org/package/glow.' + header.version + '.min.js"></script>\n' +
                         runner +
-                        '<script type="text/javascript">\n' +
+                        '<script type="text/javascript"><!--//--><![CDATA[//><!--\n' +
                         embedScript +
-                        '\n</script>' +
+                        '\n//--><!]]></script>' +
                         '\n</div>');
                     page.find(".embedSource").text( embedHTML )
                 })
