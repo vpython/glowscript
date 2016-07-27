@@ -57,33 +57,87 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       </table>
       <div></div>
       <div class="Normal">
-        <p class="Normal">In classic VPython, the example shown above, <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython/edit" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, would use wxPython to display buttons and sliders. In the browser environment, this has to be done in a different way. Run the program and inspect the program code to see how to create buttons, sliders, and drop-down menus to control the execution of a 3D animation.</p>
-        <div class="Normal">
-          <p class="Normal">You'll see dollar signs (&quot;$&quot;) all through the  example. It is a standard abbreviation for jQuery, a widely used library for making connections between a JavaScript program and the HTML of a web page. You may wish to study a <strong><a href="http://www.w3schools.com/jquery/" target="_blank">jQuery tutorial</a></strong>. GlowScript imports the jQuery and jQuery-ui libraries. </p>
-        </div>
-        <p class="Normal">Full understanding of the jQuery mechanisms requires a good knowledge of HTML coding as well as knowledge of jQuery itself. However, the examples shown in the program above should provide you with enough information to be able to use controls in your own GlowScript programs.</p>
-        <p class="Normal">GlowScript provides three anchor points that can be used to place jQuery widgets on the page:</p>
+        <p class="Normal">Tthe example shown above, <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, contains buttons, a slider, and a dropdown menu. The example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank"><strong>Color-RGB-HSV-VPython</strong></a><strong></strong> uses six sliders to explore RGB and HSV colors. Here is the basic idea:</p>
+        <p class="program">box()<br />
+          def B(b):<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;print(&quot;The button  said this: &quot;, b.text)<br />
+          button( text='Click me!', bind=B )<br />
+          scene.append_to_caption('\n\n')<br />
+          <br />
+def R(r):<br />
+&nbsp;&nbsp;&nbsp;&nbsp;r.checked = not r.checked<br />
+radio( bind=R )<br />
+scene.append_to_caption('\n\n')<br />
+          <br />
+          def S(s):
+<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;print(s.value)<br />
+          slider( bind=S )<br />
+          scene.append_to_caption('\n\n')<br />
+          <br />
+          def M(m):<br />
+&nbsp;&nbsp;&nbsp;          print(m.select)<br />
+menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
+<p class="Normal">By default, widgets are appended to scene.caption_anchor. The append_to_caption statements above cause the radio button to appear below the button, the slider to appear below the button, and the dropdown menu to appear below the slider. </p>
+<p class="Normal">The function specified by &quot;bind&quot; is called when the user clicks a button or radio button, drags a slider, or chooses a menu option. The function is sent a pointer to the widget, which lets you reference or change information about the widget.</p>
+<p class="Header"><strong><font color="#0000a0">Buttons</font></strong></p>
+<div class="Normal"></div>
+<p class="Normal">Here are the attributes of a <strong>button</strong> widget:</p>
+<p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the button.</p>
+<p class="attributes"> <span class="attribute">text</span> The text shown on the button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold.</p>
+<p class="attributes"> <span class="attribute">color</span> The color of the text shown on the button. Can be changed at any time.</p>
+<p class="attributes"> <span class="attribute">background</span> The background color of the button. Can be changed at any time.</p>
+<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the button is clicked. Cannot be changed after creating the button.</p>
+<p class="attributes"><font color="#FF0000">disabled</font> If True, the button text is grayed out and the button is inactive. Can be changed at any time.</p>
+<p class="Normal"></p>
+<p class="Header"><strong><font color="#0000a0">Radio buttons</font></strong></p>
+<p class="Header"></p>
+<div class="Normal"></div>
+<p class="Normal">Here are the attributes of a <strong>radio</strong> widget (a radio button):</p>
+<p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the radio button.</p>
+<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the radio button is clicked. Cannot be changed after creating the radio button.</p>
+<p class="attributes"><font color="#FF0000">checked</font> If True, the radio button is highlighted; default is False. Can be changed at any time.</p>
+<p class="Normal"></p>
+<p class="Header"><strong><font color="#0000a0">Sliders</font></strong></p>
+<div class="Normal"></div>
+<p class="Normal">Here are the attributes of a <strong>slider</strong> widget:</p>
+<p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">vertical</span> If True, the slider is vertical, otherwise the slider is horizontal (the default). Cannot be changed after creating the slider.</p>
+<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the slider is changed. Cannot be changed after creating the button.</p>
+<p class="attributes"> <span class="attribute">min</span> The minimum value of the slider; default is 0. Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">max</span> The maximum value of the slider; default is 1. Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">step</span> The step size when clicking or dragging. The default is 0.001*(max-min). Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">value</span> The current value (between min and max) of the slider. Can be set by program as well as by user motions.</p>
+<p class="attributes"> <span class="attribute">length</span> The length of the slider, whether vertical or horizontal; default is 400 (pixels). Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">width</span> The width of the slider, whether vertical or horizontal; default is 10 (pixels). Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">left</span> Margin to the left of the slider; default is 0 (pixels). Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">right</span> Margin to the right of the slider; default is 0 (pixels). Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">top</span> Margin above the slider; default is 0 (pixels). Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">bottom</span> Margin below the slider; default is 0 (pixels). Cannot be changed after creating the slider. Currently does not seem to work properly.</p>
+<p class="attributes"><font color="#FF0000">align</font> If 'left' (the default), the slider is displayed at the left of the window; if 'right', the slider is displayed at the right of the window. Cannot be changed after creating the slider.</p>
+<p class="Normal"></p>
+<p class="Header"><strong><font color="#0000a0">Menus</font></strong></p>
+<div class="Normal"></div>
+<p class="Normal">Here are the attributes of a  <strong>menu</strong> widget:</p>
+<p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the menu.</p>
+<p class="attributes"> <span class="attribute">choices</span> A list of strings to appear on the menu, such as ['cat', 'dog', 'horse']. Cannot be changed after creating the menu.</p>
+<p class="attributes"><font color="#FF0000">select</font> The chosen string, such as 'dog'.  Can be set by program as well as by user choice. </p>
+<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when a menu item is chosen. Cannot be changed after creating the menu.</p>
+<p class="attributes"><font color="#FF0000">align</font> If 'left' (the default), the slider is displayed at the left of the window; if 'right', the slider is displayed at the right of the window. Cannot be changed after creating the slider.</p>
+<p class="Normal"></p>
+<p class="Header"><strong><font color="#0000a0">Appending to anchor points</font></strong></p>
+        <div class="Normal"></div>
+<p class="Normal">GlowScript provides three anchor points that can be used to append  widgets to the page, by specifying the widget's <span class="attribute">pos</span> attribute as one of these anchor points:</p>
         <p class="program">scene.title_anchor<br />
           scene.caption_anchor<br />
-          print_anchor        </p>
-        <p class="Normal">In a jQuery operation, <strong>appendTo(cvs.title_anchor)</strong> can be used to add a widget to the title above the canvas named <strong>cvs</strong> and <strong>appendTo(cvs.caption_anchor)</strong> to add a widget to the caption below the canvas. Using <strong>appendTo(print_anchor)</strong> can be used to add a widget to that part of the page where the scrolling text area displays the output of print statements (the widget will be outside the scrolling text area). Another anchor point is the bottom of the web page, which is represented by the jQuery expression <strong>$('body')</strong>.</p>
-        <p class="Normal"><strong>Important:</strong> Do not use character strings to specify a function as an argument in a jquery statement, as the character string is evaluated in a global context outside the GlowScript context, and your function will not be found. For example, say something like<span class="attribute"> $(&quot;&lt;button/&gt;&quot;).click(handle_click)</span> rather than something like <span class="attribute">$(&quot;&lt;button onclick='handle_click'&gt;&lt;/button&quot;)</span></p>
-        <div class="Normal">
-          <p class="Normal">It is common practice in JavaScript programs and jQuery   statements to use what are called &quot;anonymous&quot; functions, and the   RapydScript-to-JavaScript compiler extends Python to permit the use of such functions. Consider the following code, which binds the function   &quot;process_click&quot; to a click event, so that when you click, the function   is executed:</p>
-          <div>
-            <p class="program"> def process_click():<br />
-&nbsp;&nbsp;&nbsp;&nbsp;print('You clicked.')<br />
-<br />
-scene.bind('click', process_click)            </p>
-            <p class="Normal">Now consider the equivalent code in which the function is &quot;anonymous&quot;:</p>
-            <div>
-              <p class="program"> scene.bind('click', def():<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;print('You clicked.')<br />
-                )            </p>
-              <p class="Normal">As usual, the body of the function must be indented.</p>
-            </div>
-          </div>
-        </div>
+          $('body')</p>
+        <p class="Normal">Specifying <strong>pos=$('body')</strong> adds a widget to the bottom of the web page, below the print area.        </p>
+        <p class="Normal"></p>
+        <p class="Header"><strong><font color="#0000a0">Positioning widgets</font></strong></p>
+        <div class="Normal"></div>
+        <p class="Normal">When you create a widget it is appended to the anchor point. If you create three button objects they will be placed next to each other. If you want some space between them, and they are in the caption, execute scene.append_to_caption('&nbsp;&nbsp;&nbsp;&nbsp;') between the creations of the buttons.</p>
+        <p class="Normal">If you want to provide a margin of 20 pixels between adjacent vertical sliders, one method is to set left=20 for all but the leftmost slider.</p>
+        <p class="Normal">To provide vertical spacing between widgets in the caption, execute something like scene.append_to_caption('\n\n') between the creations of the widgets.</p>
         <div> </div>
       </div>
       <div>
