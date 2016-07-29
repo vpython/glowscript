@@ -83,9 +83,12 @@ scene.append_to_caption('\n\n')<br />
           def M(m):<br />
 &nbsp;&nbsp;&nbsp;          print(m.select)<br />
 menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
-<p class="Normal">By default, widgets are appended to scene.caption_anchor. The append_to_caption statements above cause the radio button to appear below the button, the checkbox to appear below the radio button, the slider to appear below the checkbox, and the dropdown menu to appear below the slider. </p>
-<p class="Normal">The function specified by &quot;bind&quot; is called when the user clicks a button or radio button, drags a slider, or chooses a menu option. The function is sent a pointer to the widget, which lets you reference or change information about the widget.</p>
-<p class="Header"><strong><font color="#0000a0">Buttons</font></strong></p>
+<p class="Normal">By default, widgets are appended to scene.caption_anchor, below the canvas. The append_to_caption statements above cause the radio button to appear below the button, the checkbox to appear below the radio button, the slider to appear below the checkbox, and the dropdown menu to appear below the slider. If you specify pos=scene.title_anchor, the widget will appear above the canvas.</p>
+<p class="Normal">The function specified by &quot;bind&quot; is called when the user clicks a button or radio button or checkbox, drags a slider, or chooses a menu option. The function is sent a pointer to the widget, which lets you reference or change information about the widget.</p>
+<p class="Normal"><strong><font color="#0000a0">Adding your own attributes</font></strong></p>
+<div class="Normal"></div>
+<p class="Normal">As with other objects, you can add your own attributes to those listed below. For example, you might have three buttons all bound to the same function but with different attributes &quot;id=1&quot;, &quot;id=2&quot;, and &quot;id=3&quot;. When the function is called by the user clicking the button, you could decide what to do based on the value of the &quot;id&quot; attribute you created.</p>
+<p class="Normal"><strong><font color="#0000a0">Buttons</font></strong></p>
 <div class="Normal"></div>
 <p class="Normal">Here are the attributes of a <strong>button</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the button.</p>
