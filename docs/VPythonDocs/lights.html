@@ -67,11 +67,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="program style6"> [distant_light(direction=vector(0.22, 0.44, 0.88), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.gray(0.8)),<br />
   &nbsp;distant_light(direction=vector(-0.88, -0.22, -0.44),
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.gray(0.3))]</p>
-        <p class="Normal"><span class="attributes">          These are equivalent to the default lights in VPython prior to version
-          5. </span>You can get rid of these default lights by setting the list to empty with <span class="attribute">scene.lights
+        <p class="Normal">You can get rid of these default lights by setting the list to empty with <span class="attribute">scene.lights
               = []</span>.</p>
-        <p class="Normal">In addition to these default distant lights, there is default ambient lighting in the form of <font color="#FF0000">scene.ambient=color.gray(0.2)</font>; for compatibility with earlier versions of Visual, this can 
-        be expressed as scene.ambient=0.2, but now the ambient light can be specified as any color you want. The
+        <p class="Normal">In addition to these default distant lights, there is default ambient lighting in the form of <font color="#FF0000">scene.ambient=color.gray(0.2)</font>. The
           color of light objects and the amount of <font color="#FF0000">scene.ambient</font> must
           be specified with some care, because if the total lighting intensity
         exceeds 1 anywhere in the scene the results are unpredictable.</p>
