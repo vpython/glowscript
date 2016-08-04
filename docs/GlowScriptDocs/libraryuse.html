@@ -63,16 +63,14 @@
   A-B -&gt; A.sub(B)<br />
   k*A -&gt; A.multiply(k)<br />
   A/k -&gt; A.divide(k)  </p>
-<p class="Normal"> Here is a minimal working example HTML file: </p>
-          <p class="program">&lt;html&gt;<br />
-            &lt;body&gt;<br />
-            &lt;div id=&quot;glowscript&quot; class=&quot;glowscript&quot;&gt;<br />
-            &lt;script type=&quot;text/javascript&quot;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&nbsp;src=&quot;http://www.glowscript.org/lib/<br />
-&nbsp;&nbsp;&nbsp;&nbsp;jquery/1.1/jquery.min.js&quot;&gt;<br />&lt;/script&gt;<br />
-&lt;script type=&quot;text/javascript&quot; &nbsp;&nbsp;src=&quot;http://www.glowscript.org/lib/<br />
-&nbsp;&nbsp;&nbsp; jquery/1.1/jquery-ui.custom.min.js&quot;&gt;&lt;/script&gt;<br />
-            &lt;script type=&quot;text/javascript&quot;            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           &nbsp;&nbsp;src=&quot;http://www.glowscript.org/<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            package/glow.1.1.min.js&quot;&gt;<br />
+<p class="Normal"> Here is a minimal working example HTML file. If you copy the program from here, be sure to delete the new line and extra spaces in the middle of the second http string.</p>
+          <p class="program">&lt;div id=&quot;glowscript&quot; class=&quot;glowscript&quot;&gt;<br />
+            &lt;script type=&quot;text/javascript&quot;&nbsp;src=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&quot;http://www.glowscript.org/lib/jquery/2.1/jquery.min.js&quot;&gt;<br />&lt;/script&gt;<br />
+&lt;script type=&quot;text/javascript&quot; src=<br />
+&nbsp;&nbsp;&quot;http://www.glowscript.org/lib/<br />
+&nbsp;&nbsp;&nbsp; jquery/2.1/jquery-ui.custom.min.js&quot;&gt;<br />
+&lt;/script&gt;<br />
+            &lt;script type=&quot;text/javascript&quot; src=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           &nbsp;&nbsp;&quot;http://www.glowscript.org/package/glow.2.1.min.js&quot;&gt;<br />
 &lt;/script&gt;<br />
             <br />
             &lt;script type=&quot;text/javascript&quot;&gt;<br />
@@ -88,11 +86,8 @@
 spin()<br />
 <br />
 &lt;/script&gt;<br />
-&lt;/div&gt;<br />
-&lt;/body&gt;<br />
-&lt;/html&gt;</p>
-          <p class="Normal">If you copy the code above, be sure to delete the special spaces in the URLs. If you choose package/glow version  1.0, change &quot;jquery/1.1/&quot; to &quot;jquery/bef1.1/&quot;.</p>
-          <p class="Normal"><strong> <font color="#0000A0">Additional considerations</font></strong></p>
+&lt;/div&gt;</p>
+      <p class="Normal"><strong> <font color="#0000A0">Additional considerations</font></strong></p>
           <p class="Normal">As in the use of the rate function in the example above, in general you need to replace the keyword <span class="attribute">wait</span> in GlowScript functions with your own callback function to be called when the condition is met. For example, <span class="attribute">scene.waitfor('click',wait)</span> blocks, waiting for the user to click before executing the following statement. You can instead establish a callback function to be executed when the user clicks, as is illustrated by the use of  <span class="attribute">scene.bind</span> for handling <a href="mouse.html">keyboard and mouse events</a>.</p>
 <p class="Normal">The function <span class="attribute">read_local_file()</span> can be used in two ways, as shown below. The first form blocks, waiting for the user to choose a file before the following statement is executed. This blocking form is not available without using the preprocessing available at glowscript.org because it uses the keyword <span class="attribute">wait</span>. </p>
 <p class="Normal">The second form establishes a callback function which will be executed when the user has chosen a file.  If there are no errors, the callback function will receive two arguments, with the first argument (&quot;err&quot;) equal to null. If there is an error, the callback function will receive one argument, the error code. In the case of the read_local_file() function, an error would presumably occur only in case of a disk error.</p>
