@@ -77,13 +77,15 @@ A/|A|,  a unit vector in the direction of the vector; an alternative to A.norm()
         <br />
         <strong>cross(A,B) = A.cross(B</strong>), the vector cross product between two vectors<br />
         <br />
+        <strong>diff_angle(A,B) = A.diff_angle(B)</strong>, the angle between two vectors, in radians<br />
+        <br />
         <strong>proj(A,B) = A.proj(B) = dot(A,norm(B))*norm(B)</strong>, the vector projection of A along B<br />
         <br />
         <strong>comp(A,B) = A.comp(B) = dot(A,norm(B))</strong>, the scalar projection of A along B<br />
         <br />
-        <strong>diff_angle(A,B) = A.diff_angle(B)</strong>, the angle between two vectors, in radians<br />
+        <strong>A.equals(B)</strong> is True if <strong>A</strong> and <strong>B</strong> have the same components (which means that they have the same magnitude and the same direction) <br />
         <br />
-        <strong>vector.random() </strong>produces a vector each of whose components are random numbers in the range -1 to +1<br />
+        <strong>vector.random() </strong>produces a vector each of whose components is a random number in the range -1 to +1<br />
       <br />
       Some examples:</p>
 
@@ -115,11 +117,11 @@ A/|A|,  a unit vector in the direction of the vector; an alternative to A.norm()
  class="attribute"></span>. For convenience, if either of the vectors has zero 
               magnitude, the difference of the angles is calculated to be zero<span class="attribute"></span>.</p>
 
-          <p class="Normal"> <strong>cross(A,B)</strong> gives the cross product of two vectors, a vector perpendicular to the plane defined by <strong>A</strong> and <strong>B</strong>, 
+          <p class="Normal"> <strong>cross(A,B)</strong> or <strong>A.cross(B)</strong> gives the cross product of two vectors, a vector perpendicular to the plane defined by <strong>A</strong> and <strong>B</strong>, 
             in a direction defined by the right-hand rule: if the fingers of the right 
             hand bend from <strong>A</strong> toward <strong>B</strong>, the thumb points in the direction 
             of the cross product. The magnitude of this vector is equal  <strong>mag(A)*mag(B)*sin(diff_angle(A,B))</strong>.</p>
-          <p class="Normal"> dot(A,B) gives the dot product of two vectors, 
+          <p class="Normal"> <strong>dot(A,B)</strong> or <strong>A.dot(B)</strong> gives the dot product of two vectors, 
             which is an ordinary number equal to <strong>mag(A)*mag(B)*cos(diff_angle(A,B))</strong>. If the 
             two vectors are normalized, the dot product gives the cosine of the angle 
             between the vectors, which is often useful.          </p>
