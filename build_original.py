@@ -47,6 +47,7 @@ glowscript_libraries = {
         "../lib/glow/WebGLRenderer.js",
         "../lib/glow/graph.js",
         "../lib/glow/color.js",
+        "../lib/glow/shapespaths.js",
         "../lib/glow/primitives.js",
         "../lib/glow/poly2tri.js",
         "../lib/glow/opentype.js",

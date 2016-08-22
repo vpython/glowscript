@@ -84,10 +84,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 <div></div>
               </div>
               <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
-                <p class="Normal">The paths in the shapes and paths library all go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
+                <p class="Normal">The paths in the shapes and paths library  go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
                 <p class="Normal">However, when specifying a path from the shapes and paths library, you can specify a pos and up, to tip the path out of the x-z plane. The path of the following extrusion will have a center at the location vector(1,2,0), oriented perpendicular to the vector(1,0,0):</p>
-                <p class="program">extrusion(pos=paths.circle(pos=vector(1,2,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;up=vector(1,0,0), radius=2),<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.cyan)</p>
+                <p class="program">extrusion(pos=paths.circle(pos=vector(1,2,0),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;up=vector(1,0,0), radius=2), color=color.cyan)</p>
                 <div>
                   <div>
                     <div>
@@ -124,6 +124,19 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <div>
                       <div></div>
                     </div>
+                    <p class="Normal"><strong><font color="#0000a0">Hiding the end faces</font></strong></p>
+                    <p class="Normal">When a path is not closed, end faces are shown. You can choose not to show the end faces by setting <span class="attribute">show_start_face</span> and/or <span class="attribute">show_end_face</span> to False when creating the extrusion.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div></div>
+                    </div>
                     <p class="Normal"><strong><font color="#0000a0">Holes in the 2D shape</font></strong></p>
                     <p class="Normal">You can create a 2D shape with holes in it, in which case the extrusion has hollow sections. The  statement below creates an extrusion of a circular disk that contains a triangular hole and a trapezoidal hole:</p>
                     <p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/extrusion_holes.png" width="147" height="149" alt="extrusion" /></p>
@@ -133,11 +146,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shapes.trapezoid(pos=[0,2], width=4,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height=1, top=2) ])<br />
                     </p>
-<p class="Normal">Here the shape is described by a list of shapes. The first shape in the list is always the outer contour, and the remaining shapes represent holes.</p>
+<p class="Normal">Here the shape is described by a list of shapes. The first shape in the list is always the outer contour, and the remaining shapes represent holes. Holes must not overlap each other, which gives an error.</p>
 <p class="Normal">It is even possible to have several (non-overlapping) outer contours, each with holes. Suppose &quot;O&quot; represents an outer contour and &quot;I&quot; represents an inner contour (a hole). The following shape has three pieces, two of them with holes:</p>
 <p class="program">s =[ [O, I, I], [O], [O, I] ]</p>
-<p class="Normal">Here is an example of an extrusion of a triangle and a rectangle, and the triangle contains two holes:</p>
-<p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/multiple_outer_contours.png" width="203" height="192" alt="extrusion" /></p>
+<p class="Normal">As an example of this, the statement below creates an extrusion of a triangle and a rectangle, and the triangle contains two holes:</p>
+<p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/multiple_outer_contours.png" width="260" height="245" alt="extrusion" /></p>
 <p class="Normal"></p>
 <div>
   <div>
@@ -146,10 +159,16 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div>
           <div></div>
         </div>
+        <p class="program">extrusion(pos=p, color=color.cyan, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;shape=[ [shapes.triangle(length=2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shapes.circle(pos=[0,.5], radius=0.2),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shapes.trapezoid(pos=[0,-0.2],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width=0.6, height=0.4)],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[shapes.rectangle(pos=[0,1.8],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width=1,height=0.3)] ])</p>
         <p class="Normal"><strong><font color="#0000a0">An extrusion is a compound object</font></strong></p>
-        <p class="Normal">An extrusion is made out of <a href="triangle.html">quads</a> and <a href="triangle.html">triangles</a> which are then made into a <a href="compound.html">compound</a> object for speed of display. You can make additional copies of an extrusion by <a href="clone.html">cloning</a> it. You can move an extrusion by specifying a new <span class="attribute">origin</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span> (which starts out being in the &lt;1,0,0&gt; direction), <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>,  <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects. It is not yet possible to apply a texture to an extrusion.</p>
-        <p class="Normal">See the discussion of <a href="compound.html">compound</a> objects for details about changing the color.  </p>
-      </div>
+        <p class="Normal">An extrusion is made out of <a href="triangle.html">quads</a> and <a href="triangle.html">triangles</a> which are then made into a <a href="compound.html">compound</a> object for speed of display. You can make additional copies of an extrusion by <a href="clone.html">cloning</a> it. You can move an extrusion by specifying a new <span class="attribute">origin</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>,  <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects. In the creation of the extrusion, it is created with the standard default values of these attributes, and then any assignments you give in the extrusion creation are applied. For example, the extrusion is created with color.white, size &lt;1,1,1&gt;, and axis &lt;1,0,0&gt;, and then your own specifications are applied.</p>
+        <p class="Normal">It is not yet possible to apply a texture to an extrusion.</p>
+</div>
     </div>
   </div>
 </div>
