@@ -48,69 +48,9 @@
       </div>
       <div>
         <p class="Normal">The extrusion object extrudes a 2D shape along a path. Here is an <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Extrusions" target="_blank">example</a></strong>.</p>
-        <p class="Normal">The GlowScript extrusion object is currently more limited than the classic VPython extrusion object. Here is the minimal syntax:</p>
-        <p align="center" class="program">ex = extrusion(pos=..., shape=...)</p>
-        <p class="Normal"> The <span class="attribute">pos</span> attribute is a list of points like the <span class="attribute">pos</span> attribute of a curve object. The <span class="attribute">shape</span> attribute is a list of x-y pairs describing the perimeter of a 2D surface, such as<span class="program">[ [2,0], [0,4], [-2,0], [2,0] ]</span>. </p>
-        <p class="Normal"><strong><font color="#0000a0">The three steps to making an extrusion</font></strong></p>
-        <p class="Normal"><strong>1)</strong> Create a 2D shape, either by giving a list of points or by choosing a shape from a supplied library of common shapes. Here are two examples. The first creates a triangle by providing 3 points to the Polygon function. The second creates a circular shape from a library of shapes, and the third creates a rectangular shape (it is intended to provide a larger variety of shapes in the future.)</p>
-        <p class="program">tri = [ [2,0], [0,4], [-2,0], [2,0] ]</p>
-        <p class="program">circ = shapes.circle(radius=0.8)</p>
-        <p class="program">rect = shapes.rectangle(width=0.2, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          height=0.4)<br />
-      </p>
-        <p class="Normal">Currently a shape must be closed. That is, the last point must be the same as the first point.</p>
-        <p class="Normal"><strong>2)</strong> Create a path along which to extrude your shape (just like the <span class="attribute">pos</span> attribute of a curve object), either by giving a list of points or by choosing a path from a supplied library of common paths. Here are two examples. The first is a triangular path. The second chooses a circular path in the xz plane, and the third chooses a rectangular path in the xz plane.</p>
-        <p class="program">tripath = [ vec(1,0,0), vec(0,0,-2), <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        vec(-1,0,0], vec(1,0,0) ]</p>
-        <p class="program">circpath = paths.circle(radius=3)</p>
-        <p class="program">rectpath = paths.rectangle(width=4, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          height=2)<br />
-        </p>
-        <p class="Normal">Currently a path must be closed. That is, the last point must be the same as the first point.</p>
-      <p class="Normal"><strong>3)</strong> Create an extrusion object to extrude your shape along your path. For example, using paths and shapes defined above,</p>
-        <p class="program">extrusion(pos=circpath, shape=rect) </p>
-        <p class="Normal"><strong>Point positions are relative:</strong> A point whose pos  is <span class="program">vector</span>(2, 1, 0) is of course normally displayed at location <span class="program">vector</span>(2, 1, 0). However, the position of a point is <em>relative</em> to an extrusion's own <span class="attribute">origin</span> value, which by default is <span class="program">vector</span>(0, 0, 0). If you change the extrusion's <span class="attribute">origin</span> value to <span class="program">vector</span>(10, 6, 5), the point is displayed at the location <span class="program">vector</span>(12, 7, 5); that is, the point is displayed 2 to the right, 6 above, and 0 in front of the extrusion's position <span class="program">vector</span>(10, 6, 5). Another way of saying this is that the display location is the vector sum, <span class="program">vector</span>(10, 6, 5) + <span class="program">vector</span>(2, 1, 0). This means that you can quickly and efficiently move the entire extrusion just by changing the extrusion's <span class="attribute">origin</span> value. The <span class="attribute">pos</span> value of an individual point does not change; it's just that the point is displayed in a shifted position. As a result, moving an entire extrusion is very fast.</p>
-        <div>
-          <div>
-            <div>
-              <div>
-                <div>
-                  <div></div>
-                </div>
-                <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
-                <p class="Normal">The paths in the paths library all go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
-                <p class="Normal">However, when specifying a path from the paths library (currently paths.circle and paths.rectangle), you can specify a pos and axis. The path of the following extrusion will have a center at the location vector(1,2,0) oriented perpendicular to the axis, vector(1,0,0):</p>
-                <p class="program">extrusion(pos=paths.circle(pos=vector(1,2,0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(1,0,0), radius=2),<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.cyan)</p>
-                <div>
-                  <div>
-                    <div>
-                      <div>
-                        <div>
-                          <div></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div>
-                        <div>
-                          <div> </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <p class="Normal"><strong><font color="#0000a0">Dynamic change of attributes</font></strong></p>
-                <div>
-                  <div></div>
-                </div>
-            </div>
-            </div>
-            <p class="Normal">The extrusion object is rendered quite rapidly, so unusual effects are possible. An extrusion object is treated like a compound object, and you can dynamically change its pos (a vector), axis, size, color, and up attributes, as with other objects.</p>
-            <p class="Normal"><strong><font color="#0000a0">How the extrusion machinery works</font></strong></p>
-            <p class="Normal">At every point along the <span class="attribute">pos</span> path this point plus the preceding and following points define a plane. A 2D plane is established perpendicular to the tangent to the path at this point. The 2D shape is drawn in this 2D plane. A shape should be positioned so that its center is approximately at the location of the <span class="attribute">pos</span> locations. If you offset the shape far from the path, you may get odd results, because there is enhanced danger of two adjacent drawing planes  intersecting each other. Also, making sharp turns of wide extrusions may lead to one segment overlapping another. </p>
-            <p class="Normal">If the bending angle from one point to the next is large,  a mitered joint is produced. The bending angle is considered to be large if its cosine if greater than 0.95 (an angle of about 18 degrees). </p>
-          </div>
+      <p class="Normal">Here is the <a href="http://glowscript.org/docs/VPythonDocs/extrusion.html"><strong>detailed documentation</strong></a> of the extrusion object.</p>
+      <div>
+      <div> </div>
           <div></div>
       </div>
     <!-- InstanceEndEditable --></td>
