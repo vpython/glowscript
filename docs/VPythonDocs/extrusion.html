@@ -141,6 +141,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <p class="Normal">You can create a 2D shape with holes in it, in which case the extrusion has hollow sections. The  statement below creates an extrusion of a circular disk that contains a triangular hole and a trapezoidal hole:</p>
                     <p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/extrusion_holes.png" width="147" height="149" alt="extrusion" /></p>
                     <p class="program">extrusion(pos=[vec(0,0,0), vec(0,0,-5)], <br />
+&nbsp;&nbsp;&nbsp;&nbsp;color=color.orange,                      <br />
 &nbsp;&nbsp;&nbsp; shape=[ shapes.circle(radius=3),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; shapes.triangle(length=2),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shapes.trapezoid(pos=[0,2], width=4,<br />
@@ -159,7 +160,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div>
           <div></div>
         </div>
-        <p class="program">extrusion(pos=p, color=color.cyan, <br />
+        <p class="program">extrusion(pos=p, paths.arc(radius=2,<br />
+&nbsp;&nbsp;&nbsp;          angle1=-pi/3, angle2=pi+pi/3). color=color.cyan, <br />
 &nbsp;&nbsp;&nbsp;&nbsp;shape=[ [shapes.triangle(length=2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shapes.circle(pos=[0,.5], radius=0.2),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shapes.trapezoid(pos=[0,-0.2],<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width=0.6, height=0.4)],<br />
