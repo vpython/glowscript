@@ -56,6 +56,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">The extrusion object extrudes a 2D shape along a path. Here is an <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Extrusions" target="_blank">example</a></strong>, and here is the minimal syntax:</p>
       <p align="center" class="program">ex = extrusion(pos=..., shape=...)</p>
       <p class="Normal"> The <span class="attribute">pos</span> attribute is a list of points like the <span class="attribute">pos</span> attribute of a curve object. The <span class="attribute">shape</span> attribute is a list of x-y pairs describing the perimeter of a 2D surface, such as<span class="program">[ [2,0], [0,4], [-2,0], [2,0] ]</span>. </p>
+      <p class="Normal"><em>The extrusion object is not yet available in Jupyter VPython.</em></p>
 <p class="Normal"><strong><font color="#0000a0">The three steps to making an extrusion</font></strong></p>
         <p class="Normal"><strong>1)</strong> Create a 2D shape, either by giving a list of points or by choosing a shape from a supplied library of common shapes. Here are three examples. The first creates a triangle by listing 2D points. The second example creates a circular shape from the  <strong><a href="shapes.html">shapes and paths library</a></strong>, and the third creates a rectangular shape, using the shapes library.</p>
         <p class="program">tri = [ [2,0], [0,4], [-2,0], [2,0] ]</p>
@@ -169,12 +170,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width=1,height=0.3)] ])</p>
         <p class="Normal"><strong><font color="#0000a0">An extrusion is a compound object</font></strong></p>
         <p class="Normal">An extrusion is made out of <a href="triangle.html">quads</a> and <a href="triangle.html">triangles</a> which are then made into a <a href="compound.html">compound</a> object for speed of display. You can make additional copies of an extrusion by <a href="clone.html">cloning</a> it. You can move an extrusion by specifying a new <span class="attribute">origin</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>,  <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects. In the creation of the extrusion, it is created with the standard default values of these attributes, and then any assignments you give in the extrusion creation are applied. For example, the extrusion is created with color.white, size &lt;1,1,1&gt;, and axis &lt;1,0,0&gt;, and then your own specifications are applied.</p>
-        <p class="Normal">It is not yet possible to apply a texture to an extrusion.</p>
-</div>
+      </div>
     </div>
   </div>
 </div>
-<p class="Normal">&nbsp;</p>
                   </div>
                 </div>
               </div>
