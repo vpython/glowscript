@@ -92,7 +92,7 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="Normal">As with other objects, you can add your own attributes to those listed below. For example, you might have three buttons all bound to the same function but with different attributes &quot;id=1&quot;, &quot;id=2&quot;, and &quot;id=3&quot;. When the function is called by the user clicking the button, you could decide what to do based on the value of the &quot;id&quot; attribute you created.</p>
 <p class="Normal"><strong><font color="#0000a0">Buttons</font></strong></p>
 <div class="Normal"></div>
-<p class="Normal">Here are the attributes of a <strong>button</strong> widget:</p>
+<p class="Normal">A space is placed to the right of the button, so that there is always some space between a button and an adjacent widget. Here are the attributes of a <strong>button</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the button.</p>
 <p class="attributes"> <span class="attribute">text</span> The text shown on the button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold.</p>
 <p class="attributes"> <span class="attribute">textcolor</span> The color of the text shown on the button. Can be changed at any time.</p>
@@ -105,14 +105,14 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <div class="Normal"></div>
 <p class="Normal">Radio buttons are often used in a group of two or more, in which you arrange that only one is checked at any time. Here are the attributes of a <strong>radio</strong> widget (a radio button):</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the radio button. </p>
-<p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the radio button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold.</p>
+<p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the radio button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the radio button is clicked. Cannot be changed after creating the radio button.</p>
 <p class="attributes"><font color="#FF0000">checked</font> If True, the radio button is highlighted; default is False. Can be changed at any time.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">Checkboxes</font></strong></p>
-<p class="Header">Here are the attributes of a <strong>checkbox</strong> widget:</p>
+<p class="Normal">Here are the attributes of a <strong>checkbox</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the checkbox.</p>
-<p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the checkbox. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold.</p>
+<p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the checkbox. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the checkbox is clicked. Cannot be changed after creating the checkbox.</p>
 <p class="attributes"><font color="#FF0000">checked</font> If True, the checkbox is highlighted; default is False. Can be changed at any time.</p>
 <p class="Normal"></p>
@@ -136,7 +136,7 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">Menus</font></strong></p>
 <div class="Normal"></div>
-<p class="Normal">Here are the attributes of a  <strong>menu</strong> widget:</p>
+<p class="Normal">A space is placed to the right of the menu, so that there is always some space between a menu and an adjacent widget. Here are the attributes of a  <strong>menu</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the menu.</p>
 <p class="attributes"> <span class="attribute">choices</span> A list of strings to appear on the menu, such as ['cat', 'dog', 'horse']. Cannot be changed after creating the menu.</p>
 <p class="attributes"><font color="#FF0000">selected</font> The chosen string, such as 'dog'.  Can be set by program as well as by user choice. </p>
@@ -154,7 +154,7 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
         <p class="Normal"></p>
         <p class="Header"><strong><font color="#0000a0">Positioning widgets</font></strong></p>
         <div class="Normal"></div>
-        <p class="Normal">When you create a widget it is appended to the anchor point. If you create three button objects they will be placed next to each other. If you want some space between them, and they are in the caption, execute scene.append_to_caption('&nbsp;&nbsp;&nbsp;&nbsp;') between the creations of the buttons.</p>
+        <p class="Normal">When you create a widget it is appended to the anchor point. As explained above, a space is placed after button and menu widgets to separate them. If you want more space between them, and they are in the caption, execute scene.append_to_caption('&nbsp;&nbsp;&nbsp;&nbsp;') between the creations of the buttons. In the case of checkbox and radio widgets, you can increase the space between it and an adjacent widget simply by adding extra spaces to the end of the checkbox or radio text.</p>
         <p class="Normal">If you want to provide a margin of 20 pixels between adjacent vertical sliders, one method is to set left=20 for all but the leftmost slider.</p>
         <p class="Normal">To provide vertical spacing between widgets in the caption, execute something like scene.append_to_caption('\n\n') between the creations of the widgets. The string &quot;\n&quot; represents a new line (a &quot;carriage return&quot;).</p>
         <div> </div>
