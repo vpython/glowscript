@@ -31,7 +31,7 @@ Run a Local Server
 License
 -------
 
-The license is found at [lib/glow/LICENSE.txt](https://github.com/BruceSherwood/glowscript/blob/master/lib/glow/LICENSE.txt).
+The license is found at [LICENSE.txt](https://github.com/BruceSherwood/glowscript/blob/master/LICENSE.txt).
 
 Early version
 ------------------------------------------------------------------------------
