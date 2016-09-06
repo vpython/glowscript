@@ -4,6 +4,11 @@ from __future__ import print_function, division
 # according to the scheme described in docs/MakingNewVersion.txt.
 # A more sophisticated build program is build_cli.py contributed by Iblis Lin.
 
+# The main runtime library glow.X.Y.min.js apparently is too large to use
+# in Jupyter VPython, so this program in addition to producing glow.X.Y.min.js
+# also produces the two pieces glow.X.Ya.min.js and glow.X.Yb.min.js used in
+# Jupyter VPython.
+
 """This python program converts various parts of glowscript from the most
 convenient format for modification into the most convenient format for
 deployment.
@@ -32,7 +37,7 @@ version = "2.1"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
-    "run": [
+    "runa": [
         "../lib/jquery/"+version+"/jquery.mousewheel.js",
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
@@ -49,10 +54,12 @@ glowscript_libraries = {
         "../lib/glow/color.js",
         "../lib/glow/shapespaths.js",
         "../lib/glow/primitives.js",
+        "../lib/glow/api_misc.js"
+        ],
+    "runb": [
         "../lib/glow/poly2tri.js",
         "../lib/glow/opentype.js",
         "../lib/glow/extrude.js",
-        "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
         "../lib/transform-all.js" # needed for running programs embedded in other web sites
         ],
@@ -80,6 +87,13 @@ glowscript_libraries = {
         ],
     "ide": []
     }
+
+glowscript_libraries["run"] = []
+for a in glowscript_libraries["runa"]:
+    glowscript_libraries["run"].append(a)
+for b in glowscript_libraries["runb"]:
+    glowscript_libraries["run"].append(b)
+print(glowscript_libraries["run"])
 
 def combine(inlibs):
     all = [
@@ -113,8 +127,12 @@ def minify(inlibs, inlibs_nomin, outlib):
     outf.write( combine(inlibs_nomin) )
     outf.close()
 
+minify( glowscript_libraries["runa"], [], "package/glow." + version + "a.min.js" )
+print('Finished glow-a run-time package')
+minify( glowscript_libraries["runb"], [], "package/glow." + version + "b.min.js" )
+print('Finished glow-b run-time package')
 minify( glowscript_libraries["run"], [], "package/glow." + version + ".min.js" )
-print('Finished glow run-time package')
+print('Finished glow-b run-time package')
 minify( glowscript_libraries["compile"], [], "package/compiler." + version + ".min.js" )
 print('Finished compiler package')
 minify( glowscript_libraries["RSrun"], [], "package/RSrun." + version + ".min.js" )
