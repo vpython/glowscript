@@ -93,7 +93,6 @@ for a in glowscript_libraries["runa"]:
     glowscript_libraries["run"].append(a)
 for b in glowscript_libraries["runb"]:
     glowscript_libraries["run"].append(b)
-print(glowscript_libraries["run"])
 
 def combine(inlibs):
     all = [
