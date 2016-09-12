@@ -54,14 +54,14 @@ glowscript_libraries = {
         "../lib/glow/color.js",
         "../lib/glow/shapespaths.js",
         "../lib/glow/primitives.js",
-        "../lib/glow/api_misc.js"
+        "../lib/glow/api_misc.js",
+        "../lib/glow/shaders.gen.js",
+        "../lib/transform-all.js" # needed for running programs embedded in other web sites
         ],
     "runb": [
         "../lib/glow/poly2tri.js",
         "../lib/glow/opentype.js",
-        "../lib/glow/extrude.js",
-        "../lib/glow/shaders.gen.js",
-        "../lib/transform-all.js" # needed for running programs embedded in other web sites
+        "../lib/glow/extrude.js"
         ],
     "compile": [
         "../lib/glow/opentype.js",
