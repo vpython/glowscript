@@ -37,10 +37,12 @@ version = "2.1"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
-    "runa": [
+    "run": [
         "../lib/jquery/"+version+"/jquery.mousewheel.js",
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
+        "../lib/glow/opentype.js",
+        "../lib/glow/poly2tri.js",
         "../lib/glMatrix.js",
         "../lib/webgl-utils.js",
         "../lib/glow/property.js",
@@ -55,13 +57,9 @@ glowscript_libraries = {
         "../lib/glow/shapespaths.js",
         "../lib/glow/primitives.js",
         "../lib/glow/api_misc.js",
+        "../lib/glow/extrude.js",
         "../lib/glow/shaders.gen.js",
         "../lib/transform-all.js" # needed for running programs embedded in other web sites
-        ],
-    "runb": [
-        "../lib/glow/poly2tri.js",
-        "../lib/glow/opentype.js",
-        "../lib/glow/extrude.js"
         ],
     "compile": [
         "../lib/glow/opentype.js",
@@ -87,12 +85,6 @@ glowscript_libraries = {
         ],
     "ide": []
     }
-
-glowscript_libraries["run"] = []
-for a in glowscript_libraries["runa"]:
-    glowscript_libraries["run"].append(a)
-for b in glowscript_libraries["runb"]:
-    glowscript_libraries["run"].append(b)
 
 def combine(inlibs):
     all = [
@@ -126,12 +118,8 @@ def minify(inlibs, inlibs_nomin, outlib):
     outf.write( combine(inlibs_nomin) )
     outf.close()
 
-minify( glowscript_libraries["runa"], [], "package/glow." + version + "a.min.js" )
-print('Finished glow-a run-time package')
-minify( glowscript_libraries["runb"], [], "package/glow." + version + "b.min.js" )
-print('Finished glow-b run-time package')
 minify( glowscript_libraries["run"], [], "package/glow." + version + ".min.js" )
-print('Finished glow-b run-time package')
+print('Finished glow run-time package')
 minify( glowscript_libraries["compile"], [], "package/compiler." + version + ".min.js" )
 print('Finished compiler package')
 minify( glowscript_libraries["RSrun"], [], "package/RSrun." + version + ".min.js" )
