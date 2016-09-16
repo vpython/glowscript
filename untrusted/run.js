@@ -6,6 +6,8 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
 //        "../lib/micromarkdown.min.js", // markdown, not ready to use yet
+        "../lib/glow/poly2tri.js",
+        "../lib/glow/opentype.js",
         "../lib/glMatrix.js",
         "../lib/webgl-utils.js",
 //        "../lib/glow/glow.css", // not ready to use yet
@@ -20,8 +22,6 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/color.js",
         "../lib/glow/shapespaths.js",
         "../lib/glow/primitives.js",
-        "../lib/glow/poly2tri.js",
-        "../lib/glow/opentype.js",
         "../lib/glow/extrude.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
