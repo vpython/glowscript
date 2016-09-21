@@ -55,8 +55,14 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         </table>
         <p class="Normal">The extrusion object extrudes a 2D shape along a path. Here is an <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Extrusions" target="_blank">example</a></strong>, and here is the minimal syntax:</p>
       <p align="center" class="program">ex = extrusion(pos=..., shape=...)</p>
-      <p class="Normal"> The <span class="attribute">pos</span> attribute is a list of points like the <span class="attribute">pos</span> attribute of a curve object. The <span class="attribute">shape</span> attribute is a list of x-y pairs describing the perimeter of a 2D surface, such as<span class="program">[ [2,0], [0,4], [-2,0], [2,0] ]</span>. </p>
+      <p class="Normal"> The <span class="attribute">pos</span> attribute is a list of points like the <span class="attribute">pos</span> attribute of a curve object. The <span class="attribute">shape</span> attribute is a list of x-y pairs describing the perimeter of a 2D surface, such as<span class="program">[ [2,0], [0,4], [-2,0], [2,0] ]</span>. This 2D shape is extruded along the points specified by the pos list.      </p>
       <p class="Normal"><em>The extrusion object is not yet available in Jupyter VPython.</em></p>
+      <p class="Normal"><strong><font color="#0000a0">Other attributes</font></strong></p>
+      <p class="Normal">An extrusion is made out of <a href="triangle.html">quads</a> and <a href="triangle.html">triangles</a> which are then made into a <a href="compound.html">compound</a> object for speed of display. You can make additional copies of an extrusion by <a href="clone.html">cloning</a> it. You can move an extrusion by specifying a new <span class="attribute">origin</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects, but note that color and size are &quot;multiplicative&quot;; see <a href="compound.html">compound</a>.</p>
+      <p class="Normal">Here are additional attributes that can be specified when creating an extrusion but cannot be changed later:      </p>
+      <p class="attributes"><span class="attribute">show_start_face</span> and <span class="attribute">show_end_face</span> By default, these attributes are True and the start and end faces are displayed. If you set one of these to False, that face is left open. These attributes have no effect if the path is closed.</p>
+      <p class="attributes"><span class="attribute">start_face_color</span> and <span class="attribute">end_face_color</span> By default,the starting and ending faces are given the same color as the rest of the extrusion, as specified by <span class="attribute">color</span>, but you can specify that other colors be used for the starting or ending face. These attributes have no effect if the path is closed.</p>
+      <p class="attributes"><span class="attribute">smooth</span> By default, adjacent normals for which the cosine of the angle between them is greater than 0.95 (corresponding to an angle of 18 degrees) are averaged so as to smooth the adjacent surfaces. You can set <span class="attribute">smooth</span> to a looser criterion for more smoothing. For example, setting smooth=0.9 will smooth adjoining surfaces  whose orientation differs by 53 degrees, a much looser criterion.</p>
 <p class="Normal"><strong><font color="#0000a0">The three steps to making an extrusion</font></strong></p>
         <p class="Normal"><strong>1)</strong> Create a 2D shape, either by giving a list of points or by choosing a shape from a supplied library of common shapes. Here are three examples. The first creates a triangle by listing 2D points. The second example creates a circular shape from the  <strong><a href="shapes.html">shapes and paths library</a></strong>, and the third creates a rectangular shape, using the shapes library.</p>
         <p class="program">tri = [ [2,0], [0,4], [-2,0], [2,0] ]</p>
@@ -117,7 +123,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         </div>
           <p class="Normal"><strong><font color="#0000a0">How the extrusion machinery works</font></strong></p>
             <p class="Normal">At every point along the <span class="attribute">pos</span> path this point plus the preceding and following points define a plane. A 2D plane is established perpendicular to the tangent to the path at this point. The 2D shape is drawn in this 2D plane. A shape should be positioned so that its center is approximately at the location of the <span class="attribute">pos</span> locations. If you offset the shape far from the path, you may get odd results, because there is enhanced danger of two adjacent drawing planes  intersecting each other. Also, making sharp turns of wide extrusions may lead to one segment overlapping another. </p>
-            <p class="Normal">If the bending angle from one point to the next is large,  a mitered joint is produced. The bending angle is considered to be large if its cosine if greater than 0.95 (an angle of about 18 degrees). </p>
+            <p class="Normal">If the bending angle from one point to the next is large,  a mitered joint is produced. The bending angle is considered to be large if its cosine is greater than 0.95 (an angle of less than about 18 degrees). </p>
             <div>
               <div>
                 <div>
@@ -125,8 +131,6 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <div>
                       <div></div>
                     </div>
-                    <p class="Normal"><strong><font color="#0000a0">Hiding the end faces</font></strong></p>
-                    <p class="Normal">When a path is not closed, end faces are shown. You can choose not to show the end faces by setting <span class="attribute">show_start_face</span> and/or <span class="attribute">show_end_face</span> to False when creating the extrusion.</p>
                   </div>
                 </div>
               </div>
@@ -168,8 +172,6 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width=0.6, height=0.4)],<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[shapes.rectangle(pos=[0,1.8],<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width=1,height=0.3)] ])</p>
-        <p class="Normal"><strong><font color="#0000a0">An extrusion is a compound object</font></strong></p>
-        <p class="Normal">An extrusion is made out of <a href="triangle.html">quads</a> and <a href="triangle.html">triangles</a> which are then made into a <a href="compound.html">compound</a> object for speed of display. You can make additional copies of an extrusion by <a href="clone.html">cloning</a> it. You can move an extrusion by specifying a new <span class="attribute">origin</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>,  <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects. In the creation of the extrusion, it is created with the standard default values of these attributes, and then any assignments you give in the extrusion creation are applied. For example, the extrusion is created with color.white, size &lt;1,1,1&gt;, and axis &lt;1,0,0&gt;, and then your own specifications are applied.</p>
       </div>
     </div>
   </div>

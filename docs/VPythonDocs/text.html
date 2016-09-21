@@ -72,6 +72,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   &nbsp;&nbsp;&nbsp;&nbsp; align='center', color=color.green)</p>
 <p class="Normal">Labels were added to the display above to illustrate
   some of the main attributes of the text object. Whether you extrude into or out of the screen, the text is created so that it is readable left to right from the normal viewing position, in the +z direction.</p>
+<p class="Normal">3D text  is made out of <a href="triangle.html">quads</a> and <a href="triangle.html">triangles</a> which are then made into a <a href="compound.html">compound</a> object for speed of display. You can make additional copies of a text object by <a href="clone.html">cloning</a> it. You can move the text by specifying a new <span class="attribute">pos</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects, but note that color and size are &quot;multiplicative&quot;; see <a href="compound.html">compound</a>.</p>
 <p class="Normal">Here
   is a  list of text attributes, in addition to the usual attributes of canvas, color, shininess, and opacity (but not texture or bumpmap, currently):</p>
 <p class="attributes"> <span class="attribute">pos</span> The
@@ -83,7 +84,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   be  displayed, such as &quot;My text is\ngreen&quot; in the example above ('\n' is a new line character). 
   Unicode strings are supported. After creating the object, the text is read-only -- it cannot be changed. The reason for this is that it takes a significant portion of a second to create a 3D text object. If you need to change the text, make the current object invisible (visible=False) and create a new object.</p>
 <p class="attributes"> <span class="attribute">font </span>Name of
-      the desired  font, either &quot;sans&quot; (sans serif, the default) or &quot;serif&quot;. This is read-only.</p>
+  the desired  font, either &quot;sans&quot; (sans serif, the default) or &quot;serif&quot;. This is read-only.</p>
 <p class="attributes"><span class="attribute">billboard</span> In computer graphics &quot;billboard&quot; behavior means that the object always faces you, no matter how you reorient the camera. Specifying billboard = True when creating the text turns this on, and then is read-only. Because lighting changes as you rotate the camera, you may wish to specify emissive = True, so that the text is always bright.</p>
 <p class="attributes"> <span class="attribute">height</span> Height
   of an uppercase letter (see above); default is 1. Specifying the
@@ -93,7 +94,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   of the displayed text. After creating the 3D text, you can change this. For example, if you say T.length = 0.5*T.length, the letters become narrower but the height stays the same.</p>
 <p class="attributes"><span class="attribute">depth</span> Depth
   of the text; the default is 0.2 times the height. A positive number means extrude toward you, out of the screen; negative
-  means extruded away from you, into the screen. After creating the 3D text, you can change this. For example, if you say T.depth = 2*T.length, the letters become twice as thick.  If the depth is zero, there is no thickness; the text looks like a thin sheet.</p>
+  means extrude away from you, into the screen. After creating the 3D text, you can change this. For example, if you say T.depth = 2*T.length, the letters become twice as thick.  If the depth is zero, there is no thickness; the text looks like a thin sheet.</p>
+<p class="attributes"> <span class="attribute">color </span>The color of the text.</p>
+<p class="attributes"><span class="attribute">start_face_color</span> and <span class="attribute">end_face_color</span> By default,the starting and ending faces are given the same color as the rest of the text, as specified by <span class="attribute">color</span>, but you can specify that other colors be used for the starting or ending face of the extruded text.</p>
+<p class="attributes"><span class="attribute">show_start_face</span> and <span class="attribute">show_end_face</span> By default, these attributes are True and the start and end faces of the extruded text are displayed. If you set one of these to False, that face is left open.</p>
 <p class="attributes"><span class="attribute">descender</span> Height
   of the descender on lower-case letters such as y (whether or not
   there is such a letter in the text). This is typically about 0.3
