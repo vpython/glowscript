@@ -97,9 +97,20 @@ function ideRun() {
                 if (ver < 1.1) choose = "bef1.1"
                 else if (ver <= 2.1) choose = progver // currently 1.1, 2.0, or 2.1
                 else choose = 2.1 // 2.2dev
+                		
                 packages.push("../css/redmond/" + choose + "/jquery-ui.custom.css",
                               "../lib/jquery/"  + choose + "/jquery.min.js",
                               "../lib/jquery/"  + choose + "/jquery-ui.custom.min.js")
+                              
+                // Look for mention of MathJax in program; don't import it if it's not used
+                try {
+	                if (message.program.indexOf('MathJax') >= 0)
+	                	packages.push("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML")
+                }
+	            catch(err) {
+	            	;
+	            }
+                
                 if (ver >= 1.1 && ver < 2.1) packages.push("../lib/jquery/"  + choose + "/jquery.ui.touch-punch.min.js")
                 if (message.unpackaged) {
                     packages.push.apply(packages, glowscript_libraries.run)

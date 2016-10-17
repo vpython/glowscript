@@ -838,6 +838,11 @@ $(function () {
 	                var findstart = /^text[\ ]*\(/
                 	var loadfonts = findtext.exec(header.source)
 	                if (!loadfonts) loadfonts = findstart.exec(header.source)
+	                
+                    // Look for mention of MathJax in program; don't import it if it's not used
+                    var mathjax = ''
+                    if (header.source.indexOf('MathJax') >= 0)
+                    	mathjax = '<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>\n'
 
 					var embedScript = window.glowscript_compile(header.source,
                     		{lang: header.lang, version: header.version.substr(0,3), loadfonts: loadfonts})
@@ -867,13 +872,13 @@ $(function () {
                     else verdir = header.version.substr(0,3)
                     var runner = ''
                     if (header.lang == 'vpython' || header.lang == 'rapydscript') 
-                    	runner = '<script type="text/javascript" src="http://www.glowscript.org/package/RSrun.' + header.version + '.min.js"></script>\n'
+                    	runner = '<script type="text/javascript" src="http://www.glowscript.org/package/RSrun.' + header.version + '.min.js"></script>\n'  
                     var embedHTML = (
                         '<div id="' + divid + '" class="glowscript">\n' + 
                         '<link type="text/css" href="http://www.glowscript.org/css/redmond/' + verdir + '/jquery-ui.custom.css" rel="stylesheet" />\n' + 
                         '<link href="http://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css" />\n' + 
                         '<link type="text/css" href="http://www.glowscript.org/css/ide.css" rel="stylesheet" />\n' + 
-                        '<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>\n' +
+                        mathjax +
                         '<script type="text/javascript" src="http://www.glowscript.org/lib/jquery/' + verdir + '/jquery.min.js"></script>\n' +
                         '<script type="text/javascript" src="http://www.glowscript.org/lib/jquery/' + verdir + '/jquery-ui.custom.min.js"></script>\n' +
                         '<script type="text/javascript" src="http://www.glowscript.org/package/glow.' + header.version + '.min.js"></script>\n' +
