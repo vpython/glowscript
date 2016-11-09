@@ -96,7 +96,7 @@ function ideRun() {
                 var ver = Number(progver)
                 if (ver < 1.1) choose = "bef1.1"
                 else if (ver <= 2.1) choose = progver // currently 1.1, 2.0, or 2.1
-                else choose = 2.1 // 2.2dev
+                else choose = 2.1 // 2.2, 2.3dev
                 		
                 packages.push("../css/redmond/" + choose + "/jquery-ui.custom.css",
                               "../lib/jquery/"  + choose + "/jquery.min.js",

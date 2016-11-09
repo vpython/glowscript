@@ -11,12 +11,12 @@ You can do this without worrying too much if you haven't changed ide.js or run.j
 it can only break programs that have "GlowScript 0.4dev" and that is expected.  
 You do this by just pushing the "deploy" button in GAE (Google App Engine) launcher.
 
-2) Release a new packaged version - in this case, 0.4.  
+2) Release a new packaged version - assume it is 0.4.  
 This should normally be done after a little experimentation 
 to make sure that 0.4dev is ready for prime time.  
-I have only done this once, but I think the steps are:
+The steps are the following:
 
-Editing ide.js: After 0.4 is released, it would read
+In ide/ide.js, update parseVersionHeader.defaultVersion; after 0.4 is released, it would read:
 
 parseVersionHeader.defaultVersion = "0.4"
     parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion
@@ -35,15 +35,16 @@ and the defaultVersion would change to "0.4".
 The defaultVersion has the same run time behavior as "package", 
 but also is the default version encouraged by the editor hints and by new program creation.
 
-Making or replacing 0.4:
+Also in ide/ide.js, in the section pages.share, adjust the output of program export;
+for example, GlowScript version 2.2 uses the same verdir value as 2.1 for jquery etc.
 
-Modify build.py and property.js to have version = "0.4" and run it to create the final packages for 0.4.  
-Then change build.py and property.js to have version = "0.5dev" and save build.py, 
-so that the 0.4 package doesn't get overwritten by accident.
-
-In ide.js, update parseVersionHeader.defaultVersion.
-In run.js, update choice of jquery libraries.
+In untrusted/run.js, update choice of jquery library.
 Add to css/redmond a folder with the new name if necessary (sometimes no change is needed)
+
+Modify build_original.py and property.js to have version = "0.4" and
+   run it to create the final packages for 0.4.  
+Then change build.py and property.js to have version = "0.5dev" and save build_original.py, 
+so that the 0.4 package doesn't get overwritten by accident.
 
 If you're just fixing a bug in 0.4, all you need to do is Deploy from the Google App Engine Launcher,
 to update the package files produced in the previous step that involved build.py and property.js.
@@ -51,14 +52,14 @@ to update the package files produced in the previous step that involved build.py
 There is a Glowscript program in build-tools/Symbols.js which you need to copy into (presumably local) 
 glowscript and run to compile the symbols.  
 You have to copy and paste the results into the appropriate file (package/symbols.X.Y.min.js).  
-I have updated it to output to canvas.container instead of #glowscript so it will run in a modern IDE.  
+It sends output to canvas.container instead of #glowscript so it will run in a modern IDE.  
 
 You also have to change ide/index.html to point to the new Symbols file, 
 since the IDE doesn't yet dynamically load symbols based on the version header.
 
 Also change “Welcome to GlowScript X.Y” appropriately in ide/index.html.
 
-There is a version reference in run.html.
+There is a version reference in untrusted/run.html.
 
 There is a reference to version number in ide/api.py upgradeProgram().
 Not clear that this is ever used.
@@ -66,12 +67,9 @@ Not clear that this is ever used.
 At some point hopefully the build process will be more automated 
 (using node to run this and other javascript parts locally).
 
-Add the files package/glow.0.4.min.js and package/compiler.0.4.min.js 
-to source control and commit all changes to bitbucket.  
-
-Ideally we should create a branch "version-0.4" in bitbucket at this point, 
+Ideally we should create a branch "version-0.4" in the repository at this point, 
 in case we have to come back and patch an old version for some critical bug.  
-I have not actually done this so far.
+This has not actually been done so far.
 
 Main docs page should have correct version number.
 
@@ -82,8 +80,3 @@ that 0.4dev programs give an error, that 0.4 is the default version for a new pr
 and that 0.5dev programs work.
 
 Update examples to use version 0.4.
-
---------------------------
-On Windows:
-I used a binary installer found at http://nodejs.org/download/ to install 64-bit node to C:\Program Files.
-I then in Cygwin executed "npm install uglify-js -g" to install uglify into AppData\Roaming\npm\node_modules\uglify-js.

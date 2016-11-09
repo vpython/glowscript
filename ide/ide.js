@@ -63,7 +63,7 @@ $(function () {
         }
     }
     
-    parseVersionHeader.defaultVersion = "2.1"
+    parseVersionHeader.defaultVersion = "2.2"
     parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
     parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
@@ -78,6 +78,7 @@ $(function () {
         "1.1": "1.1",
         "2.0": "2.0",
         "2.1": "2.1",
+        "2.2": "2.2",
         "0.4dev" : "0.4",
         "0.5dev" : "0.5",
         "0.6dev" : "0.6",
@@ -86,7 +87,8 @@ $(function () {
         "1.1dev" : "1.1",
         "2.0dev" : "2.0",
         "2.1dev" : "2.1",
-        "2.2dev" : "unpackaged",
+        "2.2dev" : "2.2",
+        "2.3dev" : "unpackaged",
     }
 
     /******** Functions to talk to the API on the server ***********/
@@ -869,6 +871,7 @@ $(function () {
                     embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
                     var verdir = "bef1.1"
                     if (v == 1.1) verdir = "1.1"
+                    else if (v == 2.2) verdir = "2.1"
                     else verdir = header.version.substr(0,3)
                     var runner = ''
                     if (header.lang == 'vpython' || header.lang == 'rapydscript') 

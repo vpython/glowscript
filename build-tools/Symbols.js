@@ -1,4 +1,4 @@
-GlowScript 2.1
+GlowScript 2.2
 var ver = glowscript.version
 
 console.log( glowscript.glowscript )
