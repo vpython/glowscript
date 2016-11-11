@@ -47,12 +47,16 @@
       </div>
       <div>
         <p class="Normal"><img src="images/newtext3d.png" alt="3D text" width="503" height="232" /></p>
-        <p class="Normal">See the <a href="text_output.html"><strong>Text Output</strong></a> discussion for additional ways to output text in the GlowScript environment.</p>
+        <p class="Normal">See the <a href="text_output.html"><strong>Text Output</strong></a> discussion for additional ways to output text in the GlowScript environment. </p>
+<p class="Normal">With the text object you can display 3D text.  The
+          green 3D  text shown above was created with the following statement: </p>
         <p class="program"> text(text='My text is\ngreen',<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;align='center', depth=-0.3, <br />
-&nbsp;&nbsp;&nbsp;  color=color.green)</p>
-        <p class="Normal"></p>
-        <p class="Normal">Here
+          &nbsp;&nbsp;&nbsp;&nbsp;align='center', depth=-0.3, <br />
+  &nbsp;&nbsp;&nbsp;  color=color.green)</p>
+        <p class="Normal">Labels were added to the display above to illustrate
+          some of the main attributes of the text object. Whether you extrude into or out of the screen, the text is created so that it is readable left to right from the normal viewing position, in the +z direction.</p>
+        <p class="Normal">3D text  is made out of <a href="triangle.html"><strong>quads</strong></a> and <a href="triangle.html"><strong>triangles</strong></a> which are then made into a <a href="compound.html"><strong>compound</strong></a> object for speed of display. You can make additional copies of a text object by <a href="clone.html">cloning</a> it. You can move the text by specifying a new <span class="attribute">pos</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects, but note that color and size are &quot;multiplicative&quot;; see <a href="compound.html"><strong>compound</strong></a>.</p>
+<p class="Normal">Here
           is a  list of text attributes, in addition to the usual attributes of canvas, color, shininess, and opacity (but not texture or bumpmap, currently):</p>
         <p class="attributes"> <span class="attribute">pos</span> The
           location of the baseline of the text, to the left, to the right,
@@ -73,7 +77,7 @@
           of the displayed text. After creating the 3D text, you can change this. For example, if you say T.length = 0.5*T.length, the letters become narrower but the height stays the same.</p>
         <p class="attributes"><span class="attribute">depth</span> Depth
           of the text; the default is 0.2 times the height. A positive number means extrude toward you, out of the screen; negative
-          means extruded away from you, into the screen. After creating the 3D text, you can change this. For example, if you say T.depth = 2*T.length, the letters become twice as thick. If the depth is zero, there is no thickness; the text looks like a thin sheet.</p>
+          means extruded away from you, into the screen. After creating the 3D text, you can change this. For example, if you say T.depth = 2*T.length, the letters become twice as thick. If the depth is zero, the thickness is made to be 0.01 times the height, and the text looks like a thin sheet.</p>
         <p class="attributes"><span class="attribute">descender</span> Height
           of the descender on lower-case letters such as y (whether or not
           there is such a letter in the text). This is typically about 0.3
