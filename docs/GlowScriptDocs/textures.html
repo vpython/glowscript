@@ -56,12 +56,12 @@
           <p class="Normal">A collection of ready-to-use textures is provided; &quot;textures.stucco&quot; actually represents a character string giving the name of the image file. For the complete set of existing built-in textures, see the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures" target="_blank">Textures</a></strong>.        </p>
         </div>
         <div>
-<p class="Normal">You can optionally specify that only portions of the object should be textured. The following statement places the texture only on the right face of the box, leaving the rest of the box green (&quot;dict&quot; is a function that produces a &quot;dictionary&quot; of the form {file:textures.stucco, place:'right'} needed by JavaScript):&nbsp; </p>
+<p class="Normal">You can optionally specify that only portions of the object should be textured. The following statement places the texture only on the right face of the box, leaving the rest of the box green):&nbsp; </p>
           <div></div>
           <div>
             <p class="program"> box( color=color.green, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;texture=dict(file=textures.stucco, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;place='right') )</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;texture={'file':textures.stucco, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;place:'right'} )</p>
             <p class="Normal"><strong>Using images from other web sites:</strong> You can  use an image from another web site as a texture by specifying its URL, if that web site is &quot;CORS enabled&quot; (CORS = Cross-Origin Resource Sharing). For example,<br />
               <br />
 <strong>texture=&quot;https://s3.amazonaws.com/glowscript/textures/flower_texture.jpg&quot;</strong> <br />
