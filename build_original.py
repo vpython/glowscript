@@ -33,16 +33,16 @@ shader_file.append("}});")
 shader_file = "\n".join(shader_file)
 open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "2.2"
+version = "2.3"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
     "run": [
-        "../lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with version 2.2
+        "../lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with version 2.2/2.3
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
-        "../lib/glow/opentype.js",
-        "../lib/glow/poly2tri.js",
+        "../lib/opentype/poly2tri.js",
+        "../lib/opentype/opentype.js",
         "../lib/glMatrix.js",
         "../lib/webgl-utils.js",
         "../lib/glow/property.js",
@@ -59,58 +59,59 @@ glowscript_libraries = {
         "../lib/glow/api_misc.js",
         "../lib/glow/extrude.js",
         "../lib/glow/shaders.gen.js",
-        "../lib/transform-all.js" # needed for running programs embedded in other web sites
+        # Unfortunately, uglify currently cannot handle function*, an ES6 feature in the es6 version of transform.js.
+        # Tried using babel to make an ES5 version of transform.js, to be able to uglify, but uglify failed again.
+        # So let's use the older version of Streamline:
+        "../lib/compiling/transform.js" # needed at run time as well as during compiling
         ],
     "compile": [
-        "../lib/glow/opentype.js",
-        "../lib/compiler.js",
-        "../lib/papercomp.js",
-        "../lib/transform-all.js",
-        "../lib/coffee-script.js"
-        ],
-    "RSrun": [
-        "../lib/rapydscript/baselib.js",
-        "../lib/rapydscript/stdlib.js"
+        "../lib/coffee-script.js",
+        "../lib/compiling/GScompiler.js",
+        "../lib/compiling/acorn.es.js",
+        "../lib/compiling/papercomp.js",
+        "../lib/compiling/transform.js" # also needed here, for creating JS for embedding in other web site
         ],
     "RScompile": [
-        "../lib/glow/opentype.js",
-        "../lib/compiler.js",
-        "../lib/papercomp.js",
-        "../lib/transform-all.js",
-        "../lib/rapydscript/utils.js",
-        "../lib/rapydscript/ast.js",
-        "../lib/rapydscript/output.js",
-        "../lib/rapydscript/parse.js",
-        "../lib/rapydscript/baselib.js"
+        "../lib/compiling/GScompiler.js",
+        "../lib/rapydscript/compiler.js",
+        "../lib/compiling/acorn.es.js",
+        "../lib/compiling/papercomp.js",
+        "../lib/compiling/transform.js" # also needed here, for creating JS for embedding in other web site
+        ],
+    "RSrun": [
+        "../lib/rapydscript/runtime.js",
         ],
     "ide": []
     }
 
 def combine(inlibs):
+    # Apparently uglify moves the following string to the end of the package.
+    # "(function(){x})();" appears at the both the start and the end of the package.
     all = [
         "/*This is a combined, compressed file.  Look at https://github.com/BruceSherwood/glowscript for source code and copyright information.*/",
         ";(function(){})();"
         ]
     for fn in inlibs:
         if fn.startswith("../"): fn = fn[3:]
-        all.append( open(fn, "rt").read() )
+        all.append( open(fn, "r").read() )
     return "\n".join(all)
+
+env = os.environ.copy()
+env["NODE_PATH"] = "build-tools/UglifyJS"
 
 def minify(inlibs, inlibs_nomin, outlib):
     all = combine(inlibs)
     outf = open(outlib, "wb")
     
     if True: # minify if True
-        env = os.environ.copy()
-        env["NODE_PATH"] = "build-tools/UglifyJS"
-        uglify = subprocess.Popen( "build-tools/node.exe build-tools/UglifyJS/bin/uglifyjs",
+        uglify = subprocess.Popen( "build-tools/node.exe build-tools/UglifyJS/uglify-js/bin/uglifyjs",
             stdin=subprocess.PIPE,
             stdout=outf,
+            stderr=outf, # write uglify errors into output file
             env=env
             )
         uglify.communicate( all )
         rc = uglify.wait()
-        print("uglify " + outlib + ":", rc)
         if rc != 0:
             print("Something went wrong")
     else:
@@ -119,10 +120,10 @@ def minify(inlibs, inlibs_nomin, outlib):
     outf.close()
 
 minify( glowscript_libraries["run"], [], "package/glow." + version + ".min.js" )
-print('Finished glow run-time package')
+print('Finished glow run-time package\n')
 minify( glowscript_libraries["compile"], [], "package/compiler." + version + ".min.js" )
-print('Finished compiler package')
+print('Finished JavaScript compiler package\n')
+minify( glowscript_libraries["RScompile"], [], "package/RScompiler." + version + ".min.js" )
+print('Finished RapydScript compiler package\n')
 minify( glowscript_libraries["RSrun"], [], "package/RSrun." + version + ".min.js" )
 print('Finished RapydScript run-time package')
-minify( glowscript_libraries["RScompile"], [], "package/RScompiler." + version + ".min.js" )
-print('Finished GlowScript package')

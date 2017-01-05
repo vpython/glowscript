@@ -1,8 +1,12 @@
 Note: After installing nodejs, on Windows you must copy node.exe into the build-tools folder.
 
-This description of how to build GlowScript is written in terms of the original build
-program, now named build_original.py. 
-A more sophisticated build program is build_cli.py contributed by Iblis Lin.
+********************************************************
+* See the start of lib/compiling/GScompiler.js for how *
+* to obtain the external libraries used by GlowScript. *
+********************************************************
+
+This description of how to build GlowScript is written in terms of the original build program, now named build_original.py. 
+A more sophisticated build program is build_cli.py contributed by Iblis Lin, which may not be up to date.
 
 There are now two different procedures to handling versioning:
 
@@ -51,15 +55,14 @@ to update the package files produced in the previous step that involved build.py
 
 There is a Glowscript program in build-tools/Symbols.js which you need to copy into (presumably local) 
 glowscript and run to compile the symbols.  
-You have to copy and paste the results into the appropriate file (package/symbols.X.Y.min.js).  
-It sends output to canvas.container instead of #glowscript so it will run in a modern IDE.  
+You have to copy and paste the results into the appropriate file (package/symbols.X.Y.min.js).
 
 You also have to change ide/index.html to point to the new Symbols file, 
 since the IDE doesn't yet dynamically load symbols based on the version header.
 
 Also change “Welcome to GlowScript X.Y” appropriately in ide/index.html.
 
-There is a version reference in untrusted/run.html.
+There is a jquery version reference in untrusted/run.html.
 
 There is a reference to version number in ide/api.py upgradeProgram().
 Not clear that this is ever used.
@@ -70,8 +73,6 @@ At some point hopefully the build process will be more automated
 Ideally we should create a branch "version-0.4" in the repository at this point, 
 in case we have to come back and patch an old version for some critical bug.  
 This has not actually been done so far.
-
-Main docs page should have correct version number.
 
 Deploy in GAE launcher; note that at this point property.js should have version 0.5dev.
 

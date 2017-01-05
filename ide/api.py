@@ -79,7 +79,7 @@ class ApiRequest(web.RequestHandler):
         return True
 
     def authorize(self):
-        if self.request.headers['Host'] not in ("www.glowscript.org","localhost:8080"): 
+        if self.request.headers['Host'] not in ("www.glowscript.org","localhost:12080"): 
             self.error(403)
             return False
         return True
@@ -332,8 +332,8 @@ class ApiAdminUpgrade(ApiRequest):
         self.respond( {"processed":len(programs), "changed":changeCount} )
 
     def upgradeProgram(self, p):
-        if not p.source.startswith("GlowScript 2.2\n"):
-            p.source = "GlowScript 2.2 VPython\n" + p.source
+        if not p.source.startswith("GlowScript 2.3\n"):
+            p.source = "GlowScript 2.3 VPython\n" + p.source
             return True
 
 app = web.WSGIApplication(

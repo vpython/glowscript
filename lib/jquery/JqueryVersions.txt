@@ -12,7 +12,7 @@ IDE/jquery.mousewheel.js is a copy of versions/jquery.mousewheel-3.1.11.js
 
 jquery-1.6.2.min.js and jquery-ui-1.8.16.custom.min.js are maintained here
 because until Aug. 26, 2012, these were the files referenced in share
-packages users may have place on their own web sites.
+packages that users may have placed on their own web sites.
 
 In the future, as we update to later, compatible versions of jquery, jquery-ui, etc.,
 we expect to continue to name them simply jquery, jquery-ui, etc., without the
@@ -21,9 +21,12 @@ get the benefit of later jquery/jquery-ui/etc. versions.
 
 Later (Jan. 2016): Decided to make separate folders for versions (which change seldom).
 So the jquery-related files in jquery/bef1.1 are for versions earlier than 1.1,
-jquery/1.1 contains files for version 1.1, and jquery/2.0 contains files for version 2.0
+jquery/1.1 contains files for version 1.1, and jquery/2.0 contains files for version 2.0.
+
 There are also files in the jquery folder itself, used in some cases by older exported programs.
 The jquery/versions folder contains saved files with version numbers if available.
 The folders 1.1 and 2.0 contain up-to-date files with the version numbers removed.
 For version 2.0, the files are jquery-1.9.1.min.js, jquery-ui-1.8.23.custom.min.js,
 jquery.mousewheel-3.1.11.js, jquery.ui.touch-punch.min-0.2.3.js.
+
+jquery/2.1 contains jquery-1.12.0.min.js, jquery.mousewheel-3.1.11.js, and jquery-ui-1.11.4.custom.min.js.

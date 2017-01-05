@@ -6,8 +6,8 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
 //        "../lib/micromarkdown.min.js", // markdown, not ready to use yet
-        "../lib/glow/poly2tri.js",
-        "../lib/glow/opentype.js",
+        "../lib/opentype/poly2tri.js",
+        "../lib/opentype/opentype.js",
         "../lib/glMatrix.js",
         "../lib/webgl-utils.js",
 //        "../lib/glow/glow.css", // not ready to use yet
@@ -25,29 +25,25 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/extrude.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
-        "../lib/transform-all.js" // needed for running programs embedded in other web sites
+        "../lib/compiling/transform.js" // transform.js needed for running programs embedded in other web sites
         ],
     compile: [
-        //"../lib/glow/opentype.js",
-        "../lib/compiler.js",
-        "../lib/papercomp.js",
-        "../lib/transform-all.js",
-        "../lib/coffee-script.js"],
-    RSrun: [
-            "../lib/rapydscript/baselib.js",
-            "../lib/rapydscript/stdlib.js"
-            ],
-    RScompile: [
-        //"../lib/glow/opentype.js",
-        "../lib/compiler.js",
-        "../lib/papercomp.js",
-        "../lib/transform-all.js",
-        "../lib/rapydscript/utils.js",
-        "../lib/rapydscript/ast.js",
-        "../lib/rapydscript/output.js",
-        "../lib/rapydscript/parse.js",
-        "../lib/rapydscript/baselib.js"
+        "../lib/compiling/GScompiler.js",
+        "../lib/compiling/acorn.es.js",
+        "../lib/compiling/papercomp.js",
+        //"../lib/compiling/transform.js", // needed only for exporting a program
+        "../lib/coffee-script.js"
         ],
+    RScompile: [
+        "../lib/compiling/GScompiler.js",
+        "../lib/rapydscript/compiler.js", // includes runtime library
+        "../lib/compiling/acorn.es.js",
+        "../lib/compiling/papercomp.js",
+        //"../lib/compiling/transform.js", // needed only for exporting a program
+        ],
+    //RSrun: [ // needed only for an exported program (runtime functions are included in the rapydscript compiler)
+    //    "../lib/rapydscript/runtime.js", // minified by using jscompress.com; Uglify failed for some reason
+    //    ],
     ide: []
 }
 
@@ -63,7 +59,7 @@ function ideRun() {
         // We are being loaded from a development server; we don't know if the parent is also running on
         // a development server or is the actual web site
         //also_trusted = "http://localhost:8080"
-    	trusted_origin = "http://localhost:8080" // this eliminates some irrelevant error messages when testing
+    	trusted_origin = "http://localhost:12080" // this eliminates some irrelevant error messages when testing
     }
 
     function send(msg) {
@@ -115,14 +111,14 @@ function ideRun() {
                 if (message.unpackaged) {
                     packages.push.apply(packages, glowscript_libraries.run)
                     if (message.lang == 'rapydscript' || message.lang == 'vpython') {
-                    	packages.push.apply(packages, glowscript_libraries.RSrun)
                     	packages.push.apply(packages, glowscript_libraries.RScompile)
                     } else packages.push.apply(packages, glowscript_libraries.compile)
                 } else {
                     packages.push("../package/glow." + message.version + ".min.js")
                     if (ver >= 1.1 && (message.lang == 'rapydscript' || message.lang == 'vpython')) {
                         packages.push("../package/RScompiler." + message.version + ".min.js")
-                        packages.push("../package/RSrun." + message.version + ".min.js")
+                        // After version 2.2, the RS runtime library was included in the RS compiler:
+                        if (ver < 2.3) packages.push("../package/RSrun." + message.version + ".min.js")
                     } else
                  	    packages.push("../package/compiler." + message.version + ".min.js")
                 }
@@ -155,7 +151,7 @@ function ideRun() {
     function compileAndRun(program, container, lang, version) {
         try {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
-            var options = {lang: lang, version: version}
+            var options = {lang: lang, version: version, run: true}
             var program = glowscript_compile(program, options)
             //console.log('run program')
             //var p = program.split('\n')
@@ -255,6 +251,7 @@ function ideRun() {
                 		caller = m[1]
                 	}
                 	*/
+                	if (caller.slice(0,3) == 'RS_') continue
                     if (caller == 'compileAndRun') break
                     if (caller == 'main') break
 

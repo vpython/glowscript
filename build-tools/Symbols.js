@@ -1,4 +1,4 @@
-GlowScript 2.2
+GlowScript 2.3
 var ver = glowscript.version
 
 console.log( glowscript.glowscript )
@@ -142,13 +142,16 @@ var standardBrowserNames = {
             XPathResult              :  false
 }
 
-for(var id in standardBrowserNames)
+for (var id in standardBrowserNames)
     names.push( id  )
-
-names = $.map(names, function(v,i) { return '"'+v+'"' })
+    
+for (var n in names) {
+    var v = names[n]
+    names[n] = '"'+v+'"'
+}
 
 var prog = ('/* Generated code */\n;(function() {\n\t"use strict";\n\twindow["GlowscriptLibraryNames"] = [\n\t\t\t'
     + names.join(',')
     + ']\n})()')
 
-$("<pre/>").appendTo(canvas.container).text( prog )
+print(prog)
