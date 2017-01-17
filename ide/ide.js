@@ -1058,13 +1058,15 @@ $(function () {
                     
                     if (worker !== undefined && worker !== null) worker.terminate() // stop a previous worker
                     
-                    if (lang == 'javascript') worker = new WorkerClient(["ace"], "ace/mode/javascript_worker", "JavaScriptWorker")
+                    //if (lang == 'javascript') worker = new WorkerClient(["ace"], "ace/mode/javascript_worker", "JavaScriptWorker")
+                    worker = new WorkerClient(["ace"], "ace/mode/javascript_worker", "JavaScriptWorker")
                     
                     var doc = session.getDocument()
                     if (worker !== undefined && worker !== null) worker.$doc = doc // must set this in order to be able to execute worker.terminate()
                     
-                    if (lang == 'rapydscript' || lang == 'vpython') worker.call("setValue", [''])
-                    else worker.call("setValue", [lintPrefix])
+                    //if (lang == 'rapydscript' || lang == 'vpython') worker.call("setValue", [''])
+                    //else worker.call("setValue", [lintPrefix])
+                    worker.call("setValue", [lintPrefix])
 
                     var header = null
                     var headerError = null
