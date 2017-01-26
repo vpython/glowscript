@@ -37,6 +37,8 @@ varying vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, fli
 
 mat3 getObjectRotation() {
     // Construct the object rotation matrix.
+    // Divide objectAxis by its largest component before normalizing,
+    // to avoid problems with very large or very small magnitudes.
     float vmax = max( max( abs(objectAxis.x), abs(objectAxis.y) ), abs(objectAxis.z) );
     vec3 X = normalize(objectAxis/vmax);
     vec3 Z = cross(X,normalize(objectUp));
