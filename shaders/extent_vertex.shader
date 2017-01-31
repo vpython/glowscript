@@ -49,18 +49,14 @@ vec3 encode_float(float k) { // assumes k is >= 0
         floor(256.0*fract(256.0*logk))/255.0);
 }
 
-mat3 getObjectRotation() {
-    // Construct the object rotation matrix.  A waste to do this per vertex, but GPU >> CPU
-    vec3 X = normalize(objectAxis);
-    vec3 Z = cross(X,normalize(objectUp));
-    if ( dot(Z,Z) < 1e-10 ) {
-        Z = cross(X, vec3(1,0,0));
-        if (dot(Z,Z) < 1e-10 ) {
-            Z = cross(X, vec3(0,1,0));
-        }
-    }
-    Z = normalize(Z);
-    return mat3( X, normalize(cross(Z,X)), Z );
+mat3 getObjectRotation() { // Construct the object rotation matrix.
+    // Divide objectAxis by its largest component before normalizing,
+    // to avoid problems with very large or very small magnitudes.
+    float vmax = max( max( abs(objectAxis.x), abs(objectAxis.y) ), abs(objectAxis.z) );
+    vec3 X = normalize(objectAxis/vmax);
+    vec3 Y = normalize(objectUp);
+    // Note that axis and up are kept perpendicular to each other by CPU code.
+    return mat3( X, Y, cross(X,Y));
 }
 
 void main(void) {
