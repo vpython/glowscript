@@ -47,7 +47,7 @@
         </table>
         </div>
       <div>
-        <p class="Normal"> In the first diagram we show a simple example of a box object:<img src="images/box_info1.jpg" alt="box" width="233" height="154" align="right" /> </p>
+        <p class="Normal"> IHere is how to create a box object:</p>
         <div>
           <p class="program"> mybox = box( &nbsp;&nbsp;pos=vec(x0,y0,z0),<br />
 &nbsp;&nbsp;size=vec(L,H,W) )</p>
@@ -59,20 +59,11 @@
               = vec(1, 0, 0)</span>. 
             Note that the axis of a box is just like the axis of 
           a cylinder.</p>
-          <p class="Normal">For a box that isn't aligned with the coordinate axes, additional issues come into play. The orientation of the length of the box is given by the axis:<img src="images/box_info2.jpg" alt="box" width="221" height="154" align="right" /></p>
+          <p class="Normal">For a box that isn't aligned with the coordinate axes, additional issues come into play. The orientation of the length of the box is given by the axis:<img src="images/box_axis_up.png" alt="box" width="200" height="200" align="right" /></p>
         </div>
         <div>
           <p class="program"> mybox = box( &nbsp;pos=vec(x0,y0,z0), &nbsp;axis=vec(a,b,c), &nbsp;size=vec(L,H,W) ) </p>
           <p class="Normal"> The axis attribute gives a direction for the length of the box, and the length, height, and width of the box are given as before.</p>
-          <p class="Normal"> <strong>The role of the up attribute:</strong> There remains the issue of how to orient the box rotationally 
-            around the specified axis. The rule  is to orient the width 
-            to lie in a plane perpendicular to the display &quot;up&quot; direction, 
-            which by default is the y axis. Therefore in the diagram you see that the 
-            size.z edge lies parallel to the xz plane. The size.y edge of the box is oriented 
-            perpendicular to the size.z edge, and to the specified axis of the box. It helps 
-            to think of size.x initially as going along the x axis, size.y along the 
-            y axis, and size.z along the z axis, and when the axis is tipped the size.z edge 
-            stays in the xz plane.</p>
           <p class="Normal"> You can rotate the box around its own axis by changing which way is &quot;up&quot; for the box, by specifying an up attribute for the box that is different from the up vector of the coordinate system:</p>
         </div>
         <div>
@@ -81,18 +72,19 @@
           <p class="Normal"> Here is a full list of attributes for a box. All 3D objects have all of these attributes, other than arrow and curve:</p>
           <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position: the center of the box; default = vec(0,0,0).</p>
           <p class="attributes"> <span class="attribute">size</span> The length, width, and height of the box; default = vec(1,1,1).</p>
-          <p class="attributes"> <font color="#FF0000">axis</font> The axis points in the direction of the length of the box, default = vec(1,0,0). Only the direction of the axis is meaningful, not its magnitude. The length of the box is size.x, not the magnitude of the axis. </p>
-          <p class="attributes"> <span class="attribute">color</span> Color of object, 
+          <p class="attributes"> <font color="#FF0000">axis</font> The axis points in the direction of the length of the box, default = vec(1,0,0). Only the direction of the axis is meaningful, not its magnitude. The length of the box is size.x, not the magnitude of the axis.  An object's <font color="#FF0000">axis</font> and <span class="attribute">up</span> attributes are always perpendicular to each other. Changing the direction of <font color="#FF0000">axis</font> also changes the direction of <span class="attribute">up</span> so that the two directions always remain at right angles to each other.</p>
+          <p class="attributes"></p>
+          <p class="attributes"><span class="attribute">up</span> Which side
+            of the  box is &quot;up&quot;. An object's <font color="#FF0000">axis</font> and up attributes are always perpendicular to each other. Changing the direction of<span class="attribute"> up</span><font color="#FF0000"> </font>also changes the direction of <font color="#FF0000">axis</font> so that the two directions always remain at right angles to each other.</p>
+<p class="attributes"> <span class="attribute">color</span> Color of object, 
             as a red-green-blue (RGB) triple: vec(1,0,0) is the same as color.red, default = vec(1,1,1), 
             which is color.white.</p>
           <p class="attributes"> <span class="attribute">opacity</span> Opacity of object, default = 1 (fully opaque); 0 is completely transparent.</p>
           <p class="attributes"> <span class="attribute">shininess</span> 0 to 1, default 0.6; governs the amount of specular reflections.</p>
           <p class="attributes"> <span class="attribute">emissive</span> If True, local and distant lights are ignored, and the brightness is governed by the object's own color.   An example of its use is to put an emissive sphere at the location of a local_light, which looks like a glowing lamp.   The default for emissive is False.</p>
-          <p class="attributes"><span class="attribute">up</span> Which side
-            of the  box is &quot;up; default = vec(0,1,0).</p>
           <p class="attributes"><span class="attribute">visible</span> If False, 
             
-            object is not displayed; e.g. <span class="attribute">mybox.visible = False</span><em class="program"><br />
+          object is not displayed; e.g. <span class="attribute">mybox.visible = False</span><em class="program"><br />
               </em> Use <span class="attribute">mybox.visible =  True</span> to make the object 
             
             visible again.</p>

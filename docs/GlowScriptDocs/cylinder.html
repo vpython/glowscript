@@ -46,7 +46,7 @@
         </table>
         <p class="Normal"><strong>Studying this description of the cylinder object
             provides an overview of  important aspects common to all of the
-            GlowScript 3D objects, box, sphere, pyramid, etc. </strong></p>
+            GlowScript 3D objects, box, sphere, pyramid, etc. </strong><strong> </strong>Additional details about how to orient an object using &quot;axis&quot; and &quot;up&quot; are found in the description of the <a href="box.html"><strong>box object</strong></a>.</p>
         <table width="434" border="0">
           <tr>
             <td width="243" height="174"><p class="Normal">Here is an example 
@@ -97,16 +97,16 @@
           <p class="Normal">  Here is a full list of attributes for a cylinder. All 3D objects have all of these attributes, other than arrow and curve:</p>
       <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position: the center of one end of the cylinder; default = vec(0,0,0).</p>
       <p class="attributes"> <span class="attribute">size</span> The length, width, and height of the cylinder; default = vec(1,1,1).</p>
-          <p class="attributes"> <font color="#FF0000">axis</font> The axis points in the direction of the length of the cylinder, default = vec(1,0,0). Only the direction of the axis is meaningful, not its magnitude. The length of the cylinder is size.x, not the magnitude of the axis.      </p>
+          <p class="attributes"> <font color="#FF0000">axis</font> The axis points in the direction of the length of the cylinder, default = vec(1,0,0). Only the direction of the axis is meaningful, not its magnitude. The length of the cylinder is size.x, not the magnitude of the axis. Changing <font color="#FF0000">axis</font> may change <span class="attribute">up</span>, to ensure that <font color="#FF0000">axis</font> and <span class="attribute">up</span> are always perpendicular to each other.</p>
+          <p class="attributes"><span class="attribute">up</span> Which side
+            of the  cylinder is &quot;up&quot;; this has only a subtle effect
+            on the 3D appearance  of a cylinder unless the cross section is not circular or a texture is applied; default = vec(0,1,0). Changing <span class="attribute">up</span> may change <font color="#FF0000">axis</font>, to ensure that <font color="#FF0000">axis</font> and <span class="attribute">up</span> are always perpendicular to each other.</p>
       <p class="attributes"> <span class="attribute">color</span> Color of object, 
             as a red-green-blue (RGB) triple: vec(1,0,0) is the same as color.red, default = vec(1,1,1), 
     which is color.white.</p>
       <p class="attributes"> <span class="attribute">opacity</span> Opacity of object, default = 1 (fully opaque); 0 is completely transparent.</p>
       <p class="attributes"> <span class="attribute">shininess</span> 0 to 1, default 0.6; governs the amount of specular reflections.</p>
       <p class="attributes"> <span class="attribute">emissive</span> If True, local and distant lights are ignored, and the brightness is governed by the object's own color.   An example of its use is to put an emissive sphere at the location of a local_light, which looks like a glowing lamp.   The default for emissive is False. (For JavaScript, specify true or false instead of True or False.)</p>
-          <p class="attributes"><span class="attribute">up</span> Which side
-            of the  cylinder is &quot;up&quot;; this has only a subtle effect
-            on the 3D appearance  of a cylinder unless the cross section is not circular or a texture is applied; default = vec(0,1,0).</p>
           <p class="attributes"><span class="attribute">visible</span> If false, 
           
           object is not displayed; e.g. <span class="attribute">rod.visible = False</span><em class="program"><br />
