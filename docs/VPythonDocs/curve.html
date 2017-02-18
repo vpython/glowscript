@@ -89,10 +89,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       &nbsp;&nbsp;&nbsp;c.append(v1,v2)</p>
     <div>
       <p class="Normal"><strong><font color="#0000a0">Specifying  the color and radius of individual points</font></strong></p>
-      <p class="Normal">You can specify the color and radius of individual points that override the color and radius specified for the curve as a whole. The following sequence will create two &quot;dictionaries&quot; to use as individual points, then will use them to draw a line whose color shades from red to blue and whose radius increases from 0.1 to 0.3:</p>
+      <p class="Normal">You can specify the color and radius of individual points that override the color and radius specified for the curve as a whole. The following sequence will create two dictionaries to use as individual points, then will use them to draw a line whose color shades from red to blue and whose radius increases from 0.1 to 0.3:</p>
       <div>
-        <p class="program">p1 = dict(pos=v1, color=color.red, &nbsp;radius=0.1)<br />
-        p2 = dict(pos=v2, color=color.blue, radius=0.3)<br />
+        <p class="program">p1 = {'pos':v1, 'color':color.red,  &nbsp;'radius':0.1}<br />
+          p2 = {'pos':v2, 'color':color.blue, 'radius':0.3}<br />
         curve(p1,p2)
         </p>
       </div>
@@ -222,7 +222,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p class="Normal"><span class="attribute">point</span></p>
 <p class="program">P = c.point(N) # get a point in the form<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            # {pos:p, color:c, radius:r, visible:v}<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# P.pos is p, P.color is c, etc.</p>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# P['pos'] is p, P['color'] is c, etc.</p>
 <p class="Normal"></p>
 <p class="Normal"><span class="attribute">slice</span></p>
 <p class="program">data = c.slice(2,4) # get a list of<br />
