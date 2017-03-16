@@ -78,7 +78,7 @@ function ideRun() {
         // We are being loaded from a development server; we don't know if the parent is also running on
         // a development server or is the actual web site
         //also_trusted = "http://localhost:8080"
-    	trusted_origin = "http://localhost:12080" // this eliminates some irrelevant error messages when testing
+    	trusted_origin = "http://localhost:8080" // this eliminates some irrelevant error messages when testing
     }
 
     function send(msg) {
