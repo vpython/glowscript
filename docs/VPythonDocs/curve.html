@@ -127,7 +127,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">Similarly, changes to <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span> immediately and quickly change the size of the curve, its orientation in space, and the appearance of its surface. When you specify the position of a point, it is relative to an origin at <span class="program">vector</span>(0,0,0) and with the standard axis <span class="program">vector</span>(1,0,0). Changing the <span class="attribute">size</span> does not change the <span class="attribute">radius</span>; it just moves the points closer or farther apart.<br />
         </p>
 <p class="Normal"><strong><font color="#0000a0">Rotating a curve</font></strong></p>
-        <p class="Normal">As with other objects, tne way to change the orientation of the entire curve is to change the curve's <span class="attribute">axis</span>. You can also rotate the entire curve about a specified axis. If you don't specify an origin, rotation will occur around the origin of the curve:</p>
+        <p class="Normal">As with other objects, the way to change the orientation of the entire curve is to change the curve's <span class="attribute">axis</span>. You can also rotate the entire curve about a specified axis. If you don't specify an origin, rotation will occur around the origin of the curve:</p>
         <p class="program">c.rotate( angle=ang, axis=a, origin=o )</p>
         <p class="program">c.rotate( angle=ang, axis=a )<br />
           <br />
@@ -164,11 +164,13 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               <p class="program">c.append( vector(-1,0,0), vector(0,1,0), vector(1,0,0) )<br />
               c.append([vector(-1,0,0), vector(0,1,0), vector(1,0,0)])</p>
               <div>
-                <p class="Normal">Suppose you have created a curve named c, and p represents either just a position vector (as just shown above) or a full description of a point in either of the following forms:<br />
+                <p class="Normal">Suppose you have created a curve named c, and p represents either just a position vector (as just shown above) or a full description of a point:<br />
                   <br />
-                  &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = {pos:vector, color:a vector, radius:a number, visible:true or false}</strong></span><br />
+                  &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = {'pos':vector, 'color':a vector, 'radius':a number, 'visible':t=True or False}</strong></span><br />
                   <br />
-&nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = dict(pos=a vector, color=a vector, radius=a number, visible=true or false)</strong></span></p>
+                  This can also be written in the following way except in GlowScript VPython:
+                  <br />
+  &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = dict(pos=a vector, color=a vector, radius=a number, visible=true or false)</strong></span></p>
                 <div>
                   <p class="Normal"></p>
                 </div>
@@ -204,7 +206,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p class="program">pts = [p1, p2, p3]<br />
   c.splice(start,howmany,pts) # insert </p>
 <p class="program"></p>
-<p class="Normal">The <span class="attribute">modify</span> method lets you change specified attributes of a point:</p>
+<p class="Normal">The <span class="attribute">modify</span> method lets you change specified attributes of a point (currently works only in GlowScript VPython)::</p>
 <p class="program"> c.modify(N, # modify point number N<br />
   &nbsp;&nbsp;&nbsp;            pos=p, color=c, radius=r, visible=v)<br />
   c.modify(N, x=3, y=5) # changing x and y but not z<br />
@@ -221,14 +223,14 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p class="Normal"></p>
 <p class="Normal"><span class="attribute">point</span></p>
 <p class="program">P = c.point(N) # get a point in the form<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            # {pos:p, color:c, radius:r, visible:v}<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            # {'pos':p, 'color':c, 'radius':r, 'visible':v}<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# P['pos'] is p, P['color'] is c, etc.</p>
 <p class="Normal"></p>
 <p class="Normal"><span class="attribute">slice</span></p>
 <p class="program">data = c.slice(2,4) # get a list of<br />
             &nbsp;&nbsp;&nbsp;&nbsp;# points from point no. 2 through point no. 3,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;# each in the form<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;# {pos:p, color:c, radius:r, visible:v}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# {'pos':p, 'color':c, 'radius':r, 'visible':v}<br />
           &nbsp;&nbsp;&nbsp;&nbsp;# The first point is 0, the last point is -1</p>
 </div>
       </div>
