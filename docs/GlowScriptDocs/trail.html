@@ -61,7 +61,7 @@
           <div></div>
           <div>
             <p class="program">attach_trail(ball, retain=30 )</p>
-            <p class="Normal">By default, points are added to the trail every time the scene is rendered, which is typically about 30 times per second. You can limit the number of points per second (&quot;pps&quot;) to be added to the trail. In the following case, 5 points are added to the trail per second (the maximum value of pps that makes sense is about 30):</p>
+            <p class="Normal">By default, points are added to the trail every time the scene is rendered, which is typically about 30 times per second. No trail is started until you explicitly specify a position of the ball. You can limit the number of points per second (&quot;pps&quot;) to be added to the trail. In the following case, 5 points are added to the trail per second (the maximum value of pps that makes sense is about 30):</p>
             <div></div>
             <div>
               <p class="program">attach_trail(ball, pps=5 )</p>
@@ -77,7 +77,7 @@
 <br />
                   attach_trail(center)                  </p>
 <div></div>
-<p class="Normal">In summary, you can specify a trail to be constructed as a curve or a set of spheres, using the position of an object or  the vector result of a function. You can specify options to control <span class="attribute">color</span>, <span class="attribute">radius</span>, <span class="attribute">retain</span>, <span class="attribute">pps</span>, and <span class="attribute">type</span>. <span class="attributes">The default for the &quot;curve&quot; option is 0, which makes a thin curve (this works best in the xy plain; if it doesn't give the result you want, set trail_radius to the desired value). The default for the &quot;points&quot; option is 0.2 times the radius, 0.1 times the height or size.y, of the moving object.</span> You can change <span class="attribute">color</span> or <span class="attribute">radius</span> and the following points will be displayed with the new attributes.</p>
+<p class="Normal">In summary, you can specify a trail to be constructed as a curve or a set of spheres, using the position of an object or  the vector result of a function. You can specify options to control <span class="attribute">color</span>, <span class="attribute">radius</span>, <span class="attribute">retain</span>, <span class="attribute">pps</span>, and <span class="attribute">type</span>. <span class="attributes">The default for the &quot;curve&quot; option is 0, which makes a thin curve (this works best in the xy plane; if it doesn't give the result you want, set trail_radius to the desired value). The default for the &quot;points&quot; option is 0.2 times the radius, 0.1 times the height or size.y, of the moving object.</span> You can change <span class="attribute">color</span> or <span class="attribute">radius</span> and the following points will be displayed with the new attributes.</p>
                   <p class="Normal"><strong><font color="#0000A0">start, stop, clear</font></strong></p>
                   <div>
                     <div> </div>
@@ -92,6 +92,7 @@
                       b.start()<br />
                       ...<br />
                       b.clear()</p>
+                    <p class="Normal">&nbsp;</p>
                     <p class="Normal"><strong><font color="#0000A0">Attach an arrow</font></strong></p>
                     <p class="Normal">You can attach an arrow to a moving object. The following statement will automatically display a green arrow at the current location of the ball. The arrow will have shaftwidth=0.3, and its axis and length  is determined by scale*ball.axis:</p>
                     <div></div>
