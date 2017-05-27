@@ -112,15 +112,16 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <blockquote>
   <p class="Normal">* You will see the sentence &quot;You are signed in as &lt;your user name&gt; and your programs are <strong>here</strong>.&quot; Click on <strong>here</strong>.</p>
   <p class="Normal">* Click<strong> Create New Program</strong>. (You may wish to click on the <strong>Public</strong> tab before creating your program, as programs in your <strong>Private</strong> folder are not accessible to others.) Choose a name for the program, which should not include spaces or underscores.</p>
-  <p class="Normal">* Below the line <strong>GlowScript 2.0 VPython</strong>, type <strong>box()</strong>. Click <strong>Run this program</strong> to run your program. You will see a white box on a black background.</p>
+  <p class="Normal">* Below the line <strong>GlowScript 2.4 VPython</strong>, type <strong>box()</strong>. Click <strong>Run this program</strong> to run your program. You will see a white box on a black background.</p>
   <p class="Normal">* Use the right button (or CTRL-drag left button) of the mouse to rotate the camera to view the scene from different angles.</p>
   <p class="Normal">* To zoom in and out use two buttons, or ALT/OPTION-drag, or the mouse scrollwheel. Touch screen: swipe or two-finger rotate; pinch/extend to zoom.<br />
   </p>
 </blockquote>
+<p class="Normal"><strong><font color="#0000A0">Using the text editor</font></strong></p>
 <p class="Normal">See the start of the<a href="../GlowScriptDocs/index.html" target="_blank"> <strong>technical documentation</strong></a> for details about how to use the text editor to search, replace, etc. Note that you can press ctrl-1 to run your program instead of clicking &quot;Run this program&quot;. Or press ctrl-2 to run your program in a separate window, which lets you view your program and its execution side by side. After making a change to your program press ctrl-2 to see the effect of your changes; it isn't necessary to close the execution window.</p>
 <p class="Normal">It is recommended to use the Chrome browser for developing programs, as it provides the most useful error messages, though programs can be written and run in all browsers, including on smartphones and tablets.</p> 
       <p class="Normal"><strong><font color="#0000A0">Letting others run your programs</font></strong></p>
-      <p class="Normal">On the GlowScript edit page, click <strong>Share this program</strong> to see how to let other people run your program. For people to run your program by linking to it, the program must be in a public folder or be exported to your own web site. In fact, the code available on the share page can simply be pasted into a file and saved with the extension &quot;.html&quot;, and then you can run the program simply by doubleclicking the html file.</p>
+      <p class="Normal">While viewing the text of your program, click <strong>Share this program</strong> to see how to let other people run your program. For people to run your program by linking to it, the program must be in a public folder or be exported to your own web site. In fact, the code available on the share page can simply be pasted into a file and saved with the extension &quot;.html&quot;, and then you can run the program simply by doubleclicking the html file.</p>
 <div></div>
       <p class="Normal"><span class="style1">Descriptions of the options available in the left margin</span></p>
       <blockquote>
@@ -138,7 +139,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal"><span class="style1 style2"><a href="factorial.html">factorial/combin:</a></span> Special functions used in probability calculations.</p>
         <p class="Normal"><span class="style1 style2"><a href="new_features.html">What's new:</a></span> VPython in GlowScript, plus the history of VPython.. </p>
       </blockquote>
-      <p class="Normal"><strong>Be sure to explore the many GlowScript <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank">example programs</a></strong>, written using JavaScript, RapydScript, or VPython. The VPython option is based on the <strong><a href="https://github.com/atsepkov/RapydScript" target="_blank">RapydScript</a></strong> Python-to-JavaScript compiler. For most programs, RapydScript is nearly the same as Python, but there are differences which can be seen in the <a href="https://github.com/atsepkov/RapydScript" target="_blank">RapydScript documentation</a>.</p>
+      <p class="Normal"><strong>Be sure to explore the many GlowScript <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank">example programs</a></strong>, written using JavaScript, RapydScript, or VPython. The VPython option is based on the <strong><a href="https://github.com/kovidgoyal/rapydscript-ng" target="_blank">RapydScript-NG</a></strong> Python-to-JavaScript compiler. For most programs, RapydScript is nearly the same as Python, but there are differences which can be seen in the <a href="https://github.com/kovidgoyal/rapydscript-ng" target="_blank">RapydScript documentation</a>.</p>
       <p class="Normal"><span class="style1">CAUTION</span></p>
       <p class="Normal">Do not use &quot;wait&quot; as a variable name. All GlowScript languages (VPython, RapydScrpt, JavaScript) use &quot;wait&quot; as a special signal for the compilation process. In the VPython case this signal is inserted for you where needed.      </p>
       <p class="Normal"><span class="style1">For experienced programmers</span></p>
@@ -146,11 +147,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">You can however import selectively, as shown in the following examples, which are compatible with Jupyter VPython. (To help with converting from Classic VPython, you can  refer to &quot;vis&quot; or &quot;visual&quot; instead of &quot;vpython&quot;.)</p>
       <p class="program">import vpython<br />
         import vpython as vp # &quot;vp&quot; is any name of your choice<br />
-      from vypthon import box, color # or (box, color)</p>
+      from vypthon import box, color</p>
       <div> </div>
 <p class="Normal"><span class="style1">For those who have used Classic VPython</span></p>
 <p class="Normal">A few Classic VPython objects are not currently available in  GlowScript: convex, faces, and frame. The GlowScript objects <a href="../GlowScriptDocs/vector.html" target="_blank">vertex</a>, <a href="../GlowScriptDocs/triangle.html" target="_blank">triangle</a>, and <a href="../GlowScriptDocs/triangle.html" target="_blank">quad</a> represent a more powerful alternative to faces. Many applications of frame can be handled with the GlowScript <a href="../GlowScriptDocs/compound.html" target="_blank">compound</a> object.  </p>
-<p class="Normal">One way to deal with differences is to check the elements of the &quot;version&quot; variable that is available in both Classic VPython and the GlowScript version and do different things in the different environments:</p>
+<p class="Normal">One way to deal with differences is to check the elements of the &quot;version&quot; variable that is available in all versions of VPython:</p>
 <p class="program">Classic VPython: &nbsp;&nbsp;&nbsp;version is ['X.Y', 'release']<br />
   GlowScript VPython: version is ['X.Y', 'glowscript']<br />
   Jupyter VPython:     &nbsp;&nbsp;&nbsp;version is ['X.Y.Z', 'jupyter']<br />
@@ -158,7 +159,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   graphics library is given by<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GSversion is ['X.Y', 'glowscript']</p>
 <p class="Normal">The <a href="../GlowScriptDocs/curve.html">curve</a> and <a href="points.html">points</a> objects are somewhat different in the GlowScript environment, but with a little care it is possible to use these objects in such a way that they will also work in Classic VPython. Note that in GlowScript the list of points in a curve object is not a numpy array, so that a loop is required to change all of the points.</p>
-<p class="Normal">To handle <a href="mouse.html"><strong>mouse events</strong></a> one cannot use scene.getevent() but must use scene.bind(),  which is available both in Classic VPython 6 and in GlowScript. Also available are scene.pause() and scene.waitfor('click') and related options.</p>
+<p class="Normal">To handle <a href="mouse.html"><strong>mouse events</strong></a> one cannot use scene.getevent() but must use scene.bind(),  which is available  in all versions of VPython, starting with Classic VPython 6. Also available are scene.pause() and scene.waitfor('click') and related options.</p>
 <p class="Normal">It is not possible to import arbitrary Python modules such as numpy, and any VPython program that uses numpy will have to be modifed. However, loops are fast in the JavaScript language to which GlowScript programs compile, so if you are using numpy solely for the speed of array manipulation, you may be able to replace a numpy calculation easily and efficiently with a loop.</p>
 <p class="Normal">The difference between RapydScript and VPython programs in the GlowScript context is that the VPython option attempts to mimic  the syntax and semantics of Classic VPython programs, whereas the RapydScript option implements the same semantics for 3D objects as that of JavaScript programs. For example, in a RapydScript program the sphere object has a size attribute but no radius attribute, and like box, the default bounding box of the sphere is 1x1x1. Also, changing the length of the axis in a RapydScript program has no effect on the size (except for an arrow, which has a special axis_and_length attribute), but in a VPython program, as in Classic VPython, changing the length of the axis also changes the length of the object (the first component of the object's size).</p>
 <p class="Normal">GlowScript by default processes VPython programs as though they had the following  statements at the start of the program (which you don't need to include; they will be ignored):</p>
