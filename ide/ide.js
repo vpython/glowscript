@@ -871,17 +871,19 @@ $(function () {
                     else if (v >= 2.2) verdir = "2.1"
                     else verdir = header.version.substr(0,3)
                     var runner = ''
+                    var exporturl = "http://www.glowscript.org/"
+                    if (v >= 2.5) exporturl = "https://s3.amazonaws.com/glowscript/"
                     if (header.lang == 'vpython' || header.lang == 'rapydscript') 
-                    	runner = '<script type="text/javascript" src="https://s3.amazonaws.com/glowscript/package/RSrun.' + header.version + '.min.js"></script>\n'  
+                    	runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'
                     var embedHTML = (
                         '<div id="' + divid + '" class="glowscript">\n' + 
-                        '<link type="text/css" href="https://s3.amazonaws.com/glowscript/css/redmond/' + verdir + '/jquery-ui.custom.css" rel="stylesheet" />\n' + 
+                        '<link type="text/css" href="'+exporturl+'css/redmond/' + verdir + '/jquery-ui.custom.css" rel="stylesheet" />\n' + 
                         '<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css" />\n' + 
-                        '<link type="text/css" href="https://s3.amazonaws.com/glowscript/css/ide.css" rel="stylesheet" />\n' + 
+                        '<link type="text/css" href="'+exporturl+'css/ide.css" rel="stylesheet" />\n' + 
                         mathjax +
-                        '<script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/' + verdir + '/jquery.min.js"></script>\n' +
-                        '<script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/' + verdir + '/jquery-ui.custom.min.js"></script>\n' +
-                        '<script type="text/javascript" src="https://s3.amazonaws.com/glowscript/package/glow.' + header.version + '.min.js"></script>\n' +
+                        '<script type="text/javascript" src="'+exporturl+'lib/jquery/' + verdir + '/jquery.min.js"></script>\n' +
+                        '<script type="text/javascript" src="'+exporturl+'lib/jquery/' + verdir + '/jquery-ui.custom.min.js"></script>\n' +
+                        '<script type="text/javascript" src="'+exporturl+'package/glow.' + header.version + '.min.js"></script>\n' +
                         runner +
                         '<script type="text/javascript"><!--//--><![CDATA[//><!--\n' +
                         embedScript +
