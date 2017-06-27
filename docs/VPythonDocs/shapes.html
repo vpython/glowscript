@@ -85,7 +85,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal"> The shape can be visualized in VPython by executing the following statement, which extrudes the rectangular shape into the screen, along the line from vec(0,0,0) to vec(0,0,-0.1):</p>
         <table width="675" height="128" border="0">
           <tr>
-            <td width="489" height="124"><p class="program">extrusion(pos=[vec(0,0,0), vec(0,0,-0.1)], <br />
+            <td width="489" height="124"><p class="program">extrusion(path=[vec(0,0,0), vec(0,0,-0.1)], <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=rt)</p></td>
             <td width="172"><p><img src="images/rectangle_shape.jpg" width="172" height="122" alt="rotate rectangle" /></p></td>
           </tr>
@@ -137,7 +137,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="program">rt = shapes.rectangle(pos=[2,1], width=10, height=6)</p>
         <p class="Normal"><strong><font color="#0000a0"><a name="make-path" id="path-relative2"></a>Making a path instead of a shape</font></strong></p>
         <p class="Normal">Just as the shapes library provides a convenient way to create 2D shapes to extrude, the paths library provides a convenient way to create 3D paths for the extrusion object. Here is an example:</p>
-        <p class="program">extrusion(pos=paths.rectangle(width=50, height=30),<br />
+        <p class="program">extrusion(path=paths.rectangle(width=50, height=30),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=10, height=3))        </p>
         <p class="Normal">This produces a 50 by 30 rectangular path in the x-z plane along which is extruded a 2D rectangular shape perpendicular to the path. One can think of  extrusions that use these shapes and paths functions (except for paths.line) as starting on the right with a 2D shape in the x-y plane, headed in the -z direction (into the screen), with the path going counterclockwise in the x-z plane as seen from above. If you print paths.rectangle(width=50, height=30), this is what it looks like, a list of 3D positions in the y=0 (xz) plane:</p>
         <p class="Normal"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ &lt; 25, 0, 15 &gt;, &lt; 25, 0, -15 &gt;, &lt; -25, 0, -15 &gt;, &lt; -25, 0, 15 &gt;, &lt; 25, 0, 15 &gt; ]</strong>        </p>
