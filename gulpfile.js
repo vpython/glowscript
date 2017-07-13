@@ -15,6 +15,7 @@ glowscript_libraries = {
     "lib/jquery/jquery.mousewheel.js",
     "lib/flot/jquery.flot.min.js",
     "lib/flot/jquery.flot.crosshair_GS.js",
+    "lib/flot/jquery.flot.axislabels.js",
     "lib/glMatrix.js",
     "lib/webgl-utils.js",
     "lib/glow/property.js",
