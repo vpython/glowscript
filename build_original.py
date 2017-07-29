@@ -41,6 +41,7 @@ glowscript_libraries = {
         "../lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with version 2.2/2.3
         "../lib/flot/jquery.flot.min.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
+        "../lib/flot/jquery.flot.axislabels.js",
         "../lib/opentype/poly2tri.js",
         "../lib/opentype/opentype.js",
         "../lib/glMatrix.js",
