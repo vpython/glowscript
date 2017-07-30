@@ -70,7 +70,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   &nbsp;&nbsp;&nbsp;&nbsp; align='center', color=color.green)</p>
 <p class="Normal">Labels were added to the display above to illustrate
   some of the main attributes of the text object. Whether you extrude into or out of the screen, the text is created so that it is readable left to right from the normal viewing position, in the +z direction.</p>
-<p class="Normal">3D text  is made out of <a href="triangle.html"><strong>quads</strong></a> and <a href="triangle.html"><strong>triangles</strong></a> which are then made into a <a href="compound.html"><strong>compound</strong></a> object for speed of display. You can make additional copies of a text object by <a href="clone.html">cloning</a> it. You can move the text by specifying a new <span class="attribute">pos</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects, but note that color and size are &quot;multiplicative&quot;; see <a href="compound.html"><strong>compound</strong></a>.</p>
+<p class="Normal">3D text  is made out of <a href="triangle.html"><strong>quads</strong></a> and <a href="triangle.html"><strong>triangles</strong></a> which are then made into a <a href="compound.html"><strong>compound</strong></a> object for speed of display. You can make additional copies of a text object by <a href="clone.html">cloning</a> it. You can move the text by specifying a new <span class="attribute">pos</span>, and you can change its <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects, but note that color and size are &quot;multiplicative&quot;; see <a href="compound.html"><strong>compound</strong></a>.</p>
+<p class="Normal"><strong><em>The 3D text object does not have a <span class="attribute">size</span> attribute.</em></strong> Instead, the size of the display is specified by <span class="attribute">height</span>, <span class="attribute">length</span> and <span class="attribute">depth</span> as discussed below.</p>
 <p class="Normal">Here
   is a  list of text attributes, in addition to the usual attributes of canvas, color, shininess, and opacity (but not texture or bumpmap, currently):</p>
 <p class="attributes"> <span class="attribute">pos</span> The
@@ -86,13 +87,13 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p class="attributes"><span class="attribute">billboard</span> In computer graphics &quot;billboard&quot; behavior means that the object always faces you, no matter how you reorient the camera. Specifying billboard = True when creating the text turns this on, and then is read-only. Because lighting changes as you rotate the camera, you may wish to specify emissive = True, so that the text is always bright.</p>
 <p class="attributes"> <span class="attribute">height</span> Height
   of an uppercase letter (see above); default is 1. Specifying the
-  height and depth sets the scale for the entire text display. Changing
-  the height also changes descent and vertical_spacing, but not depth. After creating the 3D text, you can change the height. For example, if you say T.height = 0.5*T.height, the letters become shorter but the length stays the same.</p>
+  height sets the scale for the entire text display. After creating the 3D text, changing
+  the height also changes descent and vertical_spacing. After creating the 3D text, you can change the height. For example, if you say T.height = 0.5*T.height, the letters become shorter but the length stays the same.</p>
 <p class="attributes"><span class="attribute">length</span> length
-  of the displayed text. After creating the 3D text, you can change this. For example, if you say T.length = 0.5*T.length, the letters become narrower but the height stays the same.</p>
+  of the displayed text. You cannot specify a length when creating the 3D text, but you can change this later. For example, if you say T.length = 0.5*T.length, the letters become narrower but the height stays the same.</p>
 <p class="attributes"><span class="attribute">depth</span> Depth
-  of the text; the default is 0.2 times the height. A positive number means extrude toward you, out of the screen; negative
-  means extrude away from you, into the screen. After creating the 3D text, you can change this. For example, if you say T.depth = 2*T.length, the letters become twice as thick.  If the depth is zero, the thickness is made to be 0.01 times the height, and the text looks like a thin sheet.</p>
+  of the text; the default is 0.2 times the height when creating the 3D text. A positive number means extrude toward you, out of the screen; negative
+  means extrude away from you, into the screen. After creating the 3D text, you can change this. For example, if you say T.depth = 2*T.depth, the letters become twice as thick.  If the depth is zero, the thickness is made to be 0.01 times the height, and the text looks like a thin sheet.</p>
 <p class="attributes"> <span class="attribute">color </span>The color of the text.</p>
 <p class="attributes"><span class="attribute">start_face_color</span> and <span class="attribute">end_face_color</span> By default,the starting and ending faces are given the same color as the rest of the text, as specified by <span class="attribute">color</span>, but you can specify that other colors be used for the starting or ending face of the extruded text.</p>
 <p class="attributes"><span class="attribute">show_start_face</span> and <span class="attribute">show_end_face</span> By default, these attributes are True and the start and end faces of the extruded text are displayed. If you set one of these to False, that face is left open.</p>
@@ -108,7 +109,6 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   locations on the baseline. These are read-only. If align is 'left', pos is the same as start. If align is 'right', pos is the same as end.</p>
 <p class="attributes"><span class="attribute">vertical_spacing</span> Vertical
   distance from one baseline to the next in a multiline text. This is read-only.</p>
-<p class="attributes"><span class="attribute">size</span> When you change the size, the axis is not affected.</p>
 <p class="attributes"><span class="attribute">axis</span> The axis
   points along the baseline; changing the axis changes the orientation
   of text.  The default is vector(1,0,0), with text going toward the right. Changing the axis only affects the direction of the line of text, not the length or size.</p>
