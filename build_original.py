@@ -33,7 +33,7 @@ shader_file.append("}});")
 shader_file = "\n".join(shader_file)
 open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "2.5"
+version = "2.6"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
@@ -108,7 +108,9 @@ def minify(inlibs, inlibs_nomin, outlib):
     outf = open(outlib, "wb")
     
     if True: # minify if True
-        uglify = subprocess.Popen( "build-tools/node.exe build-tools/UglifyJS/uglify-js/bin/uglifyjs",
+        # This fails on RSrun; had to use https://jscompress.com/ to minify RSrun:
+        uglify = subprocess.Popen( "build-tools/node.exe build-tools/Uglify-ES/uglify-es/bin/uglifyjs",
+        #uglify = subprocess.Popen( "build-tools/node.exe build-tools/UglifyJS/uglify-js/bin/uglifyjs",
             stdin=subprocess.PIPE,
             stdout=outf,
             stderr=outf, # write uglify errors into output file
