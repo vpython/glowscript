@@ -62,6 +62,7 @@ glowscript_libraries = {
         "../lib/glow/shaders.gen.js",
         # Unfortunately, uglify currently cannot handle function*, an ES6 feature in the es6 version of transform.js.
         # Tried using babel to make an ES5 version of transform.js, to be able to uglify, but uglify failed again.
+        # Later: uglify-es does seem to handle ES6 but fails on RSrun; see below.
         # So let's use the older version of Streamline:
         "../lib/compiling/transform.js" # needed at run time as well as during compiling
         ],

@@ -67,7 +67,7 @@ into this canvas by default; e.g. <span class="attribute">scene.select() </span>
       <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
               and height of the canvas area in pixels. Defaults are 640 and 400. Can be specified when creating the canvas, as in the example above, or set or changed later.</p>
       <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (canvas forced to left side of window), &quot;right&quot; (canvas forced to right side of window), or &quot;none&quot; (the default alignment). For example, if you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object.</p>
-      <p class="attributes"><span class="attribute">resizable</span> If True (the default) the user can resize the canvas.</p>
+      <p class="attributes"><span class="attribute">resizable</span> If True (the default) the user can resize the canvas. If C is a canvas that is resizable, then <strong>C.bind('resize', R)</strong> will execute the function R when the user resizes that canvas. If R has the form <strong>def R(ev):</strong>, then ev.event will be 'resize' and ev.canvas will be the canvas C.</p>
       <p class="attributes"> <span class="attribute">background</span> Set color 
       to be used to fill the canvas; default is black.</p>
           <p class="attributes"><span class="attribute">ambient</span> Color
