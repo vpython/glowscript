@@ -1,0 +1,123 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "uglify-es",
+        "scope": null,
+        "escapedName": "uglify-es",
+        "name": "uglify-es",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\0C\\workspace\\uglify-es-g"
+    ]
+  ],
+  "_from": "uglify-es@latest",
+  "_id": "uglify-es@3.0.27",
+  "_inCache": true,
+  "_location": "/uglify-es",
+  "_nodeVersion": "8.2.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/uglify-es-3.0.27.tgz_1501403683252_0.4313966170884669"
+  },
+  "_npmUser": {
+    "name": "alexlamsl",
+    "email": "alexlamsl@gmail.com"
+  },
+  "_npmVersion": "5.3.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "uglify-es",
+    "scope": null,
+    "escapedName": "uglify-es",
+    "name": "uglify-es",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/uglify-es/-/uglify-es-3.0.27.tgz",
+  "_shasum": "391790388f369196be23a49caeb0d5c424fa774e",
+  "_shrinkwrap": null,
+  "_spec": "uglify-es",
+  "_where": "D:\\0C\\workspace\\uglify-es-g",
+  "author": {
+    "name": "Mihai Bazon",
+    "email": "mihai.bazon@gmail.com",
+    "url": "http://lisperator.net/"
+  },
+  "bin": {
+    "uglifyjs": "bin/uglifyjs"
+  },
+  "bugs": {
+    "url": "https://github.com/mishoo/UglifyJS2/issues"
+  },
+  "dependencies": {
+    "commander": "~2.11.0",
+    "source-map": "~0.5.1"
+  },
+  "description": "JavaScript parser, mangler/compressor and beautifier toolkit for ES6+",
+  "devDependencies": {
+    "acorn": "~5.1.1",
+    "mocha": "~3.4.2",
+    "semver": "~5.3.0"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-pilJpTnbfm9OhYKJJn7rwv3rtdMerqv+HLLS+Vz/3q3uYA5mE+aQYslfqyj3+fiNwoC+PQRCLyvxkkANa5zYHw==",
+    "shasum": "391790388f369196be23a49caeb0d5c424fa774e",
+    "tarball": "https://registry.npmjs.org/uglify-es/-/uglify-es-3.0.27.tgz"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "tools",
+    "LICENSE"
+  ],
+  "gitHead": "f54ab1684397fe6d6279821d4d7126bfccf20aef",
+  "homepage": "https://github.com/mishoo/UglifyJS2/tree/harmony",
+  "keywords": [
+    "uglify",
+    "uglify-es",
+    "uglify-js",
+    "minify",
+    "minifier",
+    "javascript",
+    "ecmascript",
+    "es5",
+    "es6",
+    "es7",
+    "es8",
+    "es2015",
+    "es2016",
+    "es2017",
+    "async",
+    "await"
+  ],
+  "license": "BSD-2-Clause",
+  "main": "tools/node.js",
+  "maintainers": [
+    {
+      "name": "alexlamsl",
+      "email": "alexlamsl@gmail.com"
+    }
+  ],
+  "name": "uglify-es",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
+  },
+  "scripts": {
+    "test": "node test/run-tests.js"
+  },
+  "version": "3.0.27"
+}
