@@ -132,9 +132,7 @@
             
           of graph plotting object: </p>
           <p class="program"> gd = graph(width=600, height=150, <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='N 
-            
-            vs. t', <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='' &nbsp;&nbsp;&nbsp;&lt;b&gt;Test&lt;/b&gt;', <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            xtitle='t', ytitle='N', <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreground=color.black, 
             
@@ -143,11 +141,9 @@
             
             xmin=-20,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            ymax=5E3, ymin=-2E3)</p>
-          <p class="Normal"> In this example, the graph window will have a size of 600 by 150 pixels, and the title bar will say 'N vs. t'. 
+          <p class="Normal">In this example, the graph window will have a size of 600 by 150 pixels, and above the graph
             
-            The graph will have a title 't' on the horizontal axis and 'N' on the vertical 
-            
-            axis. The foreground color is black (the default), and the background color is white (the default). Once the graph has been activated by executing gcurve or gdots or gvbars or ghbars, it is not possible to change the title, xtitle, or ytitle and further.</p>
+          there will be an indented bold title &quot;Test&quot;. The x and y axes of the graph will have the labels. 't' and 'N' (xtitle and ytitle do not currently handle html commands such as &lt;b&gt;). The foreground color is black (the default), and the background color is white (the default). Once the graph has been activated by executing gcurve or gdots or gvbars or ghbars, it is not possible to change the title, xtitle, or ytitle and further.</p>
           <p class="Normal">Instead of autoscaling the graph to display all the data, the graph in this example  
             
             will have fixed limits. The horizontal axis will extend from -20 to +50, 
