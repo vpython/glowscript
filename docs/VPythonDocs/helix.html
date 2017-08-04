@@ -74,8 +74,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             if not specified, axis determines the length, default = 1<br />
       If length is specified, it overrides the length given by axis</p>
           <p class="attributes"> <span class="attribute">radius</span> The radius of 
-            the cylinder, default = 1</p>
-          <p class="attributes"> <span class="attribute">size</span> Instead of specifying length and radius, you can set size=vector(length,height,width), which means that the cross section of the helix can be elliptical, which is not currently possible in classic VPython</p>
+            the helix, default = 1</p>
+          <p class="attributes"><span class="Normal"><span class="attribute">thickness</span> is the diameter of the cross section of the curve used to draw the helix; default is radius/20.</span></p>
+          <p class="attributes"> <span class="attribute">size</span> Instead of specifying length and radius, you can set size=vector(length,height,width), which means that the cross section of the helix can be elliptical.</p>
       <p class="Normal">Note that the <span class="attribute">pos</span> attribute for cylinder, arrow, cone, pyramid, and helix corresponds to
             one end of the object, whereas for a box, sphere, or ring it
             corresponds to the center of the object. </p>
