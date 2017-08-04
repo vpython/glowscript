@@ -124,11 +124,36 @@
         By default the dot has the same color as the line, but you can
         specify a different color, as in <span class="attribute">dot_color=color.green</span>.</p>
       <p class="Normal"><strong><font color="#0000A0">Overall graph options</font></strong></p>
-          <p class="Normal">You can establish a <span class="attribute">graph</span> object to set the size and color of the graph window before creating a series for that graph::</p>
-
-          <p class="program"> gd = graph( width=600, height=150,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreground=color.black,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background=color.white )</p>
+          <p class="Normal">You can establish a <span class="attribute">graph</span> to set the size, position, and title for the title bar of the graph window, 
+            
+            specify titles for the x and y axes,  specify maximum values for each 
+            
+            axis, and set foreground and background colors, before creating <span class="attribute">gcurve</span> or other kind 
+            
+          of graph plotting object: </p>
+          <p class="program"> gd = graph(width=600, height=150, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='N 
+            
+            vs. t', <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            xtitle='t', ytitle='N', <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreground=color.black, 
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background=color.white, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmax=50, 
+            
+            xmin=-20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            ymax=5E3, ymin=-2E3)</p>
+          <p class="Normal"> In this example, the graph window will have a size of 600 by 150 pixels, and the title bar will say 'N vs. t'. 
+            
+            The graph will have a title 't' on the horizontal axis and 'N' on the vertical 
+            
+            axis. The foreground color is black (the default), and the background color is white (the default). Once the graph has been activated by executing gcurve or gdots or gvbars or ghbars, it is not possible to change the title, xtitle, or ytitle and further.</p>
+          <p class="Normal">Instead of autoscaling the graph to display all the data, the graph in this example  
+            
+            will have fixed limits. The horizontal axis will extend from -20 to +50, 
+            
+            and the vertical axis will extend from -200 to +5000. If you specify <span class="attribute">xmax</span> but not <span class="attribute">xmin</span>, it is as though you had also specified <span class="attribute">xmin</span> to be 0; similarly, if you specify <span class="attribute">xmin</span> but not <span class="attribute">xmax</span>, <span class="attribute">xmax</span> will be 0. The same rule holds for <span class="attribute">ymax</span> and <span class="attribute">ymin</span>.</p>
+          <p class="Normal"><strong>Offsets:</strong> If you specify <span class="attribute">xmin</span> or <span class="attribute">ymin</span> to be greater than zero, or <span class="attribute">xmax</span> or <span class="attribute">ymax</span> to be less than zero, the crossing point (origin) of the x and y axes will no longer be at (0,0), and the graphing will be offset. If you offset the origin of the graph, you must specify <span class="attribute">xmax</span> to be greater than <span class="attribute">xmin</span>, and/or <span class="attribute">ymax</span> to be greater than <span class="attribute">ymin</span>.</p>
           <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
             
       are <span class="attribute">width=640</span>, <span class="attribute">height=200</span>, fully autoscaled. Black foreground and white background are the defaults.</p>
