@@ -56,20 +56,21 @@
             objects, </span><span class="attribute">scene.lights</span><span class="attributes">. By default, </span><span class="attribute">scene.lights</span><span class="attributes"> is this list:<br />
                         </span></p>
         <p class="program style6"> [distant_light(<br />
-&nbsp;&nbsp;&nbsp;          &nbsp;&nbsp;direction:vec(0.22,0.44,0.88), <br />
+&nbsp;&nbsp;&nbsp;          &nbsp;&nbsp;direction:vec( 0.22, 0.44, 0.88), <br />
 &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;color:color.gray(0.8) ),<br />
   &nbsp;distant_light(<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;direction:vec(-0.88,-0.22,-0.44), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color:color.gray(0.3) ) ]</p>
         <p class="Normal">You can get rid of these default lights by setting the list to empty with <span class="attribute">scene.lights
               = []</span>. To change the color of the first light to cyan, do this:</p>
         <p class="program"> scene.lights[0].color = color.cyan</p>
+        <p class="Normal">You can turn a light on or off by setting <span class="attribute">visible</span> to True or False.</p>
 <p class="Normal">In addition to these default distant lights, there is default ambient lighting in the form of <font color="#FF0000">scene.ambient=color.gray(0.2)</font>. The
           color of light objects and the amount of <font color="#FF0000">scene.ambient</font> must
           be specified with some care, because if the total lighting intensity
         exceeds 1 anywhere in the scene the results are unpredictable.</p>
         <p class="Normal">The following statement creates a local yellow light whose <em>position</em> is at
             (x,y,z), and if you continually update lamp.pos, the light will move.
-        You may wish to place a sphere or box at the same location, with emissive set to true, n so that the lamp acts like a glowing lamp.</p>
+        You may wish to place a sphere or box at the same location, with emissive set to True, n so that the lamp acts like a glowing lamp.</p>
         <p class="program"> lamp=local_light( pos:vec(x,y,z), <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color:color.yellow )</p>
         <p class="Normal">A distant red light located in the <em>direction</em> (x,y,z) from the origin is created like this:</p>
