@@ -49,14 +49,17 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <tr>
           <td width="56%"><div align="center">
             <h1><font color="#0000A0">Widgets:
-              buttons, sliders, menus</font></h1>
+              button,<br />
+              radio, checkbox,<br />
+              slider, menu,              wtext</font><br />
+            </h1>
           </div></td>
           <td width="44%"><a href="controls.html"><img src="images/gswidgets.png" alt="controls" width="244" height="281" /></a><a href="arrow.html"></a></td>
         </tr>
       </table>
       <div></div>
       <div class="Normal">
-        <p class="Normal">Tthe example shown above, <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, contains buttons, a slider, radio buttons,  a drop-down menu, and a check box. The example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank"><strong>Color-RGB-HSV-VPython</strong></a><strong></strong> uses six sliders to explore RGB and HSV colors. </p>
+        <p class="Normal">Tthe example shown above, <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, contains buttons, a slider, radio buttons,  a drop-down menu, and a check box. The example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank"><strong>Color-RGB-HSV-VPython</strong></a><strong></strong> uses six sliders to explore RGB and HSV colors. The wtext object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets.</p>
         <p class="Normal">Here is the basic idea for using button, radio buttion, checkbox, slider, and menu:</p>
         <p class="program">box()<br />
           def B(b):<br />
@@ -88,7 +91,7 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="Normal"><strong><font color="#0000a0">Adding your own attributes </font></strong></p>
 <div class="Normal"></div>
 <p class="Normal">As with other objects, you can add your own attributes to those listed below. For example, you might have three buttons all bound to the same function but with different attributes &quot;id=1&quot;, &quot;id=2&quot;, and &quot;id=3&quot;. When the function is called by the user clicking the button, you could decide what to do based on the value of the &quot;id&quot; attribute you created.</p>
-<p class="Normal"><strong><font color="#0000a0">Buttons</font></strong></p>
+<p class="Normal"><strong><font color="#0000a0">button</font></strong></p>
 <div class="Normal"></div>
 <p class="Normal">A space is placed to the right of the button, so that there is always some space between a button and an adjacent widget. Here are the attributes of a <strong>button</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the button.</p>
@@ -98,7 +101,7 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the button is clicked. Cannot be changed after creating the button.</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the button text is grayed out and the button is inactive. Can be changed at any time.</p>
 <p class="Normal"></p>
-<p class="Header"><strong><font color="#0000a0">Radio buttons</font></strong></p>
+<p class="Header"><strong><font color="#0000a0">radio</font></strong></p>
 <p class="Header"></p>
 <div class="Normal"></div>
 <p class="Normal">Radio buttons are often used in a group of two or more, in which you arrange that only one is checked at any time. Here are the attributes of a <strong>radio</strong> widget (a radio button):</p>
@@ -107,14 +110,14 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the radio button is clicked. Cannot be changed after creating the radio button.</p>
 <p class="attributes"><font color="#FF0000">checked</font> If True, the radio button is highlighted; default is False. Can be changed at any time.</p>
 <p class="Normal"></p>
-<p class="Header"><strong><font color="#0000a0">Checkboxes</font></strong></p>
+<p class="Header"><strong><font color="#0000a0">checkbox</font></strong></p>
 <p class="Normal">Here are the attributes of a <strong>checkbox</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the checkbox.</p>
 <p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the checkbox. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the checkbox is clicked. Cannot be changed after creating the checkbox.</p>
 <p class="attributes"><font color="#FF0000">checked</font> If True, the checkbox is highlighted; default is False. Can be changed at any time.</p>
 <p class="Normal"></p>
-<p class="Header"><strong><font color="#0000a0">Sliders</font></strong></p>
+<p class="Header"><strong><font color="#0000a0">slider</font></strong></p>
 <div class="Normal"></div>
 <p class="Normal">Here are the attributes of a <strong>slider</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the slider.</p>
@@ -132,7 +135,7 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"> <span class="attribute">bottom</span> Margin below the slider; default is 0 (pixels). Cannot be changed after creating the slider. Currently does not seem to work properly.</p>
 <p class="attributes"><font color="#FF0000">align</font> If 'left' (the default), the slider is displayed at the left of the window; if 'right', the slider is displayed at the right of the window. Cannot be changed after creating the slider.</p>
 <p class="Normal"></p>
-<p class="Header"><strong><font color="#0000a0">Menus</font></strong></p>
+<p class="Header"><strong><font color="#0000a0">menu</font></strong></p>
 <div class="Normal"></div>
 <p class="Normal">A space is placed to the right of the menu, so that there is always some space between a menu and an adjacent widget. Here are the attributes of a  <strong>menu</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the menu.</p>
@@ -140,6 +143,11 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"><font color="#FF0000">selected</font> The chosen string, such as 'dog'.  Can be set by program as well as by user choice. </p>
 <p class="attributes"><font color="#FF0000">index</font> The position of the chosen string in the choices list, starting from zero.  Can be set by program as well as by user choice.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when a menu item is chosen. Cannot be changed after creating the menu.</p>
+<p class="Normal"></p>
+<p class="Header"><strong><font color="#0000a0">wtext</font></strong></p>
+<p class="Normal">The <strong>wtext</strong> object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets.</p>
+<p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the wtext object.</p>
+<p class="attributes"><span class="attribute">text</span> The text shown at the specified place. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the start or end of the text to separate the text from an adjacent widget.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">Appending to anchor points</font></strong></p>
         <div class="Normal"></div>
