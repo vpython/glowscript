@@ -66,9 +66,6 @@ glowscript_libraries = {
         # So let's use the older version of Streamline:
         "../lib/compiling/transform.js" # needed at run time as well as during compiling
         ],
-##    "transform": [
-##        "../lib/compiling/transform-es6.min.js"
-##        ],
     "compile": [
         "../lib/coffee-script.js",
         "../lib/compiling/GScompiler.js",
