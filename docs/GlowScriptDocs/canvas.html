@@ -93,8 +93,8 @@
       <p class="Normal"></p>
       <p class="attributes"><span class="attribute">pixel_to_world</span> Gives the width of a pixel in &quot;world&quot; coordinates (that is, the coordinates you use to position objects). This is read-only; you cannot set it. It is determined from the current value of scene.range. An example of its use is that if you want the radius of a curve object to be 5 pixels, set the radius to 5*scene.pixel_to_world.</p>
       <p class="Normal">Here are  canvas options to wait for canvas updates:</p>
-      <p class="attributes"><span class="attribute">scene.waitfor(&quot;redraw&quot;,wait) </span>Wait for the start of the next update of the canvas by the web browser</p>
-      <p class="attributes"><span class="attribute">scene.waitfor(&quot;draw_complete&quot;,wait) </span>Wait for the end of the next update of the canvas by the web browser</p>
+      <p class="attributes"><span class="attribute">scene.waitfor(&quot;redraw&quot;) </span>Wait for the start of the next update of the canvas by the web browser</p>
+      <p class="attributes"><span class="attribute">scene.waitfor(&quot;draw_complete&quot;) </span>Wait for the end of the next update of the canvas by the web browser</p>
       <p class="Normal"><strong> <font color="#0000A0">Selecting a canvas</font></strong></p>
       <p class="Normal">Suppose you have two canvases named scene1 and scene2. If you execute the statement <span class="attribute">canvas.selected = scene1</span>, later creations of objects such as boxes or cylinders will be placed in scene1. Similarly, you can obtain the currently selected canvas with a statement such as <span class="attribute">current = canvas.selected</span>.</p>
       <p class="Normal"><strong> <font color="#0000A0">Displaying text</font></strong></p>
@@ -102,7 +102,7 @@
       <p class="program">canvas(title='Some title', caption='A caption')</p>
       <p class="Normal">After a canvas has been created you can change the title with <span class="attribute">scene.title = &quot;Hello&quot;</span> or the caption with <span class="attribute">scene.caption = &quot;Hello&quot;</span>:</p>
       <p class="program">scene.caption = &quot;Hello&quot;<br />
-        sleep(3, wait) # wait for 3 seconds<br />
+        sleep(3) # wait for 3 seconds<br />
         scene.caption = &quot;Goodbye&quot;</p>
       <p class="Normal">You can put end-of-line markers (&quot;\n&quot;) in the text to make multiline displays.</p>
       <p class="Normal"><strong>HTML:</strong> You can include html directives such as this:<strong> &lt;b&gt;This is bold.&lt;/b&gt;</strong></p>

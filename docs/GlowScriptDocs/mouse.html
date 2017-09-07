@@ -37,10 +37,10 @@
         </h1>
 <p class="Normal"><strong><font color="#0000A0">Introduction to events</font></strong></p>
 <p class="Normal">You can wait for a mouse click, or for a key to be pressed or released (once the keyboard event problem is solved), with these statements:</p>
-<p class="attributes"> <span class="attribute">scene.waitfor('click', wait)</span> Wait for a mouse click. </p>
-<p class="attributes"> <span class="attribute">scene.waitfor('keydown', wait)</span> Wait for a key to be pressed.</p>
-<p class="attributes"> <span class="attribute">scene.waitfor('keyup', wait)</span> Wait for a key to be released.</p>
-<p class="attributes"> <span class="attribute">scene.waitfor('keydown keyup', wait)</span> Wait for a key press or release.</p>
+<p class="attributes"> <span class="attribute">scene.waitfor('click')</span> Wait for a mouse click. </p>
+<p class="attributes"> <span class="attribute">scene.waitfor('keydown')</span> Wait for a key to be pressed.</p>
+<p class="attributes"> <span class="attribute">scene.waitfor('keyup')</span> Wait for a key to be released.</p>
+<p class="attributes"> <span class="attribute">scene.waitfor('keydown keyup')</span> Wait for a key press or release.</p>
 <p class="Normal"> You can also set up a function to be called when a mouse or keyboard event occurs. The following will display the type of  event (mouse click or keydown) and, in the case of a keydown event, which key is involved:</p>
 <p class="program">def process(event):<br />
 &nbsp;&nbsp;&nbsp;&nbsp;print(event.event, event.which)<br />
@@ -66,22 +66,22 @@
           example</strong></a>. A mouse object has a group of attributes corresponding to 
   the current state of the mouse.</p>
         <p class="Normal">The simplest mouse interaction is to wait for a mouse click:</p>
-        <p class="attributes"> <span class="attribute">scene.pause(wait)</span> An icon is displayed in the canvas to indicate a pause, waiting for a mouse click.        </p>
-        <p class="attributes"> <span class="attribute">scene.pause(&quot;Click to proceed&quot;,wait)</span> The specified text is displayed in the canvas to indicate a pause, waiting for a mouse click.        </p>
+        <p class="attributes"> <span class="attribute">scene.pause()</span> An icon is displayed in the canvas to indicate a pause, waiting for a mouse click.        </p>
+        <p class="attributes"> <span class="attribute">scene.pause(&quot;Click to proceed&quot;)</span> The specified text is displayed in the canvas to indicate a pause, waiting for a mouse click.        </p>
         <p class="Normal">You can also wait for mouse interactions without displaying a prompt:</p>
-      <p class="attributes"> <span class="attribute">scene.waitfor(&quot;click&quot;,wait)</span> Wait for the mouse button to be depressed and then released</p>
-        <p class="attributes"><span class="attribute">scene.waitfor(&quot;mousedown&quot;,wait)</span> Wait for the mouse button to be depressed</p>
-        <p class="attributes"><span class="attribute">scene.waitfor(&quot;mousemove&quot;,wait)</span> Wait for the mouse to move, whether or not the mouse button is depressed</p>
-      <p class="attributes"><span class="attribute">scene.waitfor(&quot;mouseup&quot;,wait)</span> Wait for the mouse button to be released</p>
-      <p class="attributes"><span class="attribute">scene.waitfor(&quot;mouseenter&quot;,wait)</span> Wait for the mouse to move, whether or not the mouse button is depressed</p>
-      <p class="attributes"><span class="attribute">scene.waitfor(&quot;mouseleave&quot;,wait)</span> Wait for the mouse button to be released</p>
+      <p class="attributes"> <span class="attribute">scene.waitfor(&quot;click&quot;)</span> Wait for the mouse button to be depressed and then released</p>
+        <p class="attributes"><span class="attribute">scene.waitfor(&quot;mousedown&quot;)</span> Wait for the mouse button to be depressed</p>
+        <p class="attributes"><span class="attribute">scene.waitfor(&quot;mousemove&quot;)</span> Wait for the mouse to move, whether or not the mouse button is depressed</p>
+      <p class="attributes"><span class="attribute">scene.waitfor(&quot;mouseup&quot;)</span> Wait for the mouse button to be released</p>
+      <p class="attributes"><span class="attribute">scene.waitfor(&quot;mouseenter&quot;)</span> Wait for the mouse to move, whether or not the mouse button is depressed</p>
+      <p class="attributes"><span class="attribute">scene.waitfor(&quot;mouseleave&quot;)</span> Wait for the mouse button to be released</p>
       <p class="Normal">Here are waitfor options to wait for canvas updates:</p>
-        <p class="attributes"><span class="attribute">scene.waitfor(&quot;redraw&quot;,wait) </span>Wait for the start of the next update of the canvas by the web browser</p>
-        <p class="attributes"><span class="attribute">scene.waitfor(&quot;draw_complete&quot;,wait) </span>Wait for the end of the next update of the canvas by the web browser</p>
-        <p class="Normal">It is a useful debugging technique to insert <span class="attribute">scene.pause(wait)</span> into your program at a point where you would like to stop temporarily to examine 
-        the scene. Then just click to proceed.        </p>
+        <p class="attributes"><span class="attribute">scene.waitfor(&quot;redraw&quot;) </span>Wait for the start of the next update of the canvas by the web browser</p>
+        <p class="attributes"><span class="attribute">scene.waitfor(&quot;draw_complete&quot;) </span>Wait for the end of the next update of the canvas by the web browser</p>
+        <p class="Normal">It is a useful debugging technique to insert <span class="attribute">scene.pause()</span> into your program at a point where you would like to stop temporarily to examine 
+      the scene. Then just click to proceed.        </p>
         <p class="Normal"><strong>Multiple event types:</strong> You can wait for more than one type of event. The following statement will wait for either the mouse entering the canvas or leaving the canvas:</p>
-        <p class="program">scene.waitfor(&quot;mouseenter mouseleave&quot;, wait)</p>
+        <p class="program">scene.waitfor(&quot;mouseenter mouseleave&quot;)</p>
         <p class="Normal">In the  <a href="mouse_drag.html">Drag 
         example</a> you will see how to use event-handling functions to process mouse events continuously.</p>
       <p class="Normal"><strong> <font color="#0000A0">Current state of mouse and control keys</font></strong></p>

@@ -42,26 +42,24 @@
 <table width="377" height="66" border="0">
   <tr>
     <td width="19">&nbsp;</td>
-    <td width="161" height="62" style="font-family: 'Courier New', Courier, monospace"><p align="left" class="program"># VPython</p>
-      <p align="left" class="program">rate(100)<br />
+    <td width="161" height="62" style="font-family: 'Courier New', Courier, monospace"><p align="left" class="program">ate(100)<br />
       </p></td>
-    <td width="183" style="font-family: 'Courier New', Courier, monospace"><p align="left" class="program"># GlowScript</p>
-      <p align="left" class="program">rate(100,wait) </p></td>
+    <td width="183" style="font-family: 'Courier New', Courier, monospace"><p align="left" class="program">&nbsp;</p></td>
   </tr>
 </table>
-<p>There is also a statement <span class="program">sleep(0.01,wait)</span>, wait for 1/100th of a second. The statement <span class="program">update(wait)</span> gives the browser the opportunity to update the page display.</p>
+<p>There is also a statement <span class="program">sleep(0.01)</span>, wait for 1/100th of a second. The statement <span class="program">update()</span> gives the browser the opportunity to update the page display.</p>
 <h4>VPython objects available in GlowScript</h4>
 <p>Currently, all VPython objects have been implemented except for faces (replaced by vertex, triangle, and quad), text, extrusion, frame, and points (which you can implement simply by displaying small spheres). Instead of frame there is a &quot;compound&quot; object, which among other things  makes possible very fast displays of objects consisting of several combined objects. There is also a &quot;clone&quot; capability to make copies of existing objects.</p>
 <h4>Display regions</h4>
 <p>A display region was called a &quot;display&quot; in VPython and is a &quot;canvas&quot; in GlowScript, corresponding to the name by which drawing regions are known on web pages.</p>
 <h4>Wait for a mouse event</h4>
 <p>You can wait for a mouse event with these statements:</p>
-<p class="program">  scene.waitfor('click', wait)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# wait for mouse click<br />
-  scene.waitfor('mousedown', wait)&nbsp;&nbsp;# wait for mouse button to be depressed<br />
-  scene.waitfor('mouseup', wait)&nbsp;&nbsp;&nbsp;&nbsp;# wait for mouse to be moved (with button depressed)<br />
-  scene.waitfor('mousemove', wait)&nbsp;&nbsp;# wait for mouse button to be released</p>
+<p class="program">  scene.waitfor('click')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# wait for mouse click<br />
+  scene.waitfor('mousedown')&nbsp;&nbsp;# wait for mouse button to be depressed<br />
+  scene.waitfor('mouseup')&nbsp;&nbsp;&nbsp;&nbsp;# wait for mouse to be moved (with button depressed)<br />
+  scene.waitfor('mousemove')&nbsp;&nbsp;# wait for mouse button to be released</p>
 <p>As in VPython, <span class="program">scene.mouse.pos</span> gives the current position of the mouse.</p>
-<p>The statement scene.<span class="program">waitfor('redraw', wait)</span> will wait for the beginning of the next screen update time, which lets you synchronize your updates with the screen. There is a similar statement <span class="program">scene.waitfor('draw_complete', wait)</span> which waits until the next screen update has been completed.<br />
+<p>The statement scene.<span class="program">waitfor('redraw')</span> will wait for the beginning of the next screen update time, which lets you synchronize your updates with the screen. There is a similar statement <span class="program">scene.waitfor('draw_complete')</span> which waits until the next screen update has been completed.<br />
 </p>
 <h4>Graphs</h4>
 <p>Making graphs in GlowScript is quite similar to making graphs in VPython. See the <a href="graph.html" target="_blank">description</a> in the Help for details. One difference is that each line-graph, scatter-graph, or bar-graph object has its own label, which appears in a legend on the graph. Also, if you don't specify a color, a color will be assigned automatically by the <strong>flot</strong> graphing library, <a href="http://code.google.com/p/flot/" target="_blank">http://code.google.com/p/flot</a>.</p>

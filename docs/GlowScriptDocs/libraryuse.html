@@ -58,7 +58,7 @@
             </tr>
           </table>
           <p class="Normal"> By far the *easiest* way to embed a glowscript program in your web page is to edit it at glowscript.org and then use the &quot;Share&quot; feature to get HTML source, which can be inserted into your own web page. This is easiest because the glowscript.org environment applies a number of transformations of GlowScript programs to add operator overloading for vectors and the ability to write infinite loops and yet update the window. </p>
-<p class="Normal"> A knowledgable JavaScript programmer should  be able to make use of the 'glow' JavaScript library directly, and this could make sense for some purposes.  One would have to write a tiny bit of initialization boilerplate to create a canvas, and one would  have to write in pure JavaScript, without operator overloading and with function callbacks instead of the <span class="attribute">wait</span> keyword. Therefore the program must not include options that require using the keyword <span class="attribute">wait</span>, and the following vector operations must be rewritten as shown, where <strong>A</strong> and <strong>B</strong> are vectors and <strong>k</strong> is an ordinary number:</p>
+<p class="Normal"> A knowledgable JavaScript programmer should  be able to make use of the 'glow' JavaScript library directly, and this could make sense for some purposes.  One would have to write a tiny bit of initialization boilerplate to create a canvas, and one would  have to write in pure JavaScript, without operator overloading and with function callbacks. The program must not include options such as rate or waitfor<span class="attribute"></span>, and the following vector operations must be rewritten as shown, where <strong>A</strong> and <strong>B</strong> are vectors and <strong>k</strong> is an ordinary number:</p>
 <p class="program">A+B -&gt; A.add(B)<br />
   A-B -&gt; A.sub(B)<br />
   k*A -&gt; A.multiply(k)<br />
@@ -88,13 +88,13 @@ spin()<br />
 &lt;/script&gt;<br />
 &lt;/div&gt;</p>
       <p class="Normal"><strong> <font color="#0000A0">Additional considerations</font></strong></p>
-          <p class="Normal">As in the use of the rate function in the example above, in general you need to replace the keyword <span class="attribute">wait</span> in GlowScript functions with your own callback function to be called when the condition is met. For example, <span class="attribute">scene.waitfor('click',wait)</span> blocks, waiting for the user to click before executing the following statement. You can instead establish a callback function to be executed when the user clicks, as is illustrated by the use of  <span class="attribute">scene.bind</span> for handling <a href="mouse.html">keyboard and mouse events</a>.</p>
-<p class="Normal">The function <span class="attribute">read_local_file()</span> can be used in two ways, as shown below. The first form blocks, waiting for the user to choose a file before the following statement is executed. This blocking form is not available without using the preprocessing available at glowscript.org because it uses the keyword <span class="attribute">wait</span>. </p>
+          <p class="Normal">As in the use of the rate function in the example above, you need to use your own callback function to be called when the condition is met. For example, <span class="attribute">scene.waitfor('click)</span> blocks, waiting for the user to click before executing the following statement. You can instead establish a callback function to be executed when the user clicks, as is illustrated by the use of  <span class="attribute">scene.bind</span> for handling <a href="mouse.html">keyboard and mouse events</a>.</p>
+<p class="Normal">The function <span class="attribute">read_local_file()</span> can be used in two ways, as shown below. The first form blocks, waiting for the user to choose a file before the following statement is executed. This blocking form is not available without using the preprocessing available at glowscript.org. </p>
 <p class="Normal">The second form establishes a callback function which will be executed when the user has chosen a file.  If there are no errors, the callback function will receive two arguments, with the first argument (&quot;err&quot;) equal to null. If there is an error, the callback function will receive one argument, the error code. In the case of the read_local_file() function, an error would presumably occur only in case of a disk error.</p>
-      <p class="program">// Blocking; not available (uses &quot;wait&quot;):<br />
-        var g = read_local_file(wait)<br />
+      <p class="program">// Blocking; not available:<br />
+        var g = read_local_file()<br />
         print(g.text)</p>
-      <p class="program">// Nonblocking; does not use &quot;wait&quot;:<br />
+      <p class="program">// Nonblocking:<br />
         function get(err, f) { <br />
         &nbsp;&nbsp;&nbsp;&nbsp;// First argument (&quot;err&quot;) 
 is always<br />
@@ -119,7 +119,7 @@ is always<br />
       <br />
       wait_for_load()<br />
       while (!loaded) {<br />
-&nbsp;&nbsp;rate(30,wait)<br />
+&nbsp;&nbsp;rate(30)<br />
 }<br />
 print('Library is loaded')
 <br />

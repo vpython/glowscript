@@ -45,7 +45,7 @@
         box() # display a  box for context<br />
         show = label( pos=vec(0,1,0) )<br />
         while True:<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;scene.waitfor(&quot;click&quot;,wait)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;scene.waitfor(&quot;click&quot;)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;loc = scene.mouse.pos <br />
         &nbsp;&nbsp;&nbsp;&nbsp;show.text = loc<br />
         &nbsp;&nbsp;&nbsp;&nbsp;sphere( pos=loc, 
@@ -75,7 +75,7 @@
               box() // display a box for context<br />
               var show = label({pos:vec(0,1,0)})<br />
               while (true) {<br />
-              &nbsp;&nbsp;&nbsp;&nbsp;scene.waitfor(&quot;click&quot;,wait)<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;scene.waitfor(&quot;click&quot;)<br />
               &nbsp;&nbsp;&nbsp;&nbsp;var loc = scene.mouse.pos <br />
               &nbsp;&nbsp;&nbsp;&nbsp;show.text = loc<br />
               &nbsp;&nbsp;&nbsp;&nbsp;sphere({pos:loc, size:0.1*vec(1,1,1)})<br />
