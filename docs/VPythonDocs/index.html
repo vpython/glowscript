@@ -167,16 +167,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div>
   <p class="Normal">GlowScript treats 3/2 as 1.5 as in Python 3.x, not 1 as in the Python 2.x language, and the print statement must take the Python 3.x form of print('hello') rather than the Python 2.x form of print 'hello'.</p>
 </div>
-<p class="Normal">Many programs written in Classic <a href="http://vpython.org" target="_blank"><strong>VPython 6</strong></a> will run in GlowScript VPython or VPython 7 without change after  being run through a <a href="../GlowScriptDocs/VPtoGS.py" target="_blank"><strong>conversion program</strong></a> written in Python. This  program converts<strong> (x,y,z) =&gt; vector(x,y,z)</strong> and <strong>obj.x =&gt; obj.pos.x</strong>. These changes are necessary because GlowScript does not recognize <strong>(x,y,z)</strong> as a vector nor <strong>obj.x</strong> as a shorthand for <strong>obj.pos.x</strong>. The program also converts <strong>display =&gt; canvas</strong> and <strong>gdisplay =&gt; graph</strong>.</p>
-<p class="Normal"> In the GlowScript environment pos, size, axis, color, and up are all vectors, and they are somewhat special vectors that track changes in order to trigger correct rendering of the 3D scene when one of these object attributes changes. One result of this architecture is that <br />
-  <br />
-  <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ball.pos += vector(1,2,3)</strong><br />
-  <br />
-  must be rewritten as <br />
-  <br />
-  <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ball.pos = ball.pos + vector(1,2,3)</strong><br />
-  <br />
-  The conversion program makes these changes, and similar changes for -=, *=, and /=. The program also converts <strong>scene.mouse.getclick() =&gt; scene.waitfor('click')</strong>, which works in both environments.</p>
+<p class="Normal">Many programs written in Classic <a href="http://vpython.org" target="_blank"><strong>VPython 6</strong></a> will run in GlowScript VPython or VPython 7 without change after  being run through a <a href="../GlowScriptDocs/VPtoGS.py" target="_blank"><strong>conversion program</strong></a> written in Python. This  program converts<strong> (x,y,z) =&gt; vector(x,y,z)</strong> and <strong>obj.x =&gt; obj.pos.x</strong>. These changes are necessary because GlowScript does not recognize <strong>(x,y,z)</strong> as a vector nor <strong>obj.x</strong> as a shorthand for <strong>obj.pos.x</strong>. The program also converts <strong>display =&gt; canvas</strong> and <strong>gdisplay =&gt; graph</strong>. The program also converts <strong>scene.mouse.getclick() =&gt; scene.waitfor('click')</strong>, which works in both environments.</p>
 <p class="Normal">In GlowScript VPython and VPython 7 you can use the shorthand &quot;vec&quot; for &quot;vector&quot;. If you wish to use a GlowScript program containing &quot;vec&quot; in the Classic VPython environment, just add the statement &quot;vec = vector&quot; at the start of the program.</p>
 <p class="Normal"><span class="style1">Credits</span></p>
 <p class="Normal">Salvatore di Dio demonstrated in his RapydGlow experiment<br />
