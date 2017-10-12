@@ -74,7 +74,9 @@ Ideally we should create a branch "version-0.4" in the repository at this point,
 in case we have to come back and patch an old version for some critical bug.  
 This has not actually been done so far.
 
-UPDATE library files in AWS/S3: https://s3.amazonaws.com/glowscript/package/
+************************************************************************************
+    UPDATE library files in AWS/S3: https://s3.amazonaws.com/glowscript/package/
+************************************************************************************
 
 Deploy in GAE launcher; note that at this point property.js should have version 0.5dev.
 
