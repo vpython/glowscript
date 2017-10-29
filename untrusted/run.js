@@ -4,6 +4,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     run: [
         "../lib/jquery/2.1/jquery.mousewheel.js",
         "../lib/flot/jquery.flot.min.js",
+        //"../lib/flot/jquery.flot.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
         "../lib/flot/jquery.flot.axislabels.js",
 //        "../lib/micromarkdown.min.js", // markdown, not ready to use yet
