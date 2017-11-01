@@ -86,11 +86,15 @@
       <p class="attributes"><span class="attribute">align</span><span class="attribute"></span> Specify 'left', 'right', or 'center'. When you specify 'center', which is the default,  the  center of the topmost line of text is at the location given by pos. When you specify 'left', the start of the topmost line of text is at the location given by pos. When you specify 'right', the right end of the topmost line of text is at the location given by pos.</p>
       <p class="attributes"> <span class="attribute">xoffset</span>, <span class="attribute">yoffset</span> The
         x and y components of the line, <em><strong>in pixels</strong></em> (see diagram). Unless you specify a value for align, text above or below pos is centered, text to the left of pos is right-adjusted, and text to the right of pos is left-adjusted.</p>
-<p class="attributes"> <span class="attribute">text</span> The text to be 
+<p class="attributes"> <span class="attribute">text </span>The text to be 
               displayed, such as 'Earth'. 
-              You can give a number or numerical expression; it will be converted to a string.
-      Multiple lines can be displayed by inserting line breaks: &quot;Three\nlines\nof 
-      text&quot;.</p>
+              You can give a number or numerical expression; it will be converted to a string.You can includes the HTML styles for italic (&lt;i&gt; or &lt;em&gt;), bold (&lt;b&gt; or &lt;strong&gt;), superscript (&lt;sup&gt;), or subscript (&lt;sub&gt;). For example, the string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>'The &lt;b&gt;mass &lt;i&gt;M&lt;/i&gt;&lt;/b&gt;&lt;sub&gt;sys&lt;/sub&gt; = 10&lt;sup&gt;3&lt;/sup&gt; kg.</strong><br />
+displays as<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'The <b>mass <i>M</i></b><sub>sys</sub> = 10<sup>3</sup> kg. <br />
+<br />
+Multiple lines can be displayed by inserting line breaks (\n), as in &quot;Three\nlines\nof 
+      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</p>
 <p class="attributes"> <span class="attribute">font</span> Name of the desired 
         font;  'sans' or 'serif'' or 'monospace' (fixed-width), or a specific font name</p>
             <p class="attributes"> <span class="attribute">height</span> Height

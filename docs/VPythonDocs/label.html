@@ -90,14 +90,19 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   x and y components of the line, in pixels (see diagram). Unless you specify a value for align, text above or below pos is centered, text to the left of pos is right-adjusted, and text to the right of pos is left-adjusted.</p>
       <p class="attributes"> <span class="attribute">text</span> The text to be 
               displayed, such as 'Earth'. 
-              You can give a number or numerical expression; it will be converted to a string.
-      Multiple lines can be displayed by inserting line breaks: &quot;Three\nlines\nof 
-      text&quot;. You can also create multiple lines by using triple quotes:</p>
+              You can give a number or numerical expression; it will be converted to a string.You can include the HTML styles for italic (&lt;i&gt; or &lt;em&gt;), bold (&lt;b&gt; or &lt;strong&gt;), superscript (&lt;sup&gt;), or subscript (&lt;sub&gt;). For example, the string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>'The &lt;b&gt;mass &lt;i&gt;M&lt;/i&gt;&lt;/b&gt;&lt;sub&gt;sys&lt;/sub&gt; = 10&lt;sup&gt;3&lt;/sup&gt; kg.</strong><br />
+displays as<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'The <b>mass <i>M</i></b><sub>sys</sub> = 10<sup>3</sup> kg.
+        <br />
+        <br />
+      Multiple lines can be displayed by inserting line breaks (\n), as in &quot;Three\nlines\nof 
+      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n. You can  also create multiple lines by using triple quotes:</p>
       <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L = label()<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L.text =  &quot;&quot;&quot;The quick brown fox<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jumps over the lazy dog.&quot;&quot;&quot;</p>
       <p class="attributes"> <span class="attribute">font</span> Name of the desired 
-  font;;  'sans' or 'serif'' or 'monospace' (fixed-width), or a specific font name</p>
+  font;  'sans' or 'serif'' or 'monospace' (fixed-width), or a specific font name; the default is &quot;sans&quot;</p>
             <p class="attributes"> <span class="attribute">height</span> Height
               of the font  in pixels; default is 15 pixels</p>
             <p class="attributes"> <span class="attribute">color</span> Color of the text; default is scene.foreground</p>

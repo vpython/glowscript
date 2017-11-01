@@ -50,12 +50,14 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="program">sphere(pos=ev.pos, radius=0.1)</p>
         <p class="Normal">The package of information about the event includes   information of what kind of event it was:</p>
         <p class="program"> box()<br />
-          ev = scene.waitfor('mousedown mouseup')<br />
-          if ev.event == 'mousedown':<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the mouse button')<br />
-          else:<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;print('You released the mouse button')<br />
-          print(ev.pos) # the position of the mouse </p>
+          while True:
+          <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;ev = scene.waitfor('mousedown mouseup')<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;if ev.event == 'mousedown':<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the mouse button')<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('You released the mouse button')<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;print(ev.pos) # the position of the mouse </p>
         <p class="Normal">Here are additional options:</p>
       <p class="program">scene.waitfor('mousedown') # wait for mouse button press<br />
           scene.waitfor('mouseup') # wait for mouse button release<br />
@@ -76,15 +78,14 @@ scene.waitfor('mousedown mousemove') # either event<br />
 <p class="Normal">The quantity <span class="attribute">ev.event</span> will be 'keydown' if a key was pressed or 'mousedown' if the left mouse button was pressed. The quantity <span class="attribute">ev.which</span> is the numerical key code or mouse button indicator (mouse button is always 1 for now). For example, <span class="attribute">ev.which</span> is 65 for the 'a' key. The quantity <span class="attribute">ev.key</span> is the corresponding character string, such as 'a' or 'delete'. </p>
 <p class="Normal">The quantity <span class="attribute">ev.canvas</span> is the canvas associated with the event. You can bind events on different canvases to the same function and be able to tell in which canvas the event occurred.</p>
 <p class="Normal">Note  that <span class="attribute">scene.mouse.shift</span> is true if the shift key is down at the time of the keyboard event; similarly for <span class="attribute">scene.mouse.ctrl</span> and <span class="attribute">scene.mouse.alt</span>.</p>
-<p class="Normal">It is possible to use &quot;anonymous&quot; (unnamed) functions in this situation. For examples, see the <strong><a href="mouse_drag.html" target="_blank">mouse drag</a></strong> discussion.</p>
-<p class="Normal">You can obtain a package of information about the event that caused the end of the wait, including the  information of whether it was a mouse or keyboard event:</p>
+<p class="Normal">It is possible to use &quot;anonymous&quot; (unnamed) functions in this situation. For examples, see the <strong><a href="mouse_drag.html" target="_blank">mouse drag</a></strong> discussion. However, anonymous functions cannot be used in VPython 7.</p>
+<p class="Normal">The package of information about the event that caused the end of the wait includes the  information of whether it was a mouse or keyboard event:</p>
       <p class="program">        box()<br />
-        ev = scene.waitfor('mousedown mouseup')<br />
+        ev = scene.waitfor('mousedown keydown')<br />
         if ev.event == 'mousedown':<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the mouse button')<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the mouse button at', ev.pos)<br />
         else:<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;print('You released the mouse button')<br />
-  print(ev.pos) # the position of the mouse
+  &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the key', ev.key)
       </p>
 <p class="Normal">The object <span class="attribute">scene.mouse </span>contains lots of information about the current state of the mouse, which you can interrogate at any time:</p>
         <p class="attributes"> <span class="attribute">pos</span> The current 3D position 
@@ -155,7 +156,7 @@ scene.bind('click', change)</p>
         <p class="Normal"><strong><font color="#0000A0">Details of the event</font></strong></p>
         <p class="Normal">You can get detailed information about the event by writing the callback function like this (note the variable 'evt' in parentheses):</p>
         <p class="program">def info(evt):<br />
-&nbsp;&nbsp;&nbsp;&nbsp;print(evt.event, evt.pos, evt.pick) </p>
+&nbsp;&nbsp;&nbsp;&nbsp;print(evt.event, evt.pos) </p>
       <p class="Normal">Here we specify an argument in the definition of the callback function ('evt' in this case). When the function is called due to a specified event happening, VPython sends the function  information about the event. The name of the argument need not be 'evt'; use whatever name you like. In addition to evt.event, evt.pos, and evt.pick, there is further event information in the form of evt.press and evt.release which are 'left' for press or release events.</p>
       <p class="Normal">The quantity <span class="attribute">evt.event</span> will be 'keydown' if a key was pressed. The quantity <span class="attribute">evt.which</span> is the numerical key code or mouse button indicator (mouse button is always 1 for now). For example, <span class="attribute">evt.which</span> is 65 for the 'a' key. Note  that <span class="attribute">scene.mouse.shift</span> is true if the shift key is down at the time of the keyboard event; similarly for <span class="attribute">scene.mouse.ctrl</span> and <span class="attribute">scene.mouse.alt</span>.</p>
       <p class="Normal">In classic VPython you  can  optionally have VPython send the callback function an additional argument, but this is not currently possible in GlowScript.</p>
@@ -172,7 +173,8 @@ scene.bind('click', change)</p>
         D.start() # start sending events to Drag again
       </p>
       <p class="Normal">You can check whether the callback is in start or stop mode with <strong>D.enabled</strong>, which is True if the callback has been started and False if it has been stopped.</p>
-      <p class="Normal"><strong><font color="#0000A0">Custom events: triggers</font></strong></p>
+      <p class="Normal">&nbsp;</p>
+      <p class="Normal"><strong><font color="#0000A0">Custom events: triggers</font></strong> -- <strong class="attribute"><em>THIS CURRENTLY DOES NOT WORK IN VPython</em></strong></p>
       <p class="Normal">It is possible to create your own event type, and trigger a callback function to do something. Consider the following example, where the event type is 'color_the_ball':</p>
       <p class="program">def clickFunc():<br />
         &nbsp;&nbsp;&nbsp;&nbsp;s = sphere(pos=scene.mouse.pos, radius=0.1)<br />
@@ -184,7 +186,7 @@ scene.bind('click', change)</p>
         scene.bind('click', clickFunc)<br />
         scene.bind('color_the_ball', ballFunc)<br />
         <br />
-        box(pos=(1,0,0))</p>
+        box(pos=vector(1,0,0))</p>
 <p class="Normal">We bind click events to the function clickFunc, and we bind our own special event type 'color_the_ball' to the function ballFunc. The function clickFunc is executed when the user clicks the mouse. This function creates a small sphere at the location of the mouse click, then triggers an event 'color_the_ball', with the effect of passing to the function ballFunc the sphere object. Finally ballFunc applies a color to the sphere. (Obviously one could color the sphere in clickFunc; the example is just for illustration of the basic concept.)    </p>
     <!-- InstanceEndEditable --></td>
   </tr>
