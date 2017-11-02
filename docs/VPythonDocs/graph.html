@@ -120,20 +120,22 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
             xmin=-20, ymax=5E3, ymin=-2E3)</p>
           <p class="Normal"> <strong>Setting limits:</strong> In this example, the graph window will have a size of 600 by 150 pixels, and above the graph
             
-            there will be a centered bold title &quot;Test&quot;. The x and y axes of the graph will have the labels. '<em>x</em>' and '<em>x</em><sup>2</sup>'. The foreground color is black (the default), and the background color is white (the default). Once the graph has been activated by  plotting something, it is not possible to change  title, xtitle, or ytitle.</p>
+            there will be a centered bold title &quot;Test&quot;. The x and y axes of the graph will have the labels. '<em>x</em>' and '<em>x</em><sup>2</sup>'. The foreground color is black (the default), and the background color is white (the default).</p>
+          <p class="Normal">Instead of autoscaling the graph to display all the data, the graph in this example  
+            
+            will have fixed limits. The horizontal axis will extend from -20 to +50, <span class="attribute">xmax</span> but not <span class="attribute">xmin</span>, it is as though you had also specified <span class="attribute">xmin</span> to be 0; similarly, if you specify <span class="attribute">xmin</span> but not <span class="attribute">xmax</span>, <span class="attribute">xmax</span> will be 0. The same rule holds for <span class="attribute">ymax</span> and <span class="attribute">ymin</span>.          </p>
           <p class="Normal"><span class="attributes"><strong>Titles:</strong> For </span><span class="attribute">title</span><span class="attributes">, </span><span class="attribute">xtitle</span><span class="attributes">, and </span><span class="attribute">ytitle</span><span class="attributes"> you can give a number or numerical expression, which will be converted to a string.You can include the HTML styles for italic (&lt;i&gt; or &lt;em&gt;), bold (&lt;b&gt; or &lt;strong&gt;), superscript (&lt;sup&gt;), or subscript (&lt;sub&gt;). For example, the string<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>'The &lt;b&gt;mass &lt;i&gt;M&lt;/i&gt;&lt;/b&gt;&lt;sub&gt;sys&lt;/sub&gt; = 10&lt;sup&gt;3&lt;/sup&gt; kg.</strong><br />
 displays as<br />
 &nbsp;&nbsp;&nbsp;&nbsp;'The <b>mass <i>M</i></b><sub>sys</sub> = 10<sup>3</sup> kg. <br />
 <br />
 Multiple lines in a </span><span class="attribute">title</span><span class="attributes"> can be displayed by inserting line breaks (\n), as in &quot;Three\nlines\nof 
-      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</span> You cannot use line breaks in <span class="attribute">xtitle</span> or <span class="attribute">ytitle</span>.</p>
-<p class="Normal">Instead of autoscaling the graph to display all the data, the graph in this example  
-            
-            will have fixed limits. The horizontal axis will extend from -20 to +50, 
-            
-and the vertical axis will extend from -200 to +5000. If you specify <span class="attribute">xmax</span> but not <span class="attribute">xmin</span>, it is as though you had also specified <span class="attribute">xmin</span> to be 0; similarly, if you specify <span class="attribute">xmin</span> but not <span class="attribute">xmax</span>, <span class="attribute">xmax</span> will be 0. The same rule holds for <span class="attribute">ymax</span> and <span class="attribute">ymin</span>.</p>
-          <p class="Normal"><strong>Offsets:</strong> If you specify <span class="attribute">xmin</span> or <span class="attribute">ymin</span> to be greater than zero, or <span class="attribute">xmax</span> or <span class="attribute">ymax</span> to be less than zero, the crossing point (origin) of the x and y axes will no longer be at (0,0), and the graphing will be offset. If you offset the origin of the graph, you must specify <span class="attribute">xmax</span> to be greater than <span class="attribute">xmin</span>, and/or <span class="attribute">ymax</span> to be greater than <span class="attribute">ymin</span>.</p>
+      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</span> You cannot use line breaks in <span class="attribute">xtitle</span> or <span class="attribute">ytitle</span>.<br />
+      <br />
+          By default the title at the top of the graph is left-adjusted, but you can set <span class="attribute">title_align</span> to 'center', 'right', or 'left'. If you specify 'center' the title is centered over the graphing grid.<br />
+          <br />
+          Once the graph has been activated by  plotting something, it is not possible to change  title, xtitle, or ytitle.          </p>
+<p class="Normal"><strong>Offsets:</strong> If you specify <span class="attribute">xmin</span> or <span class="attribute">ymin</span> to be greater than zero, or <span class="attribute">xmax</span> or <span class="attribute">ymax</span> to be less than zero, the crossing point (origin) of the x and y axes will no longer be at (0,0), and the graphing will be offset. If you offset the origin of the graph, you must specify <span class="attribute">xmax</span> to be greater than <span class="attribute">xmin</span>, and/or <span class="attribute">ymax</span> to be greater than <span class="attribute">ymin</span>.</p>
           <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
             
             are <span class="attribute">width=640</span>, <span class="attribute">height=400</span>, 
