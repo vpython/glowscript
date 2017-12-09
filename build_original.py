@@ -38,7 +38,7 @@ version = "2.6"
 
 glowscript_libraries = {
     "run": [
-        "../lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with version 2.2/2.3
+        "../lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with later versions
         "../lib/flot/jquery.flot.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
         "../lib/opentype/poly2tri.js",

@@ -55,16 +55,13 @@ a background color of cyan filling the window.</p>
 
             <p class="program"> scene2 = canvas(title='<span class="attributes">Examples of Tetrahedrons</span>',<br />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width=600, height=200,<br />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;center=vector(5,0,0), background=color.cyan)</p>
-          <p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong></p>
-          <p class="attributes"> <span class="attribute">select()</span> Makes the specified 
-            canvas the &quot;selected canvas&quot;, so that objects will be drawn 
-into this canvas by default; e.g. <span class="attribute">scene.select() </span></p>
- 
-            <p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">canvas.get_selected()</font> returns
-               a reference to the canvas in which objects are currently being
-  created.</p>
-      <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;center=vector(5,0,0), background=color.cyan)          </p>
+            <p class="Normal"><span class="attributes"><strong>Selecting a canvas:</strong> By default, any objects that you create go into the most recently created canvas, such as <span class="attribute">scene</span>. If you create another canvas <span class="attribute">cvs</span>, new objects will go into the <span class="attribute">cvs</span> canvas. You can later execute <span class="attribute">scene.select()</span> to make the <span class="attribute">scene</span> canvas the one that new objects go into.</span> You can find out which canvas is selected: <span class="attributes"><span class="attribute">current = </span><font color="#FF0000">canvas.get_selected()</font> returns
+                a reference to the canvas into which objects are currently being
+      created.</span> You can also specify which canvas to use when creating an object, as in box(canvas=cvs, .....).</p>
+      <p class="Normal">In GlowScript VPython you can say canvas.selected = cvs, or current = canvas.selected, but unfortunately it doesn't seem possible to implement this syntax in VPython 7, so for compatibiity between GlowScript VPython and VPython 7 you may wish to use cvs.select() and canvas.get_selected() in GlowScript programs.</p>
+      <p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong></p>
+<p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
               and height of the canvas area in pixels. Defaults are 640 and 400. Can be specified when creating the canvas, as in the example above, or set or changed later.</p>
       <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (canvas forced to left side of window), &quot;right&quot; (canvas forced to right side of window), or &quot;none&quot; (the default alignment). For example, if you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object.</p>
       <p class="attributes"><span class="attribute">resizable</span> If True (the default) the user can resize the canvas. If C is a canvas that is resizable, then <strong>C.bind('resize', R)</strong> will execute the function R when the user resizes that canvas. If R has the form <strong>def R(ev):</strong>, then ev.event will be 'resize' and ev.canvas will be the canvas C.</p>

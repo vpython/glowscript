@@ -33,6 +33,7 @@ def chrange(b,e): return set(chr(x) for x in range(ord(b), ord(e)+1))
 unreserved = chrange('A','Z') | chrange('a','z') | chrange('0','9') | set("-_.~")
 
 # See documentation of db.Model at https://cloud.google.com/appengine/docs/python/datastore/modelclass
+# Newer ndb:                       https://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb
 
 class AppSecrets (db.Model):
     """A singleton containing secrets that shouldn't be exposed at GitHub"""

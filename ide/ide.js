@@ -20,7 +20,7 @@ $(function () {
     }
 
     function parseVersionHeader( source ) { // null if sourceLines already exists
-        if (source !== null) sourceLines = source.split("\n")
+    	if (source !== null) sourceLines = source.split("\n")
         else source = 'already exists\n'
         var header = sourceLines[0]
         // Remove a newline or similar character at the end of header:
@@ -42,7 +42,7 @@ $(function () {
         for (var i=0; i<header.length; i++) { // remove empty strings corresponding to spaces
             if (header[i] != '') elements.push(header[i])
         }
-        if (elements.length < 2 || elements.length > 3) return ret
+    	if (elements.length < 2 || elements.length > 3) return ret
         if (elements[0] != 'GlowScript') return ret
         ret.lang = 'javascript' // the default if no language is specified
         if (elements.length == 3) {
