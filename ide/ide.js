@@ -95,8 +95,7 @@ $(function () {
         "2.3dev" : "2.3",
         "2.4dev" : "2.4",
         "2.5dev" : "2.5",
-        "2.6dev" : "2.6",
-        "2.7dev" : "unpackaged",
+        "2.6dev" : "unpackaged",
     }
 
     /******** Functions to talk to the API on the server ***********/
@@ -496,6 +495,31 @@ $(function () {
             });
         }
 
+        /*
+        function renameDialog( templ, doIt ) {
+            var $dialog = $(templ).clone().removeClass("template")
+            $dialog.dialog({
+                width: 300,
+                resizable: false,
+                modal: true,
+                autoOpen: true,
+                buttons: {
+                    "Rename": function () {
+                        doIt($(this));
+                        $(this).dialog("close");
+                    },
+                    "Cancel": function () { $(this).dialog("close"); }
+                },
+                close: function () {  }
+            }).submit(function(ev){
+                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)");
+                if (!$button.prop("disabled")) $button.click()
+                ev.preventDefault()
+                return false
+            });
+        }
+        */
+
         function delProgramOrFolder(templ, name, action) {
             var $dialog = $(templ).clone().removeClass("template")
             if (!name) return;
@@ -576,35 +600,52 @@ $(function () {
             var progList = page.find(".programs")
             var programs = data.programs
             for (var i = 0; i < programs.length; i++) {
-                (function (prog) {
-                    var p = programTemplate.clone().removeClass("template")
-                    var name = decode(prog.name)
-                    var proute = { user:username, folder:folder, program:name }
-                    p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
-                    p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
-                    p.find(".prog-name").text(name)
+            	var prog = programs[i]
+                //(function (prog) {
+                var p = programTemplate.clone().removeClass("template")
+                var name = decode(prog.name)
+                var proute = { user:username, folder:folder, program:name }
+                p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
+                p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
+                p.find(".prog-name").text(name)
 
-                    // TODO: Apply a sanitizer + markdown?
-                    var $desc = p.find(".prog-description")
-                    $desc.text(prog.description)
-                    $desc.html( $desc.html().replace(/\n\n/g,"<br/>") )
+                // TODO: Apply a sanitizer + markdown?
+                /* Description not really useful any more
+                var $desc = p.find(".prog-description")
+                $desc.text(prog.description)
+                $desc.html( $desc.html().replace(/\n\n/g,"<br/>") )
+                */
 
-                    if (!isWritable) {
-                        p.find(".prog-delete.button").addClass("template")
-                        p.find(".prog-edit.button").text("View")
-                    }
-                    p.find(".prog-delete.button").click(function (ev) { 
-                        ev.preventDefault(); 
-                        return delProgramOrFolder("#prog-delete-dialog", name, function() {
-                            apiDelete( {user:username, folder:folder, program: name}, function () {
-                                navigate({page: "folder", user:username, folder:folder})
-                            })
-                        });
-                    });
-                    if (prog.screenshot)
-                        p.find(".prog-screenshot").prop("src", prog.screenshot)
-                    progList.append(p)
-                })(programs[i]);
+                if (!isWritable) {
+                    //p.find(".prog-rename.button").addClass("template")
+                    p.find(".prog-delete.button").addClass("template")
+                    p.find(".prog-edit.button").text("View")
+                }           	
+            	/*
+                p.find(".prog-rename.button").click(function (ev) { 
+                	ev.preventDefault()
+                    renameDialog("#prog-rename-dialog", function($dlg) {
+                        var name = $dlg.find('input[name="name"]').val()
+                        name = name.replace(/ /g,'') // There are problems with spaces or underscores in names
+                        name = name.replace(/_/g,'')
+                        //apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
+                        //    navigate({page:"folder", user:username, folder:folder, program:name})
+                        //})
+                    })
+                    return false;
+                })
+                */
+                p.find(".prog-delete.button").click(function (ev) { 
+                    ev.preventDefault()
+                    return delProgramOrFolder("#prog-delete-dialog", name, function() {
+                        apiDelete( {user:username, folder:folder, program: name}, function () {
+                            navigate({page: "folder", user:username, folder:folder})
+                        })
+                    })
+                })
+                if (prog.screenshot)
+                    p.find(".prog-screenshot").prop("src", prog.screenshot)
+                progList.append(p)
             }
             if (isWritable && programs.length==0) page.find(".folder-delete").removeClass("template")
             else page.find(".folder-delete").addClass("template")

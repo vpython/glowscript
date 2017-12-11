@@ -111,22 +111,26 @@ Loading...
     <a href="#newProgram" class="program-new button">Create New Program</a>
     <a href="#delFolder" class="folder-delete template button">Delete this folder</a>
 
-    <div class="programs">
-        <div class="program template">
+    <div class="programs" style="float:left">
+        <div class="program template" style="float:left">
             <img class="prog-screenshot" />
-            <div class="prog-header">
+            <div class="prog-header" style="float:left">
                 <div class="prog-name"></div>
                 <a href="#Run" class="prog-run button">Run</a>
                 <a href="#Edit" class="prog-edit button">Edit</a> 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;<br><br><br>&nbsp;
+                <!-- <a href="#Rename" class="prog-rename button">Rename</a> -->
                 <a href="#Delete" class="prog-delete button">Delete</a>
+                <br><br><br>
             </div>
-            <div class="prog-description"></div>
         </div>
     </div>
 
 </div>
 
-<div id="newUser-dialog" class="form-dialog template" title="Welcome to GlowScript.org!">
+<div id="newUser-dialog" class="form-dialog template" title="Welcome to GlowScript.org!" style="font-size: 12px">
     <p>
     To use GlowScript.org you will need to choose a unique name for yourself.  This name will be visible to other
     internet users and will be part of the URLs you can use to share programs.  You can use your own name or a pseudonym, but
@@ -140,18 +144,25 @@ Loading...
     </form>
 </div>
 
-<div id="prog-new-dialog" class="form-dialog template" title="Create New Program">
+<div id="prog-new-dialog" class="form-dialog template" title="Create New Program" style="font-size: 12px">
     <form>
         <label for="name">Name</label>
         <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
     </form>
 </div>
 
-<div id="prog-delete-dialog" class="form-dialog template" title="Delete Program">
+<div id="prog-rename-dialog" class="form-dialog template" title="Rename Program" style="font-size: 12px">
+    <form>
+        <label for="name">New name</label>
+        <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
+    </form>
+</div>
+
+<div id="prog-delete-dialog" class="form-dialog template" title="Delete Program" style="font-size: 12px">
     Are you sure you want to delete <span class="name prog-name">this program</span>?  This action cannot be undone!
 </div>
 
-<div id="folder-new-dialog" class="form-dialog template" title="Create New Folder">
+<div id="folder-new-dialog" class="form-dialog template" title="Create New Folder" style="font-size: 12px">
     <form>
         <label for="name">Name</label>
         <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
@@ -160,7 +171,7 @@ Loading...
     </form>
 </div>
 
-<div id="folder-delete-dialog" class="form-dialog template" title="Delete Folder">
+<div id="folder-delete-dialog" class="form-dialog template" title="Delete Folder" style="font-size: 12px">
     Are you sure you want to delete <span class="name folder-name">this folder</span>?
 </div>
 
