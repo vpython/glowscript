@@ -634,7 +634,7 @@ $(function () {
 	                    p.find(".prog-rename.button").addClass("template")
 	                    p.find(".prog-delete.button").addClass("template")
 	                    p.find(".prog-edit.button").text("View")
-	                }           	
+	                }
 	            	
 	                p.find(".prog-rename.button").click(function (ev) { 
 	                	ev.preventDefault()
@@ -657,8 +657,13 @@ $(function () {
 	                        })
 	                    })
 	                })
-	                if (prog.screenshot)
+	                if (prog.screenshot) {
 	                    p.find(".prog-screenshot").prop("src", prog.screenshot)
+		                p.find(".prog-screenshot").click(function (ev) {
+		                    ev.preventDefault()
+		                    window.location.href = unroute(proute, {page:"run"})
+		                })
+	                }
 	                progList.append(p)
 	            })(programs[i])
             }
