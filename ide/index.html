@@ -95,20 +95,21 @@ Loading...
     <div class="header">
         <div class="spacer">
             <span class="username">User</span>'s <a href="#/">GlowScript</a> Programs
-            <div class="folderTabs ui-tabs ui-widget">
-                <ul class="folderList ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-corner-all">
-                    <li class="folderListItem template ui-state-default ui-corner-top"><a class="folder-name"></a></li>
-                    <li class="folder-new-tab ui-state-default ui-corner-top"><a href="#newFolder" class="folder-new">Add Folder</a></li>
-                </ul>
-                <div id="Public" style="display:none"></div>
-                <div id="Scratch" style="display:none"></div>
-            </div>
         </div>
     </div>
 
     <div class="after-header"></div>
     
-    <a href="#newProgram" class="program-new button">Create New Program</a>
+    <div class="tabs" style="float:left">
+            <div class="folderTabs ui-tabs ui-widget" style="float:left">
+                <ul class="folderList ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-corner-all" style="float:left">
+                    <li class="folderListItem template ui-state-default ui-corner-top"><a class="folder-name" style="font-size: 12px"></a></li>
+                    <li class="folder-new-tab ui-state-default ui-corner-top"><a href="#newFolder" class="folder-new" style="font-size: 12px">Add Folder</a></li>
+                </ul>
+            </div>
+     </div>
+    
+    <a href="#newProgram" class="program-new button"><br><br>&nbsp;&nbsp;&nbsp;Create New Program</a>
     <a href="#delFolder" class="folder-delete template button">Delete this folder</a>
 
     <div class="programs" style="float:left">
@@ -121,7 +122,7 @@ Loading...
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;<br><br><br>&nbsp;
-                <!--<a href="#Rename" class="prog-rename button">Rename</a>-->
+                <!-- <a href="#Rename" class="prog-rename button">Rename</a> -->
                 <a href="#Delete" class="prog-delete button">Delete</a>
                 <br><br><br>
             </div>
@@ -154,7 +155,7 @@ Loading...
 <div id="prog-rename-dialog" class="form-dialog template" title="Rename Program" style="font-size: 12px">
     <form>
         <label for="name">New name, or existing folder/new name:</label>
-        <input type="text" name="name" value="Testing" class="text ui-widget-content ui-corner-all" />
+        <input type="text" class="rename-default" name="name" class="text ui-widget-content ui-corner-all" />
     </form>
 </div>
 

@@ -165,6 +165,20 @@ $(function () {
             }
         })
     }
+    function apiRename(route, callback) {
+    	console.log('apiRename', route)
+        var url = apiURL(route)
+        $.ajax({
+            type: 'RENAME',
+            url: url,
+            headers: { 'X-CSRF-Token': loginStatus.secret },
+            dataType: 'text',
+            success: callback,
+            error: function (xhr, message, exc) {
+                apiError("API " + message + " renaming " + url + ": " + exc)
+            }
+        })
+    }
     function apiExists(route, callback) {
         var url = apiURL(route)
         $.ajax({
@@ -496,8 +510,10 @@ $(function () {
         }
 
         function renameDialog( templ, oldname, doRename ) {
-        	console.log('renameDialog', oldname)
+        	console.log('renameDialog')
             var $dialog = $(templ).clone().removeClass("template")
+            $dialog.find(".name").text(oldname)
+            $dialog.find(".rename-default").val(oldname)
             $dialog.dialog({
                 width: 300,
                 resizable: false,
@@ -505,7 +521,6 @@ $(function () {
                 autoOpen: true,
                 buttons: {
                     "Rename": function () {
-                    	console.log('renameDialog', oldname, name)
                         doRename($(this));
                         $(this).dialog("close");
                     },
@@ -521,7 +536,6 @@ $(function () {
         }
 
         function delProgramOrFolder(templ, name, action) {
-        	console.log('delProgramFolder', name)
             var $dialog = $(templ).clone().removeClass("template")
             if (!name) return;
             $dialog.find(".name").text(name)
@@ -530,11 +544,11 @@ $(function () {
                 modal: true,
                 autoOpen: true,
                 buttons: {
-                    "Yes": function () {
+                    "Delete": function () {
                         $(this).dialog("close")
                         action()
                     },
-                    "No": function () { $(this).dialog("close") }
+                    "Cancel": function () { $(this).dialog("close") }
                 }
             }).submit(function(ev){
                 var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)");
@@ -622,24 +636,20 @@ $(function () {
 	                    p.find(".prog-edit.button").text("View")
 	                }           	
 	            	
-	                /*
 	                p.find(".prog-rename.button").click(function (ev) { 
 	                	ev.preventDefault()
 	                    renameDialog("#prog-rename-dialog", name, function($dlg) {
 	                        var newname = $dlg.find('input[name="name"]').val()
 	                        newname = newname.replace(/ /g,'') // There are problems with spaces or underscores in names
 	                        newname = newname.replace(/_/g,'')
-	                        console.log('rename', name, newname)
-	                        //apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
-	                        //    navigate({page:"folder", user:username, folder:folder, program:name})
-	                        //})
+	                        apiRename({user:username, folder:folder, program:name}, function () {
+	                            navigate({page:"folder", user:username, folder:folder, oldname:name, newname:newname})
+	                        })
 	                    })
 	                    return false;
 	                })
-	                */
 	                
 	                p.find(".prog-delete.button").click(function (ev) { 
-	                	console.log('prog-delete', name)
 	                    ev.preventDefault()
 	                    return delProgramOrFolder("#prog-delete-dialog", name, function() {
 	                        apiDelete( {user:username, folder:folder, program: name}, function () {
@@ -667,6 +677,8 @@ $(function () {
             page.find(".foldername").text(folder)
             page.find(".programname").text(program) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during run.
             page.find(".prog-edit.button").prop("href", unroute(route, {page:"edit"}))
+            if (isWritable) page.find(".prog-edit.button").text('Edit this program')
+            else page.find(".prog-edit.button").text('View this program')
             pageBody.html(page)
 
             // Validate that the browser supports Object.defineProperty (not ie8)
@@ -846,6 +858,7 @@ $(function () {
     }
     pages.share = function(route) {
         var username = route.user, folder = route.folder, program = route.program
+        var isWritable = route.user === loginStatus.username
 
         var page = $(".sharePage.template").clone().removeClass("template")
         page.find("a.username").prop("href", unroute(route, {page:"user"}))
@@ -853,6 +866,8 @@ $(function () {
         page.find(".foldername").text(folder)
         page.find(".programname").text(program) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during share.
         page.find(".prog-edit.button").prop("href", unroute(route, {page:"edit"}))
+        if (isWritable) page.find(".prog-edit.button").text('Edit this program')
+        else page.find(".prog-edit.button").text('View this program')
         var base_link = window.location.protocol + "//" + window.location.host + window.location.pathname
         var folder_link = base_link + unroute(route, {page:"folder"})
         var run_link = base_link + unroute(route, {page:"run"})

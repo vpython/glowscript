@@ -309,6 +309,33 @@ class ApiUserFolderProgram(ApiRequest):
         if "source" in changes: db_program.source = changes["source"]
         db_program.put()
         
+    def rename(self, user, folder, name, newname):                 ##### rename an owned program from name to newname
+    	raise AttributeError('Rename: {}, {}, {}, {}'.format(user, folder, name, newname))
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
+        name = m.group(3)
+        newname = m.group(4)
+        newname.split('/')
+        newfolder = folder
+        if len(newname) > 1:
+        	newfolder = newname[1]
+        newname = newname[0]
+        if not self.validate(user, folder, name): return
+        if not self.authorize_user(user): return
+        db_program = Program.get( db.Key.from_path("User",user,"Folder",newfolder,"Program",newname) )
+        if db_program:
+            # Error: newname already exists
+            pass
+        # Fetch folder/name contents; create newfolder/newname with old contents
+        self.get(user, folder, name)
+        self.put(user, newfolder, newname)
+        
+        ## While testing, don't delete old program
+        #db_program = Program.get( db.Key.from_path("User",user,"Folder",folder,"Program",name) )
+        #if db_program:
+        #    db_program.delete()
+        
     def delete(self, user, folder, name):                                       ##### delete an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
         user = m.group(1)
