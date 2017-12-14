@@ -126,7 +126,6 @@ $(function () {
     }
     function apiGet(route, callback) {
         var url = apiURL(route)
-    	//console.log(url, route)
         $.ajax({
             type: 'GET',
             url: url,
@@ -165,20 +164,7 @@ $(function () {
             }
         })
     }
-    function apiRename(route, callback) {
-    	console.log('apiRename', route)
-        var url = apiURL(route)
-        $.ajax({
-            type: 'RENAME',
-            url: url,
-            headers: { 'X-CSRF-Token': loginStatus.secret },
-            dataType: 'text',
-            success: callback,
-            error: function (xhr, message, exc) {
-                apiError("API " + message + " renaming " + url + ": " + exc)
-            }
-        })
-    }
+    
     function apiExists(route, callback) {
         var url = apiURL(route)
         $.ajax({
@@ -510,7 +496,6 @@ $(function () {
         }
 
         function renameDialog( templ, oldname, doRename ) {
-        	console.log('renameDialog')
             var $dialog = $(templ).clone().removeClass("template")
             $dialog.find(".name").text(oldname)
             $dialog.find(".rename-default").val(oldname)
@@ -597,6 +582,7 @@ $(function () {
         })
 
         // Get a list of folders.  May return multiple times if list is updated
+        var list_of_folders = []
         getFolderList(username, function (data) {
             page.find(".folderList > .templated").remove()
             var before = folderTemplate.next()
@@ -604,6 +590,7 @@ $(function () {
             for (var i = 0; i < folders.length; i++) {
                 var h = folderTemplate.clone().removeClass("template").addClass("templated")
                 var name = decode(folders[i])
+                list_of_folders.push(name)
                 if (name == folder) h.addClass("ui-tabs-active").addClass("ui-state-active")
                 h.find(".folder-name").text(name).prop("href", unroute({page:"folder", user:username, folder:name}))
                 h.insertBefore(before)
@@ -611,6 +598,7 @@ $(function () {
         })
 
         // Get a list of programs from the server
+        var list_of_programs = []
         apiGet( {user:username, folder:folder, program:LIST}, function (data) {
             var progList = page.find(".programs")
             var programs = data.programs
@@ -618,6 +606,7 @@ $(function () {
 	                (function (prog) {
 	                var p = programTemplate.clone().removeClass("template")
 	                var name = decode(prog.name)
+	                list_of_programs.push(name)
 	                var proute = { user:username, folder:folder, program:name }
 	                p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
 	                p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
@@ -636,17 +625,50 @@ $(function () {
 	                    p.find(".prog-edit.button").text("View")
 	                }
 	            	
-	                p.find(".prog-rename.button").click(function (ev) { 
+	                p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
 	                	ev.preventDefault()
 	                    renameDialog("#prog-rename-dialog", name, function($dlg) {
 	                        var newname = $dlg.find('input[name="name"]').val()
 	                        newname = newname.replace(/ /g,'') // There are problems with spaces or underscores in names
 	                        newname = newname.replace(/_/g,'')
-	                        apiRename({user:username, folder:folder, program:name}, function () {
-	                            navigate({page:"folder", user:username, folder:folder, oldname:name, newname:newname})
-	                        })
+	                        var newfolder = folder
+	                        var folder_name = newname.split('/')
+	                        if (folder_name.length == 2) {
+	                        	newfolder = folder_name[0]
+	                        	newname = folder_name[1]
+	                        }
+	                        if (newfolder === folder && newname === name) return false // no change
+	                        var ok = true
+	                        if (list_of_folders.indexOf(newfolder) < 0) {
+	                        	ok = false
+	                        	alert('There is no folder named "'+newfolder+'"')
+	                        }
+	                        if (ok) {
+	                        	// check whether there already exists newfolder/newname
+	                        	apiGet( {user:username, folder:newfolder, program:LIST}, function (data) {
+	                        		for (var pi=0; pi<data.programs.length; pi++) {
+	                        			if (data.programs[pi].name === newname) {
+	                        				ok = false
+	                        				break
+	                        			}
+	                        		}
+	    	                        if (!ok) alert("The program "+newfolder+'/'+newname+" already exists.")
+	    	                        else { // At this point we know that newfolder/newname is an okay destination for the renaming
+				                        apiGet( {user:username, folder:folder, program:name}, function (progData) {
+				                        	// program is the name of the file; progData.source is the program source in that file
+				                        	// progData: folder, user, description, screenshot, source
+					                        apiPut({user:username, folder:newfolder, program:newname}, 
+					                        		{ source: progData.source, screenshot: progData.screenshot, description: progData.description }, function () {
+					        	                        apiDelete( {user:username, folder:folder, program: name}, function () {
+					        	                            navigate({page: "folder", user:username, folder:folder})
+					        	                        })
+					                        })
+				                        })
+	    	                        }
+	                        	})
+	                        }
 	                    })
-	                    return false;
+	                    return false
 	                })
 	                
 	                p.find(".prog-delete.button").click(function (ev) { 
@@ -735,7 +757,7 @@ $(function () {
 
             var haveScreenshot = true
             apiGet( {user:username, folder:folder, program:program}, function (progData) {
-                var header = parseVersionHeader( progData.source )
+            	var header = parseVersionHeader( progData.source )
                 if (header.ok) {
                     haveScreenshot = progData.screenshot != ""
                     sendMessage(JSON.stringify({ program: header.source, version: header.version, lang: header.lang, unpackaged: header.unpackaged, autoscreenshot:isWritable && !haveScreenshot }))
@@ -1008,7 +1030,8 @@ $(function () {
             }
         }
 
-        apiGet( {user:username, folder:folder, program:program}, function (progData) { 
+        apiGet( {user:username, folder:folder, program:program}, function (progData) {
+        	// program is the name of the file; progData.source is the program source in that file
         	var lang = parseVersionHeader(progData.source).lang
             if (!(lang == 'javascript' || lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython')) lang = 'javascript'
             
