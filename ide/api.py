@@ -283,7 +283,7 @@ class ApiUserFolderProgram(ApiRequest):
             "screenshot": str(db_program.screenshot or ""),
             "source": unicode(db_program.source or unicode())} )
             
-    def put(self, user, folder, name):                                          ##### write an owned program
+    def put(self, user, folder, name):                                          ##### create or write an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)
@@ -298,7 +298,7 @@ class ApiUserFolderProgram(ApiRequest):
 
         # This is a slight abuse of the PUT verb, since attributes not specified are left unchanged
         db_program = Program.get( db.Key.from_path("User",user,"Folder",folder,"Program",name) )
-        if not db_program:
+        if not db_program: # if not db_program already, this is a request to create a new program
             db_folder = Folder.get( db.Key.from_path("User",user,"Folder",folder) )
             if not db_folder:
                 return self.error(404)

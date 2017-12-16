@@ -95,7 +95,8 @@ $(function () {
         "2.3dev" : "2.3",
         "2.4dev" : "2.4",
         "2.5dev" : "2.5",
-        "2.6dev" : "unpackaged",
+        "2.6dev" : "2.6",
+        "2.7dev" : "unpackaged",
     }
 
     /******** Functions to talk to the API on the server ***********/
