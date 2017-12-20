@@ -22,7 +22,7 @@ else:
     from google.appengine.ext.webapp.util import run_wsgi_app
     from django.utils import simplejson as json
 
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 from google.appengine.api import users
 import os, re, base64, logging
 
@@ -35,37 +35,37 @@ unreserved = chrange('A','Z') | chrange('a','z') | chrange('0','9') | set("-_.~"
 # See documentation of db.Model at https://cloud.google.com/appengine/docs/python/datastore/modelclass
 # Newer ndb:                       https://cloud.google.com/appengine/docs/standard/python/ndb/db_to_ndb
 
-class AppSecrets (db.Model):
+class AppSecrets (ndb.Model):
     """A singleton containing secrets that shouldn't be exposed at GitHub"""
-    sso_secret = db.StringProperty(indexed=False)
+    sso_secret = ndb.StringProperty(indexed=False)
 # Loading this once at startup means the app needs to be restarted after changing secrets in the datastore!
-secrets = AppSecrets.get( db.Key.from_path("AppSecrets","instance") )
+secrets = ndb.Key("AppSecrets","instance").get()
 if not secrets:
     #logging.error("No secrets")
-    secrets = AppSecrets(key_name = "instance", sso_secret="?")
+    secrets = AppSecrets(id = "instance", sso_secret="?")
     secrets.put()
 
-class User (db.Model):
+class User (ndb.Model):
     """A single user of the IDE"""
     # No parent
-    # Key is the user's unique name
-    joinDate = db.DateTimeProperty(auto_now_add=True)
-    gaeUser = db.UserProperty()
-    secret = db.StringProperty(indexed=False)
+    # key is the user's unique name
+    joinDate = ndb.DateTimeProperty(auto_now_add=True)
+    gaeUser = ndb.UserProperty()
+    secret = ndb.StringProperty(indexed=False)
 
-class Folder (db.Model):
+class Folder (ndb.Model):
     """A collection of programs created by a user"""
     # Parent is a User
     # key is the folder's name (unique for a user)
-    isPublic = db.BooleanProperty()
+    isPublic = ndb.BooleanProperty()
 
-class Program (db.Model):
+class Program (ndb.Model):
     """A single program"""
     # Parent is a Folder
     # key is the program's name (unique for a folder)
-    description = db.StringProperty(multiline=True)
-    source = db.TextProperty()
-    screenshot = db.BlobProperty()
+    description = ndb.StringProperty()
+    source = ndb.TextProperty()
+    screenshot = ndb.BlobProperty()
 
 class ApiRequest(web.RequestHandler):
     allowJSONP=None
@@ -95,8 +95,8 @@ class ApiRequest(web.RequestHandler):
             self.error(403)
             return False
 
-        db_user = User.get( db.Key.from_path("User",username) )
-        if not db_user or db_user.gaeUser != gaeUser or self.request.headers.get('X-CSRF-Token') != db_user.secret:
+        ndb_user = ndb.Key("User",username).get()
+        if not ndb_user or ndb_user.gaeUser != gaeUser or self.request.headers.get('X-CSRF-Token') != ndb_user.secret:
             self.error(403)
             return False
 
@@ -123,9 +123,9 @@ class ApiLogin(ApiRequest):
         if not user:
             self.respond( { 'state':'not_logged_in', 'login_url':users.create_login_url("/#/action/loggedin") } )
             return
-        db_user = User.gql("WHERE gaeUser = :user", user=user).get()
-        if db_user:
-            self.respond( { 'state':'logged_in', 'username':db_user.key().name(), 'secret':db_user.secret, 'logout_url':users.create_logout_url("/#/action/loggedout") } )
+        ndb_user = User.gql("WHERE gaeUser = :user", user=user).get()
+        if ndb_user:
+            self.respond( { 'state':'logged_in', 'username':ndb_user.key.id(), 'secret':ndb_user.secret, 'logout_url':users.create_logout_url("/#/action/loggedout") } )
         else:
             # TODO: CSRF protection for subsequent PUT /user/{name}
             # Not super critical, because normally accounts are not in this state for long, and by definition don't
@@ -138,9 +138,8 @@ class ApiUsers(ApiRequest):
     def get(self):
         if not self.authorize(): return
         #if not self.authorize_user("Bruce_Sherwood"): return
-        users = [ k.name() for k in User.all(keys_only=True) ]
-        #self.respond( {"users" : users} )
-        self.respond("Nusers = "+str(len(users)))
+        N = User.query().count()
+        self.respond("Nusers = "+str(N))
 
 class ApiUser(ApiRequest):
     def get(self, username):
@@ -150,8 +149,8 @@ class ApiUser(ApiRequest):
         if not self.validate(username): return
 
         # This is just used to validate that a user does/doesn't exist
-        db_user = User.get( db.Key.from_path("User",username) )
-        if not db_user:
+        ndb_user = ndb.Key("User",username).get()
+        if not ndb_user:
             return self.error(404)
         self.respond({})
 
@@ -167,24 +166,22 @@ class ApiUser(ApiRequest):
 
         # TODO: CSRF protection (see ApiLogin)
         # The caller mustn't already have a user account
-        db_user = User.gql("WHERE gaeUser = :gaeUser", gaeUser=gaeUser).get()
-        if db_user: return self.error(403)
+        ndb_user = User.gql("WHERE gaeUser = :gaeUser", gaeUser=gaeUser).get()
+        if ndb_user: return self.error(403)
 
         # The username mustn't already exist - that's stealing!
-        db_user = User.get( db.Key.from_path("User",username) )
-        if db_user: return self.error(403)
+        ndb_user = ndb.Key("User",username).get()
+        if ndb_user: return self.error(403)
 
         # TODO: Make sure *nothing* exists in the database with an ancestor of this user, just to be sure
 
-        db_user = User( key_name = username, gaeUser = gaeUser, secret = base64.urlsafe_b64encode(os.urandom(16)) )
-        db_user.put()
+        ndb_user = User( id=username, gaeUser=gaeUser, secret=base64.urlsafe_b64encode(os.urandom(16)) )
+        ndb_user.put()
 
-        db_my_programs = Folder( parent = db_user, key_name = "Public", isPublic=True )
-        db_my_programs.put()
-        db_my_programs = Folder( parent = db_user, key_name = "Private", isPublic=False )
-        db_my_programs.put()
-
-        #self.redirect( "/api/login" ) # routing now done in ide.js
+        ndb_my_programs = Folder( parent=ndb_user.key, id="Public", isPublic=True )
+        ndb_my_programs.put()
+        ndb_my_programs = Folder( parent=ndb_user.key, id="Private", isPublic=False )
+        ndb_my_programs.put()
 
 class ApiUserFolders(ApiRequest):
     def get(self, user):                                                        ##### display all public or owned folders                                           
@@ -193,12 +190,11 @@ class ApiUserFolders(ApiRequest):
         if not self.authorize(): return
         if not self.validate(user): return
         gaeUser = users.get_current_user()
-        db_user = User.get( db.Key.from_path("User",user) )
+        ndb_user = ndb.Key("User",user).get()
         folders = []
-        for k in Folder.all().ancestor(db.Key.from_path("User",user)):
-        	if k.isPublic != None and not k.isPublic and gaeUser != db_user.gaeUser: continue
-        	folders.append(k.key().name())
-        #folders = [ k.name() for k in Folder.all(keys_only=True).ancestor(db.Key.from_path("User",user)) ]
+        for k in Folder.query(ancestor=ndb.Key("User",user)):
+        	if k.isPublic != None and not k.isPublic and gaeUser != ndb_user.gaeUser: continue
+        	folders.append(k.key.id())
         self.respond( {"user" : user, "folders" : folders} )
 
 class ApiUserFolder(ApiRequest):
@@ -208,16 +204,15 @@ class ApiUserFolder(ApiRequest):
         folder = m.group(2)
         if not self.authorize_user(user): return
         if not self.validate(user, folder): return
-        db_user = User.get( db.Key.from_path("User",user) )
-        if not db_user:
+        ndb_user = ndb.Key("User",user).get()
+        if not ndb_user:
             return self.error(404)
         import cgi
         params = cgi.parse_qs(self.request.body)
         req_program = params['program'][0]
         changes = json.loads( req_program )
-        folder = Folder( parent = db_user, key_name = folder, isPublic = changes['public'] )
+        folder = Folder( parent=ndb_user.key, id=folder, isPublic=changes['public'] )
         ### Also change public=True in My Programs, above
-        #folder = Folder( parent = db_user, key_name = folder, public=True )
         folder.put()
         
     def delete(self, user, folder):                                             ##### delete an existing folder
@@ -226,14 +221,17 @@ class ApiUserFolder(ApiRequest):
         folder = m.group(2)
         if not self.validate(user, folder): return
         if not self.authorize_user(user): return
-        db_folder = Folder.get( db.Key.from_path("User", user, "Folder", folder) )
-        if not db_folder:
+        ndb_folder = ndb.Key("User", user, "Folder", folder).get()
+        if not ndb_folder:
             return self.error(404)
-        # Make sure the folder is empty (alternatively: delete all contents?)
-        any_program = Program.all().ancestor(db_folder.key()).get()
-        if any_program:
+        # Make sure the folder is empty
+        program_count = 0
+        for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)):
+            program_count += 1
+        
+        if program_count > 0:
             return self.error(409)
-        db_folder.delete()
+        ndb_folder.key.delete()
 
 class ApiUserFolderPrograms(ApiRequest):
     def get(self, user, folder):                                                ##### display all programs in a public or owned folder
@@ -242,20 +240,20 @@ class ApiUserFolderPrograms(ApiRequest):
         folder = m.group(2)
         if not self.authorize(): return
         if not self.validate(user, folder): return
-        db_folder = Folder.get(db.Key.from_path("User",user,"Folder",folder))
+        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
         gaeUser = users.get_current_user()
-        db_user = User.get( db.Key.from_path("User",user) )
+        ndb_user = ndb.Key("User",user).get()
         try:
-        	pub = db_folder.isPublic is None or db_folder.isPublic or gaeUser == db_user.gaeUser # before March 2015, isPublic wasn't set
+        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
         except:
         	pub = True
         if not pub:
             return self.error(405)
         programs = [
-            { "name": p.key().name(),
+            { "name": p.key.id(),
               "description": unicode(p.description or unicode()),
               "screenshot": str(p.screenshot or ""),
-            } for p in Program.all().ancestor(db.Key.from_path("User",user,"Folder",folder)) ]
+            } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)) ]
         self.respond( {"user":user, "folder" : folder, "programs":programs} )
 
 class ApiUserFolderProgram(ApiRequest):
@@ -266,22 +264,22 @@ class ApiUserFolderProgram(ApiRequest):
         name = m.group(3)
         if not self.authorize(): return
         if not self.validate(user, folder, name): return
-        db_folder = Folder.get(db.Key.from_path("User",user,"Folder",folder))
+        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
         gaeUser = users.get_current_user()
-        db_user = User.get( db.Key.from_path("User",user) )
+        ndb_user = ndb.Key("User",user).get()
         try:
-        	pub = db_folder.isPublic is None or db_folder.isPublic or gaeUser == db_user.gaeUser # before March 2015, isPublic wasn't set
+        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
         except:
         	pub = True
         if not pub:
             return self.error(405)
-        db_program = Program.get( db.Key.from_path("User",user,"Folder",folder,"Program",name) )
-        if not db_program:
+        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+        if not ndb_program:
             return self.error(404)
         self.respond( {"user":user,"folder":folder,"name":name,
-            "description": unicode(db_program.description or unicode()),
-            "screenshot": str(db_program.screenshot or ""),
-            "source": unicode(db_program.source or unicode())} )
+            "description": unicode(ndb_program.description or unicode()),
+            "screenshot": str(ndb_program.screenshot or ""),
+            "source": unicode(ndb_program.source or unicode())} )
             
     def put(self, user, folder, name):                                          ##### create or write an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
@@ -297,17 +295,17 @@ class ApiUserFolderProgram(ApiRequest):
         changes = json.loads( req_program )
 
         # This is a slight abuse of the PUT verb, since attributes not specified are left unchanged
-        db_program = Program.get( db.Key.from_path("User",user,"Folder",folder,"Program",name) )
-        if not db_program: # if not db_program already, this is a request to create a new program
-            db_folder = Folder.get( db.Key.from_path("User",user,"Folder",folder) )
-            if not db_folder:
+        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+        if not ndb_program: # if not ndb_program already, this is a request to create a new program
+            ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+            if not ndb_folder:
                 return self.error(404)
-            db_program = Program( parent = db_folder, key_name = name )
+            ndb_program = Program( parent=ndb_folder.key, id=name )
 
-        if "description" in changes: db_program.description = changes["description"]
-        if "screenshot" in changes:  db_program.screenshot = db.Blob(str(changes["screenshot"]))
-        if "source" in changes: db_program.source = changes["source"]
-        db_program.put()
+        if "description" in changes: ndb_program.description = changes["description"]
+        if "screenshot" in changes:  ndb_program.screenshot = str(changes["screenshot"])
+        if "source" in changes: ndb_program.source = changes["source"]
+        ndb_program.put()
         
     def delete(self, user, folder, name):                                       ##### delete an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
@@ -316,15 +314,15 @@ class ApiUserFolderProgram(ApiRequest):
         name = m.group(3)
         if not self.validate(user, folder, name): return
         if not self.authorize_user(user): return
-        db_program = Program.get( db.Key.from_path("User",user,"Folder",folder,"Program",name) )
-        if db_program:
-            db_program.delete()
+        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+        if ndb_program:
+            ndb_program.key.delete()
 
 class ApiAdminUpgrade(ApiRequest):
     allowJSONP = None
     def post(self):
         if not self.authorize_user("David"): return
-        programs = list( Program.all() )
+        programs = list( Program.query() )
         changeCount = 0
         for p in programs:
             if self.upgradeProgram(p):
@@ -357,3 +355,4 @@ if python_version == '2.7':
 else:
     def main():
         run_wsgi_app(app)
+
