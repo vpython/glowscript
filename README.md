@@ -20,7 +20,7 @@ For information related to building the GlowScript application, see MakingNewVer
 
 Sister Project
 --------------
-A more recent project initiated by John Coady and further developed by Ruth Chabay and Bruce Sherwood lets you run VPython programs in a Jupyter notebook: see [vpython.org](http://vpython.org). The syntax is the same as GlowScript VPython, but Jupyter VPython uses an installed standard Python, which provides access to the large number of Python modules. GlowScript VPython does not require installing any software but provides access only to libraries written in JavaScript, not to standard Python modules.
+A more recent project, VPython 7, was initiated by John Coady and further developed by Ruth Chabay and Bruce Sherwood. VPython 7 lets you run VPython programs in a Jupyter notebook or from program launchers such as IDLE or Spyder: see [vpython.org](http://vpython.org). The syntax is the same as GlowScript VPython, but VPython 7 uses an installed standard Python, which provides access to the large number of Python modules. GlowScript VPython does not require installing any software but provides access only to libraries written in JavaScript, not to standard Python modules.
  
 Run a Local Server
 ------------------
