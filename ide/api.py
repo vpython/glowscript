@@ -25,6 +25,7 @@ else:
 from google.appengine.ext import ndb
 from google.appengine.api import users
 import os, re, base64, logging
+from datetime import datetime
 
 # URI encoding (percent-escaping of all characters other than [A-Za-z0-9-_.~]) is used for names
 # of users, folders and programs in the model and in URIs and in JSON, so no (un)escaping is required.  
@@ -66,6 +67,7 @@ class Program (ndb.Model):
     description = ndb.StringProperty()
     source = ndb.TextProperty()
     screenshot = ndb.BlobProperty()
+    datetime = ndb.DateTimeProperty() # this is UTC date and time
 
 class ApiRequest(web.RequestHandler):
     allowJSONP=None
@@ -192,10 +194,12 @@ class ApiUserFolders(ApiRequest):
         gaeUser = users.get_current_user()
         ndb_user = ndb.Key("User",user).get()
         folders = []
+        publics = []
         for k in Folder.query(ancestor=ndb.Key("User",user)):
         	if k.isPublic != None and not k.isPublic and gaeUser != ndb_user.gaeUser: continue
         	folders.append(k.key.id())
-        self.respond( {"user" : user, "folders" : folders} )
+        	publics.append(k.isPublic)
+        self.respond( {"user":user, "folders":folders, "publics":publics} )
 
 class ApiUserFolder(ApiRequest):
     def put(self, user, folder):                                                ##### create a new folder
@@ -251,10 +255,11 @@ class ApiUserFolderPrograms(ApiRequest):
             return self.error(405)
         programs = [
             { "name": p.key.id(),
-              "description": unicode(p.description or unicode()),
+              #"description": unicode(p.description or unicode()), # description not currently used
               "screenshot": str(p.screenshot or ""),
+              "datetime": str(p.datetime)
             } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)) ]
-        self.respond( {"user":user, "folder" : folder, "programs":programs} )
+        self.respond( {"user":user, "folder":folder, "programs":programs} )
 
 class ApiUserFolderProgram(ApiRequest):
     def get(self, user, folder, name):                                          ##### access a public or owned program
@@ -277,9 +282,9 @@ class ApiUserFolderProgram(ApiRequest):
         if not ndb_program:
             return self.error(404)
         self.respond( {"user":user,"folder":folder,"name":name,
-            "description": unicode(ndb_program.description or unicode()),
+            #"description": unicode(ndb_program.description or unicode()), # description not currently used
             "screenshot": str(ndb_program.screenshot or ""),
-            "source": unicode(ndb_program.source or unicode())} )
+            "source": unicode(ndb_program.source or unicode()),} )
             
     def put(self, user, folder, name):                                          ##### create or write an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
@@ -302,9 +307,10 @@ class ApiUserFolderProgram(ApiRequest):
                 return self.error(404)
             ndb_program = Program( parent=ndb_folder.key, id=name )
 
-        if "description" in changes: ndb_program.description = changes["description"]
+        #if "description" in changes: ndb_program.description = changes["description"] # description not currently used
         if "screenshot" in changes:  ndb_program.screenshot = str(changes["screenshot"])
         if "source" in changes: ndb_program.source = changes["source"]
+        ndb_program.datetime = datetime.now()
         ndb_program.put()
         
     def delete(self, user, folder, name):                                       ##### delete an owned program

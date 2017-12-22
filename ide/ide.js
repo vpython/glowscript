@@ -95,8 +95,7 @@ $(function () {
         "2.3dev" : "2.3",
         "2.4dev" : "2.4",
         "2.5dev" : "2.5",
-        "2.6dev" : "2.6",
-        "2.7dev" : "unpackaged",
+        "2.6dev" : "unpackaged",
     }
 
     /******** Functions to talk to the API on the server ***********/
@@ -119,10 +118,10 @@ $(function () {
                     u += "/program/" + encode(route.program)  // program might be LIST, to get the list
                 }
             }
-            return u;
+            return u
         } else {
             (route)
-            throw Error("Unknown API route");
+            throw Error("Unknown API route")
         }
     }
     function apiGet(route, callback) {
@@ -175,7 +174,7 @@ $(function () {
             success: function() { callback(true) },
             error: function (xhr, message, exc) {
                 if (xhr.status == 404) 
-                    callback(false);
+                    callback(false)
                 else
                     apiError("API " + message + " getting " + url + ": " + exc)
             }
@@ -195,16 +194,17 @@ $(function () {
 
         function saveNow() {
             if (saveTimeout) { clearTimeout(saveTimeout); saveTimeout = null; }
-            if (saving) return;
-            saving = true;
+            if (saving) return
+            saving = true
             savingSource = getProgramSource()
             var save = { 
-                source: savingSource,
-                //description: ""  // Or comment this out to allow a program to retain a description removed from the source?
+                source: savingSource
+                //description: ""  // not currently used
             }
 
-            var descriptionCommentMatch = savingSource.match(/^(?:GlowScript.*\r?\n|#.*\r?\n|\r?\n)*\/\*([^\x00]*?)\*\//)
-            if (descriptionCommentMatch) save.description = descriptionCommentMatch[1]
+            // description is not currently used
+            //var descriptionCommentMatch = savingSource.match(/^(?:GlowScript.*\r?\n|#.*\r?\n|\r?\n)*\/\*([^\x00]*?)\*\//)
+            //if (descriptionCommentMatch) save.description = descriptionCommentMatch[1]
 
             setStatus("Saving...")
             apiPut(uri, save, saved)
@@ -306,7 +306,7 @@ $(function () {
                     changeTimeout = setTimeout( function() {
                         if ($name.val() != val) return;
                         apiExists( {user:val}, function( isPresent ) {
-                            if (val != $name.val()) return;
+                            if (val != $name.val()) return
                             if (isPresent) err("This name is already in use.")
                             else $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)").button("enable")
                         })
@@ -341,11 +341,11 @@ $(function () {
                 },
                 close: function () { }
             }).submit(function(ev){
-                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)");
+                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
                 if (!$button.prop("disabled")) $button.click()
                 ev.preventDefault()
                 return false
-            });
+            })
         }
     }
 
@@ -358,7 +358,7 @@ $(function () {
         //   are not representable (even escaped).  % and _ are escaped using percent encoding.  Non-ascii characters are NOT escaped.
     	// Later (2014?): There were problems with this scheme, and now spaces etc. are not allowed in names of entities.
     	
-        var h = (location.hash || "#").substr(1)
+    	var h = (location.hash || "#").substr(1)
 
         var components = h.split("/")
         for(var i=0; i<components.length; i++) {
@@ -465,15 +465,16 @@ $(function () {
         var folderTemplate = page.find(".folderListItem.template")
 
         if (!isWritable) {
+            page.find(".folder-public.button").addClass("template")
             page.find(".program-new.button").addClass("template")
             page.find(".folder-new-tab").addClass("template")
         }
 
-        page.find(".username").text(username) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during run.
+    	page.find(".username").text(username) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during run.
         page.find(".foldername").text(folder)
         pageBody.html(page)
 
-        function createDialog( templ, doCreate ) {
+        function createDialog( templ, doCreate ) { // dialog for creating a new program
             var $dialog = $(templ).clone().removeClass("template")
             $dialog.dialog({
                 width: 300,
@@ -482,21 +483,21 @@ $(function () {
                 autoOpen: true,
                 buttons: {
                     "Create": function () {
-                        doCreate($(this));
-                        $(this).dialog("close");
+                        doCreate($(this))
+                        $(this).dialog("close")
                     },
-                    "Cancel": function () { $(this).dialog("close"); }
+                    "Cancel": function () { $(this).dialog("close") }
                 },
                 close: function () {  }
             }).submit(function(ev){
-                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)");
+                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
                 if (!$button.prop("disabled")) $button.click()
                 ev.preventDefault()
                 return false
-            });
+            })
         }
 
-        function renameDialog( templ, oldname, doRename ) {
+        function renameDialog( templ, oldname, doRename ) { // dialog for renaming a program (can include moving to anothe folder)
             var $dialog = $(templ).clone().removeClass("template")
             $dialog.find(".name").text(oldname)
             $dialog.find(".rename-default").val(oldname)
@@ -507,23 +508,23 @@ $(function () {
                 autoOpen: true,
                 buttons: {
                     "Rename": function () {
-                        doRename($(this));
-                        $(this).dialog("close");
+                        doRename($(this))
+                        $(this).dialog("close")
                     },
-                    "Cancel": function () { $(this).dialog("close"); }
+                    "Cancel": function () { $(this).dialog("close") }
                 },
                 close: function () {  }
             }).submit(function(ev){
-                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)");
+                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
                 if (!$button.prop("disabled")) $button.click()
                 ev.preventDefault()
                 return false
-            });
+            })
         }
 
-        function delProgramOrFolder(templ, name, action) {
+        function delProgramOrFolder(templ, name, action) { // dialog for deleting a program or folder (folder must be empty to delete a folder)
             var $dialog = $(templ).clone().removeClass("template")
-            if (!name) return;
+            if (!name) return
             $dialog.find(".name").text(name)
             $dialog.dialog({
                 width: "300px",
@@ -537,19 +538,19 @@ $(function () {
                     "Cancel": function () { $(this).dialog("close") }
                 }
             }).submit(function(ev){
-                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)");
+                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
                 if (!$button.prop("disabled")) $button.click()
                 ev.preventDefault()
                 return false
-            });
-            return false;
+            })
+            return false
         }
 
-        page.find(".folder-new").click(function (ev) {
+        page.find(".folder-new").click(function (ev) { // create a new folder
             ev.preventDefault()
             createDialog("#folder-new-dialog", function($dlg) {
                 var name = $dlg.find('input[name="name"]').val()
-                if (name == 'Add Folder') return false;
+                if (name == 'Add Folder') return false
                 name = name.replace(/ /g,'') // There are problems with spaces or underscores in names
                 name = name.replace(/_/g,'')
                 var p = $dlg.find('input[name="isPublic"]').is(":checked") // true is checked, which means public
@@ -557,11 +558,11 @@ $(function () {
                     navigate( {page:"folder", user:username, folder:name} )
                 })
             })
-            return false;
+            return false
         })
 
-        page.find(".folder-delete").click(function (ev) {
-            ev.preventDefault();
+        page.find(".folder-delete").click(function (ev) { // delete a folder (must be an empty folder)
+            ev.preventDefault()
             return delProgramOrFolder("#folder-delete-dialog", folder, function() {
                 apiDelete( {user:username, folder:folder}, function () {
                     navigate( {page:"user", user:username} )                
@@ -569,7 +570,7 @@ $(function () {
             })
         })
 
-        page.find(".program-new").click(function (ev) {
+        page.find(".program-new").click(function (ev) { // create a new program
             ev.preventDefault()
             createDialog("#prog-new-dialog", function($dlg) {
                 var name = $dlg.find('input[name="name"]').val()
@@ -579,25 +580,48 @@ $(function () {
                     navigate({page:"edit", user:username, folder:folder, program:name})
                 })
             })
-            return false;
+            return false
+        })
+
+        page.find(".folder-public").click(function(ev) { // toggle PUBLIC/PRIVATE for a folder
+            ev.preventDefault()
+    		var pub = set_of_folders[folder]
+            apiPut({user:username, folder:folder}, {public:!pub}, function () {
+                navigate( {page:"folder", user:username, folder:folder} )
+            })
         })
 
         // Get a list of folders.  May return multiple times if list is updated
-        var list_of_folders = []
+        var set_of_folders = {} // {folder_name : isPublic, ..... }
         getFolderList(username, function (data) {
             page.find(".folderList > .templated").remove()
             var before = folderTemplate.next()
             var folders = data.folders
+            var publics = data.publics
             for (var i = 0; i < folders.length; i++) {
                 var h = folderTemplate.clone().removeClass("template").addClass("templated")
                 var name = decode(folders[i])
-                list_of_folders.push(name)
+                set_of_folders[name] = publics[i]
                 if (name == folder) h.addClass("ui-tabs-active").addClass("ui-state-active")
                 h.find(".folder-name").text(name).prop("href", unroute({page:"folder", user:username, folder:name}))
                 h.insertBefore(before)
             }
+            var s = "PRIVATE"
+            if (set_of_folders[folder]) s = "PUBLIC"
+            page.find(".folder-public.button").text(s)
         })
-
+        
+        var d = new Date()
+        var hour_offset = d.getTimezoneOffset()/60
+        var minute_offset, f
+        if (hour_offset >= 0) {
+            f = Math.floor(hour_offset)
+        } else {
+            f = -Math.floor(-hour_offset)
+        }
+        minute_offset = 60*(hour_offset - f)
+        hour_offset = f
+        	
         // Get a list of programs from the server
         var list_of_programs = []
         apiGet( {user:username, folder:folder, program:LIST}, function (data) {
@@ -612,6 +636,37 @@ $(function () {
 	                p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
 	                p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
 	                p.find(".prog-name").text(name)
+	                var t = prog.datetime // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
+	                if (t != 'None') {
+	                	// prog.datetime is UTC; here we convert to local time for display purposes
+	                	var patt = new RegExp('(\\d*)-(\\d*)-(\\d*)\\s(\\d*):(\\d*):(\\d*\\.\\d*)')
+	                	var m = patt.exec(t)
+	                	var year = Number(m[1])
+	                	var month = Number(m[2])
+	                	var day = Number(m[3])
+	                	var hour = Number(m[4])
+	                	var minute = Number(m[5])
+	                	var second = Math.floor(Number(m[6]))
+	                	d.setUTCFullYear(year)
+	                	d.setUTCMonth(month-1) // JavaScript numbers months starting at zero
+	                	d.setUTCDate(day)
+	                	d.setUTCHours(hour-hour_offset) // UTC to local time
+	                	d.setUTCMinutes(minute-minute_offset)
+	                	d.setUTCSeconds(second)
+	                	year = d.getUTCFullYear()
+	                	month = Number(d.getUTCMonth())+1 // restore original 1-12 month number
+	                	day = d.getUTCDate()
+	                	hour = d.getUTCHours()
+	                	minute = d.getUTCMinutes()
+	                	second = d.getUTCSeconds()
+	                	if (month < 10) month = '0'+month
+	                	if (day < 10) day = '0'+day
+	                	if (hour < 10) hour = '0'+hour
+	                	if (minute < 10) minute = '0'+minute
+	                	if (second < 10) second = '0'+second
+	                	t = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second
+	                } else t = 'Before 2018'
+		            p.find(".prog-datetime").text(t)
 	
 	                // TODO: Apply a sanitizer + markdown?
 	                /* Description not really useful any more
@@ -639,12 +694,9 @@ $(function () {
 	                        	newname = folder_name[1]
 	                        }
 	                        if (newfolder === folder && newname === name) return false // no change
-	                        var ok = true
-	                        if (list_of_folders.indexOf(newfolder) < 0) {
-	                        	ok = false
-	                        	alert('There is no folder named "'+newfolder+'"')
-	                        }
-	                        if (ok) {
+	                        var ok = ( newfolder in set_of_folders )
+	                        if (!ok) alert('There is no folder named "'+newfolder+'"')
+	                        else {
 	                        	// check whether there already exists newfolder/newname
 	                        	apiGet( {user:username, folder:newfolder, program:LIST}, function (data) {
 	                        		for (var pi=0; pi<data.programs.length; pi++) {
@@ -659,7 +711,9 @@ $(function () {
 				                        	// program is the name of the file; progData.source is the program source in that file
 				                        	// progData: folder, user, description, screenshot, source
 					                        apiPut({user:username, folder:newfolder, program:newname}, 
-					                        		{ source: progData.source, screenshot: progData.screenshot, description: progData.description }, function () {
+					                        		// description is not currently used
+					                        		//{ source: progData.source, screenshot: progData.screenshot, description: progData.description }, function () {
+						                        	{ source: progData.source, screenshot: progData.screenshot }, function () {
 					        	                        apiDelete( {user:username, folder:folder, program: name}, function () {
 					        	                            navigate({page: "folder", user:username, folder:folder})
 					        	                        })
