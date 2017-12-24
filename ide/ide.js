@@ -668,6 +668,13 @@ $(function () {
 	                } else t = 'Before 2018'
 		            p.find(".prog-datetime").text(t)
 	
+	                // TODO: Apply a sanitizer + markdown?
+	                /* Description not really useful any more
+	                var $desc = p.find(".prog-description")
+	                $desc.text(prog.description)
+	                $desc.html( $desc.html().replace(/\n\n/g,"<br/>") )
+	                */
+	
 	                if (!isWritable) {
 	                    p.find(".prog-rename.button").addClass("template")
 	                    p.find(".prog-delete.button").addClass("template")
@@ -700,11 +707,17 @@ $(function () {
 	                        		}
 	    	                        if (!ok) alert("The program "+newfolder+'/'+newname+" already exists.")
 	    	                        else { // At this point we know that newfolder/newname is an okay destination for the renaming
-				                        apiPut({user:username, folder:newfolder, program:newname}, 
-			                        		{ oldfolder:folder, oldprogram:name }, function () {
-			        	                        apiDelete( {user:username, folder:folder, program: name}, function () {
-			        	                            navigate({page: "folder", user:username, folder:folder})
-			        	                        })
+				                        apiGet( {user:username, folder:folder, program:name}, function (progData) {
+				                        	// program is the name of the file; progData.source is the program source in that file
+				                        	// progData: folder, user, description, screenshot, source
+					                        apiPut({user:username, folder:newfolder, program:newname}, 
+					                        		// description is not currently used
+					                        		//{ source: progData.source, screenshot: progData.screenshot, description: progData.description }, function () {
+						                        	{ source: progData.source, screenshot: progData.screenshot }, function () {
+					        	                        apiDelete( {user:username, folder:folder, program: name}, function () {
+					        	                            navigate({page: "folder", user:username, folder:folder})
+					        	                        })
+					                        })
 				                        })
 	    	                        }
 	                        	})
