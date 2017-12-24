@@ -307,10 +307,17 @@ class ApiUserFolderProgram(ApiRequest):
                 return self.error(404)
             ndb_program = Program( parent=ndb_folder.key, id=name )
 
-        #if "description" in changes: ndb_program.description = changes["description"] # description not currently used
-        if "screenshot" in changes:  ndb_program.screenshot = str(changes["screenshot"])
-        if "source" in changes: ndb_program.source = changes["source"]
-        ndb_program.datetime = datetime.now()
+        if "oldfolder" in changes:
+            ndb_program_old = ndb.Key("User",user,"Folder",changes["oldfolder"],
+                                      "Program",changes["oldprogram"]).get()
+            ndb_program.source = ndb_program_old.source
+            ndb_program.screenshot = ndb_program_old.screenshot
+            ndb_program.datetime = ndb_program_old.datetime
+        else:
+            if "source" in changes: ndb_program.source = changes["source"]
+            if "screenshot" in changes:  ndb_program.screenshot = str(changes["screenshot"])
+            ndb_program.datetime = datetime.now()
+        ndb_program.description = "" # description currently not used
         ndb_program.put()
         
     def delete(self, user, folder, name):                                       ##### delete an owned program
