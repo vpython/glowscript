@@ -497,7 +497,7 @@ $(function () {
             })
         }
     	
-        function copy_or_rename(dialog, oldfolder, oldname) {
+        function copyOrRename(dialog, oldfolder, oldname) {
             renameDialog(dialog, oldname, function($dlg) {
                 var newname = $dlg.find('input[name="name"]').val()
                 newname = newname.replace(/ /g,'') // There are problems with spaces or underscores in names
@@ -538,60 +538,41 @@ $(function () {
             return false
         }
 
-        function copyDialog( dialog, oldname, doRename ) { // dialog for renaming a program (can include moving to anothe folder)
-            var $dialog = $(dialog).clone().removeClass("template")
-            $dialog.find(".name").text(oldname)
-            $dialog.find(".copy-default").val(oldname)
-            $dialog.dialog({
-                width: 300,
+        function renameDialog( dialog, oldname, doRename ) {
+        	// dialog for renaming/copying a program (can include moving to another folder)
+        	var args =	{
+        		width: 300,
                 resizable: false,
                 modal: true,
                 autoOpen: true,
-                buttons: {
+                close: function () {  }
+        		}
+        	if (dialog == "#prog-copy-dialog") {
+                args.buttons = {
                     "Copy": function () {
                         doRename($(this))
                         $(this).dialog("close")
-                    },
-                    "Cancel": function () { $(this).dialog("close") }
-                },
-                close: function () {  }
-            }).submit(function(ev){
+                    }
+                }
+        	} else {
+                args.buttons = {
+                    "Rename": function () {
+                        doRename($(this))
+                        $(this).dialog("close")
+                    }
+                }
+        	}
+        	args.buttons["Cancel"] = function () { $(this).dialog("close") }
+        	var $dialog = $(dialog).clone().removeClass("template")
+            $dialog.find(".name").text(oldname)
+            $dialog.find(".rename-default").val(oldname)
+            $dialog.dialog(args).submit(function(ev){
                 var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
                 if (!$button.prop("disabled")) $button.click()
                 ev.preventDefault()
                 return false
             })
-        }
-
-        function renameDialog( dialog, oldname, doRename ) { // dialog for renaming a program (can include moving to anothe folder)
-        	if (dialog == "#prog-copy-dialog") {
-        		var ret = copyDialog( dialog, oldname, doRename )
-        		return ret
-        	} else {
-	        	var $dialog = $(dialog).clone().removeClass("template")
-	            $dialog.find(".name").text(oldname)
-	            $dialog.find(".rename-default").val(oldname)
-	            $dialog.dialog({
-	                width: 300,
-	                resizable: false,
-	                modal: true,
-	                autoOpen: true,
-	                buttons: {
-	                    "Rename": function () {
-	                        doRename($(this))
-	                        $(this).dialog("close")
-	                    },
-	                    "Cancel": function () { $(this).dialog("close") }
-	                },
-	                close: function () {  }
-	            }).submit(function(ev){
-	                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
-	                if (!$button.prop("disabled")) $button.click()
-	                ev.preventDefault()
-	                return false
-	            })
-        	}
-        }
+    	}
 
         function delProgramOrFolder(templ, name, action) { // dialog for deleting a program or folder (folder must be empty to delete a folder)
             var $dialog = $(templ).clone().removeClass("template")
@@ -748,12 +729,12 @@ $(function () {
 	            	
 	                p.find(".prog-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
 	                	ev.preventDefault()
-	                	copy_or_rename("#prog-copy-dialog", folder, name)
+	                	copyOrRename("#prog-copy-dialog", folder, name)
 	                })
 	            	
 	                p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
 	                	ev.preventDefault()
-	                	copy_or_rename("#prog-rename-dialog", folder, name)
+	                	copyOrRename("#prog-rename-dialog", folder, name)
 	                })
 	                
 	                p.find(".prog-delete.button").click(function (ev) { 
