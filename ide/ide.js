@@ -496,18 +496,59 @@ $(function () {
                 return false
             })
         }
+    	
+        function copy_or_rename(dialog, oldfolder, oldname) {
+            renameDialog(dialog, oldname, function($dlg) {
+                var newname = $dlg.find('input[name="name"]').val()
+                newname = newname.replace(/ /g,'') // There are problems with spaces or underscores in names
+                newname = newname.replace(/_/g,'')
+                var newfolder = oldfolder
+                var folder_name = newname.split('/')
+                if (folder_name.length == 2) {
+                	newfolder = folder_name[0]
+                	newname = folder_name[1]
+                }
+                if (newfolder === oldfolder && newname === oldname) return false // no change
+                var ok = ( newfolder in set_of_folders )
+                if (!ok) alert('There is no folder named "'+newfolder+'"')
+                else {
+                	// check whether there already exists newfolder/newname
+                	apiGet( {user:username, folder:newfolder, program:LIST}, function (data) {
+                		for (var pi=0; pi<data.programs.length; pi++) {
+                			if (data.programs[pi].name === newname) {
+                				ok = false
+                				break
+                			}
+                		}
+                        if (!ok) alert("The program "+newfolder+'/'+newname+" already exists.")
+                        else { // At this point we know that newfolder/newname is an okay destination for the renaming
+	                        apiPut({user:username, folder:newfolder, program:newname}, 
+                        		{ oldfolder:oldfolder, oldprogram:oldname }, function () {
+                        			if (dialog == "#prog-rename-dialog") {
+	        	                        apiDelete( {user:username, folder:oldfolder, program: oldname}, function () {
+	        	                            ;
+	        	                        })
+                        			}
+                        			navigate({page: "folder", user:username, folder:oldfolder})
+	                        })
+                        }
+                	})
+                }
+            })
+            return false
+        }
 
-        function renameDialog( templ, oldname, doRename ) { // dialog for renaming a program (can include moving to anothe folder)
-            var $dialog = $(templ).clone().removeClass("template")
+        function copyDialog( dialog, oldname, doRename ) { // dialog for renaming a program (can include moving to anothe folder)
+            var $dialog = $(dialog).clone().removeClass("template")
             $dialog.find(".name").text(oldname)
-            $dialog.find(".rename-default").val(oldname)
+            $dialog.find(".copy-default").val(oldname)
             $dialog.dialog({
                 width: 300,
                 resizable: false,
                 modal: true,
                 autoOpen: true,
                 buttons: {
-                    "Rename": function () {
+                    "Copy": function () {
                         doRename($(this))
                         $(this).dialog("close")
                     },
@@ -520,6 +561,36 @@ $(function () {
                 ev.preventDefault()
                 return false
             })
+        }
+
+        function renameDialog( dialog, oldname, doRename ) { // dialog for renaming a program (can include moving to anothe folder)
+        	if (dialog == "#prog-copy-dialog") {
+        		var ret = copyDialog( dialog, oldname, doRename )
+        		return ret
+        	} else {
+	        	var $dialog = $(dialog).clone().removeClass("template")
+	            $dialog.find(".name").text(oldname)
+	            $dialog.find(".rename-default").val(oldname)
+	            $dialog.dialog({
+	                width: 300,
+	                resizable: false,
+	                modal: true,
+	                autoOpen: true,
+	                buttons: {
+	                    "Rename": function () {
+	                        doRename($(this))
+	                        $(this).dialog("close")
+	                    },
+	                    "Cancel": function () { $(this).dialog("close") }
+	                },
+	                close: function () {  }
+	            }).submit(function(ev){
+	                var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
+	                if (!$button.prop("disabled")) $button.click()
+	                ev.preventDefault()
+	                return false
+	            })
+        	}
         }
 
         function delProgramOrFolder(templ, name, action) { // dialog for deleting a program or folder (folder must be empty to delete a folder)
@@ -669,48 +740,20 @@ $(function () {
 		            p.find(".prog-datetime").text(t)
 	
 	                if (!isWritable) {
+	                    p.find(".prog-edit.button").text("View")
+	                    p.find(".prog-copy.button").addClass("template")
 	                    p.find(".prog-rename.button").addClass("template")
 	                    p.find(".prog-delete.button").addClass("template")
-	                    p.find(".prog-edit.button").text("View")
 	                }
+	            	
+	                p.find(".prog-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
+	                	ev.preventDefault()
+	                	copy_or_rename("#prog-copy-dialog", folder, name)
+	                })
 	            	
 	                p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
 	                	ev.preventDefault()
-	                    renameDialog("#prog-rename-dialog", name, function($dlg) {
-	                        var newname = $dlg.find('input[name="name"]').val()
-	                        newname = newname.replace(/ /g,'') // There are problems with spaces or underscores in names
-	                        newname = newname.replace(/_/g,'')
-	                        var newfolder = folder
-	                        var folder_name = newname.split('/')
-	                        if (folder_name.length == 2) {
-	                        	newfolder = folder_name[0]
-	                        	newname = folder_name[1]
-	                        }
-	                        if (newfolder === folder && newname === name) return false // no change
-	                        var ok = ( newfolder in set_of_folders )
-	                        if (!ok) alert('There is no folder named "'+newfolder+'"')
-	                        else {
-	                        	// check whether there already exists newfolder/newname
-	                        	apiGet( {user:username, folder:newfolder, program:LIST}, function (data) {
-	                        		for (var pi=0; pi<data.programs.length; pi++) {
-	                        			if (data.programs[pi].name === newname) {
-	                        				ok = false
-	                        				break
-	                        			}
-	                        		}
-	    	                        if (!ok) alert("The program "+newfolder+'/'+newname+" already exists.")
-	    	                        else { // At this point we know that newfolder/newname is an okay destination for the renaming
-				                        apiPut({user:username, folder:newfolder, program:newname}, 
-			                        		{ oldfolder:folder, oldprogram:name }, function () {
-			        	                        apiDelete( {user:username, folder:folder, program: name}, function () {
-			        	                            navigate({page: "folder", user:username, folder:folder})
-			        	                        })
-				                        })
-	    	                        }
-	                        	})
-	                        }
-	                    })
-	                    return false
+	                	copy_or_rename("#prog-rename-dialog", folder, name)
 	                })
 	                
 	                p.find(".prog-delete.button").click(function (ev) { 

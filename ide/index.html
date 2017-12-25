@@ -125,10 +125,12 @@ Loading...
                     <a href="#Edit" class="prog-edit button">Edit</a> 
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;<br><br><br>&nbsp;
+                    &nbsp;&nbsp;<br><br>&nbsp;
+                    <a href="#Copy" class="prog-copy button">Copy</a>
                     <a href="#Rename" class="prog-rename button">Rename</a>
+                    <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="#Delete" class="prog-delete button">Delete</a>
-                    <br><br><br>
+                    <br>
                 </div>
             </div>
         </div>
@@ -154,6 +156,13 @@ Loading...
     <form>
         <label for="name">Name</label>
         <input type="text" name="name" class="text ui-widget-content ui-corner-all" />
+    </form>
+</div>
+
+<div id="prog-copy-dialog" class="form-dialog template" title="Copy Program" style="font-size: 12px">
+    <form>
+        <label for="name">New name, or existing folder/new name:</label>
+        <input type="text" class="copy-default" name="name" class="text ui-widget-content ui-corner-all" />
     </form>
 </div>
 
