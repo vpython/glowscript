@@ -565,7 +565,10 @@ $(function () {
         	args.buttons["Cancel"] = function () { $(this).dialog("close") }
         	var $dialog = $(dialog).clone().removeClass("template")
             $dialog.find(".name").text(oldname)
-            $dialog.find(".rename-default").val(oldname)
+            if (dialog == "#prog-copy-dialog")
+            	$dialog.find(".copy-default").val(oldname)
+            else
+            	$dialog.find(".rename-default").val(oldname)
             $dialog.dialog(args).submit(function(ev){
                 var $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
                 if (!$button.prop("disabled")) $button.click()
