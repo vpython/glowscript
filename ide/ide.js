@@ -1079,7 +1079,7 @@ $(function () {
         onNavigate.on( function(cb) { $(document).off("keydown", shortcutKey); cb() } )
         function shortcutKey(ev) {
             // Ctrl-1: Run
-            // I haven't figured out how to change or disable keyboard shortcuts in ACE, 
+            // I (David Scherer) haven't figured out how to change or disable keyboard shortcuts in ACE, 
             // so Ctrl-R is not available - I used Ctrl-1 (like Ctrl-!)
             if (ev.ctrlKey && ev.keyCode == "1".charCodeAt(0)) {
                 ev.preventDefault()
@@ -1089,8 +1089,6 @@ $(function () {
                 ev.preventDefault()
                 // If I don't pass anything for features, I get a new tab instead
                 var features = "titlebar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes"
-                //window.open("/#/", "GlowScriptRun", features, true)
-                //window.open(run_link, "GlowScriptRun", features, true)
                 window.open("/#/", "GlowScriptRun", features, true)
                 window.open(run_link, "GlowScriptRun", features, true)
             }
