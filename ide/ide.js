@@ -507,6 +507,9 @@ $(function () {
                 if (folder_name.length == 2) {
                 	newfolder = folder_name[0]
                 	newname = folder_name[1]
+                } else if (folder_name.length > 2) {
+                	alert(newname+' is not a legal program name')
+                	return false
                 }
                 if (newfolder === oldfolder && newname === oldname) return false // no change
                 var ok = ( newfolder in set_of_folders )
@@ -631,7 +634,9 @@ $(function () {
                 var name = $dlg.find('input[name="name"]').val()
                 name = name.replace(/ /g,'') // There are problems with spaces or underscores in names
                 name = name.replace(/_/g,'')
-                apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
+                var temp = name.split('/')
+                if (temp.length > 1) alert(name+' is not a legal program name')
+                else apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
                     navigate({page:"edit", user:username, folder:folder, program:name})
                 })
             })
