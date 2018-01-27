@@ -5,6 +5,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/jquery/2.1/jquery.mousewheel.js",
         "../lib/flot/jquery.flot.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
+        "../lib/plotly.js",
 //        "../lib/micromarkdown.min.js", // markdown, not ready to use yet
         "../lib/opentype/poly2tri.js",
         "../lib/opentype/opentype.js",
@@ -17,19 +18,19 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/canvas.js",
         "../lib/glow/orbital_camera.js",
         "../lib/glow/autoscale.js",
+        "../lib/glow/api_misc.js",
         "../lib/glow/WebGLRenderer.js",
         "../lib/glow/graph.js",
         "../lib/glow/color.js",
         "../lib/glow/shapespaths.js",
         "../lib/glow/primitives.js",
         "../lib/glow/extrude.js",
-        "../lib/glow/api_misc.js",
         "../lib/glow/shaders.gen.js",
         "../lib/compiling/transform.js" // Streamline transform.js needed for running programs embedded in other web sites
         //"../lib/compiling/transform-es6.min.js" // Streamline transform.js needed for running programs embedded in other web sites
         ],
     compile: [
-        "../lib/compiling/GScompiler.js",
+        "../lib/compiling/GScompiler.js", 
         "../lib/compiling/acorn.es.js",
         "../lib/compiling/papercomp.js",
         
