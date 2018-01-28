@@ -63,7 +63,7 @@ $(function () {
         }
     }
     
-    parseVersionHeader.defaultVersion = "2.6"
+    parseVersionHeader.defaultVersion = "2.7"
     parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
     parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
@@ -83,6 +83,7 @@ $(function () {
         "2.4": "2.4",
         "2.5": "2.5",
         "2.6": "2.6",
+        "2.7": "2.7",
         "0.4dev" : "0.4",
         "0.5dev" : "0.5",
         "0.6dev" : "0.6",
@@ -96,7 +97,8 @@ $(function () {
         "2.4dev" : "2.4",
         "2.5dev" : "2.5",
         "2.6dev" : "2.6",
-        "2.7dev" : "unpackaged",
+        "2.7dev" : "2.7",
+        "2.8dev" : "unpackaged",
     }
 
     /******** Functions to talk to the API on the server ***********/

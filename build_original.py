@@ -33,7 +33,7 @@ shader_file.append("}});")
 shader_file = "\n".join(shader_file)
 open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "2.6"
+version = "2.7"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
@@ -41,6 +41,7 @@ glowscript_libraries = {
         "../lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with later versions
         "../lib/flot/jquery.flot.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
+        "../lib/plotly.min.js",
         "../lib/opentype/poly2tri.js",
         "../lib/opentype/opentype.js",
         "../lib/glMatrix.js",
