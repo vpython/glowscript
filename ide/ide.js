@@ -437,6 +437,50 @@ $(function () {
         onNavigate.trigger( function() { pages[ navigatingTo.page ]( navigatingTo ) } )
     }
 
+    var d = new Date()
+    var hour_offset = d.getTimezoneOffset()/60
+    var minute_offset, f
+    if (hour_offset >= 0) {
+        f = Math.floor(hour_offset)
+    } else {
+        f = -Math.floor(-hour_offset)
+    }
+    minute_offset = 60*(hour_offset - f)
+    hour_offset = f
+    
+    function date_to_string(t) {
+    	if (t != 'None') {
+        	// prog.datetime is UTC; here we convert to local time for display purposes
+        	var patt = new RegExp('(\\d*)-(\\d*)-(\\d*)\\s(\\d*):(\\d*):(\\d*\\.\\d*)')
+        	var m = patt.exec(t)
+        	var year = Number(m[1])
+        	var month = Number(m[2])
+        	var day = Number(m[3])
+        	var hour = Number(m[4])
+        	var minute = Number(m[5])
+        	var second = Math.floor(Number(m[6]))
+        	d.setUTCFullYear(year)
+        	d.setUTCMonth(month-1) // JavaScript numbers months starting at zero
+        	d.setUTCDate(day)
+        	d.setUTCHours(hour-hour_offset) // UTC to local time
+        	d.setUTCMinutes(minute-minute_offset)
+        	d.setUTCSeconds(second)
+        	year = d.getUTCFullYear()
+        	month = Number(d.getUTCMonth())+1 // restore original 1-12 month number
+        	day = d.getUTCDate()
+        	hour = d.getUTCHours()
+        	minute = d.getUTCMinutes()
+        	second = d.getUTCSeconds()
+        	if (month < 10) month = '0'+month
+        	if (day < 10) day = '0'+day
+        	if (hour < 10) hour = '0'+hour
+        	if (minute < 10) minute = '0'+minute
+        	if (second < 10) second = '0'+second
+        	t = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second
+        } else t = 'Before 2018'
+        return t
+    }
+
     /********** Pages **********/
     // Each of these replaces pageBody with the contents of a page
     var pageBody = $("#ajaxBody")
@@ -673,17 +717,6 @@ $(function () {
             if (set_of_folders[folder]) s = "PUBLIC"
             page.find(".folder-public.button").text(s)
         })
-        
-        var d = new Date()
-        var hour_offset = d.getTimezoneOffset()/60
-        var minute_offset, f
-        if (hour_offset >= 0) {
-            f = Math.floor(hour_offset)
-        } else {
-            f = -Math.floor(-hour_offset)
-        }
-        minute_offset = 60*(hour_offset - f)
-        hour_offset = f
         	
         // Get a list of programs from the server
         var list_of_programs = []
@@ -699,37 +732,8 @@ $(function () {
 	                p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
 	                p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
 	                p.find(".prog-name").text(name)
-	                var t = prog.datetime // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
-	                if (t != 'None') {
-	                	// prog.datetime is UTC; here we convert to local time for display purposes
-	                	var patt = new RegExp('(\\d*)-(\\d*)-(\\d*)\\s(\\d*):(\\d*):(\\d*\\.\\d*)')
-	                	var m = patt.exec(t)
-	                	var year = Number(m[1])
-	                	var month = Number(m[2])
-	                	var day = Number(m[3])
-	                	var hour = Number(m[4])
-	                	var minute = Number(m[5])
-	                	var second = Math.floor(Number(m[6]))
-	                	d.setUTCFullYear(year)
-	                	d.setUTCMonth(month-1) // JavaScript numbers months starting at zero
-	                	d.setUTCDate(day)
-	                	d.setUTCHours(hour-hour_offset) // UTC to local time
-	                	d.setUTCMinutes(minute-minute_offset)
-	                	d.setUTCSeconds(second)
-	                	year = d.getUTCFullYear()
-	                	month = Number(d.getUTCMonth())+1 // restore original 1-12 month number
-	                	day = d.getUTCDate()
-	                	hour = d.getUTCHours()
-	                	minute = d.getUTCMinutes()
-	                	second = d.getUTCSeconds()
-	                	if (month < 10) month = '0'+month
-	                	if (day < 10) day = '0'+day
-	                	if (hour < 10) hour = '0'+hour
-	                	if (minute < 10) minute = '0'+minute
-	                	if (second < 10) second = '0'+second
-	                	t = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second
-	                } else t = 'Before 2018'
-		            p.find(".prog-datetime").text(t)
+	                var td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
+		            p.find(".prog-datetime").text(td)
 	
 	                if (!isWritable) {
 	                    p.find(".prog-edit.button").text("View")
@@ -772,7 +776,7 @@ $(function () {
     }
     pages.run = function(route) {
         try {
-            var username = route.user, folder = route.folder, program = route.program // folder and program may contain spaces
+            var username = route.user, folder = route.folder, program = route.program
             var isWritable = route.user === loginStatus.username
 
             var page = $(".runPage.template").clone().removeClass("template")
@@ -834,7 +838,8 @@ $(function () {
 
             var haveScreenshot = true
             apiGet( {user:username, folder:folder, program:program}, function (progData) {
-            	var header = parseVersionHeader( progData.source )
+            	page.find(".prog-datetime").text(date_to_string(progData.datetime))
+                var header = parseVersionHeader( progData.source )
                 if (header.ok) {
                     haveScreenshot = progData.screenshot != ""
                     sendMessage(JSON.stringify({ program: header.source, version: header.version, lang: header.lang, unpackaged: header.unpackaged, autoscreenshot:isWritable && !haveScreenshot }))
@@ -1066,14 +1071,14 @@ $(function () {
         page.find(".frameSource").text( frameHTML );
     }
     pages.edit = function(route) {
-        var username = route.user, folder = route.folder, program = route.program
+        var username = route.user, folder = route.folder, program = route.program // string variables
         
         var isWritable = route.user === loginStatus.username
 
         var page = $(".editPage.template").clone().removeClass("template")
         page.find("a.username").prop("href", unroute({page:"user", user:username}))
         page.find(".username").text(username)
-        page.find(".foldername").text(folder)
+        //page.find(".foldername").text(folder) // not displayed; not referenced in index.html
         page.find(".programname").text(program) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during edit.
         var run_link = unroute({page:"run", user:username, folder:folder, program:program})
         page.find(".prog-run.button").prop("href", run_link).prop("title", "Press Ctrl-1 to run\nPress Ctrl-2 to run in another window")
@@ -1106,6 +1111,7 @@ $(function () {
         }
 
         apiGet( {user:username, folder:folder, program:program}, function (progData) {
+        	page.find(".prog-datetime").text(date_to_string(progData.datetime))
         	// program is the name of the file; progData.source is the program source in that file
         	var lang = parseVersionHeader(progData.source).lang
             if (!(lang == 'javascript' || lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython')) lang = 'javascript'
