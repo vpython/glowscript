@@ -283,9 +283,9 @@ class ApiUserFolderProgram(ApiRequest):
             return self.error(404)
         self.respond( {"user":user,"folder":folder,"name":name,
             #"description": unicode(ndb_program.description or unicode()), # description not currently used
-        	"datetime":str(ndb_program.datetime),
             "screenshot": str(ndb_program.screenshot or ""),
-            "source": unicode(ndb_program.source or unicode()),} )
+        	"datetime": str(ndb_program.datetime),
+            "source": unicode(ndb_program.source or unicode())} )
             
     def put(self, user, folder, name):                                          ##### create or write an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)

@@ -197,14 +197,14 @@ function ideRun() {
     }
 
     function screenshot(isAuto) {
-        var scene = window.scene
-        if (!scene)
-            for (var c = 0; c < canvas.all.length; c++) {
-                if (canvas.all[c] && canvas.all[c].__activated) {
-                    scene = canvas.all[c]
-                    break;
-                }
+    	var scene
+        for (var c = 0; c < canvas.activated.length; c++) {
+        	var ca = canvas.activated[c]
+            if (ca !== null) {
+                scene = ca
+                break
             }
+        }
         if (!scene) return
         (scene.__renderer || scene.renderer).screenshot(function (err, img) {
             if (!err) {
