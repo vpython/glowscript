@@ -95,7 +95,7 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
 <p class="Normal">It is often the case that skipping points may hardly affect the display but will make graph plotting much faster, in which case it's useful to specify an interval between plotting of points:</p>
 <p class="attributes"><span class="attribute">interval</span> If interval=10, a point is added to the plot only every 10th time you ask to add a point. If interval is 0, no plot is shown. If interval is -1, no points are skipped.</p>
 <p class="Normal"><strong><font color="#0000A0">Special options for gcurve, gdots, gvbars, and ghbars</font></strong></p>
-<p class="Normal">For <span class="attribute">gcurve</span> you can specify a <span class="attribute">width</span> of the line in pixels. If you specify <span class="attribute">markers=True</span>, dots will be displayed at each gcurve point, and you can specify marker_radius (the default is slightlly larger than the gcurve width) and marker_color (the default is the gcurve color). <br />
+<p class="Normal">For <span class="attribute">gcurve</span> you can specify a <span class="attribute">width</span> of the line in pixels. If you specify <span class="attribute">markers=True</span>, dots will be displayed at each gcurve point, and you can specify the <span class="attribute">radius</span> (the default is slightlly larger than the gcurve width) and <span class="attribute">marker_color</span> (the default is the gcurve color). Instead of setting the radius, you can set <span class="attribute">size</span>, which sets the diameter (equivalent to 2*radius).<br />
   <br />
   If you
             specify <span class="attribute">dot=True</span> the current plotting
@@ -104,8 +104,8 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
             which  specifies the radius of the dot in pixels (default is <span class="attribute">radius=3</span>).
             By default the dot has the same color as the gcurve, but you can
       specify a different color, as in <span class="attribute">dot_color=color.green</span>.</p>
-<p class="Normal">For <span class="attribute">gdots</span> you can also specify a <span class="attribute">radius</span> attribute, which 
-  specifies the radius of the dot in pixels (default is <span class="attribute">radius=3</span>).</p>
+<p class="Normal">For <span class="attribute">gdots</span> you can also specify a <span class="attribute">radius</span> or <span class="attribute">size</span> attribute, which 
+  specifies the radius or diameter of the dot in pixels (default is <span class="attribute">radius=3</span>).</p>
           <p class="Normal">For <span class="attribute">gvbars</span> and <span class="attribute">ghbars</span> you can  specify a <span class="attribute">delta</span> attribute, which 
             specifies the width of the bar (the default is <span class="attribute">delta=1</span>).</p>
       <p class="Normal"><strong><font color="#0000A0">Deleting data or an entire graph</font></strong></p>
@@ -119,7 +119,7 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
             
             of graph plotting object:          </p>
           <p class="program"> gd = graph(width=600, height=150, <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='&lt;b&gt;Test&lt;/b&gt;', title_align='center',<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='&lt;b&gt;Test&lt;/b&gt;',<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  xtitle='&lt;i&gt;x&lt;/i&gt;', ytitle='&lt;i&gt;x&lt;/i&gt;&lt;sup&gt;2&lt;/sup&gt;', <br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreground=color.black, 
             
