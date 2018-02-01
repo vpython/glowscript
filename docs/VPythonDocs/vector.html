@@ -60,7 +60,6 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
  class="attribute">v2.y</span> is 20, <span class="attribute">v2.z</span> is 30</p>
           <p class="Normal"> It is okay to make a vector from a vector: <span
  class="attribute">vector(v2)</span> is still <span class="attribute">vector(10,20,30)</span>. This is a convenient way to make a separate copy of a vector.</p>
-          <p class="Normal">Currently it is not possible to use <span class="attribute"><strong>+=</strong></span>,<strong> <span class="attribute">-=</span></strong>, <span class="attribute"><strong>*=</strong></span><strong>, </strong>or <strong><span class="attribute">/=</span></strong> with vectors.</p>
 <p class="Normal"><strong><font color="#0000a0">Vector functions</font></strong></p>
           <p class="Normal">The following functions are available for working with vectors:          </p>
       <p class="Normal"><strong>mag(A) = A.mag</strong> = |A|, the magnitude of a vector<br />
@@ -71,6 +70,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <br />
         <strong>hat(A) = A.hat</strong> = 
 A/|A|,  a unit vector in the direction of the vector; an alternative to A.norm(), based on the fact that unit vectors are customarily written in the form <strong>ĉ</strong>, with a &quot;hat&quot; over the vector<br />
+<br />
+For convenience, <span class="attribute">norm(vec(0,0,0))</span> or<span class="attribute"> vec(0,0,0).hat</span> is calculated to be <span class="attribute">vec(0,0,0)</span>. <span class="attribute"></span><br />
         <br />
         <strong>dot(A,B) = A.dot(B)</strong> = A dot B, the scalar dot product between two vectors<br />
         <br />
@@ -104,7 +105,7 @@ A/|A|,  a unit vector in the direction of the vector; an alternative to A.norm()
           <p class="program">norm(A) # A/|A|, normalized; magnitude of 1<br />
           norm(vector(1,1,1)) = vector(1,1,1)/sqrt(3)</p>
           <p class="Normal">You can also write <span class="attribute">v1.norm()</span><span
- class="attribute"></span> or <span class="attribute">v1.hat</span>. For convenience, <span class="attribute">norm(vec(0,0,0))</span> is calculated to be <span class="attribute">vec(0,0,0)</span>. <span class="attribute"></span></p>
+ class="attribute"></span> or <span class="attribute">v1.hat</span>. </p>
           <p class="Normal">You can change the direction of a vector without changing its magnitude:</p>
       <p class="program"> v2.hat = v1 # changes the direction of v2 to that of v1<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# but not the magnitude of v2</p>
