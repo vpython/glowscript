@@ -55,7 +55,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">The curve object displays straight lines between
           points, and if the points are sufficiently close together you get the
       appearance of a smooth curve.</p>
-<p class="Normal"><strong><font color="#0000a0">Details of the GlowScript curve object</font></strong></p>
+<p class="Normal"><strong><font color="#0000a0">Details of the  curve object</font></strong></p>
 <p class="Normal">The simplest example of a curve is the following statement, which draws a white straight line of length 2, between the positions &lt; -1,-1,0 &gt; and &lt; 1,--1,0 &gt;:</p>
 <div>
   <p class="program">c = curve(vector(-1,-1,0), vector(1,-1,0))</p>
@@ -132,7 +132,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <br />
         </p>
         <p class="Normal"><strong><font color="#0000a0">Curve methods</font></strong></p>
-        <p class="Normal">The basic aspects of the GlowScript curve object are the same as the Classic VPython curve object. You create a curve and append points to it. However, modifying existing points is not done directly but instead by using a powerful set of functions, and this change makes it possible to display curves much more rapidly. In Classic VPython, the possibility of direct modification of the positions meant that the entire curve had to be reprocessed every time it was rendered, on the chance that some undetected change had occurred.</p>
+        <p class="Normal">The basic aspects of the  curve object are the same as the Classic VPython curve object. You create a curve and append points to it. However, modifying existing points is not done directly but instead by using a powerful set of functions, and this change makes it possible to display curves much more rapidly. In Classic VPython, the possibility of direct modification of the positions meant that the entire curve had to be reprocessed every time it was rendered, on the chance that some undetected change had occurred.</p>
         <div>
           <p class="Normal">The following are useful for modifying a curve named &quot;c&quot; (full documentation below):</p>
           <p class="attributes"><span class="attribute">c.npoints</span> The total number of points currently in the curve.          </p>
@@ -205,7 +205,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <p class="program">pts = [p1, p2, p3]<br />
   c.splice(start,howmany,pts) # insert </p>
 <p class="program"></p>
-<p class="Normal">The <span class="attribute">modify</span> method lets you change specified attributes of a point (currently works only in GlowScript VPython)::</p>
+<p class="Normal">The <span class="attribute">modify</span> method lets you change specified attributes of a point::</p>
 <p class="program"> c.modify(N, # modify point number N<br />
   &nbsp;&nbsp;&nbsp;            pos=p, color=c, radius=r, visible=v)<br />
   c.modify(N, x=3, y=5) # changing x and y but not z<br />
