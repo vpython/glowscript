@@ -42,7 +42,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <h1 class="Heading-1"> <font color="#0000A0">Controlling One or More VPython 
           
           Canvases</font></h1>
-      <p class="Normal"> Initially, there is one VPython canvas named <span class="attribute">scene</span>. 
+      <p class="Normal"> Initially, there is one 3D VPython canvas named <span class="attribute">scene</span>. 
         Display objects do not create windows on the screen unless they are used, so 
         if you immediately create your own canvas early in your program you 
         will not need to worry about scene. If you simply begin creating objects such 
@@ -59,8 +59,18 @@ a background color of cyan filling the window.</p>
             <p class="Normal"><span class="attributes"><strong>Selecting a canvas:</strong> By default, any objects that you create go into the most recently created canvas, such as <span class="attribute">scene</span>. If you create another canvas <span class="attribute">cvs</span>, new objects will go into the <span class="attribute">cvs</span> canvas. You can later execute <span class="attribute">scene.select()</span> to make the <span class="attribute">scene</span> canvas the one that new objects go into.</span> You can find out which canvas is selected: <span class="attributes"><span class="attribute">current = </span><font color="#FF0000">canvas.get_selected()</font> returns
                 a reference to the canvas into which objects are currently being
       created.</span> You can also specify which canvas to use when creating an object, as in box(canvas=cvs, .....).</p>
-      <p class="Normal">In GlowScript VPython you can say canvas.selected = cvs, or current = canvas.selected, but unfortunately it doesn't seem possible to implement this syntax in VPython 7, so for compatibiity between GlowScript VPython and VPython 7 you may wish to use cvs.select() and canvas.get_selected() in GlowScript programs.</p>
-      <p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong></p>
+            <p class="Normal">In GlowScript VPython you can say canvas.selected = cvs, or current = canvas.selected, but unfortunately it doesn't seem possible to implement this syntax in VPython 7, so for compatibiity between GlowScript VPython and VPython 7 you may wish to use cvs.select() and canvas.get_selected() in GlowScript programs.</p>
+<p class="Normal">Here is a summary of what determines in which of several possible 3D canvases an object such as a box or sphere will be placed:</p>
+      <p class="program">scene = canvas() # automatic; you don't need to say this<br />
+        box(...) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# will appear in the canvas named &quot;scene&quot;<br />
+      sphere(canvas=scene, ...) # will also appear in &quot;scene&quot;<br />
+      <br />
+      c2 = canvas(width=200, height=100, title='A second canvas')<br />
+      box(...) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# will appear in the canvas named &quot;c2&quot;<br />
+sphere(canvas=c2, ...) &nbsp;# will also appear in &quot;c2&quot;<br />
+cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
+      <p class="Normal">The key point is that after creating a canvas, 3D objects will by default be placed in the most recently created canvas, unless you explicitly specify a different canvas for the object.</p>
+<p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong></p>
 <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
               and height of the canvas area in pixels. Defaults are 640 and 400. Can be specified when creating the canvas, as in the example above, or set or changed later.</p>
       <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (canvas forced to left side of window), &quot;right&quot; (canvas forced to right side of window), or &quot;none&quot; (the default alignment). If you have a single canvas, setting align to &quot;left&quot; causes the canvas caption to be displayed to the right of the canvas. If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot; and activate the graph by plotting something in it, then create the canvas without specifying its value of align.</p>
@@ -74,7 +84,7 @@ a background color of cyan filling the window.</p>
             &nbsp;&nbsp;&nbsp;<span class="attribute">[distant_light(direction=vec( 0.22, &nbsp;0.44, &nbsp;0.88), color=color.gray(0.8))</span>,<br /> 
             <span class="attribute">&nbsp;&nbsp;&nbsp;&nbsp;distant_light(direction=vec(-0.88, -0.22, -0.44),
               color=color.gray(0.3))]</span><br />
-      These are equivalent to the default lights in Classic VPython. For how to create your own distant and local lights, see <a href="lights.html">Lighting</a>. The lights can be changed only after creating the canvas. You can eliminate the lights by setting scene.lights = [], an empty list, then create your own lights. To change the color of the first of the two default lights, do this, where 0 refers to the first of the two lights:      </p>
+      These are equivalent to the default lights that are automatically created for you. For how to create your own distant and local lights, see <a href="lights.html">Lighting</a>. The lights can be changed only after creating the canvas. You can eliminate the lights by setting scene.lights = [], an empty list, then create your own lights. To change the color of the first of the two default lights, do this, where 0 refers to the first of the two lights:      </p>
       <p class="program"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.lights[0].color = color.red</p>
       <p class="attributes"><span class="attribute">objects</span> A list
         of all the visible objects in the canvas; invisible objects and
@@ -96,7 +106,7 @@ a background color of cyan filling the window.</p>
           <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.camera.follow(def ():<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 2*ball.pos<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      )</p>
-<p class="attributes"><span class="attribute">pixel_to_world</span> Gives the width of a pixel in &quot;world&quot; coordinates (that is, the coordinates you use to position objects). This is read-only; you cannot set it. It is determined from the current value of scene.range. An example of its use is that if you want the radius of a curve object to be 5 pixels, set the radius to 5*scene.pixel_to_world. This is not currently available in classic VPython.</p>
+<p class="attributes"><span class="attribute">pixel_to_world</span> Gives the width of a pixel in &quot;world&quot; coordinates (that is, the coordinates you use to position objects). This is read-only; you cannot set it. It is determined from the current value of scene.range. An example of its use is that if you want the radius of a curve object to be 5 pixels, set the radius to 5*scene.pixel_to_world.</p>
 <p class="Normal">Here are  canvas options to wait for canvas updates:</p>
 <p class="attributes"><span class="attribute">scene.waitfor(&quot;redraw&quot;) </span>Wait for the start of the next update of the canvas by the web browser</p>
 <p class="attributes"><span class="attribute">scene.waitfor(&quot;draw_complete&quot;) </span>Wait for the end of the next update of the canvas by the web browser</p>
