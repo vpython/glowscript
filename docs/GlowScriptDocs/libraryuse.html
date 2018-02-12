@@ -63,18 +63,19 @@
   A-B -&gt; A.sub(B)<br />
   k*A -&gt; A.multiply(k)<br />
   A/k -&gt; A.divide(k)  </p>
-<p class="Normal"> Here is a minimal working example HTML file. If you copy the program from here, be sure to delete the new line and extra spaces in the middle of the second http string.</p>
+<p class="Normal"> Here is a minimal working example HTML file. If you copy the program from here, be sure to delete the new line and extra spaces in the http strings.</p>
           <p class="program">&lt;div id=&quot;glowscript&quot; class=&quot;glowscript&quot;&gt;<br />
-            &lt;script type=&quot;text/javascript&quot;&nbsp;src=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&quot;http://www.glowscript.org/lib/jquery/2.1/jquery.min.js&quot;&gt;<br />&lt;/script&gt;<br />
-&lt;script type=&quot;text/javascript&quot; src=<br />
-&nbsp;&nbsp;&quot;http://www.glowscript.org/lib/<br />
-&nbsp;&nbsp;&nbsp; jquery/2.1/jquery-ui.custom.min.js&quot;&gt;<br />
-&lt;/script&gt;<br />
-            &lt;script type=&quot;text/javascript&quot; src=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           &nbsp;&nbsp;&quot;http://www.glowscript.org/package/glow.2.1.min.js&quot;&gt;<br />
-&lt;/script&gt;<br />
+            &lt;script type=&quot;text/javascript&quot; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;src=&quot;https://s3.amazonaws.com/glowscript/lib/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            jquery/2.1/jquery.min.js&quot;&gt;&lt;/script&gt;<br />
+<br />
+&lt;script type=&quot;text/javascript&quot; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;src=&quot;https://s3.amazonaws.com/glowscript/lib/<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jquery/2.1/jquery-ui.custom.min.js&quot;&gt;&lt;/script&gt;<br />
+            &lt;script type=&quot;text/javascript&quot; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;src=&quot;https://s3.amazonaws.com/glowscript/package/<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;glow.2.7.min.js&quot;&gt;&lt;/script&gt;<br />
             <br />
             &lt;script type=&quot;text/javascript&quot;&gt;<br />
-            window.__context = { glowscript_container: &nbsp;&nbsp;&nbsp;$(&quot;#glowscript&quot;).removeAttr(&quot;id&quot;) }<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;window.__context = { glowscript_container: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(&quot;#glowscript&quot;).removeAttr(&quot;id&quot;) }<br />
+            <br />
             var scene = canvas()<br />
             var b = box()<br />
             <br />
