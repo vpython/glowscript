@@ -124,7 +124,7 @@ $(function () {
             return u
         } else {
             (route)
-            throw Error("Unknown API route")
+            throw new Error("Unknown API route")
         }
     }
     function apiGet(route, callback) {
@@ -658,6 +658,16 @@ $(function () {
                 if (name == 'Add Folder') return false
                 name = name.replace(/ /g,'') // There are problems with spaces or underscores in names
                 name = name.replace(/_/g,'')
+                var temp = name.search(':')
+                if (temp >= 0) {
+                	alert('A folder name cannot contain ":".')
+                	return false
+                }
+                temp = name.split('/')
+                if (temp.length > 1) {
+                	alert('A folder name cannot contain "/".')
+                	return false
+                }
                 var p = $dlg.find('input[name="isPublic"]').is(":checked") // true is checked, which means public
                 apiPut({user:username, folder:name}, {public:p}, function () {
                     navigate( {page:"folder", user:username, folder:name} )
@@ -681,8 +691,16 @@ $(function () {
                 var name = $dlg.find('input[name="name"]').val()
                 name = name.replace(/ /g,'') // There are problems with spaces or underscores in names
                 name = name.replace(/_/g,'')
-                var temp = name.split('/')
-                if (temp.length > 1) alert(name+' is not a legal program name')
+                var temp = name.search(':')
+                if (temp >= 0) {
+                	alert('A program name cannot contain ":".')
+                	return false
+                }
+                temp = name.split('/')
+                if (temp.length > 1) {
+                	alert('A program name cannot contain "/".')
+                	return false
+                }
                 else apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
                     navigate({page:"edit", user:username, folder:folder, program:name})
                 })
