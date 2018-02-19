@@ -135,7 +135,7 @@
           <p class="attributes"><span class="attribute">c.splice(...)</span> Insert a point or several points anywhere.</p>
           <p class="attributes"><span class="attribute">c.modify(...)</span> Modify the Nth point.</p>
           <p class="attributes"><span class="attribute">c.clear()</span> Remove all points.</p>
-          <p class="attributes"><span class="attribute">data = c.pop</span><span class="attribute">()</span> Get the data for the last point and remove it.</p>
+          <p class="attributes"><span class="attribute">data =</span><span class="attribute">c.pop</span><span class="attribute">(n)</span> Get the data for   point number n and remove it.</p>
           <p class="attributes"><span class="attribute">data = c.shift</span><span class="attribute">()</span> Get the data for the first point and remove it.</p>
           <p class="attributes"><span class="attribute">data = c.point(N)</span> Get the data for the Nth point.</p>
           <p class="attributes"><span class="attribute">data = c.slice(start, end)</span> Get the data for a list of points.</p>
@@ -218,9 +218,10 @@
                     <p class="program">c.clear() # remove all points from curve</p>
                     <p class="Normal"></p>
                     <p class="Normal"><span class="attribute">pop</span></p>
-                    <p class="program">data = c.pop() &nbsp;&nbsp;# get &amp; remove last point</p>
+                    <p class="program">data=c.pop() &nbsp;# get &amp; remove last point<br />
+data=c.pop(3)  # get &amp; remove point number 3</p>
                     <p class="Normal"></p>
-                    <p class="Normal"><span class="attribute">shift</span></p>
+                    <p class="Normal"><span class="attribute">shift</span> This is the same as c.pop(0):</p>
                     <p class="program">data = c.shift() # get &amp; remove first point</p>
                     <p class="Normal"></p>
                     <p class="Normal"><span class="attribute">point</span></p>
