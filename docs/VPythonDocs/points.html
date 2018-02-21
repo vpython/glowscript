@@ -65,8 +65,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           of points. The size of the points is specified by <span class="attribute">radius</span> and the default radius is 2.5, meaning a sphere whose radius is 2.5 pixels (a diameter of 5 pixels). The radius attribute is in screen
           pixels if <span class="attribute">size_units=&quot;pixels&quot;</span> (the
           default), but if <span class="attribute">size_units=&quot;world&quot;</span>, the radius is in the same terms as other objects.
-  Setting the radius to 0 is the same as not specifying a size, in which case the radius will be 2.5 pixels, just as a curve is thin if its radius is specified as 0.</p>
-        <p class="Normal">The options for manipulating a <strong><a href="curve.html">curve</a></strong> can also be used with the points object, but currently the points object doesn't handle changes in axis or size, does not have an origin nor a rotate method, nor can be made into a compound.</p>
+  Setting the radius to 0 is the same as not specifying a size, in which case the radius will be 2.5 pixels, just as a curve is thin if its radius is specified as 0. If <span class="attribute">size_units=&quot;world&quot;</span>, the default radius is 0.5.</p>
+        <p class="Normal">With <span class="attribute">size_units=&quot;pixels&quot;</span> in effect (the default), a point in the z = 0 plane will have the specified radius, but it will be larger or smaller than the specified radius if it is nearer or farther from the camera.</p>
+      <p class="Normal">The options for manipulating a <strong><a href="curve.html">curve</a></strong> can also be used with the points object, but currently the points object doesn't handle changes in axis or size, does not have an origin nor a rotate method, nor can be made into a compound.&nbsp;&nbsp;</p>
         <div>
     <!-- InstanceEndEditable --></td>
   </tr>
