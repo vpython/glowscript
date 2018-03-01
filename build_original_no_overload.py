@@ -24,14 +24,14 @@ TODO
 from glob import glob
 import re, os, subprocess
 
-shader_file = ["Export({ shaders: {"]
-for fn in glob("shaders/*.shader"):
-    name = re.match(r"^shaders[/\\]([^.]+).shader$", fn).group(1)
-    f = open(fn, "rt").read()
-    shader_file.append( '"' + name + '":' + repr(f) + "," )
-shader_file.append("}});")
-shader_file = "\n".join(shader_file)
-open("lib/glow/shaders.gen.js", "wb").write(shader_file)
+##shader_file = ["Export({ shaders: {"]
+##for fn in glob("shaders/*.shader"):
+##    name = re.match(r"^shaders[/\\]([^.]+).shader$", fn).group(1)
+##    f = open(fn, "rt").read()
+##    shader_file.append( '"' + name + '":' + repr(f) + "," )
+##shader_file.append("}});")
+##shader_file = "\n".join(shader_file)
+##open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
 version = "2.7"
 # TODO: Extract this information from run.js
@@ -41,7 +41,6 @@ glowscript_libraries = {
         "../lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with later versions
         "../lib/flot/jquery.flot.js",
         "../lib/flot/jquery.flot.crosshair_GS.js",
-        "../lib/plotly.min.js",
         "../lib/opentype/poly2tri.js",
         "../lib/opentype/opentype.js",
         "../lib/glMatrix.js",
@@ -67,24 +66,9 @@ glowscript_libraries = {
         # So let's use the older version of Streamline:
         "../lib/compiling/transform.js" # needed at run time as well as during compiling
         ],
-##    "compile": [
-##        "../lib/coffee-script.js",
-##        "../lib/compiling/GScompiler.js",
-##        "../lib/compiling/acorn.es.js",
-##        "../lib/compiling/papercomp.js",
-##        "../lib/compiling/transform.js" # also needed here, for creating JS for embedding in other web site
-##        ],
-##    "RScompile": [
-##        "../lib/compiling/GScompiler.js",
-##        "../lib/rapydscript/compiler.js",
-##        "../lib/compiling/acorn.es.js",
-##        "../lib/compiling/papercomp.js",
-##        "../lib/compiling/transform.js" # also needed here, for creating JS for embedding in other web site
-##        ],
-##    "RSrun": [
-##        "../lib/rapydscript/runtime.js",
-##        ],
-##    "ide": []
+    "plotly": [
+        "../lib/plotly.js"
+        ]
     }
 
 def combine(inlibs):
@@ -124,13 +108,6 @@ def minify(inlibs, inlibs_nomin, outlib):
 
 minify( glowscript_libraries["run"], [], "package/glow." + version + "_no_overload.min.js" )
 print('Finished glow run-time package\n')
-##minify( glowscript_libraries["compile"], [], "package/compiler." + version + ".min.js" )
-##print('Finished JavaScript compiler package\n')
-##minify( glowscript_libraries["RScompile"], [], "package/RScompiler." + version + ".min.js" )
-##print('Finished RapydScript compiler package\n')
-##
-### For GlowScript 2.6 runtime.js had the encoding "UCS-2 LE BOM" which the Uglify
-### machinery could not handle. Using (on Windows) notepad++ the encoding was changed
-### to "UTF-8" which solved the problem.
-##minify( glowscript_libraries["RSrun"], [], "package/RSrun." + version + ".min.js" )
-##print('Finished RapydScript run-time package')
+
+minify( glowscript_libraries["plotly"], [], "package/plotlyVP7.min.js" )
+print('Finished plotly run-time package\n')
