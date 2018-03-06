@@ -202,7 +202,9 @@ cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
           <p class="attributes"> <span class="attribute">userzoom = False</span> user cannot zoom in and out of the scene</p>
           <p class="attributes"><span class="attribute">userzoom = True</span> user can zoom (default)</p>
           <p class="attributes"> <span class="attribute">userspin = False</span> user cannot rotate the scene</p>
-          <p class="attributes"> <span class="attribute">userspin = True</span> user can rotate (default)</p>
+          <p class="attributes"> <span class="attribute">userspin = True</span> user can rotate (default) </p>
+          <p class="attributes"><span class="attribute">userpan = False</span> user cannot pan the scene</p>
+          <p class="attributes"> <span class="attribute">userpan = True</span> user can pan (default)</p>
           <p class="Normal"></p>
           <p class="Normal"><strong><font color="#0000A0">Controlling the view using scene.camera</font></strong></p>
           <p class="Normal">The mechanisms described above for controlling the view are designed to try to make sure that the objects are visible no matter how the user rotates or zooms the view, because the camera direction is always automatically adjusted to point toward scene.center, which by default is at the origin, and scene.range is automatically adjusted to correspond to the user zoom.</p>
