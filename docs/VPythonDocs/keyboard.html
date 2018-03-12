@@ -56,6 +56,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             scene.waitfor('mousedown mousemove') # either event<br />
           </p>
           <p class="Normal">The event 'keydown' or 'keyup' occurs when you press or release a key on the keyboard (if you hold down a key, you may get multiple 'keydown' events due to repeats). </p>
+          <p class="Normal"><strong>Jupyter notebook limitation:</strong> Key events are swallowed by the Jupyter notebook as part of the user interface and are not available to a VPython program.</p>
           <p class="Normal">You can obtain a package of information about the event that caused the end of the wait:</p>
           <p class="program">            box()<br />
             ev = scene.waitfor('click keydown')<br />
