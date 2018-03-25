@@ -119,9 +119,9 @@ $(function () {
                 u += "/folder/" + encode(route.folder)  // folder might be LIST, to get the list
                 if (route.program !== undefined) {
                     u += "/program/" + encode(route.program)  // program might be LIST, to get the list
-//                    if (route.option !== undefined) {
-//                    	u += "/option/" + route.option
-//                    }
+                    if (route.option !== undefined) {
+                    	u += "/option/" + route.option
+                    }
                 }
             }
             return u
@@ -169,22 +169,19 @@ $(function () {
             }
         })
     }
-//    function apiDownload(route) {
-//    	var url = apiURL(route)
-//        $.ajax({
-//            type: 'PUT',
-//            url: url,
-//            data: { 'program': 'program' },
-//            headers: { 'X-CSRF-Token': loginStatus.secret },
-//            dataType: 'text',  // actually nothing?
-//            success: function(ret) {console.log('Download:',ret)},
-//            error: function (xhr, message, exc) {
-//                apiError("API " + message + " downloading " + url + ": " + exc)
-//                // API parsererror while downloading api/user/test/folder/Private/program/0vp/option/download: 
-//                //    SyntaxError: Unexpected token r in JSON at position 1
-//            }
-//        })
-//    }
+    function apiDownload(route, callback) { 
+    	// route = /api/user/username/folder/foldername/program/programname/options/download
+    	// Slight modifications here and in api.py could handle options other than download
+    	var url = apiURL(route)
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: callback,
+            error: function (xhr, message, exc) {
+                apiError("API " + message + " downloading " + url + ": " + exc)
+            }
+        })
+    }
     
     function apiExists(route, callback) {
         var url = apiURL(route)
@@ -395,8 +392,8 @@ $(function () {
         if (m) return { page: "edit", user: m[1], folder: m[2], program: m[3] }
         m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/program/([^/]+)/share$"))
         if (m) return { page: "share", user: m[1], folder: m[2], program: m[3] }
-//        m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)"))
-//        if (m) return { page: "option", user: m[1], folder: m[2], program: m[3], option:m[4] }
+        m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)"))
+        if (m) return { page: "option", user: m[1], folder: m[2], program: m[3], option:m[4] }
         m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/program/([^/]+)$"))
         if (m) return { page: "run", user: m[1], folder: m[2], program: m[3] }
         m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/$"))
@@ -422,9 +419,9 @@ $(function () {
                 if (route.program) {
                     h += "program/" + e(route.program)
                     if (route.page == "run") return h
-//                    if (route.page == "option") {
-//                    	return h + "/" + e(route.page)+'/download'
-//                    }
+                    if (route.page == "option") {
+                    	return h + "/" + e(route.page)+'/download'
+                    }
                     if (route.page == "share" || route.page == "edit") return h + "/" + e(route.page)
                 }
             }
@@ -1111,11 +1108,13 @@ $(function () {
         var frameHTML = '<iframe style="border-style:none; border:0; width:650px; height:500px; margin:0; padding:0;" frameborder=0 src="' + frameSrc + '"></iframe>'
         page.find(".frameSource").text( frameHTML );
     }
-//    pages.option = function(route) { // Currently the only program option is download (download a program to user computer)
-//        var username = route.user, folder = route.folder, program = route.program, option='download'
-//    	apiDownload( {user:username, folder:folder, program: program, option:'download'} )
-//    	navigate(unroute(route, {page:"edit"})) // return to (stay on) edit page
-//    }
+    pages.option = function(route) { // Currently the only program option is download (download a program to user computer)
+        var username = route.user, folder = route.folder, program = route.program, option='download'
+    	apiDownload( {user:username, folder:folder, program: program, option:'download'}, function(ret) {
+    		window.location = apiURL(route) // this sends the file to the user's download folder
+    	})
+    	navigate(unroute(route, {page:"edit"})) // return to (stay on) edit page
+    }
     pages.edit = function(route) {
         var username = route.user, folder = route.folder, program = route.program // string variables
         
@@ -1129,7 +1128,7 @@ $(function () {
         var run_link = unroute({page:"run", user:username, folder:folder, program:program})
         page.find(".prog-run.button").prop("href", run_link).prop("title", "Press Ctrl-1 to run\nPress Ctrl-2 to run in another window")
         page.find(".prog-share.button").prop("href", unroute({page:"share", user:username, folder:folder, program:program}))
-        //page.find(".prog-option.button").prop("href", unroute({page:"option", user:username, folder:folder, program:program}))
+        page.find(".prog-option.button").prop("href", unroute({page:"option", user:username, folder:folder, program:program}))
         if (!isWritable) page.find(".readonly").removeClass("template")
 
         // TODO: "Copy this program" link when not writable

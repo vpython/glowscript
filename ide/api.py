@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+
+# READ THIS CAREFULLY:
+
 # With the earlier Google App Engine based on Python 2.5, encoded url's sent
 # to api.py from ide.js that contained escaped characters, such as %20 for space,
 # were not modified before being routed to handlers such as ApiUserFolder.
@@ -9,6 +12,18 @@
 # because self.request.path is the unmodified version of the url sent to api.py.
 # Note that in ide.js all work with folders and programs is done with decoded
 # forms (e.g. space, not %20), but urls are encoded at the time of sending to api.py.
+
+# Consider the following code, which is similar in all request handlers.
+# webapp2 delivers user, folder, and name, so why do we then re-parse self.request.path
+# to re-acquire these variables? When we tried eliminating the re.search machinery,
+# users whose user name contained a space could no longer reach their files.
+# For the reasons noted above, this duplication of effort is necessary.
+# class ApiUserFolderProgram(ApiRequest):
+#     def get(self, user, folder, name):
+#         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
+#         user = m.group(1)
+#         folder = m.group(2)
+#         name = m.group(3)
 
 # python_version 2.7 works and can be deployed with Google App Engine Launcher 1.7.6
 
@@ -138,6 +153,8 @@ class ApiUsers(ApiRequest):
 
 class ApiUser(ApiRequest):
     def get(self, username):
+        m = re.search(r'/user/([^/]+)', self.request.path)
+        username = m.group(1)
         if not self.authorize(): return
         if not self.validate(username): return
 
@@ -148,6 +165,8 @@ class ApiUser(ApiRequest):
         self.respond({})
 
     def put(self, username):
+        m = re.search(r'/user/([^/]+)', self.request.path)
+        username = m.group(1)
         if not self.authorize(): return
         if not self.validate(username): return
 
@@ -176,6 +195,8 @@ class ApiUser(ApiRequest):
 
 class ApiUserFolders(ApiRequest):
     def get(self, user):                                                        ##### display all public or owned folders                                           
+        m = re.search(r'/user/([^/]+)', self.request.path)
+        user = m.group(1)
         if not self.authorize(): return
         if not self.validate(user): return
         gaeUser = users.get_current_user()
@@ -190,6 +211,9 @@ class ApiUserFolders(ApiRequest):
 
 class ApiUserFolder(ApiRequest):
     def put(self, user, folder):                                                ##### create a new folder
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
         if not self.authorize_user(user): return
         if not self.validate(user, folder): return
         ndb_user = ndb.Key("User",user).get()
@@ -204,6 +228,9 @@ class ApiUserFolder(ApiRequest):
         folder.put()
         
     def delete(self, user, folder):                                             ##### delete an existing folder
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
         if not self.validate(user, folder): return
         if not self.authorize_user(user): return
         ndb_folder = ndb.Key("User", user, "Folder", folder).get()
@@ -220,6 +247,9 @@ class ApiUserFolder(ApiRequest):
 
 class ApiUserFolderPrograms(ApiRequest):
     def get(self, user, folder):                                                ##### display all programs in a public or owned folder
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
         if not self.authorize(): return
         if not self.validate(user, folder): return
         ndb_folder = ndb.Key("User",user,"Folder",folder).get()
@@ -241,6 +271,10 @@ class ApiUserFolderPrograms(ApiRequest):
 
 class ApiUserFolderProgram(ApiRequest):
     def get(self, user, folder, name):                                          ##### access a public or owned program
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
+        name = m.group(3)
         if not self.authorize(): return
         if not self.validate(user, folder, name): return
         ndb_folder = ndb.Key("User",user,"Folder",folder).get()
@@ -262,6 +296,10 @@ class ApiUserFolderProgram(ApiRequest):
             "source": unicode(ndb_program.source or unicode())} )
             
     def put(self, user, folder, name):                                          ##### create or write an owned program
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
+        name = m.group(3)
         if not self.validate(user, folder, name): return
         if not self.authorize_user(user): return
         # TODO: Check content type of request
@@ -292,6 +330,10 @@ class ApiUserFolderProgram(ApiRequest):
         ndb_program.put()
         
     def delete(self, user, folder, name):                                       ##### delete an owned program
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
+        name = m.group(3)
         if not self.validate(user, folder, name): return
         if not self.authorize_user(user): return
         ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
@@ -299,8 +341,14 @@ class ApiUserFolderProgram(ApiRequest):
             ndb_program.key.delete()
 
 class ApiUserFolderProgramDownload(ApiRequest): # Does not work yet; button is commented out in index.html
-    def put(self, user, folder, name, op):                                   ##### download a public or owned program
-    	# Currently op is only "download"
+	# route = /api/user/username/folder/foldername/program/programname/options/download
+	# Slight modifications here and in ide.js could handle options other than download
+    def get(self, user, folder, name, op):                                   ##### download a public or owned program
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
+        name = m.group(3)
+        option = m.group(4) # Currently option is always "download"
     	if not self.authorize(): return
         if not self.validate(user, folder, name): return
         ndb_folder = ndb.Key("User",user,"Folder",folder).get()
@@ -319,10 +367,8 @@ class ApiUserFolderProgramDownload(ApiRequest): # Does not work yet; button is c
         end = source.find('\n')
         if end >= 0:
         	source = "from vpython import *"+source[end:]
-        #self.response.headers['Content-Type'] = 'text/plain' # this is the default, as is utf-8
         self.response.headers['Content-Disposition'] = 'attachment; filename='+name+'.py'
-        self.response.write(source) # error with get, put, options, post, delete
-        #self.respond('respond')
+        self.response.write(source)
 
 class ApiAdminUpgrade(ApiRequest):
     allowJSONP = None
