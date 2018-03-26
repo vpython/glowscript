@@ -397,10 +397,10 @@ class ApiUserFolderProgramDownload(ApiRequest):
 		        	source = "from vpython import *"+source[end:]
 		        out = StringIO.StringIO()
 		        out.write(unicode(source))
-	        	za.writestr(p['name']+'.py', out.getvalue())
+		        za.writestr(p['name']+'.py', out.getvalue().encode('utf-8'))
 	        za.close()
 	        self.response.headers['Content-Disposition'] = 'attachment; filename='+folder+'.zip'
-	        self.response.write(buff.getvalue()) # UnicodeDecodeError: 'ascii' codec can't decode byte 0xd9 in position 10: ordinal not in range(128)
+	        self.response.write(buff.getvalue())
         else:
 	        self.error(404)
 

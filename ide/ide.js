@@ -814,8 +814,13 @@ $(function () {
 	                progList.append(p)
 	            })(programs[i])
             }
-            if (isWritable && programs.length==0) page.find(".folder-delete").removeClass("template")
-            else page.find(".folder-delete").addClass("template")
+            if (isWritable && programs.length==0) {
+            	page.find(".folder-delete").removeClass("template")
+            	page.find(".folder-download.button").addClass("template")
+            } else {
+            	page.find(".folder-delete").addClass("template")
+            	page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}    )   )
+            }
         })
     }
     pages.run = function(route) {
