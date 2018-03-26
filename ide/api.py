@@ -29,6 +29,8 @@
 
 import webapp2 as web
 import json
+import StringIO
+import zipfile
 
 from google.appengine.ext import ndb
 from google.appengine.api import users
@@ -340,35 +342,67 @@ class ApiUserFolderProgram(ApiRequest):
         if ndb_program:
             ndb_program.key.delete()
 
-class ApiUserFolderProgramDownload(ApiRequest): # Does not work yet; button is commented out in index.html
-	# route = /api/user/username/folder/foldername/program/programname/options/download
-	# Slight modifications here and in ide.js could handle options other than download
-    def get(self, user, folder, name, op):                                   ##### download a public or owned program
+class ApiUserFolderProgramDownload(ApiRequest):
+	# route = /api/user/username/folder/foldername/program/programname/options/downloadProgram or ...../downloadFolder
+    def get(self, user, folder, name, op):                                   ##### download a public or owned program or folder
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)
-        name = m.group(3)
-        option = m.group(4) # Currently option is always "download"
+        name = m.group(3)   # If option is downloadFolder, name is meaningless
+        option = m.group(4) # Currently downloadProgram or downloadFolder
     	if not self.authorize(): return
         if not self.validate(user, folder, name): return
-        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-        gaeUser = users.get_current_user()
-        ndb_user = ndb.Key("User",user).get()
-        try:
-        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
-        except:
-        	pub = True
-        if not pub:
-            return self.error(405)
-        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
-        if not ndb_program:
-            return self.error(404)
-        source = unicode(ndb_program.source or unicode())
-        end = source.find('\n')
-        if end >= 0:
-        	source = "from vpython import *"+source[end:]
-        self.response.headers['Content-Disposition'] = 'attachment; filename='+name+'.py'
-        self.response.write(source)
+        if option == 'downloadProgram':
+	        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+	        gaeUser = users.get_current_user()
+	        ndb_user = ndb.Key("User",user).get()
+	        try:
+	        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
+	        except:
+	        	pub = True
+	        if not pub:
+	            return self.error(405)
+	        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+	        if not ndb_program:
+	            return self.error(404)
+	        source = unicode(ndb_program.source or unicode())
+	        end = source.find('\n')
+	        if end >= 0:
+	        	source = "from vpython import *"+source[end:]
+	        self.response.headers['Content-Disposition'] = 'attachment; filename='+name+'.py'
+	        self.response.write(source)
+        elif option == 'downloadFolder':
+	        if not self.authorize(): return
+	        if not self.validate(user, folder): return
+	        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+	        gaeUser = users.get_current_user()
+	        ndb_user = ndb.Key("User",user).get()
+	        try:
+	        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
+	        except:
+	        	pub = True
+	        if not pub:
+	            return self.error(405)
+	        # https://newseasandbeyond.wordpress.com/2014/01/27/creating-in-memory-zip-file-with-python/
+	        buff = StringIO.StringIO()
+	        za = zipfile.ZipFile(buff, mode='w', compression=zipfile.ZIP_DEFLATED)
+	        programs = [
+	            { "name": p.key.id(),
+	              "source": p.source  # unicode(p.source or unicode())
+	            } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)) ]
+	        for p in programs:
+	        	source = p['source']
+		        end = source.find('\n')
+		        if end >= 0:
+		        	source = "from vpython import *"+source[end:]
+		        out = StringIO.StringIO()
+		        out.write(unicode(source))
+	        	za.writestr(p['name']+'.py', out.getvalue())
+	        za.close()
+	        self.response.headers['Content-Disposition'] = 'attachment; filename='+folder+'.zip'
+	        self.response.write(buff.getvalue()) # UnicodeDecodeError: 'ascii' codec can't decode byte 0xd9 in position 10: ordinal not in range(128)
+        else:
+	        self.error(404)
 
 class ApiAdminUpgrade(ApiRequest):
     allowJSONP = None

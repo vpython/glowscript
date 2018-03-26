@@ -393,7 +393,7 @@ $(function () {
         m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/program/([^/]+)/share$"))
         if (m) return { page: "share", user: m[1], folder: m[2], program: m[3] }
         m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)"))
-        if (m) return { page: "option", user: m[1], folder: m[2], program: m[3], option:m[4] }
+        if (m) return { page: m[4], user: m[1], folder: m[2], program: m[3], option:m[4] }
         m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/program/([^/]+)$"))
         if (m) return { page: "run", user: m[1], folder: m[2], program: m[3] }
         m = h.match(new RegExp("/user/([^/]+)/folder/([^/]+)/$"))
@@ -419,9 +419,8 @@ $(function () {
                 if (route.program) {
                     h += "program/" + e(route.program)
                     if (route.page == "run") return h
-                    if (route.page == "option") {
-                    	return h + "/" + e(route.page)+'/download'
-                    }
+                    if (route.page == "downloadFolder") return h + "/option/" + e(route.page)
+                    if (route.page == "downloadProgram") return h + "/option/" + e(route.page)
                     if (route.page == "share" || route.page == "edit") return h + "/" + e(route.page)
                 }
             }
@@ -523,6 +522,12 @@ $(function () {
     pages.action = function(route) {
         redirect( {page: "welcome"} )
     }
+    pages.downloadFolder = function(route) { // Currently the only program option is download (download a program to user computer) // Currently the only program option is download (download a program to user computer)
+        apiDownload( {user:route.user, folder:route.folder, program:'program', option:'downloadFolder'}, function(ret) {
+    		window.location = apiURL(route) // this sends the file to the user's download folder
+        	navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
+        })
+    }
     pages.folder = function (route) {
         var username = route.user, folder = route.folder
         var isWritable = route.user === loginStatus.username
@@ -539,6 +544,7 @@ $(function () {
 
     	page.find(".username").text(username) // + ", IDE jQuery ver. " + jQuery.fn.jquery) // To show IDE jQuery version number at top of IDE during run.
         page.find(".foldername").text(folder)
+        page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}))
         pageBody.html(page)
 
         function createDialog( templ, doCreate ) { // dialog for creating a new program
@@ -1108,12 +1114,11 @@ $(function () {
         var frameHTML = '<iframe style="border-style:none; border:0; width:650px; height:500px; margin:0; padding:0;" frameborder=0 src="' + frameSrc + '"></iframe>'
         page.find(".frameSource").text( frameHTML );
     }
-    pages.option = function(route) { // Currently the only program option is download (download a program to user computer)
-        var username = route.user, folder = route.folder, program = route.program, option='download'
-    	apiDownload( {user:username, folder:folder, program: program, option:'download'}, function(ret) {
+    pages.downloadProgram = function(route) { // Currently the only program option is download (download a program to user computer)
+        apiDownload( {user:route.user, folder:route.folder, program: route.program, option:'downloadProgram'}, function(ret) {
     		window.location = apiURL(route) // this sends the file to the user's download folder
+        	navigate(unroute(route, {page:"edit"})) // return to (stay on) edit page
     	})
-    	navigate(unroute(route, {page:"edit"})) // return to (stay on) edit page
     }
     pages.edit = function(route) {
         var username = route.user, folder = route.folder, program = route.program // string variables
@@ -1128,7 +1133,7 @@ $(function () {
         var run_link = unroute({page:"run", user:username, folder:folder, program:program})
         page.find(".prog-run.button").prop("href", run_link).prop("title", "Press Ctrl-1 to run\nPress Ctrl-2 to run in another window")
         page.find(".prog-share.button").prop("href", unroute({page:"share", user:username, folder:folder, program:program}))
-        page.find(".prog-option.button").prop("href", unroute({page:"option", user:username, folder:folder, program:program}))
+        page.find(".prog-download.button").prop("href", unroute({page:"downloadProgram", user:username, folder:folder, program:program}))
         if (!isWritable) page.find(".readonly").removeClass("template")
 
         // TODO: "Copy this program" link when not writable
