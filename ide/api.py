@@ -351,11 +351,11 @@ class ApiUserFolderProgramDownload(ApiRequest):
         name = m.group(3)   # If option is downloadFolder, name is meaningless
         option = m.group(4) # Currently downloadProgram or downloadFolder
     	if not self.authorize(): return
-        if not self.validate(user, folder, name): return
+        gaeUser = users.get_current_user()
+        ndb_user = ndb.Key("User",user).get()
         if option == 'downloadProgram':
+        	if not self.validate(user, folder, name): return
 	        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-	        gaeUser = users.get_current_user()
-	        ndb_user = ndb.Key("User",user).get()
 	        try:
 	        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
 	        except:
@@ -367,16 +367,14 @@ class ApiUserFolderProgramDownload(ApiRequest):
 	            return self.error(404)
 	        source = unicode(ndb_program.source or unicode())
 	        end = source.find('\n')
-	        if end >= 0:
-	        	source = "from vpython import *"+source[end:]
+	        vp = source[0:end].find('ython')
+	        if vp > -1:
+	        	source = "from vpython import *\n#"+source
 	        self.response.headers['Content-Disposition'] = 'attachment; filename='+name+'.py'
 	        self.response.write(source)
         elif option == 'downloadFolder':
-	        if not self.authorize(): return
 	        if not self.validate(user, folder): return
 	        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-	        gaeUser = users.get_current_user()
-	        ndb_user = ndb.Key("User",user).get()
 	        try:
 	        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
 	        except:
@@ -393,8 +391,9 @@ class ApiUserFolderProgramDownload(ApiRequest):
 	        for p in programs:
 	        	source = p['source']
 		        end = source.find('\n')
-		        if end >= 0:
-		        	source = "from vpython import *"+source[end:]
+		        vp = source[0:end].find('ython')
+		        if vp > -1:
+		        	source = "from vpython import *\n#"+source
 		        out = StringIO.StringIO()
 		        out.write(unicode(source))
 		        za.writestr(p['name']+'.py', out.getvalue().encode('utf-8'))
