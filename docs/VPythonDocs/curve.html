@@ -99,7 +99,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 </div>
 </div>
 </div>
-<p class="Normal">In addition to the  attributes <span class="attribute">pos</span>, <span class="attribute">color</span>,   <span class="attribute">radius</span>, each point has a <span class="attribute">visible</span> attribute, which makes that particular point visible or invisible.</p>
+<p class="Normal">In addition to the  attributes <span class="attribute">pos</span>, <span class="attribute">color</span>,   <span class="attribute">radius</span>, and <span class="attribute">emissive</span>, each point has a <span class="attribute">visible</span> attribute, which makes that particular point visible or invisible. One cannot make a curve transparent (opacity &lt; 1).</p>
       <div>
         <div>
           <p class="Normal"><strong><font color="#0000a0">Retaining a limited number of points</font></strong></p>
@@ -111,11 +111,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal"><strong><font color="#0000a0">The curve attributes</font></strong></p>
 <p class="Normal">Here is a summary of the attributes for individual points or for the curve as a whole:</p>
 <p class="attributes"> <span class="attribute">pos </span> A vector position or list of positions used in creating a curve. After the curve is created, one must use curve methods such as c.point(N) to read position data.</p>
+<p class="attributes"> <span class="attribute">radius</span> Radius of
+  the cross-section of this segment of the curve; if specified for the curve as a whole, it specifies the radius of any points for which no specific radius was given. The default radius is 0, which makes a thin curve.</p>
 <p class="attributes"> <span class="attribute">color </span> Color
           of a point; if specified for the curve as a whole, it specifies the color of any points for which no specific color was given.</p>
-        <p class="attributes"> <span class="attribute">radius</span> Radius of
-          the cross-section of this segment of the curve; if specified for the curve as a whole, it specifies the radius of any points for which no specific radius was given. The default radius is 0, which makes a thin curve.</p>
-        <p class="attributes"><span class="attribute">visible</span> If False, 
+<p class="attributes"> <span class="attribute">emissive</span> If True, local and distant lights are ignored, and the brightness is governed by the object's own color.   The effect is that the object looks as though it is glowing.   The default for emissive is False.</p>
+<p class="attributes"><span class="attribute">visible</span> If False, 
           
           point is not displayed; if False for the curve as a whole, no points are displayed.</p>
         <p class="attributes"><span class="attribute">retain</span> Specify how many points to retain.</p>
