@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSCompileWindow</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<!-- Example of using GlowScript locally / 	Vesa Lappalainen vesal@jyu.fi -->
+<!-- 
+  change all ../ to ../ to use locally 
+
+  To test this example get the   
+    https://github.com/BruceSherwood/glowscript
+  and then save this file to any directory side by side to 
+  GlowScript directories package and lib.
+  No other installation is needed.
+  
+  Or just change all ../ from this file to 
+    http://www.glowscript.org/
+  and then save this file some place in your local machine
+  and open it in web browser.  
+--> 
+
+<body class="GlowScriptBody">
+<link type="text/css" href="../css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+<link type="text/css" href="../css/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/javascript" src="../lib/jquery/2.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="../package/glow.2.7.min.js"></script>
+<script type="text/javascript" src="../package/RSrun.2.7.min.js"></script>
+
+<script type="text/javascript">
+var glowscript_run = undefined;
+
+// Next function is picked and modified from
+// https://github.com/BruceSherwood/glowscript/blob/master/ide/ide.js,
+//  Look to original  pages.share = function(route) {
+//  and there from  apiGet( route, function (progData) {... done
+function csCompile(header, compReady, errordiv) {
+    errordiv.innerHTML = "";
+    var sdir = "../";
+    var compiler_url
+    if (header.lang == 'vpython' || header.lang == 'rapydscript') {
+        compiler_url = sdir + "package/RScompiler." + header.version + ".min.js"
+    } else compiler_url = sdir + "package/compiler." + header.version + ".min.js"
+    window.glowscript_compile = undefined
+    $.ajax({
+        url: compiler_url,
+        dataType: "script",
+        cache: true,
+        crossDomain: true  // use script tag rather than xhr
+    }).fail(function (xhr, err, exc) {
+        (xhr);
+        alert(err + " getting " + xhr.url + ": " + exc)
+    }).done(function () {
+        if (!window.glowscript_compile) {
+            alert("Failed to load compiler from package: " + compiler_url)
+            return
+        }
+                    
+        var embedScript;
+        try {
+           embedScript = window.glowscript_compile(header.source, {lang: header.lang, 
+                version: header.version.substr(0,3)})
+        } catch(err) {   
+           errordiv.innerHTML = "<p>"+err+"</p>";
+           return;
+        }
+        var divid = "glowscript"
+        var remove = ''; // header.version==='0.3' ? '' : '.removeAttr("id")'
+        var main
+        var v = Number(header.version.substr(0,3))
+        if (v >= 2.0) main = 'main(__func)' // Starting Dec. 2015, using Streamline files from Salvatore di Dio
+        else main = 'main()'
+        embedScript = ";(function() {" + embedScript + '\n'+
+                        //';$(function(){\n' +
+                        //'  window.__context = { glowscript_container: $("#' + divid + '")'+remove+' };\n' +
+                       'glowscript_run = function() { ' + main + '; }\n' +
+                       //'glowscript_run();\n' +
+                       //'})\n' + '
+                       '})()'
+
+        embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
+        compReady(embedScript);    
+        // page.find(".embedSource").text( embedHTML )
+    })
+}
+
+function parseVersionHeader( source ) { // null if sourceLines already exists
+    if (source !== null) sourceLines = source.split("\n")
+    else source = 'already exists\n'
+    var header = sourceLines[0]
+    // Remove a newline or similar character at the end of header:
+    if (header.charCodeAt(header.length-1) < 32)
+        header = header.substring(0,header.length-1)
+    var rest = source.substr( header.length+1 )
+    var ret = {
+        version: null,
+        lang: '', // 'vpython' (default) or 'rapydscript' or 'javascript' or a string that is neither (e.g. when editing header)
+        source: rest,
+        ok: false,
+        unpackaged: false,
+        isCurrent: false
+    }
+    header = header.split(" ")
+    if (header.length === undefined) return ret
+    if (header[0] == ' ') return ret
+    var elements = []
+    for (var i=0; i<header.length; i++) { // remove empty strings corresponding to spaces
+        if (header[i] != '') elements.push(header[i])
+    }
+    if (elements.length < 2 || elements.length > 3) return ret
+    if (elements[0] != 'GlowScript') return ret
+    ret.lang = 'javascript' // the default if no language is specified
+    if (elements.length == 3) {
+        ret.lang = elements[2].toLowerCase()
+        if (!(ret.lang == 'javascript' || ret.lang == 'coffeescript' || ret.lang == 'rapydscript' || ret.lang == 'vpython')) return ret
+    }
+    var ver = elements[1]
+    var okv = true;
+    return {
+        version: ver,
+        lang: ret.lang,
+        source: rest, 
+    }
+}
+
+var gsErrordiv;
+
+var gsDeflanguage = "GlowScript 2.7 VPython";
+
+function setDefLanguage(lang) {
+   gsDeflanguage = lang;
+}
+
+
+function runJavaScript(text,userargs,userinput, wantsConsole) {
+    var i = text.indexOf("GlowScript");
+    if ( i > 0 ) text = text.substring(i); 
+    if ( text.indexOf("//\n") == 0 ) text = text.substring(3); // remove TIM comment
+    if ( i < 0 ) text = gsDeflanguage + "\n" + text;    
+    var csHeader = parseVersionHeader(text);
+    gsErrordiv = $("#gserrors")[0];
+    csCompile(csHeader, ready, gsErrordiv);
+    return "";
+}
+
+
+function runCode() {
+    var sc = $("#sourcetext").val();
+    runJavaScript(sc);
+}
+
+
+function ready(sc) {
+    var w = $("#glows");
+    w[0].innerHTML = ""; // Comment this anf the next if get a solution for too many WebGL context
+    w[0].innerHTML = '<div id="glowscript" class="glowscript"></div>';
+    window.__context = { glowscript_container: $(".glowscript").removeAttr("id") }; 
+    
+    // TODO: how to set an error handler???
+    window.__context.errorHandler =gsErrorHandler;
+    
+    runScript = new Function(sc);
+    runScript();
+    glowscript_run();
+}
+
+
+function gsErrorHandler(err) {
+    gsErrordiv.innerHTML = "<p>"+err+"</p>";
+} 
+
+
+function getConsoleHeight() {
+ return 0;
+}
+
+</script>
+
+<!-- uncomment next to test directly in the frame or locally -->
+<!-- -->
+<div><p>Write any VPython or GlowScript program below and press Run.
+You can also change the program and see what happens.</p>
+</div>
+<div>
+<textarea id="sourcetext" rows = 5, cols="80">
+GlowScript 2.7 VPython
+box()
+</textarea>
+</div>
+<button onclick="runCode()">Run</button>
+</div>
+<!-- -->
+
+<div id="gserrors">
+</div>
+<p align="right" style="font-size: 0.5em; margin-top: -1em">See: <a href="http://www.glowscript.org/docs/VPythonDocs/index.html" target="_blank">GlowScript</a></p>
+<div id ="glows">
+    <div id="glowscript" class="glowscript">
+</div>
+<div>
+</div>
+</body>
+</html>

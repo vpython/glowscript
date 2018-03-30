@@ -5,7 +5,7 @@
 <title>CSCompileWindow</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
-<!-- Example of using GlowScript locally / 	Vesa Lappalainen vesal@jyu.fi -->
+<!-- Example of using GlowScript locally / vesal@jyu.fi -->
 <!-- 
   change all ../ to ../ to use locally 
 
@@ -17,7 +17,7 @@
   
   Or just change all ../ from this file to 
     http://www.glowscript.org/
-  and then save this file some place in your local machine
+  and then save this file what ever olace in you local machine
   and open it in web browser.  
 --> 
 
@@ -25,11 +25,11 @@
 <link type="text/css" href="../css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
 <link type="text/css" href="../css/ide.css" rel="stylesheet" />
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 <script type="text/javascript" src="../lib/jquery/2.1/jquery.min.js"></script>
 <script type="text/javascript" src="../lib/jquery/2.1/jquery-ui.custom.min.js"></script>
-<script type="text/javascript" src="../package/glow.2.1.min.js"></script>
-<script type="text/javascript" src="../package/RSrun.2.1.min.js"></script>
+<script type="text/javascript" src="../package/glow.2.6.min.js"></script>
+<script type="text/javascript" src="../package/RSrun.2.6.min.js"></script>
 
 <script type="text/javascript">
 var glowscript_run = undefined;
@@ -59,11 +59,9 @@ function csCompile(header, compReady, errordiv) {
             alert("Failed to load compiler from package: " + compiler_url)
             return
         }
-                    
         var embedScript;
         try {
-           embedScript = window.glowscript_compile(header.source, {lang: header.lang, 
-                version: header.version.substr(0,3)})
+           embedScript = window.glowscript_compile(header.source, {lang: header.lang, version: header.version.substr(0,3)})
         } catch(err) {   
            errordiv.innerHTML = "<p>"+err+"</p>";
            return;
@@ -71,6 +69,18 @@ function csCompile(header, compReady, errordiv) {
         var divid = "glowscript"
         var remove = ''; // header.version==='0.3' ? '' : '.removeAttr("id")'
         var main
+        var fsearch = ' (function()'
+        var where = embedScript.indexOf(fsearch)
+        if (where > 0) {
+            // The CoffeeScript -> JavaScript converter wraps the code in an extra protective layer, in addition
+            // to the wrapper imposed by GlowScript. The following code effectively unwraps the extra layer.
+            // There's probably a far more elegant way to deal with this....
+            var fname = '__RUN_GLOWSCRIPT'
+            main = fname+'()()'
+            embedScript = embedScript.slice(0,where+1) + fname + ' = ' + embedScript.slice(where+2,embedScript.length)
+            where = embedScript.indexOf('}).call(this)')
+            embedScript = embedScript.slice(0,where+1) + embedScript.slice(where+13,embedScript.length)
+        }
         var v = Number(header.version.substr(0,3))
         if (v >= 2.0) main = 'main(__func)' // Starting Dec. 2015, using Streamline files from Salvatore di Dio
         else main = 'main()'
@@ -183,12 +193,13 @@ function getConsoleHeight() {
 <!-- uncomment next to test directly in the frame or locally -->
 <!-- -->
 <div><p>Write any VPython or GlowScript program below and press Run.
-You can also change the program and see what happens.</p>
+You can also change the program and look what happends.</p>
 </div>
 <div>
 <textarea id="sourcetext" rows = 5, cols="80">
-GlowScript 2.1 VPython
-box()
+GlowScript 2.6 VPython
+ball=sphere(pos=vector(4,7,3),radius=2,color=color.green)
+redbox=box(pos=vector(4,2,3),size=vector(8,4,6),color=color.red)
 </textarea>
 </div>
 <button onclick="runCode()">Run</button>
