@@ -4,6 +4,36 @@
 <!-- Using GlowScript locally, based on the work of Vesa Lappalainen vesal@jyu.fi -->
 <title>Local GlowScript</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <style>
+  .api {
+    height: 5000px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .split p {
+    padding: 20px;
+  }
+  .split {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .gutter {
+    background-color: #ccc;
+    background-repeat: no-repeat;
+    background-position: 50%;
+  }
+  .gutter.gutter-horizontal {
+    cursor: ew-resize;
+  }
+  .split.split-horizontal, .gutter.gutter-horizontal {
+    height: 100%;
+    float: left;
+  }
+  </style>
 </head>
 
 <body class="GlowScriptBody">
@@ -13,8 +43,9 @@
 <script type="text/javascript" src="glowscript_libraries/editor.js"></script>
 <script type="text/javascript" src="glowscript_libraries/RSrun.2.7.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/glow.2.7.min.js"></script>
+</body>
 
-<script type="text/javascript">
+<script>
 var gsversion = 2.7
 
 var glowscript_run = undefined
@@ -146,12 +177,7 @@ function getConsoleHeight() {
 &nbsp;&nbsp;&nbsp;
 <input type="file" id="read_local_file"/>
 
-<div id='sourcetext'></div>
-
 <script>
-var s = 'from vpython import *\nbox()'
-GSedit.init(document.getElementById('sourcetext'), s, false)     	
-
 function readSingleFile(evt) {
     var f, reader
     f = evt.target.files[0];
@@ -160,9 +186,6 @@ function readSingleFile(evt) {
         reader.onload = function(e) {
         	var content = e.target.result
         	GSedit.setValue(content)
-            //document.getElementById('sourcetext').value = content
-            //var moddate = (f.lastModifiedDate) ? f.lastModifiedDate.toLocaleDateString() : ''
-            //var info = {name:f.name, text:contents, size:f.size, type:f.type, date:moddate}
         }
         reader.readAsText(f)
     }
@@ -173,8 +196,30 @@ document.getElementById('read_local_file').addEventListener('change', readSingle
 <div id="gserrors">
 </div>
 
-<div id ="glows">
-    <div id="glowscript" class="glowscript">
+<div class='api'>
+	<div id='sourcetext' class="split split-horizontal"></div>
+	<div id ="glows" class="split split-horizontal"></div>
 </div>
-</body>
+
+<script type="text/javascript" src="glowscript_libraries/split.min.js"></script>
+<script>
+var lastwindowwidth = window.innerWidth
+var splits = Split(['#sourcetext', '#glows'], {sizes: [50,50], onDrag:splitdrag})
+// splits.getSizes() returns current percentage widths; splits.setSizes([w1,w2]) resets them
+var s = 'from vpython import *\nbox()'
+GSedit.init("#sourcetext", s, 0.5*lastwindowwidth, false) // not readonly
+
+function splitdrag() {
+	var s = splits.getSizes() // returns [width1, width2]
+	GSedit.setwidth(0.01*s[0]*window.innerWidth)
+}
+
+$(window).resize(function () {
+	var current = splits.getSizes()
+	var w1 = current[0]*lastwindowwidth/window.innerWidth
+	lastwindowwidth = window.innerWidth
+	splits.setSizes([w1,100-w1])
+	GSresize(0.01*w1*window.innerWidth)
+})
+</script>
 </html>

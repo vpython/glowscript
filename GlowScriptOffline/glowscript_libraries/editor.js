@@ -26,11 +26,20 @@ var GSedit = {linenumbersarea:null, editarea: null, readonly:true, source:null, 
 
 GSedit.getValue = function () { return GSedit.editarea.val() }
 
-GSedit.setValue = function (source) {GSedit.editarea.val(source); GSupdate()}
+GSedit.setValue = function (source) {
+	GSedit.editarea.val(source)
+	GSupdate()
+	GSedit.editarea.scrollTop(0)
+}
 
-GSedit.init = function(placement, source, readonly) {
+GSedit.setwidth = function(w) { // w is the width used by the program text; affected by dragging divider between text and display
+	console.log('GSedit.setwidth', w)
+	GSedit.editarea.css('width', w-numberwidth-wmargin)
+}
+
+GSedit.init = function(placement, source, width, readonly) {
 	GSedit.readonly = readonly
-	var w = window.innerWidth - wmargin
+	var w = width-numberwidth-wmargin
 	var h = window.innerHeight -hmargin
 	GSedit.linenumbersarea = $('<textarea id=linenumbers></textarea>').appendTo($(placement)).css('font-family', 
 		'monospace').css('overflow', 'hidden').css('font-size', '13px').css('float',
@@ -40,8 +49,7 @@ GSedit.init = function(placement, source, readonly) {
 	GSedit.linenumbersarea.attr('readonly', true)
 	var info = $(placement).append('<div></div>')
 	GSedit.editarea = $('<textarea id=edit wrap="off" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>').appendTo(info).css('font-family', 
-	    'monospace').css('font-size', '13px').css('width', w).css('height', h).css('resize', 
-		'none').css('border', '0').css('outline', 'none').css('line-height', '15px')
+	    'monospace').css('font-size', '13px').css('width', w).css('height', h).css('border', '0').css('outline', 'none').css('line-height', '15px')
 	GSedit.linenumbersarea.val('1')
 	GSedit.editarea.val(source)
 	GSedit.editarea.attr('readonly', GSedit.readonly)
@@ -51,8 +59,9 @@ GSedit.init = function(placement, source, readonly) {
 	var end = source.indexOf('\n')+1 // position cursor at start of line 2, below GlowScript header
 	GSedit.editarea[0].setSelectionRange(end,end)
 	GSedit.editarea[0].focus()
-	GSresize()
+	//GSresize(w)
 	GSupdate()
+	GSedit.editarea.scrollTop(0)
 	
 	GSedit.editarea.scroll( function(){ // when the program text scrolls, scroll the line numbers
 		GSedit.linenumbersarea.scrollTop(GSedit.editarea[0].scrollTop) // adjust line number display
@@ -60,19 +69,15 @@ GSedit.init = function(placement, source, readonly) {
 	initialized = true
 }
 
-var GSresize = function() { // readjust the width and height of the textareas
-	var w = window.innerWidth - wmargin - numberwidth
+var GSresize = function(w) { // readjust the width and height of the textareas
+	GSedit.editarea.css('width', w-numberwidth-wmargin)
 	var h = window.innerHeight -hmargin
-	GSedit.editarea.css('width', w).css('height', h)
+	GSedit.editarea.css('height', h)
 	GSedit.linenumbersarea.css('height', h)
 }
 
-$(window).resize(function () {
-	if (initialized) GSresize()
-})
-
 var GScutpaste = function() {
-	setTimeout(function(){GSupdate(), 100}) // the cut or paste hasn't happened yet; delay GSupdate
+	setTimeout(function(){GSupdate(), 10}) // the cut or paste hasn't happened yet; delay GSupdate
 }
 
 var GSupdate = function() { // update the display of line numbers if necessary
