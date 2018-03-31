@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <table width="100%" border="1">
+          <tr>
+            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">sphere</font></span></div></td>
+            <td width="23%"><div align="center"><img src="images/sphere.jpg" alt="sphere" width="131" height="127" /><a href="arrow.html"></a></div></td>
+          </tr>
+        </table>
+        <p class="Normal"> <img src="VisualRef-4.gif" alt="sphere" align="right" /> Here is an example of how to make a sphere:</p>
+
+          <p class="program"> ball = sphere(pos=vector(1,2,1), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      radius=0.5)</p>
+          <p class="Normal"> This produces a sphere centered at location (1,2,1) with radius = 0.5, with the current foreground color.</p>
+          <p class="Normal"> The sphere object has the following attributes and
+            default  values, similar to cylinder: <span class="attribute">pos<font color="#000000"> vector(0,0,0)</font></span>, <span class="attribute">axis<font color="#000000"> vector(</font></span><font color="#000000">1</font><span class="attribute"><font color="#000000">,0,0)</font>, color<font color="#000000"> vector(1,1,1)
+            which is color.white</font></span>, <span class="attribute">red<font color="#000000"> (1)</font></span>, <span class="attribute">green<font color="#000000"> (1)</font></span>, <span class="attribute">blue<font color="#000000"> (1)</font></span>,<span class="attribute"> opacity</span> (1),
+             <span class="attribute">shininess</span> (0.6), <span class="attribute">emissive</span> (False), <a href="../GlowScriptDocs/textures.html"><strong>texture</strong></a>, and <span class="attribute">up<font color="#000000"> vector(0,1,0)</font></span>.
+             As with cylinders, <span class="attribute">up</span> and <span class="attribute">axis</span> attributes
+             affect the orientation of the sphere but have only a  subtle effect
+             on appearance unless a non-smooth texture is specified or the cross section is oval. The magnitude
+         of the axis attribute is irrelevant. Additional sphere attributes:          </p>
+          <p class="attributes"> <span class="attribute">radius</span> The radius of 
+            the sphere, default = 1</p>
+          <p class="attributes"> <span class="attribute">size</span> Default is vector(2,2,2). Instead of specifying the radius, you can set size=vector(length,height,width), which means that the cross section of the sphere can be elliptical, making it like the ellipsoid object. Unlike other objects, changing size doesn't change axis, changing axis doesn't change size.</p>
+          <p class="attributes"><span class="attribute">canvas</span> By default, an object such as a sphere will be displayed in the most recently created 3D canvas, which will be the default canvas named &quot;scene&quot; unless you create a canvas yourself (see the related discussion at the start of the <strong><a href="canvas.html">canvas documentation</a></strong>).</p>
+<p class="Normal"> Note that the <span class="attribute">pos</span> attribute 
+            for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
+            whereas for a sphere it corresponds to the center of the object. </p>
+          <p class="Normal">If you include <span class="attribute">make_trail=True</span> when you create the object, a trail will be left behind the object as you move it. For related options, see <a href="trail.html"><strong>Leaving a Trail</strong></a>.</p>
+          <p class="Normal"><strong>A fast sphere object:</strong> <strong>simple_sphere</strong></p>
+          <p class="Normal">In order to look smooth, a sphere is made of a very large number of triangles. Sometimes speed is more important than ultimate beauty. The <strong>simple_sphere</strong> object can be used just like a sphere, but a large number of simple_sphere objects is displayed very much faster than the same number of regular spheres. For speed, the simple_sphere object is  used in the points object and in trails that use points.</p>
+  <p class="Normal">See <a href="rotation.html"><strong>Rotating an Object</strong></a> for an easy way to change the orientation of an object.</p>
+
+          <p class="Normal">See description of <a href="options.html">Additional
+              Attributes</a> available for all 3D display objects.</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

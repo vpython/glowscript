@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+-->
+</style>
+<style type="text/css">
+<!--
+.style2 {
+	font-size: x-large;
+	font-weight: bold;
+}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+          <table width="100%" border="1">
+            <tr>
+              <td width="99%"><div align="center"><span class="style2"><font color="#0000A0">Text Output</font></span></div></td>
+              <td width="1%"><div align="center"><a href="arrow.html"></a></div></td>
+            </tr>
+          </table>
+      <h1 class="Heading-1"> <font color="#0000a0">The print function</font></h1>
+      <p class="Normal">The <strong>print</strong> function places text in a scrolling text region at the bottom of the window. Consider the following statements:</p>
+      <p class="program">v = vec(1,2,3)<br />
+        print(&quot;This is a test.&quot;)<br />
+        print(&quot;The vector v =&quot;, v, &quot;.&quot;)</p>
+      <p class="Normal">These statements produce this output:</p>
+      <p class="program">This is a test.<br />
+        The vector v =  &lt; 1, 2, 3&gt;.</p>
+      <p class="Normal">The first print statement creates the scrolling text region. Later print statements add to the existing text, with end-of-line breaks after each print, and with spaces between items listed in a print statement. </p>
+      <p class="Normal">You can print multiline text like the following:</p>
+      <p class="program">print('''This is a test<br />
+        of multiline text which<br />
+        displays as shown.''') </p>
+      <p class="Normal">You can change the end of line ('\n&quot; by default) and the item separator (&quot; &quot; by default). Consider the following print statements:</p>
+      <p class="program">v = vec(1,2,3)<br />
+        print(&quot;Look:&quot;, end=&quot;---&quot;)<br />
+        print(&quot;v =&quot;, v, &quot;.&quot;, sep=&quot;_&quot;, end=&quot;!!&quot;)</p>
+      <p class="Normal">These statements produce this output:</p>
+      <p class="program">Look:---v =_&lt; 1, 2, 3 &gt;_.!!</p>
+      <p class="Normal">The elements &quot;sep=..., end=...&quot; must be the last arguments in the print statement. </p>
+      <h1 class="Heading-1"><font color="#0000a0"> String formatting</font></h1>
+      <div>
+        <p class="Normal">Python has a powerful mechanism for formatting a string. This has now been implemented in GlowScript (for VPython, RapydScript, and JavaScript). Here is an example (in VPython):</p>
+      </div>
+      <div></div>
+      <div>
+        <p class="program">V = 13.47<br />
+          s = &quot;There are {:.1f} {}.&quot;<br />
+        p = s.format(V, 'liters')<br />
+        print(p) # &quot;There are 13.5 liters.&quot;        </p>
+      </div>
+      <div>
+        <p class="Normal">Or more compactly,</p>
+        <p class="program">print( &quot;There are {:.1f} {}.&quot;.format(V, 'liters') )</p>
+      </div>
+      <div>
+        <p class="Normal">The element &quot;{:.1f}&quot; indicates &quot;fixed format&quot; with &quot;.1&quot; indicating that one digit should be shown after the decimal point. The value 13.47 is rounded to 13.5. If you specify &quot;{:12.3f}&quot;, what will be displayed is &quot;      13.470&quot;, with 6 spaces before the number, plus the 6 digits of &quot;13.470&quot; (3 after the decimal point), for a total of 12 characters.</p>
+      </div>
+      <div></div>
+      <div>
+        <p class="Normal">The element &quot;{}&quot; indicates that the default method for representing an argument should be used. In this case &quot;bucket&quot; is displayed.</p>
+      </div>
+      <div></div>
+      <div>
+        <p class="Normal">There are many formats available: b for binary (base 2), o for octal (base 8), x for hexidecimal (base 16; 28 displays as 1c), d for decimal integer, e for exponential (e.g. 5.32e-7), c for character code (e.g. converts &quot;b&quot; to 97), % for percent (displays 0.34 as 34%). The E exponential format gives 5.32E-7 and the X hexidecimal format gives 1C. </p>
+      </div>
+      <div></div>
+      <div>
+        <p class="Normal">The g format (g for general) is particularly useful because it flips between fixed and exponential formats depending on the size of the number.</p>
+        <p class="Normal">The following statement</p>
+        <div></div>
+        <div>
+          <p class="program">print(&quot;The {} {} {}.&quot;.format(&quot;quick&quot;,&quot;brown&quot;,&quot;fox&quot;))</p>
+        </div>
+        <div>
+          <p class="Normal">produces &quot;The quick brown fox&quot;. You can specify a different order of the arguments. The following statement</p>
+        </div>
+        <div></div>
+        <div>
+          <p class="program">print(&quot;The {2} {0} {1}.&quot;.format(&quot;quick&quot;,&quot;brown&quot;,&quot;fox&quot;))<br />
+          </p>
+        </div>
+        <div>
+          <p class="Normal">produces &quot;The fox quick brown.&quot; In other words, {N} refers to the Nth argument, counting from zero.</p>
+          <p class="Normal">Moreover, you can combine specifying which argument to display with the format to use:</p>
+          <div>
+            <p class="program">s = &quot;Here are fixed format ({0:.3f}) and exponential format ({0:.3e}) versions.&quot;.format(127.73)        </p>
+          </div>
+        </div>
+      </div>
+<h1 class="Heading-1"><font color="#0000a0"> Print options</font> (not currently available in VPython 7)</h1>
+      <p class="Normal">With <strong>print_options</strong> you can change the default size of the print region, allow the user to edit the text, clear the text from the region,  destroy the region, or obtain the current contents of the print region. </p>
+      <p class="Normal">The following statement changes both the width (default 640) and height (default 100) of the print region. If you execute this before your first print statement, the initial size will be 500 by 300. If you execute this after executing print statements, the size of the region will change (but will retain its contents).</p>
+      <p class="program">print_options(width=500, height=300)</p>
+      <p class="Normal">By default, the text in the print region is read-only; the user cannot edit the text. If you want the user to be able to edit the text, do this:</p>
+      <p class="program">print_options(readonly=False)</p>
+      <p class="Normal">In any case, the user can select text and copy the text with ctrl-c.      </p>
+      <p class="Normal">By default, numbers are displayed with six digits, such as 123.456 or 1.23456e+8. You can specify the number of digits to display:</p>
+      <p class="program">print_options(digits=4)</p>
+      <p class="Normal">You can clear out all the text from the region like this:</p>
+      <p class="program">print_options(clear=True)</p>
+      <p class="Normal">You can delete the region from the screen with this statement:</p>
+      <p class="program">print_options(delete=True)</p>
+      <p class="Normal">After deleting the region, another print statement will recreate it, with the previously specified width and height. </p>
+      <p class="Normal">By default the print area appears underneath the canvas (pos = 'bottom') but you can make it appear to the right of the canvas with the following statement (you may have to include something like width=100, because if the window is too narrow to fit the canvas and the text area side by side, the text area goes below the canvas):</p>
+      <p class="program">print_options(pos='right')</p>
+      <p class="Normal">You can obtain the current contents of the print region as a character string:</p>
+      <p class="program">text = print_options(contents=True)</p>
+      <p class="Normal">The text is extracted before processing clear or destroy requests. If you don't request the contents, print_options returns the empty character string &quot;&quot;'.</p>
+      <p class="Normal">You can of course combine any options in one statement:</p>
+      <p class="program">print_options(width=150, readonly=False)</p>
+      <h1 class="Heading-1"><font color="#0000a0">Additional text output methods</font></h1>
+      <p class="Normal">The <strong><a href="canvas.html">canvas</a></strong> documentation explains how to add text above a canvas (scene.title) or below a canvas (scene.caption). The <a href="controls.html"><strong>wtext</strong></a> object lets you place dynamically modifiable text in the middle of the caption or title of a canvas.</p>
+      <p class="Normal">&nbsp;</p>
+      <p class="Normal">The Example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ScrollingText/edit" target="_blank"><strong>ScrollingText</strong></a> shows how to create a scrolling text object that you can send output to and  type into, using the HTML element &quot;textarea&quot;. This is the mechanism used by <strong>print</strong>.</p>
+      <p class="Normal"><br />
+      </p>
+      <p class="Normal"><strong>alert('The mass is '+m+' kg.')</strong><br />
+        This pauses execution and displays the string in a dialog box. Numeric values are converted to strings.</p>
+      <p class="Normal">&nbsp;</p>
+      <p class="Normal"><strong>$('body').append('This is a test.&lt;br&gt;')<br />
+        ...<br />
+        $('body').append('This is only a test.&lt;br&gt;')</strong><br />
+        These statements add text to the bottom of the web page. The &lt;br&gt; element makes a  line break,</p>
+      <p class="Normal">&nbsp;</p>
+      <p class="Normal"><strong>console.log('A scalar', a+10, 'and a vector', v.toString())</strong><br />
+      </p>
+      <p class="Normal">The output in the console is the following:<br />
+        <strong>A scalar 15 and a vector &lt; 10, 20, 30 &gt; </strong><br />
+        Successive console.log outputs 
+        appear as new lines.</p>
+      <p class="Normal">Using console.log requires opening the browser's &quot;console&quot;. To enable the console, in Chrome press shift-ctrl-j on Windows or Ubuntu, or option-cmd-j on  Mac. In Firefox on Windows choose Firefox &gt; Web Developer &gt; Web Console, and on Ubuntu choose Tools &gt; Web Developer &gt; Web Console. The output will be found at the end of the console output</p>
+      <p class="Normal">In some of these output options, to  display the value of a vector <strong>v</strong> you have to write <strong>v.toString()</strong>, but this is done automatically by the <strong>print</strong> statement.</p>
+      <p class="Normal">&nbsp;</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

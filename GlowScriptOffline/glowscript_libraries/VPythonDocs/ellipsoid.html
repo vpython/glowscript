@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <table width="100%" border="1">
+          <tr>
+            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">ellipsoid</font></span></div></td>
+            <td width="23%"><div align="center"><img src="images/ellipsoid.jpg" alt="ellipsoid" width="130" height="127" /><a href="arrow.html"></a></div></td>
+          </tr>
+        </table>
+        </div>
+      <div>
+        <p class="Normal"> A long ellipsoid object looks like a cigar; a short one looks 
+          like somewhat like a pill. Its cross sections are circles or ellipses. The 
+          elllipsoid object has the same attributes as the <a href="box.html">box object</a> and it can be thought of as fitting inside a box of the same dimensions:</p>
+        <div>
+          <p class="program"> myell = ellipsoid(pos=vector(x0,y0,z0), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            length=L, height=H, 
+            width=W)          </p>
+          <p class="Normal">You can also make an ellipsoid simply by specifying the size of a sphere as <span class="attributes">vector(length, height, 
+          width)</span>, where length, height, and width aren't all the same.</p>
+          <p class="Normal">The given position is in the center of the ellipsoid, at 
+            (x0, y0, z0). This is different from cylinder, whose pos attribute is at 
+            one end of the cylinder. Just as with a cylinder, we can refer to the individual 
+            vector components of the ellipsoid as<span class="attribute"> myell.pos.x</span>, <span class="attribute">myell.pos.y</span>, and <span class="attribute">myell.pos.z</span>. 
+            The length from end to end (along the x axis) is L , the height (along the 
+            y axis) is H , and the width is W (along the z axis). For this ellipsoid, 
+            we have <span class="attribute">myell.axis = vector(L, 0, 0)</span> . Note that 
+            the axis of an ellipsoid is just like the axis of a cylinder. </p>
+          <p class="Normal"> For an ellipsoid that isn't aligned with the coordinate 
+            axes, additional issues come into play. The orientation of the length of 
+            the ellipsoid is given by the axis (see diagrams shown with the documentation 
+            on the <a href="box.html">box object</a>):</p>
+        </div>
+        <div>
+          <p class="program"> myell = ellipsoid(pos=vector(x0,y0,z0), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            axis=vector(a,b,c), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;            &nbsp;&nbsp;&nbsp;&nbsp;length=L, height=H, width=W) </p>
+          <p class="Normal"> The axis attribute gives a direction for the length of 
+            the ellipsoid, and the length, height, and width of the ellipsoid are given 
+            as before (if a length attribute is not given, the length is set to the 
+            magnitude of the axis vector). </p>
+          <p class="Normal"> The ellipsoid object has the following attributes and default 
+            values, like those for cylinders: <span class="attribute">pos<font color="#000000"> vector(0,0,0)</font></span>, <span class="attribute">axis<font color="#000000"> vector(1,0,0)</font></span>, <span class="attribute">length<font color="#000000"> (1)</font></span>, <span class="attribute">color<font color="#000000"> (1,1,1) 
+              which is color.white</font></span>, <span class="attribute">red<font color="#000000"> (1)</font></span>, <span class="attribute">green<font color="#000000"> (1)</font></span>, <span class="attribute">blue<font color="#000000"> (1)</font></span>, <span class="attribute">opacity</span> (1),
+              <span class="attribute">shininess</span> (0.6), <span class="attribute">emissive</span> (False), <a href="../GlowScriptDocs/textures.html"><strong>texture</strong></a>, and <span class="attribute">up<font color="#000000"> (0,1,0)</font></span>. 
+            Additional  attributes, similar to those for a box:</p>
+        </div>
+        <div>
+          <p class="attributes"> <span class="attribute">height</span> In the y direction 
+            in the simple case, default is 1</p>
+          <p class="attributes"> <span class="attribute">width</span> In the z direction 
+            in the simple case, default is 1</p>
+          <p class="attributes"> <span class="attribute">size</span> vector(length, height, 
+            width), default is vector(1,1,1)<br />
+            <span class="attribute"> myell.size=vector(20,10,12) </span>sets length=20, height=10, 
+            width=12</p>
+          <p class="Normal"> Note that the <span class="attribute">pos</span> attribute 
+            for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
+            whereas for an ellipsoid, box, sphere, or ring it corresponds to the center 
+            of the object.  </p>
+          <p class="Normal">If you include <span class="attribute">make_trail=True</span> when you create the object, a trail will be left behind the object as you move it. For related options, see <a href="trail.html"><strong>Leaving a Trail</strong></a>.</p>
+          <p class="Normal">See <a href="rotation.html"><strong>Rotating an Object</strong></a> for an easy way to change the orientation of an object.</p>
+<p class="Normal">See description of <a href="options.html">Additional
+              Attributes</a> available for all 3D display objects.</p>
+        </div>
+      </div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

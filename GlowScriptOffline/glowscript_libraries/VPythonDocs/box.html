@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <table width="100%" border="1">
+          <tr>
+            <td width="76%"><div align="center"><span class="style1 style2"><font color="#0000A0">box</font></span></div></td>
+            <td width="24%"><img src="images/box.jpg" alt="box" width="131" height="127" /><a href="arrow.html"></a></td>
+          </tr>
+        </table>
+        </div>
+      <div>
+        <p class="Normal"> Here is how to create a box object:<img src="images/box_axis_up.png" alt="box" width=200 height=200 align="right" /> </p>
+        <div>
+          <p class="program"> mybox = box(pos=vector(x0,y0,z0),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          length=L, height=H, width=W) </p>
+          <p class="Normal"> The given position is in the center of the box, at (x0, 
+            y0, z0). This is different from cylinder, whose pos attribute is at one 
+            end of the cylinder. Just as with a cylinder, we can refer to the individual 
+            vector components of the box as<span class="attribute"> mybox.x</span>, <span class="attribute">mybox.y</span>, and <span class="attribute">mybox.z</span>. 
+            The length (along the x axis) is L , the height (along the y axis) is H, and the width is W (along the z axis). For this box, we have <span class="attribute">mybox.axis 
+              = vector(L, 0, 0)</span> . Note that the axis of a box is just like the axis of 
+            a cylinder. </p>
+          <p class="Normal"> For a box that isn't aligned with the coordinate axes, additional issues come into play. The orientation of the length of the box is given by the axis (see the diagram):</p>
+        </div>
+        <div>
+          <p class="program"> mybox = box(pos=vector(x0,y0,z0), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(a,b,c),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size=vector(L,H,W)          ) </p>
+          <p class="Normal"> The axis attribute gives a direction for the length of the box, and here the length, height, and width of the box are given in terms of &quot;size&quot; (if the length or size is not specified when creating a box, the length is set to the magnitude of the axis vector).          </p>
+          <p class="Normal"> You can rotate the box around its own axis by changing which way is &quot;up&quot; for the box, by specifying an up attribute for the box that is different from the up vector of the coordinate system:</p>
+        </div>
+        <div>
+          <p class="program"> mybox = box(pos=vector(x0,y0,z0), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            axis=vector(a,b,c), length=L,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height=H, width=W, up=vector(q,r,s))</p>
+          <p class="Normal"> With this statement, the width of the box will lie in a plane perpendicular to the (q,r,s) vector, and the height of the box will be perpendicular to the width and to the (a,b,c) vector.</p>
+          <p class="Normal"> The box object has the following attributes and
+            default  values, like those for cylinders: <span class="attribute">pos<font color="#000000"> vector(0,0,0)</font></span>, <span class="attribute">axis<font color="#000000"> vector(1,0,0)</font></span>, <span class="attribute">up<font color="#000000"> vector(0,1,0)</font></span>, <span class="attribute">length<font color="#000000"> (1)</font></span>, <span class="attribute">color<font color="#000000"> (1,1,1)
+             which is color.white</font></span>, <span class="attribute">red<font color="#000000"> (1)</font></span>, <span class="attribute">green<font color="#000000"> (1)</font></span>, <span class="attribute">blue<font color="#000000"> (1)</font></span>,
+             <span class="attribute">opacity</span> (1),
+             <span class="attribute">shininess</span> (0.6),
+             <span class="attribute">emissive</span> (False), and <a href="../GlowScriptDocs/textures.html"><strong>texture</strong></a>.
+              Additional box attributes and details:</p>
+          <p class="attributes"> <span class="attribute">height</span> In the y direction 
+            in the simple case, default is 1</p>
+          <p class="attributes"> <span class="attribute">width</span> In the z direction 
+            in the simple case, default is 1</p>
+          <p class="attributes"> <span class="attribute">size</span> (length, height, 
+            width), default is vector(1,1,1)<br />
+            <span class="attribute"> mybox.size=vector(20,10,12) </span>sets length=20, height=10, 
+            width=12</p>
+          <p class="attributes"> <span class="attribute">axis</span> Setting the axis makes the length of the box be equal to the magnitude of the axis vector. An object's <span class="attribute">axis</span> and <span class="attribute">up</span> attributes are always perpendicular to each other. Changing the direction of <span class="attribute">axis</span> also changes the direction of <span class="attribute">up</span> so that the two directions always remain at right angles to each other. Similarly, changing the direction of  <span class="attribute">up</span> changes the direction of <span class="attribute">axis</span> so that the two directions always remain at right angles to each other.</p>
+          <p class="attributes"><span class="attribute">canvas</span> By default, an object such as a box will be displayed in the most recently created 3D canvas, which will be the default canvas named &quot;scene&quot; unless you create a canvas yourself (see the related discussion at the start of the <strong><a href="canvas.html">canvas documentation</a></strong>).</p>
+<p class="Normal"><strong>Order of operations:</strong> If when you create an object you specify values for axis and size and up, the operations are executed in that order. That is, first  axis is set (which sets the x component of size and may change up if necessary to ensure that axis and up are perpendicular to each other), then  size is set (which sets the magnitude of the axis), and then up is set (which may change axis if necessary to ensure that axis and up are perpendicular to each other).</p>
+<p class="Normal">Note that the <span class="attribute">pos</span> attribute 
+            for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
+            whereas for a box, sphere, or ring it corresponds to the center of the object.  </p>
+          <p class="Normal">If you include <span class="attribute">make_trail=True</span> when you create the object, a trail will be left behind the object as you move it. For related options, see <a href="trail.html"><strong>Leaving a Trail</strong></a>.</p>
+          <p class="Normal">See <a href="rotation.html"><strong>Rotating an Object</strong></a> for an easy way to change the orientation of an object.</p>
+<p class="Normal">See description of <a href="options.html">Additional
+              Attributes</a> available for all 3D display objects.</p>
+        </div>
+      </div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

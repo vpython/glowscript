@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <table width="100%" border="1">
+          <tr>
+            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">points</font></span></div></td>
+            <td width="23%"><div align="center"><img src="images/points.jpg" alt="points" width="131" height="127" /><a href="arrow.html"></a></div></td>
+          </tr>
+        </table>
+        </div>
+      <div>
+        <p class="Normal">The points object is essentially the same as  the <strong><a href="curve.html">curve</a></strong> object except that it displays individual points at the specified positions instead of connecting them with lines, and it does not have origin, size, axis, or up attributes, nor does it have a rotate method. The points are rendered as <a href="sphere.html">simple_sphere</a> objects, for maximum display speed.</p>
+        <p class="Normal">The points object takes a list of points for <span
+ class="attribute">pos</span>, like the curve object. The following statement
+        will display two points, each of radius 50 pixels:</p>
+        <div>
+        <p class="program">points(pos=[vector(-1,0,0), vector(1,0,0)], radius=50, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.red)</p>
+        <p class="Normal">The points object is similar to a curve, but with
+          disconnected points. As with curve, the <span class="attribute">pos</span> attribute is an array
+          of points. The size of the points is specified by <span class="attribute">radius</span> and the default radius is 2.5, meaning a sphere whose radius is 2.5 pixels (a diameter of 5 pixels). The radius attribute is in screen
+          pixels if <span class="attribute">size_units=&quot;pixels&quot;</span> (the
+          default), but if <span class="attribute">size_units=&quot;world&quot;</span>, the radius is in the same terms as other objects.
+  Setting the radius to 0 is the same as not specifying a size, in which case the radius will be 2.5 pixels, just as a curve is thin if its radius is specified as 0. If <span class="attribute">size_units=&quot;world&quot;</span>, the default radius is 0.5.</p>
+        <p class="Normal">With <span class="attribute">size_units=&quot;pixels&quot;</span> in effect (the default), a point in the z = 0 plane will have the specified radius, but it will be larger or smaller than the specified radius if it is nearer or farther from the camera.</p>
+        <p class="Normal">Unlike a curve object, a points object can be transparent (opacity &lt; 1).</p>
+    <p class="Normal">The options for manipulating a <strong><a href="curve.html">curve</a></strong> can also be used with the points object, but currently the points object doesn't handle changes in axis or size, does not have an origin nor a rotate method, nor can it be made into a compound.&nbsp;&nbsp;</p>
+        <div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

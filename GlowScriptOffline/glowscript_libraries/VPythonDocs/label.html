@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {
+	color: #FF0000;
+	font-weight: bold;
+}
+-->
+</style>
+<style type="text/css">
+<!--
+.style2 {
+	font-size: x-large;
+	font-weight: bold;
+}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+          <table width="100%" border="1">
+            <tr>
+              <td width="77%"><div align="center"><span class="style2"><font color="#0000A0">label</font></span></div></td>
+              <td width="23%"><div align="center"><img src="images/label.jpg" width="192" height="159" alt="label" /><a href="arrow.html"></a></div></td>
+            </tr>
+          </table>
+          <p class="Normal"> With the label object you can display  text in
+            a box, and the label always faces forward, even if you rotate the
+            scene (for 3D text, see the <a href="text.html"><strong>text</strong></a> object). Here is a simple example:</p>
+          <p class="program"> label( pos=vec(0,0.25,0), text='Hello!' ) </p>
+          <p class="Normal"><img src="images/label2.png" alt="label" width="162" height="225" align="right" /> There are many additional 
+            label options. In the diagram to the right, an object located at &quot;obj.pos&quot; has an associated 
+            label with the text &quot;Early&quot; in a box, connected to the object.</p>
+
+            <p class="program"> L = label(pos=obj.pos,<br />
+&nbsp;&nbsp;&nbsp;              text='Early', xoffset=20,<br />
+&nbsp;&nbsp;&nbsp; yoffset=50, space=30,<br />
+&nbsp;&nbsp;&nbsp; height=16, border=4,<br />
+&nbsp;&nbsp;&nbsp; font='sans')</p>
+            <p class="Normal"> A unique feature of the label object is that several attributes 
+              are given in terms of screen pixels instead of the usual &quot;world-space&quot; 
+              coordinates. For example, the height of the text is given in pixels, with 
+              the result that the text remains readable even when the sphere object is 
+              moved far away. Other pixel-oriented attributes include <span class="attribute">xoffset</span>, <span class="attribute">yoffset</span>, and <span class="attribute">border</span>. 
+              Here are the label attributes:</p>
+            <p class="attributes"> <span class="attribute">pos</span> The
+              point in world space being labeled.</p>
+            <p class="attributes"> <span class="attribute">pixel_pos</span><span class="attribute"></span> If True, <span class="attribute">pos</span> is the position in terms of pixels, with vec(0,0,0) in the lower left corner.</p>
+      <p class="attributes"> <span class="attribute">align</span><span class="attribute"></span> Specify 'left', 'right', or 'center'. When you specify 'center', which is the default,  the  center of the topmost line of text is at the location given by pos. When you specify 'left', the start of the topmost line of text is at the location given by pos. When you specify 'right', the right end of the topmost line of text is at the location given by pos.</p>
+<p class="attributes"> <span class="attribute">xoffset</span>, <span class="attribute">yoffset</span> The
+  x and y components of the line, in pixels (see diagram). Unless you specify a value for align, text above or below pos is centered, text to the left of pos is right-adjusted, and text to the right of pos is left-adjusted.</p>
+      <p class="attributes"> <span class="attribute">text</span> The text to be 
+              displayed, such as 'Earth'. 
+              You can give a number or numerical expression; it will be converted to a string.You can include the HTML styles for italic (&lt;i&gt; or &lt;em&gt;), bold (&lt;b&gt; or &lt;strong&gt;), superscript (&lt;sup&gt;), or subscript (&lt;sub&gt;). For example, the string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>'The &lt;b&gt;mass &lt;i&gt;M&lt;/i&gt;&lt;/b&gt;&lt;sub&gt;sys&lt;/sub&gt; = 10&lt;sup&gt;3&lt;/sup&gt; kg.</strong><br />
+displays as<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'The <b>mass <i>M</i></b><sub>sys</sub> = 10<sup>3</sup> kg.
+        <br />
+        <br />
+      Multiple lines can be displayed by inserting line breaks (\n), as in &quot;Three\nlines\nof 
+      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n. You can  also create multiple lines by using triple quotes:</p>
+      <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L = label()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L.text =  &quot;&quot;&quot;The quick brown fox<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jumps over the lazy dog.&quot;&quot;&quot;</p>
+      <p class="attributes"> <span class="attribute">font</span> Name of the desired 
+  font;  'sans' or 'serif'' or 'monospace' (fixed-width), or a specific font name; the default is &quot;sans&quot;</p>
+            <p class="attributes"> <span class="attribute">height</span> Height
+              of the font  in pixels; default is 15 pixels</p>
+            <p class="attributes"> <span class="attribute">color</span> Color of the text; default is scene.foreground</p>
+            <p class="attributes"> <span class="attribute">background</span> Color of the background of the box; default is scene.background</p>
+            <p class="attributes"> <span class="attribute">opacity</span> Opacity of the 
+              background of the box, default 0.66<br />
+              (0 transparent, 1 opaque, for objects behind the box)</p>
+            <p class="attributes"> <span class="attribute">border</span> Distance
+              in pixels  from the text to the surrounding box; default is 5 pixels</p>
+            <p class="attributes"> <span class="attribute">box</span> True if the box should 
+              be drawn (default), else False</p>
+            <p class="attributes"> <span class="attribute">line</span> True if a line from 
+              the pos to the box should be drawn (default), else False</p>
+<p class="attributes"> <span class="attribute">linecolor</span> Color of the line 
+              and box</p>
+<p class="attributes"> <span class="attribute">linewidth</span> Thickness of the line drawn from the pos to the box, and the edges of the box (default is 1 pixel)</p>
+            <p class="attributes"> <span class="attribute">space</span> Radius 
+      in pixels of a sphere surrounding pos,      into which the connecting line does not go</p>
+            <p class="attributes"> <span class="attribute">visible</span> Label is not displayed if False</p>
+            <p class="Normal"></p>
+            <p class="Normal">See description of <a href="options.html">Additional
+                Attributes</a> available for all 3D display objects.</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

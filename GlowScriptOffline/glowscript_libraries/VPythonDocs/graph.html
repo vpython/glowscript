@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <table width="100%" border="1">
+              <tr>
+                <td width="47%"><div align="center"><span class="style1 style2"><font color="#0000A0">Graphs</font></span></div></td>
+                <td width="53%"><div align="center"><a href="arrow.html"></a><img src="images/graph.png" alt="graph" width="382" height="245" /></div></td>
+              </tr>
+            </table>
+          </div>
+          <p class="Normal">In this section we describe features for plotting graphs 
+          
+          with tick marks and labels as shown above.  Graphs can  be log-log or semilog (see below). As you drag the mouse across the graph you will find options to read information off the graph. </p>
+          <p class="Normal"> A graph is different from a canvas: a canvas is inherently 3D and contains 3D objects such as spheres and boxes, whereas a graph is inherently 2D and contains graphing objects for displaying curves, dots, and vertical or horizontal bars.</p>
+          <p class="Normal"><strong>New capabilities introduced with GlowScript VPython 2.7</strong></p>
+          <p class="Normal">You can now choose between two graphing packages, one which is faster, which is the one used in previous versions (currently based on Flot), or one which offers rich interactive capabilities such as zooming and panning but is slower (currently based on Plotly). The default is the fast version, corresponding to specifying <span class="attribute">fast=True</span> in a graph, gcurve, gdots, gvbars, or ghbars statement. To use the slower but more interactive version, say <span class="attribute">fast=False</span>. In many programs the &quot;slow&quot; version may run nearly as fast as the &quot;fast&quot; version, but if you plot a large number of data points the speed difference can be significant.<br />
+            <br />
+            Both versions offer new capabilities: If you specify <span class="attribute">markers=True</span> when creating a gcurve object, dots will be displayed at each gcurve point, and you can specify <span class="attribute">marker_radius</span> (the default is slightly larger than the gcurve width) and <span class="attribute">marker_color</span> (the default is the gcurve color). For a graphing object you can specify <span class="attribute">label=&quot;cos(x)&quot;</span> and this text, in the color of the object, will appear at the upper right. If you say <span class="attribute">legend=False</span> the label is not actually shown. The <span class="attribute">dot</span> (see below) and <span class="attribute">label</span> options need to be specified when you create the graphing object.<br />
+            <br />
+      If you can, do try <span class="attribute">fast=False</span> to see the many options provided. As you drag the mouse across the graph with the mouse button up, you are shown the numerical values of the plotted points. You can drag with the mouse button down to select a region of the graph, and the selected region then fills the graph. As you drag just below the graph you can pan left and right, and if you drag along the left edge of the graph you can pan up and down. As you move the mouse you'll notice that there are many options at the upper right. Hover over each of the options for a brief description. The &quot;home&quot; icon restores the display you saw before zooming or panning. Try <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/GraphTest" target="_blank">this demo</a></strong>.</p>
+          <p class="Normal"><strong>The basics</strong></p>
+      <p class="Normal">Here is a simple example of how to plot a 2D graph (arange creates a numeric array running from 0 to 8, stopping short of 8.1):</p>
+          <p class="program">f1 = gcurve(color=color.cyan)		# a graphics curve<br />
+          for x in arange(0, 8.05, 0.1):		# x goes from 0 to 8<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;f1.plot(pos=(x,5*cos(2*x)*exp(-0.2*x)))	# plot          </p>
+          <p class="Normal"> A connected curve (<span class="attribute">gcurve</span>) 
+            is  one of several kinds of graph plotting objects. Other options are 
+            disconnected dots (<span class="attribute">gdots</span>), 
+<span class="attribute">gvbars</span>), and horizontal bars (<span class="attribute">ghbars</span>). </p>
+          <p class="Normal">When creating <span class="attribute">gcurve</span>, <span class="attribute">gdots</span>, <span class="attribute">gvbars</span>, or <span class="attribute">ghbars</span>, you can optionally give a list of data points and/or a color (if no color is specified, the plotting color will be black):</p>
+          <p class="program"> f1 = gcurve(data=[ [1,2],[5,-2],[8,4] ], <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.green) </p>
+          <p class="Normal">After creating one of these graphing objects, you can add a single point or a list of additional points (for backward compatibility, you can say &quot;pos&quot; instead of &quot;data&quot;):</p>
+      <p class="program"> f1.plot(data=[100,-30]) # add a single point<br />
+      f1.plot(data=[[100,-30], [20,50], [0,-10]]) # add a list      </p>
+      <p class="Normal">You do not need to specify <span class="code">&quot;<strong>data=</strong></span>&quot; when adding points. Here are other permissible formats:</p>
+      <p class="program"> f1.plot(1,2)<br />
+        f1.plot([1,2])<br />
+        f1.plot([1,2], [3,4], [5,6])<br />
+f1.plot([ [1,2], [3,4], [5,6] ])</p>
+      <p class="Normal">Once you have created a graphing object such as gcurve, its initial color will be used throughout. You can change the color later, but this will change the color of all the elements already plotted.</p>
+<p class="Normal"> You can plot more than one thing on the same graph:</p>
+<p class="program"> f1 = gcurve(color=color.cyan) <br />
+  f2 = gvbars(delta=0.05, color=color.blue)<br />
+  for x in arange(0., 8.05, 0.1): <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;f1.plot(x,5*cos(2*x)*exp(-0.2*x)	&nbsp;# gcurve<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;f2.plot(x,4*cos(0.5*x)*exp(-0.1*x)# vbars</p>
+<p class="Normal">You can replace all of the points in a  <span class="attribute">gcurve</span>, <span class="attribute">gdots</span>, <span class="attribute">gvbars</span>, or <span class="attribute">ghbars</span> object like this:</p>
+<p class="program"> f1.data = [ [10,20], [30,40], [50,60] ]</p>
+<p class="Normal">This is equivalent to deleting all the points from the graph and then adding the new ones.</p>
+<p class="Normal">It is often the case that skipping points may hardly affect the display but will make graph plotting much faster, in which case it's useful to specify an interval between plotting of points:</p>
+<p class="attributes"><span class="attribute">interval</span> If interval=10, a point is added to the plot only every 10th time you ask to add a point. If interval is 0, no plot is shown. If interval is -1, no points are skipped.</p>
+<p class="Normal"><strong><font color="#0000A0">Special options for gcurve, gdots, gvbars, and ghbars</font></strong></p>
+<p class="Normal">For <span class="attribute">gcurve</span> you can specify a <span class="attribute">width</span> of the line in pixels. If you specify <span class="attribute">markers=True</span>, dots will be displayed at each gcurve point, and you can specify the <span class="attribute">radius</span> (the default is slightlly larger than the gcurve width) and <span class="attribute">marker_color</span> (the default is the gcurve color). Instead of setting the radius, you can set <span class="attribute">size</span>, which sets the diameter (equivalent to 2*radius).<br />
+  <br />
+  If you
+            specify <span class="attribute">dot=True</span> the current plotting
+            point is highlighted with a dot, which is particularly useful if
+            a graph retraces its path. You can specify a <span class="attribute">dot_radius</span> attribute,
+            which  specifies the radius of the dot in pixels (default is <span class="attribute">radius=3</span>).
+            By default the dot has the same color as the gcurve, but you can
+      specify a different color, as in <span class="attribute">dot_color=color.green</span>.</p>
+<p class="Normal">For <span class="attribute">gdots</span> you can also specify a <span class="attribute">radius</span> or <span class="attribute">size</span> attribute, which 
+  specifies the radius or diameter of the dot in pixels (default is <span class="attribute">radius=3</span>).</p>
+          <p class="Normal">For <span class="attribute">gvbars</span> and <span class="attribute">ghbars</span> you can  specify a <span class="attribute">delta</span> attribute, which 
+            specifies the width of the bar (the default is <span class="attribute">delta=1</span>).</p>
+      <p class="Normal"><strong><font color="#0000A0">Deleting data or an entire graph</font></strong></p>
+          <p class="Normal">If you create a gcurve, gdots, gvbars, or ghbars entity and name it g, you can delete the associated data from a graph by saying g.delete(). Similarly, if you say gd = graph(), you can delete the entire graph by saying gd.delete().</p>
+<p class="Normal"><strong><font color="#0000A0">Overall graph options</font></strong></p>
+          <p class="Normal">You can establish a <span class="attribute">graph</span> to set the size, position, and title for the title bar of the graph window, 
+            
+            specify titles for the x and y axes,  specify maximum values for each 
+            
+            axis, and set foreground and background colors, before creating <span class="attribute">gcurve</span> or other kind 
+            
+            of graph plotting object:          </p>
+          <p class="program"> gd = graph(width=600, height=150, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='&lt;b&gt;Test&lt;/b&gt;',<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  xtitle='&lt;i&gt;x&lt;/i&gt;', ytitle='&lt;i&gt;x&lt;/i&gt;&lt;sup&gt;2&lt;/sup&gt;', <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreground=color.black, 
+            
+            background=color.white, <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmin=-20, xmax=50, ymin=-2e3, 
+            
+      ymax=5e3)</p>
+          <p class="Normal"> <strong>Setting limits:</strong> In this example, the graph window will have a size of 600 by 150 pixels, and above the graph
+            
+            there will be a centered bold title &quot;Test&quot;. The x and y axes of the graph will have the labels. x and <em>x</em><sup>2</sup>. The foreground color is black (the default), and the background color is white (the default).</p>
+          <p class="Normal">Instead of autoscaling the graph to display all the data, the graph in this example  
+            
+            will have fixed limits. The horizontal axis will extend from -20 to +50. If you specify <span class="attribute">xmax</span> but not <span class="attribute">xmin</span>, it is as though you had also specified <span class="attribute">xmin</span> to be 0; similarly, if you specify <span class="attribute">xmin</span> but not <span class="attribute">xmax</span>, <span class="attribute">xmax</span> will be 0. The same rule holds for <span class="attribute">ymax</span> and <span class="attribute">ymin</span>. When using fast=False, you must specify both xmin and xmax (except that xmin will be set to zero if only xmax is specified), and you must specify both ymin and ymax (except that ymin will be set to zero if only ymax is specified),</p>
+          <p class="Normal"><span class="attributes"><strong>Titles:</strong> For </span><span class="attribute">title</span><span class="attributes">, </span><span class="attribute">xtitle</span><span class="attributes">, and </span><span class="attribute">ytitle</span><span class="attributes"> you can give a number or numerical expression, which will be converted to a string.You can include the HTML styles for italic (&lt;i&gt; or &lt;em&gt;), bold (&lt;b&gt; or &lt;strong&gt;), superscript (&lt;sup&gt;), or subscript (&lt;sub&gt;). For example, the string<br />
+          <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&quot;The &lt;b&gt;mass &lt;i&gt;M&lt;/i&gt;&lt;/b&gt;&lt;sub&gt;sys&lt;/sub&gt; = 10&lt;sup&gt;3&lt;/sup&gt; kg.</strong>&quot;<br />
+<br />
+displays as<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;The <b>mass <i>M</i></b><sub>sys</sub> = 10<sup>3</sup> kg. <br />
+<br />
+Multiple lines in a </span><span class="attribute">title</span><span class="attributes"> can be displayed by inserting line breaks (\n), as in &quot;Three\nlines\nof 
+      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</span> You cannot use line breaks in <span class="attribute">xtitle</span> or <span class="attribute">ytitle</span>. If a <span class="attribute">title</span> is specified, the height of the graph is increased to provide space for the title.<br />
+          </p>
+          <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
+            
+            are <span class="attribute">width=640</span>, <span class="attribute">height=400</span>, 
+            
+  no titles, fully autoscaled.      </p>
+          <p class="Normal">You can align a graph to the left or right of another graph or a canvas:</p>
+      <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (graph forced to left side of window), &quot;right&quot; (graph forced to right side of window), or &quot;none&quot; (the default alignment). If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot;, then create the canvas without specifying its value of align.</p>
+          <p class="Normal">You can have more than one graph window: just create another <span class="attribute"> graph</span>. By default, any graphing objects 
+            
+            created following a <span class="attribute">graph</span> belong to that 
+            
+    window, or you can  specify which window a new object belongs to: </p>
+
+          <p class="program"> energy = gdots(graph=graph2, color=color.blue)</p>
+          <p class="attributes"></p>
+          <p class="Normal">You can also obtain the current graph with <span class="attribute">graph.get_selected()</span>, and you can set the current graph to be the graph named gd by executing <span class="attribute">gd.select()</span>.</p>
+          <p class="Normal">Here is a summary of what determines in which of several possible 2D graphs a graphing object such as a gcurve or gdots will be placed:</p>
+          <p class="program">g1 = graph() # default properties<br />
+            gcurve(...) &nbsp;# will appear in the graph named &quot;g1&quot;<br />
+            gdots(graph=g1, ...) # will also appear in &quot;g1&quot;<br />
+  <br />
+            g2 = graph(width=200,height=100,title='A second graph')<br />
+            gcurve(...) &nbsp;# will appear in the graph named &quot;g2&quot;<br />
+            gdots(graph=g2, ...) &nbsp;# will also appear in &quot;g2&quot;<br />
+            gvbars(graph=g1, ...) # will appear in &quot;g1&quot; </p>
+          <p class="Normal">The key point is that after creating a graph, 2D objects will by default be placed in the most recently created graph, unless you explicitly specify a different graph for the object.</p>
+<p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
+          <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc.</p>
+<p class="Normal"><strong><font color="#0000A0">Histograms (sorted, binned data)</font></strong></p>
+          <p class="Normal">There is no ghistogram option. However, the program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/HardSphereGas" target="_blank">HardSphereGas</a> provides an example of how to make a histogram.</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

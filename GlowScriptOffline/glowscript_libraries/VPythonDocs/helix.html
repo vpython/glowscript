@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <table width="100%" border="1">
+          <tr>
+            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">helix</font></span></div></td>
+            <td width="23%"><div align="center"><img src="images/helix.jpg" alt="helix" width="131" height="127" /><a href="arrow.html"></a></div></td>
+          </tr>
+        </table>
+        </div>
+      <div>
+        <p class="Normal">The following statement will display a helix that is
+          parallel to the x axis:</p>
+        <div>
+          <p class="program">spring = helix(pos=vector(0,2,1), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      axis=vector(5,0,0), radius=0.5)</p>
+          <p class="Normal"> The helix object has the following attributes and
+            default values: <span class="attribute">pos<font color="#000000"> vector(0,0,0)</font></span>, <span
+ class="attribute">axis<font color="#000000"> vector(1,0,0)</font></span>, <span
+ class="attribute">length<font color="#000000"> (1)</font></span>, <span
+ class="attribute">radius<font color="#000000"> </font></span>(1), <span
+ class="attribute">coils </span>(5), <span class="attribute">thickness </span>(radius/20), <span class="attribute">color<font color="#000000"> vector(1,1,1)
+            which is color.white</font></span>, <span class="attribute">red<font
+ color="#000000"> (1)</font></span>, <span class="attribute">green<font
+ color="#000000"> (1)</font></span>, <span class="attribute">blue<font
+ color="#000000"> (1)</font></span>, and <span class="attribute">up<font
+ color="#000000"> vector(0,1,0)</font></span>.&nbsp;More details:          </p>
+          <p class="attributes"> <span class="attribute">length</span> Length of axis; 
+            if not specified, axis determines the length, default = 1<br />
+      If length is specified, it overrides the length given by axis</p>
+          <p class="attributes"> <span class="attribute">radius</span> The radius of 
+            the helix, default = 1</p>
+          <p class="attributes"><span class="Normal"><span class="attribute">thickness</span> is the diameter of the cross section of the curve used to draw the helix; default is radius/20.</span></p>
+          <p class="attributes"> <span class="attribute">size</span> Instead of specifying length and radius, you can set size=vector(length,height,width), which means that the cross section of the helix can be elliptical.</p>
+      <p class="Normal">Note that the <span class="attribute">pos</span> attribute for cylinder, arrow, cone, pyramid, and helix corresponds to
+            one end of the object, whereas for a box, sphere, or ring it
+            corresponds to the center of the object. </p>
+          <p class="Normal">Currently it is not possible to specify the opacity
+          of a helix object, which is based on the curve object.</p>
+          <p class="Normal">See <a href="rotation.html"><strong>Rotating an Object</strong></a> for an easy way to change the orientation of an object.</p>
+          <p class="Normal">See description of <a href="options.html">Additional
+              Attributes</a> available for all 3D display objects.</p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

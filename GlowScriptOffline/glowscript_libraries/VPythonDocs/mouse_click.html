@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <h1 class="Heading-1"><font color="#0000A0">Click Example</font></h1>
+      <div>
+        <p class="Normal">This program displays a box, then repeatedly 
+          waits for a mouse left click and displays a  
+          cyan sphere at the mouse location. A mouse  click is defined as pressing and releasing the left 
+          mouse button with  no motion of the mouse, so the sphere appears when you release the mouse button.</p>
+        <p class="program">          scene.range = 4<br />
+          box() # display a box for context<br />
+          <br />
+          def showSphere(evt):<br />
+&nbsp;&nbsp;&nbsp;&nbsp;loc = evt.pos<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;sphere(pos=loc, radius=0.2, color=color.cyan)<br />
+  <br />
+          scene.bind('click', showSphere)</p>
+        <p class="Normal">Copy this program into an edit window and run the program. Click outside the box and a cyan sphere appears where you click. If you click 
+            inside the  box, nothing seems to happen. This is because the mouse 
+            click is in the xy plane, and the   sphere is buried inside the box. If you rotate the scene and then click, you'll see that the 
+            spheres go into the new plane parallel to the screen and passing 
+        through <span class="attribute">scene.center</span>. </p>
+        <p class="Normal">If you want <em>all</em> of the 
+          spheres to go into the xy plane, perpendicular to the z axis, change the latter part of the program like this: </p>
+        <div></div>
+        <div>
+          <p class="program"> &nbsp;&nbsp;&nbsp;&nbsp;loc = 
+            evt.project(normal=vector(0,0,1))<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;# loc is None if no intersection with plane<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;if loc:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sphere(pos=loc,radius=0.2,color=color.cyan)</p>
+        </div>
+      </div>
+      <div> </div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <h1 class="Heading-1"> <font color="#0000A0">Math Functions</font></h1>
+      </div>
+      <div>
+        <p class="Normal"> For versions of Python prior to 3.0, Python performs integer division with truncation, 
+          so that 3/4 is 0, not 0.75. This is inconvenient when doing scientific computations, 
+          and can lead to hard-to-find bugs in programs. In the GlowScript environment, where VPython code is compiled to JavaScript, 3/4 is always 0.75.</p>
+<div> </div>
+      </div>
+      <p class="Normal">The following math functions are provided:</p>
+      <p class="program">abs(x)<br />
+        sqrt(x)<br />
+        sin(x)<br />
+        cos(x)<br />
+        tan(x)<br />
+        asin(x) &nbsp;&nbsp;&nbsp;# arc sine<br />
+        acos(x) &nbsp;&nbsp;&nbsp;# arc cosine<br />
+        atan(x) &nbsp;&nbsp;&nbsp;# arc tangent<br />
+        atan2(y,x) # angle whose tangent is y/x<br />
+        exp(x) &nbsp;&nbsp;&nbsp;&nbsp;# e to the x<br />
+        log(x)  &nbsp;&nbsp;&nbsp;&nbsp;# natural log, base e<br />
+        # log(x)/log(10) gives log base 10<br />
+        pow(x,y) &nbsp;&nbsp;# x to the power y<br />
+        pi    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 3.14159.... <br />
+        ceil(x)&nbsp;&nbsp;&nbsp;&nbsp;# round up to nearest integer<br />
+        floor(x)&nbsp;&nbsp;&nbsp;# round down to nearest integer<br />
+        round(x)   &nbsp;&nbsp;# round to nearest integer <br />
+        max(x,y,z) # the largest of x,y,z<br />
+        min(x,y,z) # the smallest of x,y,z<br />
+        random()   &nbsp;&nbsp;# pseudorandom number 0 to 1<br />
+        factorial(x) &nbsp;# x! = x*(x-1)*(x-2)....(1)<br />
+        combin(x,y)     &nbsp;&nbsp;#  x!/(y!*(x-y)!) <br />
+        max(a,b,c,..) # maximum of these<br />
+        min(a,b,c,..) # minimum of these</p>
+      <p class="Normal">Many of the quantities above are short forms of the JavaScript functions Math.abs(x), Math.sqrt(x), etc. <strong><a href="factorial.html">Here are details</a></strong> of the factorial and combin functions.</p>
+      <p class="Normal">There are functions for converting between degrees and
+        radians, where there are 2*pi radians in 360 degrees: </p>
+      <p class="program">radians(360) &nbsp;# equal to 2*pi<br />
+        degrees(2*pi) # equal to 360</p>
+      <p class="Normal">See JavaScript documentation on the <strong><a href="http://www.w3schools.com/jsref/jsref_obj_date.asp" target="_blank">Date</a></strong> object which provides methods for determining the current day etc. </p>
+      <p class="Normal">Here is a way to determine elapsed time in seconds, with microsecond accuracy, using the clock() function that is also available in the standard Python &quot;time&quot; module. The displayed text is approximately 1.5:</p>
+      <p class="program">t1 = clock()<br />
+        sleep(1.5)<br />
+        t2 = clock()<br />
+        print(t2-t1)</p>
+      <p class="Normal"></p>
+      <p class="Normal">There is also a function msclock() which gives the time in milliseconds instead of seconds.</p>
+      <p class="Normal">You can <a href="MathJax.html" target="_blank"><strong>use LaTeX</strong></a> to display mathematical expressions on the page.</p>
+      <br />
+<!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

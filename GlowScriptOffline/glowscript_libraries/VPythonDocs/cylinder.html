@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+        <table width="100%" border="1">
+          <tr>
+            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">cylinder</font></span></div></td>
+            <td width="23%"><div align="center"><img src="images/cylinder.jpg" alt="cylinder" width="131" height="127" /><a href="arrow.html"></a></div></td>
+          </tr>
+        </table>
+        <p class="Normal"><strong>Studying this description of the cylinder object
+            provides an overview of  important aspects common to all of the
+            VPython 3D objects, box, sphere, pyramid, etc. </strong>Additional details about how to orient an object using &quot;axis&quot; and &quot;up&quot; are found in the description of the <a href="box.html"><strong>box object</strong></a>. </p>
+      <p class="Normal"> <img src="VisualRef-1.gif" alt="cylinder" align="right" /> Here is an example 
+          of how to make a cylinder, naming it &quot;rod&quot; for future reference:</p>
+
+          <p class="program"> rod = cylinder(pos=vector(0,2,1), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(5,0,0), radius=1)</p>
+          <p class="Normal"> The center of one end of this cylinder is at x=0, y=2, 
+            and z=1. Its axis lies along the x axis, with length 5, so that the other 
+            end of the cylinder is at (5,2,1), as shown in the accompanying diagram.</p>
+          <p class="Normal"> You can modify the position of the cylinder after it has 
+            been created, which has the effect of moving it immediately to the new position:</p>
+
+          <p class="program"> rod.pos = vector(15,11,9)<br />
+          rod.pos.x = 15 # only change pos.x</p>
+          <p class="Normal"> If you create an object such as a cylinder but without 
+            giving it a name such as <span class="attribute">rod</span>, you can't refer 
+            to it later. This doesn't matter if you never intend to modify the object.</p>
+          <p class="Normal"> Since we didn't specify a color, the cylinder will be the 
+            current &quot;foreground&quot; color (see <a href="canvas.html">Controlling 
+              One or More VPython Canvases</a>). The default foreground color is 
+            white. After creating the cylinder, you can change its color:</p>
+
+          <p class="program"> rod.color = vector(0,0,1) # make rod be blue</p>
+          <p class="Normal"> This will make the cylinder suddenly turn blue, using the 
+            so-called RGB system for specifying colors in terms of fractions of red, 
+            green, and blue. (For details on choosing colors, see <a href="color.html">Specifying 
+              Colors</a>.) You can set individual amounts of red, green, and blue like 
+            this:</p>
+
+          <p class="program"> rod.red = 0.4<br />
+          rod.green = 0.7<br />
+          rod.blue = 0.8</p>
+          <p class="Normal"> The cylinder object can be created with other, optional 
+            attributes, which can be listed in any order. Here is a full list of attributes, 
+            most of which also apply to other objects:</p>
+          <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position: the center of one end of the cylinder; default = vector(0,0,0)<br />
+  </p>
+          <p class="attributes"> <font color="#FF0000">axis</font> The axis points from 
+        pos to the other end of the cylinder, default = vector(1,0,0). Setting the axis makes  <span class="attribute">length</span> equal  to the magnitude of the axis. An object's <font color="#FF0000">axis</font> and <span class="attribute">up</span> attributes are always perpendicular to each other. Changing the direction of <font color="#FF0000">axis</font> also changes the direction of <span class="attribute">up</span> so that the two directions always remain at right angles to each other.</p>
+          <p class="attributes"><span class="attribute">up</span> Which side
+            of the  cylinder is &quot;up&quot;; this has only a subtle effect
+            on the 3D appearance  of the cylinder unless a non-smooth texture 
+            is specified or the cross section is oval; the default is vector(0,1,0). An object's <font color="#FF0000">axis</font> and up attributes are always perpendicular to each other. Changing the direction of<span class="attribute"> up</span><font color="#FF0000"> </font>also changes the direction of <font color="#FF0000">axis</font> so that the two directions always remain at right angles to each other.</p>
+          <p class="attributes"> <span class="attribute">length</span> Length of axis and x component of size; default is 1. 
+            Setting the length makes the magnitude of the axis equal to the length.</p>
+          <p class="attributes"> <span class="attribute">radius</span> The radius of 
+            the cylinder, default = 1</p>
+          <p class="attributes"> <span class="attribute">size</span> Instead of specifying length and radius, you can set size=vector(length,height,width), which means that the cross section of the cylinder can be elliptical, which is not currently possible in classic VPython. Setting size makes the magnitude of axis be equal to the x component of the size (the length).</p>
+          <p class="attributes"> <span class="attribute">color</span> Color of object, 
+            as a red-green-blue (RGB) triple: vector(1,0,0) is pure red, default = vector(1,1,1), 
+            which is color.white</p>
+          <p class="attributes"> <span class="attribute">red</span>, <span class="attribute">green</span>, <span class="attribute">blue</span> (can set these color attributes individually), 
+            defaults are all 1</p>
+          <p class="attributes"> <span class="attribute">opacity</span> Opacity
+            of object, default = 1; 0 is completely transparent</p>
+          <p class="attributes"> <span class="attribute">shininess</span> 0 to 1, default 0.6; governs the amount of specular reflections.</p>
+          <p class="attributes"> <span class="attribute">emissive</span> If True, local and distant lights are ignored, and the brightness is governed by the object's own color.   An example of its use is to put an emissive sphere at the location of a local_light, which looks like a glowing lamp.   The default for emissive is False.</p>
+          <p class="attributes"><span class="attribute">texture</span> Texture
+        of object; see <a href="../GlowScriptDocs/textures.html">Textures</a> for currently available options (there are no materials in as there were in Classic VPython, but textures are similar)</p>
+          <p class="attributes"><span class="attribute">canvas</span> By default, an object such as a cylinder will be displayed in the most recently created 3D canvas, which will be the default canvas named &quot;scene&quot; unless you create a canvas yourself (see the related discussion at the start of the <strong><a href="canvas.html">canvas documentation</a></strong>).</p>
+<p class="Normal"> Note that the <span class="attribute">pos</span> attribute 
+            for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
+            whereas for a box, sphere, or ring it corresponds to the center of the object.  </p>
+          <p class="Normal">If you include <span class="attribute">make_trail=True</span> when you create the object, a trail will be left behind the object as you move it. For related options, see <a href="trail.html"><strong>Leaving a Trail</strong></a>.</p>
+          <p class="Normal">See <a href="rotation.html"><strong>Rotating an Object</strong></a> for an easy way to change the orientation of an object.</p>
+          <p class="Normal">See description of <a href="options.html">Additional
+              Attributes</a> available
+            for all 3D display objects.</p>
+          <p class="Normal"> When you start a VPython program, for convenience VPython 
+            creates a canvas and names it <span class="attribute">scene</span>. 
+            By default, objects that you create go into that canvas. See <a href="canvas.html">Controlling 
+              One or More VPython Display Windows</a> later in this reference for how you 
+            can create additional canvases and place objects in them.</p>
+          <p class="Normal"><br />
+          </p>
+
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <h1 class="Heading-1"> <font color="#0000A0">Keyboard Interactions</font></h1>
+        <div>
+          <h1 class="Heading-1"></h1>
+        </div>
+        <div>
+          <p class="Normal">As with mouse events, you can  wait for various kinds of keyboard or mouse events:</p>
+          <p class="program">scene.waitfor('keydown') # wait for keyboard key press<br />
+            scene.waitfor('keyup')  &nbsp;&nbsp;# wait for keyboard key release<br />
+            scene.waitfor('click keydown') # click or keyboard <br />
+            scene.waitfor('click') &nbsp;&nbsp;&nbsp;&nbsp;# wait for a click<br />
+            scene.waitfor('mousedown') # wait for mouse button press<br />
+            scene.waitfor('mouseup') # wait for mouse button release<br />
+            scene.waitfor('mousemove') # wait for mouse to be moved<br />
+            scene.waitfor('mousedown mousemove') # either event<br />
+          </p>
+          <p class="Normal">The event 'keydown' or 'keyup' occurs when you press or release a key on the keyboard (if you hold down a key, you may get multiple 'keydown' events due to repeats). </p>
+          <p class="Normal"><strong>Jupyter notebook limitation:</strong> Key events are swallowed by the Jupyter notebook as part of the user interface and are not available to a VPython program.</p>
+          <p class="Normal">You can obtain a package of information about the event that caused the end of the wait:</p>
+          <p class="program">            box()<br />
+            ev = scene.waitfor('click keydown')<br />
+            if ev.event == 'click':<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;print('You clicked at', ev.pos)<br />
+            else:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed key '+ev.key) </p>
+          <p class="Normal"><strong><font color="#0000A0">Handling  events with callbacks</font></strong></p>
+<p class="Normal">Here is a test routine using callbacks that lets you type text into a label.</p>
+          <p class="program">prose = label() # initially blank text<br />
+            <br />
+            def keyInput(evt):<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;s = evt.key<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;if len(s) == 1:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prose.text += s # append new character<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;elif s == 'delete' and len(prose.text) &gt; 0:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prose.text = prose.text[:-1] # erase letter<br />
+            <br />
+            scene.bind('keydown', keyInput)</p>
+          <p class="Normal">We define a &quot;function&quot; named &quot;keyInput&quot;. Then we &quot;bind&quot; this function to 'keydown' events occurring in the canvas named &quot;scene&quot;. Whenever VPython detects that a 'keydown' event has occurred, VPython calls the bound function, which in this case adds the input to the text of the label object.</p>
+          <p class="Normal">Note that <strong>evt.ctrl</strong>, <strong>evt.alt</strong>, and <strong>evt.shift</strong> are True if the corresponding key is down at the time of the event (evt.shift is also True if Caps Lock is in effect).</p>
+          <p class="Normal">This operation is called a &quot;callback&quot; because with scene.bind you register with VPython that you want to be called back any time there is a 'keydown' event. Here are the built-in events that you can specify in a bind operation:</p>
+          <p class="program">Keyboard: keydown, keyup<br />
+            Mouse: &nbsp;&nbsp;&nbsp;click, mousedown, mousemove, mouseup<br />
+            Other: &nbsp;&nbsp;&nbsp;redraw, draw_complete </p>
+          <p class="Normal">The event 'keydown' or 'keyup' occurs when you press or release a key on the keyboard. The events 'click', 'mousedown', 'mousemove', and 'mouseup' are discussed in the <a href="mouse.html"><strong>mouse</strong></a> section. A 'redraw' event occurs just before the 3D scene is redrawn on the screen, and a 'draw_complete' event occurs just after the redrawing (these event have rather technical uses such as timing how often redrawings occur, or how much time they take).</p>
+          <p class="Normal">You can bind more than one event to a function. The following will cause the callback function to be executed whether you click with the mouse or press a key on the keyboard:</p>
+          <p class="program">scene.bind('click keydown', myFunction)</p>
+          <p class="Normal">With the following statement, click event will no longer be sent to myFunction:</p>
+          <p class="program">scene.unbind('click', myFunction) </p>
+          <p class="Normal">The example program <span class="attribute">eventHandlers.py</span> illustrates the callback method for handling many kinds of events.</p>
+          <p class="Normal"><font color="#0000A0"><strong>Pausing for keyboard or mouse input</strong></font></p>
+          <p class="Normal"> Often you want to pause for either mouse or keyboard input which you can do by executing <strong>scene.waitfor('click keydown')</strong>.</p>
+</div>
+      </div><div>
+<div></div>
+      </div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

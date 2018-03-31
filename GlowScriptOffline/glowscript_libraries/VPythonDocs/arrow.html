@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+-->
+</style>
+<style type="text/css">
+<!--
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <table width="100%" border="1">
+        <tr>
+          <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">arrow</font></span></div></td>
+          <td width="23%"><img src="images/arrow.jpg" alt="arrow" width="130" height="127" /></td>
+        </tr>
+      </table>
+      <div></div>
+      <div>
+        <p class="Normal"> <img src="VisualRef-2.gif" alt="arrow" align="right" /> The arrow object has a straight box-shaped shaft with an arrowhead at one end. The following statement will display an arrow pointing parallel to the x axis:</p>
+        <div>
+          <p class="program"> pointer = arrow(pos=vector(0,2,1), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(5,0,0), shaftwidth=1)</p>
+          <p class="Normal"> The arrow object has the following attributes and
+            default  values, like those for cylinders: <span class="attribute">pos<font color="#000000"> (0,0,0)</font></span>, <span class="attribute">axis<font color="#000000"> (1,0,0)</font></span>, <span class="attribute">length<font color="#000000"> (1)</font></span>, <span class="attribute">color<font color="#000000"> (1,1,1)
+             which is color.white</font></span>, <span class="attribute">red<font color="#000000"> (1)</font></span>, <span class="attribute">green<font color="#000000"> (1)</font></span>, <span class="attribute">blue<font color="#000000"> (1)</font></span>,
+             <span class="attribute">opacity</span> (1),
+             <span class="attribute">shininess</span> (0.6), <span class="attribute">emissive</span> (False), <a href="../GlowScriptDocs/textures.html"><strong>texture</strong></a>,
+             and <span class="attribute">up<font color="#000000"> (0,1,0)</font></span>.
+              As with <a href="box.html">box</a>, the <span class="attribute">up</span> attribute
+              is significant for arrow  because the shaft and head have square
+              cross sections, and setting the <em class="program"> </em><span class="attribute">up</span> attribute
+              rotates the arrow about  its axis. Additional arrow attributes:</p>
+          <p class="attributes"> <span class="attribute">shaftwidth</span> By default, shaftwidth 
+            
+            = 0.1*(length of arrow)</p>
+          <p class="attributes"> <span class="attribute">headwidth</span> By default, headwidth 
+            
+            = 2*shaftwidth</p>
+          <p class="attributes"> <span class="attribute">headlength</span> By default, headlength 
+            
+            = 3*shaftwidth</p>
+          <p class="Normal">Assigning <span class="attribute">shaftwidth = 0</span> makes it be the default (0.1 times the length of the arrow). If you don't explicitly set <span class="attribute">headwidth</span> or <span class="attribute">headlength</span>, its length is based as shown above on <span class="attribute">shaftwidth</span> (either the default or whatever value you specify for <span class="attribute">shaftwidth</span>). If <span class="attribute">headlength</span> becomes larger than half the length of the arrow, or the shaft becomes thinner 
+          than 1/50 the length, the entire arrow is scaled accordingly.</p>
+          <p class="Normal">This default behavior makes the widths of very short
+            arrows  shrink, and the widths of very long arrows grow (while displaying
+            the correct  total length). If you prefer that <span class="attribute">shaftwidth</span> and <span class="attribute">headwidth</span> not
+            change as the arrow gets  very short or very long, specify the desired <span class="attribute">shaftwidth</span>. 
+            In this case the only adjustment that is made is that <span class="attribute">headlength</span> is
+            adjusted so that it never gets longer than half the total length,
+            so  that the total length of the arrow is correct. This means that
+            very short,  thick arrows look similar to a thumbtack, with a nearly
+            flat head.</p>
+          <p class="Normal">Note that the <span class="attribute">pos</span> attribute 
+            for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
+            whereas for a box, sphere, or ring it corresponds to the center of the object. </p>
+          <p class="Normal">If you include <span class="attribute">make_trail=True</span> when you create the object, a trail will be left behind the object as you move it. For related options, see <a href="trail.html"><strong>Leaving a Trail</strong></a>.</p>
+          <p class="Normal">See <a href="rotation.html"><strong>Rotating an Object</strong></a> for an easy way to change the orientation of an object.</p>
+<p class="Normal">See description of <a href="options.html">Additional
+              Attributes</a> available for all 3D display objects.</p>
+          <p class="Normal">&nbsp; </p>
+        </div>
+      </div>
+      <div> </div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

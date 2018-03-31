@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <h1 class="Heading-1"> <font color="#0000A0">Limiting the Animation Rate</font></h1>
+      </div>
+      <div>
+        <div>
+          <p class="program"> rate( frequency )</p>
+          <p class="Normal"> Halts computations until 1.0/frequency seconds after the previous 
+            
+            call to <span class="attribute">rate()</span>.</p>
+          <p class="Normal"> For example, <span class="attribute">rate(50)</span> will 
+            halt computations long enough to make sure that at least 1.0/50.0 = 0.02 second 
+            has elapsed. If this much time has already elapsed, no halt is performed. 
+            If you place <span class="attribute">rate(50)</span> inside a computational 
+            loop, the loop will execute at a maximum of 50 times per second, even if 
+            the computer can run faster than this. This makes animations look about 
+            the same on computers of different speeds, as long as the computers are 
+            capable of carrying out 50 computations per second.</p>
+          <p class="Normal">It is obligatory to place a rate statement in an animation loop. Without it, no screen updates or processing of mouse or keyboard events are possible.</p>
+          <p class="Normal">Another option is to use the function <span class="attribute">sleep</span>: sleep(0.02) means &quot;don't do anything for 0.02 seconds&quot; and is equivalent to rate(50). The sleep function periodically renders the scene and processes mouse events, making it possible to continue using zoom and rotate, whereas the standard Python function time.sleep(t) does not do this.</p>
+          <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

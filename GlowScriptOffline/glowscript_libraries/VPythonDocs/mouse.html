@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+        <h1 class="Heading-1"> <font color="#0000A0">Mouse Interactions</font>        </h1>
+        <p class="Normal">For basic examples of mouse handling, 
+          see <a href="mouse_click.html">Click example</a> or <a href="mouse_drag.html">Drag 
+        example</a>.</p>
+        <p class="Normal">The simplest mouse interaction is to wait for the user to click before proceeding in the program. Suppose the 3D canvas is in <span class="attribute">scene</span>, the default canvas created by VPython. Here is a way to wait for a mouse click, which  is defined as the mouse button being pressed and released without moving the mouse (the event occurs when the mouse button is released):        </p>
+        <p class="program">ev = scene.waitfor('click')</p>
+        <p class="Normal">You can use the package of information contained in the variable &quot;ev&quot;:</p>
+        <p class="program">sphere(pos=ev.pos, radius=0.1)</p>
+        <p class="Normal">The package of information about the event includes   information of what kind of event it was:</p>
+        <p class="program"> box()<br />
+          while True:
+          <br />
+          &nbsp;&nbsp;&nbsp;&nbsp;ev = scene.waitfor('mousedown mouseup')<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;if ev.event == 'mousedown':<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the mouse button')<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('You released the mouse button')<br />
+          &nbsp;&nbsp;&nbsp;&nbsp;print(ev.pos) # the position of the mouse </p>
+        <p class="Normal">Here are additional options:</p>
+      <p class="program">scene.waitfor('mousedown') # wait for mouse button press<br />
+          scene.waitfor('mouseup') # wait for mouse button release<br />
+          scene.waitfor('mousemove') # wait for mouse to be moved<br />
+      scene.waitfor('mouseenter') # when move into canvas<br />
+scene.waitfor('mouseleave') # when leave canvas<br />
+scene.waitfor('mousedown mousemove') # either event<br />
+          scene.waitfor('keydown') # wait for keyboard key press<br />
+          scene.waitfor('keyup')  &nbsp;&nbsp;# wait for keyboard key release<br />
+          scene.waitfor('click keydown') # click or keyboard<br />
+      </p>
+<p class="Normal">A convenient way to wait for a mouse &quot;click&quot; event is to use <span class="attribute">scene.pause()</span>. You can also show a message to the user at the bottom of the canvas: <span class="attribute">scene.pause('Click to proceed')</span>.</p>
+<p class="Normal">You can  set up a function to be called when a mouse or keyboard event occurs. The following will display the type of  event (mouse click or keydown) and, in the case of a keydown event, which key is involved:</p>
+<p class="program">def process(ev):<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;print(ev.event, ev.which)<br />
+  <br />
+  scene.bind('click keydown', process)</p>
+<p class="Normal"></p>
+<p class="Normal"><strong>Important limitation of GlowScript VPython:</strong> In situations such as this &quot;process&quot; example, the bound function cannot contain the statements rate, sleep, pause, waitfor, get_library, or read_local_file, statements that require pausing during execution. This limitation does not apply to VPython 7.</p>
+<p class="Normal">The quantity <span class="attribute">ev.event</span> will be 'keydown' if a key was pressed or 'mousedown' if the left mouse button was pressed. The quantity <span class="attribute">ev.which</span> is the numerical key code or mouse button indicator (mouse button is always 1 for now). For example, <span class="attribute">ev.which</span> is 65 for the 'a' key. The quantity <span class="attribute">ev.key</span> is the corresponding character string, such as 'a' or 'delete'. </p>
+<p class="Normal">The quantity <span class="attribute">ev.canvas</span> is the canvas associated with the event. You can bind events on different canvases to the same function and be able to tell in which canvas the event occurred.</p>
+<p class="Normal">Note  that <span class="attribute">scene.mouse.shift</span> is true if the shift key is down at the time of the keyboard event; similarly for <span class="attribute">scene.mouse.ctrl</span> and <span class="attribute">scene.mouse.alt</span>.</p>
+<p class="Normal">It is possible to use &quot;anonymous&quot; (unnamed) functions in this situation. For examples, see the <strong><a href="mouse_drag.html" target="_blank">mouse drag</a></strong> discussion. However, anonymous functions cannot be used in VPython 7.</p>
+<p class="Normal">The package of information about the event that caused the end of the wait includes the  information of whether it was a mouse or keyboard event:</p>
+      <p class="program">        box()<br />
+        ev = scene.waitfor('mousedown keydown')<br />
+        if ev.event == 'mousedown':<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the mouse button at', ev.pos)<br />
+        else:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed the key', ev.key)
+      </p>
+<p class="Normal">The object <span class="attribute">scene.mouse </span>contains lots of information about the current state of the mouse, which you can interrogate at any time:</p>
+        <p class="attributes"> <span class="attribute">pos</span> The current 3D position 
+          of the mouse cursor; <span class="attribute">scene.mouse.pos</span>. VPython 
+          always chooses a point in the plane parallel to the screen and passing through <span class="attribute">scene.center</span>. (See <a href="#alternative">Projecting 
+            mouse information onto a given plane</a> for other options.)</p>
+        <p class="attributes"> <span class="attribute">pick</span> Execute <span class="attribute">obj = scene.mouse.pick</span> to obtain the object pointed to by the mouse. If you have a box named <span class="attribute">B</span>, you can determine whether the picked object is that box by asking <span class="attribute">if (B == obj)</span>. If there is no object pointed to by the mouse, <span class="attribute">obj</span> is <span class="attribute">None</span>. Also, <span class="attribute">obj</span> will be <span class="attribute">None</span> if the object has the <span class="attribute">pickable</span> attribute set to <span class="attribute">False</span>. For example, the curves, spheres, and arrows created by make_trail, attach_trail, and attach_arrow are not pickable, and you may wish to specify that some of your own objects are not pickable. At present label and helix cannot be picked. For curve objects, <span class="attribute">obj.segment</span> is the number of the picked segment along the curve, starting with 1 (representing the segment from point number 0 to point number 1). You can test for a curve object with<span class="attribute"> if instanceof(obj, curve):</span>. See the GlowScript example <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/MousePicking-VPython" target="_blank">MousePicking</a>.</p>
+        <p class="attributes"> <span class="attribute">ray</span> A unit vector pointing 
+      from the camera in the direction of the mouse cursor.</p>
+        <p class="attributes"><span class="attribute">project()</span> Projects position 
+          onto a plane. See <a href="#alternative">Projecting mouse position onto a given 
+            plane</a>. </p>
+        <p class="attributes"><span class="attribute">alt</span> = True if the ALT key 
+          is down, otherwise False</p>
+        <p class="attributes"><span class="attribute">ctrl</span> = True if the CTRL key 
+          is down, otherwise False</p>
+        <p class="attributes"><span class="attribute">shift</span> = True if the SHIFT 
+          key is down, otherwise False        </p>
+      <p class="Normal"><strong><font color="#0000A0">Different kinds of mouse</font></strong></p>
+        <p class="Normal">The mouse routines in GlowScript currently handle only the left (or only) mouse button.</p>
+        <p class="Normal"><font color="#0000A0"><a name="alternative" id="alternative"></a><strong>Projecting 
+          mouse position onto a given plane</strong></font></p>
+        <p class="Normal"> Here is a way to get the mouse position relative to a particular 
+          plane in space:</p>
+        <p class="program"> temp = scene.mouse.project(<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          normal=vec(0,1,0),<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;point=vec(0,3,0) )<br />
+          # None if no intersection with plane:<br />
+          if temp != None) ball.pos = temp</p>
+        <p class="Normal"> This projects the mouse cursor onto a plane that is perpendicular 
+          to the specified normal. If the second parameter is not 
+          specified, the plane passes through the origin. It returns a 3D position, 
+          or None if the projection of the mouse misses the plane (scene.mouse.ray is parallel to the plane).</p>
+        <p class="Normal"> In the example shown above, the user of your program will 
+          be able to use the mouse to place balls in a plane parallel to the xy plane, 
+          a height of 3 above the xy plane, no matter how the user has rotated the point 
+          of view.</p>
+        <p class="Normal">You can instead specify a perpendicular distance from the origin to the plane that is perpendicular to the specified normal. 
+          The example above is equivalent to</p>
+        <p class="program"> temp=scene.mouse.project(<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;normal=vec(0,1,0),
+          d=3 )</p>
+    <p class="Normal"><strong><font color="#0000A0">Polling and callback</font></strong></p>
+        <p class="Normal">There are two different ways to get a mouse event, &quot;polling&quot; and &quot;callback&quot;. In polling, you continually check <strong>scene.mouse.events</strong> to see whether any events are waiting to be processed, and you use <strong>scene.mouse.getevent()</strong> to get the next event to process. Prior to VPython 6, this was the only way you could handle mouse or keyboard events, but this scheme is not available in GlowScript</p>
+        <p class="Normal">In the callback method, you specify a function to be executed when a specific type of event occurs, and the function is sent the event information when the specified type of event occurs. For many purposes this is a better way to handle mouse and keyboard events, and it works in both classic VPython and in GlowScript.</p>
+        <p class="Normal">&nbsp;</p>
+        <p class="Normal"><strong><font color="#0000A0">Callbacks</font></strong></p>
+        <p class="Normal">Here is a simple example of how to use callbacks to process click events:</p>
+        <p class="program">          s = sphere(color=color.cyan)<br />
+          <br />
+          def 
+        change():<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if s.color.equals(color.cyan):<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.color = color.red<br />
+&nbsp;&nbsp;&nbsp;&nbsp;else:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.color = color.cyan<br />
+<br />
+scene.bind('click', change)</p>
+        <p class="Normal">We define a &quot;function&quot; named &quot;change&quot;. Then we &quot;bind&quot; this function to click events occurring in the canvas named &quot;scene&quot;. Whenever VPython detects that a click event has occurred, VPython calls the bound function, which in this case toggles the sphere's color between cyan and red. (In classic VPython one could say &quot;if s.color == color.cyan&quot;, but in GlowScript it is necesary to use the &quot;equals&quot; function to compare two vectors.</p>
+        <p class="Normal">This operation is called a &quot;callback&quot; because with scene.bind you register that you want to be called back any time there is a click event. Here are the built-in events that you can specify in a bind operation:</p>
+        <p class="program">Mouse: &nbsp;&nbsp;&nbsp;click, mousedown, mousemove, mouseup<br />
+          Keyboard: keydown, keyup<br />
+        Other: &nbsp;&nbsp;&nbsp;redraw, draw_complete </p>
+        <p class="Normal">The event 'mousedown' or 'mouseup' occurs when you press or release the left button on the mouse, and the 'mousemove' event occurs whenever the mouse moves, whether or not a button is depressed. A 'redraw' event occurs just before the 3D scene is redrawn on the screen, and a 'draw_complete' event occurs just after the redrawing (these event have rather technical uses such as timing how often redrawings occur, or how much time they take).</p>
+        <p class="Normal">You can bind more than one event to a function. The following will cause the callback function to be executed whether you press or release the mouse button:</p>
+        <p class="program">scene.bind('mouseup mousedown', change)        </p>
+        <p class="Normal">Another use of callbacks is to drive a function periodically. See the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bounce-Callbacks-VPython" target="_blank">Bounce-Callbacks-VPython</a></strong>. Also see the related documentation for the GlowScript functions <strong><a href="http://www.glowscript.org/docs/GlowScriptDocs/files.html" target="_blank">get_library() </a></strong>and<strong><a href="http://www.glowscript.org/docs/GlowScriptDocs/files.html" target="_blank"> read_local_file()</a></strong>.</p>
+        <p class="Normal"><strong><font color="#0000A0">Details of the event</font></strong></p>
+        <p class="Normal">You can get detailed information about the event by writing the callback function like this (note the variable 'evt' in parentheses):</p>
+        <p class="program">def info(evt):<br />
+&nbsp;&nbsp;&nbsp;&nbsp;print(evt.event, evt.pos) </p>
+      <p class="Normal">Here we specify an argument in the definition of the callback function ('evt' in this case). When the function is called due to a specified event happening, VPython sends the function  information about the event. The name of the argument need not be 'evt'; use whatever name you like. In addition to evt.event, evt.pos, and evt.pick, there is further event information in the form of evt.press and evt.release which are 'left' for press or release events.</p>
+      <p class="Normal">The quantity <span class="attribute">evt.event</span> will be 'keydown' if a key was pressed. The quantity <span class="attribute">evt.which</span> is the numerical key code or mouse button indicator (mouse button is always 1 for now). For example, <span class="attribute">evt.which</span> is 65 for the 'a' key. Note  that <span class="attribute">scene.mouse.shift</span> is true if the shift key is down at the time of the keyboard event; similarly for <span class="attribute">scene.mouse.ctrl</span> and <span class="attribute">scene.mouse.alt</span>.</p>
+      <p class="Normal">In classic VPython you  can  optionally have VPython send the callback function an additional argument, but this is not currently possible in GlowScript.</p>
+      <p class="Normal"><strong><font color="#0000A0">Right or middle button mouse events</font></strong></p>
+      <p class="Normal">There is currently no way in GlowScript to handle right button or middle button events.</p>
+      <p class="Normal"><strong><font color="#0000A0">Unbinding</font></strong></p>
+      <p class="Normal">Suppose you  executed <strong>scene.bind('mousedown mousemove', Drag)</strong>, but now you no longer want to send mousemove events to that function. Do this:</p>
+      <p class="program">scene.unbind('mousemove', Drag)</p>
+      <p class="Normal">You can also leave a function bound but start and stop having events sent to it:</p>
+      <p class="program">D = scene.bind('mousemove', Drag)<br />
+        ...<br />
+        D.stop() # temporarily stop events going to Drag<br />
+        ...<br />
+        D.start() # start sending events to Drag again
+      </p>
+      <p class="Normal">You can check whether the callback is in start or stop mode with <strong>D.enabled</strong>, which is True if the callback has been started and False if it has been stopped.</p>
+      <p class="Normal">&nbsp;</p>
+      <p class="Normal"><strong><font color="#0000A0">Custom events: triggers</font></strong> -- <strong class="attribute"><em>THIS CURRENTLY DOES NOT WORK IN VPython</em></strong></p>
+      <p class="Normal">It is possible to create your own event type, and trigger a callback function to do something. Consider the following example, where the event type is 'color_the_ball':</p>
+      <p class="program">def clickFunc():<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;s = sphere(pos=scene.mouse.pos, radius=0.1)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;scene.trigger('color_the_ball', s)<br />
+        <br />
+        def ballFunc(newball):<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;newball.color=color.cyan<br />
+        <br />
+        scene.bind('click', clickFunc)<br />
+        scene.bind('color_the_ball', ballFunc)<br />
+        <br />
+        box(pos=vector(1,0,0))</p>
+<p class="Normal">We bind click events to the function clickFunc, and we bind our own special event type 'color_the_ball' to the function ballFunc. The function clickFunc is executed when the user clicks the mouse. This function creates a small sphere at the location of the mouse click, then triggers an event 'color_the_ball', with the effect of passing to the function ballFunc the sphere object. Finally ballFunc applies a color to the sphere. (Obviously one could color the sphere in clickFunc; the example is just for illustration of the basic concept.)    </p>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

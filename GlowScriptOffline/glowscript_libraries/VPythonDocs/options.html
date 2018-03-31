@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <div>
+        <h1 class="Heading-1"> <font color="#0000A0">Additional Attributes</font></h1>
+      </div>
+      <div>
+        <p class="Normal"> The following attributes apply to all VPython objects:</p>
+        <p class="attributes"> <span class="attribute">visible</span> If False, 
+          
+          object is not displayed; e.g. <span class="attribute">ball.visible = False</span><em class="program"><br />
+        </em> Use <span class="attribute">ball.visible = True</span> to make the ball 
+          
+          visible again.        </p>
+        <p class="attributes"> <span class="attribute">rotate() </span> An object B can be rotated with <span class="attribute">B.rotate(angle=theta, axis=a, origin=org)</span><span class="Normal">. By default, the axis is <span class="attribute">B.axis</span>.</span> and the origin is <span class="Normal"><span class="attribute">B.pos</span></span>.</p>
+      <p class="attributes"><span class="attribute">frame</span> Place this object 
+          
+          into a specified frame, as in <span class="attribute">ball = sphere(frame 
+            
+        = f1)</span> <strong>NOTE: frame is not yet available in GlowScript.</strong></p>
+        <p class="attributes"> <span class="attribute">canvas</span> When you start 
+          
+          a VPython program, for convenience VPython creates a canvas and names 
+          
+          it <span class="attribute">scene</span>. By default, objects you create go 
+          
+          into that canvas. You can choose to put an object in a different canvas 
+          
+          like this: </p>
+        <p class="program">scene2 = canvas( title = &quot;Act IV, Scene 2&quot; ) <br />
+          rod = cylinder( canvas = scene2 )</p>
+        <p class="attributes"> <span class="attribute">make_trail</span> You can specify that a trail be left behind a moving arrow, box, cone, cylinder, ellipsoid, pyramid, ring, or sphere object. For details, see <strong><a href="trail.html">Leaving a Trail</a></strong>.</p>
+<p class="Normal">Executing <span class="attribute">myscene = </span><font color="#FF0000">canvas.get_selected()</font> returns
+            a reference to the canvas in which objects are currently being 
+            created. Given a specific canvas named scene2, <span class="attribute">scene2.select()</span><span class="attributes"> makes
+            scene2 be the &quot;selected canvas&quot;, so that objects
+          will be drawn into scene2 by default. </span></p>
+        <p class="Normal">See <a href="canvas.html">Controlling One or More VPython 
+          Canvases</a> for more information on creating and manipulating display 
+      objects.</p>
+        <p class="Normal">&nbsp;</p>
+
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

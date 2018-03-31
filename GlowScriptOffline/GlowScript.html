@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Using GlowScript locally, based on the work of Vesa Lappalainen vesal@jyu.fi -->
+<title>Local GlowScript</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body class="GlowScriptBody">
+<link type="text/css" href="glowscript_libraries/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="glowscript_libraries/jquery.min.js"></script>
+<script type="text/javascript" src="glowscript_libraries/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="glowscript_libraries/glow.2.7.min.js"></script>
+
+<script type="text/javascript">
+
+var glowscript_run = undefined
+
+// localCompile is a modification of https://github.com/BruceSherwood/glowscript/blob/master/ide/ide.js
+function localCompile(header, compReady, errordiv) {
+    errordiv.innerHTML = ""
+    var sdir = "../"
+    var compiler_url
+    if (header.lang == 'vpython' || header.lang == 'rapydscript') {
+        compiler_url = sdir + "package/RScompiler." + header.version + ".min.js"
+    } else compiler_url = sdir + "package/compiler." + header.version + ".min.js"
+    window.glowscript_compile = undefined
+    $.ajax({
+        url: compiler_url,
+        dataType: "script",
+        cache: true,
+        crossDomain: true  // use script tag rather than xhr
+    }).fail(function (xhr, err, exc) {
+        (xhr);
+        alert(err + " getting " + xhr.url + ": " + exc)
+    }).done(function () {
+        if (!window.glowscript_compile) {
+            alert("Failed to load compiler from package: " + compiler_url)
+            return
+        }
+                    
+        var embedScript;
+        try {
+           embedScript = window.glowscript_compile(header.source, {lang: header.lang, 
+                version: header.version.substr(0,3)})
+        } catch(err) {   
+           errordiv.innerHTML = "<p>"+err+"</p>"
+           return
+        }
+        var divid = "glowscript"
+        var main
+        var v = Number(header.version.substr(0,3))
+        if (v >= 2.0) main = 'main(__func)' // Starting Dec. 2015, using Streamline files from Salvatore di Dio
+        else main = 'main()'
+        embedScript = ";(function() {" + embedScript + '\n'+
+                       'glowscript_run = function() { ' + main + '; }\n' +
+                       '})()'
+
+        embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
+        compReady(embedScript)
+    })
+}
+
+function parseVersionHeader( source ) { // null if sourceLines already exists
+    if (source !== null) sourceLines = source.split("\n")
+    else source = 'already exists\n'
+    var header = sourceLines[0]
+    // Remove a newline or similar character at the end of header:
+    if (header.charCodeAt(header.length-1) < 32)
+        header = header.substring(0,header.length-1)
+    var rest = source.substr( header.length+1 )
+    var ret = {
+        version: null,
+        lang: '', // 'vpython' (default) or 'rapydscript' or 'javascript' or a string that is neither (e.g. when editing header)
+        source: rest,
+        ok: false,
+        unpackaged: false,
+        isCurrent: false
+    }
+    header = header.split(" ")
+    if (header.length === undefined) return ret
+    if (header[0] == ' ') return ret
+    var elements = []
+    for (var i=0; i<header.length; i++) { // remove empty strings corresponding to spaces
+        if (header[i] != '') elements.push(header[i])
+    }
+    if (elements.length < 2 || elements.length > 3) return ret
+    if (elements[0] != 'GlowScript') return ret
+    ret.lang = 'javascript' // the default if no language is specified
+    if (elements.length == 3) {
+        ret.lang = elements[2].toLowerCase()
+        if (!(ret.lang == 'javascript' || ret.lang == 'rapydscript' || ret.lang == 'vpython')) return ret
+    }
+    var ver = elements[1]
+    var okv = true;
+    return {
+        version: ver,
+        lang: ret.lang,
+        source: rest, 
+    }
+}
+
+var gsErrordiv
+
+var gsDeflanguage = "GlowScript 2.7 VPython";
+
+function setDefLanguage(lang) {
+   gsDeflanguage = lang
+}
+
+function runJavaScript(text,userargs,userinput, wantsConsole) {
+    var i = text.indexOf("GlowScript")
+    if ( i > 0 ) text = text.substring(i)
+    if ( text.indexOf("//\n") == 0 ) text = text.substring(3)
+    if ( i < 0 ) text = gsDeflanguage + "\n" + text  
+    var csHeader = parseVersionHeader(text)
+    gsErrordiv = $("#gserrors")[0]
+    localCompile(csHeader, ready, gsErrordiv)
+    return ""
+}
+
+function runCode() {
+    var sc = $("#sourcetext").val();
+    runJavaScript(sc);
+}
+
+function ready(sc) {
+    var w = $("#glows")
+    w[0].innerHTML = "" // Comment this and the next if get a solution for too many WebGL context
+    w[0].innerHTML = '<div id="glowscript" class="glowscript"></div>'
+    window.__context = { glowscript_container: $(".glowscript").removeAttr("id") }
+    
+    // TODO: how to set an error handler???
+    window.__context.errorHandler =gsErrorHandler
+    
+    runScript = new Function(sc)
+    runScript()
+    glowscript_run()
+}
+
+function gsErrorHandler(err) {
+    gsErrordiv.innerHTML = "<p>"+err+"</p>"
+}
+
+function getConsoleHeight() {
+ return 0
+}
+
+</script>
+
+<button onclick="runCode()">Run</button> 
+&nbsp;&nbsp;&nbsp;
+<a href="glowscript_libraries/VPythonDocs/index.html" target="_blank">Help</a>
+&nbsp;&nbsp;&nbsp;
+<input type="file" id="read_local_file"/>
+
+<div>
+<textarea id="sourcetext" rows=20, cols="100">
+GlowScript 2.7 VPython
+box()
+</textarea>
+</div>
+
+<script>
+function readSingleFile(evt) {
+    var f, reader
+    f = evt.target.files[0];
+    if (f) {
+        reader = new FileReader();
+        reader.onload = function(e) {
+        	var content = e.target.result
+        	if (content.slice(0,10) !== 'GlowScript') content = "GlowScript 2.7 VPython\n"+content
+            document.getElementById('sourcetext').value = content
+            //var moddate = (f.lastModifiedDate) ? f.lastModifiedDate.toLocaleDateString() : ''
+            //var info = {name:f.name, text:contents, size:f.size, type:f.type, date:moddate}
+        }
+        reader.readAsText(f)
+    }
+}
+document.getElementById('read_local_file').addEventListener('change', readSingleFile, false)
+</script>
+
+<div id="gserrors">
+</div>
+
+<div id ="glows">
+    <div id="glowscript" class="glowscript">
+</div>
+</body>
+</html>

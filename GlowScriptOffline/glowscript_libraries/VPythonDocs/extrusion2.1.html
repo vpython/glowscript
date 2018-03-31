@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+
+    <table width="100%" border="1">
+          <tr>
+            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">extrusion</font></span></div></td>
+            <td width="23%"><div align="center"><a href="arrow.html"></a><img src="images/extrusion.PNG" width="147" height="149" alt="extrusion" /></div></td>
+          </tr>
+        </table>
+        <p class="Normal">The extrusion object extrudes a 2D shape along a path. Here is an <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Extrusions" target="_blank">example</a></strong>, and here is the minimal syntax:</p>
+      <p align="center" class="program">ex = extrusion(pos=..., shape=...)</p>
+      <p class="Normal"> The <span class="attribute">pos</span> attribute is a list of points like the <span class="attribute">pos</span> attribute of a curve object. The <span class="attribute">shape</span> attribute is a list of x-y pairs describing the perimeter of a 2D surface, such as<span class="program">[ [2,0], [0,4], [-2,0], [2,0] ]</span>. This 2D shape is extruded along the points specified by the pos list.      </p>
+      <p class="Normal"><strong><font color="#0000a0">Other attributes</font></strong></p>
+      <p class="Normal">An extrusion is made out of <a href="triangle.html">quads</a> and <a href="triangle.html">triangles</a> which are then made into a <a href="compound.html">compound</a> object for speed of display. You can make additional copies of an extrusion by <a href="clone.html">cloning</a> it. You can move an extrusion by specifying a new <span class="attribute">origin</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects, but note that color and size are &quot;multiplicative&quot;; see <a href="compound.html">compound</a>.</p>
+      <p class="Normal">Here are additional attributes that can be specified when creating an extrusion but cannot be changed later:      </p>
+      <p class="attributes"><span class="attribute">show_start_face</span> and <span class="attribute">show_end_face</span> By default, these attributes are True and the start and end faces are displayed. If you set one of these to False, that face is left open. These attributes have no effect if the path is closed.</p>
+      <p class="attributes"><span class="attribute">start_face_color</span> and <span class="attribute">end_face_color</span> By default,the starting and ending faces are given the same color as the rest of the extrusion, as specified by <span class="attribute">color</span>, but you can specify that other colors be used for the starting or ending face. These attributes have no effect if the path is closed.</p>
+      <p class="attributes"><span class="attribute">smooth</span> By default, adjacent normals for which the cosine of the angle between them is greater than 0.95 (corresponding to an angle of 18 degrees) are averaged so as to smooth the adjacent surfaces. You can set <span class="attribute">smooth</span> to a looser criterion for more smoothing. For example, setting smooth=0.9 will smooth adjoining surfaces  whose orientation differs by 53 degrees, a much looser criterion.</p>
+<p class="Normal"><strong><font color="#0000a0">The three steps to making an extrusion</font></strong></p>
+        <p class="Normal"><strong>1)</strong> Create a 2D shape, either by giving a list of points or by choosing a shape from a supplied library of common shapes. Here are three examples. The first creates a triangle by listing 2D points. The second example creates a circular shape from the  <strong><a href="shapes.html">shapes and paths library</a></strong>, and the third creates a rectangular shape, using the shapes library.</p>
+        <p class="program">tri = [ [2,0], [0,4], [-2,0], [2,0] ]</p>
+        <p class="program">circ = shapes.circle(radius=3)</p>
+      <p class="program">rect = shapes.rectangle(width=0.2, height=0.4)<br />
+      </p>
+      <p class="Normal">A shape must be closed. That is, the last point must be the same as the first point.</p>
+        <p class="Normal"><strong>2)</strong> Create a path along which to extrude your shape (just like the <span class="attribute">pos</span> attribute of a curve object), either by giving a list of points or by choosing a path from a supplied library of common paths. Here are two examples. The first is a triangular path. The second chooses a circular path in the xz plane, and the third chooses a rectangular path in the xz plane.</p>
+        <p class="program">tripath = [ vec(1,0,0), vec(0,0,-2), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        vec(-1,0,0), vec(1,0,0) ]</p>
+        <p class="program">circpath = paths.circle(radius=3)</p>
+        <p class="program">rectpath = paths.rectangle(width=4, height=2)<br />
+        </p>
+      <p class="Normal">A path need not be closed, in which case there will be end caps. For example, the following path is a portion of a circle:      </p>
+      <p class="program">arcpath = paths.arc(angle1=pi/4, angle2=pi)</p>
+      <p class="Normal"><strong>3)</strong> Create an extrusion object to extrude your shape along your path. For example, using paths and shapes defined above, plus a color specification,</p>
+      <p class="program">extrusion(pos=circpath, shape=rect, color=color.red)<br />
+      </p>
+      <p class="Normal">Note that you can include attributes such as color, size, axis, up, and opacity when creating the extrusion.</p>
+      <p class="Normal"><strong>Point positions are relative:</strong> A point whose pos  is <span class="program">vector</span>(2, 1, 0) is of course normally displayed at location <span class="program">vector</span>(2, 1, 0). However, the position of a point is <em>relative</em> to an extrusion's own <span class="attribute">origin</span> value, which by default is <span class="program">vector</span>(0, 0, 0). If you change the extrusion's <span class="attribute">origin</span> value to <span class="program">vector</span>(10, 6, 5), the point is displayed at the location <span class="program">vector</span>(12, 7, 5); that is, the point is displayed 2 to the right, 6 above, and 0 in front of the extrusion's position <span class="program">vector</span>(10, 6, 5). Another way of saying this is that the display location is the vector sum, <span class="program">vector</span>(10, 6, 5) + <span class="program">vector</span>(2, 1, 0). This means that you can quickly and efficiently move the entire extrusion just by changing the extrusion's <span class="attribute">origin</span> value. The <span class="attribute">pos</span> value of an individual point does not change; it's just that the point is displayed in a shifted position. As a result, moving an entire extrusion is very fast.</p>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
+                <div></div>
+              </div>
+              <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
+                <p class="Normal">The paths in the shapes and paths library  go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
+                <p class="Normal">However, when specifying a path from the shapes and paths library, you can specify a pos and up, to tip the path out of the x-z plane. The path of the following extrusion will have a center at the location vector(1,2,0), oriented perpendicular to the vector(1,0,0):</p>
+                <p class="program">extrusion(pos=paths.circle(pos=vector(1,2,0),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;up=vector(1,0,0), radius=2), color=color.cyan)</p>
+                <div>
+                  <div>
+                    <div>
+                      <div>
+                        <div>
+                          <div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <div>
+                      <div> </div>
+                    </div>
+                  </div>
+              </div>
+              <div>
+                <div></div>
+          </div>
+              <div>
+                <div></div>
+              </div>
+            </div>
+        </div>
+          <p class="Normal"><strong><font color="#0000a0">How the extrusion machinery works</font></strong></p>
+            <p class="Normal">At every point along the <span class="attribute">pos</span> path this point plus the preceding and following points define a plane. A 2D plane is established perpendicular to the tangent to the path at this point. The 2D shape is drawn in this 2D plane. A shape should be positioned so that its center is approximately at the location of the <span class="attribute">pos</span> locations. If you offset the shape far from the path, you may get odd results, because there is enhanced danger of two adjacent drawing planes  intersecting each other. Also, making sharp turns of wide extrusions may lead to one segment overlapping another. </p>
+            <p class="Normal">If the bending angle from one point to the next is large,  a mitered joint is produced. The bending angle is considered to be large if its cosine is greater than 0.95 (an angle of less than about 18 degrees). </p>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <div>
+                      <div></div>
+                    </div>
+                    <p class="Normal"><strong><font color="#0000a0">Holes in the 2D shape</font></strong></p>
+                    <p class="Normal">You can create a 2D shape with holes in it, in which case the extrusion has hollow sections. The  statement below creates an extrusion of a circular disk that contains a triangular hole and a trapezoidal hole:</p>
+                    <p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/extrusion_holes.png" width="147" height="149" alt="extrusion" /></p>
+                    <p class="program">extrusion(pos=[vec(0,0,0), vec(0,0,-5)], <br />
+&nbsp;&nbsp;&nbsp;&nbsp;color=color.orange,                      <br />
+&nbsp;&nbsp;&nbsp; shape=[ shapes.circle(radius=3),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; shapes.triangle(length=2),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shapes.trapezoid(pos=[0,2], width=4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height=1, top=2) ])<br />
+                    </p>
+<p class="Normal">Here the shape is described by a list of shapes. The first shape in the list is always the outer contour, and the remaining shapes represent holes. Holes must not overlap each other, which gives an error.</p>
+<p class="Normal">It is even possible to have several (non-overlapping) outer contours, each with holes. Suppose &quot;O&quot; represents an outer contour and &quot;I&quot; represents an inner contour (a hole). The following shape has three pieces, two of them with holes:</p>
+<p class="program">s =[ [O, I, I], [O], [O, I] ]</p>
+<p class="Normal">As an example of this, the statement below creates an extrusion of a triangle and a rectangle, and the triangle contains two holes:</p>
+<p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/multiple_outer_contours.png" width="260" height="245" alt="extrusion" /></p>
+<p class="Normal"></p>
+<div>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div></div>
+        </div>
+        <p class="program">extrusion(pos=paths.arc(radius=2,<br />
+&nbsp;&nbsp;&nbsp;          angle1=-pi/3, angle2=pi+pi/3), color=color.cyan, <br />
+&nbsp;&nbsp;&nbsp;&nbsp;shape=[ [shapes.triangle(length=2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shapes.circle(pos=[0,.5], radius=0.2),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shapes.trapezoid(pos=[0,-0.2],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width=0.6, height=0.4)],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[shapes.rectangle(pos=[0,1.8],<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width=1,height=0.3)] ])</p>
+      </div>
+    </div>
+  </div>
+</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div></div>
+      </div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

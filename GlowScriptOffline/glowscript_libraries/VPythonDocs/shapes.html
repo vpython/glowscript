@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <table width="100%" border="1">
+        <tr>
+          <td width="76%" height="159"><div align="center"><span class="style1 style2"><font color="#0000A0">The shapes and paths libraries</font></span></div></td>
+          <td width="24%"><img src="images/star_with_hole.jpg" width="158" height="160" alt="star with hole" /></td>
+        </tr>
+      </table>
+      <div></div>
+      <div>
+        <p class="Normal">The shapes and paths libraries are mainly used together with the 3D <strong><a href="extrusion.html">extrusion</a></strong> object. The shapes library helps in creating complex 2D shapes by creating and combining basic geometric shapes. In the shape shown above, a circular region has been removed from a star. The paths library is similar but provides lists of 3D points along which the 2D shape is extruded.</p>
+        <p class="Normal"><strong><font color="#0000a0">Choose one of the shapes that are available in these libraries:</font></strong></p>
+        <blockquote>
+          <p class="Normal"><strong>Be sure to read about rectangle, which explains features common to all of these objects (rotate, scale, xscale, yscale, roundness,  thickness, and invert).</strong></p>
+          <p class="Normal"><strong><font color="#0000a0"><a href="#rectangle">rectangle</a></font></strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#position-relative">Position relative to the path</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#make-path">Making a path instead of a shape</a><br />
+            <strong><font color="#0000a0"><a href="#circle">circle</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#ellipse">ellipse</a></font></strong><br />
+            <a href="#arc"><strong>arc</strong></a><br />
+            <a href="#line"><strong>line</strong></a><br />
+            <strong><font color="#0000a0"><a href="#triangle">triangle</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#pentagon">pentagon</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#hexagon">hexagon</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#octagon">octagon</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#ngon">ngon</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#star">star</a></font></strong><br />
+            <strong><font color="#0000a0"><a href="#trapezoid">trapezoid</a></font></strong><br />
+            <strong><a href="#cross">cross</a></strong><br />
+            <strong><font color="#0000a0"><a href="#pointlist">points</a></font></strong><br />
+            <font color="#0000a0"><strong><a href="#gear">gear</a></strong></font><br />
+            <font color="#0000a0"><strong><a href="#rackgear">rack gear</a></strong></font><br />
+            <strong><font color="#0000a0"><a href="#attributes">List of parameters</a></font></strong><br />
+          </p>
+        </blockquote>
+        <p class="Normal"><strong><font color="#0000a0"><a name="rectangle" id="rectangle"></a>rectangle</font></strong></p>
+        <p class="program">rt = shapes.rectangle(width=10, height=6)</p>
+        <p class="Normal">creates a list of 2D x-y coordinates of the corners of a rectangle of width=10 and height=6. If the height value is omitted the shape is a square with its sides equal to the given width.  If you print <strong>rt</strong> you will see this  list of 2D coordinates, starting at the lower right and continuing counterclockwise, end at the starting location:</p>
+        <p class="program">[[5, -3], [5, 3], [-5, 3], [-5, -3], [5, -3]]</p>
+        <p class="Normal"> The shape can be visualized in VPython by executing the following statement, which extrudes the rectangular shape into the screen, along the line from vec(0,0,0) to vec(0,0,-0.1):</p>
+        <table width="675" height="128" border="0">
+          <tr>
+            <td width="489" height="124"><p class="program">extrusion(path=[vec(0,0,0), vec(0,0,-0.1)], <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=rt)</p></td>
+            <td width="172"><p><img src="images/rectangle_shape.jpg" width="172" height="122" alt="rotate rectangle" /></p></td>
+          </tr>
+        </table>
+        <p class="Normal">A rotated rectangle can be obtained like this:</p>
+<p class="program"> rt = shapes.rectangle(width=10, height=6, rotate=pi/6)</p>
+        <p class="Normal"></p>
+        <table width="671" border="0">
+          <tr>
+            <td width="460"><p class="Normal">This produces a rectangle rotated counterclockwise pi/6 radians (30 degrees) around the path. A negative angle rotates the figure clockwise.</p></td>
+            <td width="201"><img src="images/rectangle_shape_rotated.jpg" width="201" height="175" alt="rotated rectangle" /></td>
+          </tr>
+        </table>
+        <p class="Normal">A rounded rectangle (a rectangle whose corners are rounded) can be obtained by using the roundness parameter:</p>
+        <p class="program">rt = shapes.rectangle(width=10, height=6, roundness=0.1)</p>
+        <table width="672" border="0">
+          <tr>
+            <td width="474"><p class="Normal">This creates a rectangle with its corners replaced by a circular arc of radius 0.6. The radius of this arc is calculated by multiplying the roundness parameter by the shortest side of the rectangle, the height in this case. A roundness of 0.1 is often a good choice.</p></td>
+            <td width="187"><img src="images/rectangle_shape_rounded.jpg" width="187" height="120" alt="rounded rectangle" /></td>
+          </tr>
+        </table>
+        <p class="Normal">An inverted rounding (called a chamfer) can be obtained by setting the invert parameter as True, together with the roundness parameter.</p>
+        <table width="673" border="0">
+          <tr>
+            <td width="482"><p class="program">rt = shapes.rectangle(width=10, height=6,<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundness=0.1, invert=True)</p></td>
+            <td width="179"><img src="images/rectangle_shape_chamfered.jpg" width="179" height="122" alt="chamfered rectangle" /></td>
+          </tr>
+        </table>
+        <p class="Normal">The rectangle or its sides can be scaled by using the scale parameter:</p>
+        <p class="program">rt = shapes.rectangle(width=10, height=6, scale=2)</p>
+        <p class="Normal">effectively creates a rectangle of size 20 x 12. Width and height of a rectangle can be scaled independently by using xscale, yscale parameters:</p>
+        <p class="program">rt = shapes.rectangle(width=10, height=6, xscale=2, yscale=0.5)</p>
+        <p class="Normal">creates a rectangle of size 20 x 3.</p>
+        <p class="Normal">All the previous definitions created solid rectangles covering the whole area defined by the width and the height of the rectangle. It is possible to define hollow rectangles – a rectangle with a rectangular hole, by using the thickness parameter:</p>
+        <table width="676" border="0">
+          <tr>
+            <td width="492"><p class="program">rt = shapes.rectangle(width=10, height=6, <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            thickness=0.1)</p></td>
+            <td width="169"><img src="images/rectangle_shape_frame.jpg" width="169" height="122" alt="rectangle frame" /></td>
+          </tr>
+        </table>
+        <p class="Normal">This defines a &quot;rectangular frame&quot; with a size 10 x 6, and a thickness of 0.1 times the shortest side of the rectangle, the height in this case. This results in a rectangle with a rectangular hole. Therefore there are two rectangular contours: One is the original rectangle of size 10 x 6 (the outer contour), and the second one is the hole of size 8.8 x 4.8 (0.1 times the short side of 6 gives a distance between the inner and outer contours of 0.6). The resultant shape is the area covered between these two contours. If the thickness parameter is not used, or if it is equal to zero, then there is no hole, and a solid rectangle is obtained. </p>
+        <p class="Normal">Here is what <strong>rt</strong> is in this case of the rectangle with a hole:</p>
+        <p class="Normal"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ &nbsp;[[5, -3], [5, 3], [-5, 3], [-5, -3], [5, -3]], &nbsp;&nbsp;[[4.4, -2.4], [4.4, 2.4], [-4.4, 2.4], [-4.4, -2.4], [4.4, -2.4]] &nbsp;]</strong></p>
+        <p class="Normal">There are two lists. The first list describes the outer contour, and the next list describes the inner contour. If there are N holes in a shape, the first list in the shape is always the outer contour, and the  next N lists represent the N holes.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="path-relative" id="path-relative"></a>Position relative to the path</font></strong></p>
+        <p class="Normal">In the examples discussed above, the center of the rectangle will be placed at the location of the extrusion path. You can displace the rectangular shape away from the extrusion path. In the following case the center of the rectangle will be 2 to the right and 1 above the path:</p>
+        <p class="program">rt = shapes.rectangle(pos=[2,1], width=10, height=6)</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="make-path" id="path-relative2"></a>Making a path instead of a shape</font></strong></p>
+        <p class="Normal">Just as the shapes library provides a convenient way to create 2D shapes to extrude, the paths library provides a convenient way to create 3D paths for the extrusion object. Here is an example:</p>
+        <p class="program">extrusion(path=paths.rectangle(width=50, height=30),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=10, height=3))        </p>
+        <p class="Normal">This produces a 50 by 30 rectangular path in the x-z plane along which is extruded a 2D rectangular shape perpendicular to the path. One can think of  extrusions that use these shapes and paths functions (except for paths.line) as starting on the right with a 2D shape in the x-y plane, headed in the -z direction (into the screen), with the path going counterclockwise in the x-z plane as seen from above. If you print paths.rectangle(width=50, height=30), this is what it looks like, a list of 3D positions in the y=0 (xz) plane:</p>
+        <p class="Normal"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ &lt; 25, 0, 15 &gt;, &lt; 25, 0, -15 &gt;, &lt; -25, 0, -15 &gt;, &lt; -25, 0, 15 &gt;, &lt; 25, 0, 15 &gt; ]</strong>        </p>
+        <p class="Normal">IYou can tip the extrusion out of the x-z plane by changing the extrusion's default &quot;up&quot; attribute (&lt;0, 1, 0&gt;) to something else, such as &lt;0,0,1&gt;, in which case the plane of the extrusion path will be in the x-y plane.</p>
+        <p class="Normal">Note that you cannot specify a thickness for a path. A path has no thickness whereas a shape can have a thickness as discussed above.</p>
+        <p class="Normal">All of the following shapes discussed below have path versions: paths.rectangle(), paths.circle(), paths.ellipse(), paths.arc(), paths.line(), paths.triangle(), paths.pentagon(), paths.hexagon(), paths.octagon(), paths.ngon(), paths.star(), and paths.cross(). There are no path options corresponding to shapes.points(), shapes.gear(), and shapes.rackgear().</p>
+        <p class="Normal">&nbsp;</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="circle" id="circle"></a>circle</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program">cr = shapes.circle(radius=2)</p></td>
+            <td width="126"><img src="images/circle_shape.jpg" width="126" height="122" alt="circle" /></td>
+          </tr>
+        </table>
+        <p class="Normal"> creates a circle object at pos=[0,0] relative to the path, with radius=2. By default, 64 points are used to approximate the circular contour; you can change this by specifying a value for <strong>np</strong>. The circle contour cannot be rounded. A circle can be scaled to obtain a different size circle or an ellipse. </p>
+        <table width="676" border="0">
+          <tr>
+            <td width="539"><p class="Normal">A circular ring is obtained if the thickness attribute is set to a positive value. If the thickness is 0.1, the actual thickness will be 0.1 times the radius.</p></td>
+            <td width="122"><img src="images/circle_frame.jpg" width="122" height="121" alt="ring" /></td>
+          </tr>
+        </table>
+        <table width="676" border="0">
+          <tr>
+            <td width="539" height="120"><p class="Normal">For the circle, the starting angle is by default angle1=0 and the ending angle2 = 2*pi, measured counterclockwise from the +x axis. This partial circle was made by setting angle1=0.15*pi and the ending angle by angle2=pi. You can rotate the shape by specifying rotate to be something other than zero. </p></td>
+            <td width="122"><img src="images/partial_circle_shape.jpg" width="174" height="91" alt="ring" /></td>
+          </tr>
+        </table>
+        <p class="Normal"></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="492" height="98"><p class="Normal">You can specify a (positive) thickness for a partial circle. If the thickness is 0.1, the actual thickness will be 0.1 times the radius.</p></td>
+            <td width="174"><img src="images/partial_circle_thickness.png" width="174" height="91" alt="ring" /></td>
+          </tr>
+        </table>
+<p class="Normal"><strong><font color="#0000a0"><a name="ellipse" id="ellipse"></a>ellipse</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">el = shapes.ellipse(width=5, height=3)</span></p></td>
+            <td width="126"><img src="images/ellipse_shape.jpg" width="189" height="122" alt="ellipse" /></td>
+          </tr>
+        </table>
+        <p class="Normal">This creates an ellipse object at pos=[0,0], with width=5 and height=3. If height is omitted it is set to be equal to the width, which causes the output to be a circle. The ellipse can be rotated and scaled but not rounded. An elliptical ring is obtained if the thickness parameter is set to a positive value.</p>
+        <p class="Normal">For the ellipse, the starting angle is by default angle1=0 and the ending angle by angle2 = 2*pi, measured counterclockwise from the +x axis. A partial ellipse can be made by setting angle1=0.15*pi and angle2=pi.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="arc" id="circle2"></a>arc</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program">ar = shapes.arc(radius=2, angle1=0, angle2=pi/2)</p></td>
+            <td width="126"><img src="images/arc_shape.jpg" width="131" height="123" alt="arc" /></td>
+          </tr>
+        </table>
+        <p class="Normal"> creates a quarter-circular arc centered at pos=(0,0), with radius=2. The arc can be rotated and scaled, but not rounded. If no thickness is specified, the arc is given a very small thickness so that the contour is closed.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="line" id="circle3"></a>line</font></strong></p>
+        <p class="program">L = shapes.line(start=(1,0), end=(1,1), np=20)</p>
+        <p class="Normal"> creates a straight line going from [1,0] to [1,1], divided into 20 equal lengths. The line can be rotated and scaled but not rounded. If no thickness is specified, the line is given a very small thickness so that the contour is closed. The defaults are pos=[0,0], start=[0,0], end=[0,1],</p>
+        <p class="Normal">&nbsp;</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="triangle" id="triangle"></a>triangle</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">tr = shapes.triangle(length=5)</span></p></td>
+            <td width="126"><img src="images/triangle_shape.jpg" width="126" height="122" alt="triangle" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a triangle object at pos=[0,0], with all sides equal to 5. The triangle can be rotated and rounded as well as scaled. A triangular frame is obtained if the thickness parameter is set to a positive value.</p>
+        <table width="676" border="0">
+          <tr>
+            <td width="538"><p class="Normal">A triangular frame is obtained if the thickness parameter is set to a positive value. If the thickness is 0.1, the actual thickness will be 0.1 times the length of a side.</p></td>
+            <td width="123"><img src="images/triangle_frame.jpg" width="123" height="121" alt="triangle frame" /></td>
+          </tr>
+        </table>
+        <p class="Normal"><strong><font color="#0000a0"><a name="pentagon" id="pentagon"></a>pentagon</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">pt = shapes.pentagon(length=5)</span></p></td>
+            <td width="126"><img src="images/pentagon_shape.jpg" width="131" height="122" alt="pentagon" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a pentagon object at pos=[0,0], with all sides equal to 5. The pentagon can be rotated and rounded as well as scaled. A pentagonal frame is obtained if the thickness parameter is set to a positive value. If the thickness is 0.1, the actual thickness will be 0.1 times the length of a side.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="hexagon" id="hexagon"></a>hexagon</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">hx = shapes.hexagon(length=5)</span></p></td>
+            <td width="126"><img src="images/hexagon_shape.jpg" width="137" height="122" alt="hexagon" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a hexagon object at pos=[0,0], with all sides equal to 5. The hexagon can be rotated and rounded as well as scaled. A hexagonal frame is obtained if the thickness parameter is set to a positive value. If the thickness is 0.1, the actual thickness will be 0.1 times the length of a side.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="octagon" id="hexagon2"></a>octagon</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">oc = shapes.octagon(length=5)</span></p></td>
+            <td width="126"><img src="images/octagon.png" width="137" height="122" alt="hexagon" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates an octagon object at pos=[0,0], with all sides equal to 5. The octagon can be rotated and rounded as well as scaled. An octagonal frame is obtained if the thickness parameter is set to a positive value. If the thickness is 0.1, the actual thickness will be 0.1 times the length of a side.</p>
+<p class="Normal"><strong><font color="#0000a0"><a name="ngon" id="ngon"></a>ngon</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">poly = shapes.ngon(np=7, length=5)</span></p></td>
+            <td width="126"><img src="images/ngon_shape.jpg" width="131" height="121" alt="ngon" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a heptagon object at pos=[0,0], with all seven sides equal to 5. The heptagon can be rotated and rounded as well as scaled. One can also create an ngon object to fit into a circle with a given radius. In this case the length is calculated automatically:</p>
+        <p class="program">poly = shapes.ngon(np=7, radius=4)</p>
+        <p class="Normal">The thickness parameter can be used to create a frame of shape of the ngon. If the thickness is 0.1, the actual thickness will be 0.1 times the length of a side.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="star" id="star"></a>star</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">st = shapes.star(n=5)</span></p></td>
+            <td width="126"><img src="images/star_shape.jpg" width="127" height="122" alt="star" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a star object at pos=[0,0], with 5 beams sticking out (the default), fitting into a circle of radius=1. As you change the radius value, the beam length changes accordingly, with concave vertices remaining on their original positions. You can specify <span class="attribute">iradius</span> to change the inner radius for the star object; default = 0.5*radius </p>
+        <p class="program"><span class="Normal">st = shapes.star(n=6, radius=3, iradius=1)</span></p>
+        <p class="Normal">creates a 6-pointed star with outer radius=3, where the tips of the beams are located, and the inner radius=1, where the concave vertices reside. The star can be rotated and rounded as well as scaled. If you specify a thickness, the shape is hollow.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="trapezoid" id="any_shape2"></a>trapezoid</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program">tr=shapes.trapezoid(pos=[-2,3],<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      width=5, height=1, top=3)</p></td>
+            <td width="126"><img src="images/trapezoid_shape.jpg" width="257" height="117" alt="trapezoid" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates  an isosceles trapezoid object with its center at pos=[-2,3] with respect to the extrusion path, with width=5 (the width of the base), height=1, and top=3. If top is omitted, it is set to be equal to  half of the width. The trapezoid can be rotated and rounded as well as scaled. A trapezoidal frame is obtained if the thickness paramater is set to a positive value. If the thickness is 0.1, the actual thickness will be 0.1 times the length of the shortest side.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="cross" id="star2"></a>cross</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">st = shapes.cross(width=10, thickness=2)</span></p></td>
+            <td width="126"><img src="images/cross_shape.jpg" width="129" height="122" alt="cross" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a object in the shape of a cross, with arms that are 10 across by 2 wide. The very different use of &quot;cross&quot; in the cross product of vectors is not a problem since shapes.cross is different from cross.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="pointlist" id="pointlist"></a>points</font></strong></p>
+        <p class="program"><span class="Normal">pl = shapes.points(pos=[ [1,0], [1,1], [-2,3], [1,0] ], <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  rotate=pi/4)</span></p>
+        <p class="Normal">creates a polygon of the shape defined by the list of [x,y] points provided. The list of points can be prepared manually or by programs using any algorithm. The shape can be rotated and rounded as well as scaled.        </p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="gear" id="pointlist3"></a>gear</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="535"><p class="program"><span class="Normal">g = shapes.gear()</span></p></td>
+            <td width="126"><img src="images/gear.jpg" width="129" height="121" alt="gear" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates an object in the shape of a &quot;spur&quot; gear. The gear can be scaled uniformly, but not rounded, nor given a thickness. Like shapes.rectangle, the position of the shape is its center, but you can move that center relative to the extrusion path, like this: shapes.gear(pos=[1,-1]). </p>
+        <p class="Normal">For a detailed description of gears please  refer to <a href="http://en.wikipedia.org/wiki/Gear" target="_blank">http://en.wikipedia.org/wiki/Gear</a>.  Be sure to click to enlarge the diagram that explains gear nomenclature. It  mentions &ldquo;involute gears&rdquo; which are discussed at <a href="http://en.wikipedia.org/wiki/Involute_gear" target="_blank">http://en.wikipedia.org/wiki/Involute_gear</a>.  These links open in new tabs or windows.</p>
+        <p class="Normal">Gears are used to transmit motion by changing  the rotational speed and direction with associated torque. Gear  parameters define the way the gear behaves. These parameters must be in a  harmony among each other to obtain a well defined gear. Not all parameters are  provided in this program to fully control the gear structure. Some of them are  calculated by using the others, hence may result in an inconsistent gear  structure. The user is responsible to provide a consistent set of parameters.</p>
+        <p class="Normal"><span class="attribute">radius</span> The radius is from the center of the gear to a point about one-half tooth height from the outer edge of a tooth. As a result, placing the centers of two identical gears two radii apart results in the gears meshing appropriately for many purposes. By default other gear parameters are derived from the radius. The default radius is 1.</p>
+        <p class="Normal"><span class="attribute">n</span> An integer number defining the number of teeth  of the gear. Normally, &ldquo;tooth size&rdquo; and the number of teeth should define the  gear circumference (or the radius), but in this program the &ldquo;tooth size&rdquo; is not  a control parameter, rather it is calculated from the number of teeth and the  radius. Hence the number of teeth, n, can be set arbitrarily and some  unrealistic values for the &ldquo;tooth size&rdquo; can be obtained in turn. The user  should be setting the parameters appropriately to obtain a reasonable tooth  structure. The default number of teeth is 20.</p>
+        <p class="Normal"><span class="attribute">phi</span> Coupled gears exert force on each other on the  tooth profile during rotation. Phi is called the Pressure Angle, which is one  of the basic parameters defining the tooth profile for a better contact. Also,  &ldquo;tooth size&rdquo; components like  bottom-land  (roughly the gap between two teeth at the bottom of the teeth) and top-land  (tooth thickness at the very top) are calculated using the pressure angle.  Default value for the pressure angle is 20 degrees.</p>
+        <p class="Normal"><span class="attribute">addendum</span> The &ldquo;tooth depth&rdquo; is defined as the sum of  addendum and dedendum. Addendum is the part of the tooth above the  radius  to the tip of the tooth. Default value for addendum is 0.08 times the radius.</p>
+        <p class="Normal"><span class="attribute">dedendum</span> Dedendum is the part of the tooth below the  pitch radius to the depth of the tooth. Default value for dedendum is 0.1 times the radius.</p>
+        <p class="Normal"><span class="attribute">fradius</span> Bottom filet radius, fradius defines the  radius of curvature at the bottom of the tooth between the bottom-land and the  tooth. Default value for fradius is 0.02 times the radius. </p>
+<p class="Normal"><span class="attribute">pos</span>, <span class="attribute">rotate</span>, and <span class="attribute">scale</span> parameters are the same  as for other objects.  xscale and yscale are not allowed to be set  independently as the resulting object will not be a meaningful one.  Roundness is not available..</p>
+        <p class="Normal"><span class="attribute">res</span> This parameter  defines the drawing mesh  resolution and does not affect the gear structure. Since most of the mesh  points are on a circle, or on a curve defining the tooth profile, res is used  to control curvature resolution at varying scales for different parts of the  mesh. The default value for res is 1.0, and a better resolution is obtained as  res is increased.</p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="rackgear" id="rackgear"></a>Rack gear</font></strong></p>
+        <table width="676" border="0">
+          <tr>
+            <td width="590" height="165"><p class="program"><span class="Normal">rg = shapes.rackgear()</span></p></td>
+            <td width="76"><img src="images/rackgear.jpg" width="29" height="162" alt="rack gear" /></td>
+          </tr>
+        </table>
+        <p class="Normal">creates a shape of a rack gear, which is a linear stack of teeth. The gear can be scaled uniformly, but not rounded, nor given a thickness. Like shapes.rectangle, the position of the shape is its center, but you can move that center relative to the pos curve, like this: shapes.rackgear(pos=([1,-1]). </p>
+        <p class="Normal"> Since rack gears are driven by an ordinary spur gears, the rack gear tooth profile is created according to the driving spur gear tooth profile. Therefore the same parameters apply to create the proper tooth profile (but different, due to its rectilinear motion).</p>
+        <p class="Normal"> There is an additional parameter, length, which is used to define the <span class="attribute">linear</span> length of the gear. The actual length of the final object is different by an amount of +/- tooth-length/2, since the actual length is obtained after the calculation of the tooth-length by using other (spur) gear parameters, and then the nearest length which is an integer multiple of tooth-length is obtained.<br />
+        </p>
+        <p class="Normal"><strong><font color="#0000a0"><a name="attributes" id="attributes"></a>List of parameters</font></strong></p>
+        <p class="Normal"> This list  defines the parameters  used in defining the 2D shapes.</p>
+        <p class="Normal"> <span class="attribute">pos</span> Position: the 2D center of the shape relative to the extrusion path; default = [0,0]. For the shape.points object, a list of [x,y] positions.</p>
+        <p class="Normal"> <span class="attribute">radius</span> The radius of the circle, default = 1.          It is used as the radius of the circle object, as well as the default radius value for the star object's outer radius, and for the ngon object, if the length parameter is not provided.</p>
+        <p class="Normal"> <span class="attribute">length</span> Length of  2D objects like pentagon, hexagon, ngon, default = 1</p>
+        <p class="Normal"> <span class="attribute">width</span> Width of  2D objects like rectangle, ellipse, default = 1</p>
+        <p class="Normal"> <span class="attribute">height</span> Height of  2D objects like rectangle, ellipse, default = equal to width except for ellipse, where it is 0.5 times the width</p>
+        <p class="Normal"> <span class="attribute">rotate</span> Rotation angle in radians about the center of the 2D object, default = 0. A positive value gives a counterclockwise rotation; a negative value rotates clockwise.</p>
+        <p class="Normal"> <span class="attribute">np</span> Number of sides of a polygon to approximate objects like circle and ellipse (default = 32); for ngon, np is the number of sides (default = 3). </p>
+        <p class="Normal"><span class="attribute">n</span> The number of outward-going beams on a star (default = 5).</p>
+        <p class="Normal"> <span class="attribute">iradius</span> Inner radius for the star object, default = 0.5*radius.</p>
+        <p class="Normal"><span class="attribute">thickness</span> Parameter to be used to create hollow shapes. If it is set to a positive value the size of the hole is calculated as (1 – 2*thickness)*min(sides). The default value for the thickness parameter is zero, hence no holes. Suggested value = 0.1.</p>
+        <p class="Normal"> <span class="attribute">roundness</span> Radius of curvature for the sharp corners of  2D objects to be rounded. It is used to obtain 2D shapes like rectangle, triangle, star with rounded corners, default = 0. When specifed as larger than zero, the radius is calculated by multiplying the roundness by the shortest  length. For example, if roundness=0.20, this means the radius will be 20% of the smallest length  of a polygon. Suggested value = 0.1.</p>
+        <p class="Normal"><span class="attribute">invert</span> When used together with the roundness parameter, a circular chamfer (curving in at a corner) is created as opposed to a rounded corner, default = False.<br />
+        </p>
+        <p class="Normal"><span class="attribute">scale</span> Scaling multiplier to resize the shape object in both x and y directions, default = 1</p>
+        <p class="Normal"><span class="attribute">xscale</span> Scaling multiplier in x direction only, default = 1</p>
+        <p class="Normal"><span class="attribute">yscale</span> Scaling multiplier in y direction only, default = 1</p>
+        <p class="Normal">See the description of<strong> </strong><a href="#gear"><strong>shapes.gear</strong></a> for information about its many special attributes.</p>
+      </div>
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

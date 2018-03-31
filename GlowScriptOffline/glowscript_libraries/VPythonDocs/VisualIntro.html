@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<table width="800" border="0" cellpadding="1" cellspacing="0">
+  <!--DWLayoutDefaultTable-->
+  <tr>
+    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
+    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
+      <p class="Normal">If you're new to Python <br />
+      and VPython: <a href="VisualIntro.html">Introduction</a></p>
+      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+        
+    <p class="Normal"><a href="new_features.html">What's new</a></p>
+    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+      <a href="license.txt" target="_blank">VPython license</a><br />
+      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
+    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+      <h1 class="Title" align="center"> <font color="#FF0000">Simple 3D Programming 
+        
+        Using VPython</font> </h1>
+      <div>
+        <h3 class="Heading-1"> <font color="#0000A0">I. Getting started</font></h3>
+        <p class="Normal">To write a VPython program in the browser, sign in at glowscript.org, click the link to your programs, then click Create New Program. A blank edit page will open with a header line that says something like &quot;GlowScript 1.1 VPython&quot;. Start typing your program on the second line. Click &quot;Run this program&quot; to try out your program.</p>
+      </div>
+      <div>
+        <h3 class="Heading2"> <font color="#0000A0">The canvas</font></h3>
+        <p class="Normal"> When using VPython the canvas shows objects in 3D.</p>
+        <p class="Normal"> (0,0,0) is in the center of the canvas<img src="axes.gif" alt="axes" align="right" /> . The +x axis runs to the right, the +y axis runs up, and the +z axis points out of the screen, toward you.</p>
+        <p class="Normal"> x, y, and z are measured in whatever units you choose; 
+          
+          the canvas is automatically scaled appropriately. (You could, for example, 
+          
+          create a sphere with a radius of 1E-15 m to represent a nucleus, or a sphere 
+          
+          with a radius of 1E6 m to represent a planet, though it wouldn't make sense 
+          
+          to put both of these objects in the same canvas!)</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">The Output window</font></h3>
+        <p class="Normal"> The output of any -print- statements you execute in your program goes to  a scrolling text window underneath the graphics window. You can use this window to print values of variables, print lists, print messages, etc.</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">The Code window</font></h3>
+        <p class="Normal">If you type or copy the following simple program into the program editor and run it (click &quot;Run this program&quot; or press Ctrl-1 or Ctrl-2), you will see 
+          a canvas like the one shown in the figure. </p>
+        <p class="program">        redbox=box(pos=vector(4,2,3),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        size=vector(8,4,6),color=color.red)<br />
+      ball=sphere(pos=vector(4,7,3),radius=2,color=color.green)</p>
+        <p class="Normal"> <span class="Heading-1"><img src="spherebox.gif" alt="sphere" align="right" /></span></p>
+      <h3 class="Heading2"><font color="#0000A0">Viewing the scene</font></h3>
+        <p class="Normal"> In the canvas, click and drag with the right mouse 
+          button (or hold down the Ctrl key while dragging). Drag left or right, and 
+          you rotate around the scene. To rotate around a horizontal axis, drag up 
+          or down. Click and drag up or down with the 
+          middle mouse button to move closer to the scene or farther away (on a 2-button 
+          mouse, hold down the left and right buttons; on a 1-button mouse, hold down 
+          the Alt key).</p>
+
+        <h3 class="Heading-1"> <font color="#0000A0">II. VPython Entities</font></h3>
+
+        <h3 class="Heading2"> <font color="#0000A0">Objects, names, and attributes</font></h3>
+        <p class="Normal"> The graphical objects you create, such as spheres, boxes, 
+          
+          and curves, continue to exist for the duration of your program, and the 
+          
+          VPython 3D graphics module will continue to display them, wherever they are. 
+          
+          You must give each object a name (such as <span class="attribute">redbox</span> or <span class="attribute">ball</span> in the example above) if you 
+          
+          wish to refer to it again later in your program. All objects have attributes: 
+          
+          properties like <span class="attribute">ball.pos</span> (the position 
+          
+          of the sphere), <span class="attribute">ball.color</span>, and <span class="attribute">radius</span> or other size parameter. If you change an attribute of an object, such as 
+          
+          its position or color, VPython will automatically display the object in its 
+          
+          new location, or with its new color.</p>
+        <p class="Normal"> You can set the values of attributes in the &quot;constructor&quot; (the code used to create the object), and you can also modify attributes later:</p>
+        <p class="program"> ball.radius = 2.2</p>
+        <p class="Normal"> In addition to the built-in set of attributes, you can 
+          
+          create new attributes. For example, you might create a sphere named <span class="attribute">moon</span>; 
+          
+          in addition to its radius and location, you might give it attributes such 
+          
+          as mass (<span class="attribute">moon.mass</span>) and momentum (<span class="attribute">moon.momentum</span>).</p>
+        <h3 class="Heading2"><font color="#0000A0">Vectors</font> </h3>
+        <p class="program"></p>
+        <p class="Normal"><span class="Normal">Not all objects in VPython are visible objects. For example, 
+          
+          VPython allows you to create 3D vector quantities, and to perform vector 
+          
+          operations on them. If you create a vector quantity called <strong>a</strong>, 
+          
+          you may refer to its components as <strong>a.x</strong><em class="code">,  </em><strong>a.y</strong>, and <strong> a.z</strong>. To add two vectors, <strong> a</strong> and <strong> b</strong>, however, you do not need to add the 
+          
+      components one by one; VPython will do the vector addition for you:</span>      </p>
+        <p class="program"> a = vector(1,2,3)<br />
+        b = vector(4,5,6)<br />
+        c = a+b</p>
+        <p class="Normal"> If you include print(c), you will see that 
+          
+          it is a vector with components (5, 7, 9.).</p>
+        <h3 class="Heading2"><font color="#0000A0">Scalar multiplication</font></h3>
+        <p class="program">d = 3*a # d is a vector with components (3, 6, 9)</p>
+
+          <h3 class="Heading2"><font color="#0000A0">Vector magnitude</font> </h3>
+          <p class="program">s = mag(c) # s is a scalar<br />
+          z = mag(c)**2 # you can square the magnitude of a vector</p>
+
+          <h3 class="Heading2"><font color="#0000A0">Vector products</font> </h3>
+          <p class="program">f = cross(a,b) # cross product<br />
+          g = dot(a,b)			# dot product<br />
+          h = norm(a) # normalized (unit) vector; a/mag(a) </p>
+          <p class="Normal"> The attributes of VPython objects can be vectors, such 
+            
+            as velocity or momentum.</p>
+
+        <h3 class="Heading-1"> <font color="#0000A0">III. Simple Python Programming</font></h3>
+
+        <h3 class="Heading2"><font color="#0000A0">Using the 3D Graphics Module</font></h3>
+
+          <p class="Normal"> The necessary first line of your program is created for you, and looks like this, if the current version is 1.1:</p>
+          <p class="program"> GlowScript 1.1 VPython</p>
+
+          <h3 class="Heading2"><font color="#0000A0">Comments</font></h3>
+        <p class="Normal"> A comment in a Python program starts with &quot;#&quot;</p>
+        <p class="program"> # this line is a comment</p>
+
+        <h3 class="Heading2"><font color="#0000A0">Variables</font></h3>
+
+        <p class="Normal"> Variables can be created anywhere in a Python program, simply by assigning a variable name to a value. The type of the variable is determined by the assignment statement.</p>
+        <p class="program"> a = 3 # an integer<br />
+        b = -2.5 # a floating-point number<br />
+        c = vector(0.4, 3e3, -1e1) # a vector<br />
+        Earth = sphere(pos=vector(0,0,0), <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        radius=6.4e6) # a 3D object<br />
+        bodies = [ship, Earth, Moon]	
+          
+          # a list of objects</p>
+        <p class="Normal"> Basic VPython objects such as sphere() and box() have
+          a set  
+          of &quot;attributes&quot; such as color, and you can define additional attributes
+          such  
+          as mass or velocity. Other objects, such as vector(), have built-in
+          attributes 
+          but you cannot create additional attributes.      </p>
+      <h3 class="Heading2"><font color="#0000A0">Exponentiation</font></h3>
+
+        <p class="program"> x**2 # Not x^2, which is a bit operation in Python</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">Logical Tests</font></h3>
+        <p class="program"></p>
+        <p class="program"> # Note the obligatory indentation here.<br />
+          if a == b:&nbsp;&nbsp;&nbsp;# note the double equal sign for &quot;is equal&quot;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;c = 5 &nbsp;&nbsp;&nbsp;# executed if a is equal to b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;d = 5*a&nbsp;&nbsp;# also executed if a is equal to b<br />
+        elif a &gt; 10: # a not equal to b but greater than 10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;x = a+b<br />
+else:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# any other case<br />
+&nbsp;&nbsp;&nbsp;&nbsp;x = b/a </p>
+        <h3 class="Heading2"><font color="#0000A0">Logical expressions</font></h3>
+        <table border="1">
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> ==</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> equal</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> !=</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> not equal</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> &lt;</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> less than</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> &gt; </p></td>
+            <td rowspan="1" colspan="1"><p class="program"> greater than</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> &lt;=</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> less than or equal </p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> &gt;=</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> greater or equal</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> or</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> logical or</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> and</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> logical and</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> in</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> member of a sequence</p></td>
+          </tr>
+          <tr>
+            <td rowspan="1" colspan="1"><p class="program"> not in</p></td>
+            <td rowspan="1" colspan="1"><p class="program"> not sequence member</p></td>
+          </tr>
+        </table>
+
+        <h3 class="Heading2"><font color="#0000A0">Lists</font></h3>
+        <p class="Normal"> A list is an ordered sequence of any kind of object. It is delimited by square brackets.</p>
+        <p class="program"> moons = [Io, Europa, Ganymede, Callisto]</p>
+        <p class="Normal"> The function &quot;arange&quot; (short for &quot;arrayrange&quot;)
+           creates an array of numbers:</p>
+        <p class="program"> angles = arange (0, 2*pi, pi/100) <br />
+        # from 0 to 2*pi-(pi/100) in steps of (pi/100)<br />
+        <br />
+        numbers = arange(10) # integer argument -&gt; integers<br />
+        print(numbers) # [0,1,2,3,4,5,6,7,8,9] </p>
+
+        <h3 class="Heading2"> <font color="#0000A0">Loops</font></h3>
+        <p class="Normal"> The simplest loop in Python is a &quot;while&quot; loop. The loop continues as long as the specified logical expression is true (note the obligatory indentation):</p>
+        <p class="program"> while x &lt; 23:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;x = x + vx*dt</p>
+        <p class="Normal"> To write an infinite loop, just use a logical expression that will always be true:</p>
+        <p class="program"> while True:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;rate(30) # limit animation rate, render scene    <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;ball.pos = ball.pos + (ball.momentum/ball.mass)*dt</p>
+      <p class="Normal"> Infinite loops are ok, because you can always interrupt the program by clicking &quot;Edit this program&quot;. However, you <strong><em>MUST</em></strong> include a rate statement in the animation loop.</p>
+        <p class="Normal"> It is also possible to loop over the members of a sequence:<br />
+        <p class="program"> moons = [Io, Europa, Ganymede, Callisto]<br />
+        for a in moons:<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;r = a.pos - Jupiter.pos<br />
+        &nbsp; <br />
+        for x in arange(10):<br />
+        # see &quot;lists&quot; above<br />
+        ...<br />
+        &nbsp; <br />
+        for theta in arange(0., 2.*pi, pi/100.): <br />
+        # see &quot;lists&quot; above</p>
+        You can restart a loop, or terminate the loop prematurely:</p>
+        <p class="program">if a == b: continue # go back to the start of the loop<br />
+        if a &gt; b: break &nbsp;&nbsp;&nbsp;&nbsp;# exit the loop</p>
+
+        <h3 class="Heading2"> <font color="#0000A0">Printing results</font></h3>
+        <p class="Normal"> To print a number, a vector, a list, or anything else,
+          use the &quot;print&quot; option:</p>
+        <p class="program"> print(Europa.momentum)</p>
+        <p class="Normal"> To print a text message, enclose it in quotes:</p>
+        <p class="program"> print(&quot;We   crashed with speed&quot;, v, &quot;m/s.&quot;)</p>
+        <p class="Normal"> This could also be done like this:</p>
+        <p class="program"> print(&quot;We   crashed with speed {} m/s.&quot;.format(v))</p>
+      <h3 class="Heading2"><font color="#0000A0">More Information about Python</font></h3>
+        <p class="Normal">We have summarized a  small but important subset of the Python programming
+          language. Extensive Python information is available on the internet.</p>
+
+    <!-- InstanceEndEditable --></td>
+  </tr>
+  <tr>
+    <td height="16" colspan="4"></td>
+  </tr>
+</table>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>
