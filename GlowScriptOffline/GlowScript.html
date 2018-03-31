@@ -10,20 +10,22 @@
 <link type="text/css" href="glowscript_libraries/ide.css" rel="stylesheet" />
 <script type="text/javascript" src="glowscript_libraries/jquery.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="glowscript_libraries/editor.js"></script>
+<script type="text/javascript" src="glowscript_libraries/RSrun.2.7.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/glow.2.7.min.js"></script>
 
 <script type="text/javascript">
+var gsversion = 2.7
 
 var glowscript_run = undefined
 
 // localCompile is a modification of https://github.com/BruceSherwood/glowscript/blob/master/ide/ide.js
 function localCompile(header, compReady, errordiv) {
     errordiv.innerHTML = ""
-    var sdir = "../"
     var compiler_url
     if (header.lang == 'vpython' || header.lang == 'rapydscript') {
-        compiler_url = sdir + "package/RScompiler." + header.version + ".min.js"
-    } else compiler_url = sdir + "package/compiler." + header.version + ".min.js"
+        compiler_url = "glowscript_libraries/RScompiler." + header.version + ".min.js"
+    } else compiler_url = "glowscript_libraries/compiler." + header.version + ".min.js"
     window.glowscript_compile = undefined
     $.ajax({
         url: compiler_url,
@@ -35,7 +37,7 @@ function localCompile(header, compReady, errordiv) {
         alert(err + " getting " + xhr.url + ": " + exc)
     }).done(function () {
         if (!window.glowscript_compile) {
-            alert("Failed to load compiler from package: " + compiler_url)
+            alert("Failed to load compiler from " + compiler_url)
             return
         }
                     
@@ -47,13 +49,8 @@ function localCompile(header, compReady, errordiv) {
            errordiv.innerHTML = "<p>"+err+"</p>"
            return
         }
-        var divid = "glowscript"
-        var main
-        var v = Number(header.version.substr(0,3))
-        if (v >= 2.0) main = 'main(__func)' // Starting Dec. 2015, using Streamline files from Salvatore di Dio
-        else main = 'main()'
         embedScript = ";(function() {" + embedScript + '\n'+
-                       'glowscript_run = function() { ' + main + '; }\n' +
+                       'glowscript_run = function() { main(__func); }\n' +
                        '})()'
 
         embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
@@ -102,17 +99,11 @@ function parseVersionHeader( source ) { // null if sourceLines already exists
 
 var gsErrordiv
 
-var gsDeflanguage = "GlowScript 2.7 VPython";
-
-function setDefLanguage(lang) {
-   gsDeflanguage = lang
-}
-
 function runJavaScript(text,userargs,userinput, wantsConsole) {
     var i = text.indexOf("GlowScript")
     if ( i > 0 ) text = text.substring(i)
     if ( text.indexOf("//\n") == 0 ) text = text.substring(3)
-    if ( i < 0 ) text = gsDeflanguage + "\n" + text  
+    if ( i < 0 ) text = "GlowScript "+gsversion+" VPython" + "\n" + text  
     var csHeader = parseVersionHeader(text)
     gsErrordiv = $("#gserrors")[0]
     localCompile(csHeader, ready, gsErrordiv)
@@ -120,7 +111,8 @@ function runJavaScript(text,userargs,userinput, wantsConsole) {
 }
 
 function runCode() {
-    var sc = $("#sourcetext").val();
+    //var sc = $("#sourcetext").val()
+    var sc = GSedit.getValue()
     runJavaScript(sc);
 }
 
@@ -150,18 +142,16 @@ function getConsoleHeight() {
 
 <button onclick="runCode()">Run</button> 
 &nbsp;&nbsp;&nbsp;
-<a href="glowscript_libraries/VPythonDocs/index.html" target="_blank">Help</a>
+<a href="VPythonDocs/index.html" target="_blank">Help</a>
 &nbsp;&nbsp;&nbsp;
 <input type="file" id="read_local_file"/>
 
-<div>
-<textarea id="sourcetext" rows=20, cols="100">
-GlowScript 2.7 VPython
-box()
-</textarea>
-</div>
+<div id='sourcetext'></div>
 
 <script>
+var s = 'from vpython import *\nbox()'
+GSedit.init(document.getElementById('sourcetext'), s, false)     	
+
 function readSingleFile(evt) {
     var f, reader
     f = evt.target.files[0];
@@ -169,8 +159,8 @@ function readSingleFile(evt) {
         reader = new FileReader();
         reader.onload = function(e) {
         	var content = e.target.result
-        	if (content.slice(0,10) !== 'GlowScript') content = "GlowScript 2.7 VPython\n"+content
-            document.getElementById('sourcetext').value = content
+        	GSedit.setValue(content)
+            //document.getElementById('sourcetext').value = content
             //var moddate = (f.lastModifiedDate) ? f.lastModifiedDate.toLocaleDateString() : ''
             //var info = {name:f.name, text:contents, size:f.size, type:f.type, date:moddate}
         }
