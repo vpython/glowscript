@@ -34,7 +34,7 @@ import zipfile
 
 from google.appengine.ext import ndb
 from google.appengine.api import users
-import os, re, base64, logging
+import os, re, base64, logging # logging.info(....) prints to GAE launcher log, for debugging
 from datetime import datetime
 
 # URI encoding (percent-escaping of all characters other than [A-Za-z0-9-_.~]) is used for names
@@ -367,10 +367,16 @@ class ApiUserFolderProgramDownload(ApiRequest):
 	            return self.error(404)
 	        source = unicode(ndb_program.source or unicode())
 	        end = source.find('\n')
-	        vp = source[0:end].find('ython')
-	        if vp > -1:
+	        if source[0:end].find('ython') > -1: # VPython
 	        	source = "from vpython import *\n#"+source
-	        self.response.headers['Content-Disposition'] = 'attachment; filename='+name+'.py'
+	        	extension = '.py'
+	        elif source[0:end].find('apyd') > -1: # RapydScript
+	        	extension = '.py'
+	        elif source[0:end].find('ofee') > -1: # CofeeScript (1.1 is the only version)
+	        	extension = '.cs'
+	        else:                    # JavaScript
+	        	extension = '.js'
+	        self.response.headers['Content-Disposition'] = 'attachment; filename='+name+extension
 	        self.response.write(source)
         elif option == 'downloadFolder':
 	        if not self.validate(user, folder): return
@@ -391,12 +397,18 @@ class ApiUserFolderProgramDownload(ApiRequest):
 	        for p in programs:
 	        	source = p['source']
 		        end = source.find('\n')
-		        vp = source[0:end].find('ython')
-		        if vp > -1:
+		        if source[0:end].find('ython') > -1: # VPython
 		        	source = "from vpython import *\n#"+source
+		        	extension = '.py'
+		        elif source[0:end].find('apyd') > -1: # RapydScript
+		        	extension = '.py'
+		        elif source[0:end].find('ofee') > -1: # CofeeScript (1.1 is the only version)
+		        	extension = '.cs'
+		        else:                    # JavaScript
+	        		extension = '.js'
 		        out = StringIO.StringIO()
 		        out.write(unicode(source))
-		        za.writestr(p['name']+'.py', out.getvalue().encode('utf-8'))
+		        za.writestr(p['name']+extension, out.getvalue().encode('utf-8'))
 	        za.close()
 	        self.response.headers['Content-Disposition'] = 'attachment; filename='+folder+'.zip'
 	        self.response.write(buff.getvalue())
