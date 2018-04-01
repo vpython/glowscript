@@ -59,7 +59,6 @@ GSedit.init = function(placement, source, width, readonly) {
 	var end = source.indexOf('\n')+1 // position cursor at start of line 2, below GlowScript header
 	GSedit.editarea[0].setSelectionRange(end,end)
 	GSedit.editarea[0].focus()
-	//GSresize(w)
 	GSupdate()
 	GSedit.editarea.scrollTop(0)
 	
