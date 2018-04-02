@@ -39,7 +39,6 @@
 <body class="GlowScriptBody">
 <link type="text/css" href="glowscript_libraries/jquery-ui.custom.css" rel="stylesheet" />
 <link type="text/css" href="glowscript_libraries/ide.css" rel="stylesheet" />
-<script type="text/javascript" src="glowscript_libraries/MathJax2.7.0-TeX-MML-AM_CHTML.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery-ui.custom.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/editor.js"></script>
@@ -248,11 +247,12 @@ $(window).resize(function () {
 	splitAdjust()
 })
 
-window.onbeforeunload = function(e) { // Some browsers just say "Do you want to leave this site? Changes you made may not be saved."
+window.onbeforeunload = undefined // execute window.onbeforeunload = Quit if GSedit.changed() is true
+	
+function Quit(e) { // Some browsers just say "Do you want to leave this site? Changes you made may not be saved."
    var s = "To continue without saving, click OK.\nTo save, click Cancel, then copy and paste into an application such as Notepad or TextEdit."
    e.returnValue = s
-   if (GSedit.changed()) return s
-   else return
+   return s
 }
 
 </script>

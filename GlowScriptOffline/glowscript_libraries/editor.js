@@ -43,6 +43,7 @@ GSedit.setwidth = function(w) { // w is the width used by the program text; affe
 }
 
 GSedit.init = function(placement, source, width, readonly) {
+	window.onbeforeunload = undefined
 	GSedit.readonly = readonly
 	var w = width-numberwidth-wmargin
 	var h = window.innerHeight -hmargin
@@ -82,6 +83,7 @@ var GSresize = function(w) { // readjust the width and height of the textareas
 }
 
 var GScutpaste = function() {
+	window.onbeforeunload = Quit // ensure giving a warning when quitting the browser or browser tab
 	setTimeout(function(){GSupdate(), 10}) // the cut or paste hasn't happened yet; delay GSupdate
 }
 
@@ -102,12 +104,18 @@ var GSupdate = function() { // update the display of line numbers if necessary
 	}
 }
 
-var ENTER = 13   // Enter
-var BACK  =  8   // Backspace
-var DEL   = 46   // Delete
-var SHIFT = 16   // Shiftkey
+// TAB doesn't come through to here
+var ENTER =     13   // Enter
+var BACK  =      8   // Backspace
+var DEL   =     46   // Delete
+var SHIFT =     16   // Shiftkey
+var CTRL  =     17   // Ctrl
+var COMMENT =  191   // Crtl-/
+var INDENT =   221   // Ctrl-]
+var UNINDENT = 219   // Ctrl-[
 
 var GScheck = function() { // handle indentation; check whether we might need to update the display of line numbers
+	window.onbeforeunload = Quit // ensure giving a warning when quitting the browser or browser tab
 	
 	var indenting = function(text, cursor) { // create indent depending on next line
 		var startspaces = /([\ ]*)/
@@ -141,7 +149,30 @@ var GScheck = function() { // handle indentation; check whether we might need to
 			indenting(text, cursor)
 		}
 		GSupdate()
+	} else if (c == INDENT || c == UNINDENT || c == COMMENT) {
+		var start = GSedit.editarea[0].selectionStart
+		var end   = GSedit.editarea[0].selectionEnd
+		var text  = GSedit.editarea.val()
+		while (start > 0 && text[start] != '\n') start--
+		if (start > 0) start++
+		while (end < text.length && text[end] != '\n') end++
+		if (c == COMMENT) {
+			while (true) {
+				if (text[start] == '#') {
+					text = text.slice(0,start)+text.slice(start+1)
+					end--
+				} else {
+					text = text.slice(0,start)+'#'+text.slice(start)
+					end++
+				}
+				var next = text.slice(start).indexOf('\n') // find next newline
+				if (next < 0) break
+				start += next
+				if (start >= end) break
+			}
+			GSedit.editarea.val(text)
+			GSupdate()
+		}
 	}
-	if (GSedit.change) GSedit.change() // GS.change is set in ide.js
 }
 
