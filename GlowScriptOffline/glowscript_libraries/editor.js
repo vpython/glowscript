@@ -73,7 +73,15 @@ GSedit.init = function(placement, source, width, readonly) {
 		GSedit.linenumbersarea.scrollTop(GSedit.editarea[0].scrollTop) // adjust line number display
 	});
 	initialized = true
+	$('#edit').on('keydown', function(e) {
+		var keyCode = e.keyCode || e.which
+		if (keyCode == TAB) {
+			if (e.shiftKey) SHIFT = true
+			e.preventDefault()
+		}
+	})
 }
+
 
 var GSresize = function(w) { // readjust the width and height of the textareas
 	GSedit.editarea.css('width', w-numberwidth-wmargin)
@@ -104,15 +112,17 @@ var GSupdate = function() { // update the display of line numbers if necessary
 	}
 }
 
-// TAB doesn't come through to here
 var ENTER =     13   // Enter
 var BACK  =      8   // Backspace
 var DEL   =     46   // Delete
-var SHIFT =     16   // Shiftkey
+//var SHIFT =     16   // Shiftkey
 var CTRL  =     17   // Ctrl
 var COMMENT =  191   // Crtl-/
-var INDENT =   221   // Ctrl-]
-var UNINDENT = 219   // Ctrl-[
+var TAB   =      9   // Tab
+var SHIFT = false // true if Shift-Tab
+
+var INDENTLENGTH = 4
+var INDENT = '    ' // four spaces for an indent
 
 var GScheck = function() { // handle indentation; check whether we might need to update the display of line numbers
 	window.onbeforeunload = Quit // ensure giving a warning when quitting the browser or browser tab
@@ -149,29 +159,55 @@ var GScheck = function() { // handle indentation; check whether we might need to
 			indenting(text, cursor)
 		}
 		GSupdate()
-	} else if (c == INDENT || c == UNINDENT || c == COMMENT) {
+	} else if (c == TAB || c == COMMENT) {
 		var start = GSedit.editarea[0].selectionStart
 		var end   = GSedit.editarea[0].selectionEnd
 		var text  = GSedit.editarea.val()
 		while (start > 0 && text[start] != '\n') start--
 		if (start > 0) start++
-		while (end < text.length && text[end] != '\n') end++
-		if (c == COMMENT) {
+		if (c == TAB) { // indent or exdent
 			while (true) {
-				if (text[start] == '#') {
-					text = text.slice(0,start)+text.slice(start+1)
-					end--
+				if (SHIFT && start+INDENTLENGTH < text.length && text.slice(start,start+INDENTLENGTH) == INDENT) {
+					text = text.slice(0,start)+text.slice(start+INDENTLENGTH)
+					end -= INDENTLENGTH
 				} else {
-					text = text.slice(0,start)+'#'+text.slice(start)
-					end++
+					text = text.slice(0,start)+INDENT+text.slice(start)
+					end += INDENTLENGTH
 				}
 				var next = text.slice(start).indexOf('\n') // find next newline
 				if (next < 0) break
-				start += next
+				start += next+1
 				if (start >= end) break
 			}
+			SHIFT = false
 			GSedit.editarea.val(text)
 			GSupdate()
+		} else if (c == COMMENT) { // toggle commenting
+			var n = text.indexOf('\n')
+			if (n > 0) {
+				var firstline = text.slice(0,n)
+				var insert = '//'
+				var length = 2
+				if (firstline.indexOf('yth') > 0 || firstline.indexOf('pyd') > 0) { // Python or RapydScript
+					insert = '#'
+					length = 1
+				}
+				while (true) {
+					if (text.slice(start,start+length) == insert) {
+						text = text.slice(0,start)+text.slice(start+length)
+						end -= length
+					} else {
+						text = text.slice(0,start)+insert+text.slice(start)
+						end += length
+					}
+					var next = text.slice(start).indexOf('\n') // find next newline
+					if (next < 0) break
+					start += next+1
+					if (start >= end) break
+				}
+				GSedit.editarea.val(text)
+				GSupdate()
+			}
 		}
 	}
 }
