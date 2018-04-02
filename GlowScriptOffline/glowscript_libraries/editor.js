@@ -21,6 +21,7 @@ var wmargin = 50 // from right edge of text to right edge of window
 var hmargin = 50 // from bottom of text to bottom of window
 var numberwidth = 50 // width of line number area
 var initialized = false
+var original
 
 var GSedit = {linenumbersarea:null, editarea: null, readonly:true, source:null, change:null}
 
@@ -28,12 +29,16 @@ GSedit.getValue = function () { return GSedit.editarea.val() }
 
 GSedit.setValue = function (source) {
 	GSedit.editarea.val(source)
+	original = GSedit.editarea.val() // important to save in the form it has in the textarea, else GSedit.changed() fails
 	GSupdate()
 	GSedit.editarea.scrollTop(0)
 }
 
+GSedit.changed = function () { 
+	return GSedit.editarea.val() != original
+}
+
 GSedit.setwidth = function(w) { // w is the width used by the program text; affected by dragging divider between text and display
-	console.log('GSedit.setwidth', w)
 	GSedit.editarea.css('width', w-numberwidth-wmargin)
 }
 
@@ -52,6 +57,7 @@ GSedit.init = function(placement, source, width, readonly) {
 	    'monospace').css('font-size', '13px').css('width', w).css('height', h).css('border', '0').css('outline', 'none').css('line-height', '15px')
 	GSedit.linenumbersarea.val('1')
 	GSedit.editarea.val(source)
+	original = GSedit.editarea.val() // important to save in the form it has in the textarea, else GSedit.changed() fails
 	GSedit.editarea.attr('readonly', GSedit.readonly)
 	GSedit.editarea[0].addEventListener('keyup', GScheck)
 	GSedit.editarea[0].addEventListener('cut', GScutpaste)

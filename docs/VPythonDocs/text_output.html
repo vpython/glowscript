@@ -148,7 +148,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="program">print_options(delete=True)</p>
       <p class="Normal">After deleting the region, another print statement will recreate it, with the previously specified width and height. </p>
       <p class="Normal">By default the print area appears underneath the canvas (pos = 'bottom') but you can make it appear to the right of the canvas with the following statement (you may have to include something like width=100, because if the window is too narrow to fit the canvas and the text area side by side, the text area goes below the canvas):</p>
-      <p class="program">print_options(pos='right')</p>
+      <p class="program">print_options(pos='right')      </p>
+      <p class="Normal">You can also place the print area at a specifiable place on the page:</p>
+      <p class="program">print_options(place=scene.title_anchor)<br />
+        print_options(place=scene.caption_anchor)        <br />
+      </p>
       <p class="Normal">You can obtain the current contents of the print region as a character string:</p>
       <p class="program">text = print_options(contents=True)</p>
       <p class="Normal">The text is extracted before processing clear or destroy requests. If you don't request the contents, print_options returns the empty character string &quot;&quot;'.</p>

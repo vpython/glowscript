@@ -2,7 +2,7 @@
 <html>
 <head>
 <!-- Using GlowScript locally, based on the work of Vesa Lappalainen vesal@jyu.fi -->
-<title>Local GlowScript</title>
+<title>GlowScript Offline</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
   <style>
@@ -37,22 +37,26 @@
 </head>
 
 <body class="GlowScriptBody">
+<link type="text/css" href="glowscript_libraries/jquery-ui.custom.css" rel="stylesheet" />
 <link type="text/css" href="glowscript_libraries/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="glowscript_libraries/MathJax2.7.0-TeX-MML-AM_CHTML.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery-ui.custom.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/editor.js"></script>
 <script type="text/javascript" src="glowscript_libraries/RSrun.2.7.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/glow.2.7.min.js"></script>
+<script type="text/javascript" src="glowscript_libraries/split.min.js"></script>
 </body>
 
 <script>
 var gsversion = 2.7
+var printpane = false
 
 var glowscript_run = undefined
 
 // localCompile is a modification of https://github.com/BruceSherwood/glowscript/blob/master/ide/ide.js
 function localCompile(header, compReady, errordiv) {
-    errordiv.innerHTML = ""
+	errordiv.innerHTML = ""
     var compiler_url
     if (header.lang == 'vpython' || header.lang == 'rapydscript') {
         compiler_url = "glowscript_libraries/RScompiler." + header.version + ".min.js"
@@ -64,7 +68,7 @@ function localCompile(header, compReady, errordiv) {
         cache: true,
         crossDomain: true  // use script tag rather than xhr
     }).fail(function (xhr, err, exc) {
-        (xhr);
+        (xhr)
         alert(err + " getting " + xhr.url + ": " + exc)
     }).done(function () {
         if (!window.glowscript_compile) {
@@ -72,7 +76,7 @@ function localCompile(header, compReady, errordiv) {
             return
         }
                     
-        var embedScript;
+        var embedScript
         try {
            embedScript = window.glowscript_compile(header.source, {lang: header.lang, 
                 version: header.version.substr(0,3)})
@@ -89,14 +93,13 @@ function localCompile(header, compReady, errordiv) {
     })
 }
 
-function parseVersionHeader( source ) { // null if sourceLines already exists
-    if (source !== null) sourceLines = source.split("\n")
-    else source = 'already exists\n'
+function parseVersionHeader( source ) {
+    var sourceLines = source.split("\n")
     var header = sourceLines[0]
     // Remove a newline or similar character at the end of header:
     if (header.charCodeAt(header.length-1) < 32)
         header = header.substring(0,header.length-1)
-    var rest = source.substr( header.length+1 )
+    var rest = source.substring( header.length+1 )
     var ret = {
         version: null,
         lang: '', // 'vpython' (default) or 'rapydscript' or 'javascript' or a string that is neither (e.g. when editing header)
@@ -120,7 +123,8 @@ function parseVersionHeader( source ) { // null if sourceLines already exists
         if (!(ret.lang == 'javascript' || ret.lang == 'rapydscript' || ret.lang == 'vpython')) return ret
     }
     var ver = elements[1]
-    var okv = true;
+    if (ver != gsversion) alert('The version number, '+ver+', should be '+gsversion)
+    var okv = true
     return {
         version: ver,
         lang: ret.lang,
@@ -130,21 +134,25 @@ function parseVersionHeader( source ) { // null if sourceLines already exists
 
 var gsErrordiv
 
-function runJavaScript(text,userargs,userinput, wantsConsole) {
-    var i = text.indexOf("GlowScript")
-    if ( i > 0 ) text = text.substring(i)
-    if ( text.indexOf("//\n") == 0 ) text = text.substring(3)
-    if ( i < 0 ) text = "GlowScript "+gsversion+" VPython" + "\n" + text  
-    var csHeader = parseVersionHeader(text)
-    gsErrordiv = $("#gserrors")[0]
-    localCompile(csHeader, ready, gsErrordiv)
-    return ""
-}
-
 function runCode() {
-    //var sc = $("#sourcetext").val()
-    var sc = GSedit.getValue()
-    runJavaScript(sc);
+    var text = GSedit.getValue()
+    var end = text.indexOf('\n')
+    var i = text.slice(0,end).indexOf("GlowScript") // Look for "GlowScipt" in first line
+    if (i < 0 && text.indexOf('from vpython') === 0) text = "GlowScript "+gsversion+" VPython" + "\n" + text
+    var header = parseVersionHeader(text)
+    printpane = false
+    if (header.source.indexOf('print(') >= 0) { // if the program uses print() or GSprint(), expand 3rd pane
+    	printpane = true
+    	var end = header.source.indexOf('\n')
+    	var insert
+        if (header.lang == 'vpython' || header.lang == 'rapydscript')
+        	 insert = "print_options(place=$('#printing'),  width=300, height=500, clear=True)\n"
+        else insert = "print_options({place:$('#printing'), width:300, height:500, clear:true})\n"
+    	header.source = header.source.slice(0,end+1) + insert + header.source.slice(end+1)
+    }
+	splitAdjust()
+    gsErrordiv = $("#gserrors")[0]
+    localCompile(header, ready, gsErrordiv)
 }
 
 function ready(sc) {
@@ -154,7 +162,7 @@ function ready(sc) {
     window.__context = { glowscript_container: $(".glowscript").removeAttr("id") }
     
     // TODO: how to set an error handler???
-    window.__context.errorHandler =gsErrorHandler
+    window.__context.errorHandler = gsErrorHandler
     
     runScript = new Function(sc)
     runScript()
@@ -178,17 +186,26 @@ function getConsoleHeight() {
 <input type="file" id="read_local_file"/>
 
 <script>
+
 function readSingleFile(evt) {
-    var f, reader
-    f = evt.target.files[0];
-    if (f) {
-        reader = new FileReader();
-        reader.onload = function(e) {
-        	var content = e.target.result
-        	GSedit.setValue(content)
-        }
-        reader.readAsText(f)
-    }
+	var ok = true
+	if (GSedit.changed()) {
+		var s = "To continue without saving, click OK.\nTo save, click Cancel, then copy and paste into an application such as Notepad or TextEdit."
+		if (confirm(s)) ok = true
+		else ok = false
+	}
+	if (ok) {
+	    var f, reader
+	    f = evt.target.files[0]
+	    if (f) {
+	        reader = new FileReader()
+	        reader.onload = function(e) {
+	        	var content = e.target.result
+	        	GSedit.setValue(content)
+	        }
+	        reader.readAsText(f)
+	    }
+	}
 }
 document.getElementById('read_local_file').addEventListener('change', readSingleFile, false)
 </script>
@@ -198,28 +215,45 @@ document.getElementById('read_local_file').addEventListener('change', readSingle
 
 <div class='api'>
 	<div id='sourcetext' class="split split-horizontal"></div>
-	<div id ="glows" class="split split-horizontal"></div>
+	<div id='glows' class="split split-horizontal"></div>
+	<div id='printing' class="split split-horizontal"></div>
 </div>
 
-<script type="text/javascript" src="glowscript_libraries/split.min.js"></script>
 <script>
+// Splits library: https://github.com/nathancahill/Split.js
 var lastwindowwidth = window.innerWidth
-var splits = Split(['#sourcetext', '#glows'], {sizes: [50,50], onDrag:splitdrag})
+var splits = Split(['#sourcetext', '#glows', "#printing"], {sizes: [50,50,0], onDrag:splitdrag})
 // splits.getSizes() returns current percentage widths; splits.setSizes([w1,w2]) resets them
-var s = 'from vpython import *\nbox()'
-GSedit.init("#sourcetext", s, 0.5*lastwindowwidth, false) // not readonly
+var source = 'from vpython import *\nbox()'
+GSedit.init("#sourcetext", source, 0.5*lastwindowwidth, false) // not readonly
 
 function splitdrag() {
-	var s = splits.getSizes() // returns [width1, width2]
+	var s = splits.getSizes() // returns [width1, width2, width3]
 	GSedit.setwidth(0.01*s[0]*window.innerWidth)
 }
 
-$(window).resize(function () {
+function splitAdjust() {  // p is true if print pane shouold be open
 	var current = splits.getSizes()
 	var w1 = current[0]*lastwindowwidth/window.innerWidth
+	var w2 = current[1]
+	var w3 = current[2]
+	var rest = 100-w1
 	lastwindowwidth = window.innerWidth
-	splits.setSizes([w1,100-w1])
+	if (printpane) splits.setSizes([w1,0.7*rest,0.3*rest])
+	else splits.setSizes([w1,rest,0])
 	GSresize(0.01*w1*window.innerWidth)
+}
+
+$(window).resize(function () {
+	splitAdjust()
 })
+
+window.onbeforeunload = function(e) { // Some browsers just say "Do you want to leave this site? Changes you made may not be saved."
+   var s = "To continue without saving, click OK.\nTo save, click Cancel, then copy and paste into an application such as Notepad or TextEdit."
+   e.returnValue = s
+   if (GSedit.changed()) return s
+   else return
+}
+
 </script>
 </html>
