@@ -35,7 +35,9 @@ GSedit.setValue = function (source) {
 }
 
 GSedit.changed = function () { 
-	return GSedit.editarea.val() != original
+	var changed = GSedit.editarea.val() != original
+	if (!changed) window.onbeforeunload = undefined
+	return changed
 }
 
 GSedit.setwidth = function(w) { // w is the width used by the program text; affected by dragging divider between text and display
