@@ -34,8 +34,8 @@ GSedit.setValue = function (source) {
 	GSedit.editarea.scrollTop(0)
 }
 
-GSedit.changed = function () { 
-	var changed = GSedit.editarea.val() != original
+GSedit.changed = function () {
+	var changed = GSedit.editarea.val() != original // for a large program (Stonehenge) this takes either 0 time or 0.1 millisecond
 	if (!changed) window.onbeforeunload = undefined
 	return changed
 }
@@ -82,6 +82,12 @@ GSedit.init = function(placement, source, width, readonly) {
 			e.preventDefault()
 		}
 	})
+	setTimeout(updatechange, 200) // 200 ms is much longer than the time to execute GSedit.changed()
+}
+
+var updatechange = function() {
+	GSedit.changed()
+	setTimeout(updatechange, 200) // maintain the changed status so that quitting the browser can avoid issuing needless warnings
 }
 
 
