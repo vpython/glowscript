@@ -149,6 +149,10 @@ function runCode() {
         else insert = "print_options({place:$('#printing'), width:300, height:500, clear:true})\n"
     	header.source = header.source.slice(0,end+1) + insert + header.source.slice(end+1)
     }
+    // Look for mention of MathJax in program and attempt to get it (need internet access; files too big to include in package)
+    if (header.source.indexOf('MathJax') >= 0) {
+        alert('Cannot currently use MathJax in GlowScript Offline.')
+    }
 	splitAdjust()
     gsErrordiv = $("#gserrors")[0]
     localCompile(header, ready, gsErrordiv)
