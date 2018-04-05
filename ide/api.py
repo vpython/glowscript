@@ -376,7 +376,7 @@ class ApiUserFolderProgramDownload(ApiRequest):
 	        	extension = '.cs'
 	        else:                    # JavaScript
 	        	extension = '.js'
-	        self.response.headers['Content-Disposition'] = 'attachment; filename='+name+extension
+	        self.response.headers['Content-Disposition'] = 'attachment; filename='+user+'_'+name+extension
 	        self.response.write(source)
         elif option == 'downloadFolder':
 	        if not self.validate(user, folder): return
@@ -410,7 +410,7 @@ class ApiUserFolderProgramDownload(ApiRequest):
 		        out.write(unicode(source))
 		        za.writestr(p['name']+extension, out.getvalue().encode('utf-8'))
 	        za.close()
-	        self.response.headers['Content-Disposition'] = 'attachment; filename='+folder+'.zip'
+	        self.response.headers['Content-Disposition'] = 'attachment; filename='+user+'_'+folder+'.zip'
 	        self.response.write(buff.getvalue())
         else:
 	        self.error(404)
