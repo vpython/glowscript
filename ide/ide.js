@@ -1141,8 +1141,6 @@ $(function () {
         page.find(".prog-download.button").prop("href", unroute({page:"downloadProgram", user:username, folder:folder, program:program}))
         if (!isWritable) page.find(".readonly").removeClass("template")
 
-        // TODO: "Copy this program" link when not writable
-
         pageBody.html(page)
 
         // I decided to process shortcuts myself instead of relying on ACE, because 
