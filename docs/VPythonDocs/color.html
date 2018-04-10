@@ -50,26 +50,26 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <div>
         <p class="Normal"> In the RGB color system, you specify a color in terms of fractions of red, green, and blue, corresponding to how strongly glowing are the tiny red, green, and blue dots of the computer screen. In the RGB scheme, white is the color with a maximum of red, blue, and green (1, 1, 1). Black has minimum amounts (0, 0, 0). The brightest red is represented by (1, 0, 0); that is, it has the full amount of red, no green, and no blue.</p>
         <p class="Normal"> Here are some examples of RGB colors, with names you can 
-          use in VPython (if given numerically, &quot;vector&quot; must come before the (x,y,z) values):</p>
-        <table width="75%" border="0">
+          use in VPython:</p>
+        <table width="97%" border="0">
           <tr>
-            <td width="32%"><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;(1,0,0) color.red</font></td>
-            <td width="37%"><font size="3">(1,1,0) color.yellow</font></td>
-            <td width="31%"><font size="3">(0,0,0) color.black</font></td>
+            <td width="42%"><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;vec(1,0,0) color.red</font></td>
+            <td width="32%"><font size="3">vec(1,1,0) color.yellow</font></td>
+            <td width="26%"><font size="3">vec(0,0,0) color.black</font></td>
           </tr>
           <tr>
-            <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;(0,1,0) color.green</font></td>
-            <td>(1,0.5,0) color.orange</td>
-            <td><font size="3">(1,1,1) color.white</font></td>
+            <td><font size="3">&nbsp;&nbsp;&nbsp;vec&nbsp;(0,1,0) color.green</font></td>
+            <td><font size="3">vec</font>(1,0.6,0) color.orange</td>
+            <td><font size="3">vec(1,1,1) color.white</font></td>
           </tr>
           <tr>
-            <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;(0,0,1) color.blue</font></td>
-            <td><font size="3">(0,1,1) color.cyan</font></td>
+            <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;vec(0,0,1) color.blue</font></td>
+            <td><font size="3">vec(0,1,1) color.cyan</font></td>
             <td>&nbsp;</td>
           </tr>
           <tr>
-            <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;</font></td>
-            <td><font size="3">(1,0,1) color.magenta</font></td>
+            <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;vec(0.4,0.2,0.6) color.purple</font></td>
+            <td><font size="3">vec(1,0,1) color.magenta</font></td>
             <td>&nbsp;</td>
           </tr>
         </table>
@@ -77,7 +77,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="attributes"> vector(0.5, 0.5, 0.5) a rather dark gray; or you can say <span class="attribute"><strong>color=color.gray(0.5)</strong></span> to mean (0.5,0.5,0.5)</p>
         <p class="attributes">vector(1,0.7,0.2) a coppery color</p>
         <p class="Normal"> Colors may appear differently on different computers, and under different 3D lighting conditions. The named colors above are most likely to display appropriately, because RGB values of 0 or 1 are unaffected by differing color corrections (&quot;gamma&quot; corrections).</p>
-        <p class="Normal"> The VPython demo program <span class="attribute">colorsliders.py</span> lets you adjust RGB sliders to visualize colors and print color triples that 
+        <p class="Normal"> There is a VPython <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank">demo program</a></strong> that lets you adjust RGB sliders to visualize colors and print color triples that 
           you copy into your program. It also provides HSV sliders to adjust hue, saturation 
           (how much white is added to dilute the hue), and value (brightness), which 
           is an alternative way to describe colors. </p>
