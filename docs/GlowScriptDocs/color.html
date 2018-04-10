@@ -59,11 +59,11 @@
           </tr>
           <tr>
             <td width="221"><div align="left"><font size="3">&nbsp;&nbsp;&nbsp;vec(1,0,1) color.magenta</font></div></td>
-            <td width="222"><div align="left"></div></td>
+            <td width="222"><div align="left">&nbsp;vec(<font size="3">0.4,0.2,0.6) color.purple</font></div></td>
           </tr>
           <tr>
             <td><div align="left"><font size="3">&nbsp;&nbsp;&nbsp;vec(0,0,0) color.black</font></div></td>
-            <td><div align="left"><font size="3">vec(1,1,1) color.white</font></div></td>
+            <td><div align="left"><font size="3">&nbsp;vec(1,1,1) color.white</font></div></td>
           </tr>
         </table>
         <p class="Normal">You can also create your own colors, such as these:</p>
@@ -71,7 +71,11 @@
         or say <span class="attribute"><strong>color=color.gray(0.5)</strong></span> to mean (0.5,0.5,0.5)</p>
         <p class="attributes">vec(1,0.7,0.2) a coppery color</p>
         <p class="Normal"> Colors may appear differently on different computers, and under different 3D lighting conditions. The named colors above are most likely to display appropriately, because RGB values of 0 or 1 are unaffected by differing color corrections (&quot;gamma&quot; corrections).</p>
-        <p class="Normal"> GlowScript only accepts RGB color descriptions, but 
+        <p class="Normal"> There is a VPython <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank">demo program</a></strong> that lets you adjust RGB sliders to visualize colors and print color triples that 
+          you copy into your program. It also provides HSV sliders to adjust hue, saturation 
+          (how much white is added to dilute the hue), and value (brightness), which 
+          is an alternative way to describe colors. </p>
+<p class="Normal"> GlowScript only accepts RGB color descriptions, but 
           there are functions for converting color triples between RGB and HSV (hue, saturation, and value or intensity):</p>
         <div>
           <p class="program">c = vec(1,1,0)<br />
