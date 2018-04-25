@@ -52,6 +52,10 @@ var gsversion = 2.7
 var printpane = false
 
 var glowscript_run = undefined
+window.Jupyter_VPython = 'glowscript_data/'
+
+// For an unknown reason, attempts to load fonts when disconnected from the internet doesn't work,
+// even when a full path was specified in a fontloading function.
 
 // localCompile is a modification of https://github.com/BruceSherwood/glowscript/blob/master/ide/ide.js
 function localCompile(header, compReady, errordiv) {
