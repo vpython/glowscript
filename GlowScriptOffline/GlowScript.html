@@ -52,7 +52,8 @@ var gsversion = 2.7
 var printpane = false
 
 var glowscript_run = undefined
-window.Jupyter_VPython = 'glowscript_data/'
+window.Jupyter_VPython = undefined
+if (!navigator.onLine) window.Jupyter_VPython = 'glowscript_data/' // get textures when offline
 
 // For an unknown reason, attempts to load fonts when disconnected from the internet doesn't work,
 // even when a full path was specified in a fontloading function.
