@@ -301,7 +301,7 @@ function ideRun() {
                 	}
                 	if (L === undefined) continue
 	                var N = Number(L)
-	                if (first) traceback.push('Line '+N+': '+window.__original.text[N-2])
+	                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-2])
 	                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
 	                first = false
                     traceback.push("")
