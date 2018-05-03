@@ -84,7 +84,7 @@ scene.append_to_caption('\n\n')<br />
           scene.append_to_caption('\n\n')<br />
           <br />
           def M(m):<br />
-&nbsp;&nbsp;&nbsp;          print(m.select)<br />
+&nbsp;&nbsp;&nbsp;          print(m.selected, m.index)<br />
 menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="Normal">By default, widgets are appended to scene.caption_anchor, below the canvas. The append_to_caption statements above cause the radio button to appear below the button, the checkbox to appear below the radio button, the slider to appear below the checkbox, and the dropdown menu to appear below the slider. If you specify pos=scene.title_anchor, the widget will appear above the canvas.</p>
 <p class="Normal">The function specified by &quot;bind&quot; is called when the user clicks a button or radio button or checkbox, drags a slider, or chooses a menu option. The function is sent a pointer to the widget, which lets you reference or change information about the widget. For the radio button and checkbox, the (optional) text is placed one space to the right of the widget.</p>
@@ -97,10 +97,11 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="Normal">A space is placed to the right of the button, so that there is always some space between a button and an adjacent widget. Here are the attributes of a <strong>button</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the button.</p>
 <p class="attributes"> <span class="attribute">text</span> The text shown on the button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold.</p>
-<p class="attributes"> <span class="attribute">textcolor</span> The color of the text shown on the button. Can be changed at any time.</p>
+<p class="attributes"> <span class="attribute">color</span> The color of the text shown on the button. Can be changed at any time.</p>
 <p class="attributes"> <span class="attribute">background</span> The background color of the button. Can be changed at any time.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the button is clicked. Cannot be changed after creating the button.</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the button text is grayed out and the button is inactive. Can be changed at any time.</p>
+<p class="attributes"><font color="#FF0000">delete()</font> If B is a button, B.delete() deletes the button from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">radio</font></strong></p>
 <p class="Header"></p>
@@ -110,6 +111,8 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the radio button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the radio button is clicked. Cannot be changed after creating the radio button.</p>
 <p class="attributes"><font color="#FF0000">checked</font> If True, the radio button is highlighted; default is False. Can be changed at any time.</p>
+<p class="attributes"><font color="#FF0000">disabled</font> If True, the radio button is grayed out and the radio button is inactive. Can be changed at any time.</p>
+<p class="attributes"><font color="#FF0000">delete()</font> If R is a radio button, R.delete() deletes the radio button from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">checkbox</font></strong></p>
 <p class="Normal">Here are the attributes of a <strong>checkbox</strong> widget:</p>
@@ -117,6 +120,8 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the checkbox. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the checkbox is clicked. Cannot be changed after creating the checkbox.</p>
 <p class="attributes"><font color="#FF0000">checked</font> If True, the checkbox is highlighted; default is False. Can be changed at any time.</p>
+<p class="attributes"><font color="#FF0000">disabled</font> If True, the checkbox is grayed out and the checkbox is inactive. Can be changed at any time.</p>
+<p class="attributes"><font color="#FF0000">delete()</font> If C is a checkbox, C.delete() deletes the checkbox from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">slider</font></strong></p>
 <div class="Normal"></div>
@@ -135,6 +140,8 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"> <span class="attribute">top</span> Margin above the slider; default is 0 (pixels). Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">bottom</span> Margin below the slider; default is 0 (pixels). Cannot be changed after creating the slider. Currently does not seem to work properly.</p>
 <p class="attributes"><font color="#FF0000">align</font> If 'left' (the default), the slider is displayed at the left of the window; if 'right', the slider is displayed at the right of the window. Cannot be changed after creating the slider.</p>
+<p class="attributes"><font color="#FF0000">disabled</font> If True, moving the slider does not create an event. Can be changed at any time.</p>
+<p class="attributes"><font color="#FF0000">delete()</font> If S is a slider, S.delete() deletes the slider from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">menu</font></strong></p>
 <div class="Normal"></div>
@@ -144,11 +151,14 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"><font color="#FF0000">selected</font> The chosen string, such as 'dog'.  Can be set by program as well as by user choice. </p>
 <p class="attributes"><font color="#FF0000">index</font> The position of the chosen string in the choices list, starting from zero.  Can be set by program as well as by user choice.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when a menu item is chosen. Cannot be changed after creating the menu.</p>
+<p class="attributes"><font color="#FF0000">disabled</font> If True, the menu is grayed out and the menu is inactive. Can be changed at any time.</p>
+<p class="attributes"><font color="#FF0000">delete()</font> If M is a menu, M.delete() deletes the menu from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">wtext</font></strong></p>
 <p class="Normal">The <strong>wtext</strong> object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets.</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the wtext object.</p>
 <p class="attributes"><span class="attribute">text</span> The text shown at the specified place. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the start or end of the text to separate the text from an adjacent widget.</p>
+<p class="attributes"><font color="#FF0000">delete()</font> If W is a wtext, W.delete() deletes the wtext from the display. An alternative is to set the text to &quot;&quot;, which leaves the wtext in place but without displaying anything.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">Appending to anchor points</font></strong></p>
         <div class="Normal"></div>
