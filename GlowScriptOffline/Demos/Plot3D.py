@@ -8,8 +8,6 @@ scene.width = scene.height = 600
 L = 50
 scene.center = vec(0.05*L,0.2*L,0)
 scene.range = 1.3*L
-## The next line contains LaTeX math notation. See http://www.glowscript.org/docs/VPythonDocs/MathJax.html
-#scene.caption = """\\( f(x,y,t) = 0.7+0.2\\sin{(10x)}\\cos{(10y)}\\cos{(2t)} \\)
 scene.caption = """<i>f</i>(<i>x,y,t</i>) = 0.7+0.2sin(10<i>x</i>)cos(10<i>y</i>)cos(2<i>t</i>)
 <b>Click to toggle between pausing or running.</b>
 In GlowScript programs:
@@ -18,7 +16,6 @@ In GlowScript programs:
      On a two-button mouse, mid1e is left + right.
    Shift-drag to pan left/right and up/down.
    Touch screen: pinch/extend to zoom, swipe or two-finger rotate."""
-#MathJax.Hub.Queue(["Typeset",MathJax.Hub]) # format the LaTeX; see http://www.glowscript.org/docs/VPythonDocs/MathJax.html
 
 class plot3D:
     def __init__(self, f, xmin, xmax, ymin, ymax, zmin, zmax):
@@ -44,11 +41,6 @@ class plot3D:
         xaxis = cylinder(pos=vec(0,0,0), axis=vec(0,0,d), radius=R, color=color.yellow)
         yaxis = cylinder(pos=vec(0,0,0), axis=vec(d,0,0), radius=R, color=color.yellow)
         zaxis = cylinder(pos=vec(0,0,0), axis=vec(0,d,0), radius=R, color=color.yellow)
-        k = 1.02
-        h = 0.05*L
-        text(pos=xaxis.pos+k*xaxis.axis, text='x', height=h, align='center', billboard=True, emissive=True)
-        text(pos=yaxis.pos+k*yaxis.axis, text='y', height=h, align='center', billboard=True, emissive=True)
-        text(pos=zaxis.pos+k*zaxis.axis, text='z', height=h, align='center', billboard=True, emissive=True)
     
         self.vertices = []
         for x in range(L):
