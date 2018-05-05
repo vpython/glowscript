@@ -16,18 +16,22 @@ In the text editor, as in the editor at glowscript.org, select one or more lines
 
 When you download programs from glowscript.org, they are in the form of .py files whose first line is "from vpython import *". This first line is understood by the offline package, as is "GlowScript X.Y VPython" or "GlowScript X.Y JavaScript".
 
-If you make a large number of runs, performance degrades due to an accumulation of "WebGL contexts". However, there is a simple remedy: restart the package.
+If you make a large number of runs, performance degrades due to an accumulation of "WebGL contexts". However, there is a simple remedy: reload the web page.
 
-For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use textures or 3D text unless you configure Chrome in a special way, as follows:
+For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use textures when offline unless you configure Chrome in a special way, as follows:
 
-    On Windows, doubleclick start.bat in the GlowScriptOffline folder.
-    On Mac, doubleclick Mac_launch.command (after which you may have to go to System Preferences/Security & Privacy and
+    Windows: Doubleclick start.bat in the GlowScriptOffline folder.
+    
+    Mac: Doubleclick Mac_launch.command (after which you may have to go to System Preferences/Security & Privacy and
         specify that you want to allow it to execute now and in the future).
-    On Linux, open a terminal in the GlowScriptOffline folder and execute chmod 755 Linux_launch, then ./Linux_launch.
-        You only need to execute the chmod instruction before using Linux_launch for the first time.
+        
+    Linux: Open a terminal in the GlowScriptOffline folder and execute chmod 755 Linux_launch, then ./Linux_launch.
+        You only need to execute the chmod instruction once, before using Linux_launch for the first time.
     
 You will see the warning, "You are using an unsupported command-line flag: --disable-web-security. Stability and security will suffer."
 
     Doubleclick GlowScript.html.
     
 If you quit and restart Chrome, its normal security rules will be restored.
+
+Currently it is not possible to use 3D text objects, due to problems with loading the fonts locally.
