@@ -21,7 +21,8 @@ If you make a large number of runs, performance degrades due to an accumulation 
 For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use textures or 3D text unless you configure Chrome in a special way, as follows:
 
     On Windows, doubleclick start.bat in the GlowScriptOffline folder.
-    On Mac, open a terminal in the GlowScriptOffline folder and execute ./Mac_launch.
+    On Mac, doubleclick Mac_launch.command (after which you may have to go to System Preferences/Security & Privacy and
+        specify that you want to allow it to execute now and in the future).
     On Linux, open a terminal in the GlowScriptOffline folder and execute chmod 755 Linux_launch, then ./Linux_launch.
         You only need to execute the chmod instruction before using Linux_launch for the first time.
     
