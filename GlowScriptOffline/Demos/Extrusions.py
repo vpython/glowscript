@@ -38,6 +38,8 @@ bottom = extrusion(path=paths.cross(width=4, thickness=1),
 
 tube = extrusion(path=[vec(0,0,0), vec(2,0,0)], shape=shapes.circle(radius=0.6, thickness=0.2),
                     pos=vec(-1,1.7,0), axis=vec(0,0,2), color=color.yellow, end_face_color=color.blue)
+text(pos=tube.pos+vec(0,0,1), text='tube', align='center',
+        height=0.25, depth=0, color=color.blue)
 
 run = True
 
