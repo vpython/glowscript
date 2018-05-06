@@ -30,19 +30,19 @@ def Color(c):
     if col.equals(color.cyan): # change to red
         currentobject.color = col = color.red
         cbutton.text = "<b>Cyan</b>"
-        cbutton.textcolor = color.cyan
+        cbutton.color = color.cyan
         cbutton.background = color.red
         r1.checked = False
         r2.checked = True
     else:                      # change to cyan
         currentobject.color = col = color.cyan
         cbutton.text = "<b>Red</b>"
-        cbutton.textcolor = color.red
+        cbutton.color = color.red
         cbutton.background = color.cyan
         r1.checked = True
         r2.checked = False
         
-cbutton = button(text='<b>Red</b>', textcolor=color.red, background=color.cyan, pos=scene.title_anchor, bind=Color)
+cbutton = button(text='<b>Red</b>', color=color.red, background=color.cyan, pos=scene.title_anchor, bind=Color)
 
 scene.caption = "Vary the rotation speed: \n\n"
 

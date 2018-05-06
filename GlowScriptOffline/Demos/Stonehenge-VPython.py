@@ -93,6 +93,12 @@ for i in range(Nslabs):
                 size=vec(1.1*d,0.9*4*photocenter,0.9*4*photocenter), axis=vec(c,0,s),
                     texture=T)
 
+entry = text(pos=vector(0,4.4,R+d/2), text='Surreal\nStonehenge', align='center',
+                depth=0.3, height=0.5)
+                
+B = text(pos=vector(0.4*R,0,-1*R), text='B', height=2, align='center', font='serif',
+                color=color.magenta, depth=1)
+
 gh = 1
 ga = 1
 gr = 0.05
@@ -220,6 +226,8 @@ def setroam(evt):
 
 scene.bind("mousedown mouseup", setroam)
 
+hue = 0
+dhue = 0.01
 gangle = 0.03 # incremental rotation of the gears
 
 while True:
@@ -233,6 +241,11 @@ while True:
             angle = asin(scene.forward.cross(newray).dot(scene.up))
             scene.camera.rotate(angle=angle/30, axis=scene.up)
             scene.camera.pos = scene.camera.pos + (ray.y/2)*norm(scene.camera.axis)
+    
+    hue += dhue
+    entry.color = color.hsv_to_rgb(vector(hue,1,1))
+    
+    B.rotate(angle=0.05, axis=scene.up)
     
     gear1.rotate(angle=gangle, axis=vector(0,0,1))
     gear2.rotate(angle=-gangle, axis=vector(0,0,1))

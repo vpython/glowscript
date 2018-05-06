@@ -39,6 +39,8 @@
 <body class="GlowScriptBody">
 <link type="text/css" href="glowscript_libraries/jquery-ui.custom.css" rel="stylesheet" />
 <link type="text/css" href="glowscript_libraries/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="glowscript_libraries/Roboto_Medium_ttf_sans.js"></script>
+<script type="text/javascript" src="glowscript_libraries/NimbusRomNo9L_Med_otf_serif.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery-ui.custom.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/editor.js"></script>
@@ -54,6 +56,20 @@ var printpane = false
 var glowscript_run = undefined
 window.Jupyter_VPython = undefined
 if (!navigator.onLine) window.Jupyter_VPython = 'glowscript_data/' // get textures when offline
+
+function fontloading() { // trigger loading of fonts for 3D text
+    "use strict";
+	// override the fontloading url's in the GlowScript library
+	if (window.__font_sans === undefined) {
+		var fontrefsans = opentype_loadjs(Roboto_sans) // a sans serif font
+		window.__font_sans = fontrefsans // an opentype.js Font object
+	}
+	if (window.__font_serif === undefined) {
+        var fontrefserif = opentype_loadjs(Nimbus_serif) // a serif font
+		window.__font_serif = fontrefserif // an opentype.js Font object
+	}
+}
+fontloading() // get the sans and serif font files used by 3D text
 
 // For an unknown reason, attempts to load fonts when disconnected from the internet doesn't work,
 // even when a full path was specified in a fontloading function.
