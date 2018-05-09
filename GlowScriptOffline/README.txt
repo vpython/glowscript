@@ -37,7 +37,7 @@ For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not po
     Linux: Open a terminal in the GlowScriptOffline folder and execute chmod 755 Linux_launch, then doubleclick Linux_launch. 
         You only need to execute the chmod instruction once, before using Linux_launch for the first time.
     
-You will see the warning, "You are using an unsupported command-line flag: --disable-web-security. Stability and security will suffer."
+You will see the warning, "You are using an unsupported command-line flag: --disable-web-security. Stability and security will suffer." Without exiting Chrome, do this:
 
     Doubleclick GlowScript.html.
     
