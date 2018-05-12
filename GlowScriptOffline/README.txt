@@ -27,6 +27,8 @@ POSSIBLE SLOWDOWN
 If you make a large number of runs, performance degrades due to an accumulation of "WebGL contexts". However, there is a simple remedy: reload the web page.
 
 USING TEXTURES
+If you don't use textures, the insructions given above are adequate. If you do however use textures, you need to follow these instructions:
+
 For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use textures when offline unless you use the Chrome browser and configure Chrome in a special way. First, exit Chrome. Then,
 
     Windows: Doubleclick start.bat in the GlowScriptOffline folder.
