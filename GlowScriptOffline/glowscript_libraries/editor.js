@@ -62,7 +62,8 @@ GSedit.init = function(placement, source, width, readonly) {
 	GSedit.editarea.val(source)
 	original = GSedit.editarea.val() // important to save in the form it has in the textarea, else GSedit.changed() fails
 	GSedit.editarea.attr('readonly', GSedit.readonly)
-	GSedit.editarea[0].addEventListener('keyup', GScheck)
+	GSedit.editarea[0].addEventListener('keydown', GScheck)
+	GSedit.editarea[0].addEventListener('keyup', GSkeyup)
 	GSedit.editarea[0].addEventListener('cut', GScutpaste)
 	GSedit.editarea[0].addEventListener('paste', GScutpaste)
 	var end = source.indexOf('\n')+1 // position cursor at start of line 2, below GlowScript header
@@ -77,10 +78,7 @@ GSedit.init = function(placement, source, width, readonly) {
 	initialized = true
 	$('#edit').on('keydown', function(e) {
 		var keyCode = e.keyCode || e.which
-		if (keyCode == TAB) {
-			if (e.shiftKey) SHIFT = true
-			e.preventDefault()
-		}
+		if (keyCode == TAB) e.preventDefault()
 	})
 	setTimeout(updatechange, 200) // 200 ms is much longer than the time to execute GSedit.changed()
 }
@@ -123,14 +121,21 @@ var GSupdate = function() { // update the display of line numbers if necessary
 var ENTER =     13   // Enter
 var BACK  =      8   // Backspace
 var DEL   =     46   // Delete
-//var SHIFT =     16   // Shiftkey
+var SHIFT =     16   // Shiftkey
 var CTRL  =     17   // Ctrl
-var COMMENT =  191   // Crtl-/
+var SLASH =    191   // /
 var TAB   =      9   // Tab
-var SHIFT = false // true if Shift-Tab
+
+var shiftdown = false
+var ctrldown = false
 
 var INDENTLENGTH = 4
 var INDENT = '    ' // four spaces for an indent
+
+var GSkeyup = function() {
+    if (window.event.keyCode == SHIFT) shiftdown = false
+    else if (window.event.keyCode == CTRL) ctrldown = false
+}
 
 var GScheck = function() { // handle indentation; check whether we might need to update the display of line numbers
 	window.onbeforeunload = Quit // ensure giving a warning when quitting the browser or browser tab
@@ -160,63 +165,74 @@ var GScheck = function() { // handle indentation; check whether we might need to
 	}
 	
 	var c = window.event.keyCode
-	if (c == ENTER || c == BACK || c == DEL) {
-		var cursor = GSedit.editarea[0].selectionStart
-		if (c == ENTER) { // the newline character has already been inserted at the location given by cursor
-			var text = GSedit.editarea.val()
-			indenting(text, cursor)
-		}
-		GSupdate()
-	} else if (c == TAB || c == COMMENT) {
-		var start = GSedit.editarea[0].selectionStart
-		var end   = GSedit.editarea[0].selectionEnd
-		var text  = GSedit.editarea.val()
-		while (start > 0 && text[start] != '\n') start--
-		if (start > 0) start++
-		if (c == TAB) { // indent or exdent
-			while (true) {
-				if (SHIFT && start+INDENTLENGTH < text.length && text.slice(start,start+INDENTLENGTH) == INDENT) {
-					text = text.slice(0,start)+text.slice(start+INDENTLENGTH)
-					end -= INDENTLENGTH
-				} else {
-					text = text.slice(0,start)+INDENT+text.slice(start)
-					end += INDENTLENGTH
-				}
-				var next = text.slice(start).indexOf('\n') // find next newline
-				if (next < 0) break
-				start += next+1
-				if (start >= end) break
-			}
-			SHIFT = false
-			GSedit.editarea.val(text)
-			GSupdate()
-		} else if (c == COMMENT) { // toggle commenting
-			var n = text.indexOf('\n')
-			if (n > 0) {
-				var firstline = text.slice(0,n)
-				var insert = '//'
-				var length = 2
-				if (firstline.indexOf('yth') > 0 || firstline.indexOf('pyd') > 0) { // Python or RapydScript
-					insert = '#'
-					length = 1
-				}
-				while (true) {
-					if (text.slice(start,start+length) == insert) {
-						text = text.slice(0,start)+text.slice(start+length)
-						end -= length
-					} else {
-						text = text.slice(0,start)+insert+text.slice(start)
-						end += length
-					}
-					var next = text.slice(start).indexOf('\n') // find next newline
-					if (next < 0) break
-					start += next+1
-					if (start >= end) break
-				}
-				GSedit.editarea.val(text)
-				GSupdate()
-			}
-		}
+    if (c == SHIFT) shiftdown = true
+    else if (c == CTRL) ctrldown = true
+	else {
+        if (c == ENTER || c == BACK || c == DEL) {
+            var cursor = GSedit.editarea[0].selectionStart
+            if (c == ENTER) { // the newline character has already been inserted at the location given by cursor
+                var text = GSedit.editarea.val()
+                indenting(text, cursor)
+            }
+            GSupdate()
+        } else if (c == TAB || (ctrldown && c == SLASH)) {
+            var start = GSedit.editarea[0].selectionStart
+            var end   = GSedit.editarea[0].selectionEnd
+            var start0 = start
+            var text  = GSedit.editarea.val()
+            while (start > 0 && text[start] != '\n') start--
+            if (start > 0) start++
+            if (c == TAB) { // indent or exdent
+                while (true) {
+                    if (shiftdown) { 
+                        if (start+INDENTLENGTH < text.length && text.slice(start,start+INDENTLENGTH) == INDENT) {
+                            if (text.charAt(start) == ' ') {
+                                text = text.slice(0,start)+text.slice(start+INDENTLENGTH)
+                                end -= INDENTLENGTH
+                            }
+                        }
+                    } else {
+                        text = text.slice(0,start)+INDENT+text.slice(start)
+                        end += INDENTLENGTH
+                    }
+                    var next = text.slice(start).indexOf('\n') // find next newline
+                    if (next < 0) break
+                    start += next+1
+                    if (start >= end) break
+                }
+                GSedit.editarea.val(text)
+                GSupdate()
+                if (shiftdown) GSedit.editarea[0].setSelectionRange(start0-INDENTLENGTH, end)
+                else GSedit.editarea[0].setSelectionRange(start0+INDENTLENGTH, end)
+            } else { // toggle commenting
+                var n = text.indexOf('\n')
+                if (n > 0) {
+                    var firstline = text.slice(0,n)
+                    var insert = '//'
+                    var length = 2
+                    if (firstline.indexOf('yth') > 0 || firstline.indexOf('pyd') > 0) { // Python or RapydScript
+                        insert = '#'
+                        length = 1
+                    }
+                    while (true) {
+                        if (text.slice(start,start+length) == insert) {
+                            text = text.slice(0,start)+text.slice(start+length)
+                            end -= length
+                        } else {
+                            text = text.slice(0,start)+insert+text.slice(start)
+                            end += length
+                        }
+                        var next = text.slice(start).indexOf('\n') // find next newline
+                        if (next < 0) break
+                        start += next+1
+                        if (start >= end) break
+                    }
+                    GSedit.editarea.val(text)
+                    GSupdate()
+                    GSedit.editarea[0].setSelectionRange(start0+1, end)
+                }
+            }
+        }
 	}
 }
 
