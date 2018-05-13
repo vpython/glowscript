@@ -26,10 +26,10 @@ When you download programs from glowscript.org, they are in the form of .py file
 POSSIBLE SLOWDOWN
 If you make a large number of runs, performance degrades due to an accumulation of "WebGL contexts". However, there is a simple remedy: reload the web page.
 
-USING TEXTURES
-If you don't use textures, the insructions given above are adequate. If you do however use textures, you need to follow these instructions:
+USING TEXTURES OR JAVASCRIPT LIBRARIES
+If you don't use textures or JavaScript libraries (using the get_library function), the insructions given above are adequate. If you do however use textures or JavaScript libraries, you need to follow these instructions:
 
-For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use textures when offline unless you use the Chrome browser and configure Chrome in a special way. First, exit Chrome. Then,
+For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use textures or JavaScript libraries when offline unless you use the Chrome browser and configure Chrome in a special way. First, exit Chrome. Then,
 
     Windows: Doubleclick start.bat in the GlowScriptOffline folder.
     
@@ -44,3 +44,7 @@ You will see the warning, "You are using an unsupported command-line flag: --dis
     Doubleclick GlowScript.html.
     
 If you quit and restart Chrome, its normal security rules will be restored.
+
+The standard VPython textures are available in the usual way (texture=textures.flower). Suppose you have an image named car.js. Place it in the glowscript_data folder. To use it, in your program say texture="glowscript_data/car.js".
+
+To use a library written in JavaScript, place it in the glowscript_libraries folder. Suppose the library is named useful.js. To use it, in your program execute the statement get_library("glowscript_libraries/useful.js").
