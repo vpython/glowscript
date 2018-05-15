@@ -23,6 +23,9 @@ In the text editor, as in the editor at glowscript.org, select one or more lines
 USING PROGRAMS FROM glowscrip.org OR FROM VPYTHON 7
 When you download programs from glowscript.org, they are in the form of .py files whose first line is "from vpython import *", like programs created with VPython 7. This first line is understood by the offline package, as is "GlowScript X.Y VPython" or "GlowScript X.Y JavaScript".
 
+EXPORTING A PROGRAM
+When you click the "Export" button, your program is processed to create code that can be used embedded in your own web site, just like using the option "Share or export this program" at glowscript.org. This processed code temporarily replaces your own program code and is selected so that you can simply press Ctrl-C to copy the code, then use a text editor to save this code to a local file that should have the extension ".html". When you are connected to the internet, doubleclicking this html file will start up your default browser and run the program. You can return to editing your orginal program by clicking the "Restore" button. (Notice that there is no need to be able to run the exported html file when disconnected from the internet, because you can run the original program in the offline package.)
+
 POSSIBLE SLOWDOWN
 If you make a large number of runs, performance degrades due to an accumulation of "WebGL contexts". However, there is a simple remedy: reload the web page.
 
