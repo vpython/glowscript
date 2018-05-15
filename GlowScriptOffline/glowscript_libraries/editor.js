@@ -141,6 +141,7 @@ var GScheck = function() { // handle indentation; check whether we might need to
 	window.onbeforeunload = Quit // ensure giving a warning when quitting the browser or browser tab
 	
 	var indenting = function(text, cursor) { // create indent depending on next line
+        if (cursor < 2) return // at or next to the start of the program; note n=cursor-2 below
 		var startspaces = /([\ ]*)/
 		var endcolon = /:[\ ]*$/
 		var thisline = '', spaces, indent
