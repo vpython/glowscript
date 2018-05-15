@@ -156,10 +156,11 @@ function getHeader() {
     var text = GSedit.getValue()
     var end = text.indexOf('\n')
     var i = text.slice(0,end).indexOf("GlowScript") // Look for "GlowScipt" in first line
-    if (i < 0 && text.indexOf('from vpython') === 0) text = "GlowScript "+gsversion+" VPython" + "\n" + text
+    var j = text.slice(0,end).indexOf("vpython")    // Look for "vpython" in first line
+    if (i < 0 && j) text = "GlowScript "+gsversion+" VPython" + "\n" + text
     var header = parseVersionHeader(text)
     printpane = false
-    if (header.source.indexOf('print(') >= 0) { // if the program uses print() or GSprint(), expand 3rd pane
+    if (header.source.search(/print\s*\(/) >= 0) { // if the program uses print() or GSprint(), expand 3rd pane
     	printpane = true
     	var end = header.source.indexOf('\n')
     	var insert
