@@ -104,11 +104,11 @@ function localCompile(header, compReady, errordiv) {
            errordiv.innerHTML = "<p>"+err+"</p>"
            return
         }
-        embedScript = ";(function() {" + embedScript + '\n'+
-                       'glowscript_run = function() { main(__func); }\n' +
-                       '})()'
+        //embedScript = ";(function() {" + embedScript + '\n'+
+        //               'glowscript_run = function() { main(__func); }\n' +
+        //               '})()'
 
-        embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
+        //embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
         compReady(embedScript)
     })
 }
@@ -182,33 +182,49 @@ var savecode = null
 function runCode() {
 	var header = getHeader()
 	splitAdjust()
-    var gsErrordiv = $("#gserrors")[0]
+    gsErrordiv = $("#gserrors")[0]
     localCompile(header, ready, gsErrordiv)
 }
 
-function ready(sc) {
+function ready(program) {
     var w = $("#glows")
     w[0].innerHTML = "" // Comment this and the next if get a solution for too many WebGL context
     w[0].innerHTML = '<div id="glowscript" class="glowscript"></div>'
-    window.__context = { glowscript_container: $(".glowscript").removeAttr("id") }
+    //window.__context = { glowscript_container: $(".glowscript").removeAttr("id") }
     
-    // TODO: how to set an error handler???
-    window.__context.errorHandler = gsErrorHandler
+    // This handles compile-time errors:
+    //window.__context.errorHandler = gsErrorHandler
     
-    runScript = new Function(sc)
-    runScript()
-    glowscript_run()
+    try {
+        window.userMain = eval(program)
+        // At this point the user program has not been executed.
+        // Rather, eval_script has prepared the user program to be run.
+
+        //$("#loading").remove()
+        window.__context = {
+            glowscript_container: $("#glowscript")
+        }
+        window.userMain(function (err) {
+            if (err) {
+                window.lasterr = err
+                reportScriptError(program, err)
+            }
+        })
+    } catch (err) {
+        window.lasterr = err
+        reportScriptError(program, err);
+    }
 }
 
 function exportCode() {
-	if (savecode !== null) {
+	if (savecode !== null) { // Restore operation
 		GSedit.setValue(savecode)
 		savecode = null
 	    $("#export").html('Export')
 		
-	} else {
+	} else { // Export operation
 		var header = getHeader()
-	    var gsErrordiv = $("#gserrors")[0]
+	    gsErrordiv = $("#gserrors")[0]
 	    localCompile(header, showcode, gsErrordiv)
 	}
 }
@@ -218,7 +234,6 @@ function showcode(sc) {
 	var exporturl = "https://s3.amazonaws.com/glowscript/"
 	var verdir = '2.1'
     var divid = "glowscript"
-    var end = sc.indexOf('glowscript_run')
     var embedHTML = (
         '<div id="' + divid + '" class="glowscript">\n' + 
         '<link type="text/css" href="'+exporturl+'css/redmond/' + verdir + '/jquery-ui.custom.css" rel="stylesheet" />\n' + 
@@ -229,8 +244,8 @@ function showcode(sc) {
         '<scr'+'ipt type="text/javascript" src="' + exporturl + 'package/glow.' + gsversion + '.min.js"></scr'+'ipt>\n' +
         '<scr'+'ipt type="text/javascript" src="' + exporturl + 'package/RSrun.' + gsversion + '.min.js"></scr'+'ipt>\n' +
         '<scr'+'ipt type="text/javascript"><!--//--><![CDATA[//><!--\n' +
-        sc.substr(0,end) +
-        ';$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; main(__func) })})()\n' +
+        sc +
+        '\n;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; main(__func) })})()\n' +
         '\n//--><!]]></scr'+'ipt>' +
         '\n</div>')
     savecode = GSedit.getValue()
@@ -280,7 +295,7 @@ function readSingleFile(evt) {
 document.getElementById('read_local_file').addEventListener('change', readSingleFile, false)
 </script>
 
-<div id="gserrors">
+<div id="gserrors" style="font-family:Verdana;font-size:12px">
 </div>
 
 <div class='api'>
@@ -324,6 +339,95 @@ function Quit(e) { // Some browsers just say "Do you want to leave this site? Ch
    var s = "To continue without saving, click OK.\nTo save, click Cancel, then copy and paste into an application such as Notepad or TextEdit."
    e.returnValue = s
    return s
+}
+
+function reportScriptError(program, err) { // This machinery only works on Chrome
+    // TraceKit - Cross browser stack traces: https://github.com/csnover/TraceKit
+    var prog = program.split('\n')
+    var referror = (err.__proto__.name === 'ReferenceError')
+    //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
+    //console.log('Error', err)
+    //console.log('Stack', err.stack)
+    //console.log('referror', referror)
+    var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
+    var traceback = []
+    if (err.cursor) {
+        //console.log('err.cursor',err.cursor)
+        // This is a syntax error from narcissus; extract the source
+        var c = err.cursor
+        while (c > 0 && err.source[c - 1] != '\n') c--;
+        traceback.push(err.source.substr(c).split("\n")[0])
+        //traceback.push(new Array((err.cursor - c) + 1).join(" ") + "^") // not working properly
+    } else {
+        // This is a runtime exception; extract the call stack if possible
+        try {
+            // FIXME: This works only for the Chrome V8 JavaScript compiler
+            // Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
+            // and at other times it is one long string; in the latter case we have to create rawStack
+            // as an array of strings.
+            var rawStack
+            if (typeof err.stack == 'string') rawStack = err.stack.split('\n')
+            else rawStack = err.stack
+            //for (var i=0; i<rawStack.length; i++) console.log(i, rawStack[i])
+
+            // TODO: Selection and highlighting in the dialog
+            var first = true
+            var i, m, caller, jsline, jschar
+            for (i=1; i<rawStack.length; i++) {
+                m = rawStack[i].match(unpack)
+                if (m === null) continue
+                caller = m[1]
+                jsline = m[2]
+                jschar = m[3]
+                /*
+                if (caller == 'new') {
+                    m = rawStack[i].match(/[ ]*at[ ]new[ ]*([^ ]*)/)
+                    caller = m[1]
+                }
+                */
+                if (caller.slice(0,3) == 'RS_') continue
+                if (caller == 'compileAndRun') break
+                if (caller == 'main') break
+
+                var line = prog[jsline-1]
+                if (window.__GSlang == 'javascript') { // Currently unable to embed line numbers in JavaScript programs
+                    traceback.push(line)
+                    traceback.push("")
+                    break
+                }
+                var L = undefined
+                var end = undefined
+                for (var c=jschar; c>=0; c--) {  // look for preceding "linenumber";
+                    if (line[c] == ';') {
+                        if (c > 0 && line[c-1] == '"') {
+                            var end = c-1 // rightmost digit in "23";
+                            c--
+                        }
+                    } else if (line[c] == '"' && end !== undefined) {
+                        L = line.slice(c+1,end)
+                        break
+                    } else if (c === 0) {
+                        jsline--
+                        line = prog[jsline-1]
+                        c = line.length
+                    }
+                }
+                if (L === undefined) continue
+                var N = Number(L)-1
+                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-1])
+                else traceback.push('Called from line '+N+': '+window.__original.text[N-1])
+                first = false
+                traceback.push("")
+                if (caller == '__$main') break
+                //if (referror) break
+            }
+        } catch (ignore) {
+        }
+    }
+    var feedback = rawStack[0]+'<br>'
+    for (var i= 0; i<traceback.length; i++) feedback += '<br>'+traceback[i]
+    gsErrordiv = $("#gserrors")[0]
+    gsErrorHandler(feedback)
 }
 
 </script>
