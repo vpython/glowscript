@@ -32,6 +32,11 @@ GSedit.setValue = function (source) {
 	original = GSedit.editarea.val() // important to save in the form it has in the textarea, else GSedit.changed() fails
 	GSupdate()
 	GSedit.editarea.scrollTop(0)
+    setTimeout(setcursor0, 30)
+}
+
+var setcursor0 = function() {
+    GSedit.editarea[0].setSelectionRange(0,0)
 }
 
 GSedit.changed = function () {
@@ -66,7 +71,7 @@ GSedit.init = function(placement, source, width, readonly) {
 	GSedit.editarea[0].addEventListener('keyup', GSkeyup)
 	GSedit.editarea[0].addEventListener('cut', GScutpaste)
 	GSedit.editarea[0].addEventListener('paste', GScutpaste)
-	var end = source.indexOf('\n')+1 // position cursor at start of line 2, below GlowScript header
+	var end = source.length
 	GSedit.editarea[0].setSelectionRange(end,end)
 	GSedit.editarea[0].focus()
 	GSupdate()
@@ -76,9 +81,8 @@ GSedit.init = function(placement, source, width, readonly) {
 		GSedit.linenumbersarea.scrollTop(GSedit.editarea[0].scrollTop) // adjust line number display
 	});
 	initialized = true
-	$('#edit').on('keydown', function(e) {
-		var keyCode = e.keyCode || e.which
-		if (keyCode == TAB) e.preventDefault()
+    $('#edit').on('keydown', function(e) { // prevent TAB from moving among elements of the web page
+		if (e.keyCode == TAB) e.preventDefault()
 	})
 	setTimeout(updatechange, 200) // 200 ms is much longer than the time to execute GSedit.changed()
 }
@@ -132,15 +136,17 @@ var ctrldown = false
 var INDENTLENGTH = 4
 var INDENT = '    ' // four spaces for an indent
 
-var GSkeyup = function() {
-    if (window.event.keyCode == SHIFT) shiftdown = false
-    else if (window.event.keyCode == CTRL) ctrldown = false
+var GSkeyup = function(key) { // keyup events
+    var keycode = key.keyCode
+    if (keycode == SHIFT) shiftdown = false
+    else if (keycode == CTRL) ctrldown = false
 }
 
-var GScheck = function() { // handle indentation; check whether we might need to update the display of line numbers
+var GScheck = function(key) { // keydown events
+    var keycode = key.keyCode
 	window.onbeforeunload = Quit // ensure giving a warning when quitting the browser or browser tab
 	
-	var indenting = function(text, cursor) { // create indent depending on line receding the ENTER event
+	var indenting = function(text, cursor) { // create indent depending on line preceding the ENTER event
         if (cursor < 2) return // at or next to the start of the program; note n=cursor-2 below
 		var startspaces = /([\ ]*)/
 		var endcolon = /:[\ ]*$/
@@ -161,36 +167,38 @@ var GScheck = function() { // handle indentation; check whether we might need to
 		}
 		if (indent > 0) {
 			GSedit.editarea.val(text.slice(0,cursor+1)+spaces+'\n'+text.slice(cursor+1))
-            GSedit.editarea[0].focus()
-            cursorreset = cursor+indent+1
+            startcursor = endcursor = cursor+indent+1
             setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
 		}
 	}
     
-    var cursorreset
+    var startcursor
+    var endcursor
     var resetCursor = function() {
-        GSedit.editarea[0].setSelectionRange(cursorreset,cursorreset)
+        GSedit.editarea[0].focus()
+        GSedit.editarea[0].setSelectionRange(startcursor,endcursor)
     }
 	
-	var c = window.event.keyCode
-    if (c == SHIFT) shiftdown = true
-    else if (c == CTRL) ctrldown = true
-	else {
-        if (c == ENTER || c == BACK || c == DEL) {
+    if (keycode == SHIFT) {
+        shiftdown = true
+    } else if (keycode == CTRL) { // should enable Ctrl-2 to run
+        ctrldown = true
+	} else {
+        if (keycode == ENTER || keycode == BACK || keycode == DEL) {
             var cursor = GSedit.editarea[0].selectionStart
-            if (c == ENTER) { // the newline character has already been inserted at the location given by cursor
+            if (keycode == ENTER) { // the newline character has already been inserted at the location given by cursor
                 var text = GSedit.editarea.val()
                 indenting(text, cursor)
             }
             GSupdate()
-        } else if (c == TAB || (ctrldown && c == SLASH)) {
+        } else if (keycode == TAB || (ctrldown && keycode == SLASH)) {
             var start = GSedit.editarea[0].selectionStart
             var end   = GSedit.editarea[0].selectionEnd
             var start0 = start
             var text  = GSedit.editarea.val()
             while (start > 0 && text[start] != '\n') start--
             if (start > 0) start++
-            if (c == TAB) { // indent or exdent
+            if (keycode == TAB) { // indent or exdent
                 while (true) {
                     if (shiftdown) { 
                         if (start+INDENTLENGTH < text.length && text.slice(start,start+INDENTLENGTH) == INDENT) {
@@ -210,8 +218,9 @@ var GScheck = function() { // handle indentation; check whether we might need to
                 }
                 GSedit.editarea.val(text)
                 GSupdate()
-                if (shiftdown) GSedit.editarea[0].setSelectionRange(start0-INDENTLENGTH, end)
-                else GSedit.editarea[0].setSelectionRange(start0+INDENTLENGTH, end)
+                endcursor = end
+                startcursor = (shiftdown) ? start0-INDENTLENGTH : start0+INDENTLENGTH
+                setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
             } else { // toggle commenting
                 var n = text.indexOf('\n')
                 if (n > 0) {
@@ -237,7 +246,9 @@ var GScheck = function() { // handle indentation; check whether we might need to
                     }
                     GSedit.editarea.val(text)
                     GSupdate()
-                    GSedit.editarea[0].setSelectionRange(start0+1, end)
+                    startcursor = start0+1
+                    endcursor = end
+                    setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
                 }
             }
         }
