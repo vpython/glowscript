@@ -46,8 +46,9 @@ For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not po
 
     Windows: Doubleclick start.bat in the GlowScriptOffline folder.
     
-    Mac: Doubleclick Mac_launch.command (after which you may have to go to System Preferences/Security & Privacy and
-        specify that you want to allow it to execute now and in the future).
+    Mac: Open a terminal in the GlowScriptOffline folder and execute chmod 755 Mac_launch.command (after which you may have to go to
+         System Preferences/Security & Privacy and under the General tab  specify that you want to allow it to execute now and in the future).
+         Then doubleclick Mac_launch.command.
         
     Linux: Open a terminal in the GlowScriptOffline folder and execute chmod 755 Linux_launch, then doubleclick Linux_launch. 
         You only need to execute the chmod instruction once, before using Linux_launch for the first time.

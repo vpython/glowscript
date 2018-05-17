@@ -49,6 +49,14 @@
 <script type="text/javascript" src="glowscript_libraries/split.min.js"></script>
 </body>
 
+<button onclick="runCode()">Run</button> 
+&nbsp;&nbsp;&nbsp;
+<a href="VPythonDocs/index.html" target="_blank">Help</a>
+&nbsp;&nbsp;&nbsp;
+<button id="export" onclick="exportCode()">Export</button>
+&nbsp;&nbsp;&nbsp;
+<input type="file" id="read_local_file"/>
+
 <script>
 var gsversion = 2.7
 var printpane = false
@@ -98,17 +106,23 @@ function localCompile(header, compReady, errordiv) {
                     
         var embedScript
         try {
-           embedScript = window.glowscript_compile(header.source, {lang: header.lang, 
+            embedScript = window.glowscript_compile(header.source, {lang: header.lang, 
                 version: header.version.substr(0,3)})
-        } catch(err) {   
-           errordiv.innerHTML = "<p>"+err+"</p>"
-           return
+        } catch(err) { // need to decrement 3 -> 2 in Error: Missing right parenthesis, see line 3: b = box(pos=37
+            var rawStack
+            if (typeof err.stack == 'string') rawStack = err.stack.split('\n')
+            else rawStack = err.stack
+            err = rawStack[0] // e.g. "Error: Missing right parenthesis, see line 3: b = box("
+            var patt = new RegExp('line(\\s*)([0-9]*):')
+            var m = err.match(patt)
+            if (m !== null) {
+                var colonindex = m.index + 4 + m[1].length + m[2].length
+                var n = parseFloat(m[2])-1
+                err = err.slice(0,m.index)+'line '+n+err.slice(colonindex)
+            }
+            errordiv.innerHTML = "<p>"+err+"</p>"
+            return
         }
-        //embedScript = ";(function() {" + embedScript + '\n'+
-        //               'glowscript_run = function() { main(__func); }\n' +
-        //               '})()'
-
-        //embedScript = embedScript.replace("</", "<\\/") // escape anything that could be a close script tag... hopefully this sequence only occurs in strings!
         compReady(embedScript)
     })
 }
@@ -250,25 +264,22 @@ function showcode(sc) {
         '\n</div>')
     savecode = GSedit.getValue()
     GSedit.setValue(embedHTML)
-    GSedit.editarea.select()
+    startcursor = 0
+    endcursor = embedHTML.length
+    setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
     $("#export").html('Restore')
+}
+    
+var startcursor
+var endcursor
+var resetCursor = function() {
+    GSedit.editarea[0].focus()
+    GSedit.editarea[0].setSelectionRange(startcursor,endcursor)
 }
 
 function gsErrorHandler(err) {
     gsErrordiv.innerHTML = "<p>"+err+"</p>"
 }
-
-</script>
-
-<button onclick="runCode()">Run</button> 
-&nbsp;&nbsp;&nbsp;
-<a href="VPythonDocs/index.html" target="_blank">Help</a>
-&nbsp;&nbsp;&nbsp;
-<button id="export" onclick="exportCode()">Export</button>
-&nbsp;&nbsp;&nbsp;
-<input type="file" id="read_local_file"/>
-
-<script>
 
 function readSingleFile(evt) {
 	var ok = true
@@ -295,7 +306,7 @@ function readSingleFile(evt) {
 document.getElementById('read_local_file').addEventListener('change', readSingleFile, false)
 </script>
 
-<div id="gserrors" style="font-family:Verdana;font-size:12px">
+<div id="gserrors" style="font-family:Verdana;font-size:13px;color:#c00">
 </div>
 
 <div class='api'>
