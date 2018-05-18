@@ -8,6 +8,8 @@ Inside this folder, doubleclick GlowScript.html. This will start up your preferr
 
 Click Run to run the program. You can drag the vertical gray bar (nnd/or make the window wider or narrower) to arrange the code and execution regions the way you want them. Make changes to the program and click Run again. If you add a print statement a print area will appear at the right.
 
+With the mouse cursor in the program text, you can run or restart your program by pressing Ctrl-1 or Ctrl-2, just as you can at glowscript.org.
+
 SAVING YOUR CHANGES
 For security reasons, browsers are not permitted to write to your computer disk. If you want to save the changes you made, copy and paste your code to an application such as Notepad (Windows) or TextEdit (Mac) and save the file.
 
@@ -18,16 +20,16 @@ DOCUMENTATION INCLUDED
 The GlowScript documentation is included in the package and is accessible by clicking Help.
 
 USING THE TEXT EDITOR
-In the text editor, as in the editor at glowscript.org, select one or more lines and press TAB to indent or Shift-TAB to unindent; press Ctrl-/ to toggle commenting of the lines. At the moment, find and replace options are not yet available; you can of course copy the program to a local text editor to use find and replace.
+In the text editor, as in the editor at glowscript.org, select one or more lines and press TAB to indent or Shift-TAB to unindent; press Ctrl-/ to toggle commenting of the lines. Pressing TAB with the cursor at the end of the line adds spaces to the end of that line. At the moment, find and replace options are not yet available; you can of course copy the program to a local text editor to use find and replace, then copy it back.
 
 USING PROGRAMS FROM glowscript.org OR FROM VPYTHON 7
 When you download programs from glowscript.org, they are in the form of .py files whose first line is a statement about importing vpython, like programs created with VPython 7. This first line is understood by the offline package, as is "GlowScript X.Y VPython" or "GlowScript X.Y JavaScript".
 
 EXPORTING A PROGRAM
-When you click the "Export" button, your program is processed to create code that can be used embedded in your own web site, just like using the option "Share or export this program" at glowscript.org. This processed code temporarily replaces your own program code and is selected so that you can simply press Ctrl-C to copy the code, then use a text editor to save this code to a local file that should have the extension ".html". When you are connected to the internet, doubleclicking this html file will start up your default browser and run the program. You can return to editing your orginal program by clicking the "Restore" button. (Notice that there is no need to be able to run the exported html file when disconnected from the internet, because you can run the original program in the offline package.)
+When you click the "Export" button, your program is processed to create code that can be embedded in your own web site, just like using the option "Share or export this program" at glowscript.org. This processed code temporarily replaces your own program code and is selected so that you can simply press Ctrl-C to copy the code, then use a text editor to save this code to a local file that should have the extension ".html". When you are connected to the internet, doubleclicking this html file will start up your default browser and run the program. You can return to editing your orginal program by clicking the "Restore" button. (Notice that there is no need to be able to run the exported html file when disconnected from the internet, because you can run the original program in the offline package.)
 
 POSSIBLE SLOWDOWN
-If you make a large number of runs, performance degrades due to an accumulation of "WebGL contexts". However, there is a simple remedy: reload the web page.
+If you make a large number of runs, performance may degrade due to an accumulation of "WebGL contexts". However, there is a simple remedy: reload the web page.
 
 IMPORT ISSUES
 By default, if you don't start a program with a statement of the form "GlowScript 2.7 JavaScript" or "GlowScript 2.7 RapydScript", it is assumed that this is a VPython program. You can also start a program with one of these kinds of Python import statements (or include such an import statement after "GlowScript 2.7 VPython"):
@@ -47,7 +49,7 @@ For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not po
     Windows: Doubleclick start.bat in the GlowScriptOffline folder.
     
     Mac: Open a terminal in the GlowScriptOffline folder and execute chmod 755 Mac_launch.command (after which you may have to go to
-         System Preferences/Security & Privacy and under the General tab  specify that you want to allow it to execute now and in the future).
+         System Preferences/Security & Privacy and under the General tab specify that you want to allow it to execute now and in the future).
          Then doubleclick Mac_launch.command.
         
     Linux: Open a terminal in the GlowScriptOffline folder and execute chmod 755 Linux_launch, then doubleclick Linux_launch. 

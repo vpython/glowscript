@@ -64,6 +64,7 @@ var printpane = false
 var glowscript_run = undefined
 window.Jupyter_VPython = undefined
 if (!navigator.onLine) window.Jupyter_VPython = 'glowscript_data/' // get textures when offline
+// TAB at end of line should lengthen the line; implement Ctrl-1 and Ctrl-2
 
 function fontloading() { // trigger loading of fonts for 3D text
     "use strict";
@@ -109,10 +110,7 @@ function localCompile(header, compReady, errordiv) {
             embedScript = window.glowscript_compile(header.source, {lang: header.lang, 
                 version: header.version.substr(0,3)})
         } catch(err) { // need to decrement 3 -> 2 in Error: Missing right parenthesis, see line 3: b = box(pos=37
-            var rawStack
-            if (typeof err.stack == 'string') rawStack = err.stack.split('\n')
-            else rawStack = err.stack
-            err = rawStack[0] // e.g. "Error: Missing right parenthesis, see line 3: b = box("
+            err = err.toString() // gets the error message
             var patt = new RegExp('line(\\s*)([0-9]*):')
             var m = err.match(patt)
             if (m !== null) {
@@ -220,14 +218,16 @@ function ready(program) {
         }
         window.userMain(function (err) {
             if (err) {
-                window.lasterr = err
                 reportScriptError(program, err)
             }
         })
     } catch (err) {
-        window.lasterr = err
         reportScriptError(program, err);
     }
+}
+
+function errorHandler(err) {
+    console.log(err)
 }
 
 function exportCode() {
@@ -352,14 +352,16 @@ function Quit(e) { // Some browsers just say "Do you want to leave this site? Ch
    return s
 }
 
-function reportScriptError(program, err) { // This machinery only works on Chrome
-    // TraceKit - Cross browser stack traces: https://github.com/csnover/TraceKit
+function reportScriptError(program, err) { // This machinery only gives trace information on Chrome
+    // The trace information provided by browsers other than Chrome does not include the line number
+    // of the user's program, only the line numbers of the GlowScript libraries. For that reason
+    // none of the following cross browser stack trace reporters are useful for GlowScript:
+    // Single-page multibrowser stack trace: https://gist.github.com/samshull/1088402
+    // stacktrase.js https://github.com/stacktracejs/stacktrace.js    https://www.stacktracejs.com/#!/docs/stacktrace-js
+    // tracekit.js; https://github.com/csnover/TraceKit
+    var feedback = err.toString()+'<br>'
     var prog = program.split('\n')
-    var referror = (err.__proto__.name === 'ReferenceError')
     //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
-    //console.log('Error', err)
-    //console.log('Stack', err.stack)
-    //console.log('referror', referror)
     var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
     var traceback = []
     if (err.cursor) {
@@ -372,7 +374,6 @@ function reportScriptError(program, err) { // This machinery only works on Chrom
     } else {
         // This is a runtime exception; extract the call stack if possible
         try {
-            // FIXME: This works only for the Chrome V8 JavaScript compiler
             // Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
             // and at other times it is one long string; in the latter case we have to create rawStack
             // as an array of strings.
@@ -390,12 +391,6 @@ function reportScriptError(program, err) { // This machinery only works on Chrom
                 caller = m[1]
                 jsline = m[2]
                 jschar = m[3]
-                /*
-                if (caller == 'new') {
-                    m = rawStack[i].match(/[ ]*at[ ]new[ ]*([^ ]*)/)
-                    caller = m[1]
-                }
-                */
                 if (caller.slice(0,3) == 'RS_') continue
                 if (caller == 'compileAndRun') break
                 if (caller == 'main') break
@@ -430,12 +425,10 @@ function reportScriptError(program, err) { // This machinery only works on Chrom
                 first = false
                 traceback.push("")
                 if (caller == '__$main') break
-                //if (referror) break
             }
         } catch (ignore) {
         }
     }
-    var feedback = rawStack[0]+'<br>'
     for (var i= 0; i<traceback.length; i++) feedback += '<br>'+traceback[i]
     gsErrordiv = $("#gserrors")[0]
     gsErrorHandler(feedback)
