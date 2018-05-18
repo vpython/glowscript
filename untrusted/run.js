@@ -228,14 +228,16 @@ function ideRun() {
         })
     }
 
-    function reportScriptError(program, err) { // This machinery only works on Chrome
-    	// TraceKit - Cross browser stack traces: https://github.com/csnover/TraceKit
-    	var prog = program.split('\n')
-    	var referror = (err.__proto__.name === 'ReferenceError')
-    	//for(var i=0; i<prog.length; i++) console.log(i, prog[i])
-    	//console.log('Error', err)
-    	//console.log('Stack', err.stack)
-    	//console.log('referror', referror)
+    function reportScriptError(program, err) { // This machinery only gives trace information on Chrome
+        // The trace information provided by browsers other than Chrome does not include the line number
+        // of the user's program, only the line numbers of the GlowScript libraries. For that reason
+        // none of the following cross browser stack trace reporters are useful for GlowScript:
+        // Single-page multibrowser stack trace: https://gist.github.com/samshull/1088402
+        // stacktrase.js https://github.com/stacktracejs/stacktrace.js    https://www.stacktracejs.com/#!/docs/stacktrace-js
+        // tracekit.js; https://github.com/csnover/TraceKit
+        var feedback = err.toString()+'<br>'
+        var prog = program.split('\n')
+        //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
     	var traceback = []
         if (err.cursor) {
@@ -248,7 +250,6 @@ function ideRun() {
         } else {
             // This is a runtime exception; extract the call stack if possible
             try {
-                // FIXME: This works only for the Chrome V8 JavaScript compiler
             	// Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
             	// and at other times it is one long string; in the latter case we have to create rawStack
             	// as an array of strings.
@@ -266,12 +267,6 @@ function ideRun() {
 	                caller = m[1]
 	                jsline = m[2]
 	                jschar = m[3]
-                    /*
-                	if (caller == 'new') {
-                		m = rawStack[i].match(/[ ]*at[ ]new[ ]*([^ ]*)/)
-                		caller = m[1]
-                	}
-                	*/
                 	if (caller.slice(0,3) == 'RS_') continue
                     if (caller == 'compileAndRun') break
                     if (caller == 'main') break
@@ -306,13 +301,13 @@ function ideRun() {
 	                first = false
                     traceback.push("")
                     if (caller == '__$main') break
-	                //if (referror) break
                 }
             } catch (ignore) {
             }
         } 
+    f   or (var i= 0; i<traceback.length; i++) feedback += '<br>'+traceback[i]
         send({ error: "" + err, 
-               traceback: traceback.length ? traceback.join("\n") : null})
+               traceback: traceback.length ? feedback : ''})
     }
 
     waitScript()
