@@ -181,8 +181,10 @@ var GScheck = function(key) { // keydown events
 	
     if (keycode == SHIFT) {
         shiftdown = true
-    } else if (keycode == CTRL) { // should enable Ctrl-2 to run
+    } else if (keycode == CTRL) { // should enable Ctrl-1 and Ctrl-2 to run
         ctrldown = true
+    } else if (ctrldown && (keycode == 49 || keycode == 50)) { // Ctrl-1 or Ctrl-2 should run the program
+        runCode()
 	} else {
         if (keycode == ENTER || keycode == BACK || keycode == DEL) {
             var cursor = GSedit.editarea[0].selectionStart
@@ -199,6 +201,13 @@ var GScheck = function(key) { // keydown events
             while (start > 0 && text[start] != '\n') start--
             if (start > 0) start++
             if (keycode == TAB) { // indent or exdent
+                if (start === end+1 && start >0 && text[start-1] == '\n') { // cursor at end of a line; last character is at text[start-2]
+                    // Odd that when the cursor is at the end of a line, start == end+1.
+                    GSedit.editarea.val(text.slice(0,start-1)+INDENT+text.slice(start-1))
+                    startcursor = endcursor = end+INDENTLENGTH
+                    setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
+                    return
+                }
                 while (true) {
                     if (shiftdown) { 
                         if (start+INDENTLENGTH < text.length && text.slice(start,start+INDENTLENGTH) == INDENT) {
