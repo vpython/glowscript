@@ -32,11 +32,24 @@ GSedit.setValue = function (source) {
 	original = GSedit.editarea.val() // important to save in the form it has in the textarea, else GSedit.changed() fails
 	GSupdate()
 	GSedit.editarea.scrollTop(0)
+	GSedit.editarea[0].focus()
     setTimeout(setcursor0, 30)
 }
 
 var setcursor0 = function() {
     GSedit.editarea[0].setSelectionRange(0,0)
+}
+
+GSedit.isPython = function() { // return true if vpython or rapydscript; false if javascript
+	var cr = GSedit.editarea.val().search('\n')
+	if (cr < 0) return true
+	var elements = GSedit.editarea.val().slice(0,cr).split(" ")
+	if (elements[0] != 'GlowScript') return true
+	if (elements.length == 3) {
+	    return (elements[2].toLowerCase() != 'javascript')
+	} else {
+		return false // the case of "GlowScript X.Y"
+	}
 }
 
 GSedit.changed = function () {
@@ -81,8 +94,11 @@ GSedit.init = function(placement, source, width, readonly) {
 		GSedit.linenumbersarea.scrollTop(GSedit.editarea[0].scrollTop) // adjust line number display
 	});
 	initialized = true
-    $('#edit').on('keydown', function(e) { // prevent TAB from moving among elements of the web page
+    $('#edit').on('keydown', function(e) { 
+    	// Prevent TAB from moving among elements of the web page and
+    	// prevent ctrl-1 or ctrl-2 from moving to a different browser tab
 		if (e.keyCode == TAB) e.preventDefault()
+		else if (ctrldown && (e.keyCode == 49 || e.keyCode == 50)) e.preventDefault() // 1 and 2 are keyCode 49 and 50
 	})
 	setTimeout(updatechange, 200) // 200 ms is much longer than the time to execute GSedit.changed()
 }
@@ -142,32 +158,31 @@ var GSkeyup = function(key) { // keyup events
     else if (keycode == CTRL) ctrldown = false
 }
 
+/*
+GlowScript 2.7 JavaScript
+scene.range = 0.5
+sphere({size:vec(1,1,1), color:color.cyan})
+ */
+
 var GScheck = function(key) { // keydown events
     var keycode = key.keyCode
 	window.onbeforeunload = Quit // ensure giving a warning when quitting the browser or browser tab
 	
 	var indenting = function(text, cursor) { // create indent depending on line preceding the ENTER event
         if (cursor < 2) return // at or next to the start of the program; note n=cursor-2 below
-		var startspaces = /([\ ]*)/
-		var endcolon = /:[\ ]*$/
+        var startspaces = /([\ ]*)/
+		var endchar = GSedit.isPython() ? /:$/ : /{$/
 		var thisline = '', spaces, indent
-		for (var n=cursor-1; text[n] != '\n' && n > 0; n--) thisline = text[n]+thisline // up to the newly inserted newline
-        var thisindent = thisline.match(startspaces)[0]
-		if (thisline.match(endcolon) !== null) { // there is an ending colon, such as "while True:" or "if x: y = 5"
-			var endline = ''
-			for (n=cursor+1; text[n] != '\n' && n < text.length; n++) endline += text[n] // accumulate current line after cursor
-			indent = INDENTLENGTH
-			var s = text.slice(n+1)
-			var spaces = s.match(startspaces)[0]
-			if (spaces.length > 0) indent = spaces.length
-			else spaces = '    ' // default
-		} else {
-			spaces = thisindent
-			indent = thisindent.length
-		}
-		if (indent > 0) {
-			GSedit.editarea.val(text.slice(0,cursor+1)+spaces+'\n'+text.slice(cursor+1))
-            startcursor = endcursor = cursor+indent+1
+		for (var n=cursor-1; text[n] != '\n' && n >= 0; n--) thisline = text[n]+thisline
+		var spaces = thisline.match(startspaces)[1]
+        if (thisline.match(endchar) !== null) { // there is an ending colon or {, such as "while True:" or "if (...) {"
+        	spaces += INDENT
+		} 
+		if (spaces.length > 0) {
+			var extra = ''
+			if (text.length > cursor) extra = text.slice(cursor)
+			GSedit.editarea.val(text.slice(0,cursor)+'\n'+spaces+extra)
+            startcursor = endcursor = cursor+spaces.length+1
             setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
 		}
 	}
@@ -233,10 +248,9 @@ var GScheck = function(key) { // keydown events
             } else { // toggle commenting
                 var n = text.indexOf('\n')
                 if (n > 0) {
-                    var firstline = text.slice(0,n)
                     var insert = '//'
                     var length = 2
-                    if (firstline.indexOf('yth') > 0 || firstline.indexOf('pyd') > 0) { // Python or RapydScript
+                    if (GSedit.isPython()) { // Python or RapydScript
                         insert = '#'
                         length = 1
                     }
