@@ -51,6 +51,8 @@
 
 <button onclick="runCode()">Run</button> 
 &nbsp;&nbsp;&nbsp;
+<button onclick="saveCode()">Save</button> 
+&nbsp;&nbsp;&nbsp;
 <a href="VPythonDocs/index.html" target="_blank">Help</a>
 &nbsp;&nbsp;&nbsp;
 <button id="export" onclick="exportCode()">Export</button>
@@ -60,6 +62,7 @@
 <script>
 var gsversion = 2.7
 var printpane = false
+var exporting = false // not currently in export mode
 
 var glowscript_run = undefined
 window.Jupyter_VPython = undefined
@@ -79,9 +82,6 @@ function fontloading() { // trigger loading of fonts for 3D text
 	}
 }
 fontloading() // get the sans and serif font files used by 3D text
-
-// For an unknown reason, attempts to load fonts when disconnected from the internet doesn't work,
-// even when a full path was specified in a fontloading function.
 
 // localCompile is a modification of https://github.com/BruceSherwood/glowscript/blob/master/ide/ide.js
 function localCompile(header, compReady, errordiv) {
@@ -202,10 +202,6 @@ function ready(program) {
     var w = $("#glows")
     w[0].innerHTML = "" // Comment this and the next if get a solution for too many WebGL context
     w[0].innerHTML = '<div id="glowscript" class="glowscript"></div>'
-    //window.__context = { glowscript_container: $(".glowscript").removeAttr("id") }
-    
-    // This handles compile-time errors:
-    //window.__context.errorHandler = gsErrorHandler
     
     try {
         window.userMain = eval(program)
@@ -226,17 +222,15 @@ function ready(program) {
     }
 }
 
-function errorHandler(err) {
-    console.log(err)
-}
-
 function exportCode() {
 	if (savecode !== null) { // Restore operation
+		exporting = false
 		GSedit.setValue(savecode)
 		savecode = null
 	    $("#export").html('Export')
 		
 	} else { // Export operation
+		exporting = true
 		var header = getHeader()
 	    gsErrordiv = $("#gserrors")[0]
 	    localCompile(header, showcode, gsErrordiv)
@@ -258,6 +252,7 @@ function showcode(sc) {
         '<scr'+'ipt type="text/javascript" src="' + exporturl + 'package/glow.' + gsversion + '.min.js"></scr'+'ipt>\n' +
         '<scr'+'ipt type="text/javascript" src="' + exporturl + 'package/RSrun.' + gsversion + '.min.js"></scr'+'ipt>\n' +
         '<scr'+'ipt type="text/javascript"><!--//--><![CDATA[//><!--\n' +
+        ';(function() {' +
         sc +
         '\n;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; main(__func) })})()\n' +
         '\n//--><!]]></scr'+'ipt>' +
@@ -282,6 +277,7 @@ function gsErrorHandler(err) {
 }
 
 function readSingleFile(evt) {
+	exporting = false
 	var ok = true
 	if (GSedit.changed()) {
 		var s = "To continue without saving, click OK.\nTo save, click Cancel, then copy and paste into an application such as Notepad or TextEdit."
@@ -320,7 +316,7 @@ document.getElementById('read_local_file').addEventListener('change', readSingle
 var lastwindowwidth = window.innerWidth
 var splits = Split(['#sourcetext', '#glows', "#printing"], {sizes: [50,50,0], onDrag:splitdrag})
 // splits.getSizes() returns current percentage widths; splits.setSizes([w1,w2]) resets them
-var source = 'from vpython import *\nbox()'
+var source = ''
 GSedit.init("#sourcetext", source, 0.5*lastwindowwidth, false) // not readonly
 
 function splitdrag() {
@@ -350,6 +346,29 @@ function Quit(e) { // Some browsers just say "Do you want to leave this site? Ch
    var s = "To continue without saving, click OK.\nTo save, click Cancel, then copy and paste into an application such as Notepad or TextEdit."
    e.returnValue = s
    return s
+}
+
+// https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
+function download(filename, text) {
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', filename);
+	element.style.display = 'none';
+	document.body.appendChild(element);
+	element.click();
+	document.body.removeChild(element);
+}
+
+var lastname = '' // the file name chosen the last time the user saved code
+
+function saveCode() {
+	var name = prompt("Enter the file name (without extension)", lastname)
+	if (name === null) return
+	lastname = name
+	var extension = '.py'
+	if (!GSedit.isPython()) extension = '.js'
+	if (exporting) extension = '.html'
+	download(name+extension, GSedit.getValue())
 }
 
 function reportScriptError(program, err) { // This machinery only gives trace information on Chrome
