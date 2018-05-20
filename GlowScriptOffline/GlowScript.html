@@ -63,6 +63,7 @@
 var gsversion = 2.7
 var printpane = false
 var exporting = false // not currently in export mode
+var lastprintwidth = null
 
 var glowscript_run = undefined
 window.Jupyter_VPython = undefined
@@ -323,6 +324,7 @@ GSedit.init("#sourcetext", source, 0.5*lastwindowwidth, false) // not readonly
 
 function splitdrag() {
 	var s = splits.getSizes() // returns [width1, width2, width3]
+	lastprintwidth = splits.getSizes()[2]
 	GSedit.setwidth(0.01*s[0]*window.innerWidth)
 }
 
@@ -333,8 +335,11 @@ function splitAdjust() {  // p is true if print pane should be open
 	var w3 = current[2]
 	var rest = 100-w1
 	lastwindowwidth = window.innerWidth
-	if (printpane) splits.setSizes([w1,0.7*rest,0.3*rest])
-	else splits.setSizes([w1,rest,0])
+	if (printpane) {
+		if (lastprintwidth === null) splits.setSizes([w1,0.7*rest,0.3*rest])
+		else splits.setSizes([w1,rest-lastprintwidth,lastprintwidth])
+		lastprintwidth = splits.getSizes()[2]
+	} else splits.setSizes([w1,rest,0])
 	GSresize(0.01*w1*window.innerWidth)
 }
 
