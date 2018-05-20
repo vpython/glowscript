@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Using GlowScript locally, based on the work of Vesa Lappalainen vesal@jyu.fi -->
+<title>GlowScript Offline</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="glowscript_libraries/ide.css" rel="stylesheet" />
+</head>
+<body>
+
+<div style="font-family:Verdana;font-size:13px">
+
+<h4>OBTAINING THE LATEST VERSION OF GLOWSCRIPT OFFLINE</h4>
+<p>Based on the work of Vesa Lappalainen of Finland, this package makes it possible to write and run GlowScript programs even when disconnected from the internet. To obtain the latest version of this package, go to the following location and click Download, then unzip the package to any convenient place on your computer:</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/BruceSherwood/glowscript/blob/master/GlowScriptOffline2.7.zip">https://github.com/BruceSherwood/glowscript/blob/master/GlowScriptOffline2.7.zip</a></p>
+
+<h4>RUNNING PROGRAMS</h4>
+<p>Inside this folder, doubleclick GlowScript.html. This will start up your preferred browser.</p>
+
+<p>As a test, enter box() into the left (edit) pane.</p>
+
+<p>Click Run to run the program. To rotate, zoom, or pan the scene:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Right button drag or Ctrl-drag to rotate the "camera" to view scene.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;To zoom, drag with middle button or Alt/Option depressed, or use scroll wheel.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;On a two-button mouse, middle is left + right.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Shift-drag to pan left/right and up/down.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Touch screen: pinch/extend to zoom, swipe or two-finger rotate.</p>
+
+<p>You can drag the vertical gray bar (nnd/or make the window wider or narrower) to arrange the edit and execution regions the way you want them. Make changes to the program and click Run again. If you add a print statement a print area will appear at the right.</p>
+
+<p>You can run or restart your program by pressing Ctrl-1 or Ctrl-2, just as you can at glowscript.org.</p>
+
+<h4>SAVING YOUR CHANGES</h4>
+Click Save to save your program. It will be written to your Download folder (browser security rules forbid writing it anywhere else). You will be asked for a name. Suppose you specify "test". If your program is VPython or RapydScript, the Download folder will have a file named test.py, otherwise it will be test.js (JavaScript). If in one session you do multiple saves, your Download folder will have multiple copies: test.py, test(1).py, etc.
+
+<h4>DEMO PROGRAMS INCLUDED</h4>
+<p>Click Choose File and navigate to the GlowScriptOffline folder to choose from programs in the Demos folder. If you did make changes to the sample program, you'll see a warning that you might wish to save your work before replacing it with the demo program. Similarly, when you close the browser or the browser tab, if you have modified the current program you'll be warned about saving the file.</p>
+
+<h4>DOCUMENTATION INCLUDED</h4>
+<p>The GlowScript documentation is included in the package and is accessible by clicking Help.</p>
+
+<h4>USING THE TEXT EDITOR</h4>
+<p>In the text editor, as in the editor at glowscript.org, select one or more lines and press TAB to indent or Shift-TAB to unindent; press Ctrl-/ to toggle commenting of the lines. Pressing TAB with the cursor at the end of the line adds spaces to the end of that line. At the moment, find and replace options are not yet available; you can of course copy the program to a local text editor to use find and replace, then copy it back.</p>
+
+<h4>USING PROGRAMS FROM glowscript.org OR FROM VPYTHON 7</h4>
+<p>When you download programs from glowscript.org, they are in the form of .py files whose first line is a statement about importing vpython, like programs created with VPython 7. This first line is understood by the offline package, as is "GlowScript X.Y VPython" or "GlowScript X.Y JavaScript".</p>
+
+<h4>EXPORTING A PROGRAM</h4>
+<p>When you click the "Export" button, your program is processed to create code that can be embedded in your own web site, just like using the option "Share or export this program" at glowscript.org. This processed code temporarily replaces your own program code. If you click Save and give the name "test", a file named test.html will be written to your Download folder. Alternatively, press Ctrl-C to copy the code (all of which is preselected for you), then use a text editor to save this code to a local file that should have the extension ".html".</p>
+
+<p>When you are connected to the internet, doubleclicking this html file will start up your default browser and run the program. You can return to editing your orginal program by clicking the "Restore" button. (Notice that there is no need to be able to run the exported html file when disconnected from the internet, because you can run the original program in the offline package.)</p>
+
+<h4>POSSIBLE SLOWDOWN</h4>
+<p>If you make a large number of runs, performance may degrade due to an accumulation of "WebGL contexts". However, there is a simple remedy: reload the web page.</p>
+
+<h4>IMPORT ISSUES, AND USING JAVASCRIPT</h4>
+<p>By default, if you don't start a program with a statement of the form "GlowScript 2.7 JavaScript" or "GlowScript 2.7 RapydScript", it is assumed that this is a VPython program. You can also start a program with one of these kinds of Python import statements (or include such an import statement after "GlowScript 2.7 VPython"):</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;from vpython import *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# The default; all VPython elements are available<br>
+&nbsp;&nbsp;&nbsp;&nbsp;from vpython import canvas, box, sphere, vec&nbsp;&nbsp;&nbsp;# This MUST include canvas; box and sphere and vec are available<br>
+&nbsp;&nbsp;&nbsp;&nbsp;import vpython&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# To show a red box, say vpython.box(color=vpython.color.red)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;import vpython as vp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# To show a red box, say vp.box(color=vp.color.red)</p>
+
+<p>If you don't include a GlowScript or import statement, this is the same as specifying "from vpython import *".</p>
+
+<h4>USING THE STANDARD TEXTURES</h4>
+<p>The standard VPython textures are available in the usual way (texture=textures.flower).</p>
+
+<h4>USING YOUR OWN TEXTURES OR JAVASCRIPT LIBRARIES</h4>
+<p>If you don't use your own JavaScript libraries (using the get_library function), the insructions given above are adequate. If you do however use your own textures or JavaScript libraries, you need to follow these instructions:</p>
+
+<p>For highly technical reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use your own textures or JavaScript libraries when offline unless you use the Chrome browser and configure Chrome in a special way. First, exit Chrome. Then,</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Windows: Doubleclick start.bat in the GlowScriptOffline folder.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Mac: Open a terminal in the GlowScriptOffline folder and execute chmod 755 Mac_launch.command (after which you may have to go to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System Preferences/Security & Privacy and under the General tab specify that you want to allow it to execute now and in the future).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Then doubleclick Mac_launch.command.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;You only need to execute the chmod instruction once, before using Mac_launch.command for the first time.<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Linux: Open a terminal in the GlowScriptOffline folder and execute chmod 755 Linux_launch, then doubleclick Linux_launch.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You only need to execute the chmod instruction once, before using Linux_launch for the first time.</p>
+    
+<p>You will see the warning, "You are using an unsupported command-line flag: --disable-web-security. Stability and security will suffer." Without exiting Chrome, do this:</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Doubleclick GlowScript.html.</p>
+    
+<p>If you quit and restart Chrome, its normal security rules will be restored.</p>
+
+<p>Suppose you have an image named car.jpg that you want to use as a texture. Place it in the glowscript_data folder. To use it, in your program say texture="glowscript_data/car.jpg".</p>
+
+<p>To use a library written in JavaScript, place it in the glowscript_libraries folder. Suppose the library is named useful.js. To use it, in your program execute the statement get_library("glowscript_libraries/useful.js"). Alternatively, you can create a folder next to the glowscript_library folder, to contain your own JavaScript files. If you name your folder "mylibraries" you would say get_library("mylibraries/useful.js").</p>
+</div>
+</body>
+</html>
