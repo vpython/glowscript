@@ -158,12 +158,6 @@ var GSkeyup = function(key) { // keyup events
     else if (keycode == CTRL) ctrldown = false
 }
 
-/*
-GlowScript 2.7 JavaScript
-scene.range = 0.5
-sphere({size:vec(1,1,1), color:color.cyan})
- */
-
 var GScheck = function(key) { // keydown events
     var keycode = key.keyCode
 	window.onbeforeunload = Quit // ensure giving a warning when quitting the browser or browser tab
@@ -180,10 +174,11 @@ var GScheck = function(key) { // keydown events
 		} 
 		if (spaces.length > 0) {
 			var extra = ''
-			if (text.length > cursor) extra = text.slice(cursor)
+			if (text.length > cursor) extra = text.slice(cursor+1)
 			GSedit.editarea.val(text.slice(0,cursor)+'\n'+spaces+extra)
             startcursor = endcursor = cursor+spaces.length+1
-            setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
+            resetCursor() // Don't know why we need to call resetCursor twice, but we do have to. Sigh.
+            setTimeout(resetCursor, 0)
 		}
 	}
     
@@ -220,7 +215,7 @@ var GScheck = function(key) { // keydown events
                     // Odd that when the cursor is at the end of a line, start == end+1.
                     GSedit.editarea.val(text.slice(0,start-1)+INDENT+text.slice(start-1))
                     startcursor = endcursor = end+INDENTLENGTH
-                    setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
+                    setTimeout(resetCursor, 0) // experimentally, can't correctly update cursor position here
                     return
                 }
                 while (true) {
@@ -244,7 +239,7 @@ var GScheck = function(key) { // keydown events
                 GSupdate()
                 endcursor = end
                 startcursor = (shiftdown) ? start0-INDENTLENGTH : start0+INDENTLENGTH
-                setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
+                setTimeout(resetCursor, 0) // experimentally, can't correctly update cursor position here
             } else { // toggle commenting
                 var n = text.indexOf('\n')
                 if (n > 0) {
@@ -271,7 +266,7 @@ var GScheck = function(key) { // keydown events
                     GSupdate()
                     startcursor = start0+1
                     endcursor = end
-                    setTimeout(resetCursor, 30) // experimentally, can't correctly update cursor position here
+                    setTimeout(resetCursor, 0) // experimentally, can't correctly update cursor position here
                 }
             }
         }
