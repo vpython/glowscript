@@ -758,7 +758,8 @@ $(function () {
                 h.insertBefore(before)
             }
             var s = "PRIVATE"
-            if (set_of_folders[folder]) s = "PUBLIC"
+            var pub = set_of_folders[folder] // will be null if folder predates the PRIVATE option
+            if (pub === null || pub === true) s = "PUBLIC"
             page.find(".folder-public.button").text(s)
         })
         	
