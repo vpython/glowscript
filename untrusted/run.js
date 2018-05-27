@@ -305,7 +305,7 @@ function ideRun() {
             } catch (ignore) {
             }
         } 
-    f   or (var i= 0; i<traceback.length; i++) feedback += '<br>'+traceback[i]
+    for (var i= 0; i<traceback.length; i++) feedback += '<br>'+traceback[i]
         send({ error: "" + err, 
                traceback: traceback.length ? feedback : ''})
     }
