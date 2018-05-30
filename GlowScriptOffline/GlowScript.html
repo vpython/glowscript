@@ -173,7 +173,6 @@ function getHeader(exporting) {
     if (i < 0 && j) text = "GlowScript "+gsversion+" VPython" + "\n" + text
     var header = parseVersionHeader(text)
     printpane = false
-    console.log('1', header.source)
     if (header.source.search(/print\s*\(/) >= 0) { // if the program uses print() or GSprint(), expand 3rd pane
     	printpane = true
         if (!exporting) {
@@ -186,7 +185,6 @@ function getHeader(exporting) {
             header.source = insert + header.source
         }
     }
-    console.log('2',header.source)
     // Look for mention of MathJax in program and attempt to get it (need internet access; files too big to include in package)
     if (header.source.indexOf('MathJax') >= 0) {
         alert('Cannot currently use MathJax in GlowScript Offline.')
