@@ -3,12 +3,6 @@ from __future__ import print_function, division
 # This is the original Python 2.7 build file, used in building GlowScript
 # according to the scheme described in docs/MakingNewVersion.txt.
 # A more sophisticated build program is build_cli.py contributed by Iblis Lin.
-
-# The main runtime library glow.X.Y.min.js apparently is too large to use
-# in Jupyter VPython, so this program in addition to producing glow.X.Y.min.js
-# also produces the two pieces glow.X.Ya.min.js and glow.X.Yb.min.js used in
-# Jupyter VPython.
-
 """This python program converts various parts of glowscript from the most
 convenient format for modification into the most convenient format for
 deployment.
