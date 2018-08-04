@@ -76,7 +76,7 @@ This has not actually been done so far.
 
 ************************************************************************************
     UPDATE library files in AWS/S3: https://s3.amazonaws.com/glowscript/package/
-    UPDATE library files in the GlowScriptOffline package
+    UPDATE library files in the GlowScriptOffline package and create zip file
     UPDATE the glow library used in VPython 7; generate it with build_original_no_overload.py
     (This includes vectors_no_overload.js instead of vectors.js.)
 *********************************************************************************************
