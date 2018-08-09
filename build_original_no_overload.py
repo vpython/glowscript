@@ -65,6 +65,9 @@ glowscript_libraries = {
         # Later: uglify-es does seem to handle ES6 but fails on RSrun; see below.
         # So let's use the older version of Streamline:
         "../lib/compiling/transform.js" # needed at run time as well as during compiling
+        ],
+    "plotly": [
+        "../lib/plotly.js"
         ]
     }
 
@@ -103,6 +106,8 @@ def minify(inlibs, inlibs_nomin, outlib):
     outf.write( combine(inlibs_nomin) )
     outf.close()
 
-minify( glowscript_libraries["run"], [], "package/glow." + version + "_no_overload.min.js" )
+minify( glowscript_libraries["run"], [], "ForInstalledPython/glow..min.js" )
+print('Finished glow run-time package\n')
+minify( glowscript_libraries["plotly"], [], "ForInstalledPython/plotly.min.js" )
 print('Finished glow run-time package\n')
 
