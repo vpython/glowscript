@@ -106,7 +106,7 @@ def minify(inlibs, inlibs_nomin, outlib):
     outf.write( combine(inlibs_nomin) )
     outf.close()
 
-minify( glowscript_libraries["run"], [], "ForInstalledPython/glow..min.js" )
+minify( glowscript_libraries["run"], [], "ForInstalledPython/glow.min.js" )
 print('Finished glow run-time package\n')
 minify( glowscript_libraries["plotly"], [], "ForInstalledPython/plotly.min.js" )
 print('Finished glow run-time package\n')
