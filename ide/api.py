@@ -190,7 +190,7 @@ class ApiUser(ApiRequest):
         ndb_user = User( id=username, gaeUser=gaeUser, secret=base64.urlsafe_b64encode(os.urandom(16)) )
         ndb_user.put()
 
-        ndb_my_programs = Folder( parent=ndb_user.key, id="Public", isPublic=True )
+        ndb_my_programs = Folder( parent=ndb_user.key, id="MyPrograms", isPublic=True )
         ndb_my_programs.put()
         ndb_my_programs = Folder( parent=ndb_user.key, id="Private", isPublic=False )
         ndb_my_programs.put()
