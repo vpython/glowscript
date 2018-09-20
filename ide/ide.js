@@ -1099,6 +1099,7 @@ $(function () {
                     	runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'
                     var embedHTML = (
                         '<div id="' + divid + '" class="glowscript">\n' + 
+                        '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n' +
                         '<link type="text/css" href="'+exporturl+'css/redmond/' + verdir + '/jquery-ui.custom.css" rel="stylesheet" />\n' + 
                         '<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css" />\n' + 
                         '<link type="text/css" href="'+exporturl+'css/ide.css" rel="stylesheet" />\n' + 
