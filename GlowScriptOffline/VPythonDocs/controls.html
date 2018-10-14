@@ -32,17 +32,13 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
     <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
       <p class="Normal">If you're new to Python <br />
-      and VPython: <a href="VisualIntro.html">Introduction</a></p>
-      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      and VPython see more <br />
+      Help at glowscript.org</p>
       <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
 <p><select id="menu1" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu2" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu3" onchange="jumpMenu(this)"></select></p>
         
-    <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
-      <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
     <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
     <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
       <table width="100%" border="1">
@@ -59,7 +55,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       </table>
       <div></div>
       <div class="Normal">
-        <p class="Normal">Tthe example shown above, <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, contains buttons, a slider, radio buttons,  a drop-down menu, and a check box. The example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank"><strong>Color-RGB-HSV-VPython</strong></a><strong></strong> uses six sliders to explore RGB and HSV colors. The wtext object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets.</p>
+        <p class="Normal">Tthe example shown above, <a href="../Demos/ButtonsSlidersMenus-VPython.py" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, contains buttons, a slider, radio buttons,  a drop-down menu, and a check box. The example program <a href="../Demos/Color-RGB-HSV-VPython.py" target="_blank"><strong>Color-RGB-HSV-VPython</strong></a><strong></strong> uses six sliders to explore RGB and HSV colors. The wtext object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets.</p>
         <p class="Normal">Here is the basic idea for using button, radio buttion, checkbox, slider, and menu:</p>
         <p class="program">box()<br />
           def B(b):<br />
@@ -132,7 +128,7 @@ menu( choices=['cat', 'dog', 'horse'], bind=M )</p>
 <p class="attributes"> <span class="attribute">min</span> The minimum value of the slider; default is 0. Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">max</span> The maximum value of the slider; default is 1. Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">step</span> The step size when clicking or dragging. The default is 0.001*(max-min). Cannot be changed after creating the slider.</p>
-<p class="attributes"> <span class="attribute">value</span> The current value (between min and max) of the slider. Can be set by program as well as by user motions. When you set the value by program (slider.value = something), the bind function is NOT executed, which prevents confusion that would arise in situations such as the <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank">RGB-HSV demo program</a>, where a user change in a slider causes program changes to the values of other sliders.</p>
+<p class="attributes"> <span class="attribute">value</span> The current value (between min and max) of the slider. Can be set by program as well as by user motions. When you set the value by program (slider.value = something), the bind function is NOT executed, which prevents confusion that would arise in situations such as the <a href="../Demos/Color-RGB-HSV-VPython.py" target="_blank">RGB-HSV demo program</a>, where a user change in a slider causes program changes to the values of other sliders.</p>
 <p class="attributes"> <span class="attribute">length</span> The length of the slider, whether vertical or horizontal; default is 400 (pixels). Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">width</span> The width of the slider, whether vertical or horizontal; default is 10 (pixels). Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">left</span> Margin to the left of the slider; default is 0 (pixels). Cannot be changed after creating the slider.</p>

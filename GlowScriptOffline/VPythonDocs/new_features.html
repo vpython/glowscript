@@ -55,17 +55,13 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
     <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
       <p class="Normal">If you're new to Python <br />
-      and VPython: <a href="VisualIntro.html">Introduction</a></p>
-      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      and VPython see more <br />
+      Help at glowscript.org</p>
       <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
 <p><select id="menu1" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu2" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu3" onchange="jumpMenu(this)"></select></p>
         
-    <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
-      <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
     <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
     <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
       <table width="100%" border="1">
@@ -75,9 +71,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <td width="1%">&nbsp;</td>
         </tr>
       </table>
-      <p class="Normal">Supporting VPython programs in GlowScript is new as of November 2014. It became possible thanks to the development of the Python look-alike compiler, <a href="https://github.com/atsepkov/RapydScript" target="_blank"><strong>RapydScript</strong></a>. Help with RapydScript by Alexander Tsepkov, Charles Law, and Salvatore di Dio is gratefully acknowledged.</p>
+      <p class="Normal">Supporting VPython programs in GlowScript is new as of November 2014. It became possible thanks to the development of the Python look-alike compiler, RapydScript. Help with RapydScript by Alexander Tsepkov, Charles Law, and Salvatore di Dio is gratefully acknowledged.</p>
       <p class="Normal">Below is information about the development of VPython. GlowScript was originated by David Scherer and Bruce Sherwood in 2011. In 2014 Adam Thompson contributed important versioning of the jquery libraries.</p>
-      <p class="Normal">Here is a <a href="../GlowScriptDocs/history.html"><strong>log of GlowScript developments</strong></a>.</p>
 <h3><span class="style1"><a name="credits" id="credits"></a>Credits</span></h3>
       <p class="Normal">VPython  was initially created by David Scherer in the spring of 2000. Assisting him were David Andersen, Ruth Chabay, Ari Heitner, Ian Peters, and Bruce Sherwood.</p>
       <p class="Normal">Starting in 2002, Jonathan Brandmeyer made several major contributions
@@ -98,7 +93,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">The development of VPython 6, based on wxPython, was initiated by Bruce Sherwood in June 2012. Major contributions to the  release were made by Steve Spicklemire.</p>
 <h3 class="style1"><a name="log" id="log"></a>A log of developments</h3>
       <p class="Normal">Here is a log of changes to VPython since the initial release of  VPython 5 in December 2008, continuing with VPython 6, first released in February 2013.</p>
-      <p class="Normal">2014-07-11: VPython 6.10 introduces ways to delete displays and wxPython windows without ending the program, which lets you clear everything away and create new displays or windows. Suppose w = window() and d = display(window=w): then w.delete() deletes the wxPython window and all the widgets contained in that window, including the d display; d.delete() just deletes the display from the window it appears in unless d.window = None, in which case the entire window is deleted; window.delete_all(), not w.delete_all(), deletes all VPython windows and displays. Moreover, w.cursor.visible or d.cursor.visible can now be set to True or False (only d.cursor.visible works on a Macintosh). You can now specify a window style when creating a wxPython window; see the example program widgets.py for an example. Something that was either a bug or a feature has been addressed: If you set shaftwidth to be nonzero for an arrow, you also had to set fixedwidth = True, which seemed awkward. Now when you set shaftwidth this automatically sets fixedwidth = True. If you set fixedwidth = False later in the program, you get the somewhat quirky behavior currently seen with this combination. Creation of displays or wxPython windows now checks for part of the area being off screen and decreases the width and/or height to make all of the area appear on screen. Setting scene.fullscreen = True now works properly (but is inactive on a Macintosh). Pressing CTRL while dragging the mouse now rotates the camera on all platforms.The statement exit() kills the program. Many bugs have been fixed; a list is available <strong><a href="https://github.com/BruceSherwood/vpython-wx/issues?direction=desc&amp;page=1&amp;sort=updated&amp;state=closed" target="_blank">here</a></strong>. A history of source-code changes is available <strong><a href="https://github.com/BruceSherwood/vpython-wx/commits/master" target="_blank">here</a></strong><a href="https://github.com/BruceSherwood/vpython-wx/commits/master" target="_blank"></a>.      </p>
+      <p class="Normal">2014-07-11: VPython 6.10 introduces ways to delete displays and wxPython windows without ending the program, which lets you clear everything away and create new displays or windows. Suppose w = window() and d = display(window=w): then w.delete() deletes the wxPython window and all the widgets contained in that window, including the d display; d.delete() just deletes the display from the window it appears in unless d.window = None, in which case the entire window is deleted; window.delete_all(), not w.delete_all(), deletes all VPython windows and displays. Moreover, w.cursor.visible or d.cursor.visible can now be set to True or False (only d.cursor.visible works on a Macintosh). You can now specify a window style when creating a wxPython window; see the example program widgets.py for an example. Something that was either a bug or a feature has been addressed: If you set shaftwidth to be nonzero for an arrow, you also had to set fixedwidth = True, which seemed awkward. Now when you set shaftwidth this automatically sets fixedwidth = True. If you set fixedwidth = False later in the program, you get the somewhat quirky behavior currently seen with this combination. Creation of displays or wxPython windows now checks for part of the area being off screen and decreases the width and/or height to make all of the area appear on screen. Setting scene.fullscreen = True now works properly (but is inactive on a Macintosh). Pressing CTRL while dragging the mouse now rotates the camera on all platforms. The statement exit() kills the program.       </p>
       <p class="Normal">2013-04-20: VPython 6.05 released to fix  bugs and improve documentation.</p>
       <p class="Normal">2013-03-01: VPython 6.04 released to fix  bugs and improve documentation.</p>
       <p class="Normal">2013-02-19: VPython 6.03 released by Bruce Sherwood and Steve Spicklemire. This version is based on the wxPython cross-platform GUI library, which has made possible the elimination of almost all platform-dependent code, and of the threading structure of VPython 5. Moreover, wxPython makes it possible for a window to contain a VPython 3D animation along with standard widgets such as buttons and sliders. VPython 5 on the Macintosh was based on the Carbon framework, which is no longer supported, whereas VPython 6 uses the supported Cocoa framework (through wxPython). VPython 6 includes improved mechanisms for handling mouse and keyboard events.</p>
