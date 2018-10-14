@@ -26,24 +26,20 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
     <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
       <p class="Normal">If you're new to Python <br />
-      and VPython: <a href="VisualIntro.html">Introduction</a></p>
-      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+      and VPython see more <br />
+      Help at glowscript.org</p>
       <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
 <p><select id="menu1" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu2" onchange="jumpMenu(this)"></select></p>
 <p><select id="menu3" onchange="jumpMenu(this)"></select></p>
         
-    <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
-      <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
     <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
     <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
       <div>
         <h1 class="Heading-1"><font color="#0000A0">Math displays using LaTeX</font> - GlowScript VPython only</h1>
       </div>
       <div>
-        <p class="Normal">In GlowScript VPython (but not currently in VPython 7) you can display complex mathematical expressions expressed in the widely used math editing format, <a href="http://www.latex-project.org/" target="_blank">LaTeX</a>. Here is <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/LaTexMathDisplay" target="_blank">an example</a></strong>. The LaTeX capability is provided by <a href="http://www.mathjax.org/" target="_blank">MathJax</a>, which is imported by GlowScript. For example, consider this mathematical display:</p>
+        <p class="Normal">In GlowScript VPython (but not currently in VPython 7) you can display complex mathematical expressions expressed in the widely used math editing format, LaTeX (www.latex-project.org). Here is <strong><a href="../Demos/LaTexMathDisplay.py" target="_blank">an example</a></strong>. The LaTeX capability is provided by MathJax (www.mathjax.org, which is imported by GlowScript. For example, consider this mathematical display:</p>
         <p class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/MathJax.jpg" width="350" height="48" alt="equation" /></p>
         <p class="Normal">You can display this in the caption of an existing GlowScript canvas with the following  statements:</p>
         <p class="program"> box()<br />
@@ -60,11 +56,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">Then you  can typeset just this one element, without re-typesetting other formulas on the web page, with this statement:</p>
         <p class="program">MathJax.Hub.Queue([&quot;Typeset&quot;,MathJax.Hub,scene.title])</p>
         <p class="Normal"><strong><font color="#0000A0">Easy creation of LaTeX expressions</font></strong></p>
-        <p class="Normal">There is a a <a href="http://webdemo.myscript.com/" target="_blank"><strong>remarkable tool</strong></a> for creating LaTeX expressions from handwriting (choose &quot;Web Equation&quot;. Using the mouse, you simply write the mathematics as you would normally do by hand, and the tool produces the corresponding LaTeX, which you can paste into your program. Remember that you must double all of the backslashes.</p>
+        <p class="Normal">At webdemo.myscript.com there is a remarkable tool for creating LaTeX expressions from handwriting (choose &quot;Web Equation&quot;). Using the mouse, you simply write the mathematics as you would normally do by hand, and the tool produces the corresponding LaTeX, which you can paste into your program. Remember that you must double all of the backslashes.</p>
         <p class="Normal"><strong><font color="#0000A0">Summary</font></strong></p>
         <p class="Normal">You can use LaTeX to display complex mathematics on the web page. Make all backslashes double: \ -&gt; \\. Within a sentence, use \\( ..... \\). For a centered formula, use $$ ..... $$.</p>
         <p class="Normal">After the LaTeX has been sent to the web page, typeset all of the math with <span class="program">MathJax.Hub.Queue([&quot;Typeset&quot;,MathJax.Hub])</span>. You can typeset a specific web page element with <span class="program">MathJax.Hub.Queue([&quot;Typeset&quot;,MathJax.Hub, anchor_point])</span>, where anchor_point can for example be scene.title or scene.caption, or a jquery id.</p>
-        <p class="Normal">Additional capabilities of MathJax are documented at <a href="http://www.mathjax.org/" target="_blank">MathJax</a>.</p>
+        <p class="Normal">Additional capabilities of MathJax are documented at www.mathjax.org.</p>
         <p class="Normal">.</p>
       </div>
       <br />
