@@ -63,7 +63,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <div>
             <p class="program"> box( texture=textures.stucco ) </p>
           </div>
-          <p class="Normal">A collection of ready-to-use textures is provided; &quot;textures.stucco&quot; actually represents a character string giving the name of the image file. For the complete set of existing built-in textures, see the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures" target="_blank">Textures</a></strong>. </p>
+          <p class="Normal">A collection of ready-to-use textures is provided; &quot;textures.stucco&quot; actually represents a character string giving the name of the image file. For the complete set of existing built-in textures, see the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures-VPython" target="_blank">Textures</a></strong>. </p>
         </div>
         <div>
           <p class="Normal">You can optionally specify that only portions of the object should be textured. The following statement places the texture only on the right face of the box, leaving the rest of the box untextured:&nbsp; </p>
@@ -121,7 +121,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               scene.visible = True
               &nbsp;# show everything</p>
           </div>
-          <p class="Normal">First, make  the scene invisible, create the objects (which won't be visible), then wait for all textures to have been loaded. Then make the scene visible, and you'll see the objects with their textures.This is the technique used in  the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures" target="_blank">Textures</a></strong>.</p>
+          <p class="Normal">First, make  the scene invisible, create the objects (which won't be visible), then wait for all textures to have been loaded. Then make the scene visible, and you'll see the objects with their textures.This is the technique used in  the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures-VPython" target="_blank">Textures</a></strong>.</p>
           <p class="Normal">You can also check the status of an individual  object B: the quantity <span class="attribute">B.ready</span> is true if the texture has been loaded (or if B has no texture).</p>
           <p class="Normal">Textured objects are not displayed until the texture has been loaded. If you don't wait with scene.waitfor(&quot;textures&quot;), you may see objects become visible in a random sequence, depending on when the various textures have been loaded.</p>
           <p class="Normal"><strong>Removing a texture:</strong> If you set <span class="attribute">texture=None</span>, no texture is displayed.</p>
