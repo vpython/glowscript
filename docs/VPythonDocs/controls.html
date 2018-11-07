@@ -163,10 +163,11 @@ winput( bind=T )</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">winput</font></strong></p>
 <p class="Normal">The <strong>winput</strong> object (widget input) displays a box in which the user can input a numeric expression or text. The user must select the text either by clicking in the box or by using the tab key.</p>
-<p class="attributes"><font color="#FF0000" class="attribute">bind</font> The name of the function to be called when the user presses Enter.</p>
-<p class="attributes"> <font color="#FF0000" class="attribute">type</font> &quot;numeric&quot; (the default) or &quot;string&quot;. If it is numeric, the user can input expressions such as 3+2*sqrt(5.2e4). An error message is displayed if there is something wrong with the expression, and the bound function is not called.</p>
-<p class="attributes"><font color="#FF0000" class="attribute">width</font> The width of the winput box in pixels; default is 100.</p>
-<p class="attributes"> <font color="#FF0000" class="attribute">height</font> The height of the winput box in pixels; default is 20.</p>
+<p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the object.</p>
+<p class="attributes"><font color="#FF0000" class="attribute">bind</font> The name of the function to be called when the user presses Enter. Cannot be changed after creating the object.</p>
+<p class="attributes"> <font color="#FF0000" class="attribute">type</font> &quot;numeric&quot; (the default) or &quot;string&quot;. If it is numeric, the user can input expressions such as 3+2*sqrt(5.2e4). An error message is displayed if there is something wrong with the expression, and the bound function is not called. Cannot be changed after creating the object.</p>
+<p class="attributes"><font color="#FF0000" class="attribute">width</font> The width of the winput box in pixels; default is 100. Cannot be changed after creating the object.</p>
+<p class="attributes"> <font color="#FF0000" class="attribute">height</font> The height of the winput box in pixels; default is 20. Cannot be changed after creating the object.</p>
 <p class="attributes"><span class="attribute">text</span> The text displayed in the box, whether entered by the user or set by the program (for example, one might wish to set the text to be displayed before the user enters anything, which the user can modify).</p>
 <p class="attributes"><span class="attribute">number</span> The number that results from evaluating the user's input text if the type is &quot;numeric&quot; (otherwise it is None). If a numeric winput object is named W and the user enters 3+5, then W.text will be the string &quot;3+5&quot; and W.number will be 8.</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the  text is grayed out and the winput is inactive.</p>
