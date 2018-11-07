@@ -235,7 +235,7 @@ function ideRun() {
         // Single-page multibrowser stack trace: https://gist.github.com/samshull/1088402
         // stacktrase.js https://github.com/stacktracejs/stacktrace.js    https://www.stacktracejs.com/#!/docs/stacktrace-js
         // tracekit.js; https://github.com/csnover/TraceKit
-        var feedback = err.toString()+'<br>'
+        var feedback = err.toString()+'\n'
         var prog = program.split('\n')
         //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
@@ -305,7 +305,7 @@ function ideRun() {
             } catch (ignore) {
             }
         } 
-    for (var i= 0; i<traceback.length; i++) feedback += '<br>'+traceback[i]
+    for (var i= 0; i<traceback.length; i++) feedback += '\n'+traceback[i]
         send({ error: "" + err, 
                traceback: traceback.length ? feedback : ''})
     }
