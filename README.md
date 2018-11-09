@@ -24,13 +24,13 @@ A more recent project, VPython 7, was initiated by John Coady and further develo
  
 Run Locally
 ------------------
-It is possible to write and run GlowScript programs without an internet connection. Click the GlowScriptOffline zip file listed above and download it. Unzip the contents to a convenient location. In the GlowScriptOffline folder, doubleclick GlowScript.html, which will start up your standard browser with a simple test program. Click Run to run the program. You can drag the vertical gray bar (and/or make the window wider or narrower) to arrange the code and execution regions the way you want them. Make changes to the program and click Run again. If you add a print statement a print area will appear at the right. For security reasons, browsers are not permitted to write to your computer disk. If you want to save the changes you made, copy and paste your code to an application such as Notepad (Windows) or TextEdit (Mac) and save the file. The GlowScript documentation is included in the package and is accessible by clicking Help.
+At glowscript.org, your programs are stored in the cloud and are accessible from anywhere. However, there are times when you might need to write and run programs even when disconnected from the internet.
 
-Click Choose File and navigate to the GlowScriptOffline folder to choose from programs in the Demos folder. If you did make changes to the sample program, you'll see a warning that you might wish to save your work before replacing it with the demo program. Similarly, when you close the browser or the browser tab, if you have modified the current program you'll be warned about saving the file.
+In this repository, click GlowScriptOffline2.7.zip and download the zip file.
 
-In the text editor, as in the editor at glowscript.org, select one or more lines and press TAB to indent or Shift-TAB to unindent; press Ctrl-/ to toggle commenting of the lines. When you download programs from glowscript.org, they are in the form of .py files whose first line is "from vpython import *".
+Unzip the GlowScriptOffline package to any convenient place on your computer.
 
-This first line is understood by the offline package, as is "GlowScript 2.7 VPython" or "GlowScript 2.7 JavaScript".
+Inside the GlowScriptOffline folder, read the README file to learn how to use the package. 
  
 Run a Local Server
 ------------------
