@@ -40,11 +40,13 @@
         <p class="Normal">Another option is to install Python and the VPython 7 module. At <a href="http://vpython.org"><strong>vpython.org</strong></a> see the section on using VPython with installed Python. As long as you don't import Python modules other than vpython, you will also be able to run the program at glowscript.org without having to make changes.</p>
         <p class="Normal"><strong>* For developers</strong><br />
         If  you want to be able to contribute to developing GlowScript, here are the (rather complex) steps required to be able to run locally with changes that you make to the GlowScript code, almost all of which is written in JavaScript (there is also some Python server code and some html code).</p>
+        <p class="Normal"><strong>* Read an overview of the VPython architecture</strong><br />
+          See <a href="http://vpython.org/contents/VPythonArchitecture.pdf" target="_blank">http://vpython.org/contents/VPythonArchitecture.pdf</a></p>
         <p class="Normal"><strong>* Install Python 2.7 (python.org).</strong> Google App Engine currently requires Python 2.7</p>
         <p class="Normal"><strong>* Install the Google App Engine SDK for Python</strong><br />
-          At <a href="http://developers.google.com/appengine/downloads" target="_blank"><strong>developers.google.com/appengine/downloads</strong></a>, download the package for your platform. Chose Standard environment Python, then scroll down and click &quot;Download and install the original App Engine SDK for Python&quot;. If using Linux, unpack to a folder whose name will probably be google_appengine. </p>
+          At <a href="http://developers.google.com/appengine/downloads" target="_blank"><strong>developers.google.com/appengine/downloads</strong></a>, download the package for your platform. Choose Standard environment Python, then scroll down and click &quot;Download and install the original App Engine SDK for Python&quot;. If using Linux, unpack to a folder whose name will probably be google_appengine. </p>
         <p class="Normal"><strong>* Download the GlowScript source files</strong><br />
-          At the glowscript repository on GitHub<a href="https://github.com/BruceSherwood/glowscript" target="_blank"><strong></strong></a>, clone the repository, or click on &quot;Download ZIP&quot; and unpack the zip file into a new folder  named glowscript. On Linux, place this folder parallel to the google_appengine folder.</p>
+          At the glowscript repository on GitHub, currently at <a href="https://github.com/BruceSherwood/glowscript" target="_blank">https://github.com/BruceSherwood/glowscript</a>, clone the repository, or click on &quot;Download ZIP&quot; and unpack the zip file into a new folder  named glowscript. On Linux, place this folder parallel to the google_appengine folder.</p>
         <p class="Normal"><strong>* On Windows and Mac</strong>, the Google App Engine installer includes an app &quot;Google APP Engine Launcher&quot; which simplifies launching GlowScript.<br />
           <br />
           On Windows, there will be a Google App Engine Launcher icon on your desktop, or in your Start menu. Run the app.<br />
@@ -53,9 +55,9 @@
           <br />
           In the Launcher, choose File &gt;  Add Existing Application and specify the glowscript folder. Make a note of the Port number. Click Add. In ide/api.py and untrusted/run.js, search for &quot;localhost:&quot; and adjust the port number to the number assigned by the launcher.<br />
           <br />
-          Click &quot;glowscript&quot;, then click the green Run button. When the green Browse button lights up, click it, which will run your standard browser (which should be Chrome for best error reporting).<br />
+          With the glowscript entry selected in the launcher, click the green Run button. When the  Browse button lights up, click it, which will run your standard browser (which should be Chrome for best error reporting).<br />
           <br />
-          Click Sign in, then click Login and use the name &quot;test&quot;.</p>
+          Click Sign in, then click Login and use the name &quot;test&quot;. Write or import a program and check that it runs properly.</p>
         <p class="Normal"><strong>* On Ubuntu</strong>, in a terminal cd to the google_appengine folder and execute<br />
           python dev_appserver.py ../glowscript<br />
           <br />
