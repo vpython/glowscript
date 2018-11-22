@@ -1,0 +1,221 @@
+THE ELEMENTS OF THE GLOWSCRIPT LIBRARY
+
+See http://www.glowscript.org/docs/GlowScriptDocs/local.html for instructions on
+how to install software to be able to make and test changes to GlowScript VPython.
+
+COMPILATION
+
+The main compilation program is lib/compiling/GScompiler.js.
+
+Triggered by a "Run" event in ide/index.html, the sandboxed untrusted/run.js calls
+the appropriate compiler and run-time package corresponding to the version number
+specified in the first line of the user program (e.g. GlowScript 2.7 VPython).
+
+FIRST PASS
+Parses each line into indent plus substance plus inline comment, removing trailing spaces.
+During first pass accumulates list of location of functions.
+Watches for and reports location of unbalanced (), [], {}, ', ", ''', """.
+Replace delete with remove.
+Parse import statements, including making list of objects imported.
+    Except for vpython, the Python random library is currently the only Python library 
+    that can be imported thanks to a JavaScript implementation by RapydScript-NG.
+If VPython, insert '_' into statements such as rate and waitfor for later use by Streamline.
+Accumulate list of functions that contain '_'.
+Insert original line number as a statement of the form "23" (survives later compile operations).
+    Makes it possible (in Chrome) to report the original line number of an error.
+After first pass, add '_' to calls to functions, and functions, that contain rate, waitfor, etc.
+
+SECOND PASS
+Pass preprocessed Python to RapydScript-NG transpiler, which produces JavaScript.
+Check for 3D text statement, in which case insert code to acquire fonts.
+Replace .delete with .remove.
+Make various small adjustments, such as arange -> range (RapydScript-NG range is like Numpy arange).
+Insert preamble to transpiled JavaScript code.
+Insert statements to deal with various kinds of import statements.
+Insert statements such as "box = vp_box" so that box invokes the VPython version of a box.
+Add some Array.prototype functionality to mimic Python lists.
+papercompile(program) calls a library that converts A+B to A['+'](B), which makes possible
+    "operator overloading": that is, 2+3 evaluates to 5, but vec(1,2,3)+vec(10,20,30)
+    evaluates to vec(11,22,33). In lib/glow/vectors.js is a set of Number and vec
+    prototype methods that alter the behavior of the arithmetic operators.
+Call Streamline library to convert synchronous code to asynchronous code.
+    For example, a loop containing rate(N) is moved to a separate function driven by timeouts.
+
+Now the program is ready to run. It is instructive to make a one-line program "box()" at
+glowscript.org and then click "Share or export this program" to see the JavaScript program,
+which includes references to run-time libraries stored at Amazon S3, which is an https site,
+which makes the libraries accessible to https sites containing embedded GlowScript programs.
+(Currently glowscript.org is an http site, which an https site cannot access.)
+Note the sizable amount of code that comes from RapydScript-NG, as well as the preamble
+geneated by GScompiler.js. It is interesting to see the changes that result in this case:
+    GlowScript X.Y VPython
+    from vpython import box
+    box()
+Also observe what is generated in these cases:
+    GlowScript X.Y VPython
+    import vpython  # or import vpython as vp
+    vpython.box()   # or vp.box()
+
+---------------------------------------------
+EXECUTION
+
+untrusted/run.js starts the compiled-to-JavaScript program.
+A timeout of 2 seconds is set to capture a screenshot if one doesn't already exist.
+    The resulting thumbnail image is displayed in the user folder display.
+This file also contains the error reporting machinery.
+
+The Canvas
+
+At the start of execution, a 3D canvas named "scene" is set up by code in lib/glow/canvas.js
+but not yet activated, with a 2D canvas superimposed for use by the label object. The canvas
+is not immediately activated; activation is triggered by adding an object to the canvas.
+
+When a box or other object is made visible, either in the creation process or by changing
+obj.visible from false to true, the handling of the visible attribute in the Primitive object,
+which is in lib/glow/primitives.js, adds this object to scene.__changed, a dictionary
+of objects that have been changed.
+
+About 60 times per second, the scene is re-rendered with the current attributes of the
+current objects. The main attributes (pos, size, axis, color, up) are maintained as 64-bit
+floats because they may be used in computations. However, WebGL only accepts 32-bit floats,
+so every object includes an array __data that contains 32-bit versions of the attributes and
+which is transmitted to WebGL for every render. When rendering the scene, scene.__changed
+dictionary is consulted to identify objects whose 32-bit __data array needs to be updated
+from the 64-bit object data.
+
+The 3D Objects
+
+lib/glow/primitives.js contains the implementation of almost all of the 3D objects.
+(Exceptions are the closely related text and extrusion, mostly in lib/glow/extrude.js.)
+Search for function box. About 35 lines further on you'll see function vp_box. When
+GlowScript was new, in 2011, the user language was JavaScript, which is still supported
+but far less often used than Python. The box and other "JavaScript" objects have no
+connection between size and axis, but the VPython definition of a box, implemented as
+vp_box, links size and axis, in that changing the axis changes the length; there is no
+such linkage with the box object. In the VPython compilation process box = vp_box is
+inserted at the start of the user program.
+
+lib/glow/property.js contains a "property" dictionary (object literal) due to David
+Scherer that states the following at the start of the file:
+    GlowScript uses lots of javascript properties (Object.defineProperty) with getters and setters.
+    This is an attempt to create a more declarative syntax for declaring an object with lots of properties.
+In primitives.js you will see many examples of "property.declare" followed by a list of attribute
+getters and setters.
+
+Consider the (JavaScript) box object. Following "function box(args)", subclass(box, Primitive)
+calls a function at the top of the primitives.js file, which establishes a new box object
+as inheriting from the Primitive class. Search for "function Primitive()" and you'll see
+that it contains a large number of attributes and methods that are common to most 3D objects.
+When the user program creates a box(args), the box function returns initObject(this, box, args).
+The initObject function establishes some minimal attributes and calls init(obj, args), which
+processes the rest of the attributes. The vp_box object inherits from the box object. It
+overrides the size attribute and adds some VPython-specific attributes (e.g height and red).
+
+Rendering the 3D Scene
+
+The file lib/glow/canvas.js contains the machinery for creating a 3D canvas in which
+the browser-based WebGL graphics library displays the 3D objects.
+
+When a canvas is activated, it calls the function WebGLRenderer() in lib/glow/WebGLRenderer.js,
+which returns an object that includes a render() function. The first part of WebGLRenderer()
+initializes GPU (Graphic Processor Unit) memory to contain "models" of the primitives
+(box, sphere, etc.). For example, a model box consists of a 1x1x1 white cube, located with its
+center at the origin, rendered as a "mesh" of 12 triangles (2 per side), with normals to these
+triangles, which are used in lighting. The creation of the models is in lib/glow/mesh.js. 
+
+Near the end of WebGLRenderer.js, calling trigger_render() performs a rendering of the scene. 
+It also executes window.requestAnimationFrame(trigger_render) which asks the browser to call
+trigger_render() again about 1/60 second from now, to render the scene again, with some
+objects in the scene possibly having changed during that interval. The essentially
+autonomous, repetitive rendering is what makes it possible for the scene, including
+mouse interactions to rotate or zoom or pan, remains active after the end of the user
+program has been reached.
+
+The render function itself (search for "this.render") sets up various WebGL buffers,
+deals with extending trails and moving attached arrows, calls obj.__update() for any
+objects whose attributes have changed, determines whether there any transparent objects
+(which requires special treatment), and sets up the camera position and the lighting.
+It then transfers to the GPU the attribute data for all the objects. It does all
+of the objects of one kind (box, say) before rendering another kind of object, because
+there is a lot of setup for each kind of object. In the case of scenes that contain
+transparent objects, the render process involves multiple passes ("depth peeling").
+
+Also in this file is the mechanism for loading a file to be used as a texture.
+
+At the end of WebGLRenderer.js is the rate() function that plays an essential role in
+animations.
+
+Vectors
+
+The file lib/glow/vectors.js contains attributes and methods of vectors. Two unusual
+features should be mentioned, how changes to a component of a vector are detected,
+and how the operator overloading works.
+
+Near the start of the file defined various kinds of vectors. Attribute vectors
+are associated with the vector attributes of 3D objects (their "parent"), and when
+an attribute vector is changed, the parent object is marked as changed, which will
+trigger at render time calling the object's __update() function. Axis, size, and up
+attribute vectors deal with connections among these attributes, due to the VPython
+definition that axis and size affect each other, and under rotation axis and up
+must be force always to be perpendicular to each other. There is also special
+treatment of individual vector components, to make sure that changing only one
+component of a vector is noticed as a change.
+
+Near the end of the file are modifications to the Number class and the vector class.
+As a result of these prototype changes, 2+3, which compiles to 2['+'](3), yields 5 at run time,
+but vec(1,2,3)+vec(10,20,30), which compiles to vec(1,2,3)['+'](vec(10,20,30), yields
+vec(11,22,33) at run time.
+
+The Role of the GPU
+
+In the shaders folder is a large number of GPU programs that are invoked in different
+situations. They are of two kinds. The "vertex" shaders have the task of mapping a vertex
+in 3D to a point on the 2D screen. A hidden component of the GPU, the "rasterizer", determines
+the location of all pixels that are inside a triangle defined by three vertex locations
+on the 2D screen. The "fragment" shaders set the color of each pixel, based on the color
+of the object and the locations and colors of lights. The key to GPU rendering speed is
+that the a large number of vertex shaders can work in parallel, and a large number of
+fragment shaders can work in parallel. The shader programs are written in a special language,
+OpenGL Shading Language or GLSL.
+
+For the details of how transparency and mouse picking are handled in the GPU, see
+http://www.glowscript.org/docs/GlowScriptDocs/technical.html
+
+Other Matters
+
+Basic mouse handling is in lib/glow/orbital_camera.js, with additional components
+and keyboard handling found in lib/glow/canvas.js.
+
+Autoscaling is implemented in lib/glow/autoscale.js, which includes a function to
+determine the bounding box ("extent") of an object.
+
+lib/glow/api_misc.js contains get_library(), read_local_file(). sleep(),
+string/print functions, and fontloading() (for the 3D text object).
+
+lib/glow/graph.js supports making 2D graphs with either the Flot library
+or the Plotly library. Flot is faster than Plotly (fast=True, the default), but
+Plotly has more features.
+
+ide/ide.html with ide/ide.js provide the initial and user-specific editing displays.
+
+untrusted/run.html is invoked when running a program.
+
+---------------------------------------------
+THE PYTHON SERVER
+
+glowscript.org is a Google App Engine application. It includes a Python program that
+acts as the server, with the responsibility of maintaining and accessing a datastore that
+contains user programs. Upon request it sends programs to the user's browser, where they
+can be edited and executed. This Python program is ide/api.py. Also in the ide folder
+is the program index.html and associated JavaScript program ide.js that constitute the
+user interface.
+
+---------------------------------------------
+TESTING CHANGES
+
+Start up the Google App Engine launcher. Change a program header from 2.7 to 2.8dev and
+run the program, which will use the latest, modified code. Make another change in the code
+and reload the web page to run the program with the latest changes.
+
+To build an updated or new version, see docs/MakingNewVersion.txt.
+
