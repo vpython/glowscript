@@ -266,7 +266,7 @@ a.button
 .embedSource, .frameSource
 {
 	width: 80%;
-	height: 15em;
+	height: 30em;
 	overflow: scroll;	
 }
 

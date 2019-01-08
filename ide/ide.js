@@ -1108,8 +1108,8 @@ $(function () {
                         '<script type="text/javascript" src="'+exporturl+'lib/jquery/' + verdir + '/jquery-ui.custom.min.js"></script>\n' +
                         '<script type="text/javascript" src="'+exporturl+'package/glow.' + header.version + '.min.js"></script>\n' +
                         runner +
-                        '<script type="text/javascript"><!--//--><![CDATA[//><!--\n' +
-                        embedScript +
+                        '<script type="text/javascript"><!--//--><![CDATA[//><!--\n\n// START JAVASCRIPT\n' +
+                        embedScript + '\n// END JAVASCRIPT\n' +
                         '\n//--><!]]></script>' +
                         '\n</div>');
                     page.find(".embedSource").text( embedHTML )
