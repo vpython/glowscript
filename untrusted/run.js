@@ -121,7 +121,7 @@ function ideRun() {
                 // Look for mention of MathJax in program; don't import it if it's not used
                 try {
 	                if (message.program.indexOf('MathJax') >= 0)
-	                	packages.push("http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML")
+	                	packages.push("https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML")
                 }
 	            catch(err) {
 	            	;

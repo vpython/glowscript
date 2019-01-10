@@ -1,9 +1,20 @@
-GlowScript 1.0
-/* Simulation of dancing pendulums.  
+GlowScript 2.7 JavaScript
 
-Run the program and follow the link to the video for more explanation. */
+// Simulation of dancing pendulums.  
+
+// Run the program and follow the link to the video for more explanation. */
 
 // David Scherer, August 2011
+
+function display_instructions() {
+    var s = "In GlowScript programs:\n"
+    s += "    Rotate the camera by dragging with the right mouse button,\n        or hold down the Ctrl key and drag.\n"
+    s += "    To zoom, drag with the left+right mouse buttons,\n         or hold down the Alt/Option key and drag,\n         or use the mouse wheel.\n"
+    s += "Touch screen: pinch/extend to zoom, swipe or two-finger rotate."
+    scene.title = s
+}
+
+display_instructions()
 
 var pendulums = []
 
@@ -28,19 +39,15 @@ for(var i=0; i<15; i++) {
     pendulums.push(p)
 }
 
-var link = $("<a/>").prop("href", "http://sciencedemonstrations.fas.harvard.edu/icb/icb.do?keyword=k16940&pageid=icb.page80863&pageContentId=icb.pagecontent341734&state=maximize&view=view.do&viewParam_name=indepth.html#a_icb_pagecontent341734")
-link.text("Based on this video")
-link.appendTo( $("<div/>").appendTo( canvas.container ) )
-
-var start = performance.now()
+var start = new Date().getTime()
 while (true) {
-  var t = (performance.now() - start)*.001
-  scene.caption.text("t=" + t.toFixed(1))
+  var t = (new Date().getTime() - start)*.001
+  scene.caption = "t=" + t.toFixed(1)
   for(var i=0; i<pendulums.length; i++) {
       var p = pendulums[i]
       var theta = p.theta0 * cos( 2*pi*t/p.period )
       p.wire.axis = vec(sin(theta),-cos(theta),0)
       p.pos = p.wire.pos + p.wire.axis*p.wire.size.x
   }
-  scene.waitfor("redraw",wait)
+  scene.waitfor("redraw")
 }
