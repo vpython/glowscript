@@ -1065,7 +1065,7 @@ $(function () {
                     // Look for mention of MathJax in program; don't import it if it's not used
                     var mathjax = ''
                     if (header.source.indexOf('MathJax') >= 0)
-                    	mathjax = '<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>\n'
+                    	mathjax = '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>\n'
 
 					var embedScript = window.glowscript_compile(header.source,
                     		{lang: header.lang, version: header.version.substr(0,3), run: false})
