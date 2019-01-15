@@ -252,7 +252,13 @@ Loading...
     </li>
     <li>Another option is to save the HTML in a file ending in ".html". Doubleclick this file and it
     will run in your browser. 
-    You can place this file on a web site and run the program in a browser by giving the URL.</li>
+    You can place this file on a web site and run the program in a browser by giving the URL.
+    You can also place the html file in an iframe portion of a web page by placing in the html of the web page a statement like this
+    :<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;iframe src="test.html" width="320" height="340"&gt&lt;/iframe&gt<br>
+    where "test.html" is the location of the program relative to the location of the iframe statement, and where 
+    the program has a canvas somewhat smaller than 320 by 340.
+    </li>
     <li>You may have a need to allow anyone to run the program but to keep the program's original source code private.
     It is not possible to hide JavaScript code from a user of the program (rightclick the web page and
     choose "View page source" or use the browser debugger), but you can "minify" the program to make
