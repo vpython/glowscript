@@ -34,7 +34,7 @@ import zipfile
 
 from google.appengine.ext import ndb
 from google.appengine.api import users
-import os, re, base64, logging # logging.info(....) prints to GAE launcher log, for debugging
+import os, re, base64, logging # logging.info(string variable) prints to GAE launcher log, for debugging
 from datetime import datetime
 
 # URI encoding (percent-escaping of all characters other than [A-Za-z0-9-_.~]) is used for names
@@ -319,8 +319,13 @@ class ApiUserFolderProgram(ApiRequest):
             ndb_program = Program( parent=ndb_folder.key, id=name )
 
         if "oldfolder" in changes:
-            ndb_program_old = ndb.Key("User",user,"Folder",changes["oldfolder"],
-                                      "Program",changes["oldprogram"]).get()
+            # If changes["oldfolder"] or changes["oldprogram"] contains a space, must change space to "%20",
+            #   because the datastore contains old records where spaces were indeed replaced by "%20".
+            f = changes["oldfolder"]
+            p = changes["oldprogram"]
+            f = f.replace(" ","%20")
+            p = p.replace(" ","%20")
+            ndb_program_old = ndb.Key("User",user,"Folder",f,"Program",p).get()
             ndb_program.source = ndb_program_old.source
             ndb_program.screenshot = ndb_program_old.screenshot
             ndb_program.datetime = ndb_program_old.datetime
