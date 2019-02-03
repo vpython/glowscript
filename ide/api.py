@@ -262,14 +262,16 @@ class ApiUserFolderPrograms(ApiRequest):
         except:
         	pub = True
         if not pub:
-            return self.error(405)
-        programs = [
-            { "name": p.key.id(),
-              #"description": unicode(p.description or unicode()), # description not currently used
-              "screenshot": str(p.screenshot or ""),
-              "datetime": str(p.datetime)
-            } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)) ]
-        self.respond( {"user":user, "folder":folder, "programs":programs} )
+            self.respond( {"user":user,"folder":folder,
+                "error": str('The folder "'+user+'/'+folder+'" is a private folder\nto which you do not have access.')} )
+        else:
+            programs = [
+                { "name": p.key.id(),
+                  #"description": unicode(p.description or unicode()), # description not currently used
+                  "screenshot": str(p.screenshot or ""),
+                  "datetime": str(p.datetime)
+                } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)) ]
+            self.respond( {"user":user, "folder":folder, "programs":programs} )
 
 class ApiUserFolderProgram(ApiRequest):
     def get(self, user, folder, name):                                          ##### access a public or owned program
@@ -287,15 +289,19 @@ class ApiUserFolderProgram(ApiRequest):
         except:
         	pub = True
         if not pub:
-            return self.error(405)
-        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
-        if not ndb_program:
-            return self.error(404)
-        self.respond( {"user":user,"folder":folder,"name":name,
-            #"description": unicode(ndb_program.description or unicode()), # description not currently used
-            "screenshot": str(ndb_program.screenshot or ""),
-        	"datetime": str(ndb_program.datetime),
-            "source": unicode(ndb_program.source or unicode())} )
+            self.respond( {"user":user,"folder":folder,"name":name,
+                "error": str('The program "'+name+'" is in a private folder\nto which you do not have access.')} )
+        else:
+            ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+            if not ndb_program:
+                self.respond( {"user":user,"folder":folder,"name":name,
+                    "error": str(user+'/'+folder+'/'+name+' does not exist.')} )
+            else:
+                self.respond( {"user":user,"folder":folder,"name":name,
+                    #"description": unicode(ndb_program.description or unicode()), # description not currently used
+                    "screenshot": str(ndb_program.screenshot or ""),
+                    "datetime": str(ndb_program.datetime),
+                    "source": unicode(ndb_program.source or unicode())} )
             
     def put(self, user, folder, name):                                          ##### create or write an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
@@ -335,8 +341,6 @@ class ApiUserFolderProgram(ApiRequest):
             ndb_program.datetime = datetime.now()
         ndb_program.description = "" # description currently not used
         ndb_program.put()
-        if "rename" in changes:
-        	ndb_program_old.key.delete()
         
     def delete(self, user, folder, name):                                       ##### delete an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
