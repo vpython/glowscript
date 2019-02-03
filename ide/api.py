@@ -335,6 +335,8 @@ class ApiUserFolderProgram(ApiRequest):
             ndb_program.datetime = datetime.now()
         ndb_program.description = "" # description currently not used
         ndb_program.put()
+        if "rename" in changes:
+        	ndb_program_old.key.delete()
         
     def delete(self, user, folder, name):                                       ##### delete an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)

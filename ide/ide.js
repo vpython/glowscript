@@ -598,13 +598,10 @@ $(function () {
                 		}
                         if (!ok) alert("The program "+newfolder+'/'+newname+" already exists.")
                         else { // At this point we know that newfolder/newname is an okay destination for the renaming
+                        	data = { oldfolder:oldfolder, oldprogram:oldname }
+                        	if (dialog == "#prog-rename-dialog") data.rename = true
 	                        apiPut({user:username, folder:newfolder, program:newname}, 
-                        		{ oldfolder:oldfolder, oldprogram:oldname }, function () {
-                        			if (dialog == "#prog-rename-dialog") {
-	        	                        apiDelete( {user:username, folder:oldfolder, program: oldname}, function () {
-	        	                            ;
-	        	                        })
-                        			}
+                        		data, function () {
                         			navigate({page: "folder", user:username, folder:oldfolder})
 	                        })
                         }
