@@ -763,62 +763,66 @@ $(function () {
         // Get a list of programs from the server
         var list_of_programs = []
         apiGet( {user:username, folder:folder, program:LIST}, function (data) {
-            var progList = page.find(".programs")
-            var programs = data.programs
-            for (var i = 0; i < programs.length; i++) {
-	                (function (prog) {
-	                var p = programTemplate.clone().removeClass("template")
-	                var name = decode(prog.name)
-	                list_of_programs.push(name)
-	                var proute = { user:username, folder:folder, program:name }
-	                p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
-	                p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
-	                p.find(".prog-name").text(name)
-	                var td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
-		            p.find(".prog-datetime").text(td)
-	
-	                if (!isWritable) {
-	                    p.find(".prog-edit.button").text("View")
-	                    p.find(".prog-copy.button").addClass("template")
-	                    p.find(".prog-rename.button").addClass("template")
-	                    p.find(".prog-delete.button").addClass("template")
-	                }
-	            	
-	                p.find(".prog-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
-	                	ev.preventDefault()
-	                	copyOrRename("#prog-copy-dialog", folder, name)
-	                })
-	            	
-	                p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
-	                	ev.preventDefault()
-	                	copyOrRename("#prog-rename-dialog", folder, name)
-	                })
-	                
-	                p.find(".prog-delete.button").click(function (ev) { 
-	                    ev.preventDefault()
-	                    return delProgramOrFolder("#prog-delete-dialog", name, function() {
-	                        apiDelete( {user:username, folder:folder, program: name}, function () {
-	                            navigate({page: "folder", user:username, folder:folder})
-	                        })
-	                    })
-	                })
-	                if (prog.screenshot) {
-	                    p.find(".prog-screenshot").prop("src", prog.screenshot)
-		                p.find(".prog-screenshot").click(function (ev) {
-		                    ev.preventDefault()
-		                    window.location.href = unroute(proute, {page:"run"})
+        	if ("error" in data)
+        		alert(data.error)
+        	else {
+	            var progList = page.find(".programs")
+	            var programs = data.programs
+	            for (var i = 0; i < programs.length; i++) {
+		                (function (prog) {
+		                var p = programTemplate.clone().removeClass("template")
+		                var name = decode(prog.name)
+		                list_of_programs.push(name)
+		                var proute = { user:username, folder:folder, program:name }
+		                p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
+		                p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
+		                p.find(".prog-name").text(name)
+		                var td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
+			            p.find(".prog-datetime").text(td)
+		
+		                if (!isWritable) {
+		                    p.find(".prog-edit.button").text("View")
+		                    p.find(".prog-copy.button").addClass("template")
+		                    p.find(".prog-rename.button").addClass("template")
+		                    p.find(".prog-delete.button").addClass("template")
+		                }
+		            	
+		                p.find(".prog-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
+		                	ev.preventDefault()
+		                	copyOrRename("#prog-copy-dialog", folder, name)
 		                })
-	                }
-	                progList.append(p)
-	            })(programs[i])
-            }
-            if (isWritable && programs.length==0) {
-            	page.find(".folder-delete").removeClass("template")
-            	page.find(".folder-download.button").addClass("template")
-            } else {
-            	page.find(".folder-delete").addClass("template")
-            	page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}    )   )
-            }
+		            	
+		                p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
+		                	ev.preventDefault()
+		                	copyOrRename("#prog-rename-dialog", folder, name)
+		                })
+		                
+		                p.find(".prog-delete.button").click(function (ev) { 
+		                    ev.preventDefault()
+		                    return delProgramOrFolder("#prog-delete-dialog", name, function() {
+		                        apiDelete( {user:username, folder:folder, program: name}, function () {
+		                            navigate({page: "folder", user:username, folder:folder})
+		                        })
+		                    })
+		                })
+		                if (prog.screenshot) {
+		                    p.find(".prog-screenshot").prop("src", prog.screenshot)
+			                p.find(".prog-screenshot").click(function (ev) {
+			                    ev.preventDefault()
+			                    window.location.href = unroute(proute, {page:"run"})
+			                })
+		                }
+		                progList.append(p)
+		            })(programs[i])
+	            }
+	            if (isWritable && programs.length==0) {
+	            	page.find(".folder-delete").removeClass("template")
+	            	page.find(".folder-download.button").addClass("template")
+	            } else {
+	            	page.find(".folder-delete").addClass("template")
+	            	page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}    )   )
+	            }
+        	}
         })
     }
     pages.run = function(route) {
@@ -885,17 +889,21 @@ $(function () {
 
             var haveScreenshot = true
             apiGet( {user:username, folder:folder, program:program}, function (progData) {
-            	page.find(".prog-datetime").text(date_to_string(progData.datetime))
-                var header = parseVersionHeader( progData.source )
-                if (header.ok) {
-                    haveScreenshot = progData.screenshot != ""
-                    sendMessage(JSON.stringify({ program: header.source, version: header.version, lang: header.lang, unpackaged: header.unpackaged, autoscreenshot:isWritable && !haveScreenshot }))
-                } else {
-                    if ($dialog) $dialog.dialog("close")
-                    $dialog = $("#version-error-dialog").clone().removeClass("template")
-                        .find(".desired-version").text(parseVersionHeader.errorMessage).end()
-                        .dialog({ width: "600px", autoOpen: true });
-                }
+            	if ("error" in progData) {
+            		alert(progData.error)
+            	} else {
+	            	page.find(".prog-datetime").text(date_to_string(progData.datetime))
+	                var header = parseVersionHeader( progData.source )
+	                if (header.ok) {
+	                    haveScreenshot = progData.screenshot != ""
+	                    sendMessage(JSON.stringify({ program: header.source, version: header.version, lang: header.lang, unpackaged: header.unpackaged, autoscreenshot:isWritable && !haveScreenshot }))
+	                } else {
+	                    if ($dialog) $dialog.dialog("close")
+	                    $dialog = $("#version-error-dialog").clone().removeClass("template")
+	                        .find(".desired-version").text(parseVersionHeader.errorMessage).end()
+	                        .dialog({ width: "600px", autoOpen: true });
+	                }
+            	}
             })
         } catch (err) {
             window.console && console.log("Error: ", err)
