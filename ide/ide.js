@@ -121,6 +121,12 @@ $(function () {
                     u += "/program/" + encode(route.program)  // program might be LIST, to get the list
                     if (route.option !== undefined) {
                     	u += "/option/" + route.option
+                    	if (route.oldfolder !== undefined) {
+                    		u += "/oldfolder/" + route.oldfolder
+                    		if (route.oldprogram !== undefined) {
+                    			u += "/oldprogram/" + route.oldprogram
+                    		}
+                    	}
                     }
                 }
             }
@@ -169,8 +175,21 @@ $(function () {
             }
         })
     }
+    function apiCopy(route, callback) { // copy or rename
+    	// route = /api/user/username/folder/foldername/program/programname/option/copy or rename/
+    	//    oldfolder/oldfoldername/oldprogram/oldprogramname
+    	var url = apiURL(route)
+        $.ajax({
+            type: 'PUT',
+            url: url,
+            success: callback,
+            error: function (xhr, message, exc) {
+                apiError("API " + message + " copy or rename " + url + ": " + exc)
+            }
+        })
+    }
     function apiDownload(route, callback) { 
-    	// route = /api/user/username/folder/foldername/program/programname/options/download
+    	// route = /api/user/username/folder/foldername/program/programname/option/download
     	// Slight modifications here and in api.py could handle options other than download
     	var url = apiURL(route)
         $.ajax({
@@ -598,10 +617,11 @@ $(function () {
                 		}
                         if (!ok) alert("The program "+newfolder+'/'+newname+" already exists.")
                         else { // At this point we know that newfolder/newname is an okay destination for the renaming
-                        	data = { oldfolder:oldfolder, oldprogram:oldname }
-                        	if (dialog == "#prog-rename-dialog") data.rename = true
-	                        apiPut({user:username, folder:newfolder, program:newname}, 
-                        		data, function () {
+                        	var option = 'copy'
+                        	if (dialog == "#prog-rename-dialog") option = 'rename'
+                        	apiCopy({user:username, folder:newfolder, program:newname,
+                        		option:option, oldfolder:oldfolder, oldprogram:oldname}, 
+                        		function () {
                         			navigate({page: "folder", user:username, folder:oldfolder})
 	                        })
                         }
@@ -611,6 +631,15 @@ $(function () {
             return false
         }
 
+
+        pages.downloadFolder = function(route) { // Currently the only program option is download (download a program to user computer) // Currently the only program option is download (download a program to user computer)
+            apiDownload( {user:route.user, folder:route.folder, program:'program', option:'downloadFolder'}, function(ret) {
+        		window.location = apiURL(route) // this sends the file to the user's download folder
+            	navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
+            })
+        }
+        
+        
         function renameDialog( dialog, oldname, doRename ) {
         	// dialog for renaming/copying a program (can include moving to another folder)
         	var args =	{

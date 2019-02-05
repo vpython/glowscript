@@ -27,10 +27,13 @@
 
 # python_version 2.7 works and can be deployed with Google App Engine Launcher 1.7.6
 
-import webapp2 as web
+import webapp2 as web # docs at https://webapp2.readthedocs.io/en/latest/
+# Also see RequestHandler docs at https://webapp2.readthedocs.io/en/latest/api/webapp2.html#webapp2.RequestHandler
+#   and for request function, https://docs.pylonsproject.org/projects/webob/en/stable/api/request.html
 import json
 import StringIO
 import zipfile
+import cgi
 
 from google.appengine.ext import ndb
 from google.appengine.api import users
@@ -303,42 +306,28 @@ class ApiUserFolderProgram(ApiRequest):
                     "datetime": str(ndb_program.datetime),
                     "source": unicode(ndb_program.source or unicode())} )
             
-    def put(self, user, folder, name):                                          ##### create or write an owned program
+    def put(self, user, folder, program):                          ##### create or write an owned program
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
         user = m.group(1)
         folder = m.group(2)
-        name = m.group(3)
-        if not self.validate(user, folder, name): return
+        program = m.group(3)
+        if not self.validate(user, folder, program): return
         if not self.authorize_user(user): return
-        # TODO: Check content type of request
-        import cgi
         params = cgi.parse_qs(self.request.body)
         req_program = params['program'][0]
         changes = json.loads( req_program )
-
+        
         # This is a slight abuse of the PUT verb, since attributes not specified are left unchanged
-        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",program).get()
         if not ndb_program: # if not ndb_program already, this is a request to create a new program
             ndb_folder = ndb.Key("User",user,"Folder",folder).get()
             if not ndb_folder:
                 return self.error(404)
-            ndb_program = Program( parent=ndb_folder.key, id=name )
-
-        if "oldfolder" in changes:
-            # If changes["oldfolder"] or changes["oldprogram"] contains a space, must change space to "%20",
-            #   because the datastore contains old records where spaces were indeed replaced by "%20".
-            f = changes["oldfolder"]
-            p = changes["oldprogram"]
-            f = f.replace(" ","%20")
-            p = p.replace(" ","%20")
-            ndb_program_old = ndb.Key("User",user,"Folder",f,"Program",p).get()
-            ndb_program.source = ndb_program_old.source
-            ndb_program.screenshot = ndb_program_old.screenshot
-            ndb_program.datetime = ndb_program_old.datetime
-        else:
-            if "source" in changes: ndb_program.source = changes["source"]
-            if "screenshot" in changes:  ndb_program.screenshot = str(changes["screenshot"])
-            ndb_program.datetime = datetime.now()
+            ndb_program = Program( parent=ndb_folder.key, id=program )
+            
+        if "source" in changes: ndb_program.source = changes["source"]
+        if "screenshot" in changes:  ndb_program.screenshot = str(changes["screenshot"])
+        ndb_program.datetime = datetime.now()
         ndb_program.description = "" # description currently not used
         ndb_program.put()
         
@@ -354,7 +343,7 @@ class ApiUserFolderProgram(ApiRequest):
             ndb_program.key.delete()
 
 class ApiUserFolderProgramDownload(ApiRequest):
-	# route = /api/user/username/folder/foldername/program/programname/options/downloadProgram or ...../downloadFolder
+	# route = /api/user/username/folder/foldername/program/programname/option/downloadProgram or ...../downloadFolder
     def get(self, user, folder, name, op):                                   ##### download a public or owned program or folder
         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)', self.request.path)
         user = m.group(1)
@@ -426,6 +415,36 @@ class ApiUserFolderProgramDownload(ApiRequest):
         else:
 	        self.error(404)
 
+class ApiUserProgramCopy(ApiRequest):
+	# route = /api/user/username/folder/foldername/program/programname/option/copy or rename/
+	# oldfolder/oldfoldername/oldprogram/oldprogramname
+           
+    def put(self, user, folder, program, oldfolder, oldprogram, op):       ##### copy or rename a program
+        m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)', self.request.path)
+        user = m.group(1)
+        folder = m.group(2)
+        program = m.group(3)
+        option = m.group(4) # Currently copy or rename
+        oldfolder = m.group(5)
+        oldprogram = m.group(6)
+        # The following tests are in principle not needed, due to copy/rename options not being available 
+        if not self.validate(user, folder, program): return
+        if not self.validate(user, oldfolder, oldprogram): return
+        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+        if not ndb_folder:
+            return self.error(404) # should not occur; ide.js checks for existence
+        ndb_program = Program( parent=ndb_folder.key, id=program )
+        ndb_program_old = ndb.Key("User",user,"Folder",oldfolder,"Program",oldprogram).get()
+        if not ndb_program_old:
+            return self.error(404) # should not occur; ide.js checks for existence
+        ndb_program.source = ndb_program_old.source
+        ndb_program.screenshot = ndb_program_old.screenshot
+        ndb_program.datetime = ndb_program_old.datetime
+        ndb_program.description = "" # description currently not used
+        ndb_program.put()
+        if option == 'rename':
+            ndb_program_old.key.delete()
+
 class ApiAdminUpgrade(ApiRequest):
     allowJSONP = None
     def post(self):
@@ -442,9 +461,11 @@ class ApiAdminUpgrade(ApiRequest):
         if not p.source.startswith("GlowScript 2.7\n"):
             p.source = "GlowScript 2.7 VPython\n" + p.source
             return True
+        #(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)/option/([^/]+)', ApiUserProgramCopy),
 
 app = web.WSGIApplication(
     [
+        (r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)', ApiUserProgramCopy),
         (r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)', ApiUserFolderProgramDownload),
         (r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)', ApiUserFolderProgram),
         (r'/api/user/([^/]+)/folder/([^/]+)/program/', ApiUserFolderPrograms),
