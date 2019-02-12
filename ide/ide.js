@@ -1231,6 +1231,7 @@ $(function () {
 	            editor.getSession().setValue(progData.source)
 	            editor.setReadOnly( !isWritable )
 	            editor.selection.moveCursorDown() // position cursor at start of line 2, below GlowScript header
+	            editor.focus()
 	            if (isWritable) {
 	                var save = saver( {user:username, folder:folder, program:program},
 		                function () { return editor.getSession().getValue() },
