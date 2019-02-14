@@ -1,6 +1,6 @@
 THE ELEMENTS OF THE GLOWSCRIPT LIBRARY
 
-See http://www.glowscript.org/docs/GlowScriptDocs/local.html for instructions on
+See www.glowscript.org/docs/GlowScriptDocs/local.html for instructions on
 how to install software to be able to make and test changes to GlowScript VPython.
 
 COMPILATION
@@ -198,7 +198,8 @@ Plotly has more features.
 
 ide/ide.html with ide/ide.js provide the initial and user-specific editing displays.
 
-untrusted/run.html is invoked when running a program.
+untrusted/run.html is invoked when running a program, which runs in a separate
+sandbox.glowscript.org, to prevent possible problems with malicious code.
 
 ---------------------------------------------
 THE PYTHON SERVER
@@ -208,7 +209,10 @@ acts as the server, with the responsibility of maintaining and accessing a datas
 contains user programs. Upon request it sends programs to the user's browser, where they
 can be edited and executed. This Python program is ide/api.py. Also in the ide folder
 is the program index.html and associated JavaScript program ide.js that constitute the
-user interface.
+user interface. Currently Python 2.7 is used, but it will be possible in the future to
+use Python 3. There is also Google work going on to permit the use of the same "ndb"
+datastore methods that were used with Python 2.7, which is important for preserving
+existing user data.
 
 ---------------------------------------------
 TESTING CHANGES
@@ -219,3 +223,27 @@ and reload the web page to run the program with the latest changes.
 
 To build an updated or new version, see docs/MakingNewVersion.txt.
 
+---------------------------------------------
+GLOWSCRIPT.ORG WEBSITE ISSUES
+
+For historical reasons, although glowscript.org currently runs on Google servers,
+the domain authority is godaddy.com. It would be simpler for Google to be the
+domain authority, and migrating there is worth looking into.
+
+The main administration of the glowscript.org Google App Engine application is
+provided by Google Cloud Platform (console.cloud.google.com) and Google APIs
+(cosole.developers.google.com). Here among much else are usage reports.
+
+Some rarely used aspects of administration are associated with Google Admin
+(admin.google.com/glowscript.org), with access by bruce@glowscript.org or
+aaron@glowscript.org. In particular, making glowscript.org and www.glowscript.org
+be equivalent must be set up here, in the Domains section.
+
+Both Bruce Sherwood (bruce.sherwood@gmail.com) and Aaron Titus (hpuphysics.gmail.com)
+are administrators of these Google and GoDaddy entities.
+
+At GoDaddy clicking on DNS on the main page shows you the Domain Name Server
+information for glowscript.org. A screen capture of the settings is included
+in the GitHub docs folder. The TXT record resulted from Google asking for that
+particular record to be set up, which Google then read to verify our ownership
+of glowscript.org.
