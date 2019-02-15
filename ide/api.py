@@ -27,6 +27,10 @@
 
 # python_version 2.7 works and can be deployed with Google App Engine Launcher 1.7.6
 
+localport = '8080'     # normally 8080
+website = 'glowscript' # normally glowscript
+weblocs = ["www."+website+".org", website+".org", "localhost:"+localport]
+
 import webapp2 as web # docs at https://webapp2.readthedocs.io/en/latest/
 # Also see RequestHandler docs at https://webapp2.readthedocs.io/en/latest/api/webapp2.html#webapp2.RequestHandler
 #   and for request function, https://docs.pylonsproject.org/projects/webob/en/stable/api/request.html
@@ -95,7 +99,7 @@ class ApiRequest(web.RequestHandler):
         return True
 
     def authorize(self):
-        if self.request.headers['Host'] not in ("www.glowscript.org","localhost:8080"): 
+        if self.request.headers['Host'] not in weblocs: 
             self.error(403)
             return False
         return True
