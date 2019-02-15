@@ -1,4 +1,10 @@
 // IDE functionality
+var localport = '8080' // normally 8080
+var website = 'glowscript' // normally glowscript
+var runloc = (document.domain == "localhost") ? "http" : "https"
+var weblocs = ["http://"+website+".org", "http://www."+website+".org",
+               "https://"+website+".org", "https://www."+website+".org", 
+               runloc+"://localhost:"+localport]
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     run: [
@@ -69,23 +75,26 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
 
 function ideRun() {
     "use strict";
+    
     function eval_script(x) {
         return eval(x)
     }
 
-    var trusted_origin = "http://www.glowscript.org"
-    var also_trusted = undefined;
+    var trusted_origin = "*"
+    //var also_trusted = undefined;
     if (document.domain === "localhost") {
         // We are being loaded from a development server; we don't know if the parent is also running on
         // a development server or is the actual web site
-        //also_trusted = "http://localhost:8080"
-    	trusted_origin = "http://localhost:8080" // this eliminates some irrelevant error messages when testing
+        //also_trusted = "https://localhost:"+localport
+    	trusted_origin = "http://localhost:"+localport // this eliminates some irrelevant error messages when testing
     }
 
     function send(msg) {
         msg = JSON.stringify(msg)
+        // trusted_origin is "*" the first time send is used; "https://www."+website+".org" thereafter
+        // The first send operation is just to make the link with ide.js, which may be glowscript.org or www.glowscript.org
         window.parent.postMessage(msg, trusted_origin)
-        if (also_trusted) window.parent.postMessage(msg, also_trusted)
+        //if (also_trusted) window.parent.postMessage(msg, also_trusted)
     }
     
     /*
@@ -97,10 +106,11 @@ function ideRun() {
 
     function waitScript() {
         $(window).bind("message", receiveMessage)
-        send({ ready: 1 })
+        send({ready:true})
         function receiveMessage(event) {
-            event = event.originalEvent
-            if (event.origin !== trusted_origin && event.origin !== also_trusted) {
+            event = event.originalEvent // originalEvent is a jquery entity
+            trusted_origin = event.origin
+            if (weblocs.indexOf(trusted_origin) < 0) { // ensure that message is from glowscript
                 return;
             }
             var message = JSON.parse(event.data)

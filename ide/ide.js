@@ -3,6 +3,9 @@ $(function () {
     
     var worker
     var sourceLines
+    var website = 'glowscript' // normally glowscript
+    var http = 'http' // change to 'https' when glowscrip.org updated to https
+    var disable_writes = false // prevent all writes (edit, create/delete folder or program, copy/rename program)
 
     var onNavigate = {
         callbacks: [],
@@ -550,6 +553,7 @@ $(function () {
     pages.folder = function (route) {
         var username = route.user, folder = route.folder
         var isWritable = route.user === loginStatus.username
+        if (disable_writes) isWritable = false
 
         var page = $(".folderPage.template").clone().removeClass("template")
         var programTemplate = page.find(".program.template")
@@ -753,9 +757,11 @@ $(function () {
                 	alert('A program name cannot contain "/".')
                 	return false
                 }
-                else apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
-                    navigate({page:"edit", user:username, folder:folder, program:name})
-                })
+                else {
+                    apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
+                        navigate({page:"edit", user:username, folder:folder, program:name})
+                    })
+                }
             })
             return false
         })
@@ -858,6 +864,7 @@ $(function () {
         try {
             var username = route.user, folder = route.folder, program = route.program
             var isWritable = route.user === loginStatus.username
+            if (disable_writes) isWritable = false
 
             var page = $(".runPage.template").clone().removeClass("template")
             page.find("a.username").prop("href", unroute(route, {page:"user"}))
@@ -876,8 +883,8 @@ $(function () {
             // abuse the user's credentials with our API.  That's important because one logged-in user may be running a different user's program!
             // When this page is served from localhost, we run the iframe from the same origin (not having access to another web server, and not being concerned about security)
 
-            var untrusted_src = "http://sandbox.glowscript.org/untrusted/run.html"
-            var untrusted_origin = "http://sandbox.glowscript.org"
+            var untrusted_src = http+"://sandbox."+website+".org/untrusted/run.html"
+            var untrusted_origin = http+"://sandbox."+website+".org"
             var ready = false
             
             try {
@@ -887,12 +894,12 @@ $(function () {
             
                     var NotRunningTheDevServerTimeout = setTimeout( function() {
                         if (!ready)
-                            alert("You have configured glowscript.org to load files from '" + untrusted_origin + "', but that server is apparently not responding.  Try setting localStorage.dev='' in the console.")
+                            alert("You have configured "+website+".org to load files from '" + untrusted_origin + "', but that server is apparently not responding.  Try setting localStorage.dev='' in the console.")
                     }, 5000)
                     onNavigate.on(function(cb) { clearTimeout(NotRunningTheDevServerTimeout); cb() })
                 } else if (document.domain == "localhost") {
-                    untrusted_src = "/untrusted/run.html";
-                    untrusted_origin = "http://" + window.location.host;
+                    untrusted_origin = "http://" + window.location.host
+                    untrusted_src = "/untrusted/run.html"
                 }
             } catch (err) {
                 window.console && console.log("Error checking for developer-only settings: ", err)
@@ -1012,12 +1019,25 @@ $(function () {
             return -1
         }
         function receiveMessage(event) {
-            event = event.originalEvent
-            if (event.origin !== untrusted_origin) return;
-            // CAREFUL: We can't trust this data - it could be malicious!  Incautiously splicing it into HTML could be deadly.
+            event = event.originalEvent // originalEvent is a jquery entity
+            // CAREFUL: We can't trust this data - it could be malicious! Incautiously splicing it into HTML could be deadly.
+            if (event.origin !== untrusted_origin) return // check the origin
             var message = JSON.parse(event.data)
-            if (message.ready) {
-                ready = true;
+                
+            // Angus Croll: javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
+            // {...} "object"; [...] "array"; new Date "date"; /.../ "regexp"; Math "math"; JSON "json";
+            // Number "number"; String "string"; Boolean "boolean"; new ReferenceError) "error"
+            var toType = function(obj) {
+                return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+            }
+
+            if (!ready) { // first-time message from run.js; check that first-time message content is {ready:true}
+                if (toType(message) != 'object') return
+                if (message.ready === undefined) return
+                if (message.ready !== true) return
+                delete message.ready
+                for (var m in message) return // message should now be empty; if not, return
+                ready = true
                 if (unsentMessages !== null) {
                     var um = unsentMessages; unsentMessages = null
                     for (var i = 0; i < um.length; i++)
@@ -1127,7 +1147,7 @@ $(function () {
                     else if (v >= 2.2) verdir = "2.1"
                     else verdir = header.version.substr(0,3)
                     var runner = ''
-                    var exporturl = "http://www.glowscript.org/"
+                    var exporturl = http+"://www."+website+".org/"
                     if (v >= 2.5) exporturl = "https://s3.amazonaws.com/glowscript/"
                     if (header.lang == 'vpython' || header.lang == 'rapydscript') 
                     	runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'
@@ -1165,6 +1185,7 @@ $(function () {
         var username = route.user, folder = route.folder, program = route.program // string variables
         
         var isWritable = route.user === loginStatus.username
+        if (disable_writes) isWritable = false
 
         var page = $(".editPage.template").clone().removeClass("template")
         page.find("a.username").prop("href", unroute({page:"user", user:username}))
@@ -1231,7 +1252,7 @@ $(function () {
 	            editor.getSession().setValue(progData.source)
 	            editor.setReadOnly( !isWritable )
 	            editor.selection.moveCursorDown() // position cursor at start of line 2, below GlowScript header
-	            editor.focus()
+                editor.focus()
 	            if (isWritable) {
 	                var save = saver( {user:username, folder:folder, program:program},
 		                function () { return editor.getSession().getValue() },
