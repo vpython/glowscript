@@ -10,30 +10,48 @@ builtins:
 handlers:
 - url: /css
   static_dir: css
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /
   static_files: ide/index.html
   upload: ide/index.html
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /ide.js
   static_files: ide/ide.js
   upload: ide/ide.js
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /lib
   static_dir: lib
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /package
   static_dir: package
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /docs
   static_dir: docs
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /api/.*
   script: ide.api.app
+  secure: always
+  redirect_http_response_code: 301
   
 - url: /favicon\.ico
   static_files: static/images/favicon.ico
   upload: static/images/favicon\.ico
+  secure: always
+  redirect_http_response_code: 301
 
 - url: /untrusted
   static_dir: untrusted
+  secure: always
+  redirect_http_response_code: 301

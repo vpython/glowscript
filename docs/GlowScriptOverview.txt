@@ -247,3 +247,9 @@ information for glowscript.org. A screen capture of the settings is included
 in the GitHub docs folder. The TXT record resulted from Google asking for that
 particular record to be set up, which Google then read to verify our ownership
 of glowscript.org.
+
+There is one more web entity. In Amazon S3 is a glowscript bucket that contains
+the libraries, fonts, and textures used by exported GlowScript programs. They are
+stored there in part because it wasn't clear how to deal with CORS-enabling these
+files within the glowscript.org web site, whereas at S3 it's a one-click action.
+

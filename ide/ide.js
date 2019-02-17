@@ -4,7 +4,7 @@ $(function () {
     var worker
     var sourceLines
     var website = 'glowscript' // normally glowscript
-    var http = 'http' // change to 'https' when glowscrip.org updated to https
+    var http = 'https' // change to 'https' when glowscript.org updated to https
     var disable_writes = false // prevent all writes (edit, create/delete folder or program, copy/rename program)
 
     var onNavigate = {
@@ -942,6 +942,7 @@ $(function () {
             	}
             })
         } catch (err) {
+            console.log('pages.run catch', err)
             window.console && console.log("Error: ", err)
             alert("There was an error trying to run the program.")
         }
@@ -974,6 +975,7 @@ $(function () {
         }
         // Wrapper for postMessage that queues messages while the iframe initializes
         function sendMessage(message) {
+            console.log('sendMessage', message)
             if (unsentMessages === null)
                 untrusted_frame.get(0).contentWindow.postMessage(message, untrusted_origin)
             else
