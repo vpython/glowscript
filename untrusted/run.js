@@ -1,10 +1,9 @@
 // IDE functionality
 var localport = '8080' // normally 8080
 var website = 'glowscript' // normally glowscript
-var runloc = (document.domain == "localhost") ? "http" : "https"
-var weblocs = ["http://"+website+".org", "http://www."+website+".org",
-               "https://"+website+".org", "https://www."+website+".org", 
-               runloc+"://localhost:"+localport]
+var http = 'https'
+var runloc = (document.domain == "localhost") ? "http" : http
+var weblocs = [http+"://"+website+".org", http+"://www."+website+".org", runloc+"://localhost:"+localport]
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     run: [
@@ -75,6 +74,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
 
 function ideRun() {
     "use strict";
+    console.log('start of ideRun')
     
     function eval_script(x) {
         return eval(x)
@@ -105,6 +105,7 @@ function ideRun() {
     */
 
     function waitScript() {
+        console.log('start of waitScript')
         $(window).bind("message", receiveMessage)
         send({ready:true})
         function receiveMessage(event) {
