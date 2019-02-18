@@ -45,7 +45,7 @@ Now the program is ready to run. It is instructive to make a one-line program "b
 glowscript.org and then click "Share or export this program" to see the JavaScript program,
 which includes references to run-time libraries stored at Amazon S3, which is an https site,
 which makes the libraries accessible to https sites containing embedded GlowScript programs.
-(Currently glowscript.org is an http site, which an https site cannot access.)
+(Originally, glowscript.org was an http site, which an https site could not access.)
 Note the sizable amount of code that comes from RapydScript-NG, as well as the preamble
 geneated by GScompiler.js. It is interesting to see the changes that result in this case:
     GlowScript X.Y VPython
@@ -179,7 +179,7 @@ fragment shaders can work in parallel. The shader programs are written in a spec
 OpenGL Shading Language or GLSL.
 
 For the details of how transparency and mouse picking are handled in the GPU, see
-http://www.glowscript.org/docs/GlowScriptDocs/technical.html
+www.glowscript.org/docs/GlowScriptDocs/technical.html
 
 Other Matters
 
