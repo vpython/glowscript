@@ -20,7 +20,7 @@ For information related to building the GlowScript application, see MakingNewVer
 
 Sister Project
 --------------
-A more recent project, VPython 7, was initiated by John Coady and further developed by Ruth Chabay and Bruce Sherwood. VPython 7 lets you run VPython programs in a Jupyter notebook or from program launchers such as IDLE or Spyder: see [vpython.org](http://vpython.org). The syntax is the same as GlowScript VPython, but VPython 7 uses an installed standard Python, which provides access to the large number of Python modules. GlowScript VPython does not require installing any software but provides access only to libraries written in JavaScript, not to standard Python modules.
+A more recent project, VPython 7, was initiated by John Coady and further developed by him, Ruth Chabay, Matt Craig, and Bruce Sherwood. VPython 7 lets you run VPython programs in a Jupyter notebook, Jupyterlab, or from program launchers such as IDLE or Spyder: see [vpython.org](https://vpython.org). The syntax is the same as GlowScript VPython, and it uses the GlowScript 3D graphics library, but VPython 7 uses an installed standard Python, which provides access to the large number of Python modules. GlowScript VPython does not require installing any software but provides access only to libraries written in JavaScript, not to standard Python modules (it does however provide Python's "random" module).
  
 Run Locally
 ------------------
@@ -36,7 +36,7 @@ Run a Local Server
 ------------------
 This repository is a Google App Engine application. Here are instructions for running locally, using a local server (this is much more complicated than running locally as described under the previous heading):
 
-   http://www.glowscript.org/docs/GlowScriptDocs/local.html
+   https://www.glowscript.org/docs/GlowScriptDocs/local.html
 
 License
 -------
