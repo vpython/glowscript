@@ -18,11 +18,11 @@
 </table>
 <table width="438" height="30" border="0">
   <tr>
-    <td width="151"><select id="menu1" onchange="jumpMenu(this)">
+    <td width="151"><select id="menu1" onChange="jumpMenu(this)">
     </select></td>
-    <td width="163"><select id="menu2" onchange="jumpMenu(this)">
+    <td width="163"><select id="menu2" onChange="jumpMenu(this)">
     </select></td>
-    <td width="110"><select id="menu3" onchange="jumpMenu(this)">
+    <td width="110"><select id="menu3" onChange="jumpMenu(this)">
     </select></td>
   </tr>
 </table>
@@ -64,7 +64,7 @@
         <p class="Normal">Before starting the many renders the objects are sorted into opaque and transparent lists, and if there are no transparent objects a simple C0 render is all that is needed. Moreover, this simple render can exploit antialiasing, whereas the storage into textures for depth peeling unfortunately turns off antialiasing.</p>
         <p class="Normal">It is remarkable that doing 10 separate renders runs adequately fast for real-time rendering of moderately complicated scenes. For example, displaying a 10x10x10 grid of rotating transparent boxes can run at around 20 frames per second on ordinary computers, depending on the graphics card.</p>
         <p class="Normal">In OpenGL it is possible to create several textures in one render, but WegGL permits attaching just one texture to a framebuffer object, hence a large number of separate renders are needed.</p>
-        <p class="Normal">To see this algorithm in action, run this <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Transparency" target="_blank">Transparency</a> example program. </p>
+        <p class="Normal">To see this algorithm in action, run this <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Transparency" target="_blank">Transparency</a> example program. </p>
         <p class="Normal">Note that the code for this transparency demo is remarkably short. GlowScript is aimed at making it feasible for nonexpert programmers to exploit WebGL to generate navigable real-time 3D animations.</p>
         <p class="Normal">At <a href="https://github.com/BruceSherwood/glowscript" target="_blank">https://github.com/BruceSherwood/glowscript</a>, the key files dealing with depth peeling are lib/glow/WebGLRender.js and the shader programs in the shaders folder.</p>
         <p class="Normal">It is possible  to implement &quot;Fast Approximate Anti-Aliasing&quot; (FXAA) to get around the problem that the use of framebuffer objects turns off anti-aliasing:<br />

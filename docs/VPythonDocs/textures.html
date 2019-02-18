@@ -39,14 +39,14 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
       <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
       <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
         
     <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="http://vpython.org" target="_blank">Classic VPython web site</a><br />
+    <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
       <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="http://www.python.org" target="_blank">Python web site</a> <br /></p></td>
+      <a href="https://www.python.org" target="_blank">Python web site</a> <br /></p></td>
     <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
     <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
 
@@ -62,7 +62,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <div>
             <p class="program"> box( texture=textures.stucco ) </p>
           </div>
-          <p class="Normal">A collection of ready-to-use textures is provided; &quot;textures.stucco&quot; actually represents a character string giving the name of the image file. For the complete set of existing built-in textures, see the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures-VPython" target="_blank">Textures</a></strong>. </p>
+          <p class="Normal">A collection of ready-to-use textures is provided; &quot;textures.stucco&quot; actually represents a character string giving the name of the image file. For the complete set of existing built-in textures, see the example program <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures-VPython" target="_blank">Textures</a></strong>. </p>
         </div>
         <div>
           <p class="Normal">You can optionally specify that only portions of the object should be textured. The following statement places the texture only on the right face of the box, leaving the rest of the box untextured:&nbsp; </p>
@@ -77,7 +77,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               will fetch an image consisting of a cactus flower. For technical reasons, if the image has a width or height that is not a power of 2 (that is, not 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, etc.), the image is stretched to the next larger width or height that is a power of 2. <br />
               <br />
               There is 
-              a CORS-enabled site,<strong> <a href="http://i.imgur.com/" target="_blank" rel="nofollow" onMouseDown="this.href='http://www.google.com/url?q\75http%3A%2F%2Fi.imgur.com\46sa\75D\46sntz\0751\46usg\75AFQjCNG2tjFoSy5TNovacSkeuiFiqxzZAw';return true;" onClick="this.href='http://www.google.com/url?q\75http%3A%2F%2Fi.imgur.com\46sa\75D\46sntz\0751\46usg\75AFQjCNG2tjFoSy5TNovacSkeuiFiqxzZAw';return true;">http://i.imgur.com</a></strong>, that has extensive galleries of freely usable images. When you see an image you want, right-click the image (Mac Ctrl-click), choose &quot;Copy image address&quot;, and paste the address into your texture specification, bracketed by quotation marks. You can upload an image to i.imgur.com by clicking the "+" icon.</p>
+              a CORS-enabled site,<strong> <a href="https://i.imgur.com/" target="_blank" rel="nofollow" onMouseDown="this.href='https://www.google.com/url?q\75http%3A%2F%2Fi.imgur.com\46sa\75D\46sntz\0751\46usg\75AFQjCNG2tjFoSy5TNovacSkeuiFiqxzZAw';return true;" onClick="this.href='https://www.google.com/url?q\75http%3A%2F%2Fi.imgur.com\46sa\75D\46sntz\0751\46usg\75AFQjCNG2tjFoSy5TNovacSkeuiFiqxzZAw';return true;">https://i.imgur.com</a></strong>, that has extensive galleries of freely usable images. When you see an image you want, right-click the image (Mac Ctrl-click), choose &quot;Copy image address&quot;, and paste the address into your texture specification, bracketed by quotation marks. You can upload an image to i.imgur.com by clicking the "+" icon.</p>
             <p class="Normal"><strong>VPython 7 and textures:</strong> If you are using  VPython 7 you can use a texture on your own computer. The texture file must be in the same directory as your program file (in which case you would specify texture='T.jpg'), or in a subdirectory of that directory (for example, texture='images/T.jpg').<br />
               <br />
               If you want your texture to be available to programs stored in different places, look at
@@ -120,7 +120,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               scene.visible = True
               &nbsp;# show everything</p>
           </div>
-          <p class="Normal">First, make  the scene invisible, create the objects (which won't be visible), then wait for all textures to have been loaded. Then make the scene visible, and you'll see the objects with their textures.This is the technique used in  the example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures-VPython" target="_blank">Textures</a></strong>.</p>
+          <p class="Normal">First, make  the scene invisible, create the objects (which won't be visible), then wait for all textures to have been loaded. Then make the scene visible, and you'll see the objects with their textures.This is the technique used in  the example program <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures-VPython" target="_blank">Textures</a></strong>.</p>
           <p class="Normal">You can also check the status of an individual  object B: the quantity <span class="attribute">B.ready</span> is true if the texture has been loaded (or if B has no texture).</p>
           <p class="Normal">Textured objects are not displayed until the texture has been loaded. If you don't wait with scene.waitfor(&quot;textures&quot;), you may see objects become visible in a random sequence, depending on when the various textures have been loaded.</p>
           <p class="Normal"><strong>Removing a texture:</strong> If you set <span class="attribute">texture=None</span>, no texture is displayed.</p>
@@ -130,7 +130,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <div>
             <p class="program"> box(texture={'file':textures.stucco,<br />
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;'bumpmap':bumpmaps.stucco)</p>
-            <p class="Normal">The example program <strong><a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bumpmaps-VPython" target="_blank">Bumpmaps</a></strong> lets you move the lighting around as well as rotate the object so that you can see the effects of adding a bumpmap.</p>
+            <p class="Normal">The example program <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bumpmaps-VPython" target="_blank">Bumpmaps</a></strong> lets you move the lighting around as well as rotate the object so that you can see the effects of adding a bumpmap.</p>
             <p class="Normal">The bump maps currently available are bumpmaps.gravel (to accompany textures.gravel), bumpmaps.rock (to accompany textures.rock), bumpmaps.stones (to accompany textures.stones), bumpmaps.stucco (to accompany textures.stucco), and bumpmaps.wood_old (to accompany textures.wood_old).</p>
           </div>
         </div>

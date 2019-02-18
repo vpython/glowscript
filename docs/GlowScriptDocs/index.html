@@ -74,11 +74,11 @@
 </table>
 <table width="438" height="30" border="0">
   <tr>
-    <td width="151"><select id="menu1" onchange="jumpMenu(this)">
+    <td width="151"><select id="menu1" onChange="jumpMenu(this)">
     </select></td>
-    <td width="163"><select id="menu2" onchange="jumpMenu(this)">
+    <td width="163"><select id="menu2" onChange="jumpMenu(this)">
     </select></td>
-    <td width="110"><select id="menu3" onchange="jumpMenu(this)">
+    <td width="110"><select id="menu3" onChange="jumpMenu(this)">
     </select></td>
   </tr>
 </table>
@@ -136,7 +136,7 @@ zippy()
         <p class="Normal"><span class="style1 style2">Canvases/Events (use the pull-down menu above):</span> Creating
           one or more canvases within which to show 3D animations; how to handle mouse events; etc.</p>
       </blockquote>
-      <p class="Normal">Be sure to explore the many <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank"><strong>example programs</strong></a> that are available. </p>
+      <p class="Normal">Be sure to explore the many <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank"><strong>example programs</strong></a> that are available. </p>
       <div>
         <div>
           <p class="Normal"></p>
@@ -148,7 +148,7 @@ zippy()
       </div>
       <p class="Normal">GlowScript uses the ACE text editor. Here is a list of <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank"><strong>keyboard shortcuts</strong></a> for find, replace, etc. While editing, press <strong>Ctrl-1</strong> to run your program in the same window. Press <strong>Ctrl-2</strong> to run your program in a separate window, which can be convenient for comparing the program with its behavior. If you  change your program, press <strong>Ctrl-2</strong> again in the editor display to re-run the program with the new changes. Because ACE doesn't work on mobile devices, a simpler editor is used there.</p>
       <p class="Normal"><strong>A simple program:</strong> In the editor, after the GlowScript header, enter the statement &quot;sphere()&quot; and choose &quot;Run this program&quot;. You should see a 3D sphere. Read the Help discussions on <a href="cylinder.html">cylinder</a> and <a href="box.html">box</a> objects to learn how to customize 3D objects (position, color, size, etc.).</p>
-      <p class="Normal"><strong>Rotate and zoom:</strong> You can rotate and zoom the camera using the mouse; for instructions, see the Example program <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/AtomicSolid" target="_blank"><strong>AtomicSolid</strong></a>.</p>
+      <p class="Normal"><strong>Rotate and zoom:</strong> You can rotate and zoom the camera using the mouse; for instructions, see the Example program <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/AtomicSolid" target="_blank"><strong>AtomicSolid</strong></a>.</p>
       <p class="Normal"><strong>Errors and debugging:</strong> If you are using JavaScript, watch for little yellow triangles or red squares to the left of a program statement and move the mouse over the icon. You'll see a message describing an error with that line. (This capability is not yet  active for VPython or RapydScript.) When you run the program you may see other error messages. <strong><span class="attribute1">Only with the Chrome browser is it usually possible for GlowScript to display  the line number of the error, so when developing programs it is strongly advised to use Chrome.</span></strong> Some program errors are reported only to the &quot;console&quot;. To enable the console, in Chrome, press shift-ctrl-j on Windows or Ubuntu, or option-cmd-j on  Mac. In Firefox, on Windows choose Firefox &gt; Web Developer &gt; Web Console, and on Ubuntu choose Tools &gt; Web Developer &gt; Web Console. The output will be found at the end of the console output </p>
       <p class="Normal">When developing a program it can be very useful to comment out a block of code temporarily. Here is how to do this in the three languages:</p>
       <p class="program"># VPython or RapydScript (can also use '''):<br />
@@ -176,11 +176,11 @@ zippy()
       <p class="Normal"><strong>Tablets and smart phones</strong>: Most tablets and smart phones  support WebGL and GlowScript, both Android and iOS.</p>
       <p class="Normal"><strong>Testing:</strong> If things don't work, it may be useful to visit <a href="https://get.webgl.org" target="_blank">get.webgl.org</a> which checks whether WebGL is working properly on your computer. Also, here is a <a href="http://www.khronos.org/webgl/wiki/Demo_Repository" target="_blank">repository</a> of WebGL demo programs, where it may be useful to see whether these programs will run on your computer.</p>
       <p class="Normal"><strong><font color="#0000A0">RapydScript, a Python look-alike</font></strong></p>
-      <p class="Normal">Because the design of GlowScript is based on that of <a href="http://vpython.org" target="_blank"><strong>VPython</strong></a>, and to facilitate moving programs between GlowScript and VPython, GlowScript makes it possible to write GlowScript programs in <strong><a href="https://github.com/atsepkov/RapydScript" target="_blank">RapydScript</a></strong>, a programming language that is very simiilar to Python but programs written in RapydScript can run in a browser.</p>
+      <p class="Normal">Because the design of GlowScript is based on that of <a href="https://vpython.org" target="_blank"><strong>VPython</strong></a>, and to facilitate moving programs between GlowScript and VPython, GlowScript makes it possible to write GlowScript programs in <strong><a href="https://github.com/atsepkov/RapydScript" target="_blank">RapydScript</a></strong>, a programming language that is very simiilar to Python but programs written in RapydScript can run in a browser.</p>
       <p class="Normal">For many kinds of programs RapydScript is identical to Python, but there are some differences due to the desire of the RapydScript designers to maintain high performance in the browser environment, where RapydScript programs are compiled to JavaScript, the underlying browser language. Thanks to its careful design, RapydScript programs run as fast as JavaScript programs but with simpler, cleaner syntax. RapydScript gives you easy access to the growing capabilities of JavaScript and its many libraries.</p>
       <p class="Normal">This GlowScript documentation emphasizes RapydScript syntax but also describes how to use JavaScript to create 3D animations. Excellent documentation on the differences between RapydScript and Python is available at <strong><a href="https://github.com/atsepkov/RapydScript" target="_blank">RapydScript</a></strong>.</p>
       <p class="Normal"><strong><font color="#0000A0">VPython</font></strong></p>
-      <p class="Normal">You can  write programs using the syntax of <a href="http://vpython.org" target="_blank"><strong>VPython</strong></a>, or to run many existing VPython programs. The <strong><a href="../VPythonDocs/index.html" target="_blank">VPython Help</a></strong> documents this syntax for the GlowScript context. The VPython Help also includes a Python program that can convert an existing VPython program to a form that will run in the GlowScript browser environment.</p>
+      <p class="Normal">You can  write programs using the syntax of <a href="https://vpython.org" target="_blank"><strong>VPython</strong></a>, or to run many existing VPython programs. The <strong><a href="../VPythonDocs/index.html" target="_blank">VPython Help</a></strong> documents this syntax for the GlowScript context. The VPython Help also includes a Python program that can convert an existing VPython program to a form that will run in the GlowScript browser environment.</p>
       <p class="Normal">When you create a new program, a header line is inserted that looks like this:</p>
       <p class="program">GlowScript 2.7 VPython</p>
       <p class="Normal">You can change &quot;VPython&quot; to &quot;RapydScript&quot; if you want to use one of these other language options. After making such a change, replot the browser page. You don't need to capitalize these language names: you can also use &quot;vpython&quot;, &quot;rapydscript&quot;, &quot;javascript&quot;.</p>
@@ -247,7 +247,7 @@ zippy()
             A-B -&gt; A.sub(B)<br />
             k*A -&gt; A.multiply(k)<br />
             A/k -&gt; A.divide(k) </p>
-          <p class="Normal"> The Example program <a href="http://tinyurl.com/SurfaceCharge" target="_blank"><strong>SurfaceCharge</strong></a> uses this technique in the <strong>Efield</strong> function. Here is one of the expressions in that function (divided across two lines to fit into this web page):</p>
+          <p class="Normal"> The Example program <a href="https://tinyurl.com/SurfaceCharge" target="_blank"><strong>SurfaceCharge</strong></a> uses this technique in the <strong>Efield</strong> function. Here is one of the expressions in that function (divided across two lines to fit into this web page):</p>
           <p class="program">E.add(norm(r).divide(mag2(r)).<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;multiply(qs[i]))</p>
           <p class="Normal"> This corresponds to the following expression:</p>
@@ -261,7 +261,7 @@ zippy()
           <p class="Normal">To invoke CoffeeScript with GlowScript 1.0 or 1.1, just add CoffeeScript to the GlowScript header:</p>
           <p class="program">GlowScript 1.1 CoffeeScript</p>
           <p class="Normal">You need not use upper-case letters; &quot;coffeescript&quot; will also work. After making such a change, replot the browser page. CoffeeScript is not available in GlowScript 2.0 or later, due to there being very little use of it now that VPython is available.</p>
-          <p class="Normal"><strong>Conversion from JavaScript:</strong> There exists a JavaScript-to-CoffeeScript converter at <a href="http://js2coffee.org" target="_blank">js2coffee.org</a> (don't include the initial &quot;GlowScript&quot; statement when using this converter). In the GlowScript <a href="http://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank"><strong>example programs</strong></a> are some programs that have been converted using the js2coffee.org tool. See the folder &quot;Examples-RapydScript&quot;.</p>
+          <p class="Normal"><strong>Conversion from JavaScript:</strong> There exists a JavaScript-to-CoffeeScript converter at <a href="http://js2coffee.org" target="_blank">js2coffee.org</a> (don't include the initial &quot;GlowScript&quot; statement when using this converter). In the GlowScript <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank"><strong>example programs</strong></a> are some programs that have been converted using the js2coffee.org tool. See the folder &quot;Examples-RapydScript&quot;.</p>
         </div>
       </div>
     <!-- InstanceEndEditable --></td>
