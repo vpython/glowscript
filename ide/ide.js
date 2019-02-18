@@ -4,7 +4,6 @@ $(function () {
     var worker
     var sourceLines
     var website = 'glowscript' // normally glowscript
-    var http = 'https' // change to 'https' when glowscript.org updated to https
     var disable_writes = false // prevent all writes (edit, create/delete folder or program, copy/rename program)
 
     var onNavigate = {
@@ -883,8 +882,8 @@ $(function () {
             // abuse the user's credentials with our API.  That's important because one logged-in user may be running a different user's program!
             // When this page is served from localhost, we run the iframe from the same origin (not having access to another web server, and not being concerned about security)
 
-            var untrusted_src = http+"://sandbox."+website+".org/untrusted/run.html"
-            var untrusted_origin = http+"://sandbox."+website+".org"
+            var untrusted_src = "https://sandbox."+website+".org/untrusted/run.html"
+            var untrusted_origin = "https://sandbox."+website+".org"
             var ready = false
             
             try {
@@ -1149,7 +1148,7 @@ $(function () {
                     else if (v >= 2.2) verdir = "2.1"
                     else verdir = header.version.substr(0,3)
                     var runner = ''
-                    var exporturl = http+"://www."+website+".org/"
+                    var exporturl = "https://www."+website+".org/"
                     if (v >= 2.5) exporturl = "https://s3.amazonaws.com/glowscript/"
                     if (header.lang == 'vpython' || header.lang == 'rapydscript') 
                     	runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'

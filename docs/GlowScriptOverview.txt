@@ -223,6 +223,16 @@ and reload the web page to run the program with the latest changes.
 
 To build an updated or new version, see docs/MakingNewVersion.txt.
 
+Making the change from http to https for glowscript.org was sufficiently difficult that
+a "maintenance" period when glowscript.org would be down was announced several days
+in advance. Also, in ide/ide.js the variable "disable_writes" was set to true during
+maintenance, which meant that one could still view and run programs but not change
+anything. This wasn't a complete block on changes because someone currently editing a
+program wasn't blocked (unless they left the editing page and returned to it).
+In retrospect, this hole could be blocked in section pages.edit of ide.js by checking
+disable_writes on every call to the "save" function instead of just at the start
+of the pages.edit section. 
+
 ---------------------------------------------
 GLOWSCRIPT.ORG WEBSITE ISSUES
 
@@ -251,5 +261,8 @@ of glowscript.org.
 There is one more web entity. In Amazon S3 is a glowscript bucket that contains
 the libraries, fonts, and textures used by exported GlowScript programs. They are
 stored there in part because it wasn't clear how to deal with CORS-enabling these
-files within the glowscript.org web site, whereas at S3 it's a one-click action.
+files within the http://glowscript.org web site, whereas at S3 it's a one-click action.
+Also, https://s3.amazonaws.com/glowscript is an https site, whereas glowscript.org
+was until Feb. 2019 an http site, so references to S3 from a program exported to an
+https site would work, but not to http://glowscript.org. 
 

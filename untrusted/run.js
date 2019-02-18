@@ -1,9 +1,8 @@
 // IDE functionality
 var localport = '8080' // normally 8080
 var website = 'glowscript' // normally glowscript
-var http = 'https'
-var runloc = (document.domain == "localhost") ? "http" : http
-var weblocs = [http+"://"+website+".org", http+"://www."+website+".org", runloc+"://localhost:"+localport]
+var runloc = (document.domain == "localhost") ? "http" : "https"
+var weblocs = ["https://"+website+".org", "https://www."+website+".org", runloc+"://localhost:"+localport]
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     run: [
