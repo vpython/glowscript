@@ -33,16 +33,16 @@ In this repository, click GlowScriptOffline2.7.zip and download the zip file.
 Unzip the GlowScriptOffline package to any convenient place on your computer.
 
 Inside the GlowScriptOffline folder, read the README file to learn how to use the package. 
-
-For Developers
---------------
-In this repository's docs folder is a file GlowScriptOverview.txt that describes the architecture of GlowScript in detail. For many of the current issues, the relevant part of the document is the section on Execution (run-time).
  
 Run a Local Server
 ------------------
 This repository is a Google App Engine application. Here are instructions for running locally, using a local server (this is much more complicated than running locally as described under the previous heading):
 
    https://www.glowscript.org/docs/GlowScriptDocs/local.html
+
+For Developers
+--------------
+In this repository's docs folder is a file GlowScriptOverview.txt that describes the architecture of GlowScript in detail. For many of the current issues, the relevant part of the document is the section on Execution (run-time). To test changes it is necessary to run a local server, as is describe in the previous heading.
 
 License
 -------
