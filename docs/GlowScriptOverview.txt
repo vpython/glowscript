@@ -251,12 +251,12 @@ and beside "Datastore" are various options to investigate the cloud data.
 For example, choose "Entities" and you can examine glowscript.org records.
 Choose "User" for the Kind of record, then click FILTER ENTITIES and enter
 key(User,'GlowScriptDemos'), then click APPLY FILTERS. You will see information
-about the GlowScriptDemos login that is used for maintaining the Exampple
+about the GlowScriptDemos login that is used for maintaining the Example
 programs at glowscript.org.
 
 Some rarely used aspects of administration are associated with Google Admin
-(admin.google.com/glowscript.org), with access by bruce@glowscript.org or
-aaron@glowscript.org. In particular, making glowscript.org and www.glowscript.org
+(admin.google.com/glowscript.org), with access by glowscript.org administrators.
+In particular, making glowscript.org and www.glowscript.org
 be equivalent must be set up here, in the Domains section. Click "Domains",
 then click Add/remove domains. Here you will see glowscript.org listed with
 the information that glowscript.org is redirected to www.glowscript.org.
