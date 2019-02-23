@@ -8,7 +8,7 @@ GlowScript makes it easy to write programs in JavaScript, [RapydScript](https://
 
 That's it. That's the whole program (except for the GlowScript version header line that is supplied automatically). The key point is that lots of sensible defaults are built into the GlowScript library. You can of course specify the canvas size, the color and other attributes of the objects, the direction of the camera view, etc.
 
-For a history of the development of VPython, see [A time line for VPython development](https://brucesherwood.net/?p=136). Here is a technical overview of GlowScript VPython and VPython 7: [VPython architecture](https://vpython.org/contents/VPythonArchitecture.pdf).
+For a history of the development of VPython, see [A time line for VPython development](https://brucesherwood.net/?p=136). Here is a technical overview of GlowScript VPython and VPython 7: [VPython Architecture](https://vpython.org/contents/VPythonArchitecture.pdf).
 
 Documentation
 -------------
