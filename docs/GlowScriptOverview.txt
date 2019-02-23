@@ -242,12 +242,24 @@ domain authority, and migrating there is worth looking into.
 
 The main administration of the glowscript.org Google App Engine application is
 provided by Google Cloud Platform (console.cloud.google.com) and Google APIs
-(cosole.developers.google.com). Here among much else are usage reports.
+(console.developers.google.com). Here among much else are usage reports.
+
+At console.cloud.google.com, in "App Engine" click "Go to the App Engine
+dashboard" to see various kinds of data about glowscript.org operation.
+Again at console.cloud.google.com, click the 3 bars at the upper left
+and beside "Datastore" are various options to investigate the cloud data.
+For example, choose "Entities" and you can examine glowscript.org records.
+Choose "User" for the Kind of record, then click FILTER ENTITIES and enter
+key(User,'GlowScriptDemos'), then click APPLY FILTERS. You will see information
+about the GlowScriptDemos login that is used for maintaining the Exampple
+programs at glowscript.org.
 
 Some rarely used aspects of administration are associated with Google Admin
 (admin.google.com/glowscript.org), with access by bruce@glowscript.org or
 aaron@glowscript.org. In particular, making glowscript.org and www.glowscript.org
-be equivalent must be set up here, in the Domains section.
+be equivalent must be set up here, in the Domains section. Click "Domains",
+then click Add/remove domains. Here you will see glowscript.org listed with
+the information that glowscript.org is redirected to www.glowscript.org.
 
 Both Bruce Sherwood (bruce.sherwood@gmail.com) and Aaron Titus (hpuphysics.gmail.com)
 are administrators of these Google and GoDaddy entities.
