@@ -8,6 +8,8 @@ GlowScript makes it easy to write programs in JavaScript, [RapydScript](https://
 
 That's it. That's the whole program (except for the GlowScript version header line that is supplied automatically). The key point is that lots of sensible defaults are built into the GlowScript library. You can of course specify the canvas size, the color and other attributes of the objects, the direction of the camera view, etc.
 
+For a history of the development of VPython, see [A time line for VPython development](https://brucesherwood.net/?p=136). A technical overview of GlowScript VPython and VPython 7, see [VPython architecture](https://vpython.org/contents/VPythonArchitecture.pdf).
+
 Documentation
 -------------
 At [glowscript.org](http://glowscript.org) click Help for full documentation. There is an extensive set of example programs available from the first page of glowscript.org. Programs can be created and stored at glowscript.org, but it is also possible to export a program to place on your own web page, or to use the GlowScript library without storing the program at glowscript.org. For programs stored at glowscript.org, you can share a link with someone and they can run your program simply by clicking on the link. Here is an example:
@@ -31,6 +33,10 @@ In this repository, click GlowScriptOffline2.7.zip and download the zip file.
 Unzip the GlowScriptOffline package to any convenient place on your computer.
 
 Inside the GlowScriptOffline folder, read the README file to learn how to use the package. 
+
+For Developers
+--------------
+In this repository's docs folder is a file GlowScriptOverview.txt that describes the architecture of GlowScript in detail. For many of the current issues, the relevant part of the document is the section on Execution (run-time).
  
 Run a Local Server
 ------------------
