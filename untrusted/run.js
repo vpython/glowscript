@@ -73,7 +73,6 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
 
 function ideRun() {
     "use strict";
-    console.log('start of ideRun')
     
     function eval_script(x) {
         return eval(x)
@@ -104,7 +103,6 @@ function ideRun() {
     */
 
     function waitScript() {
-        console.log('start of waitScript')
         $(window).bind("message", receiveMessage)
         send({ready:true})
         function receiveMessage(event) {

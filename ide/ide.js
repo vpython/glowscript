@@ -499,12 +499,14 @@ $(function () {
         	var hour = Number(m[4])
         	var minute = Number(m[5])
         	var second = Math.floor(Number(m[6]))
-        	d.setUTCFullYear(year)
-        	d.setUTCMonth(month-1) // JavaScript numbers months starting at zero
-        	d.setUTCDate(day)
-        	d.setUTCHours(hour-hour_offset) // UTC to local time
-        	d.setUTCMinutes(minute-minute_offset)
+        	
         	d.setUTCSeconds(second)
+        	d.setUTCMinutes(minute-minute_offset)
+        	d.setUTCHours(hour-hour_offset) // UTC to local time
+        	d.setUTCDate(day)
+        	d.setUTCMonth(month-1) // JavaScript numbers months starting at zero
+        	d.setUTCFullYear(year)        	
+        	
         	year = d.getUTCFullYear()
         	month = Number(d.getUTCMonth())+1 // restore original 1-12 month number
         	day = d.getUTCDate()
@@ -974,7 +976,6 @@ $(function () {
         }
         // Wrapper for postMessage that queues messages while the iframe initializes
         function sendMessage(message) {
-            console.log('sendMessage', message)
             if (unsentMessages === null)
                 untrusted_frame.get(0).contentWindow.postMessage(message, untrusted_origin)
             else
