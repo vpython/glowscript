@@ -1,13 +1,16 @@
 Note: After installing nodejs, on Windows you must copy node.exe into the build-tools folder.
 
-An image of the GoDaddy.com DNS data as of 2018 Sept. 17 is in docs/DomainData.png.
+An image of the GoDaddy.com DNS data as of Feb. 2018 is in docs/DomainData.png.
 
 ********************************************************
 * See the start of lib/compiling/GScompiler.js for how *
 * to obtain the external libraries used by GlowScript. *
 ********************************************************
 
-This description of how to build GlowScript is written in terms of the original build program, now named build_original.py. 
+This description of how to build GlowScript is written in terms of the original build program, now named
+
+   build_original.py
+
 A more sophisticated build program is build_cli.py contributed by Iblis Lin, which may not be up to date.
 
 There are now two different procedures to handling versioning:

@@ -34,9 +34,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
       <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
       <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
         
     <p class="Normal"><a href="new_features.html">What's new</a></p>
     <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
@@ -61,8 +61,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   <br />
           hammer = compound([handle, head])<br />
           hammer.axis = vector(1,1,0)</p>
-        <p class="Normal"><strong>The size of the object:</strong> After creating the compound named &quot;hammer&quot;, <strong>hammer.size</strong> represents the size of the bounding box of the object. The x, y, and z components of hammer.size can also be referred to as hammer.length, hammer.height, and hammer.width.</p>
-        <p class="Normal"><strong>The position of the compound</strong> is <strong>hammer.pos</strong>: After creating  the compound, <strong>hammer.pos</strong> is located at the center of the bounding box. Later changes to hammer.pos move the center of the extrusion to a new location.</p>
+        <p class="Normal"><strong>The size of the object:</strong> After creating the compound named &quot;hammer&quot;, <strong>hammer.size</strong> represents the size of the xyz bounding box of the object. The x, y, and z components of hammer.size can also be referred to as hammer.length, hammer.height, and hammer.width.</p>
+        <p class="Normal"><strong>The position of the compound</strong> is <strong>hammer.pos</strong>: After creating  the compound, <strong>hammer.pos</strong> is located at the center of the bounding box. Later changes to hammer.pos move the center of the compound object to a new location.</p>
         <p class="Normal"><strong>No linkage of axis and size:</strong> After creating the hammer as a compound object, changing the axis rotates the combined object. Changing the axis does not affect the size.</p>
         <p class="Normal"><strong>Invisible objects are included:</strong> All objects in the list become part of the compound, even if they have visible = False. It is as though all the objects have visible set to True.</p>
         <p class="Normal"> The individual objects in a compound are &quot;frozen&quot;. You can't change their attributes such as positions or  orientations except as a group. </p>
@@ -73,9 +73,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="program">hammer = compound( [handle, head], pos=vector(3,2,0),<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(1,1,0) ) </p>
         <p class="Normal"><strong><font color="#0000a0">Compound and world coordinates</font></strong></p>
-        <p class="Normal">There are two  functions for translating between compound and world coordinates, which may differ if the compound object has been moved or rotated. Suppose the name of the compound is <strong>c</strong>, <strong>c_pos</strong> is a position within that compound, and <strong>world_pos</strong> is the corresponding position in world coordinates:</p>
-        <p class="program">world_pos = c.compound_to_world(c_pos)</p>
-        <p class="program">c_pos = c.world_to_compound(world_pos) </p>
+        <p class="Normal">There are two  functions for translating between compound and world coordinates, which may differ if the compound object has been moved or rotated. Suppose the name of the compound is <strong>c</strong> and  <strong>r</strong> is a location relative to the center of the compound (<strong>c.pos</strong>) at the time the compound was created; that is,  <strong>c.pos + r</strong> was the original location. Then <strong>world_pos</strong> is the corresponding location in world coordinates:</p>
+        <p class="program">world_pos = c.compound_to_world(r)</p>
+        <p class="program">r = c.world_to_compound(world_pos) </p>
         <p class="Normal"><strong><font color="#0000a0">Current restrictions</font></strong></p>
         <p class="Normal">Currently objects in a compound can have their own values of <strong>color</strong>, <strong>opacity</strong>, <strong>shininess</strong>, and <strong>emissive</strong>, but they cannot have individual textures or bumpmaps, which can only be specified for the combined object, and which affect all of the compounded objects.</p>
         <p class="Normal">Currently, one cannot specify &quot;make_trail&quot; when creating a compound object, but one can use the <strong><a href="trail.html">attach_trail()</a></strong> function.</p>
