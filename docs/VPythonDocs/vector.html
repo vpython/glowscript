@@ -28,9 +28,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
       <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
       <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
         
     <p class="Normal"><a href="new_features.html">What's new</a></p>
     <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
@@ -82,7 +82,7 @@ For convenience, <span class="attribute">norm(vec(0,0,0))</span> or<span class="
         <br />
         <strong>comp(A,B) = A.comp(B) = dot(A,norm(B))</strong>, the scalar projection of A along B<br />
         <br />
-        <strong>A.equals(B)</strong> is True if <strong>A</strong> and <strong>B</strong> have the same components (which means that they have the same magnitude and the same direction) <br />
+        <strong>A.equals(B)</strong> is True if <strong>A</strong> and <strong>B</strong> have the same components (which means that they have the same magnitude and the same direction). When using GlowScript VPython you can also use the forms A == B or A != B (not yet available in VPython 7).<br />
         <br />
         <strong>vector.random() </strong>produces a vector each of whose components is a random number in the range -1 to +1<br />
       <br />
