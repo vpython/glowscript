@@ -34,9 +34,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
       <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
       <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
         
     <p class="Normal"><a href="new_features.html">What's new</a></p>
     <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
@@ -81,68 +81,22 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal"><strong>3)</strong> Create an extrusion object to extrude your shape along your path. For example, using paths and shapes defined above, plus a color specification,</p>
       <p class="program">extrusion(path=circpath, shape=rect, color=color.red)<br />
       </p>
-      <p class="Normal">In this example a color (red) will be applied to the extrusion. You can include attributes such as <span class="attribute">pos</span>, <span class="attribute">color</span>, <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>,  <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span> when creating the extrusion, and these specifications will be applied to the compound object after it is created.&nbsp;&nbsp;</p>
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>
-                <div></div>
-              </div>
-              <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
+      <p class="Normal">In this example a color (red) will be applied to the extrusion. You can include attributes such as <span class="attribute">pos</span>, <span class="attribute">color</span>, <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>,  <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span> when creating the extrusion, and these specifications will be applied to the compound object after it is created.&nbsp;</p>
+      <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
                 <p class="Normal">The 2D paths in the <strong><a href="shapes.html">shapes and paths library</a></strong> go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
                 <p class="Normal">However, when specifying a path from the shapes and paths library, you can specify a pos and up, to tip the path out of the x-z plane. The path of the following extrusion will have a center at the location vec(1,2,0), oriented perpendicular to the vec(1,0,0):</p>
                 <p class="program">extrusion(path=paths.circle(pos=vec(1,2,0),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;up=vec(1,0,0), radius=2), color=color.cyan)</p>
-                <div>
-                  <div>
-                    <div>
-                      <div>
-                        <div>
-                          <div></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div>
-                    <div>
-                      <div> </div>
-                    </div>
-                  </div>
-              </div>
-              <div>
-                <div></div>
-          </div>
-              <div>
-                <div></div>
-              </div>
-            </div>
-        </div>
-          <p class="Normal"><strong><font color="#0000a0">How the extrusion machinery works</font></strong></p>
+                <p class="Normal"></p>
+              <p class="Normal"><strong><font color="#0000a0">Color blending</font></strong></p>
+              <p class="Normal">As with a compound object, setting the color of an extrusion that was made with a color other than white makes a multiplicative blend of the overall color with the original color. For example, if the color of the extrusion was originally cyan, vector(0,1,1), and you later set the color to yellow, vector(1,1,0), the blend results in vector(0*1, 1*1, 0*0) or vector(0,1,0), which is green. If you plan to vary the color after creating the extrusion object, start with the color being white, vector(1,1,1), which is the default.              </p>
+              <p class="Normal"><strong><font color="#0000a0">How the extrusion machinery works</font></strong></p>
             <p class="Normal">At every point along the <span class="attribute">path</span>  this point plus the preceding and following points define a plane. A 2D plane is established perpendicular to the plane at this point. The 2D shape is drawn in this 2D plane. A shape should be positioned so that its center is approximately at the location of the <span class="attribute">path</span> locations. If you offset the shape far from the path, you may get odd results, because there is enhanced danger of two adjacent drawing planes  intersecting each other. Also, making sharp turns of wide extrusions may lead to one segment overlapping another. </p>
-            <p class="Normal">If the bending angle from one point to the next is large,  a mitered joint is produced. The bending angle is considered to be large if its cosine is greater than 0.95 (an angle of less than about 18 degrees). </p>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <div>
-                      <div></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div>
-                <div>
-                  <div>
-                    <div>
-                      <div></div>
-                    </div>
-                    <p class="Normal"><strong><font color="#0000a0">Holes in the 2D shape</font></strong></p>
-                    <p class="Normal">You can create a 2D shape with holes in it, in which case the extrusion has hollow sections. The  statement below creates an extrusion of a circular disk that contains a triangular hole and a trapezoidal hole:</p>
+            <p class="Normal">If the bending angle from one point to the next is large,  a mitered joint is produced. The bending angle is considered to be large if its cosine is greater than 0.95 (an angle of less than about 18 degrees).            </p>
+            <p class="Normal">&nbsp;</p>
+
+                    <strong><font color="#0000a0">Holes in the 2D shape</font></strong></div>
+<p class="Normal">You can create a 2D shape with holes in it, in which case the extrusion has hollow sections. The  statement below creates an extrusion of a circular disk that contains a triangular hole and a trapezoidal hole:</p>
                     <p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/extrusion_holes.png" width="147" height="149" alt="extrusion" /></p>
                     <p class="program">extrusion(path=[vec(0,0,0), vec(0,0,-5)], <br />
 &nbsp;&nbsp;&nbsp;&nbsp;color=color.orange,                      <br />
@@ -176,8 +130,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   </div>
 </div>
                   </div>
-                </div>
-              </div>
+        </div>
+      </div>
             </div>
         </div>
         <div></div>
