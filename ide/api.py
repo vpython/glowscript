@@ -156,7 +156,7 @@ class ApiLogin(ApiRequest):
 class ApiUsers(ApiRequest):
     def get(self):
         if not self.authorize(): return
-        #if not self.authorize_user("Bruce_Sherwood"): return
+        #if not self.authorize_user("Bruce_Sherwood"): return # a mechanism for temporary shutdown of glowscript.org
         N = User.query().count()
         self.respond("Nusers = "+str(N))
 
@@ -202,6 +202,10 @@ class ApiUser(ApiRequest):
         ndb_my_programs = Folder( parent=ndb_user.key, id="Private", isPublic=False )
         ndb_my_programs.put()
 
+def override(user):
+    # return True if superuser, to permit the recovery of private programs for a user who can no longer log in
+    return str(user) == 'basherwo@ncsu.edu'
+
 class ApiUserFolders(ApiRequest):
     def get(self, user):                                                        ##### display all public or owned folders                                           
         m = re.search(r'/user/([^/]+)', self.request.path)
@@ -213,9 +217,14 @@ class ApiUserFolders(ApiRequest):
         folders = []
         publics = []
         for k in Folder.query(ancestor=ndb.Key("User",user)):
-        	if k.isPublic != None and not k.isPublic and gaeUser != ndb_user.gaeUser: continue
-        	folders.append(k.key.id())
-        	publics.append(k.isPublic)
+            #if k.isPublic != None and not k.isPublic and gaeUser != ndb_user.gaeUser: continue
+            if k.isPublic != None and not k.isPublic: # private folder
+                if override(gaeUser):
+                    pass
+                elif gaeUser != ndb_user.gaeUser:
+                    continue
+            folders.append(k.key.id())
+            publics.append(k.isPublic)
         self.respond( {"user":user, "folders":folders, "publics":publics} )
 
 class ApiUserFolder(ApiRequest):
@@ -268,7 +277,7 @@ class ApiUserFolderPrograms(ApiRequest):
         	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
         except:
         	pub = True
-        if not pub:
+        if not pub and not override(gaeUser):
             self.respond( {"user":user,"folder":folder,
                 "error": str('The folder "'+user+'/'+folder+'" is a private folder\nto which you do not have access.')} )
         else:
@@ -295,7 +304,7 @@ class ApiUserFolderProgram(ApiRequest):
         	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
         except:
         	pub = True
-        if not pub:
+        if not pub and not override(gaeUser):
             self.respond( {"user":user,"folder":folder,"name":name,
                 "error": str('The program "'+name+'" is in a private folder\nto which you do not have access.')} )
         else:

@@ -252,7 +252,9 @@ For example, choose "Entities" and you can examine glowscript.org records.
 Choose "User" for the Kind of record, then click FILTER ENTITIES and enter
 key(User,'GlowScriptDemos'), then click APPLY FILTERS. You will see information
 about the GlowScriptDemos login that is used for maintaining the Example
-programs at glowscript.org.
+programs at glowscript.org. Note that some very old logins may contain
+"%20" which displays at glowscript.org as a space but must be entered
+as "%20" when specifying a user key.
 
 Some rarely used aspects of administration are associated with Google Admin
 (admin.google.com/glowscript.org), with access by glowscript.org administrators.
