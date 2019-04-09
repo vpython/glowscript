@@ -1,6 +1,6 @@
 Note: After installing nodejs, on Windows you must copy node.exe into the build-tools folder.
 
-An image of the GoDaddy.com DNS data as of Feb. 2018 is in docs/DomainData.png.
+An image of the GoDaddy.com DNS data as of April 2019 is in docs/DomainData.png.
 
 ********************************************************
 * See the start of lib/compiling/GScompiler.js for how *
@@ -65,7 +65,7 @@ You have to copy and paste the results into the appropriate file (package/symbol
 You also have to change ide/index.html to point to the new Symbols file, 
 since the IDE doesn't yet dynamically load symbols based on the version header.
 
-Also change “Welcome to GlowScript X.Y” appropriately in ide/index.html.
+Also change "Welcome to GlowScript X.Y" appropriately in ide/index.html.
 
 There is a jquery version reference in untrusted/run.html.
 
