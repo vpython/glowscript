@@ -79,7 +79,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 &nbsp;&nbsp;&nbsp;&nbsp;if 'down' in k: v.y -= dv<br>
 &nbsp;&nbsp;&nbsp;&nbsp;if 'up' in k: v.y += dv<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ball.pos += v*dt</p>
-          <p class="Normal">If you hold down the 'm' key and the shift key, keydown() will be ['shift', 'M']. That is, the 'm' will be capitalized, and the 'shift' key will also be reported as down.</p>
+          <p class="Normal">If you hold down the 'm' key and the shift key, keydown() will be ['shift', 'M']. That is, the 'm' will be capitalized, and the 'shift' key will also be reported as down. In the list of down keys, the entries are in time order: the first key in the list was pressed the earliest, and the last key in the list was pressed most recently.</p>
           <p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Handling  events with callbacks</font></strong></p>
 <p class="Normal">Here is a test routine using callbacks that lets you type text into a label.</p>
