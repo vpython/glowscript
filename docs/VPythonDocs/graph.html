@@ -175,17 +175,24 @@ Multiple lines in a </span><span class="attribute">title</span><span class="attr
             gvbars(graph=g1, ...) # will appear in &quot;g1&quot; </p>
           <p class="Normal">The key point is that after creating a graph, 2D objects will by default be placed in the most recently created graph, unless you explicitly specify a different graph for the object.</p>
           <p class="Normal">&nbsp;</p>
-      <p class="Normal"><strong><font color="#0000A0">A &quot;chart recorder&quot;</font></strong></p>
-      <p class="Normal">You can imitate a &quot;chart recorder&quot; in which as you add more and more points to the right of the graph, you adjust the graph's xmin and xmax values to show only the most recent portions of the graph:</p>
-      <p class="program">g = graph(xmin=0, xmax=6, ymin=-1.5, ymax=1.5)<br>
-      s = gcurve()<br>
-      for x in arange(0, 10, .1):<br>
-&nbsp;&nbsp;&nbsp; rate(30) # slowing down the plotting<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if x &gt; g.xmax:<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d = x-g.xmax<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g.xmin += d<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g.xmax += d<br>
-&nbsp;&nbsp;&nbsp;&nbsp;s.plot( x, sin(x) )</p>
+      <p class="Normal"><strong><font color="#0000A0">A scrolling &quot;chart recorder&quot;</font></strong></p>
+      <p class="Normal">You can imitate a &quot;chart recorder&quot; in which as you add more and more points to the right of the graph, only the most recent portions of the graph are shown. With fast=False, you can pan along the whole graph when completed. You must specify the initial xmin and xmax.</p>
+      <p class="program">graph(scroll=True, fast=False, xmin=0, xmax=10)<br>
+        g = gcurve()<br>
+        for x in arange(0,30,0.1):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rate(100)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;g.plot( x, sin(x) )</p>
+      <p class="Normal"></p>
+      <p class="Normal"><em>The convenient scroll option shown above is not yet available in VPython 7</em>, but you can imitate the effect by continually adjusting the graph's xmin and xmax values to show only the most recent portions of the graph. With fast=False you can pan along the whole graph when completed. You must specify the initial xmin and xmax.      </p>
+      <p class="program">gr = graph(fast=False, xmin=0, xmax=10)        <br>
+      g = gcurve()<br>
+      for x in arange(0,30,0.1):<br>
+&nbsp;&nbsp;&nbsp; rate(100)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if x &gt; gr.xmax:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d = x-gr.xmax<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr.xmin += d<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr.xmax += d<br>
+&nbsp;&nbsp;&nbsp;&nbsp;g.plot( x, sin(x) )</p>
       <p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
           <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc.</p>
