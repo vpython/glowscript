@@ -95,11 +95,11 @@ winput( bind=T )</p>
 <p class="Normal">By default, widgets are appended to scene.caption_anchor, below the canvas. The append_to_caption statements above cause the radio button to appear below the button, the checkbox to appear below the radio button, the slider to appear below the checkbox, and the dropdown menu to appear below the slider. If you specify pos=scene.title_anchor, the widget will appear above the canvas.</p>
 <p class="Normal">The function specified by &quot;bind&quot; is called when the user clicks a button or radio button or checkbox, drags a slider, chooses a menu option, or enters a numeric expression or string in a winput box. The function is sent a pointer to the widget, which lets you reference or change information about the widget. For the radio button and checkbox, the (optional) text is placed one space to the right of the widget.</p>
 <p class="Normal"><strong>Important limitation of GlowScript VPython:</strong> The bound function cannot contain the statements rate, sleep, pause, waitfor, get_library, or read_local_file, statements that require pausing during execution. This limitation does not apply to VPython 7.</p>
+<p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000a0">Adding your own attributes </font></strong></p>
-<div class="Normal"></div>
 <p class="Normal">As with other objects, you can add your own attributes to those listed below. For example, you might have three buttons all bound to the same function but with different attributes &quot;id=1&quot;, &quot;id=2&quot;, and &quot;id=3&quot;. When the function is called by the user clicking the button, you could decide what to do based on the value of the &quot;id&quot; attribute you created.</p>
+<p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000a0">button</font></strong></p>
-<div class="Normal"></div>
 <p class="Normal">A space is placed to the right of the button, so that there is always some space between a button and an adjacent widget. Here are the attributes of a <strong>button</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the button.</p>
 <p class="attributes"> <span class="attribute">text</span> The text shown on the button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold.</p>
@@ -110,8 +110,6 @@ winput( bind=T )</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If B is a button, B.delete() deletes the button from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">radio</font></strong></p>
-<p class="Header"></p>
-<div class="Normal"></div>
 <p class="Normal">Radio buttons are often used in a group of two or more, in which you arrange that only one is checked at any time. Here are the attributes of a <strong>radio</strong> widget (a radio button):</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the radio button. </p>
 <p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the radio button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
@@ -130,7 +128,6 @@ winput( bind=T )</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If C is a checkbox, C.delete() deletes the checkbox from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">slider</font></strong></p>
-<div class="Normal"></div>
 <p class="Normal">Here are the attributes of a <strong>slider</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">vertical</span> If True, the slider is vertical, otherwise the slider is horizontal (the default). Cannot be changed after creating the slider.</p>
@@ -150,7 +147,6 @@ winput( bind=T )</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If S is a slider, S.delete() deletes the slider from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">menu</font></strong></p>
-<div class="Normal"></div>
 <p class="Normal">A space is placed to the right of the menu, so that there is always some space between a menu and an adjacent widget. Here are the attributes of a  <strong>menu</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the menu.</p>
 <p class="attributes"> <span class="attribute">choices</span> A list of strings to appear on the menu, such as ['cat', 'dog', 'horse']. Cannot be changed after creating the menu.</p>
@@ -178,9 +174,7 @@ winput( bind=T )</p>
 <p class="attributes"><span class="attribute">text</span> The text shown at the specified place. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the start or end of the text to separate the text from an adjacent widget. The text need not be a string; it will be converted to a string for display.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If W is a wtext, W.delete() deletes the wtext from the display. An alternative is to set the text to &quot;&quot;, which leaves the wtext in place but without displaying anything.</p>
 <p class="Normal"></p>
-<p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">Appending to anchor points</font></strong></p>
-        <div class="Normal"></div>
 <p class="Normal">VPython provides three anchor points that can be used to append  widgets to the page, by specifying the widget's <span class="attribute">pos</span> attribute as one of these anchor points:</p>
         <p class="program">scene.title_anchor<br />
           scene.caption_anchor<br />
@@ -188,7 +182,6 @@ winput( bind=T )</p>
         <p class="Normal">Specifying <strong>print_anchor</strong> adds a widget to the bottom of the web page, where the print area is.</p>
         <p class="Normal"></p>
         <p class="Header"><strong><font color="#0000a0">Positioning widgets</font></strong></p>
-        <div class="Normal"></div>
         <p class="Normal">When you create a widget it is appended to the anchor point. As explained above, a space is placed after button and menu widgets to separate them. If you want more space between them, and they are in the caption, execute scene.append_to_caption('&nbsp;&nbsp;&nbsp;&nbsp;') between the creations of the buttons. In the case of checkbox and radio widgets, you can increase the space between it and an adjacent widget simply by adding extra spaces to the end of the checkbox or radio text.</p>
         <p class="Normal">If you want to provide a margin of 20 pixels between adjacent vertical sliders, one method is to set left=20 for all but the leftmost slider.</p>
         <p class="Normal">To provide vertical spacing between widgets in the caption, execute something like scene.append_to_caption('\n\n') between the creations of the widgets. The string &quot;\n&quot; represents a new line (a &quot;carriage return&quot;).</p>

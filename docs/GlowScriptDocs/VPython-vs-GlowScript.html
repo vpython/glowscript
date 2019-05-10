@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<h3>GlowScript for those who have used VPython</h3>
+<h3>GlowScript RapydScript for those who have used VPython 6 (&quot;Classic VPython&quot;)</h3>
 <p>This document is intended for those who may wish to write their GlowScript programs directly in RapydScript rather than using the VPython definitions.</p>
 <p>The capabilities and syntax of GlowScript are based on those of VPython. For those familiar with VPython, this is a summary of the differences between the two environments. For those familiar with Python, it offers a summary of the main differences between the programming languages Python and RapydScript.</p>
 <p>VPython uses the OpenGL 3D graphics library; it does not run in a browser. GlowScript uses the closely related WebGL 3D graphics library that is included in  major web browsers. See the <a href="index.html">first page</a> of the GlowScript Help for browser details.</p>
@@ -47,7 +47,7 @@
 </table>
 <p>There is also a statement <span class="program">sleep(0.01)</span>, wait for 1/100th of a second. The statement <span class="program">update()</span> gives the browser the opportunity to update the page display.</p>
 <h4>VPython objects available in GlowScript</h4>
-<p>Currently, all VPython objects have been implemented except for faces (replaced by vertex, triangle, and quad), text, extrusion, frame, and points (which you can implement simply by displaying small spheres). Instead of frame there is a &quot;compound&quot; object, which among other things  makes possible very fast displays of objects consisting of several combined objects. There is also a &quot;clone&quot; capability to make copies of existing objects.</p>
+<p>Currently, all VPython objects have been implemented except for faces (replaced by vertex, triangle, and quad) and frame. Instead of frame there is a &quot;compound&quot; object, which among other things  makes possible very fast displays of objects consisting of several combined objects. There is also a &quot;clone&quot; capability to make copies of existing objects.</p>
 <h4>Display regions</h4>
 <p>A display region was called a &quot;display&quot; in VPython and is a &quot;canvas&quot; in GlowScript, corresponding to the name by which drawing regions are known on web pages.</p>
 <h4>Wait for a mouse event</h4>

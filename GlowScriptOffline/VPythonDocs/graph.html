@@ -53,12 +53,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           
           with tick marks and labels as shown above.  Graphs can  be log-log or semilog (see below). As you drag the mouse across the graph you will find options to read information off the graph. </p>
           <p class="Normal"> A graph is different from a canvas: a canvas is inherently 3D and contains 3D objects such as spheres and boxes, whereas a graph is inherently 2D and contains graphing objects for displaying curves, dots, and vertical or horizontal bars.</p>
-          <p class="Normal"><strong>New capabilities introduced with GlowScript VPython 2.7</strong></p>
-          <p class="Normal">You can now choose between two graphing packages, one which is faster, which is the one used in previous versions (currently based on Flot), or one which offers rich interactive capabilities such as zooming and panning but is slower (currently based on Plotly). The default is the fast version, corresponding to specifying <span class="attribute">fast=True</span> in a graph, gcurve, gdots, gvbars, or ghbars statement. To use the slower but more interactive version, say <span class="attribute">fast=False</span>. In many programs the &quot;slow&quot; version may run nearly as fast as the &quot;fast&quot; version, but if you plot a large number of data points the speed difference can be significant.<br />
+          <p class="Normal">&nbsp;</p>
+          <p class="Normal"><strong>Two graph options</strong></p>
+          <p class="Normal">You can  choose between two graphing packages, one which is faster (currently based on Flot), or one which offers rich interactive capabilities such as zooming and panning but is slower (currently based on Plotly). The default is the fast version, corresponding to specifying <span class="attribute">fast=True</span> in a graph, gcurve, gdots, gvbars, or ghbars statement. To use the slower but more interactive version, say <span class="attribute">fast=False</span>. In many programs the &quot;slow&quot; version may run nearly as fast as the &quot;fast&quot; version, but if you plot a large number of data points the speed difference can be significant.<br />
             <br />
-            Both versions offer new capabilities: If you specify <span class="attribute">markers=True</span> when creating a gcurve object, dots will be displayed at each gcurve point, and you can specify <span class="attribute">marker_radius</span> (the default is slightly larger than the gcurve width) and <span class="attribute">marker_color</span> (the default is the gcurve color). For a graphing object you can specify <span class="attribute">label=&quot;cos(x)&quot;</span> and this text, in the color of the object, will appear at the upper right. If you say <span class="attribute">legend=False</span> the label is not actually shown. The <span class="attribute">dot</span> (see below) and <span class="attribute">label</span> options need to be specified when you create the graphing object.<br />
-            <br />
-      If you can, do try <span class="attribute">fast=False</span> to see the many options provided. As you drag the mouse across the graph with the mouse button up, you are shown the numerical values of the plotted points. You can drag with the mouse button down to select a region of the graph, and the selected region then fills the graph. As you drag just below the graph you can pan left and right, and if you drag along the left edge of the graph you can pan up and down. As you move the mouse you'll notice that there are many options at the upper right. Hover over each of the options for a brief description. The &quot;home&quot; icon restores the display you saw before zooming or panning. Try <strong><a href="../Demos/GraphTest.py" target="_blank">this demo</a></strong>.</p>
+            Do try <span class="attribute">fast=False</span> to see the many options provided. As you drag the mouse across the graph with the mouse button up, you are shown the numerical values of the plotted points. You can drag with the mouse button down to select a region of the graph, and the selected region then fills the graph. As you drag just below the graph you can pan left and right, and if you drag along the left edge of the graph you can pan up and down. As you move the mouse you'll notice that there are many options at the upper right. Hover over each of the options for a brief description. The &quot;home&quot; icon restores the display you saw before zooming or panning. Try <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/GraphTest" target="_blank">this demo</a></strong>.</p>
+          <p class="Normal">&nbsp;</p>
           <p class="Normal"><strong>The basics</strong></p>
       <p class="Normal">Here is a simple example of how to plot a 2D graph (arange creates a numeric array running from 0 to 8, stopping short of 8.1):</p>
           <p class="program">f1 = gcurve(color=color.cyan)		# a graphics curve<br />
@@ -91,6 +91,7 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
 <p class="Normal">This is equivalent to deleting all the points from the graph and then adding the new ones.</p>
 <p class="Normal">It is often the case that skipping points may hardly affect the display but will make graph plotting much faster, in which case it's useful to specify an interval between plotting of points:</p>
 <p class="attributes"><span class="attribute">interval</span> If interval=10, a point is added to the plot only every 10th time you ask to add a point. If interval is 0, no plot is shown. If interval is -1, no points are skipped.</p>
+<p class="attributes">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Special options for gcurve, gdots, gvbars, and ghbars</font></strong></p>
 <p class="Normal">For <span class="attribute">gcurve</span> you can specify a <span class="attribute">width</span> of the line in pixels. If you specify <span class="attribute">markers=True</span>, dots will be displayed at each gcurve point, and you can specify the <span class="attribute">radius</span> (the default is slightlly larger than the gcurve width) and <span class="attribute">marker_color</span> (the default is the gcurve color). Instead of setting the radius, you can set <span class="attribute">size</span>, which sets the diameter (equivalent to 2*radius).<br />
   <br />
@@ -105,8 +106,10 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
   specifies the radius or diameter of the dot in pixels (default is <span class="attribute">radius=3</span>).</p>
           <p class="Normal">For <span class="attribute">gvbars</span> and <span class="attribute">ghbars</span> you can  specify a <span class="attribute">delta</span> attribute, which 
             specifies the width of the bar (the default is <span class="attribute">delta=1</span>).</p>
+          <p class="Normal">&nbsp;</p>
       <p class="Normal"><strong><font color="#0000A0">Deleting data or an entire graph</font></strong></p>
           <p class="Normal">If you create a gcurve, gdots, gvbars, or ghbars entity and name it g, you can delete the associated data from a graph by saying g.delete(). Similarly, if you say gd = graph(), you can delete the entire graph by saying gd.delete().</p>
+          <p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Overall graph options</font></strong></p>
           <p class="Normal">You can establish a <span class="attribute">graph</span> to set the size, position, and title for the title bar of the graph window, 
             
@@ -139,7 +142,8 @@ displays as<br />
 &nbsp;&nbsp;&nbsp;&nbsp;The <b>mass <i>M</i></b><sub>sys</sub> = 10<sup>3</sup> kg. <br />
 <br />
 Multiple lines in a </span><span class="attribute">title</span><span class="attributes"> can be displayed by inserting line breaks (\n), as in &quot;Three\nlines\nof 
-      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</span> You cannot use line breaks in <span class="attribute">xtitle</span> or <span class="attribute">ytitle</span>. If a <span class="attribute">title</span> is specified, the height of the graph is increased to provide space for the title.<br />
+      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</span> You cannot use line breaks in <span class="attribute">xtitle</span> or <span class="attribute">ytitle</span>. If a <span class="attribute">title</span> is specified, the height of the graph is increased to provide space for the title.</p>
+          <p class="Normal"><br />
           </p>
           <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
             
@@ -155,7 +159,7 @@ Multiple lines in a </span><span class="attribute">title</span><span class="attr
     window, or you can  specify which window a new object belongs to: </p>
 
           <p class="program"> energy = gdots(graph=graph2, color=color.blue)</p>
-          <p class="attributes"></p>
+          <p class="program">&nbsp;</p>
           <p class="Normal">You can also obtain the current graph with <span class="attribute">graph.get_selected()</span>, and you can set the current graph to be the graph named gd by executing <span class="attribute">gd.select()</span>.</p>
           <p class="Normal">Here is a summary of what determines in which of several possible 2D graphs a graphing object such as a gcurve or gdots will be placed:</p>
           <p class="program">g1 = graph() # default properties<br />
@@ -167,8 +171,23 @@ Multiple lines in a </span><span class="attribute">title</span><span class="attr
             gdots(graph=g2, ...) &nbsp;# will also appear in &quot;g2&quot;<br />
             gvbars(graph=g1, ...) # will appear in &quot;g1&quot; </p>
           <p class="Normal">The key point is that after creating a graph, 2D objects will by default be placed in the most recently created graph, unless you explicitly specify a different graph for the object.</p>
+          <p class="Normal">&nbsp;</p>
+          <p class="Normal"><strong><font color="#0000A0">A &quot;chart recorder&quot;</font></strong></p>
+          <p class="Normal">You can imitate a &quot;chart recorder&quot; in which as you add more and more points to the right of the graph, you adjust the graph's xmin and xmax values to show only the most recent portions of the graph:</p>
+          <p class="program">g = graph(xmin=0, xmax=6, ymin=-1.5, ymax=1.5)<br />
+            s = gcurve()<br />
+            for x in arange(0, 10, .1):<br />
+  &nbsp;&nbsp;&nbsp; rate(30) # slowing down the plotting<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;if x &gt; g.xmax:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d = x-g.xmax<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g.xmin += d<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g.xmax += d<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;s.plot( x, sin(x) )</p>
+      <p class="Normal"></p>
+<p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
           <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc.</p>
+<p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Histograms (sorted, binned data)</font></strong></p>
           <p class="Normal">There is no ghistogram option. However, the program <a href="../Demos/HardSphereGas-VPython.py" target="_blank">HardSphereGas</a> provides an example of how to make a histogram.</p>
     <!-- InstanceEndEditable --></td>

@@ -51,7 +51,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             scene.waitfor('mousemove') # wait for mouse to be moved<br />
             scene.waitfor('mousedown mousemove') # either event<br />
           </p>
-          <p class="Normal">The event 'keydown' or 'keyup' occurs when you press or release a key on the keyboard (if you hold down a key, you may get multiple 'keydown' events due to repeats). </p>
+          <p class="Normal">The event 'keydown' or 'keyup' occurs when you press or release a key on the keyboard (if you hold down a key, you may get multiple 'keydown' events due to repeats). Keyboard events are not actually associated with particular canvases, but mouse events are, and the capability of waiting for both keyboard and mouse events makes it necessary to name a canvas, such as &quot;scene&quot;.</p>
           <p class="Normal"><strong>Jupyter notebook limitation:</strong> Key events are swallowed by the Jupyter notebook as part of the user interface and are not available to a VPython program.</p>
           <p class="Normal">You can obtain a package of information about the event that caused the end of the wait:</p>
           <p class="program">            box()<br />
@@ -60,6 +60,25 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             &nbsp;&nbsp;&nbsp;&nbsp;print('You clicked at', ev.pos)<br />
             else:<br />
             &nbsp;&nbsp;&nbsp;&nbsp;print('You pressed key '+ev.key) </p>
+          <p class="program"></p>
+          <p class="program">&nbsp;</p>
+          <p class="Normal"><strong><font color="#0000A0">Handling multiple  simultaneously pressed keys</font></strong></p>
+          <p class="Normal"><em>Not yet available in VPython 7</em>. Sometimes you need to know the names of all the keys that are currently down. The <strong>keysdown()</strong> function provides a list of the names of the keys that are currently pressed down; for example, the list might be ['b', 'F', 'ctrl']. Keys with multiletter names are 'backspace',  'caps lock', 'tab', 'shift', 'ctrl', 'alt', 'pageup', 'pagedown', 'end', 'home', 'left', 'up', 'right', 'down', 'insert', 'delete', 'break', and the function keys 'f1' through 'f10'. If you hold down the right and up arrow keys in the following program, the ball will accelerate toward the upper right of the canvas.</p>
+          <p class="program">scene.range = 20<br />
+            ball = sphere(color=color.cyan)<br />
+            v = vec(0,0,0)<br />
+            dv = 0.2<br />
+            dt = 0.01<br />
+            while True:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;rate(30)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;k = keysdown() # a list of keys that are down<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;if 'left' in k: v.x -= dv<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;if 'right' in k: v.x += dv<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;if 'down' in k: v.y -= dv<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;if 'up' in k: v.y += dv<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;ball.pos += v*dt</p>
+          <p class="Normal">If you hold down the 'm' key and the shift key, keydown() will be ['shift', 'M']. That is, the 'm' will be capitalized, and the 'shift' key will also be reported as down. In the list of down keys, the entries are in time order: the first key in the list was pressed the earliest, and the last key in the list was pressed most recently.          </p>
+          <p class="Normal">&nbsp;</p>
           <p class="Normal"><strong><font color="#0000A0">Handling  events with callbacks</font></strong></p>
 <p class="Normal">Here is a test routine using callbacks that lets you type text into a label.</p>
           <p class="program">prose = label() # initially blank text<br />
@@ -84,6 +103,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <p class="Normal">With the following statement, click event will no longer be sent to myFunction:</p>
           <p class="program">scene.unbind('click', myFunction) </p>
           <p class="Normal">The example program <span class="attribute">eventHandlers.py</span> illustrates the callback method for handling many kinds of events.</p>
+          <p class="Normal">&nbsp;</p>
           <p class="Normal"><font color="#0000A0"><strong>Pausing for keyboard or mouse input</strong></font></p>
           <p class="Normal"> Often you want to pause for either mouse or keyboard input which you can do by executing <strong>scene.waitfor('click keydown')</strong>.</p>
 </div>
