@@ -30,8 +30,9 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/primitives.js",
         "../lib/glow/extrude.js",
         "../lib/glow/shaders.gen.js",
-        "../lib/compiling/transform.js" // Streamline transform.js needed for running programs embedded in other web sites
-        //"../lib/compiling/transform-es6.min.js" // Streamline transform.js needed for running programs embedded in other web sites
+        //"../lib/compiling/transform.js" // older, obsolete Streamline transform.js needed for running programs embedded in other web sites
+        "../lib/compiling/transform-es6.min.js" // Streamline transform.js needed for running programs embedded in other web sites
+        //"../lib/compiling/transform-es6.js" // Streamline transform.js needed for running programs embedded in other web sites
         ],
     compile: [
         "../lib/compiling/GScompiler.js", 

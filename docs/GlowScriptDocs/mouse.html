@@ -34,12 +34,14 @@
         <h1 class="Heading-1"> <font color="#0000A0">Mouse and Keyboard Events</font><br />
         </h1>
 <p class="Normal"><strong><font color="#0000A0">Introduction to events</font></strong></p>
-<p class="Normal">You can wait for a mouse click, or for a key to be pressed or released (once the keyboard event problem is solved), with these statements:</p>
+<p class="Normal">Here is the simplest mouse interaction, which simply waits for a mouse click:</p>
+<p class="attributes"> <span class="attribute">scene.pause()</span> An icon is displayed in the canvas to indicate a pause, waiting for a mouse click. </p>
+<p class="Normal">You can also wait for a mouse click, or for a key to be pressed or released, with these statements:</p>
 <p class="attributes"> <span class="attribute">scene.waitfor('click')</span> Wait for a mouse click. </p>
 <p class="attributes"> <span class="attribute">scene.waitfor('keydown')</span> Wait for a key to be pressed.</p>
 <p class="attributes"> <span class="attribute">scene.waitfor('keyup')</span> Wait for a key to be released.</p>
 <p class="attributes"> <span class="attribute">scene.waitfor('keydown keyup')</span> Wait for a key press or release.</p>
-<p class="Normal"> You can also set up a function to be called when a mouse or keyboard event occurs. The following will display the type of  event (mouse click or keydown) and, in the case of a keydown event, which key is involved:</p>
+<p class="Normal"> You can  set up a function to be called when a mouse or keyboard event occurs. The following will display the type of  event (mouse click or keydown) and, in the case of a keydown event, which key is involved:</p>
 <p class="program">def process(event):<br />
 &nbsp;&nbsp;&nbsp;&nbsp;print(event.event, event.which)<br />
   <br />
@@ -63,7 +65,7 @@
           see <a href="mouse_click.html"><strong>Click example</strong></a> and <a href="mouse_drag.html"><strong>Drag 
           example</strong></a>. A mouse object has a group of attributes corresponding to 
   the current state of the mouse.</p>
-        <p class="Normal">The simplest mouse interaction is to wait for a mouse click:</p>
+        <p class="Normal">The scene.pause() option can be modified to include a message:</p>
         <p class="attributes"> <span class="attribute">scene.pause()</span> An icon is displayed in the canvas to indicate a pause, waiting for a mouse click.        </p>
         <p class="attributes"> <span class="attribute">scene.pause(&quot;Click to proceed&quot;)</span> The specified text is displayed in the canvas to indicate a pause, waiting for a mouse click.        </p>
         <p class="Normal">You can also wait for mouse interactions without displaying a prompt:</p>

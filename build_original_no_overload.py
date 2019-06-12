@@ -64,7 +64,8 @@ glowscript_libraries = {
         # Tried using babel to make an ES5 version of transform.js, to be able to uglify, but uglify failed again.
         # Later: uglify-es does seem to handle ES6 but fails on RSrun; see below.
         # So let's use the older version of Streamline:
-        "../lib/compiling/transform.js" # needed at run time as well as during compiling
+        #"../lib/compiling/transform.js" # needed at run time as well as during compiling
+        "../lib/compiling/transform-es6.min.js" # needed at run time as well as during compiling
         ],
     "plotly": [
         "../lib/plotly.js"

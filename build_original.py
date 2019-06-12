@@ -72,7 +72,8 @@ glowscript_libraries = {
         "../lib/rapydscript/compiler.js",
         "../lib/compiling/acorn.es.js",
         "../lib/compiling/papercomp.js",
-        "../lib/compiling/transform.js" # also needed here, for creating JS for embedding in other web site
+        #"../lib/compiling/transform.js" # also needed here, for creating JS for embedding in other web site
+        "../lib/compiling/transform-es6.min.js" # also needed here, for creating JS for embedding in other web site
         ],
     "RSrun": [
         "../lib/rapydscript/runtime.js",
