@@ -28,9 +28,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
       <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
       <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
+<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
+<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
         
     <p class="Normal"><a href="new_features.html">What's new</a></p>
     <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
@@ -43,11 +43,14 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">For basic examples of mouse handling, 
           see <a href="mouse_click.html">Click example</a> or <a href="mouse_drag.html">Drag 
         example</a>.</p>
-        <p class="Normal">The simplest mouse interaction is to wait for the user to click before proceeding in the program. Suppose the 3D canvas is in <span class="attribute">scene</span>, the default canvas created by VPython. Here is a way to wait for a mouse click, which  is defined as the mouse button being pressed and released without moving the mouse (the event occurs when the mouse button is released):        </p>
-        <p class="program">ev = scene.waitfor('click')</p>
+        <p class="Normal"><strong><font color="#0000A0">Introduction to events</font></strong></p>
+        <p class="Normal">Here is the simplest mouse interaction, which displays an icon and  waits for a mouse click (the left mouse button going down and up)::</p>
+        <p class="attributes"> <span class="attribute">scene.pause()</span> An icon is displayed in the canvas to indicate a pause, waiting for a mouse click. </p>
+        <p class="Normal">You can  show a message to the user on the canvas: <span class="attribute">scene.pause('Click to proceed')</span>. You can also obtain detailed information about the event:</p>
+      <p class="program">ev = scene.pause()</p>
         <p class="Normal">You can use the package of information contained in the variable &quot;ev&quot;:</p>
         <p class="program">sphere(pos=ev.pos, radius=0.1)</p>
-        <p class="Normal">The package of information about the event includes   information of what kind of event it was:</p>
+        <p class="Normal">The package of information about the event includes   information of what kind of event it was (see further event details below):</p>
         <p class="program"> box()<br />
           while True:
           <br />
@@ -58,8 +61,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print('You released the mouse button')<br />
           &nbsp;&nbsp;&nbsp;&nbsp;print(ev.pos) # the position of the mouse </p>
         <p class="Normal">Here are additional options:</p>
-      <p class="program">scene.waitfor('mousedown') # wait for mouse button press<br />
-          scene.waitfor('mouseup') # wait for mouse button release<br />
+      <p class="program">scene.waitfor('click') # wait for mouse button click<br />
+          scene.waitfor('mousedown') # wait for mouse button press<br />
+scene.waitfor('mouseup') # wait for mouse button release<br />
           scene.waitfor('mousemove') # wait for mouse to be moved<br />
       scene.waitfor('mouseenter') # when move into canvas<br />
 scene.waitfor('mouseleave') # when leave canvas<br />
@@ -68,8 +72,7 @@ scene.waitfor('mousedown mousemove') # either event<br />
           scene.waitfor('keyup')  &nbsp;&nbsp;# wait for keyboard key release<br />
           scene.waitfor('click keydown') # click or keyboard<br />
       </p>
-<p class="Normal">A convenient way to wait for a mouse &quot;click&quot; event is to use <span class="attribute">scene.pause()</span>. You can also show a message to the user on the canvas: <span class="attribute">scene.pause('Click to proceed')</span>.</p>
-<p class="Normal">You can  set up a function to be called when a mouse or keyboard event occurs. The following will display the type of  event (mouse click or keydown) and, in the case of a keydown event, which key is involved:</p>
+      <p class="Normal">You can  set up a function to be called when a mouse or keyboard event occurs. The following will display the type of  event (mouse click or keydown) and, in the case of a keydown event, which key is involved (see further details below):</p>
 <p class="program">def process(ev):<br />
   &nbsp;&nbsp;&nbsp;&nbsp;print(ev.event, ev.which)<br />
   <br />
