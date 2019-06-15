@@ -54,25 +54,23 @@ glowscript_libraries = {
         "../lib/glow/api_misc.js",
         "../lib/glow/extrude.js",
         "../lib/glow/shaders.gen.js",
-        # Unfortunately, uglify currently cannot handle function*, an ES6 feature in the es6 version of transform.js.
-        # Tried using babel to make an ES5 version of transform.js, to be able to uglify, but uglify failed again.
-        # Later: uglify-es does seem to handle ES6 but fails on RSrun; see below.
-        # So let's use the older version of Streamline:
-        "../lib/compiling/transform.js" # needed at run time as well as during compiling
+        #"../lib/compiling/transform.js" # older version
+        "../lib/compiling/transform-es6.min.js" # needed here, for creating JS for embedding in other web site
         ],
     "compile": [
         "../lib/coffee-script.js",
         "../lib/compiling/GScompiler.js",
         "../lib/compiling/acorn.es.js",
         "../lib/compiling/papercomp.js",
-        "../lib/compiling/transform.js" # also needed here, for creating JS for embedding in other web site
+        #"../lib/compiling/transform.js" # older version
+        "../lib/compiling/transform-es6.min.js" # also needed here, for creating JS for embedding in other web site
         ],
     "RScompile": [
         "../lib/compiling/GScompiler.js",
         "../lib/rapydscript/compiler.js",
         "../lib/compiling/acorn.es.js",
         "../lib/compiling/papercomp.js",
-        #"../lib/compiling/transform.js" # also needed here, for creating JS for embedding in other web site
+        #"../lib/compiling/transform.js" # older version
         "../lib/compiling/transform-es6.min.js" # also needed here, for creating JS for embedding in other web site
         ],
     "RSrun": [

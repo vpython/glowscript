@@ -261,10 +261,10 @@ function ideRun() {
             try {
             	// Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
             	// and at other times it is one long string; in the latter case we have to create rawStack
-            	// as an array of strings.
-                var rawStack
-                if (typeof err.stack == 'string') rawStack = err.stack.split('\n')
-                else rawStack = err.stack
+                // as an array of strings.
+                var rawStack = err.__proto__.stack
+                if (typeof rawStack == 'string') rawStack = rawStack.split('\n')
+                else rawStack = rawStack.toString()
                 //for (var i=0; i<rawStack.length; i++) console.log(i, rawStack[i])
 
                 // TODO: Selection and highlighting in the dialog
@@ -274,13 +274,13 @@ function ideRun() {
                     m = rawStack[i].match(unpack)
 	                if (m === null) continue
 	                caller = m[1]
-	                jsline = m[2]
+                    jsline = m[2]
 	                jschar = m[3]
                 	if (caller.slice(0,3) == 'RS_') continue
                     if (caller == 'compileAndRun') break
                     if (caller == 'main') break
 
-                	var line = prog[jsline-1]
+                    var line = prog[jsline-1]
                     if (window.__GSlang == 'javascript') { // Currently unable to embed line numbers in JavaScript programs
     	                traceback.push(line)
                         traceback.push("")
@@ -303,8 +303,9 @@ function ideRun() {
                 			c = line.length
                 		}
                 	}
-                	if (L === undefined) continue
-	                var N = Number(L)
+                    if (L === undefined) continue
+                    var N = Number(L)
+                    if (isNaN(N)) break // I don't understand why this is necessary in 2.7 but not in 2.8dev
 	                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-2])
 	                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
 	                first = false
@@ -315,8 +316,7 @@ function ideRun() {
             }
         } 
     for (var i= 0; i<traceback.length; i++) feedback += '\n'+traceback[i]
-        send({ error: "" + err, 
-               traceback: traceback.length ? feedback : ''})
+        send({ error: " ", traceback: traceback.length ? feedback : ''})
     }
 
     waitScript()
