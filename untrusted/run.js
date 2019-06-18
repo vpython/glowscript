@@ -248,8 +248,10 @@ function ideRun() {
         var prog = program.split('\n')
         //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
-    	var traceback = []
-        if (err.cursor) {
+        var traceback = []
+        if (feedback.slice(0,7) == 'Error: ') {
+            traceback = 'Error'
+        } if (err.cursor) {
         	//console.log('err.cursor',err.cursor)
             // This is a syntax error from narcissus; extract the source
             var c = err.cursor
@@ -314,9 +316,11 @@ function ideRun() {
                 }
             } catch (ignore) {
             }
-        } 
-    for (var i= 0; i<traceback.length; i++) feedback += '\n'+traceback[i]
-        send({ error: " ", traceback: traceback.length ? feedback : ''})
+        }
+    
+    if (traceback == 'Error') send({ error: " ", traceback: feedback })
+    else {for (var i= 0; i<traceback.length; i++) feedback += '\n'+traceback[i]}
+    send({ error: " ", traceback: traceback.length ? feedback : ''})
     }
 
     waitScript()

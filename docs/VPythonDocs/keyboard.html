@@ -87,7 +87,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             <br />
             def keyInput(evt):<br />
             &nbsp;&nbsp;&nbsp;&nbsp;s = evt.key<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;if len(s) == 1:<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;if len(s) == 1: # includes enter ('\n')<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prose.text += s # append new character<br />
             &nbsp;&nbsp;&nbsp;&nbsp;elif s == 'delete' and len(prose.text) &gt; 0:<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prose.text = prose.text[:-1] # erase letter<br />
