@@ -60,8 +60,8 @@ glowscript_libraries = {
         "../lib/glow/api_misc.js",
         "../lib/glow/extrude.js",
         "../lib/glow/shaders.gen.js",
-        #"../lib/compiling/transform.js" # older version
-        "../lib/compiling/transform-es6.min.js" # needed at run time as well as during compiling
+        "../lib/compiling/transform.js" # older version
+        #"../lib/compiling/transform-es6.min.js" # needed at run time as well as during compiling
         ],
     "plotly": [
         "../lib/plotly.js"

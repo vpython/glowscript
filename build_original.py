@@ -54,24 +54,27 @@ glowscript_libraries = {
         "../lib/glow/api_misc.js",
         "../lib/glow/extrude.js",
         "../lib/glow/shaders.gen.js",
-        #"../lib/compiling/transform.js" # older version
-        "../lib/compiling/transform-es6.min.js" # needed here, for creating JS for embedding in other web site
+        "../lib/compiling/transform.js" # older version
+        #"../lib/compiling/transform-es6.min.js" # needed here, for creating JS for embedding in other web site
+        #"../lib/compiling/transform-es6-srequire.min.js" # needed here, for creating JS for embedding in other web site
         ],
     "compile": [
         "../lib/coffee-script.js",
         "../lib/compiling/GScompiler.js",
         "../lib/compiling/acorn.es.js",
         "../lib/compiling/papercomp.js",
-        #"../lib/compiling/transform.js" # older version
-        "../lib/compiling/transform-es6.min.js" # also needed here, for creating JS for embedding in other web site
+        "../lib/compiling/transform.js" # older version
+        #"../lib/compiling/transform-es6.min.js" # needed here, for creating JS for embedding in other web site
+        #"../lib/compiling/transform-es6-srequire.min.js" # needed here, for creating JS for embedding in other web site
         ],
     "RScompile": [
         "../lib/compiling/GScompiler.js",
         "../lib/rapydscript/compiler.js",
         "../lib/compiling/acorn.es.js",
         "../lib/compiling/papercomp.js",
-        #"../lib/compiling/transform.js" # older version
-        "../lib/compiling/transform-es6.min.js" # also needed here, for creating JS for embedding in other web site
+        "../lib/compiling/transform.js" # older version
+        #"../lib/compiling/transform-es6.min.js" # needed here, for creating JS for embedding in other web site
+        #"../lib/compiling/transform-es6-srequire.min.js" # needed here, for creating JS for embedding in other web site
         ],
     "RSrun": [
         "../lib/rapydscript/runtime.js",
