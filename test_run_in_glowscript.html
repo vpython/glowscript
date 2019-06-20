@@ -1,0 +1,91 @@
+var regeneratorRuntime = typeof srequire === 'function' ? srequire("streamline-runtime/lib/callbacks/regenerator") : Streamline.srequire("streamline-runtime/lib/callbacks/regenerator");
+
+var _streamline = typeof srequire === 'function' ? srequire("streamline-runtime/lib/callbacks/runtime") : Streamline.srequire("streamline-runtime/lib/callbacks/runtime");
+
+var _filename = "unknown";
+
+var main = _streamline.async(regeneratorRuntime.mark(function _$$main$$(_2) {
+    var version, box, sphere, simple_sphere, cylinder, pyramid, cone, helix, ellipsoid, ring, arrow, compound, display, vector, print, type, scene, RS_ls, __name__, strings;
+
+    return regeneratorRuntime.wrap(function _$$main$$$(_context) {
+        while (1) {
+            switch (_context.prev = _context.next) {
+                case 0:
+                    version = RS_list_decorate(["2.7", "glowscript"]);
+                    Array.prototype['+'] = function (r) {
+                        return this.concat(r);
+                    };
+                    Array.prototype['*'] = function (r) {
+                        return __array_times_number(this, r);
+                    };
+                    __name__ = '__main__';
+
+                    window.__GSlang = "vpython";
+                    box = vp_box;
+                    sphere = vp_sphere;
+                    simple_sphere = vp_simple_sphere;
+                    cylinder = vp_cylinder;
+                    pyramid = vp_pyramid;
+                    cone = vp_cone;
+                    helix = vp_helix;
+                    ellipsoid = vp_ellipsoid;
+                    ring = vp_ring;
+                    arrow = vp_arrow;
+                    compound = vp_compound;
+                    display = canvas;
+                    vector = vec;
+                    print = GSprint;
+                    type = pytype;
+                    scene = canvas();
+                    strings = RS_modules.pythonize.strings;
+
+
+                    strings();
+                    "2";
+                    cone();
+
+                case 25:
+                case "end":
+                    return _context.stop();
+            }
+        }
+    }, _$$main$$, this);
+}), 0, 1);
+
+var RS_modules = {};
+RS_modules.pythonize = {};
+
+(function () {
+    var strings = function strings() {
+        var string_funcs, exclude, name;
+        string_funcs = set("capitalize strip lstrip rstrip islower isupper isspace lower upper swapcase center count endswith startswith find rfind index rindex format join ljust rjust partition rpartition replace split rsplit splitlines zfill".split(" "));
+        if (!arguments.length) {
+                exclude = function () {
+                    var s = RS_set();
+                    s.jsset.add("split");
+                    s.jsset.add("replace");
+                    return s;
+                }();
+            } else if (arguments[0]) {
+                exclude = Array.prototype.slice.call(arguments);
+            } else {
+                exclude = null;
+            }
+        if (exclude) {
+                string_funcs = string_funcs.difference(set(exclude));
+            }
+        var RS_Iter0 = RS_Iterable(string_funcs);
+        for (var RS_Index0 = 0; RS_Index0["<"](RS_Iter0.length); RS_Index0++) {
+            name = RS_Iter0[RS_Index0];
+            (RS_expr_temp = String.prototype)[typeof name === "number" && name["<"](0) ? RS_expr_temp.length["+"](name) : name] = (RS_expr_temp = RS_str.prototype)[typeof name === "number" && name["<"](0) ? RS_expr_temp.length["+"](name) : name];
+        }
+    };
+
+    ;
+
+    RS_modules.pythonize.strings = strings;
+})();
+;
+if (!main.__argnames__) Object.defineProperties(main, {
+    __argnames__: { value: ["_"] }
+});

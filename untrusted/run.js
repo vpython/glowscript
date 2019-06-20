@@ -245,13 +245,12 @@ function ideRun() {
         // stacktrase.js https://github.com/stacktracejs/stacktrace.js    https://www.stacktracejs.com/#!/docs/stacktrace-js
         // tracekit.js; https://github.com/csnover/TraceKit
         var feedback = err.toString()+'\n'
+        var compile_error = (feedback.slice(0,7) === 'Error: ')
         var prog = program.split('\n')
         //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
-        var traceback = []
-        if (feedback.slice(0,7) == 'Error: ') {
-            traceback = 'Error'
-        } if (err.cursor) {
+    	var traceback = []
+        if (err.cursor) {
         	//console.log('err.cursor',err.cursor)
             // This is a syntax error from narcissus; extract the source
             var c = err.cursor
@@ -263,11 +262,9 @@ function ideRun() {
             try {
             	// Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
             	// and at other times it is one long string; in the latter case we have to create rawStack
-                // as an array of strings.
-                var rawStack = err.__proto__.stack
-                if (typeof rawStack == 'string') rawStack = rawStack.split('\n')
-                else rawStack = rawStack.toString()
-                //for (var i=0; i<rawStack.length; i++) console.log(i, rawStack[i])
+            	// as an array of strings.
+                var rawStack = err.stack
+                if (typeof err.stack == 'string') rawStack = rawStack.split('\n')
 
                 // TODO: Selection and highlighting in the dialog
                 var first = true
@@ -276,13 +273,13 @@ function ideRun() {
                     m = rawStack[i].match(unpack)
 	                if (m === null) continue
 	                caller = m[1]
-                    jsline = m[2]
+	                jsline = m[2]
 	                jschar = m[3]
                 	if (caller.slice(0,3) == 'RS_') continue
                     if (caller == 'compileAndRun') break
                     if (caller == 'main') break
 
-                    var line = prog[jsline-1]
+                	var line = prog[jsline-1]
                     if (window.__GSlang == 'javascript') { // Currently unable to embed line numbers in JavaScript programs
     	                traceback.push(line)
                         traceback.push("")
@@ -305,9 +302,8 @@ function ideRun() {
                 			c = line.length
                 		}
                 	}
-                    if (L === undefined) continue
+                	if (L === undefined) continue
                     var N = Number(L)
-                    if (isNaN(N)) break // I don't understand why this is necessary in 2.7 but not in 2.8dev
 	                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-2])
 	                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
 	                first = false
@@ -316,12 +312,18 @@ function ideRun() {
                 }
             } catch (ignore) {
             }
+        } 
+
+        var out = ''
+        if (compile_error) {
+            for (var i= 0; i<traceback.length; i++) out += traceback[i] + '\n'
+            send({ error: feedback, traceback: out })
+        } else {
+            for (var i= 0; i<traceback.length; i++) out += traceback[i] + '\n'
+            send({ error: feedback, traceback: out})
         }
-    
-    if (traceback == 'Error') send({ error: " ", traceback: feedback })
-    else {for (var i= 0; i<traceback.length; i++) feedback += '\n'+traceback[i]}
-    send({ error: " ", traceback: traceback.length ? feedback : ''})
-    }
+
+    } // end of reportScriptError
 
     waitScript()
 }
