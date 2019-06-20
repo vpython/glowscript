@@ -28,16 +28,16 @@ The steps are the following:
 In ide/ide.js, update parseVersionHeader.defaultVersion; after 0.4 is released, it would read:
 
 parseVersionHeader.defaultVersion = "0.4"
-    parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion
-    // Map each version that can be loaded to a packaged version (usually itself), or 
-    // "unpackaged" if it is the current development version
-    parseVersionHeader.okVersions = {
-        __proto__: null,
-        "0.3": "0.3",
-        "0.4": "0.4",
-        "0.4dev" : "0.4",
-        "0.5dev" : "unpackaged",
-    }
+parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion
+// Map each version that can be loaded to a packaged version (usually itself), or 
+// "unpackaged" if it is the current development version
+parseVersionHeader.okVersions = {
+    __proto__: null,
+    "0.3": "0.3",
+    "0.4": "0.4",
+    "0.4dev" : "0.4",
+    "0.5dev" : "unpackaged",
+}
     
 and the defaultVersion would change to "0.4".
 

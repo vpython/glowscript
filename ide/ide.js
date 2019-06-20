@@ -65,7 +65,7 @@ $(function () {
         }
     }
     
-    parseVersionHeader.defaultVersion = "2.7"
+    parseVersionHeader.defaultVersion = "2.8"
     parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
     parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
@@ -86,6 +86,7 @@ $(function () {
         "2.5": "2.5",
         "2.6": "2.6",
         "2.7": "2.7",
+        "2.8": "2.8",
         "0.4dev" : "0.4",
         "0.5dev" : "0.5",
         "0.6dev" : "0.6",
@@ -100,7 +101,8 @@ $(function () {
         "2.5dev" : "2.5",
         "2.6dev" : "2.6",
         "2.7dev" : "2.7",
-        "2.8dev" : "unpackaged",
+        "2.8dev" : "2.8",
+        "2.9dev" : "unpackaged",
     }
 
     /******** Functions to talk to the API on the server ***********/
@@ -1139,7 +1141,8 @@ $(function () {
                         embedScript = embedScript.slice(0,where+1) + embedScript.slice(where+13,embedScript.length)
                     }
                     var v = Number(header.version.substr(0,3))
-                    if (v >= 2.0) main = 'main(__func)' // Starting Dec. 2015, using Streamline files from Salvatore di Dio
+                    if (v >= 2.8) main = 'main(function(err) {;})' // Starting June 2019, using up-to-date Streamline file
+                    else if (v >= 2.0) main = 'main(__func)' // Starting Dec. 2015, using Streamline files from Salvatore di Dio
                     else main = 'main()'
                     embedScript = ";(function() {" + embedScript + '\n;$(function(){ window.__context = { glowscript_container: $("#' + divid + '")'+remove+' }; '+main+' })})()'
 

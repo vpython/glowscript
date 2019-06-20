@@ -5,12 +5,14 @@
 <link type="text/css" href="https://s3.amazonaws.com/glowscript/css/ide.css" rel="stylesheet" />
 <script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
-<script type="text/javascript" src="package/glow.2.7.min.js"></script>
-<script type="text/javascript" src="package/RSrun.2.7.min.js"></script>
+<script type="text/javascript" src="https://s3.amazonaws.com/glowscript/package/glow.2.8.min.js"></script>
+<script type="text/javascript" src="https://s3.amazonaws.com/glowscript/package/RSrun.2.8.min.js"></script>
 <script type="text/javascript"><!--//--><![CDATA[//><!--
 
 // START JAVASCRIPT
 ;(function() {"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var regeneratorRuntime = typeof srequire === 'function' ? srequire("streamline-runtime/lib/callbacks/regenerator") : Streamline.srequire("streamline-runtime/lib/callbacks/regenerator");
 
@@ -19,13 +21,1649 @@ var _streamline = typeof srequire === 'function' ? srequire("streamline-runtime/
 var _filename = "unknown";
 
 var main = _streamline.async(regeneratorRuntime.mark(function _$$main$$(_2) {
-    var version, aaa, box, sphere, simple_sphere, cylinder, pyramid, cone, helix, ellipsoid, ring, arrow, compound, display, vector, print, type, scene, RS_ls, __name__, strings;
+    var clearmemory, clearprints, reset, nextb, checknext, repeatb, checkrepeat, toggle, step1a, step1b, step2a, step2b, step3a, step3b, step4a, step4b, step5a, step5b, step6a, step6b, step7a, step8a, step8b, step9a, step9b, step10a, step10b, step11a, step11b, getprediction, keyInput, execute, version, box, sphere, simple_sphere, cylinder, pyramid, cone, helix, ellipsoid, ring, arrow, compound, display, vector, print, type, scene, RS_ls, w, h, hw, hh, left, top, lineheight, a, b, sum, s, shift, n, y, lvaldrag, rvaldrag, oplabel, eqlabel, resultlabel, xleft, xright, xresult, linenumbers, lines, i, c, ytop, xend, loopoutline, comment, prompt, seetext, nexttext, varlabels, vars, names, tag, lend, value, prints, p, varcomment, step, gotnext, gotrepeat, next, rtext, repeat, prediction, keylabel, __name__, strings, RS_Index1, RS_Iter2, RS_Index2, RS_Index3, RS_Index4;
 
-    return regeneratorRuntime.wrap(function _$$main$$$(_context) {
+    return regeneratorRuntime.wrap(function _$$main$$$(_context5) {
         while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context5.prev = _context5.next) {
                 case 0:
-                    version = RS_list_decorate(["2.7", "glowscript"]);
+                    clearmemory = function clearmemory() {
+                        var RS_ls, v;
+                        "121";
+                        var RS_Iter5 = RS_Iterable(vars);
+                        for (var RS_Index5 = 0; RS_Index5["<"](RS_Iter5.length); RS_Index5++) {
+                            v = RS_Iter5[RS_Index5];
+                            "122";
+                            vars[typeof v === "number" && v["<"](0) ? vars.length["+"](v) : v]["tag"].visible = false;
+                            "123";
+                            vars[typeof v === "number" && v["<"](0) ? vars.length["+"](v) : v]["value"].text = "";
+                        }
+                    };
+
+                    clearprints = function clearprints() {
+                        var RS_ls, p;
+                        "126";
+                        var RS_Iter6 = RS_Iterable(prints);
+                        for (var RS_Index6 = 0; RS_Index6["<"](RS_Iter6.length); RS_Index6++) {
+                            p = RS_Iter6[RS_Index6];
+                            "127";
+                            p.visible = false;
+                        }
+                    };
+
+                    reset = function reset() {
+                        var RS_ls, L;
+                        "130";
+                        "131";
+                        a = 5;
+                        "132";
+                        b = 1;
+                        "133";
+                        sum = 0;
+                        "134";
+                        var RS_Iter7 = RS_Iterable(RS_list_decorate([lvaldrag, rvaldrag, oplabel, eqlabel, resultlabel, comment, prompt]));
+                        for (var RS_Index7 = 0; RS_Index7["<"](RS_Iter7.length); RS_Index7++) {
+                            L = RS_Iter7[RS_Index7];
+                            "135";
+                            L.text = "";
+                        }
+                        "136";
+                        varcomment.pos = vec(20["-u"](), .75["*"](hh)["-"](6["*"](lineheight)), 0);
+                        "138";
+                        varcomment.text = "\"a\" is called a \"variable\" because its\nvalue may vary during the program.";
+                        "139";
+                        varcomment.visible = false;
+                        "140";
+                        prompt.pos = vec(40["-u"]()["+"](.95["*"](hw))["/"](2), hh["/"](2), 0);
+                        "141";
+                        clearmemory();
+                        "142";
+                        clearprints();
+                    };
+
+                    nextb = function nextb() {
+                        var RS_ls;
+                        "153";
+                        "154";
+                        gotnext = true;
+                    };
+
+                    checknext = function checknext() {
+                        var RS_ls;
+                        "157";
+                        "158";
+                        if (gotnext) {
+                                "159";
+                                gotnext = false;
+                                "160";
+                                return true;
+                            }
+                        "161";
+                        return false;
+                    };
+
+                    repeatb = function repeatb() {
+                        var RS_ls;
+                        "167";
+                        "168";
+                        gotrepeat = true;
+                    };
+
+                    checkrepeat = function checkrepeat() {
+                        var RS_ls;
+                        "171";
+                        "172";
+                        if (gotrepeat) {
+                                "173";
+                                gotrepeat = false;
+                                "174";
+                                return true;
+                            }
+                        "175";
+                        return false;
+                    };
+
+                    toggle = function toggle(i) {
+                        var RS_ls, L;
+                        "183";
+                        "184";
+                        step = i;
+                        "185";
+                        L = lines[typeof i === "number" && i["<"](0) ? lines.length["+"](i) : i];
+                        "186";
+                        L.pos.x = left["+"](15);
+                        "187";
+                        if (RS_equals(L.text.slice(0, 3), "<b>")) {
+                                "188";
+                                L.text = L.text.slice(3, 4["-u"]());
+                                "189";
+                                L.color = color.black;
+                                "190";
+                                L.height = 15;
+                                "191";
+                            } else {
+                                "192";
+                                L.text = "<b>"["+"](L.text)["+"]("<\/b>");
+                                "193";
+                                L.color = color.orange;
+                                "194";
+                                L.height = 23;
+                                "195";
+                                if (8["<="](step) && step["<="](10)) {
+                                        "196";
+                                        L.pos.x = L.pos.x["-="](10);
+                                    }
+                            }
+                    };
+
+                    step1a = _streamline.async(regeneratorRuntime.mark(function _$$step1a$$(_3) {
+                        var RS_ls;
+                        return regeneratorRuntime.wrap(function _$$step1a$$$(_context) {
+                            while (1) {
+                                switch (_context.prev = _context.next) {
+                                    case 0:
+                                        "199";
+                                        reset();
+                                        "200";
+                                        repeat.text = rtext.format(step);
+                                        "201";
+                                        repeat.disabled = true;
+                                        "202";
+                                        prompt.text = "Click the NEXT button to start the program.";
+                                        "203";
+                                        prompt.color = color.orange;
+                                        "204";
+
+                                    case 11:
+                                        if (!true) {
+                                                _context.next = 20;
+                                                break;
+                                            }
+
+                                        "205";
+                                        _context.next = 15;
+                                        return _streamline.await(_filename, 385, null, rate, 1, null, false, [30, true]);
+
+                                    case 15:
+                                        "206";
+
+                                        if (!checknext()) {
+                                                _context.next = 18;
+                                                break;
+                                            }
+
+                                        return _context.abrupt("break", 20);
+
+                                    case 18:
+                                        _context.next = 11;
+                                        break;
+
+                                    case 20:
+                                        "207";
+                                        if (lines[1].color.equals(color.black)) toggle(1);
+                                        "208";
+                                        prompt.pos.y = 20;
+                                        "209";
+                                        prompt.text = "";
+                                        "214";
+                                        comment.text = "The CPU chooses an available container\nin computer memory, places the number 5\nin that container, and makes a note that\nthis location in memory can be referred\nto with the name \"a\".";
+                                        "215";
+                                        varcomment.color = color.orange;
+                                        "216";
+                                        varcomment.visible = true;
+                                        "217";
+                                        prompt.color = color.black;
+                                        "218";
+                                        return _context.abrupt("return", RS_list_decorate([1, null, null, 5, null, null, 5, "a"]));
+
+                                    case 36:
+                                    case "end":
+                                        return _context.stop();
+                                }
+                            }
+                        }, _$$step1a$$, this);
+                    }), 0, 1);
+
+                    step1b = function step1b(nt, bt) {
+                        var RS_ls;
+                        "221";
+                        prompt.text = nexttext.format(2);
+                        "222";
+                        prompt.color = color.orange;
+                        "223";
+                        comment.color = color.black;
+                        "224";
+                        if (bt) {
+                                "225";
+                                vars["a"]["value"].text = "";
+                                "226";
+                                vars["a"]["tag"].visible = false;
+                                "227";
+                                toggle(1);
+                                "228";
+                                return;
+                            }
+                        "229";
+                        varcomment.visible = false;
+                        "230";
+                        toggle(1);
+                        "231";
+                        toggle(2);
+                    };
+
+                    step2a = function step2a() {
+                        var RS_ls;
+                        "234";
+                        "235";
+                        clearmemory();
+                        "236";
+                        vars["a"]["value"].text = "5";
+                        "237";
+                        vars["a"]["tag"].visible = true;
+                        "238";
+                        a = 5;
+                        "239";
+                        repeat.text = rtext.format(step);
+                        "240";
+                        repeat.disabled = true;
+                        "248";
+                        comment.text = "The CPU reads 5 from the \"a\" container,\nadds 5+3 to make 8, and stores the 8\ninto the \"a\" container, overwriting the\nprevious contents. \n\nNote that in a Python program \"a = a+5\"\nmeans <b>assign</b> the value of \"a+5\" to \"a\",\nnot that \"a\" is equal to \"a+5\".";
+                        "249";
+                        return RS_list_decorate([2, "a", null, 5, 3, "+", 8, "a"]);
+                    };
+
+                    step2b = function step2b(nt, bt) {
+                        var RS_ls;
+                        "252";
+                        prompt.text = nexttext.format(3);
+                        "253";
+                        prompt.color = color.orange;
+                        "254";
+                        if (bt) {
+                                "255";
+                                vars["a"]["value"].text = "5";
+                                "256";
+                                toggle(2);
+                                "257";
+                                toggle(2);
+                                "258";
+                                return;
+                            }
+                        "259";
+                        toggle(2);
+                        "260";
+                        toggle(3);
+                    };
+
+                    step3a = function step3a() {
+                        var RS_ls;
+                        "263";
+                        repeat.text = rtext.format(step);
+                        "264";
+                        repeat.disabled = true;
+                        "265";
+                        clearmemory();
+                        "266";
+                        vars["a"]["value"].text = "8";
+                        "267";
+                        vars["a"]["tag"].visible = true;
+                        "272";
+                        comment.text = "The CPU chooses an available container\nin computer memory, places the number 10\nin that container, and makes a note that\nthis location in memory can be referred\nto with the name \"b\".";
+                        "273";
+                        return RS_list_decorate([3, null, null, 10, null, null, 10, "b"]);
+                    };
+
+                    step3b = function step3b(nt, bt) {
+                        var RS_ls;
+                        "276";
+                        prompt.text = nexttext.format(4);
+                        "277";
+                        prompt.color = color.orange;
+                        "278";
+                        if (bt) {
+                                "279";
+                                vars["b"]["value"].text = "";
+                                "280";
+                                vars["b"]["tag"].visible = false;
+                                "281";
+                                toggle(3);
+                                "282";
+                                toggle(3);
+                                "283";
+                                return;
+                            }
+                        "284";
+                        toggle(3);
+                        "285";
+                        toggle(4);
+                    };
+
+                    step4a = function step4a() {
+                        var RS_ls;
+                        "288";
+                        "289";
+                        a = 8;
+                        "290";
+                        b = 10;
+                        "291";
+                        repeat.text = rtext.format(step);
+                        "292";
+                        repeat.disabled = true;
+                        "293";
+                        clearmemory();
+                        "294";
+                        vars["a"]["value"].text = "8";
+                        "295";
+                        vars["a"]["tag"].visible = true;
+                        "296";
+                        vars["b"]["value"].text = "10";
+                        "297";
+                        vars["b"]["tag"].visible = true;
+                        "301";
+                        comment.text = "The CPU reads 8 from the \"a\" container,\nreads 10 from the \"b\" container, adds 8+10\nto make 18, and stores the 18 into the \"a\"\ncontainer, overwriting the previous contents.";
+                        "302";
+                        return RS_list_decorate([4, "a", "b", 8, 10, "+", 18, "a"]);
+                    };
+
+                    step4b = function step4b(nt, bt) {
+                        var RS_ls;
+                        "305";
+                        prompt.text = nexttext.format(5);
+                        "306";
+                        prompt.color = color.orange;
+                        "307";
+                        if (bt) {
+                                "308";
+                                vars["a"]["value"].text = "8";
+                                "309";
+                                toggle(4);
+                                "310";
+                                toggle(4);
+                                "311";
+                                return;
+                            }
+                        "312";
+                        toggle(4);
+                        "313";
+                        toggle(5);
+                    };
+
+                    step5a = function step5a() {
+                        var RS_ls;
+                        "316";
+                        "317";
+                        a = 18;
+                        "318";
+                        b = 10;
+                        "319";
+                        repeat.text = rtext.format(step);
+                        "320";
+                        repeat.disabled = true;
+                        "321";
+                        clearmemory();
+                        "322";
+                        vars["a"]["value"].text = "18";
+                        "323";
+                        vars["a"]["tag"].visible = true;
+                        "324";
+                        vars["b"]["value"].text = "10";
+                        "325";
+                        vars["b"]["tag"].visible = true;
+                        "327";
+                        comment.text = "The CPU stores 1 into the \"b\" container,\noverwriting the previous contents.";
+                        "328";
+                        return RS_list_decorate([5, null, null, 1, null, null, 1, "b"]);
+                    };
+
+                    step5b = function step5b(nt, bt) {
+                        var RS_ls;
+                        "331";
+                        prompt.text = nexttext.format(6);
+                        "332";
+                        prompt.color = color.orange;
+                        "333";
+                        if (bt) {
+                                "334";
+                                vars["b"]["value"].text = "10";
+                                "335";
+                                toggle(5);
+                                "336";
+                                toggle(5);
+                                "337";
+                                return;
+                            }
+                        "338";
+                        toggle(5);
+                        "339";
+                        toggle(6);
+                    };
+
+                    step6a = function step6a() {
+                        var RS_ls;
+                        "342";
+                        "343";
+                        a = 18;
+                        "344";
+                        b = 1;
+                        "345";
+                        repeat.text = rtext.format(step);
+                        "346";
+                        repeat.disabled = true;
+                        "347";
+                        clearmemory();
+                        "348";
+                        vars["a"]["value"].text = "18";
+                        "349";
+                        vars["a"]["tag"].visible = true;
+                        "350";
+                        vars["b"]["value"].text = "1";
+                        "351";
+                        vars["b"]["tag"].visible = true;
+                        "356";
+                        comment.text = "The CPU chooses an available container\nin computer memory, places 0 in that\ncontainer, and makes a note that this\nlocation in memory can be referred to\nwith the name \"sum\".";
+                        "357";
+                        return RS_list_decorate([6, null, null, 0, null, null, 0, "sum"]);
+                    };
+
+                    step6b = function step6b(nt, bt) {
+                        var RS_ls;
+                        "360";
+                        prompt.text = nexttext.format(7);
+                        "361";
+                        prompt.color = color.orange;
+                        "362";
+                        if (bt) {
+                                "363";
+                                vars["sum"]["value"].text = "";
+                                "364";
+                                vars["sum"]["tag"].visible = false;
+                                "365";
+                                toggle(6);
+                                "366";
+                                toggle(6);
+                                "367";
+                                return;
+                            }
+                        "368";
+                        toggle(6);
+                        "369";
+                        toggle(7);
+                    };
+
+                    step7a = _streamline.async(regeneratorRuntime.mark(function _$$step7a$$(_4) {
+                        var RS_ls, a, i, next, nt, bt, RS_Index8;
+                        return regeneratorRuntime.wrap(function _$$step7a$$$(_context2) {
+                            while (1) {
+                                switch (_context2.prev = _context2.next) {
+                                    case 0:
+                                        "372";
+                                        "373";
+                                        if (b === 1 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 1)) {
+                                                sum = 0;
+                                            } else if (b === 2 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 2)) {
+                                                sum = 1;
+                                            } else if (b === 3 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 3)) {
+                                                sum = 3;
+                                            } else if (b === 4 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 4)) {
+                                                sum = 6;
+                                            }
+                                        "377";
+                                        a = 18;
+                                        "378";
+                                        repeat.text = rtext.format(step);
+                                        "379";
+                                        repeat.disabled = true;
+                                        "380";
+                                        clearmemory();
+                                        "381";
+                                        vars["a"]["value"].text = "18";
+                                        "382";
+                                        vars["a"]["tag"].visible = true;
+                                        "383";
+                                        vars["b"]["value"].text = b;
+                                        "384";
+                                        vars["b"]["tag"].visible = true;
+                                        "385";
+                                        vars["sum"]["value"].text = sum;
+                                        "386";
+                                        vars["sum"]["tag"].visible = true;
+                                        "387";
+                                        clearprints();
+                                        "388";
+                                        for (RS_Index8 = 0; RS_Index8["<"](b["-"](1)); RS_Index8++) {
+                                            i = RS_Index8;
+                                            "389";
+                                            prints[typeof i === "number" && i["<"](0) ? prints.length["+"](i) : i].visible = true;
+                                        }
+                                        "390";
+                                        lvaldrag.pos = vec(120, 50, 0);
+                                        "391";
+                                        lvaldrag.text = "{} < 4 ?".format(b);
+                                        "392";
+                                        lvaldrag.color = color.black;
+                                        "393";
+                                        next = 8;
+                                        "394";
+                                        if (b === 1 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 1)) {
+                                                "395";
+                                                loopoutline.visible = true;
+                                                "403";
+                                                comment.text = "Start of a \"while\" loop that repeatedly\nexecutes the indented lines 8 through 10\nuntil \"b\" is no longer less than 4. Initially\n\"b\" is equal to 1, so the indented lines\nwill be executed. This loop will add up\nthe numbers 1 through 3, in \"sum\".\n\nThe outlined structure is called a \"loop\".";
+                                                "404";
+                                            } else if (b["<"](4)) {
+                                                "405";
+                                                loopoutline.visible = false;
+                                                "409";
+                                                comment.text = "The program reached the end of the\nloop and branched back to line 7. Since\n\"b\" is {}, which is less than 4, the CPU\nwill again execute the indented statements.".format(b);
+                                                "410";
+                                            } else {
+                                                "411";
+                                                loopoutline.visible = false;
+                                                "412";
+                                                next = 11;
+                                                "417";
+                                                comment.text = "The program reached the end of the\nloop and branched back to line 7. Since \n\"b\" is 4, which is not less than 4, the\nCPU will branch to line 11, exiting the\nloop.";
+                                            }
+                                        "418";
+                                        prompt.text = "Click the NEXT button to go to line {}.".format(next);
+                                        "419";
+                                        prompt.color = color.orange;
+                                        "420";
+
+                                    case 42:
+                                        if (!true) {
+                                                _context2.next = 55;
+                                                break;
+                                            }
+
+                                        "421";
+                                        _context2.next = 46;
+                                        return _streamline.await(_filename, 785, null, rate, 1, null, false, [30, true]);
+
+                                    case 46:
+                                        "422";
+                                        nt = checknext();
+                                        "423";
+                                        bt = checkrepeat();
+                                        "424";
+
+                                        if (!(nt || bt)) {
+                                                _context2.next = 53;
+                                                break;
+                                            }
+
+                                        return _context2.abrupt("break", 55);
+
+                                    case 53:
+                                        _context2.next = 42;
+                                        break;
+
+                                    case 55:
+                                        "425";
+                                        lvaldrag.text = "";
+                                        "426";
+
+                                        if (!bt) {
+                                                _context2.next = 76;
+                                                break;
+                                            }
+
+                                        "427";
+
+                                        if (!(b === 1 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 1))) {
+                                                _context2.next = 70;
+                                                break;
+                                            }
+
+                                        "428";
+                                        toggle(7);
+                                        "429";
+                                        toggle(6);
+                                        "430";
+                                        return _context2.abrupt("return");
+
+                                    case 70:
+                                        "432";
+                                        toggle(7);
+                                        "433";
+                                        toggle(10);
+                                        "434";
+                                        return _context2.abrupt("return");
+
+                                    case 76:
+                                        "435";
+                                        toggle(7);
+                                        "436";
+                                        toggle(next);
+
+                                    case 80:
+                                    case "end":
+                                        return _context2.stop();
+                                }
+                            }
+                        }, _$$step7a$$, this);
+                    }), 0, 1);
+
+                    step8a = function step8a() {
+                        var RS_ls, answer, i, p;
+                        "439";
+                        "440";
+                        if (b === 1 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 1)) {
+                                "441";
+                                sum = 0;
+                                "442";
+                                answer = "1";
+                                "443";
+                            } else if (b === 2 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 2)) {
+                                "444";
+                                sum = 1;
+                                "445";
+                                answer = "3";
+                                "446";
+                            } else if (b === 3 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 3)) {
+                                "447";
+                                sum = 3;
+                                "448";
+                                answer = "6";
+                            }
+                        "449";
+                        repeat.text = rtext.format(step);
+                        "450";
+                        repeat.disabled = true;
+                        "451";
+                        clearmemory();
+                        "452";
+                        vars["a"]["value"].text = "18";
+                        "453";
+                        vars["a"]["tag"].visible = true;
+                        "454";
+                        vars["b"]["value"].text = b;
+                        "455";
+                        vars["b"]["tag"].visible = true;
+                        "456";
+                        vars["sum"]["value"].text = sum;
+                        "457";
+                        vars["sum"]["tag"].visible = true;
+                        "458";
+                        clearprints();
+                        "459";
+                        for (var RS_Index9 = 0; RS_Index9["<"](b["-"](1)); RS_Index9++) {
+                            i = RS_Index9;
+                            "460";
+                            prints[typeof i === "number" && i["<"](0) ? prints.length["+"](i) : i].visible = true;
+                        }
+                        "461";
+                        comment.color = color.black;
+                        "462";
+                        p = "incorrect";
+                        "463";
+                        if (prediction === answer || (typeof prediction === "undefined" ? "undefined" : _typeof(prediction)) === "object" && RS_equals(prediction, answer)) {
+                                "464";
+                                p = "correct";
+                            }
+                        "465";
+                        comment.color = color.orange;
+                        "466";
+                        comment.text = "Your \"sum\" prediction, {}, is {}.".format(prediction, p);
+                        "467";
+                        if (b === 1 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 1)) {
+                                "468";
+                                varcomment.visible = true;
+                                "469";
+                                varcomment.color = color.black;
+                                "470";
+                                varcomment.pos.y = comment.pos.y["-"](2["*"](lineheight));
+                                "475";
+                                varcomment.text = "The CPU reads {} from the \"sum\" container,\nreads {} from the \"b\" container, adds\n{}+{} to make {}, and stores {} into\nthe \"sum\" container, overwriting the\nprevious contents.".format(prediction, p, sum, b, sum, b, sum["+"](b), sum["+"](b));
+                            }
+                        "476";
+                        next.disabled = false;
+                        "477";
+                        return RS_list_decorate([8, "sum", "b", sum, b, "+", sum["+"](b), "sum"]);
+                    };
+
+                    step8b = function step8b(nt, bt) {
+                        var RS_ls;
+                        "480";
+                        varcomment.pos.y = varcomment.pos.y["+="](2["*"](lineheight));
+                        "481";
+                        varcomment.text = "";
+                        "482";
+                        varcomment.visible = false;
+                        "483";
+                        comment.color = color.black;
+                        "484";
+                        comment.text = "";
+                        "485";
+                        prompt.text = nexttext.format(9);
+                        "486";
+                        prompt.color = color.orange;
+                        "487";
+                        if (bt) {
+                                "488";
+                                vars["sum"]["value"].text = sum["-"](1);
+                                "489";
+                                toggle(8);
+                                "490";
+                                toggle(8);
+                                "491";
+                                return;
+                            }
+                        "492";
+                        toggle(8);
+                        "493";
+                        toggle(9);
+                    };
+
+                    step9a = function step9a() {
+                        var RS_ls, i;
+                        "496";
+                        "497";
+                        if (b === 1 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 1)) {
+                                sum = 1;
+                            } else if (b === 2 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 2)) {
+                                sum = 3;
+                            } else if (b === 3 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 3)) {
+                                sum = 6;
+                            }
+                        "500";
+                        repeat.text = rtext.format(step);
+                        "501";
+                        repeat.disabled = true;
+                        "502";
+                        clearmemory();
+                        "503";
+                        vars["a"]["value"].text = "18";
+                        "504";
+                        vars["a"]["tag"].visible = true;
+                        "505";
+                        vars["b"]["value"].text = b;
+                        "506";
+                        vars["b"]["tag"].visible = true;
+                        "507";
+                        vars["sum"]["value"].text = sum;
+                        "508";
+                        vars["sum"]["tag"].visible = true;
+                        "509";
+                        clearprints();
+                        "510";
+                        for (var RS_Index10 = 0; RS_Index10["<"](b["-"](1)); RS_Index10++) {
+                            i = RS_Index10;
+                            "511";
+                            prints[typeof i === "number" && i["<"](0) ? prints.length["+"](i) : i].visible = true;
+                        }
+                        "514";
+                        comment.text = "The CPU reads {} from the \"b\" container\nand {} from the \"sum\" container, and\nprints their values.".format(b, sum);
+                        "515";
+                        return RS_list_decorate([9, "b", "sum", b, sum, null, null, null]);
+                    };
+
+                    step9b = function step9b(nt, bt) {
+                        var RS_ls;
+                        "518";
+                        prompt.text = nexttext.format(10);
+                        "519";
+                        prompt.color = color.orange;
+                        "520";
+                        if (bt) {
+                                "521";
+                                toggle(9);
+                                "522";
+                                toggle(9);
+                                "523";
+                                return;
+                            }
+                        "524";
+                        toggle(9);
+                        "525";
+                        toggle(10);
+                    };
+
+                    step10a = function step10a() {
+                        var RS_ls, i;
+                        "528";
+                        "529";
+                        if (b === 1 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 1)) {
+                                sum = 1;
+                            } else if (b === 2 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 2)) {
+                                sum = 3;
+                            } else if (b === 3 || (typeof b === "undefined" ? "undefined" : _typeof(b)) === "object" && RS_equals(b, 3)) {
+                                sum = 6;
+                            }
+                        "532";
+                        repeat.text = rtext.format(step);
+                        "533";
+                        repeat.disabled = true;
+                        "534";
+                        clearmemory();
+                        "535";
+                        vars["a"]["value"].text = "18";
+                        "536";
+                        vars["a"]["tag"].visible = true;
+                        "537";
+                        vars["b"]["value"].text = b;
+                        "538";
+                        vars["b"]["tag"].visible = true;
+                        "539";
+                        vars["sum"]["value"].text = sum;
+                        "540";
+                        vars["sum"]["tag"].visible = true;
+                        "541";
+                        clearprints();
+                        "542";
+                        for (var RS_Index11 = 0; RS_Index11["<"](b); RS_Index11++) {
+                            i = RS_Index11;
+                            "543";
+                            prints[typeof i === "number" && i["<"](0) ? prints.length["+"](i) : i].visible = true;
+                        }
+                        "547";
+                        comment.text = "The CPU reads {} from the \"b\" container,\nadds {}+1 to make {}, and stores {} into \nthe \"b\" container, overwriting the\nprevious contents.".format(b, b, b["+"](1), b["+"](1));
+                        "548";
+                        return RS_list_decorate([10, "b", null, b, 1, "+", b["+"](1), "b"]);
+                    };
+
+                    step10b = function step10b(nt, bt) {
+                        var RS_ls;
+                        "551";
+                        "552";
+                        prompt.text = "Branch back to line 7.";
+                        "553";
+                        prompt.color = color.orange;
+                        "554";
+                        if (bt) {
+                                "555";
+                                b = b["-="](1);
+                                "556";
+                                toggle(10);
+                                "557";
+                                toggle(10);
+                                "558";
+                                return;
+                            }
+                        "559";
+                        toggle(10);
+                        "560";
+                        toggle(7);
+                    };
+
+                    step11a = function step11a() {
+                        var RS_ls, i;
+                        "563";
+                        "564";
+                        b = 4;
+                        "565";
+                        sum = 6;
+                        "566";
+                        repeat.text = rtext.format(step);
+                        "567";
+                        repeat.disabled = true;
+                        "568";
+                        clearmemory();
+                        "569";
+                        vars["a"]["value"].text = "18";
+                        "570";
+                        vars["a"]["tag"].visible = true;
+                        "571";
+                        vars["b"]["value"].text = b;
+                        "572";
+                        vars["b"]["tag"].visible = true;
+                        "573";
+                        vars["sum"]["value"].text = sum;
+                        "574";
+                        vars["sum"]["tag"].visible = true;
+                        "575";
+                        clearprints();
+                        "576";
+                        for (var RS_Index12 = 0; RS_Index12["<"](b["-"](1)); RS_Index12++) {
+                            i = RS_Index12;
+                            "577";
+                            prints[typeof i === "number" && i["<"](0) ? prints.length["+"](i) : i].visible = true;
+                        }
+                        "580";
+                        comment.text = "The CPU reads 6 from the \"sum\" container\nand prints this value, with some text\nto name the variable that is shown.".format(b, sum);
+                        "581";
+                        return RS_list_decorate([11, null, "sum", "sum = ", sum, null, null, null]);
+                    };
+
+                    step11b = function step11b(nt, bt) {
+                        var RS_ls;
+                        "584";
+                        if (bt) {
+                                "585";
+                                toggle(11);
+                                "586";
+                                toggle(11);
+                                "587";
+                                return;
+                            }
+                        "588";
+                        toggle(11);
+                        "589";
+                        toggle(1);
+                        "590";
+                        toggle(1);
+                    };
+
+                    getprediction = function getprediction(ev) {
+                        var RS_ls;
+                        "594";
+                        "595";
+                        prediction = ev.number;
+                    };
+
+                    keyInput = function keyInput(evt) {
+                        var RS_ls, s;
+                        "600";
+                        "601";
+                        s = evt.key;
+                        "602";
+                        if (RS_equals(len(s), 1)) {
+                                "603";
+                                if (s === "\n" || (typeof s === "undefined" ? "undefined" : _typeof(s)) === "object" && RS_equals(s, "\n")) {
+                                        "604";
+                                        prediction = keylabel.text;
+                                        "605";
+                                        keylabel.visible = false;
+                                    }
+                                "606";
+                                if (s === " " || (typeof s === "undefined" ? "undefined" : _typeof(s)) === "object" && RS_equals(s, " ")) {
+                                        "607";
+                                        return;
+                                        "608";
+                                    } else {
+                                        "609";
+                                        keylabel.text = keylabel.text["+="](s);
+                                        "610";
+                                    }
+                            } else if ((s === "delete" || (typeof s === "undefined" ? "undefined" : _typeof(s)) === "object" && RS_equals(s, "delete") || s === "backspace" || (typeof s === "undefined" ? "undefined" : _typeof(s)) === "object" && RS_equals(s, "backspace")) && len(keylabel.text)[">"](0)) {
+                                "611";
+                                keylabel.text = keylabel.text.slice(0, 1["-u"]());
+                            }
+                    };
+
+                    execute = _streamline.async(regeneratorRuntime.mark(function _$$execute$$(_5) {
+                        var RS_ls, R, pausing, params, linenum, leftarg, rightarg, leftvalue, rightvalue, op, result, store, leftdrag, rightdrag, nprints, isprint, RS_unpack, i, p, nvar, lstart, lend, lmove, rmove, rstart, rend, n, nt, bt, RS_Iter13, RS_Index13, RS_Index14, RS_Index15;
+                        return regeneratorRuntime.wrap(function _$$execute$$$(_context3) {
+                            while (1) {
+                                switch (_context3.prev = _context3.next) {
+                                    case 0:
+                                        "618";
+                                        "631";
+                                        R = 50;
+                                        "632";
+                                        pausing = 1.5;
+                                        "634";
+                                        params = RS_list_decorate([]);
+                                        "636";
+
+                                        if (!(step === 8 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 8))) {
+                                                _context3.next = 37;
+                                                break;
+                                            }
+
+                                        "637";
+                                        loopoutline.visible = false;
+                                        "638";
+                                        next.disabled = true;
+                                        "639";
+                                        repeat.disabled = true;
+                                        "640";
+                                        prediction = null;
+                                        "641";
+                                        prompt.text = "";
+                                        "642";
+                                        keylabel.text = "";
+                                        "643";
+                                        keylabel.visible = true;
+                                        "644";
+                                        comment.color = color.black;
+                                        "650";
+                                        comment.text = "\nType your prediction of what the value of\n\"sum\" will be after executing line 8.\nPress ENTER to input your prediction.\n\n> ";
+                                        "651";
+
+                                    case 28:
+                                        if (!true) {
+                                                _context3.next = 37;
+                                                break;
+                                            }
+
+                                        "652";
+                                        _context3.next = 32;
+                                        return _streamline.await(_filename, 1230, null, rate, 1, null, false, [30, true]);
+
+                                    case 32:
+                                        "653";
+
+                                        if (!(prediction !== null)) {
+                                                _context3.next = 35;
+                                                break;
+                                            }
+
+                                        return _context3.abrupt("break", 37);
+
+                                    case 35:
+                                        _context3.next = 28;
+                                        break;
+
+                                    case 37:
+                                        "655";
+
+                                        if (!(step === 1 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 1))) {
+                                                _context3.next = 44;
+                                                break;
+                                            }
+
+                                        _context3.next = 41;
+                                        return _streamline.await(_filename, 1239, null, step1a, 0, null, false, [true]);
+
+                                    case 41:
+                                        params = _context3.sent;
+                                        _context3.next = 74;
+                                        break;
+
+                                    case 44:
+                                        if (!(step === 2 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 2))) {
+                                                _context3.next = 48;
+                                                break;
+                                            }
+
+                                        params = step2a();
+                                        _context3.next = 74;
+                                        break;
+
+                                    case 48:
+                                        if (!(step === 3 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 3))) {
+                                                _context3.next = 52;
+                                                break;
+                                            }
+
+                                        params = step3a();
+                                        _context3.next = 74;
+                                        break;
+
+                                    case 52:
+                                        if (!(step === 4 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 4))) {
+                                                _context3.next = 56;
+                                                break;
+                                            }
+
+                                        params = step4a();
+                                        _context3.next = 74;
+                                        break;
+
+                                    case 56:
+                                        if (!(step === 5 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 5))) {
+                                                _context3.next = 60;
+                                                break;
+                                            }
+
+                                        params = step5a();
+                                        _context3.next = 74;
+                                        break;
+
+                                    case 60:
+                                        if (!(step === 6 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 6))) {
+                                                _context3.next = 64;
+                                                break;
+                                            }
+
+                                        params = step6a();
+                                        _context3.next = 74;
+                                        break;
+
+                                    case 64:
+                                        if (!(step === 7 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 7))) {
+                                                _context3.next = 73;
+                                                break;
+                                            }
+
+                                        "662";
+                                        _context3.next = 68;
+                                        return _streamline.await(_filename, 1252, null, step7a, 0, null, false, [true]);
+
+                                    case 68:
+                                        "663";
+                                        return _context3.abrupt("return");
+
+                                    case 73:
+                                        if (step === 8 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 8)) {
+                                                params = step8a();
+                                            } else if (step === 9 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 9)) {
+                                                params = step9a();
+                                            } else if (step === 10 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 10)) {
+                                                params = step10a();
+                                            } else if (step === 11 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 11)) {
+                                                params = step11a();
+                                            }
+
+                                    case 74:
+                                        "669";
+                                        linenum = params[0];
+                                        "670";
+                                        leftarg = params[1];
+                                        "671";
+                                        rightarg = params[2];
+                                        "672";
+                                        leftvalue = params[3];
+                                        "673";
+                                        rightvalue = params[4];
+                                        "674";
+                                        op = params[5];
+                                        "675";
+                                        result = params[6];
+                                        "676";
+                                        store = params[7];
+                                        "678";
+                                        prompt.text = seetext.format(step);
+                                        "679";
+                                        prompt.color = color.black;
+                                        "680";
+                                        prompt.visible = true;
+                                        "681";
+
+                                    case 97:
+                                        if (!true) {
+                                                _context3.next = 106;
+                                                break;
+                                            }
+
+                                        "682";
+                                        _context3.next = 101;
+                                        return _streamline.await(_filename, 1290, null, rate, 1, null, false, [30, true]);
+
+                                    case 101:
+                                        "683";
+
+                                        if (!checknext()) {
+                                                _context3.next = 104;
+                                                break;
+                                            }
+
+                                        return _context3.abrupt("break", 106);
+
+                                    case 104:
+                                        _context3.next = 97;
+                                        break;
+
+                                    case 106:
+                                        "684";
+                                        prompt.visible = false;
+                                        "686";
+                                        if (step === 2 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 2)) {
+                                                "690";
+                                                comment.text = "The CPU reads 5 from the \"a\" container,\nadds 5+3 to make 8, and stores the 8\ninto the \"a\" container, overwriting the\nprevious contents.";
+                                            }
+                                        "692";
+                                        repeat.disabled = true;
+                                        "693";
+                                        next.disabled = true;
+                                        "694";
+                                        leftdrag = lvaldrag;
+                                        "695";
+                                        rightdrag = rvaldrag;
+                                        "696";
+                                        leftdrag.visible = false;
+                                        "697";
+                                        rightdrag.visible = false;
+                                        "698";
+                                        nprints = 0;
+                                        "699";
+                                        isprint = lines[typeof linenum === "number" && linenum["<"](0) ? lines.length["+"](linenum) : linenum].text.find("print")[">="](0);
+                                        "700";
+
+                                        if (!isprint) {
+                                                _context3.next = 144;
+                                                break;
+                                            }
+
+                                        "701";
+                                        RS_Iter13 = RS_Iterable(enumerate(prints));
+                                        RS_Index13 = 0;
+
+                                    case 131:
+                                        if (!RS_Index13["<"](RS_Iter13.length)) {
+                                                _context3.next = 144;
+                                                break;
+                                            }
+
+                                        RS_unpack = RS_Iter13[RS_Index13];
+                                        i = RS_unpack[0];
+                                        p = RS_unpack[1];
+                                        "702";
+
+                                        if (p.visible) {
+                                                _context3.next = 141;
+                                                break;
+                                            }
+
+                                        "703";
+                                        nprints = i;
+                                        "704";
+                                        return _context3.abrupt("break", 144);
+
+                                    case 141:
+                                        RS_Index13++;
+                                        _context3.next = 131;
+                                        break;
+
+                                    case 144:
+                                        "705";
+                                        if (RS_in(store, vars)) {
+                                                "706";
+                                                nvar = vars[typeof store === "number" && store["<"](0) ? vars.length["+"](store) : store]["nvar"];
+                                            }
+                                        "707";
+                                        if (leftarg === null && rightarg === null) {
+                                                "708";
+                                                lstart = linenumbers[typeof linenum === "number" && linenum["<"](0) ? linenumbers.length["+"](linenum) : linenum].pos["+"](vec(50, 0, 0));
+                                                "709";
+                                                lend = xleft;
+                                                "710";
+                                                lmove = lend["-"](lstart);
+                                                "711";
+                                                rmove = null;
+                                                "712";
+                                                lvaldrag.pos = lstart;
+                                                "713";
+                                                lvaldrag.color = color.orange;
+                                                "714";
+                                                lvaldrag.text = leftvalue;
+                                                "715";
+                                            } else if (rightarg === null) {
+                                                "716";
+                                                lstart = vec(40["+"](.85["*"](hw))["/"](2), vars[typeof leftarg === "number" && leftarg["<"](0) ? vars.length["+"](leftarg) : leftarg]["nvar"]["-u"]()["*"](40)["-"](shift)["+"](13), 0);
+                                                "717";
+                                                lend = xleft;
+                                                "718";
+                                                lmove = lend["-"](lstart);
+                                                "719";
+                                                lvaldrag.pos = lstart;
+                                                "720";
+                                                lvaldrag.color = color.black;
+                                                "721";
+                                                lvaldrag.text = leftvalue;
+                                                "722";
+                                                rstart = linenumbers[typeof linenum === "number" && linenum["<"](0) ? linenumbers.length["+"](linenum) : linenum].pos["+"](vec(50, 0, 0));
+                                                "723";
+                                                rend = xright;
+                                                "724";
+                                                rmove = rend["-"](rstart);
+                                                "725";
+                                                rvaldrag.pos = rstart;
+                                                "726";
+                                                rvaldrag.color = color.orange;
+                                                "727";
+                                                rvaldrag.text = rightvalue;
+                                                "728";
+                                            } else if (leftarg === null) {
+                                                "729";
+                                                lstart = linenumbers[typeof linenum === "number" && linenum["<"](0) ? linenumbers.length["+"](linenum) : linenum].pos["+"](vec(50, 0, 0));
+                                                "730";
+                                                lend = xleft;
+                                                "731";
+                                                lmove = lend["-"](lstart);
+                                                "732";
+                                                lvaldrag.pos = lstart;
+                                                "733";
+                                                lvaldrag.color = color.orange;
+                                                "734";
+                                                lvaldrag.text = leftvalue;
+                                                "735";
+                                                rstart = vec(40["+"](.85["*"](hw))["/"](2), vars[typeof rightarg === "number" && rightarg["<"](0) ? vars.length["+"](rightarg) : rightarg]["nvar"]["-u"]()["*"](40)["-"](shift)["+"](13), 0);
+                                                "736";
+                                                rend = xright;
+                                                "737";
+                                                rmove = rend["-"](rstart);
+                                                "738";
+                                                rvaldrag.pos = rstart;
+                                                "739";
+                                                rvaldrag.color = color.orange;
+                                                "740";
+                                                rvaldrag.text = rightvalue;
+                                                "741";
+                                            } else {
+                                                "742";
+                                                lstart = vec(40["+"](.85["*"](hw))["/"](2), vars[typeof leftarg === "number" && leftarg["<"](0) ? vars.length["+"](leftarg) : leftarg]["nvar"]["-u"]()["*"](40)["-"](shift)["+"](13), 0);
+                                                "743";
+                                                lend = xleft;
+                                                "744";
+                                                lmove = lend["-"](lstart);
+                                                "745";
+                                                lvaldrag.pos = lstart;
+                                                "746";
+                                                lvaldrag.color = color.black;
+                                                "747";
+                                                lvaldrag.text = leftvalue;
+                                                "748";
+                                                rstart = vec(40["+"](.85["*"](hw))["/"](2), vars[typeof rightarg === "number" && rightarg["<"](0) ? vars.length["+"](rightarg) : rightarg]["nvar"]["-u"]()["*"](40)["-"](shift)["+"](13), 0);
+                                                "749";
+                                                rend = xright;
+                                                "750";
+                                                rmove = rend["-"](rstart);
+                                                "751";
+                                                rvaldrag.pos = rstart;
+                                                "752";
+                                                rvaldrag.color = color.black;
+                                                "753";
+                                                rvaldrag.text = rightvalue;
+                                            }
+                                        "754";
+                                        leftdrag.visible = true;
+                                        "755";
+                                        rightdrag.visible = true;
+                                        "757";
+                                        RS_Index14 = 0;
+
+                                    case 154:
+                                        if (!RS_Index14["<"](50)) {
+                                                _context3.next = 166;
+                                                break;
+                                            }
+
+                                        n = RS_Index14;
+                                        "758";
+                                        _context3.next = 159;
+                                        return _streamline.await(_filename, 1444, null, rate, 1, null, false, [R, true]);
+
+                                    case 159:
+                                        "759";
+                                        leftdrag.pos = leftdrag.pos["+="](.02["*"](lmove));
+                                        "760";
+                                        if (rmove !== null) {
+                                                rightdrag.pos = rightdrag.pos["+="](.02["*"](rmove));
+                                            }
+
+                                    case 163:
+                                        RS_Index14++;
+                                        _context3.next = 154;
+                                        break;
+
+                                    case 166:
+                                        "762";
+                                        if (op !== null) {
+                                                "763";
+                                                oplabel.text = op;
+                                                "764";
+                                                eqlabel.text = "=";
+                                                "765";
+                                                resultlabel.pos = xresult;
+                                                "766";
+                                                resultlabel.text = result;
+                                            }
+                                        "768";
+                                        _context3.next = 171;
+                                        return _streamline.await(_filename, 1464, null, sleep, 1, null, false, [pausing, true]);
+
+                                    case 171:
+                                        "770";
+                                        if (leftarg === null && rightarg === null) {
+                                                "771";
+                                                lstart = lend;
+                                                "772";
+                                                lend = vec(40["+"](.85["*"](hw))["/"](2), nvar["-u"]()["*"](40)["-"](shift)["+"](13), 0);
+                                                "773";
+                                                lmove = lend["-"](lstart);
+                                                "774";
+                                                leftdrag = lvaldrag;
+                                                "775";
+                                            } else if (rightarg === null) {
+                                                "776";
+                                                lvaldrag.text = "";
+                                                "777";
+                                                rvaldrag.text = "";
+                                                "778";
+                                                oplabel.text = "";
+                                                "779";
+                                                eqlabel.text = "";
+                                                "780";
+                                                lstart = resultlabel.pos;
+                                                "781";
+                                                lend = vec(40["+"](.85["*"](hw))["/"](2), vars[typeof leftarg === "number" && leftarg["<"](0) ? vars.length["+"](leftarg) : leftarg]["nvar"]["-u"]()["*"](40)["-"](shift)["+"](13), 0);
+                                                "782";
+                                                lmove = lend["-"](lstart);
+                                                "783";
+                                                leftdrag = resultlabel;
+                                                "784";
+                                            } else {
+                                                "785";
+                                                if (isprint) {
+                                                        "786";
+                                                        lstart = lvaldrag.pos;
+                                                        "787";
+                                                        lend = vec(left, 30["-u"]()["-"](nprints["*"](30)), 0);
+                                                        "788";
+                                                        rstart = rvaldrag.pos;
+                                                        "789";
+                                                        rend = vec(left["+"](60), 30["-u"]()["-"](nprints["*"](30)), 0);
+                                                        "790";
+                                                        if (step === 11 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 11)) {
+                                                                "791";
+                                                                lend.x = lend.x["+="](45);
+                                                                "792";
+                                                                rend.x = rend.x["+="](40);
+                                                            }
+                                                        "793";
+                                                        lmove = lend["-"](lstart);
+                                                        "794";
+                                                        rmove = rend["-"](rstart);
+                                                        "795";
+                                                        leftdrag = lvaldrag;
+                                                        "796";
+                                                    } else {
+                                                        "797";
+                                                        lvaldrag.text = "";
+                                                        "798";
+                                                        rvaldrag.text = "";
+                                                        "799";
+                                                        oplabel.text = "";
+                                                        "800";
+                                                        eqlabel.text = "";
+                                                        "801";
+                                                        lstart = resultlabel.pos = xresult;
+                                                        "802";
+                                                        lend = vec(40["+"](.85["*"](hw))["/"](2), vars[typeof leftarg === "number" && leftarg["<"](0) ? vars.length["+"](leftarg) : leftarg]["nvar"]["-u"]()["*"](40)["-"](shift)["+"](13), 0);
+                                                        "803";
+                                                        rmove = null;
+                                                        "804";
+                                                        leftdrag = resultlabel;
+                                                    }
+                                                "805";
+                                                lmove = lend["-"](lstart);
+                                            }
+                                        "807";
+                                        RS_Index15 = 0;
+
+                                    case 175:
+                                        if (!RS_Index15["<"](50)) {
+                                                _context3.next = 187;
+                                                break;
+                                            }
+
+                                        n = RS_Index15;
+                                        "808";
+                                        _context3.next = 180;
+                                        return _streamline.await(_filename, 1544, null, rate, 1, null, false, [R, true]);
+
+                                    case 180:
+                                        "809";
+                                        leftdrag.pos = leftdrag.pos["+="](.02["*"](lmove));
+                                        "810";
+                                        if (rmove !== null) {
+                                                rightdrag.pos = rightdrag.pos["+="](.02["*"](rmove));
+                                            }
+
+                                    case 184:
+                                        RS_Index15++;
+                                        _context3.next = 175;
+                                        break;
+
+                                    case 187:
+                                        "812";
+                                        leftdrag.text = "";
+                                        "813";
+                                        rvaldrag.text = "";
+                                        "814";
+                                        if (isprint) {
+                                                "815";
+                                                prints[typeof nprints === "number" && nprints["<"](0) ? prints.length["+"](nprints) : nprints].visible = true;
+                                                "816";
+                                            } else {
+                                                "817";
+                                                vars[typeof store === "number" && store["<"](0) ? vars.length["+"](store) : store]["tag"].visible = true;
+                                                "818";
+                                                vars[typeof store === "number" && store["<"](0) ? vars.length["+"](store) : store]["value"].pos = lend;
+                                                "819";
+                                                vars[typeof store === "number" && store["<"](0) ? vars.length["+"](store) : store]["value"].text = result;
+                                                "820";
+                                                if (store === "a" || (typeof store === "undefined" ? "undefined" : _typeof(store)) === "object" && RS_equals(store, "a")) {
+                                                        a = result;
+                                                    } else if (store === "b" || (typeof store === "undefined" ? "undefined" : _typeof(store)) === "object" && RS_equals(store, "b")) {
+                                                        b = result;
+                                                    } else if (store === "sum" || (typeof store === "undefined" ? "undefined" : _typeof(store)) === "object" && RS_equals(store, "sum")) {
+                                                        sum = result;
+                                                    }
+                                            }
+                                        "824";
+                                        repeat.disabled = false;
+                                        "825";
+                                        next.disabled = false;
+                                        "826";
+                                        if (step === 10 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 10)) {
+                                                "827";
+                                                prompt.text = nexttext.format(7);
+                                                "828";
+                                            } else if (step === 11 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 11)) {
+                                                "829";
+                                                prompt.text = nexttext.format(1);
+                                                "830";
+                                            } else {
+                                                "831";
+                                                prompt.text = nexttext.format(step["+"](1));
+                                            }
+                                        "832";
+                                        prompt.color = color.orange;
+                                        "833";
+                                        prompt.visible = true;
+                                        "834";
+
+                                    case 204:
+                                        if (!true) {
+                                                _context3.next = 217;
+                                                break;
+                                            }
+
+                                        "835";
+                                        _context3.next = 208;
+                                        return _streamline.await(_filename, 1601, null, rate, 1, null, false, [30, true]);
+
+                                    case 208:
+                                        "836";
+                                        nt = checknext();
+                                        "837";
+                                        bt = checkrepeat();
+                                        "838";
+
+                                        if (!(nt || bt)) {
+                                                _context3.next = 215;
+                                                break;
+                                            }
+
+                                        return _context3.abrupt("break", 217);
+
+                                    case 215:
+                                        _context3.next = 204;
+                                        break;
+
+                                    case 217:
+                                        "840";
+
+                                        if (!(step === 1 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 1))) {
+                                                _context3.next = 222;
+                                                break;
+                                            }
+
+                                        step1b(nt, bt);
+                                        _context3.next = 247;
+                                        break;
+
+                                    case 222:
+                                        if (!(step === 2 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 2))) {
+                                                _context3.next = 226;
+                                                break;
+                                            }
+
+                                        step2b(nt, bt);
+                                        _context3.next = 247;
+                                        break;
+
+                                    case 226:
+                                        if (!(step === 3 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 3))) {
+                                                _context3.next = 230;
+                                                break;
+                                            }
+
+                                        step3b(nt, bt);
+                                        _context3.next = 247;
+                                        break;
+
+                                    case 230:
+                                        if (!(step === 4 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 4))) {
+                                                _context3.next = 234;
+                                                break;
+                                            }
+
+                                        step4b(nt, bt);
+                                        _context3.next = 247;
+                                        break;
+
+                                    case 234:
+                                        if (!(step === 5 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 5))) {
+                                                _context3.next = 238;
+                                                break;
+                                            }
+
+                                        step5b(nt, bt);
+                                        _context3.next = 247;
+                                        break;
+
+                                    case 238:
+                                        if (!(step === 6 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 6))) {
+                                                _context3.next = 242;
+                                                break;
+                                            }
+
+                                        step6b(nt, bt);
+                                        _context3.next = 247;
+                                        break;
+
+                                    case 242:
+                                        if (!(step === 7 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 7))) {
+                                                _context3.next = 246;
+                                                break;
+                                            }
+
+                                        return _context3.abrupt("return");
+
+                                    case 246:
+                                        if (step === 8 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 8)) {
+                                                step8b(nt, bt);
+                                            } else if (step === 9 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 9)) {
+                                                step9b(nt, bt);
+                                            } else if (step === 10 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 10)) {
+                                                step10b(nt, bt);
+                                            } else if (step === 11 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 11)) {
+                                                step11b(nt, bt);
+                                            }
+
+                                    case 247:
+                                    case "end":
+                                        return _context3.stop();
+                                }
+                            }
+                        }, _$$execute$$, this);
+                    }), 0, 1);
+
+                    version = RS_list_decorate(["2.8", "glowscript"]);
                     Array.prototype['+'] = function (r) {
                         return this.concat(r);
                     };
@@ -55,18 +1693,499 @@ var main = _streamline.async(regeneratorRuntime.mark(function _$$main$$(_2) {
 
 
                     strings();
-                    "2";
-                    cone();
+                    "9";
+                    w = 600;
+                    "10";
+                    h = 600;
+                    "11";
+                    scene.width = w;
+                    "12";
+                    scene.height = h;
+                    "13";
+                    hw = w["/"](2);
+                    "14";
+                    hh = h["/"](2);
+                    "15";
+                    scene.fov = .001;
+                    "16";
+                    scene.range = hw;
+                    "17";
+                    scene.background = color.white;
+                    "18";
+                    scene.userspin = false;
+                    "19";
+                    scene.userzoom = false;
+                    "20";
+                    scene.userpan = false;
+                    "21";
+                    scene.lights = RS_list_decorate([]);
+                    "22";
+                    RS_interpolate_kwargs.call(this, distant_light, [RS_desugar_kwargs({ direction: vec(0, 0, 1), color: color.white })]);
+                    "23";
+                    left = .95["-u"]()["*"](hw);
+                    "24";
+                    top = .95["*"](hh);
+                    "25";
+                    lineheight = 20;
+                    "26";
+                    a = 0;
+                    "27";
+                    b = 0;
+                    "28";
+                    sum = 0;
+                    "40";
+                    s = "a = 5\na = a + 3\nb = 10\na = a + b\nb = 1\nsum = 0\nwhile b < 4:\n    sum = sum + b\n    print(b, sum)\n    b = b + 1\nprint(\"sum =\", sum)";
+                    "43";
+                    shift = .18["*"](hh)["+"](50);
+                    "44";
+                    for (RS_Index1 = 0; RS_Index1["<"](5); RS_Index1++) {
+                        n = RS_Index1;
+                        "45";
+                        RS_interpolate_kwargs.call(this, curve, [RS_desugar_kwargs({ pos: RS_list_decorate([vec(40, n["-u"]()["*"](40)["-"](shift), 0), vec(.9["*"](hw), n["-u"]()["*"](40)["-"](shift), 0), vec(.9["*"](hw), n["-u"]()["*"](40)["-"](shift)["+"](30), 0), vec(40, n["-u"]()["*"](40)["-"](shift)["+"](30), 0), vec(40, n["-u"]()["*"](40)["-"](shift), 0)]), radius: 2, color: color.black, shininess: 0 })]);
+                    }
+                    "48";
+                    y = .18["*"](hh);
+                    "49";
+                    lvaldrag = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ text: "", height: 30, box: false, color: color.orange, opacity: 0 })]);
+                    "50";
+                    rvaldrag = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ text: "", height: 30, box: false, color: color.orange, opacity: 0 })]);
+                    "51";
+                    oplabel = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(90, y, 0), text: "", height: 30, box: false, color: color.orange, opacity: 0 })]);
+                    "52";
+                    eqlabel = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(150, y, 0), text: "", height: 30, box: false, color: color.orange, opacity: 0 })]);
+                    "53";
+                    resultlabel = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(180, y, 0), text: "", height: 30, box: false, color: color.orange, opacity: 0 })]);
+                    "55";
+                    xleft = vec(60, y, 0);
+                    "56";
+                    xright = vec(120, y, 0);
+                    "57";
+                    xresult = vec(180, y, 0);
+                    "59";
+                    s = s.split("\n");
+                    "60";
+                    RS_interpolate_kwargs.call(this, box, [RS_desugar_kwargs({ pos: vec(left["-"](15), top["-"](10)["-"](lineheight["*"](len(s))["/"](2)), 0), size: vec(40, lineheight["*"](len(s)), 1), color: color.gray(.5) })]);
+                    "61";
+                    linenumbers = RS_list_decorate([null]);
+                    "62";
+                    lines = RS_list_decorate([null]);
+                    "63";
+                    RS_Iter2 = RS_Iterable(range(1, len(s)["+"](1)));
 
-                case 25:
+                    for (RS_Index2 = 0; RS_Index2["<"](RS_Iter2.length); RS_Index2++) {
+                        i = RS_Iter2[RS_Index2];
+                        "64";
+                        linenumbers.append(RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ text: "{}".format(i), pos: vec(left["+"](5), top["-"](lineheight["*"](i)), 0), align: "right", box: false, color: color.black, opacity: 0, height: 15 })]));
+                        "66";
+                        lines.append(RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ text: "{}".format(s[RS_bound_index(i["-"](1), s)]), pos: vec(left["+"](15), top["-"](lineheight["*"](i)), 0), align: "left", box: false, color: color.black, opacity: 0, height: 15 })]));
+                    }
+                    "69";
+                    c = color.blue;
+                    "70";
+                    RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(left, hh["-"](10), 0), text: "<b>Python Program</b>", align: "left", color: c, box: false, opacity: 1 })]);
+                    "71";
+                    RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(left, 0, 0), text: "<b>Print Output</b>", align: "left", color: c, box: false, opacity: 1 })]);
+                    "73";
+                    RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(.4["*"](hw), .85["*"](hh), 0), text: "<b>Computer Processing Unit (CPU)</b>", color: c, align: "center", height: .05["*"](hh), box: 0 })]);
+                    "75";
+                    RS_interpolate_kwargs.call(this, curve, [RS_desugar_kwargs({ pos: RS_list_decorate([vec(40["-u"](), 0, 0), vec(.95["*"](hw), 0, 0), vec(.95["*"](hw), .95["*"](hh), 0), vec(40["-u"](), .95["*"](hh), 0), vec(40["-u"](), 0, 0)]), radius: 5, color: c, shininess: 0 })]);
+                    "78";
+                    RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(.4["*"](hw), 55["-u"](), 0), text: "<b>Computer Memory</b>", color: c, align: "center", height: .05["*"](hh), box: 0 })]);
+                    "80";
+                    RS_interpolate_kwargs.call(this, curve, [RS_desugar_kwargs({ pos: RS_list_decorate([vec(40["-u"](), 30["-u"](), 0), vec(.95["*"](hw), 30["-u"](), 0), vec(.95["*"](hw), .95["-u"]()["*"](hh), 0), vec(40["-u"](), 0["-"](.95["*"](hh)), 0), vec(40["-u"](), 30["-u"](), 0)]), radius: 5, color: c, shininess: 0 })]);
+                    "83";
+                    ytop = top["-"](lineheight["*"](6.25));
+                    "84";
+                    xend = left["+"](.48["*"](hw));
+                    "85";
+                    loopoutline = RS_interpolate_kwargs.call(this, curve, [RS_desugar_kwargs({ pos: RS_list_decorate([vec(left["+"](10), ytop, 0), vec(xend, ytop, 0), vec(xend, top["-"](lineheight["*"](10.5)), 0), vec(left["+"](10), top["-"](lineheight["*"](10.5)), 0), vec(left["+"](10), ytop, 0)]), radius: 2, color: c, shininess: 0, visible: false })]);
+                    "89";
+                    comment = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(20["-u"](), .75["*"](hh), 0), text: "", align: "left", color: color.black, box: false, opacity: 0 })]);
+                    "90";
+                    prompt = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(40["-u"]()["+"](.95["*"](hw))["/"](2), hh["/"](2), 0), text: "", align: "center", color: color.black, box: false, opacity: 0 })]);
+                    "92";
+                    seetext = "Click the NEXT button to execute line {}.";
+                    "93";
+                    nexttext = "Click the NEXT button to go to line {}.";
+                    "94";
+                    varlabels = RS_list_decorate([]);
+                    "95";
+                    vars = {};
+                    "96";
+                    names = RS_list_decorate(["a", "b", "sum"]);
+                    "98";
+                    RS_Index3 = 0;
+
+                case 166:
+                    if (!RS_Index3["<"](3)) {
+                            _context5.next = 181;
+                            break;
+                        }
+
+                    i = RS_Index3;
+                    "99";
+                    tag = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(40, i["-u"]()["*"](40)["-"](shift)["+"](15), 0), text: names[typeof i === "number" && i["<"](0) ? names.length["+"](i) : i], color: color.black, height: 20, xoffset: 20["-u"](), opacity: 0, visible: false })]);
+                    "100";
+                    lend = vec(40["+"](.85["*"](hw))["/"](2), i["-u"]()["*"](40)["-"](shift)["+"](13), 0);
+                    "101";
+                    value = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: lend, text: "", height: 25, box: false, color: color.black, opacity: 0 })]);
+                    "102";
+                    _context5.next = 177;
+                    return regeneratorRuntime.mark(function _callee() {
+                        var RS_d;
+                        return regeneratorRuntime.wrap(function _callee$(_context4) {
+                            while (1) {
+                                switch (_context4.prev = _context4.next) {
+                                    case 0:
+                                        RS_d = {};
+
+                                        RS_d["result"] = 0;
+                                        RS_d["nvar"] = i;
+                                        RS_d["tag"] = tag;
+                                        RS_d["value"] = value;
+                                        return _context4.abrupt("return", RS_d);
+
+                                    case 6:
+                                    case "end":
+                                        return _context4.stop();
+                                }
+                            }
+                        }, _callee, this);
+                    }).call(this);
+
+                case 177:
+                    vars[RS_bound_index(names[typeof i === "number" && i["<"](0) ? names.length["+"](i) : i], vars)] = _context5.sent;
+
+                case 178:
+                    RS_Index3++;
+                    _context5.next = 166;
+                    break;
+
+                case 181:
+                    "104";
+                    prints = RS_list_decorate([]);
+                    "105";
+                    p = RS_list_decorate(["<b>1  1</b>", "<b>2  3</b>", "<b>3  6</b>", "<b>sum = 6</b>"]);
+                    "106";
+                    for (RS_Index4 = 0; RS_Index4["<"](4); RS_Index4++) {
+                        i = RS_Index4;
+                        "107";
+                        prints.append(RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ pos: vec(left, 30["-u"]()["-"](i["*"](30)), 0), text: p[typeof i === "number" && i["<"](0) ? p.length["+"](i) : i], height: 23, align: "left", color: color.black, box: false, opacity: 1, visible: false })]));
+                    }
+                    "111";
+                    varcomment = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ align: "left", text: "\"a\" is called a \"variable\" because its\nvalue may vary during the program.", pos: vec(20["-u"](), .75["*"](hh)["-"](6["*"](lineheight)), 0), box: false, color: color.orange, opacity: 0, visible: false })]);
+                    "115";
+                    a = 5;
+                    "116";
+                    b = 1;
+                    "117";
+                    sum = 0;
+                    "118";
+                    step = 1;
+                    "120";
+                    ;
+
+                    "125";
+                    ;
+
+                    "129";
+                    ;
+
+                    "149";
+                    gotnext = false;
+                    "150";
+                    gotrepeat = false;
+                    "152";
+                    ;
+
+                    "156";
+                    ;
+
+                    "163";
+                    next = RS_interpolate_kwargs.call(this, button, [RS_desugar_kwargs({ text: "<b>NEXT</b>", bind: nextb })]);
+                    "164";
+                    scene.append_to_caption("   ");
+                    "166";
+                    ;
+
+                    "170";
+                    ;
+
+                    "177";
+                    rtext = "<b>Repeat line {}</b>";
+                    "178";
+                    repeat = RS_interpolate_kwargs.call(this, button, [RS_desugar_kwargs({ text: rtext.format(1), bind: repeatb })]);
+                    "182";
+                    ;
+                    if (!toggle.__argnames__) Object.defineProperties(toggle, {
+                        __argnames__: { value: ["i"] }
+                    });
+
+                    "198";
+                    ;
+                    if (!step1a.__argnames__) Object.defineProperties(step1a, {
+                        __argnames__: { value: ["_"] }
+                    });
+
+                    "220";
+                    ;
+                    if (!step1b.__argnames__) Object.defineProperties(step1b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "233";
+                    ;
+
+                    "251";
+                    ;
+                    if (!step2b.__argnames__) Object.defineProperties(step2b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "262";
+                    ;
+
+                    "275";
+                    ;
+                    if (!step3b.__argnames__) Object.defineProperties(step3b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "287";
+                    ;
+
+                    "304";
+                    ;
+                    if (!step4b.__argnames__) Object.defineProperties(step4b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "315";
+                    ;
+
+                    "330";
+                    ;
+                    if (!step5b.__argnames__) Object.defineProperties(step5b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "341";
+                    ;
+
+                    "359";
+                    ;
+                    if (!step6b.__argnames__) Object.defineProperties(step6b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "371";
+                    ;
+                    if (!step7a.__argnames__) Object.defineProperties(step7a, {
+                        __argnames__: { value: ["_"] }
+                    });
+
+                    "438";
+                    ;
+
+                    "479";
+                    ;
+                    if (!step8b.__argnames__) Object.defineProperties(step8b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "495";
+                    ;
+
+                    "517";
+                    ;
+                    if (!step9b.__argnames__) Object.defineProperties(step9b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "527";
+                    ;
+
+                    "550";
+                    ;
+                    if (!step10b.__argnames__) Object.defineProperties(step10b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "562";
+                    ;
+
+                    "583";
+                    ;
+                    if (!step11b.__argnames__) Object.defineProperties(step11b, {
+                        __argnames__: { value: ["nt", "bt"] }
+                    });
+
+                    "592";
+                    prediction = null;
+                    "593";
+                    ;
+                    if (!getprediction.__argnames__) Object.defineProperties(getprediction, {
+                        __argnames__: { value: ["ev"] }
+                    });
+
+                    "597";
+                    keylabel = RS_interpolate_kwargs.call(this, label, [RS_desugar_kwargs({ text: "", pos: varcomment.pos["+"](vec(20, 22, 0)), box: false, align: "left", visible: false })]);
+                    "599";
+                    ;
+                    if (!keyInput.__argnames__) Object.defineProperties(keyInput, {
+                        __argnames__: { value: ["evt"] }
+                    });
+
+                    "613";
+                    scene.bind("keydown", keyInput);
+                    "617";
+                    ;
+                    if (!execute.__argnames__) Object.defineProperties(execute, {
+                        __argnames__: { value: ["_"] }
+                    });
+
+                    "852";
+
+                case 296:
+                    if (!true) {
+                            _context5.next = 343;
+                            break;
+                        }
+
+                    "853";
+
+                    if (!(step === 1 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 1))) {
+                            _context5.next = 301;
+                            break;
+                        }
+
+                    _context5.next = 301;
+                    return _streamline.await(_filename, 1644, null, execute, 0, null, false, [true]);
+
+                case 301:
+                    "854";
+
+                    if (!(step === 2 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 2))) {
+                            _context5.next = 305;
+                            break;
+                        }
+
+                    _context5.next = 305;
+                    return _streamline.await(_filename, 1648, null, execute, 0, null, false, [true]);
+
+                case 305:
+                    "855";
+
+                    if (!(step === 3 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 3))) {
+                            _context5.next = 309;
+                            break;
+                        }
+
+                    _context5.next = 309;
+                    return _streamline.await(_filename, 1652, null, execute, 0, null, false, [true]);
+
+                case 309:
+                    "856";
+
+                    if (!(step === 4 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 4))) {
+                            _context5.next = 313;
+                            break;
+                        }
+
+                    _context5.next = 313;
+                    return _streamline.await(_filename, 1656, null, execute, 0, null, false, [true]);
+
+                case 313:
+                    "857";
+
+                    if (!(step === 5 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 5))) {
+                            _context5.next = 317;
+                            break;
+                        }
+
+                    _context5.next = 317;
+                    return _streamline.await(_filename, 1660, null, execute, 0, null, false, [true]);
+
+                case 317:
+                    "858";
+
+                    if (!(step === 6 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 6))) {
+                            _context5.next = 321;
+                            break;
+                        }
+
+                    _context5.next = 321;
+                    return _streamline.await(_filename, 1664, null, execute, 0, null, false, [true]);
+
+                case 321:
+                    "860";
+
+                    if (!(step === 7 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 7))) {
+                            _context5.next = 325;
+                            break;
+                        }
+
+                    _context5.next = 325;
+                    return _streamline.await(_filename, 1668, null, execute, 0, null, false, [true]);
+
+                case 325:
+                    "861";
+
+                    if (!(step === 8 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 8))) {
+                            _context5.next = 329;
+                            break;
+                        }
+
+                    _context5.next = 329;
+                    return _streamline.await(_filename, 1672, null, execute, 0, null, false, [true]);
+
+                case 329:
+                    "862";
+
+                    if (!(step === 9 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 9))) {
+                            _context5.next = 333;
+                            break;
+                        }
+
+                    _context5.next = 333;
+                    return _streamline.await(_filename, 1676, null, execute, 0, null, false, [true]);
+
+                case 333:
+                    "863";
+
+                    if (!(step === 10 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 10))) {
+                            _context5.next = 337;
+                            break;
+                        }
+
+                    _context5.next = 337;
+                    return _streamline.await(_filename, 1680, null, execute, 0, null, false, [true]);
+
+                case 337:
+                    "865";
+
+                    if (!(step === 11 || (typeof step === "undefined" ? "undefined" : _typeof(step)) === "object" && RS_equals(step, 11))) {
+                            _context5.next = 341;
+                            break;
+                        }
+
+                    _context5.next = 341;
+                    return _streamline.await(_filename, 1684, null, execute, 0, null, false, [true]);
+
+                case 341:
+                    _context5.next = 296;
+                    break;
+
+                case 343:
                 case "end":
-                    return _context.stop();
+                    return _context5.stop();
             }
         }
     }, _$$main$$, this);
 }), 0, 1);
 
 var RS_modules = {};
+var a, b, sum, gotnext, gotrepeat, step, previous, prediction;
 RS_modules.pythonize = {};
 
 (function () {
@@ -103,13 +2222,7 @@ RS_modules.pythonize = {};
 if (!main.__argnames__) Object.defineProperties(main, {
     __argnames__: { value: ["_"] }
 });
-;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; 
-
-main(function(err) {
-  var aaaaaaa = 1
-}) 
-
-})})()
+;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; main(function(err) {;}) })})()
 // END JAVASCRIPT
 
 //--><!]]></script>
