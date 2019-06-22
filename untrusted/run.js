@@ -259,12 +259,26 @@ function ideRun() {
             //traceback.push(new Array((err.cursor - c) + 1).join(" ") + "^") // not working properly
         } else {
             // This is a runtime exception; extract the call stack if possible
+            // Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
+            // and at other times it is one long string; in the latter case we have to create rawStack
+            // as an array of strings. Also, sometimes must access err.stack and sometimes must access
+            // err.__proto__.stack; Chrome seems to flip between these two schemes.
+            var usestack = false
             try {
-            	// Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
-            	// and at other times it is one long string; in the latter case we have to create rawStack
-            	// as an array of strings.
-                var rawStack = err.stack
-                if (typeof err.stack == 'string') rawStack = rawStack.split('\n')
+                var a = err.stack
+                usestack = true
+            } catch (ignore) {
+            }
+            try {
+                var rawStack
+                if (usestack) {
+                    rawStack = err.stack
+                    if (typeof err.stack == 'string') rawStack = rawStack.split('\n')
+                } else {
+                    var rawStack = err.__proto__.stack
+                    if (typeof rawStack == 'string') rawStack = rawStack.split('\n')
+                    else rawStack = rawStack.toString()
+                }
 
                 // TODO: Selection and highlighting in the dialog
                 var first = true
@@ -304,6 +318,7 @@ function ideRun() {
                 	}
                 	if (L === undefined) continue
                     var N = Number(L)
+                    if (isNaN(N)) break // Sometimes necessary.....
 	                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-2])
 	                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
 	                first = false
