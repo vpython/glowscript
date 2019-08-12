@@ -31,12 +31,12 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/extrude.js",
         "../lib/glow/shaders.gen.js",
         //"../lib/compiling/transform.js" // older, obsolete Streamline transform.js needed for running programs embedded in other web sites
-        "../lib/compiling/transform-es6.min.js" // Streamline transform.js needed for running programs embedded in other web sites
+        //"../lib/compiling/transform-es6.min.js" // Streamline transform.js needed for running programs embedded in other web sites
         //"../lib/compiling/transform-es6.js" // Streamline transform.js needed for running programs embedded in other web sites
         ],
     compile: [
         "../lib/compiling/GScompiler.js", 
-        "../lib/compiling/acorn.es.js",
+        "../lib/compiling/acorn.js",
         "../lib/compiling/papercomp.js",
         
         // Streamline files used until Fall 2016:
@@ -53,7 +53,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     RScompile: [
         "../lib/compiling/GScompiler.js",
         "../lib/rapydscript/compiler.js", // includes runtime library
-        "../lib/compiling/acorn.es.js",
+        "../lib/compiling/acorn.js",
         "../lib/compiling/papercomp.js",
         
         // Streamline files used until Fall 2016:
@@ -182,11 +182,11 @@ function ideRun() {
             if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
             var options = {lang: lang, version: version, run: true}
             var program = glowscript_compile(program, options)
-            // var p = program.split('\n')
-        	// for (var i=0; i<p.length; i++) console.log(i, p[i])
-        	var usermain = eval_script(program)
+            var v = parseFloat(options.version), usermain
+            if (v < 2.9) usermain = eval(program)
+            else usermain = Function(program)
             // At this point the user program has not been executed.
-            // Rather, eval_script has prepared the user program to be run.
+            // Rather, the user program has been prepared to be run.
             window.userMain = usermain
 
             $("#loading").remove()
