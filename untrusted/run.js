@@ -48,7 +48,7 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         //"../lib/streamline/compiler/transform.js",
         
         //"../lib/compiling/transform.js", // needed only for exporting a program
-        "../lib/coffee-script.js"
+        //"../lib/coffee-script.js"
         ],
     RScompile: [
         "../lib/compiling/GScompiler.js",
@@ -179,7 +179,7 @@ function ideRun() {
 
     function compileAndRun(program, container, lang, version) {
         try {
-            if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
+            if (program[0] == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
             var options = {lang: lang, version: version, run: true}
             var program = glowscript_compile(program, options)
             var v = parseFloat(options.version), usermain

@@ -170,7 +170,7 @@ scene.bind('click', change)</p>
       <p class="Normal">Suppose you  executed <strong>scene.bind('mousedown mousemove', Drag)</strong>, but now you no longer want to send mousemove events to that function. Do this:</p>
       <p class="program">scene.unbind('mousemove', Drag)</p>
       <p class="Normal">&nbsp;</p>
-      <p class="Normal"><strong><font color="#0000A0">Custom events: triggers</font></strong> -- <strong class="attribute"><em>THIS CURRENTLY DOES NOT WORK IN VPython</em></strong></p>
+      <p class="Normal"><strong><font color="#0000A0">Custom events: triggers</font></strong> -- <strong class="Default-XREF-style"><em>this currently does not work in VPython 7</em></strong></p>
       <p class="Normal">It is possible to create your own event type, and trigger a callback function to do something. Consider the following example, where the event type is 'color_the_ball':</p>
       <p class="program">def clickFunc():<br />
         &nbsp;&nbsp;&nbsp;&nbsp;s = sphere(pos=scene.mouse.pos, radius=0.1)<br />
