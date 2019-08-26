@@ -44,8 +44,8 @@
 <script type="text/javascript" src="glowscript_libraries/jquery.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery-ui.custom.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/editor.js"></script>
-<script type="text/javascript" src="glowscript_libraries/RSrun.2.7.min.js"></script>
-<script type="text/javascript" src="glowscript_libraries/glow.2.7.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="glowscript_libraries/RSrun.2.9.min.js"></script>
+<script type="text/javascript" src="glowscript_libraries/glow.2.9.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="glowscript_libraries/split.min.js"></script>
 </body>
 
@@ -60,7 +60,7 @@
 <input type="file" id="read_local_file"/>
 
 <script>
-var gsversion = 2.7
+var gsversion = 2.9
 var printpane = false
 var exporting = false // not currently in export mode
 var lastprintwidth = null
@@ -84,7 +84,7 @@ function fontloading() { // trigger loading of fonts for 3D text
 }
 fontloading() // get the sans and serif font files used by 3D text
 
-// localCompile is a modification of https://github.com/BruceSherwood/glowscript/blob/master/ide/ide.js
+// localCompile is a modification of https://github.com/vpython/glowscript/blob/master/ide/ide.js
 function localCompile(header, compReady, errordiv) {
 	errordiv.innerHTML = ""
     var compiler_url
@@ -208,9 +208,10 @@ function ready(program) {
     w[0].innerHTML = '<div id="glowscript" class="glowscript"></div>'
     
     try {
-        window.userMain = eval(program)
+        var usermain = Function(program)
         // At this point the user program has not been executed.
         // Rather, eval_script has prepared the user program to be run.
+        window.userMain = usermain
 
         //$("#loading").remove()
         window.__context = {
