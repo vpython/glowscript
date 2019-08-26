@@ -29,42 +29,18 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/shapespaths.js",
         "../lib/glow/primitives.js",
         "../lib/glow/extrude.js",
-        "../lib/glow/shaders.gen.js",
-        //"../lib/compiling/transform.js" // older, obsolete Streamline transform.js needed for running programs embedded in other web sites
-        //"../lib/compiling/transform-es6.min.js" // Streamline transform.js needed for running programs embedded in other web sites
-        //"../lib/compiling/transform-es6.js" // Streamline transform.js needed for running programs embedded in other web sites
+        "../lib/glow/shaders.gen.js"
         ],
     compile: [
         "../lib/compiling/GScompiler.js", 
         "../lib/compiling/acorn.js",
-        "../lib/compiling/papercomp.js",
-        
-        // Streamline files used until Fall 2016:
-        //"../lib/narcissus/lib/jsdefs.js",
-        //"../lib/narcissus/lib/jslex.js",
-        //"../lib/narcissus/lib/jsparse.js",
-        //"../lib/narcissus/lib/jsdecomp.js",
-        //"../lib/streamline/compiler/format.js",
-        //"../lib/streamline/compiler/transform.js",
-        
-        //"../lib/compiling/transform.js", // needed only for exporting a program
-        //"../lib/coffee-script.js"
+        "../lib/compiling/papercomp.js"
         ],
     RScompile: [
         "../lib/compiling/GScompiler.js",
         "../lib/rapydscript/compiler.js", // includes runtime library
         "../lib/compiling/acorn.js",
-        "../lib/compiling/papercomp.js",
-        
-        // Streamline files used until Fall 2016:
-        //"../lib/narcissus/lib/jsdefs.js",
-        //"../lib/narcissus/lib/jslex.js",
-        //"../lib/narcissus/lib/jsparse.js",
-        //"../lib/narcissus/lib/jsdecomp.js",
-        //"../lib/streamline/compiler/format.js",
-        //"../lib/streamline/compiler/transform.js",
-        
-        //"../lib/compiling/transform.js", // needed only for exporting a program
+        "../lib/compiling/papercomp.js"
         ],
     //RSrun: [ // needed only for an exported program (runtime functions are included in the rapydscript compiler)
     //    "../lib/rapydscript/runtime.js", // minified by using jscompress.com; Uglify failed for some reason

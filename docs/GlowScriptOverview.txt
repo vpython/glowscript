@@ -7,7 +7,8 @@ Note: When testing locally, you may need to change the port number 8080 in
 
 COMPILATION
 
-The main compilation program is lib/compiling/GScompiler.js.
+The main compilation program is lib/compiling/GScompiler.js. Additional comments
+on GScompiler.js are included in the file itself.
 
 Triggered by a "Run" event in ide/index.html, the sandboxed untrusted/run.js calls
 the appropriate compiler and run-time package corresponding to the version number
@@ -21,17 +22,19 @@ Replace delete with remove.
 Parse import statements, including making list of objects imported.
     Except for vpython, the Python random library is currently the only Python library 
     that can be imported thanks to a JavaScript implementation by RapydScript-NG.
-If VPython, insert '_' into statements such as rate and waitfor for later use by Streamline.
-Accumulate list of functions that contain '_'.
-Insert original line number as a statement of the form "23" (survives later compile operations).
-    Makes it possible (in Chrome) to report the original line number of an error.
-After first pass, add '_' to calls to functions, and functions, that contain rate, waitfor, etc.
+Look for function declarations and function calls that are outside strings.
+    If inside a string, change the name to name+'~!#' so that this mention will
+    not be found in a later search for "name(".
+    Accumulate a list of function names (fcts).
+Insert original line number as a statement of the form 'RS_ls = "line number"\n'.
+Such a statement survives later compile operations, which makes it possible (in Chrome)
+    to report the original line number of an error.
 
 SECOND PASS
 Pass preprocessed Python to RapydScript-NG transpiler, which produces JavaScript.
 Check for 3D text statement, in which case insert code to acquire fonts.
 Replace .delete with .remove.
-Make various small adjustments, such as arange -> range (RapydScript-NG range is like Numpy arange).
+Make various other small adjustments.
 Insert preamble to transpiled JavaScript code.
 Insert statements to deal with various kinds of import statements.
 Insert statements such as "box = vp_box" so that box invokes the VPython version of a box.
@@ -40,8 +43,10 @@ papercompile(program) calls a library that converts A+B to A['+'](B), which make
     "operator overloading": that is, 2+3 evaluates to 5, but vec(1,2,3)+vec(10,20,30)
     evaluates to vec(11,22,33). In lib/glow/vectors.js is a set of Number and vec
     prototype methods that alter the behavior of the arithmetic operators.
-Call Streamline library to convert synchronous code to asynchronous code.
-    For example, a loop containing rate(N) is moved to a separate function driven by timeouts.
+Search program for functions (listed in fcts) and prepend "async ". Change the function
+    name to name+'~!#' so that this name() won't be found in the next step.
+Search program for function calls, prepend "await ", and put "await name()" in parens.
+Finally all occurrences of '~!#' are replaced by ''.
 
 Now the program is ready to run. It is instructive to make a one-line program "box()" at
 glowscript.org and then click "Share or export this program" to see the JavaScript program,
