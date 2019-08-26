@@ -53,26 +53,18 @@ glowscript_libraries = {
         "../lib/glow/primitives.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/extrude.js",
-        "../lib/glow/shaders.gen.js",
-        #"../lib/compiling/transform.js" # older, obsolete Streamline transform.js needed for running programs embedded in other web sites
-        #"../lib/compiling/transform-es6.min.js" # Streamline transform.js needed for running programs embedded in other web sites
-        #"../lib/compiling/transform-es6.js" // Streamline transform.js needed for running programs embedded in other web sites
+        "../lib/glow/shaders.gen.js"
         ],
     "compile": [
-        #"../lib/coffee-script.js",
         "../lib/compiling/GScompiler.js",
         "../lib/compiling/acorn.es.js",
-        "../lib/compiling/papercomp.js",
-        #"../lib/compiling/transform.js" # older, obsolete Streamline transform.js needed for running programs embedded in other web sites
-        #"../lib/compiling/transform-es6.min.js" # needed only for exporting a program
+        "../lib/compiling/papercomp.js"
         ],
     "RScompile": [
         "../lib/rapydscript/compiler.js",
         "../lib/compiling/GScompiler.js",
         "../lib/compiling/acorn.es.js",
-        "../lib/compiling/papercomp.js",
-        #"../lib/compiling/transform.js" # older, obsolete Streamline transform.js needed for running programs embedded in other web sites
-        #"../lib/compiling/transform-es6.min.js" # needed only for exporting a program
+        "../lib/compiling/papercomp.js"
         ],
     "RSrun": [
         "../lib/rapydscript/runtime.js" # needed only for exporting a program
