@@ -495,8 +495,8 @@ $(function () {
     function date_to_string(t) {
     	if (t != 'None') {
         	// prog.datetime is UTC; here we convert to local time for display purposes
-        	var patt = new RegExp('(\\d*)-(\\d*)-(\\d*)\\s(\\d*):(\\d*):(\\d*\\.\\d*)')
-        	var m = patt.exec(t)
+        	var patt = new RegExp('(\\d*)-(\\d*)-(\\d*)\\s(\\d*):(\\d*):(\\d*[.]*\\d*)')
+            var m = patt.exec(t)
         	var year = Number(m[1])
         	var month = Number(m[2])
         	var day = Number(m[3])
