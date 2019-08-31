@@ -1,4 +1,5 @@
 // IDE functionality
+// This file has to handle ALL versions of GlowScript.
 var localport = '8080' // normally 8080
 var website = 'glowscript' // normally glowscript
 var runloc = (document.domain == "localhost") ? "http" : "https"
@@ -251,10 +252,13 @@ function ideRun() {
                 message.event.fromParentFrame = true
                 $(document).trigger(message.event)
             }
-            if (message.screenshot !== undefined)
+            if (message.screenshot !== undefined) {
                 screenshot(false)
+            }
         }
     }  
+
+    var ver
 
     function compileAndRun(program, container, lang, version) {
         if (program[0] == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
@@ -271,16 +275,13 @@ function ideRun() {
         // See https://itnext.io/error-handling-with-async-await-in-js-26c3f20bc06a for catching error in async function
         // Function() doc: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
 
-        var v
-        if (options.version == 'unp') { // version is first 3 characters of 'unpublished" (e.g. 3.0dev)
-            v = 'unp'
-        } else {
-            v = parseFloat(options.version)
-        }
-        if (v >= 2.9 || v == 'unp') {
+        if (options.version == 'unp') ver = 'unp' // version is first 3 characters of 'unpublished" (e.g. 3.0dev)
+        else ver = parseFloat(options.version)
+
+        if (ver >= 2.9 || ver == 'unp') { // GlowScript 2.9 and later
             runprog(program)
         } else {
-            try {
+            try { // GlowScript earlier than 2.9
                 window.userMain = eval(program)
                 //usermain = eval(program)
                 // At this point the user program has not been executed.
@@ -310,6 +311,27 @@ function ideRun() {
             }
         }
         if (!scene) return
+        if (ver >= 2.9 || ver == 'unp') screenshot_new(isAuto, scene) // GlowScript 2.9 or later
+        else screenshot_old(isAuto, scene)
+    }
+
+    async function screenshot_new(isAuto, scene) { // GlowScript 2.9 and later
+        var img = await scene.__renderer.screenshot()
+        // Rescale the image to 128px max dimension and save it as a screenshot
+        var targetSize = 128
+        var aspect = img.width / img.height
+        var w = aspect >= 1 ? targetSize : targetSize * aspect
+        var h = aspect >= 1 ? targetSize / aspect : targetSize
+        var cvs = document.createElement("canvas")
+        cvs.width = w
+        cvs.height = h
+        var cx = cvs.getContext('2d')
+        cx.drawImage(img, 0, 0, w, h)
+        var thumbnail = cvs.toDataURL()
+        send({ screenshot: thumbnail, autoscreenshot: isAuto })
+    }
+
+    function screenshot_old(isAuto, scene) { // GlowScript earlier than 2.9
         (scene.__renderer || scene.renderer).screenshot(function (err, img) {
             if (!err) {
                 $(img).load(function () {
@@ -325,7 +347,6 @@ function ideRun() {
                     var cx = canvas.getContext('2d')
                     cx.drawImage(img, 0, 0, w, h)
                     var thumbnail = canvas.toDataURL()
-
                     send({ screenshot: thumbnail, autoscreenshot: isAuto })
                 })
             }
