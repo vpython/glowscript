@@ -45,38 +45,28 @@
 -->
 </style>
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython: <a href="VisualIntro.html">Introduction</a></p>
-      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
-      <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
-        
-    <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
-      <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="https://www.python.org" target="_blank">Python web site</a> <br /></p></td>
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onchange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onchange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onchange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="new_features.html">&nbsp;&nbsp;What's new</a></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp;&nbsp;Classic VPython web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <a href="https://www.python.org" target="_blank">&nbsp;&nbsp;Python web site</a> <br /></p></td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
       <table width="100%" border="1">
         <tr>
           <td width="67%"><div align="center"><span class="style3 style4 style5"><font
@@ -88,6 +78,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       </table>
       <p class="Normal"><span class="style1">Using  VPython to create 3D animations</span></p>
       <p class="Normal">VPython makes it unusually easy to write programs that generate navigable real-time 3D animations. It is based on the Python programming language which is widely used in introductory programming courses thanks to its clean design, and it is also widely used in science and business. At <a href="https://glowscript.org" target="_blank"><strong>glowscript.org</strong></a>, click &quot;Example programs&quot; to see how VPython is used.</p>
+      <p class="Normal"><em><strong>On the left is complete documentation for VPython.</strong></em></p>
       <p class="Normal">For a quick introduction, see the following YouTube videos, but be aware that  for the current version of VPython the name of the module is &quot;vpython&quot;, not &quot;visual&quot;, and the graphics display is shown in a browser tab rather than in a bare window. (For GlowScript VPython, you can omit importing vpython.)</p>
       <blockquote>
         <p class="Normal"><a href="https://vpython.org/video01.html" target="_blank"><strong>3D Objects</strong></a> (Spanish version <a href="https://youtu.be/dWYL2Kj3ND0" target="_blank"><strong>Objetos 3D</strong></a> by Javier Carro)</p>
@@ -96,8 +87,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal"><a href="https://vpython.org/video04.html" target="_blank"><strong>Loops and Animation</strong></a> (Spanish version <strong><a href="https://youtu.be/jyEagdhKt8Q" target="_blank">Bucles y Animación</a></strong><a href="https://youtu.be/jyEagdhKt8Q" target="_blank"></a> by Javier Carro)</p>
         <p class="Normal"><a href="https://vpython.org/video05.html" target="_blank"><strong>Scale Factors</strong></a> (Spanish version <strong><a href="https://youtu.be/aJqDTpkiyVM" target="_blank">Factores de Escala</a></strong><a href="https://youtu.be/aJqDTpkiyVM" target="_blank"></a> by Javier Carro)</p>
         <p class="Normal"><a href="https://www.youtube.com/watch?v=kqFdB0lbGa8" target="_blank"><strong>Debugging Syntax Errors</strong></a></p>
-        <p class="Normal"><strong><a href="https://vpython.org/video07.html" target="_blank">Lists, Part 1</a></strong> (Spanish version <a href="https://youtu.be/9bTRE9VfslU" target="_blank"><strong>Listas 1</strong></a> by Javier Carro)</p>
-        <p class="Normal"><strong><a href="https://vpython.org/video08.html" target="_blank">Lists, Part 2</a></strong> (Spanish version <strong><a href="https://youtu.be/5cTOWf_RPFY">Listas 2</a></strong> by Javier Carro)</p>
+        <p class="Normal"><strong><a href="https://vpython.org/video07.html" target="_blank">Lists, Part 1</a></strong> (Spanish verstion <a href="https://youtu.be/9bTRE9VfslU" target="_blank"><strong>Listas 1</strong></a> by Javier Carro)</p>
+        <p class="Normal"><strong><a href="https://vpython.org/video08.html" target="_blank">Lists, Part 2</a></strong></p>
       </blockquote>
       <p class="Normal">Classic VPython was originated by David Scherer in 2000. In 2011 David Scherer and Bruce Sherwood initiated the development of GlowScript, a similar programming environment but which runs in a browser. In 2014 it became possible to use RapydScript, a programming language very similar to Python, to support VPython programs in  the GlowScript  environment.</p>
       <p class="Normal">Here is an <a href="https://matterandinteractions.wordpress.com/2011/09/23/glowscript-3d-animations-in-a-browser/" target="_blank"><strong>overview</strong></a> of the project, and here is a <a href="../GlowScriptDocs/history.html" target="_blank"><strong>log of developments</strong></a>. Here is the <a href="https://github.com/BruceSherwood/glowscript" target="_blank"><strong>open source</strong></a> for this project. There is also <a href="../GlowScriptDocs/index.html" target="_blank"><strong>technical documentation</strong></a> about the GlowScript environment, including how to use JavaScript or RapydScript for your programs.</p>
@@ -111,11 +102,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <blockquote>
   <p class="Normal">* You will see the sentence &quot;You are signed in as &lt;your user name&gt; and your programs are <strong>here</strong>.&quot; Click on <strong>here</strong>.</p>
   <p class="Normal">* Click<strong> Create New Program</strong>, which will create a new program in your <strong>MyPrograms</strong> folder. (Programs in your <strong>Private</strong> folder are not accessible to others.) Choose a name for the program, which should not include spaces or underscores.</p>
-  <p class="Normal">* Below the line <strong>GlowScript 2.9 VPython</strong>, type <strong>box()</strong>. Click <strong>Run this program</strong> to run your program. You will see a white box on a black background.</p>
+  <p class="Normal">* Below the line <strong>GlowScript 2.8 VPython</strong>, type <strong>box()</strong>. Click <strong>Run this program</strong> to run your program. You will see a white box on a black background.</p>
   <p class="Normal">* Use the right button (or CTRL-drag left button) of the mouse to rotate the camera to view the scene from different angles.</p>
-  <p class="Normal">* To zoom in and out use two buttons, or ALT/OPTION-drag, or the mouse scrollwheel. Touch screen: swipe or two-finger rotate; pinch/extend to zoom.  </p>
-  <p class="Normal">* To pan, shift-drag.<br />
-</p>
+  <p class="Normal">* To zoom in and out use two buttons, or ALT/OPTION-drag, or the mouse scrollwheel. Touch screen: swipe or two-finger rotate; pinch/extend to zoom.<br />
+  </p>
 </blockquote>
 <p class="Normal"><strong><font color="#0000A0">Using the text editor</font></strong></p>
 <p class="Normal">  Here is a list of <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank"><strong>keyboard shortcuts</strong></a> for find, replace, etc. While editing, press <strong>Ctrl-1</strong>  (Cmd-1 on Mac) to run your program in the same window. Press <strong>Ctrl-2</strong> (Cmd-2 on Mac) to run your program in a separate window, which lets you view your program and its execution side by side. If you  change your program, press <strong>Ctrl-2</strong> again in the editor display to re-run the program with the new changes. GlowScript uses the ACE text editor. Because ACE doesn't work on mobile devices, a simpler editor is used there.</p>
@@ -144,6 +134,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       </blockquote>
       <p class="Normal"><strong>Be sure to explore the many GlowScript <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank">example programs</a></strong>, written using JavaScript, RapydScript, or VPython. The VPython option is based on the <strong><a href="https://github.com/kovidgoyal/rapydscript-ng" target="_blank">RapydScript-NG</a></strong> Python-to-JavaScript compiler. For most programs, RapydScript is nearly the same as Python, but there are differences which can be seen in the <a href="https://github.com/kovidgoyal/rapydscript-ng" target="_blank">RapydScript-NG documentation</a>.</p>
       <p class="Normal">In general, Python modules cannot be imported into VPython programs, because GlowScript VPython functions in a JavaScript environment. However, one can import the Python &quot;random&quot; module into a VPython program, provided by the RapydScript-NG tool that converts Python to JavaScript. One cannot use the form &quot;from random import *&quot; but must use &quot;import random&quot; or &quot;import random as rr&quot; (or other name) or &quot;from random import randint, random&quot; (or other list of functions).</p>
+      <p class="Normal">&nbsp;</p>
+      <p class="Normal"><span class="style1">CAUTION</span></p>
+      <p class="Normal">Do not use &quot;wait&quot; or &quot;_&quot; as a variable name. All GlowScript languages (VPython, RapydScrpt, JavaScript) use &quot;wait&quot; or &quot;_&quot; as a special signal for the compilation process. This signal is inserted for you where needed.      </p>
       <p class="Normal">&nbsp;</p>
       <p class="Normal"><span class="style1">For experienced programmers</span></p>
       <p class="Normal">As a convenience to novice programmers to provide everything that is needed to get started, VPython by default imports all of the VPython features and includes <a href="math.html">standard math functions</a> such as sqrt. The documentation is written as though &quot;from vpython import *&quot; were present. Also provided are clock(), random(), and arange().</p>
@@ -187,7 +180,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
   Supporting the VPython API in a browser is possible thanks to the work of<br />
   &nbsp;&nbsp;&nbsp;&nbsp;Alexander Tsepkov (RapydScript: <a href="https://github.com/atsepkov/RapydScript" target="_blank">https://github.com/atsepkov/RapydScript</a>) and<br />
   &nbsp;&nbsp;&nbsp;&nbsp;Charles Law (browser-based RapydScript: <a href="https://github.com/charleslaw/RapydScript_web" target="_blank">https://github.com/charleslaw/RapydScript_web</a>).</p>
-<p class="Normal">In January 2017 the original RapydScript compiler was replaced with <a href="https://github.com/kovidgoyal/rapydscript-ng" target="_blank">RapydScript-NG</a> by Kovid Goyal, which comes closer to handling true Python syntax. In August 2019 the Streamline library was removed, thanks to the new &quot;async&quot; and &quot;await&quot; capabilities of JavaScript.</p>
+<p class="Normal">In January 2017 the original RapydScript compiler was replaced with <a href="https://github.com/kovidgoyal/rapydscript-ng" target="_blank">RapydScript-NG</a> by Kovid Goyal, which comes closer to handling true Python syntax.</p>
 <p class="Normal">When the GlowScript project was launched in 2011 by David Scherer and Bruce Sherwood,<br />
 Scherer implemented operator overloading and synchronous code using libraries existing at that time. In 2015 it became necessary to upgrade to newer libraries because compilation failed on some browsers; Salvatore di Dio provided crucial help in this update. In January 2017 the operator overloading machinery was further updated.</p>
 <p class="Normal">&nbsp;</p>
@@ -202,12 +195,9 @@ Scherer implemented operator overloading and synchronous code using libraries ex
         <p class="Normal"><a href="https://paintingvalley.com/uz-vpython" target="_blank">Uzbek translation</a> by Ruslan Tarasov</p>
         <p class="Normal"><a href="https://www.clothingric.com/community/vpython-help" target="_blank">Urdu translation</a> by Sarah David</p>
       </div>
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
 <script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>
