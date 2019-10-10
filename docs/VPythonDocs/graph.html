@@ -23,9 +23,9 @@
 		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
 		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
 		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onchange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onchange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onchange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
 		<p class="Normal"><a href="new_features.html">&nbsp;&nbsp;What's new</a></p>
 		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp;&nbsp;Classic VPython web site</a><br />
 		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
@@ -144,12 +144,13 @@ Multiple lines in a </span><span class="attribute">title</span><span class="attr
             
   no titles, fully autoscaled.      </p>
           <p class="Normal">You can align a graph to the left or right of another graph or a canvas:</p>
-      <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (graph forced to left side of window), &quot;right&quot; (graph forced to right side of window), or &quot;none&quot; (the default alignment). If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot;, then create the canvas without specifying its value of align.</p>
-          <p class="Normal">You can have more than one graph window: just create another <span class="attribute"> graph</span>. By default, any graphing objects 
+      <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (graph forced to left side of window), &quot;right&quot; (graph forced to right side of window), or &quot;none&quot; (the default alignment). If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot; and activate the graph by plotting something in it, then create the canvas without specifying its value of align. Another option is to specify align='left' for all canvases and graphs, in which case they will abutt each other.</p>
+      <br>
+<p class="Normal">You can have more than one graph window: just create another <span class="attribute"> graph</span>. By default, any graphing objects 
             
             created following a <span class="attribute">graph</span> belong to that 
             
-    window, or you can  specify which window a new object belongs to: </p>
+window, or you can  specify which window a new object belongs to: </p>
 
           <p class="program"> energy = gdots(graph=graph2, color=color.blue)</p>
           <p class="attributes"></p>

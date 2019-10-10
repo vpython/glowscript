@@ -23,9 +23,9 @@
 		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
 		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
 		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onchange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onchange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onchange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
 		<p class="Normal"><a href="new_features.html">&nbsp;&nbsp;What's new</a></p>
 		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp;&nbsp;Classic VPython web site</a><br />
 		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
@@ -124,7 +124,7 @@
                     <div>
                       <p class="program">attach_arrow(ball, &quot;axis&quot;, scale=1e3,<br />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      shaftwidth=0.3, color=color.green)</p>
-                      <p class="Normal">The default value of scale is 1, and the default color of the arrow is the color of the ball. You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:</p>
+                      <p class="Normal">The default value of scale is 1, the default color of the arrow is the color of the ball, and (not yet in VPython 7) the default shaftwidth is 0.5*ball.size.y. You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:</p>
                       <div></div>
                       <div>
                         <p class="program">attach_arrow(ball, &quot;velocity&quot;)</p>
