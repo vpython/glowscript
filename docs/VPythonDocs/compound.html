@@ -23,9 +23,9 @@
 		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
 		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
 		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onchange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onchange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onchange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
 		<p class="Normal"><a href="new_features.html">&nbsp;&nbsp;What's new</a></p>
 		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp;&nbsp;Classic VPython web site</a><br />
 		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
@@ -65,6 +65,7 @@
         <p class="program">hammer = compound( [handle, head], pos=vector(3,2,0),<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(1,1,0) )</p>
         <p class="Normal">If you specify an origin, that sets the default pos value, which is then changed if you also specify a value for pos when creating the compound.</p>
+        <p class="Normal">All of the objects to be compounded must belong to the same canvas, and the compound itself must also be in this canvas. Also, it is currently not possible to clone a compound to a different canvas.</p>
 <p class="Normal"><strong><font color="#0000a0">Compound and world coordinates</font></strong></p>
         <p class="Normal"><em>The following mechanisms do not currently work correctly in VPython 7</em>. There are two  functions for translating between compound and world coordinates, which may differ if the compound object has been moved or rotated or resized. Suppose when you created the compound <strong>c</strong> a location on one of the objects was the vector <strong>v</strong>, and that after moving, rotating, and resizing the compound you would like to know where that point is now. In the following, <strong>world_pos</strong> is the corresponding location in &quot;world&quot; coordinates, the actual location in the current 3D scene:</p>
       <p class="program">world_pos = c.compound_to_world(v)      </p>
