@@ -2,7 +2,7 @@
 // The following Python program was used to create the data array:
 
 /*
-data = 'var data = [\n    '
+data = 'var data = [\n'
 f = open('Roboto-Medium.ttf', 'rb')
 n = 0
 while True:
@@ -25,7 +25,15 @@ f.write(data)
 f.close()
 */
 
-// This program creates an ArrayBuffer named Roboto_sans, to be given to opentype.js.
+/* 
+This program creates an ArrayBuffer named Roboto_sans, to be given to opentype.js.
+From https://github.com/opentypejs/opentype.js:
+If you already have an ArrayBuffer, you can use opentype.parse(buffer) to parse the buffer. 
+This method always returns a Font, but check font.supported to see if the font is in a supported format. 
+(Fonts can be marked unsupported if they have encoding tables we can't read).
+
+var font = opentype_loadjs(myBuffer); // in original unmodified opentype, this is opentype.parse(buffer)
+*/
 
 var data = [
     0x00, 0x01, 0x00, 0x00, 0x00, 0x11, 0x01, 0x00, 0x00, 0x04,
@@ -13766,3 +13774,4 @@ var L = data.length
 var Roboto_sans = new ArrayBuffer(L)
 var view = new Uint8Array(Roboto_sans)
 for (var i=0; i<L; i++) view[i] = data[i]
+window.__font_sans = opentype_loadjs(Roboto_sans)
