@@ -190,11 +190,8 @@ function runCode() {
 
 async function runprog(prog) { 
     try {
-        console.log(prog)
         eval(prog)
-        console.log('after eval')
         await __main__()
-        console.log('after __main__()')
     } catch(err) {
         reportScriptError(prog, err)
     }
@@ -202,9 +199,12 @@ async function runprog(prog) {
 
 function ready(program) {
     var w = $("#glows")
-    w[0].innerHTML = "" // Comment this and the next if get a solution for too many WebGL context
+    w[0].innerHTML = "" // Comment this and the next if get a solution for too many WebGL contexts
     w[0].innerHTML = '<div id="glowscript" class="glowscript"></div>'
+
+    window.__context = { glowscript_container: $("#glowscript") }
     runprog(program)
+}
 
 function exportCode() {
 	if (savecode !== null) { // Restore operation
