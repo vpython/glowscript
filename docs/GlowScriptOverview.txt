@@ -2,8 +2,13 @@ THE ELEMENTS OF THE GLOWSCRIPT LIBRARY
 
 See www.glowscript.org/docs/GlowScriptDocs/local.html for instructions on
 how to install software to be able to make and test changes to GlowScript VPython.
-Note: When testing locally, you may need to change the port number 8080 in
+
+When testing locally, you may need to change the port number 8080 in
       ide/api.py and untrusted/run.js.
+
+If you will upload to a site other than glowscript.org, you need to change the name of 
+the application in app.yaml, and at the start of ide/ide.js, ide/api.py, and untrusted/run.js
+
 
 COMPILATION
 
