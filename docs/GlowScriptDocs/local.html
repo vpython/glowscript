@@ -51,7 +51,7 @@
           2) 
 click the Download button for &quot;Install and initialize Google Cloud SDK&quot;.<br>
 3) 
-In a command-line terminal, execute the gcloud statement.<br>
+In a command-line terminal, execute the statement &quot;gcloud init&quot;.<br>
 4) If you intend to use GitHub, click &quot;Download and Install Git&quot;.<br>
 <br>
 If you had already installed the Google Cloud SDK, follow the instructions on the page for updating it.        </p>
@@ -59,9 +59,11 @@ If you had already installed the Google Cloud SDK, follow the instructions on th
           At 
             <a href="https://cloud.google.com/appengine/docs/python/" target="_blank"><strong>cloud.google.com/appengine/docs/python</strong></a> choose the Standard environment Python 2 Docs. Presumably you have already installed the Cloud SDK; follow the rest of the instructions, except that you need not install Git if you don't intend to use GitHub. You do need to execute &quot;gcloud components install app-engine-python&quot; to add Google App Engine support to the Cloud SDK.<br>
             <br>
-            To run GlowScript, execute dev_appserver.py /..../glowscript/app.yaml, where the location of the GlowScript code is at /..../glowscript (on Windows, use backslashes instead of slashes). This starts up the Google App Engine machinery. Open a browser tab and enter &quot;localhost:8080&quot; to run.</p>
+            To run GlowScript, execute dev_appserver.py /..../glowscript/app.yaml, where the location of the GlowScript code is at /..../glowscript (on Windows, use backslashes instead of slashes). This starts up the Google App Engine machinery. Open a browser tab and enter &quot;localhost:8080&quot; to run.<br>
+            <br>
+          More precisely, 8080 is the default port number. At the start of ide/api.py, if the variable &quot;localport&quot; is XXXX instead of 8080, to start up the application you must execute dev_appserver.py --port=XXXX /..../glowscript/app.yaml and the browser must point to &quot;localhost:XXXX&quot;.</p>
         <p class="Normal"><strong>* Testing your changes</strong><br />
-          Suppose the current version of GlowScript is 2.7. Change the version number in a program to 2.8dev; that is, 0.1 greater than the current 2.7, plus dev. When you run the program, it will use your latest JavaScript changes. If you make further changes to the JavaScript code, just reload the program edit page to get the latest changes. <br />
+          Suppose the current version of GlowScript is 2.7. Change the version number in a program to 2.8dev; that is, 0.1 greater than the current 2.7, plus dev. When you run the program, it will use your latest JavaScript changes. If you make further changes to the JavaScript code, just re-execute a test program to get the latest changes. You don't have to restart the application.<br />
           <br />
           If you want to remake/update the existing version 2.7, or create a new version 2.8, see MakingNewVersion.txt in the docs folder of the GlowScript GitHub repository. Note that use of the build program requires that there be an appropriate version of node in the build-tools folder.<br />
           <br />

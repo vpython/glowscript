@@ -87,7 +87,15 @@ This has not actually been done so far.
     (This includes vectors_no_overload.js instead of vectors.js.)
 *********************************************************************************************
 
-Deploy in GAE launcher; note that at this point property.js should have version 0.5dev.
+Note that at this point property.js should have version 0.5dev.
+
+If using the graphical Google App Engine launcher, click "Deploy" to upload the new version.
+
+After July 30, 2020, the graphical Google App Engine launcher will not work, and one must
+use the gcloud machinery in a terminal. See www.glowscript.org/docs/GlowScriptDocs/local.html
+for instructions on installing gcloud. To deploy the new version, in a terminal cd to the
+glowscript project and execute "gcloud app deploy". (If this is the first time that you are
+deploying to a test site, execute "gcloud app deploy app.yaml dispatch.yaml".)
 
 Test that version 0.3 programs still work, that version 0.4 programs work, 
 that 0.4dev programs give an error, that 0.4 is the default version for a new program, 
