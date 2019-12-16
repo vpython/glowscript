@@ -575,7 +575,8 @@ $(function () {
         page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}))
         pageBody.html(page)
 
-        function createDialog( templ, doCreate ) { // dialog for creating a new program
+        function createDialog( templ, doCreate ) {
+            // dialog for creating a new program (temp1 == '#prog-new-dialog') or a new folder (temp1 == '#folder-new-dialog')
             var $dialog = $(templ).clone().removeClass("template")
             $dialog.dialog({
                 width: 300,
@@ -598,7 +599,7 @@ $(function () {
             })
         }
     	
-        function copyOrRename(dialog, oldfolder, oldname) {
+        function copyOrRename(dialog, oldfolder, oldname) { // copy or rename a program
             renameDialog(dialog, oldname, function($dlg) {
                 var newname = $dlg.find('input[name="name"]').val()
                 newname = newname.replace(/ /g,'') // There are problems with spaces or underscores in names
@@ -729,6 +730,10 @@ $(function () {
                 	alert('A folder name cannot contain "/".')
                 	return false
                 }
+                if (name in set_of_folders) {
+                    alert('There already exists a folder named "'+name+'"')
+                    return false
+                }
                 var p = $dlg.find('input[name="isPublic"]').is(":checked") // true is checked, which means public
                 apiPut({user:username, folder:name}, {public:p}, function () {
                     navigate( {page:"folder", user:username, folder:name} )
@@ -762,11 +767,21 @@ $(function () {
                 	alert('A program name cannot contain "/".')
                 	return false
                 }
-                else {
-                    apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
-                        navigate({page:"edit", user:username, folder:folder, program:name})
-                    })
-                }
+                var ok = true
+                apiGet( {user:username, folder:folder, program:LIST}, function (data) {
+                    for (var pi=0; pi<data.programs.length; pi++) {
+                        if (data.programs[pi].name === name) {
+                            ok = false
+                            alert('There already exists a program named "'+name+'"')
+                            break
+                        }
+                    }
+                    if (ok) {
+                        apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
+                            navigate({page:"edit", user:username, folder:folder, program:name})
+                        })
+                    }
+                })
             })
             return false
         })
