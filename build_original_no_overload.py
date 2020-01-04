@@ -33,36 +33,36 @@ import re, os, subprocess
 ##shader_file = "\n".join(shader_file)
 ##open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "2.8"
+version = "2.9"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
     "run": [
-        "../lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with later versions
-        "../lib/flot/jquery.flot.js",
-        "../lib/flot/jquery.flot.crosshair_GS.js",
-        "../lib/opentype/poly2tri.js",
-        "../lib/opentype/opentype.js",
-        "../lib/glMatrix.js",
-        "../lib/webgl-utils.js",
-        "../lib/glow/property.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/jquery/"+"2.1"+"/jquery.mousewheel.js", # use 2.1 lib with later versions
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/flot/jquery.flot.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/flot/jquery.flot.crosshair_GS.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/opentype/poly2tri.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/opentype/opentype.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glMatrix.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/webgl-utils.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/property.js",
 ##        "../lib/glow/vectors.js",
-        "../lib/glow/vectors_no_overload.js", # glowcomm doesn't need or want overloading
-        "../lib/glow/mesh.js",
-        "../lib/glow/canvas.js",
-        "../lib/glow/orbital_camera.js",
-        "../lib/glow/autoscale.js",
-        "../lib/glow/WebGLRenderer.js",
-        "../lib/glow/graph.js",
-        "../lib/glow/color.js",
-        "../lib/glow/shapespaths.js",
-        "../lib/glow/primitives.js",
-        "../lib/glow/api_misc.js",
-        "../lib/glow/extrude.js",
-        "../lib/glow/shaders.gen.js"
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/vectors_no_overload.js", # glowcomm doesn't need or want overloading
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/mesh.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/canvas.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/orbital_camera.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/autoscale.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/WebGLRenderer.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/graph.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/color.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/shapespaths.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/primitives.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/api_misc.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/extrude.js",
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/glow/shaders.gen.js"
         ],
     "plotly": [
-        "../lib/plotly.js"
+        "/Users/atitus/Developer/glowscript-fork/glowscript/lib/plotly.js"
         ]
     }
 
@@ -79,14 +79,15 @@ def combine(inlibs):
     return "\n".join(all)
 
 env = os.environ.copy()
-env["NODE_PATH"] = "build-tools/UglifyJS"
+env["NODE_PATH"] = "/Users/atitus/Developer/glowscript-fork/glowscript/build-tools"
 
 def minify(inlibs, inlibs_nomin, outlib):
     all = combine(inlibs)
     outf = open(outlib, "wb")
     
     if True: # minify if True
-        uglify = subprocess.Popen( "build-tools/node.exe build-tools/Uglify-ES/uglify-es/bin/uglifyjs",
+#        uglify = subprocess.Popen( "build-tools/node.exe build-tools/Uglify-ES/uglify-es/bin/uglifyjs",
+        uglify = subprocess.Popen( "/Users/atitus/Developer/glowscript-fork/glowscript/build-tools/node /Users/atitus/Developer/glowscript-fork/glowscript/build-tools/Uglify-ES/uglify-es/bin/uglifyjs",
             stdin=subprocess.PIPE,
             stdout=outf,
             stderr=outf, # write uglify errors into output file
@@ -101,8 +102,8 @@ def minify(inlibs, inlibs_nomin, outlib):
     outf.write( combine(inlibs_nomin) )
     outf.close()
 
-minify( glowscript_libraries["run"], [], "ForInstalledPython/glow.min.js" )
+minify( glowscript_libraries["run"], [], "/Users/atitus/Developer/glowscript-fork/glowscript/ForInstalledPython/glow.min.js" )
 print('Finished glow run-time package\n')
-minify( glowscript_libraries["plotly"], [], "ForInstalledPython/plotly.min.js" )
+minify( glowscript_libraries["plotly"], [], "/Users/atitus/Developer/glowscript-fork/glowscript/ForInstalledPython/plotly.min.js" )
 print('Finished glow run-time package\n')
 
