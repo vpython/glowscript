@@ -1,3 +1,11 @@
+At https://youtu.be/lV_q3UqjsGA is a video of a Jan. 2020 workshop on the architecture of GlowScript VPython. 
+
+A pdf of the slides including the tasks carried out by the participants is available at 
+   https://github.com/vpython/glowscript/blob/master/docs/GlowScriptArchitecture%20.pdf
+
+Here is a document on how to install the GlowScript software locally so as to be able to experiment with changing the code, as did the participants in the workshop: 
+   https://www.glowscript.org/docs/GlowScriptDocs/local.html
+
 THE ELEMENTS OF THE GLOWSCRIPT LIBRARY
 
 See www.glowscript.org/docs/GlowScriptDocs/local.html for instructions on
