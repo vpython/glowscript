@@ -1,51 +1,50 @@
-At https://youtu.be/lV_q3UqjsGA is a video of a Jan. 2020 workshop on the architecture of GlowScript VPython. 
+Jan. 2020 workshop on the architecture of GlowScript VPython: 
+[![Jan. 2020 Workshop](https://img.youtube.com/vi/lV_q3UqjsGA/0.jpg)](https://www.youtube.com/watch?v=lV_q3UqjsGA)
 
-A pdf of the slides including the tasks carried out by the participants is available at 
-   https://github.com/vpython/glowscript/blob/master/docs/GlowScriptArchitecture%20.pdf
-
-Here is a document on how to install the GlowScript software locally so as to be able to experiment with changing the code, as did the participants in the workshop: 
-   https://www.glowscript.org/docs/GlowScriptDocs/local.html
-
-THE ELEMENTS OF THE GLOWSCRIPT LIBRARY
+[A pdf of the slides including the tasks carried out by the participants](https://github.com/vpython/glowscript/blob/master/docs/GlowScriptArchitecture%20.pdf)
+   
+[How to install the GlowScript software locally](https://www.glowscript.org/docs/GlowScriptDocs/local.html) so as to be able to experiment with changing the code, as did the participants in the workshop
+   
+## THE ELEMENTS OF THE GLOWSCRIPT LIBRARY
 
 See www.glowscript.org/docs/GlowScriptDocs/local.html for instructions on
 how to install software to be able to make and test changes to GlowScript VPython.
 
 When testing locally, you may need to change the port number 8080 in
-      ide/api.py and untrusted/run.js.
+      `ide/api.py` and `untrusted/run.js`.
 
 If you will upload to a site other than glowscript.org, you need to change the name of 
-the application in app.yaml, and at the start of ide/ide.js, ide/api.py, and untrusted/run.js
+the application in `app.yaml`, and at the start of `ide/ide.js`, `ide/api.py`, and `untrusted/run.js`
 
 
-COMPILATION
+### COMPILATION
 
-The main compilation program is lib/compiling/GScompiler.js. Additional comments
+The main compilation program is `lib/compiling/GScompiler.js`. Additional comments
 on GScompiler.js are included in the file itself. Also, at the start of the file
 are instructions on how to obtain others' libraries, such as RapydScript-NG.
 
-Triggered by a "Run" event in ide/index.html, the sandboxed untrusted/run.js calls
+Triggered by a "Run" event in `ide/index.html`, the sandboxed `untrusted/run.js` calls
 the appropriate compiler and run-time package corresponding to the version number
 specified in the first line of the user program (e.g. GlowScript 2.7 VPython).
 
-FIRST PASS
-Parse each line into indent plus substance plus inline comment, removing trailing spaces.
-During first pass accumulate a list of functions, fcts.
-Watch for and report location of unbalanced (), [], {}, ', ", ''', """.
-Replace delete with remove, as delete is a JavaScript reserved word.
-Parse import statements, including making list of objects imported.
-    Except for vpython, the Python random library is currently the only Python library 
+#### FIRST PASS
+- Parse each line into indent plus substance plus inline comment, removing trailing spaces.
+- During first pass accumulate a list of functions, fcts.
+- Watch for and report location of unbalanced `()`, `[]`, `{}`, `'`, `"`, `'''`, `"""`.
+- Replace `delete` with `remove`, as `delete` is a JavaScript reserved word.
+- Parse import statements, including making list of objects imported.
+    - Except for vpython, the Python `random` library is currently the only Python library 
     that can be imported thanks to a JavaScript implementation by RapydScript-NG.
-    The random library is not complete but contains seed_state, get_random_byte, seed,
-    random, randrange, randint, uniform, choice, shuffle, and sample.
-Look for function declarations and function calls that are outside strings.
-    If inside a string, change the name to name+'~!#' so that this mention will
+    The `random` library is not complete but contains `seed_state`, `get_random_byte`, `seed`,
+    `random`, `randrange`, `randint`, `uniform`, `choice`, `shuffle`, and `sample`.
+- Look for function declarations and function calls that are outside strings.
+    - If inside a string, change the name to name+'~!#' so that this mention will
     not be found in a later search for "name(".
-Insert original line number as a statement of the form 'RS_ls = "line number"\n'.
-Such a statement survives later compile operations, which makes it possible (in Chrome)
+- Insert original line number as a statement of the form `RS_ls = "line number"\n`.
+- Such a statement survives later compile operations, which makes it possible (in Chrome)
     to report the original line number of an error.
 
-SECOND PASS
+#### SECOND PASS
 Pass preprocessed Python to RapydScript-NG transpiler, which produces JavaScript.
 Check for 3D text statement, in which case insert code to acquire fonts.
 Replace .delete with .remove.
