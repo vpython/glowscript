@@ -56,7 +56,7 @@ $(function () {
         if (okv === undefined) okv = false
         var unpackaged = (okv === "unpackaged")
         return {
-            version: ver,
+            version: okv,
             lang: ret.lang,
             source: rest, 
             ok: okv, 
@@ -65,7 +65,7 @@ $(function () {
         }
     }
     
-    parseVersionHeader.defaultVersion = "2.8"
+    parseVersionHeader.defaultVersion = "2.9"
     parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
     parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
@@ -87,6 +87,7 @@ $(function () {
         "2.6": "2.6",
         "2.7": "2.7",
         "2.8": "2.8",
+        "2.9": "2.9",
         "0.4dev" : "0.4",
         "0.5dev" : "0.5",
         "0.6dev" : "0.6",
@@ -102,7 +103,8 @@ $(function () {
         "2.6dev" : "2.6",
         "2.7dev" : "2.7",
         "2.8dev" : "2.8",
-        "2.9dev" : "unpackaged",
+        "2.9dev" : "2.9",
+        "3.0dev" : "unpackaged"
     }
 
     /******** Functions to talk to the API on the server ***********/
@@ -493,8 +495,8 @@ $(function () {
     function date_to_string(t) {
     	if (t != 'None') {
         	// prog.datetime is UTC; here we convert to local time for display purposes
-        	var patt = new RegExp('(\\d*)-(\\d*)-(\\d*)\\s(\\d*):(\\d*):(\\d*\\.\\d*)')
-        	var m = patt.exec(t)
+        	var patt = new RegExp('(\\d*)-(\\d*)-(\\d*)\\s(\\d*):(\\d*):(\\d*[.]*\\d*)')
+            var m = patt.exec(t)
         	var year = Number(m[1])
         	var month = Number(m[2])
         	var day = Number(m[3])
@@ -573,7 +575,8 @@ $(function () {
         page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}))
         pageBody.html(page)
 
-        function createDialog( templ, doCreate ) { // dialog for creating a new program
+        function createDialog( templ, doCreate ) {
+            // dialog for creating a new program (temp1 == '#prog-new-dialog') or a new folder (temp1 == '#folder-new-dialog')
             var $dialog = $(templ).clone().removeClass("template")
             $dialog.dialog({
                 width: 300,
@@ -596,7 +599,7 @@ $(function () {
             })
         }
     	
-        function copyOrRename(dialog, oldfolder, oldname) {
+        function copyOrRename(dialog, oldfolder, oldname) { // copy or rename a program
             renameDialog(dialog, oldname, function($dlg) {
                 var newname = $dlg.find('input[name="name"]').val()
                 newname = newname.replace(/ /g,'') // There are problems with spaces or underscores in names
@@ -727,6 +730,10 @@ $(function () {
                 	alert('A folder name cannot contain "/".')
                 	return false
                 }
+                if (name in set_of_folders) {
+                    alert('There already exists a folder named "'+name+'"')
+                    return false
+                }
                 var p = $dlg.find('input[name="isPublic"]').is(":checked") // true is checked, which means public
                 apiPut({user:username, folder:name}, {public:p}, function () {
                     navigate( {page:"folder", user:username, folder:name} )
@@ -760,11 +767,21 @@ $(function () {
                 	alert('A program name cannot contain "/".')
                 	return false
                 }
-                else {
-                    apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
-                        navigate({page:"edit", user:username, folder:folder, program:name})
-                    })
-                }
+                var ok = true
+                apiGet( {user:username, folder:folder, program:LIST}, function (data) {
+                    for (var pi=0; pi<data.programs.length; pi++) {
+                        if (data.programs[pi].name === name) {
+                            ok = false
+                            alert('There already exists a program named "'+name+'"')
+                            break
+                        }
+                    }
+                    if (ok) {
+                        apiPut({user:username, folder:folder, program:name}, { source: parseVersionHeader.defaultHeader+"\n" }, function () {
+                            navigate({page:"edit", user:username, folder:folder, program:name})
+                        })
+                    }
+                })
             })
             return false
         })
@@ -1141,7 +1158,8 @@ $(function () {
                         embedScript = embedScript.slice(0,where+1) + embedScript.slice(where+13,embedScript.length)
                     }
                     var v = Number(header.version.substr(0,3))
-                    if (v >= 2.8) main = 'main(function(err) {;})' // Starting June 2019, using up-to-date Streamline file
+                    if (v >= 2.9) main = '__main__()' // Starting August 2019, no longer using Streamine
+                    else if (v == 2.8) main = 'main(function(err) {;})' // Starting June 2019, using up-to-date Streamline file
                     else if (v >= 2.0) main = 'main(__func)' // Starting Dec. 2015, using Streamline files from Salvatore di Dio
                     else main = 'main()'
                     embedScript = ";(function() {" + embedScript + '\n;$(function(){ window.__context = { glowscript_container: $("#' + divid + '")'+remove+' }; '+main+' })})()'

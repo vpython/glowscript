@@ -6,38 +6,28 @@
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython: <a href="VisualIntro.html">Introduction</a></p>
-      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
-      <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
-        
-    <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
-      <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="https://www.python.org" target="_blank">Python web site</a> <br /></p></td>
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="new_features.html">&nbsp;&nbsp;What's new</a></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp;&nbsp;Classic VPython web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <a href="https://www.python.org" target="_blank">&nbsp;&nbsp;Python web site</a> <br /></p></td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
 
         <h1 class="Heading-1"> <font color="#0000A0">Mouse Interactions</font>        </h1>
         <p class="Normal">For basic examples of mouse handling, 
@@ -78,7 +68,6 @@ scene.waitfor('mousedown mousemove') # either event<br />
   <br />
   scene.bind('click keydown', process)</p>
 <p class="Normal"></p>
-<p class="Normal"><strong>Important limitation of GlowScript VPython:</strong> In situations such as this &quot;process&quot; example, the bound function cannot contain the statements rate, sleep, pause, waitfor, get_library, or read_local_file, statements that require pausing during execution. A related issue is that a function f(...) that is not bound to an event but which contains one of these special statements (rate, etc.) cannot contain a default variable such as f(y=5); in such a case one must pass a dictionary to the function and determine which variables are in that dictionary. These limitations do not apply to VPython 7.</p>
 <p class="Normal">The quantity <span class="attribute">ev.event</span> will be 'keydown' if a key was pressed or 'mousedown' if the left mouse button was pressed. The quantity <span class="attribute">ev.which</span> is the numerical key code or mouse button indicator (mouse button is always 1 for now). For example, <span class="attribute">ev.which</span> is 65 for the 'a' key. The quantity <span class="attribute">ev.key</span> is the corresponding character string, such as 'a' or 'delete'. </p>
 <p class="Normal">The quantity <span class="attribute">ev.canvas</span> is the canvas associated with the event. You can bind events on different canvases to the same function and be able to tell in which canvas the event occurred.</p>
 <p class="Normal">Note  that <span class="attribute">scene.mouse.shift</span> is true if the shift key is down at the time of the keyboard event; similarly for <span class="attribute">scene.mouse.ctrl</span> and <span class="attribute">scene.mouse.alt</span>.</p>
@@ -192,12 +181,9 @@ scene.bind('click', change)</p>
         <br />
         box(pos=vector(1,0,0))</p>
 <p class="Normal">We bind click events to the function clickFunc, and we bind our own special event type 'color_the_ball' to the function ballFunc. The function clickFunc is executed when the user clicks the mouse. This function creates a small sphere at the location of the mouse click, then triggers an event 'color_the_ball', with the effect of passing to the function ballFunc the sphere object. Finally ballFunc applies a color to the sphere. (Obviously one could color the sphere in clickFunc; the example is just for illustration of the basic concept.)    </p>
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
 <script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>

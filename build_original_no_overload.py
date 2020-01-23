@@ -33,7 +33,7 @@ import re, os, subprocess
 ##shader_file = "\n".join(shader_file)
 ##open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "2.7"
+version = "2.8"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
@@ -59,9 +59,7 @@ glowscript_libraries = {
         "../lib/glow/primitives.js",
         "../lib/glow/api_misc.js",
         "../lib/glow/extrude.js",
-        "../lib/glow/shaders.gen.js",
-        "../lib/compiling/transform.js" # older version
-        #"../lib/compiling/transform-es6.min.js" # needed at run time as well as during compiling
+        "../lib/glow/shaders.gen.js"
         ],
     "plotly": [
         "../lib/plotly.js"

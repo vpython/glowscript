@@ -12,38 +12,28 @@
 -->
 </style>
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython: <a href="VisualIntro.html">Introduction</a></p>
-      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
-      <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
-        
-    <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
-      <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="https://www.python.org" target="_blank">Python web site</a> <br /></p></td>
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="new_features.html">&nbsp;&nbsp;What's new</a></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp;&nbsp;Classic VPython web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <a href="https://www.python.org" target="_blank">&nbsp;&nbsp;Python web site</a> <br /></p></td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
       <div>
         <table width="100%" border="1">
           <tr>
@@ -58,7 +48,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal">You can leave a trail behind a moving object simply by specifying <span class="attribute">make_trail=True</span>:</p>
         <div>
         <p class="program"> ball = sphere(make_trail=True)</p>
-        <p class="Normal"> Each time the scene is rendered, the new position <span class="attribute">ball.pos</span> is added to a curve, thereby leaving a trail behind the moving sphere. This works with arrow, box, compound objects, cone, cylinder, ellipsoid, extrusion, helix, pyramid, ring, and sphere.</p>
+        <p class="Normal"> Each time the scene is rendered, the new position <span class="attribute">ball.pos</span> is added to a curve, thereby leaving a trail behind the moving sphere. This works with all objects, including compound objects, except for the curve and points objects.</p>
         <p class="Normal">You can specify using a points object rather than a curve object for displaying the trail, and you can specify how many points to skip or retain:</p>
         <p class="program"> ball = sphere(make_trail=True, trail_type=&quot;points&quot;,<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval=10, retain=50)</p>
@@ -134,7 +124,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <div>
                       <p class="program">attach_arrow(ball, &quot;axis&quot;, scale=1e3,<br />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      shaftwidth=0.3, color=color.green)</p>
-                      <p class="Normal">The default value of scale is 1, and the default color of the arrow is the color of the ball. You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:</p>
+                      <p class="Normal">The default value of scale is 1, the default color of the arrow is the color of the ball, and (not yet in VPython 7) the default shaftwidth is 0.5*ball.size.y. You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:</p>
                       <div></div>
                       <div>
                         <p class="program">attach_arrow(ball, &quot;velocity&quot;)</p>
@@ -162,12 +152,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         </div>
       </div>
 <p class="Normal"></p>
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
 <script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>

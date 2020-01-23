@@ -1,4 +1,5 @@
 // IDE functionality
+// This file has to handle ALL versions of GlowScript.
 var localport = '8080' // normally 8080
 var website = 'glowscript' // normally glowscript
 var runloc = (document.domain == "localhost") ? "http" : "https"
@@ -29,48 +30,145 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
         "../lib/glow/shapespaths.js",
         "../lib/glow/primitives.js",
         "../lib/glow/extrude.js",
-        "../lib/glow/shaders.gen.js",
-        //"../lib/compiling/transform.js" // older, obsolete Streamline transform.js needed for running programs embedded in other web sites
-        //"../lib/compiling/transform-es6.min.js" // Streamline transform.js needed for running programs embedded in other web sites
-        //"../lib/compiling/transform-es6.js" // Streamline transform.js needed for running programs embedded in other web sites
+        "../lib/glow/shaders.gen.js"
         ],
     compile: [
         "../lib/compiling/GScompiler.js", 
         "../lib/compiling/acorn.js",
-        "../lib/compiling/papercomp.js",
-        
-        // Streamline files used until Fall 2016:
-        //"../lib/narcissus/lib/jsdefs.js",
-        //"../lib/narcissus/lib/jslex.js",
-        //"../lib/narcissus/lib/jsparse.js",
-        //"../lib/narcissus/lib/jsdecomp.js",
-        //"../lib/streamline/compiler/format.js",
-        //"../lib/streamline/compiler/transform.js",
-        
-        //"../lib/compiling/transform.js", // needed only for exporting a program
-        "../lib/coffee-script.js"
+        "../lib/compiling/papercomp.js"
         ],
     RScompile: [
         "../lib/compiling/GScompiler.js",
         "../lib/rapydscript/compiler.js", // includes runtime library
         "../lib/compiling/acorn.js",
-        "../lib/compiling/papercomp.js",
-        
-        // Streamline files used until Fall 2016:
-        //"../lib/narcissus/lib/jsdefs.js",
-        //"../lib/narcissus/lib/jslex.js",
-        //"../lib/narcissus/lib/jsparse.js",
-        //"../lib/narcissus/lib/jsdecomp.js",
-        //"../lib/streamline/compiler/format.js",
-        //"../lib/streamline/compiler/transform.js",
-        
-        //"../lib/compiling/transform.js", // needed only for exporting a program
+        "../lib/compiling/papercomp.js"
         ],
     //RSrun: [ // needed only for an exported program (runtime functions are included in the rapydscript compiler)
     //    "../lib/rapydscript/runtime.js", // minified by using jscompress.com; Uglify failed for some reason
     //    ],
     ide: []
+} 
+
+async function runprog(prog) { 
+    try {
+        eval(prog)
+        await __main__()
+    } catch(err) {
+        reportScriptError(prog, err)
+    }
 }
+
+var trusted_origin = "*"
+    
+function send(msg) {
+    msg = JSON.stringify(msg)
+    // trusted_origin is "*" the first time send is used; "https://www."+website+".org" thereafter
+    // The first send operation is just to make the link with ide.js, which may be glowscript.org or www.glowscript.org
+    window.parent.postMessage(msg, trusted_origin)
+}
+
+function reportScriptError(program, err) { // This machinery only gives trace information on Chrome
+    // The trace information provided by browsers other than Chrome does not include the line number
+    // of the user's program, only the line numbers of the GlowScript libraries. For that reason
+    // none of the following cross browser stack trace reporters are useful for GlowScript:
+    // Single-page multibrowser stack trace: https://gist.github.com/samshull/1088402
+    // stacktrase.js https://github.com/stacktracejs/stacktrace.js    https://www.stacktracejs.com/#!/docs/stacktrace-js
+    // tracekit.js; https://github.com/csnover/TraceKit
+    var feedback = err.toString()+'\n'
+    var compile_error = (feedback.slice(0,7) === 'Error: ')
+    var prog = program.split('\n')
+    //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
+    var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
+    var traceback = []
+    if (err.cursor) {
+        //console.log('err.cursor',err.cursor)
+        // This is a syntax error from narcissus; extract the source
+        var c = err.cursor
+        while (c > 0 && err.source[c - 1] != '\n') c--;
+        traceback.push(err.source.substr(c).split("\n")[0])
+        //traceback.push(new Array((err.cursor - c) + 1).join(" ") + "^") // not working properly
+    } else {
+        // This is a runtime exception; extract the call stack if possible
+        // Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
+        // and at other times it is one long string; in the latter case we have to create rawStack
+        // as an array of strings. Also, sometimes must access err.stack and sometimes must access
+        // err.__proto__.stack; Chrome seems to flip between these two schemes.
+        var usestack = false
+        try {
+            var a = err.stack
+            usestack = true
+        } catch (ignore) {
+        }
+        try {
+            var rawStack
+            if (usestack) {
+                rawStack = err.stack
+                if (typeof err.stack == 'string') rawStack = rawStack.split('\n')
+            } else {
+                var rawStack = err.__proto__.stack
+                if (typeof rawStack == 'string') rawStack = rawStack.split('\n')
+                else rawStack = rawStack.toString()
+            }
+
+            // TODO: Selection and highlighting in the dialog
+            var first = true
+            var i, m, caller, jsline, jschar
+            for (i=1; i<rawStack.length; i++) {
+                m = rawStack[i].match(unpack)
+                if (m === null) continue
+                caller = m[1]
+                jsline = m[2]
+                jschar = m[3]
+                if (caller.slice(0,3) == 'RS_') continue
+                if (caller == 'compileAndRun') break
+                if (caller == 'main') break
+
+                var line = prog[jsline-1]
+                if (window.__GSlang == 'javascript') { // Currently unable to embed line numbers in JavaScript programs
+                    traceback.push(line)
+                    traceback.push("")
+                    break
+                }
+                var L = undefined
+                var end = undefined
+                for (var c=jschar; c>=0; c--) {  // look for preceding "linenumber";
+                    if (line[c] == ';') {
+                        if (c > 0 && line[c-1] == '"') {
+                            var end = c-1 // rightmost digit in "23";
+                            c--
+                        }
+                    } else if (line[c] == '"' && end !== undefined) {
+                        L = line.slice(c+1,end)
+                        break
+                    } else if (c === 0) {
+                        jsline--
+                        line = prog[jsline-1]
+                        c = line.length
+                    }
+                }
+                if (L === undefined) continue
+                var N = Number(L)
+                if (isNaN(N)) break // Sometimes necessary.....
+                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-2])
+                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
+                first = false
+                traceback.push("")
+                if (caller == '__$main') break
+            }
+        } catch (ignore) {
+        }
+    } 
+
+    var out = ''
+    if (compile_error) {
+        for (var i= 0; i<traceback.length; i++) out += traceback[i] + '\n'
+        send({ error: feedback, traceback: out })
+    } else {
+        for (var i= 0; i<traceback.length; i++) out += traceback[i] + '\n'
+        send({ error: feedback, traceback: out})
+    }
+
+} // end of reportScriptError
 
 function ideRun() {
     "use strict";
@@ -79,29 +177,11 @@ function ideRun() {
         return eval(x)
     }
 
-    var trusted_origin = "*"
-    //var also_trusted = undefined;
     if (document.domain === "localhost") {
         // We are being loaded from a development server; we don't know if the parent is also running on
         // a development server or is the actual web site
-        //also_trusted = "https://localhost:"+localport
     	trusted_origin = "http://localhost:"+localport // this eliminates some irrelevant error messages when testing
     }
-
-    function send(msg) {
-        msg = JSON.stringify(msg)
-        // trusted_origin is "*" the first time send is used; "https://www."+website+".org" thereafter
-        // The first send operation is just to make the link with ide.js, which may be glowscript.org or www.glowscript.org
-        window.parent.postMessage(msg, trusted_origin)
-        //if (also_trusted) window.parent.postMessage(msg, also_trusted)
-    }
-    
-    /*
-    function msclock() {
-    	if (performance.now) return performance.now()
-    	else return new Date().getTime()
-    }
-    */
 
     function waitScript() {
         $(window).bind("message", receiveMessage)
@@ -115,7 +195,7 @@ function ideRun() {
             var message = JSON.parse(event.data)
             if (message.program !== undefined) {
                 // Determine the set of libraries to load
-                var progver = message.version.substr(0,3)
+                var progver = message.version.substr(0,3) // 'unp' if unpackaged
                 var packages = []
                 var choose = progver
                 var ver = Number(progver)
@@ -172,36 +252,52 @@ function ideRun() {
                 message.event.fromParentFrame = true
                 $(document).trigger(message.event)
             }
-            if (message.screenshot !== undefined)
+            if (message.screenshot !== undefined) {
                 screenshot(false)
+            }
         }
-    }    
+    }  
+
+    var ver
 
     function compileAndRun(program, container, lang, version) {
-        try {
-            if (program.charAt(0) == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
-            var options = {lang: lang, version: version, run: true}
-            var program = glowscript_compile(program, options)
-            var v = parseFloat(options.version), usermain
-            if (v < 2.9) usermain = eval(program)
-            else usermain = Function(program)
-            // At this point the user program has not been executed.
-            // Rather, the user program has been prepared to be run.
-            window.userMain = usermain
+        if (program[0] == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
+        var options = {lang: lang, version: version, run: true}
+        try { // compile the user program:
+            program = glowscript_compile(program, options)
+        } catch(err) {
+            send({ error: err.toString(), traceback: ''})
+            return
+        }
+        $("#loading").remove() // remove the 'Loading program...' message, establish the window context
+        window.__context = { glowscript_container: container }
 
-            $("#loading").remove()
-            window.__context = {
-                glowscript_container: container
+        // See https://itnext.io/error-handling-with-async-await-in-js-26c3f20bc06a for catching error in async function
+        // Function() doc: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function
+
+        if (options.version == 'unp') ver = 'unp' // version is first 3 characters of 'unpublished" (e.g. 3.0dev)
+        else ver = parseFloat(options.version)
+
+        if (ver >= 2.9 || ver == 'unp') { // GlowScript 2.9 and later
+            runprog(program)
+        } else {
+            try { // GlowScript earlier than 2.9
+                window.userMain = eval(program)
+                //usermain = eval(program)
+                // At this point the user program has not been executed.
+                // Rather, the user program has been prepared to be run.
+                //window.userMain = usermain
+
+                window.userMain(function (err) {
+                    if (err) {
+                        window.lasterr = err
+                        reportScriptError(program, err)
+                    }
+                })
+            } catch (err) {
+                window.lasterr = err
+                reportScriptError(program, err)
             }
-            window.userMain(function (err) {
-                if (err) {
-                    window.lasterr = err
-                    reportScriptError(program, err)
-                }
-            })
-        } catch (err) {
-            window.lasterr = err
-            reportScriptError(program, err);
         }
     }
 
@@ -215,6 +311,27 @@ function ideRun() {
             }
         }
         if (!scene) return
+        if (ver >= 2.9 || ver == 'unp') screenshot_new(isAuto, scene) // GlowScript 2.9 or later
+        else screenshot_old(isAuto, scene)
+    }
+
+    async function screenshot_new(isAuto, scene) { // GlowScript 2.9 and later
+        var img = await scene.__renderer.screenshot()
+        // Rescale the image to 128px max dimension and save it as a screenshot
+        var targetSize = 128
+        var aspect = img.width / img.height
+        var w = aspect >= 1 ? targetSize : targetSize * aspect
+        var h = aspect >= 1 ? targetSize / aspect : targetSize
+        var cvs = document.createElement("canvas")
+        cvs.width = w
+        cvs.height = h
+        var cx = cvs.getContext('2d')
+        cx.drawImage(img, 0, 0, w, h)
+        var thumbnail = cvs.toDataURL()
+        send({ screenshot: thumbnail, autoscreenshot: isAuto })
+    }
+
+    function screenshot_old(isAuto, scene) { // GlowScript earlier than 2.9
         (scene.__renderer || scene.renderer).screenshot(function (err, img) {
             if (!err) {
                 $(img).load(function () {
@@ -230,115 +347,11 @@ function ideRun() {
                     var cx = canvas.getContext('2d')
                     cx.drawImage(img, 0, 0, w, h)
                     var thumbnail = canvas.toDataURL()
-
                     send({ screenshot: thumbnail, autoscreenshot: isAuto })
                 })
             }
         })
     }
-
-    function reportScriptError(program, err) { // This machinery only gives trace information on Chrome
-        // The trace information provided by browsers other than Chrome does not include the line number
-        // of the user's program, only the line numbers of the GlowScript libraries. For that reason
-        // none of the following cross browser stack trace reporters are useful for GlowScript:
-        // Single-page multibrowser stack trace: https://gist.github.com/samshull/1088402
-        // stacktrase.js https://github.com/stacktracejs/stacktrace.js    https://www.stacktracejs.com/#!/docs/stacktrace-js
-        // tracekit.js; https://github.com/csnover/TraceKit
-        var feedback = err.toString()+'\n'
-        var compile_error = (feedback.slice(0,7) === 'Error: ')
-        var prog = program.split('\n')
-        //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
-    	var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
-    	var traceback = []
-        if (err.cursor) {
-        	//console.log('err.cursor',err.cursor)
-            // This is a syntax error from narcissus; extract the source
-            var c = err.cursor
-            while (c > 0 && err.source[c - 1] != '\n') c--;
-            traceback.push(err.source.substr(c).split("\n")[0])
-            //traceback.push(new Array((err.cursor - c) + 1).join(" ") + "^") // not working properly
-        } else {
-            // This is a runtime exception; extract the call stack if possible
-            // Strange behavior: sometimes err.stack is an array of end-of-line-terminated strings,
-            // and at other times it is one long string; in the latter case we have to create rawStack
-            // as an array of strings. Also, sometimes must access err.stack and sometimes must access
-            // err.__proto__.stack; Chrome seems to flip between these two schemes.
-            var usestack = false
-            try {
-                var a = err.stack
-                usestack = true
-            } catch (ignore) {
-            }
-            try {
-                var rawStack
-                if (usestack) {
-                    rawStack = err.stack
-                    if (typeof err.stack == 'string') rawStack = rawStack.split('\n')
-                } else {
-                    var rawStack = err.__proto__.stack
-                    if (typeof rawStack == 'string') rawStack = rawStack.split('\n')
-                    else rawStack = rawStack.toString()
-                }
-
-                // TODO: Selection and highlighting in the dialog
-                var first = true
-                var i, m, caller, jsline, jschar
-                for (i=1; i<rawStack.length; i++) {
-                    m = rawStack[i].match(unpack)
-	                if (m === null) continue
-	                caller = m[1]
-	                jsline = m[2]
-	                jschar = m[3]
-                	if (caller.slice(0,3) == 'RS_') continue
-                    if (caller == 'compileAndRun') break
-                    if (caller == 'main') break
-
-                	var line = prog[jsline-1]
-                    if (window.__GSlang == 'javascript') { // Currently unable to embed line numbers in JavaScript programs
-    	                traceback.push(line)
-                        traceback.push("")
-                        break
-                    }
-                	var L = undefined
-                	var end = undefined
-                	for (var c=jschar; c>=0; c--) {  // look for preceding "linenumber";
-                		if (line[c] == ';') {
-                			if (c > 0 && line[c-1] == '"') {
-	                			var end = c-1 // rightmost digit in "23";
-	                			c--
-                			}
-                		} else if (line[c] == '"' && end !== undefined) {
-                			L = line.slice(c+1,end)
-                			break
-                		} else if (c === 0) {
-                			jsline--
-                			line = prog[jsline-1]
-                			c = line.length
-                		}
-                	}
-                	if (L === undefined) continue
-                    var N = Number(L)
-                    if (isNaN(N)) break // Sometimes necessary.....
-	                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-2])
-	                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
-	                first = false
-                    traceback.push("")
-                    if (caller == '__$main') break
-                }
-            } catch (ignore) {
-            }
-        } 
-
-        var out = ''
-        if (compile_error) {
-            for (var i= 0; i<traceback.length; i++) out += traceback[i] + '\n'
-            send({ error: feedback, traceback: out })
-        } else {
-            for (var i= 0; i<traceback.length; i++) out += traceback[i] + '\n'
-            send({ error: feedback, traceback: out})
-        }
-
-    } // end of reportScriptError
 
     waitScript()
 }

@@ -35,38 +35,28 @@
 }
 </style>
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython: <a href="VisualIntro.html">Introduction</a></p>
-      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
-      <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
-        
-    <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
-      <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="https://www.python.org" target="_blank">Python web site</a> <br /></p></td>
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="new_features.html">&nbsp;&nbsp;What's new</a></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp;&nbsp;Classic VPython web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <a href="https://www.python.org" target="_blank">&nbsp;&nbsp;Python web site</a> <br /></p></td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
       <table width="100%" border="1">
         <tr>
           <td width="99%"><div align="center" class="style2">VPython in
@@ -143,12 +133,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="Normal">2008-12-8 Release of VPython 5.0 by David Scherer and Bruce Sherwood: opacity, local lights, materials such as wood. Includes for the first time a native-mode version for the Mac.</p>
       <p class="Normal">2008-06-20 John Armstrong contributed an easy-to-use installer for VPython 3.2.11 for Intel Macs running OS X 10.5 (Leopard).</p>
       <p class="Normal">2008-03-10 A major redesign for VPython-4 Beta is underway. The central goal of the new design is to create an architecture which is more robust, easier to maintain and to extend, and easier to install and to use. The principal architects are David Scherer and Bruce Sherwood. Steve Spicklemire and Ruth Chabay have also been involved in discussions. As a result, a number of changes to the current beta version are likely. Support for textures will change. Rather than creating a texture bitmap, a programmer will be able to specify a material (such as wood). Transparency will be supported. At this point it is unclear exactly what support there will be for bitmapped images; they may be supported only as &quot;decals&quot; which can be applied to flat surfaces. Lighting options may change; it is likely that spotlights will not be supported at first in this version. You can look forward to higher-quality rendering of scenes on computers with modern graphics cards. A Macintosh version which does not require X11 or Fink will be created. Both the Windows version and the Mac version will no longer depend on the large GTK libraries, which will however still be the foundation for Linux. </p>
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
 <script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>

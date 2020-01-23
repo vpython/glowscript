@@ -472,7 +472,7 @@ class ApiAdminUpgrade(ApiRequest):
 
     def upgradeProgram(self, p):
         if not p.source.startswith("GlowScript 2.7\n"):
-            p.source = "GlowScript 2.7 VPython\n" + p.source
+            p.source = "GlowScript 2.9 VPython\n" + p.source
             return True
         #(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)/option/([^/]+)', ApiUserProgramCopy),
 

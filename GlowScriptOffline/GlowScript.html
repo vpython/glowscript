@@ -39,14 +39,14 @@
 <body class="GlowScriptBody">
 <link type="text/css" href="glowscript_libraries/jquery-ui.custom.css" rel="stylesheet" />
 <link type="text/css" href="glowscript_libraries/ide.css" rel="stylesheet" />
-<script type="text/javascript" src="glowscript_libraries/Roboto_Medium_ttf_sans.js"></script>
-<script type="text/javascript" src="glowscript_libraries/NimbusRomNo9L_Med_otf_serif.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/jquery-ui.custom.min.js"></script>
 <script type="text/javascript" src="glowscript_libraries/editor.js"></script>
-<script type="text/javascript" src="glowscript_libraries/RSrun.2.7.min.js"></script>
-<script type="text/javascript" src="glowscript_libraries/glow.2.7.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="glowscript_libraries/RSrun.2.9.min.js"></script>
+<script type="text/javascript" src="glowscript_libraries/glow.2.9.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="glowscript_libraries/split.min.js"></script>
+<script type="text/javascript" src="glowscript_libraries/Roboto_Medium_ttf_sans.js"></script>
+<script type="text/javascript" src="glowscript_libraries/NimbusRomNo9L_Med_otf_serif.js"></script>
 </body>
 
 <button onclick="runCode()">Run</button> 
@@ -60,7 +60,7 @@
 <input type="file" id="read_local_file"/>
 
 <script>
-var gsversion = 2.7
+var gsversion = 2.9
 var printpane = false
 var exporting = false // not currently in export mode
 var lastprintwidth = null
@@ -70,21 +70,7 @@ window.Jupyter_VPython = undefined
 if (!navigator.onLine) window.Jupyter_VPython = 'glowscript_data/' // get textures when offline
 // TAB at end of line should lengthen the line; implement Ctrl-1 and Ctrl-2
 
-function fontloading() { // trigger loading of fonts for 3D text
-    "use strict";
-	// override the fontloading url's in the GlowScript library
-	if (window.__font_sans === undefined) {
-		var fontrefsans = opentype_loadjs(Roboto_sans) // a sans serif font
-		window.__font_sans = fontrefsans // an opentype.js Font object
-	}
-	if (window.__font_serif === undefined) {
-        var fontrefserif = opentype_loadjs(Nimbus_serif) // a serif font
-		window.__font_serif = fontrefserif // an opentype.js Font object
-	}
-}
-fontloading() // get the sans and serif font files used by 3D text
-
-// localCompile is a modification of https://github.com/BruceSherwood/glowscript/blob/master/ide/ide.js
+// localCompile is a modification of https://github.com/vpython/glowscript/blob/master/ide/ide.js
 function localCompile(header, compReady, errordiv) {
 	errordiv.innerHTML = ""
     var compiler_url
@@ -202,28 +188,22 @@ function runCode() {
     localCompile(header, ready, gsErrordiv, false)
 }
 
+async function runprog(prog) { 
+    try {
+        eval(prog)
+        await __main__()
+    } catch(err) {
+        reportScriptError(prog, err)
+    }
+}
+
 function ready(program) {
     var w = $("#glows")
-    w[0].innerHTML = "" // Comment this and the next if get a solution for too many WebGL context
+    w[0].innerHTML = "" // Comment this and the next if get a solution for too many WebGL contexts
     w[0].innerHTML = '<div id="glowscript" class="glowscript"></div>'
-    
-    try {
-        window.userMain = eval(program)
-        // At this point the user program has not been executed.
-        // Rather, eval_script has prepared the user program to be run.
 
-        //$("#loading").remove()
-        window.__context = {
-            glowscript_container: $("#glowscript")
-        }
-        window.userMain(function (err) {
-            if (err) {
-                reportScriptError(program, err)
-            }
-        })
-    } catch (err) {
-        reportScriptError(program, err);
-    }
+    window.__context = { glowscript_container: $("#glowscript") }
+    runprog(program)
 }
 
 function exportCode() {
@@ -259,7 +239,7 @@ function showcode(sc) {
         '<scr'+'ipt type="text/javascript"><!--//--><![CDATA[//><!--\n' +
         ';(function() {' +
         sc +
-        '\n;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; main(__func) })})()\n' +
+        '\n;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()\n' +
         '\n//--><!]]></scr'+'ipt>' +
         '\n</div>')
     savecode = GSedit.getValue()

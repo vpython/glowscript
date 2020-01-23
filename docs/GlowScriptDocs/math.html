@@ -59,6 +59,9 @@
         max(a,b,c,..) # maximum of these<br />
       min(a,b,c,..) # minimum of these</p>
 <p class="Normal">Many of the quantities above are simplified forms of the JavaScript functions Math.abs(x), Math.sqrt(x), etc. <strong><a href="factorial.html">Here are details</a></strong> of the factorial and combin functions.</p>
+<p class="Normal">&nbsp;</p>
+<p class="Normal">In general, Python modules cannot be imported into VPython programs, because GlowScript VPython functions in a JavaScript environment. However, one can import the Python &quot;random&quot; module into a VPython program, provided by the RapydScript-NG tool that converts Python to JavaScript. One cannot use the form &quot;from random import *&quot; but must use &quot;import random&quot; or &quot;import random as rr&quot; (or other name) or &quot;from random import randint, uniform&quot; (or other list of functions). Here is <strong><a href="https://docs.python.org/3/library/random.html">documentation</a></strong> of the Python random module, however only seed_state, get_random_byte, seed, random, randrange, randint, uniform, choice, shuffle, and sample have been implemented in GlowScript. You do not need to import the random module in order to be able to use the random() function described above.</p>
+<p class="Normal">&nbsp;</p>
 <p class="Normal">There are functions for converting between degrees and
         radians, where there are 2*pi radians in 360 degrees: </p>
       <p class="program">radians(360) &nbsp;# equal to 2*pi<br />

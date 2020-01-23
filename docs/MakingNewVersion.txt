@@ -52,7 +52,7 @@ Add to css/redmond a folder with the new name if necessary (sometimes no change 
 
 Modify build_original.py and property.js to have version = "0.4" and
    run it to create the final packages for 0.4.  
-Then change build.py and property.js to have version = "0.5dev" and save build_original.py, 
+Then change build_original.py and property.js to have version = "0.5dev" and save build_original.py, 
 so that the 0.4 package doesn't get overwritten by accident.
 
 If you're just fixing a bug in 0.4, all you need to do is Deploy from the Google App Engine Launcher,
@@ -87,7 +87,15 @@ This has not actually been done so far.
     (This includes vectors_no_overload.js instead of vectors.js.)
 *********************************************************************************************
 
-Deploy in GAE launcher; note that at this point property.js should have version 0.5dev.
+Note that at this point property.js should have version 0.5dev.
+
+If using the graphical Google App Engine launcher, click "Deploy" to upload the new version.
+
+After July 30, 2020, the graphical Google App Engine launcher will not work, and one must
+use the gcloud machinery in a terminal. See www.glowscript.org/docs/GlowScriptDocs/local.html
+for instructions on installing gcloud. To deploy the new version, in a terminal cd to the
+glowscript project and execute "gcloud app deploy". (If this is the first time that you are
+deploying to a test site, execute "gcloud app deploy app.yaml dispatch.yaml".)
 
 Test that version 0.3 programs still work, that version 0.4 programs work, 
 that 0.4dev programs give an error, that 0.4 is the default version for a new program, 

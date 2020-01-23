@@ -5,38 +5,28 @@
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" /><!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython: <a href="VisualIntro.html">Introduction</a></p>
-      <p class="Normal">A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
-      <p class="Normal"><a href="videos.html">Introductory Videos</a></p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onChange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onChange="jumpMenu(this)"></select></p>
-        
-    <p class="Normal"><a href="new_features.html">What's new</a></p>
-    <p class="Normal"><a href="https://vpython.org" target="_blank">Classic VPython web site</a><br />
-      <a href="license.txt" target="_blank">VPython license</a><br />
-      <a href="https://www.python.org" target="_blank">Python web site</a> <br /></p></td>
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="new_features.html">&nbsp;&nbsp;What's new</a></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp;&nbsp;Classic VPython web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <a href="https://www.python.org" target="_blank">&nbsp;&nbsp;Python web site</a> <br /></p></td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
 
         <h1 class="Heading-1"> <font color="#0000A0">Controlling One or More VPython 
           
@@ -72,7 +62,7 @@ cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
 <p class="Normal"><strong> <font color="#0000A0">General-purpose options</font></strong></p>
 <p class="attributes"> <span class="attribute">width</span>, <span class="attribute">height</span> Width
               and height of the canvas area in pixels. Defaults are 640 and 400. Can be specified when creating the canvas, as in the example above, or set or changed later.</p>
-      <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (canvas forced to left side of window), &quot;right&quot; (canvas forced to right side of window), or &quot;none&quot; (the default alignment). If you have a single canvas, setting align to &quot;left&quot; causes the canvas caption to be displayed to the right of the canvas. If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot; and activate the graph by plotting something in it, then create the canvas without specifying its value of align.</p>
+      <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (canvas forced to left side of window), &quot;right&quot; (canvas forced to right side of window), or &quot;none&quot; (the default alignment). If you have a single canvas, setting align to &quot;left&quot; causes the canvas caption to be displayed to the right of the canvas. If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot; and activate the graph by plotting something in it, then create the canvas without specifying its value of align. Another option is to specify align='left' for all canvases and graphs, in which case they will abutt each other.</p>
       <p class="attributes"><span class="attribute">resizable</span> If True (the default) the user can resize the canvas. If C is a canvas that is resizable, then <strong>C.bind('resize', R)</strong> will execute the function R when the user resizes that canvas. If R has the form <strong>def R(ev):</strong>, then ev.event will be 'resize' and ev.canvas will be the canvas C.</p>
       <p class="attributes"> <span class="attribute">background</span> Set color 
       to be used to fill the canvas; default is black.</p>
@@ -94,7 +84,7 @@ cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red      </p>
       <p class="attributes"> <span class="attribute">visible </span>Setting scene.visible = False means that no objects are displayed, until scene.visible is set True again.</p>
       <p class="attributes"><span class="attribute">delete() </span>Deletes all the objects in this canvas and then deletes the canvas itself</p>
-      <p class="attributes"><span class="attribute">capture(filename) </span>Sends to your Download folder a png screen shot of the canvas. If filename is the string &quot;boxes&quot; or &quot;boxes.png&quot; the file will be named &quot;boxes.png&quot;.</p>
+      <p class="attributes"><span class="attribute">capture(filename) </span>Sends to your Download folder a png screen shot of the canvas. If filename is the string &quot;boxes&quot; or &quot;boxes.png&quot; the file will be named &quot;boxes.png&quot;. Because label objects are displayed in a separate 2D transparent canvas in front of the 3D canvas, labels are not displayed in a captured scene. If you need text to be part of the captured scene, use the 3D text() object. This currently works in Chrome but not in some other browsers.</p>
       <p class="attributes"><span class="attribute"><font color="#000000">To obtain the current location of the camera, <a href="#camera"><strong>see </strong></a></font></span><strong><a href="#camera">below</a></strong> for details of <span class="attribute">scene.camera.pos</span><font color="#000000">.</font></p>
           <p class="attributes"><span class="attribute">camera.follow</span> If you say <span class="attribute">scene.camera.follow(ball)</span>, the center of the scene will continually be reset to the current position of the ball object. To stop following the object, execute <span class="attribute">scene.camera.follow(None)</span>.</p>
           <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instead of specifying an object to follow, you can provide a  function of your own:</p>
@@ -226,12 +216,9 @@ cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
           <p class="attributes"> &nbsp;<span class="attribute">scene.up </span><span class="Normal">Changing <span class="attribute">scene.up </span>rotates the display around the z axis and would be appropriate for example if you imagine the camera is attached to an airplane that rotates around its own axis in a turn or barrel roll.</span></p>
           <p class="attributes"> &nbsp;<span class="attribute">scene.camera.rotate(angle=..., axis=..., origin=...) </span><span class="Normal">As with other VPython objects, you can rotate the camera by an angle in radians, about a specified axis (which by default is <span class="attribute">scene.camera.axis</span>), relative to a specified origin (which by default is</span> <span class="attribute">scene.camera.pos</span>).</p>
 
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
 <script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>
