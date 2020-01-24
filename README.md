@@ -18,7 +18,7 @@ At [glowscript.org](http://glowscript.org) click Help for full documentation. Th
 
 GlowScript was inspired by [VPython](http://vpython.org). The project was begun in 2011 by David Scherer and Bruce Sherwood. Originally programs had to be written in JavaScript, but in November 2014 it became possible to use Python, thanks to the [RapydScript](https://github.com/atsepkov/RapydScript) Python-to-JavaScript compiler created by Alex Tsepkov. GlowScript is now using a later version, [RapydScript-ng](https://github.com/kovidgoyal/rapydscript-ng) developed by Kovid Goyal.
 
-For information related to building the GlowScript application, see MakingNewVersion.txt in the docs folder. Also in the docs folder is an overview of the GlowScript architecture, GlowScriptOverview.txt.
+For information related to building the GlowScript application, see MakingNewVersion.txt in the docs folder. Also in the docs folder is an overview of the GlowScript architecture, GlowScriptOverview.md.
 
 Sister Project
 --------------
