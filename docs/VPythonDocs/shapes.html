@@ -279,6 +279,16 @@
         <p class="Normal"><span class="attribute">fradius</span> Bottom filet radius, fradius defines the  radius of curvature at the bottom of the tooth between the bottom-land and the  tooth. Default value for fradius is 0.02 times the radius. </p>
 <p class="Normal"><span class="attribute">pos</span>, <span class="attribute">rotate</span>, and <span class="attribute">scale</span> parameters are the same  as for other objects.  xscale and yscale are not allowed to be set  independently as the resulting object will not be a meaningful one.  Roundness is not available..</p>
         <p class="Normal"><span class="attribute">res</span> This parameter  defines the drawing mesh  resolution and does not affect the gear structure. Since most of the mesh  points are on a circle, or on a curve defining the tooth profile, res is used  to control curvature resolution at varying scales for different parts of the  mesh. The default value for res is 1.0, and a better resolution is obtained as  res is increased.</p>
+        <p class="Normal"><strong>Inward-pointed gear teeth</strong></p>
+        <p class="Normal">You can make a gear with inward-pointing teeth by combining a circular outer shape with an innner gear shape:</p>
+        <table width="871" border="0">
+          <tr>
+            <td width="735" height="153"><p class="program">outer = shapes.circle(radius=1) # a disk<br>
+              inner = shapes.gear(radius=0.8) # a gear-shaped hole in the disk<br>
+            extrusion(path=[vec(0,0,0), vec(0,0,0.2)], shape=[outer, inner])</p></td>
+            <td width="126"><img src="images/inwardgear.jpg" alt="gear with inward-pointing teeth" width="137" height="135"></td>
+          </tr>
+        </table>
         <p class="Normal"><strong><font color="#0000a0"><a name="rackgear" id="rackgear"></a>Rack gear</font></strong></p>
         <table width="676" border="0">
           <tr>
