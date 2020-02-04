@@ -86,5 +86,3 @@ For highly technical security reasons (CORS, Cross-Origin Resource Sharing), it 
 * To use a library written in JavaScript, place it in your `Mystuff` folder. Suppose the library is named `useful.js`. To use it, in your program execute the statement `get_library("../Mystuff/useful.js")`.
 
     * The reason for putting the `Mystuff` folder outside but next to the `GlowScriptOnline` folder is that whenever you update to a later version of the online package you don't want to lose your `Mystuff` files.
-
-```
