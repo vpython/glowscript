@@ -29,7 +29,7 @@ Click Save to save your program. It will be written to your `Download` folder (b
 If you create or modify a program without saving it and click `Choose File` (`Browse`... on Firefox or Edge), you'll see a warning that you might wish to save your work. Similarly, when you attempt to close the browser or the browser tab, if you have modified the current program you'll be warned about saving the file.
 
 ### DEMO PROGRAMS INCLUDED
-Click `Choose File` and navigate to the `GlowScriptOffline` folder to choose from programs in the `Demos` folder. Those demo programs that use textures will not display correctly when offline unless you start the package in a special way [described below](#textures) in the section "Using Textures or JavaScript Libraries."
+Click `Choose File` and navigate to the `GlowScriptOffline` folder to choose from programs in the `Demos` folder. Those demo programs that use textures will not display correctly when offline unless you start the package in a special way [described below](#using-textures-or-javascript-libraries) in the section "Using Textures or JavaScript Libraries."
 
 ### DOCUMENTATION INCLUDED
 The GlowScript documentation is included in the package and is accessible by clicking `Help`.
@@ -58,7 +58,7 @@ By default, if you don't start a program with a statement of the form `GlowScrip
 
 If you don't include a GlowScript or import statement, this is the same as specifying `from vpython import *`
 
-### USING TEXTURES OR JAVASCRIPT LIBRARIES(#textures)
+### USING TEXTURES OR JAVASCRIPT LIBRARIES
 If you don't use textures or JavaScript libraries (using the `get_library` function), the instructions given above are adequate. If you do however use textures or JavaScript libraries, you need to follow these instructions:
 
 For highly technical security reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use textures or JavaScript libraries when offline unless you use the Chrome browser and configure Chrome in a special way.
