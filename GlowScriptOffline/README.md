@@ -1,5 +1,5 @@
 ### OBTAINING THE LATEST VERSION OF GLOWSCRIPT OFFLINE
-Based on the work of Vesa Lappalainen of Finland, this package makes it possible to write and run
+Based on the work of [Vesa Lappalainen](https://github.com/vesal) of Finland, this package makes it possible to write and run
 GlowScript programs even when disconnected from the internet. To obtain the latest version of this package,
 go to the following location and click Download, then unzip the package to any convenient place on your computer:
 * https://github.com/vpython/glowscript/blob/master/GlowScriptOffline2.9.zip
@@ -29,7 +29,7 @@ Click Save to save your program. It will be written to your `Download` folder (b
 If you create or modify a program without saving it and click `Choose File` (`Browse`... on Firefox or Edge), you'll see a warning that you might wish to save your work. Similarly, when you attempt to close the browser or the browser tab, if you have modified the current program you'll be warned about saving the file.
 
 ### DEMO PROGRAMS INCLUDED
-Click `Choose File` and navigate to the `GlowScriptOffline` folder to choose from programs in the `Demos` folder. Those demo programs that use textures will not display correctly when offline unless you start the package in a special way <a href="#textures">described below</a> in the section "Using Textures or JavaScript Libraries."
+Click `Choose File` and navigate to the `GlowScriptOffline` folder to choose from programs in the `Demos` folder. Those demo programs that use textures will not display correctly when offline unless you start the package in a special way [described below](#textures) in the section "Using Textures or JavaScript Libraries."
 
 ### DOCUMENTATION INCLUDED
 The GlowScript documentation is included in the package and is accessible by clicking `Help`.
@@ -38,7 +38,7 @@ The GlowScript documentation is included in the package and is accessible by cli
 In the text editor, as in the editor at glowscript.org, select one or more lines and press `TAB` to indent or `Shift-TAB` to unindent; press `Ctrl-/` to toggle commenting of the lines. Pressing `TAB` with the cursor at the end of the line adds spaces to the end of that line. At the moment, find and replace options are not yet available; you can of course copy the program to a local text editor to use find and replace, then copy it back.
 
 ### USING PROGRAMS FROM glowscript.org OR FROM VPYTHON 7
-When you download programs from glowscript.org, they are in the form of `.py` files whose first line is a statement about importing Vpython, like programs created with VPython 7. This first line is understood by the offline package, as is `GlowScript X.Y VPython` or `GlowScript X.Y JavaScript`.
+When you download programs from [glowscript.org](http://www.glowscript.org), they are in the form of `.py` files whose first line is a statement about importing Vpython, like programs created with VPython 7. This first line is understood by the offline package, as is `GlowScript X.Y VPython` or `GlowScript X.Y JavaScript`.
 
 ### EXPORTING A PROGRAM
 When you click `Export`, your program is processed to create code that can be embedded in your own web site, just like using the option `Share or export this program` at glowscript.org. This processed code temporarily replaces your own program code. If you click `Save` and give the name "test", a file named `test.html` will be written to your `Download` folder. Alternatively, press `Ctrl-C` to copy the code (all of which is preselected for you), then use a text editor to save this code to a local file that should have the extension `.html`.
@@ -53,45 +53,38 @@ By default, if you don't start a program with a statement of the form `GlowScrip
 
 * `from vpython import *` The default; all VPython elements are available
 * `from vpython import canvas, box, sphere, vec` This MUST include `canvas`
-&nbsp;&nbsp;&nbsp;&nbsp;import vpython&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# A red box: vpython.box(color=vpython.color.red)
-&nbsp;&nbsp;&nbsp;&nbsp;import vpython as vp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# A red box: vp.box(color=vp.color.red)
+* `import vpython` A red box: `vpython.box(color=vpython.color.red)`
+* `import vpython as vp` A red box: `vp.box(color=vp.color.red)`
 
-If you don't include a GlowScript or import statement, this is the same as specifying "from vpython import *".
+If you don't include a GlowScript or import statement, this is the same as specifying `from vpython import *`
 
-### <a name="textures"></a>USING TEXTURES OR JAVASCRIPT LIBRARIES
-If you don't use textures or JavaScript libraries (using the get_library function), the instructions given above are adequate. If you do however use textures or JavaScript libraries, you need to follow these instructions:
+### USING TEXTURES OR JAVASCRIPT LIBRARIES(#textures)
+If you don't use textures or JavaScript libraries (using the `get_library` function), the instructions given above are adequate. If you do however use textures or JavaScript libraries, you need to follow these instructions:
 
 For highly technical security reasons (CORS, Cross-Origin Resource Sharing), it is not possible to use textures or JavaScript libraries when offline unless you use the Chrome browser and configure Chrome in a special way.
 
-<div style="font-family:Verdana;font-size:13px;color:#c00"><b>First, exit Chrome.</b> Then,</div>
+* First, exit Chrome. Then,
 
-&nbsp;&nbsp;&nbsp;&nbsp;Windows: Doubleclick Windows_launch_chrome.bat in the GlowScriptOffline folder.<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Mac: Doubleclick Mac_launch_chrome.command in the GlowScriptOffline folder.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;You may have to go to System Preferences/Security & Privacy and under the<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;General tab specify that you want to allow it to execute now and in the future.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;(You may have to open the folder in a terminal and execute "chmod +x Mac_launch.command".)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;You only need to execute the chmod instruction once,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;before using Mac_launch_chrome.command for the first time.<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Linux: Open a terminal in the GlowScriptOffline folder.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Execute "chmod +x Linux_launch_chrome"<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Execute "./Linux_launch_chrome".<br>
-&nbsp;&nbsp;&nbsp;&nbsp;You only need to execute the chmod instruction once,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;before using Linux_launch_chrome for the first time.
+    * Windows: Double click `Windows_launch_chrome.bat` in the `GlowScriptOffline` folder.
+    * Mac: Double click `Mac_launch_chrome.command` in the `GlowScriptOffline` folder.
+        * You may have to go to System Preferences/Security & Privacy and under the General tab specify that you want to allow it to execute now and in the future. (You may have to open the folder in a terminal and execute `chmod +x Mac_launch.command`). You only need to execute the chmod instruction once, before using `Mac_launch_chrome.command` for the first time.
+    * Linux: Open a terminal in the `GlowScriptOffline` folder.
+        * Execute `chmod +x Linux_launch_chrome`
+        * Execute `./Linux_launch_chrome`
+        * You only need to execute the `chmod` instruction once, before using `Linux_launch_chrome` for the first time
 
-You will see the warning, "You are using an unsupported command-line flag: --disable-web-security. Stability and security will suffer."
+* You will see the warning, `You are using an unsupported command-line flag: --disable-web-security. Stability and security will suffer.`
 
-&nbsp;&nbsp;&nbsp;&nbsp;On Mac or Linux, without exiting Chrome, doubleclick GlowScript.html.
+* On Mac or Linux, without exiting Chrome, double click `GlowScript.html`.
 
-If you quit and restart Chrome, its normal security rules will be restored.
+* If you quit and restart Chrome, its normal security rules will be restored.
 
-<div style="font-family:Verdana;font-size:13px;color:#c00"><b>It is important to exit this unsafe version of Chrome before using it for regular browsing.</b></div>
+* __It is important to exit this unsafe version of Chrome before using it for regular browsing.__
 
-Suppose you have an image named car.jpg that you want to use as a texture. Create a folder adjacent to the GlowScriptOffLine folder and place car.jpg in it. Suppose you name the new folder Mystuff. To use the texture, in your program say texture="../Mystuff/car.jpg".
+* Suppose you have an image named `car.jpg` that you want to use as a texture. Create a folder adjacent to the `GlowScriptOffLine` folder and place `car.jpg` in it. Suppose you name the new folder `Mystuff`. To use the texture: `texture="../Mystuff/car.jpg"`.
 
-To use a library written in JavaScript, place it in your Mystuff folder. Suppose the library is named useful.js. To use it, in your program execute the statement get_library("../Mystuff/useful.js").
+* To use a library written in JavaScript, place it in your `Mystuff` folder. Suppose the library is named `useful.js`. To use it, in your program execute the statement `get_library("../Mystuff/useful.js")`.
 
-The reason for putting the Mystuff folder outside but next to the GlowScriptOnline folder is that whenever you update to a later version of the online package you don't want to lose your Mystuff files.
-</div>
+    * The reason for putting the `Mystuff` folder outside but next to the `GlowScriptOnline` folder is that whenever you update to a later version of the online package you don't want to lose your `Mystuff` files.
+
 ```
