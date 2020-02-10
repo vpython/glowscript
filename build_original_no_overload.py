@@ -33,7 +33,7 @@ import re, os, subprocess
 ##shader_file = "\n".join(shader_file)
 ##open("lib/glow/shaders.gen.js", "wb").write(shader_file)
 
-version = "2.8"
+version = "2.9"
 # TODO: Extract this information from run.js
 
 glowscript_libraries = {
