@@ -58,7 +58,9 @@ void main(void) {
     es_position = pos4.xyz;
     es_normal = (viewMatrix * vec4(rot*N, 0.0)).xyz;
     gl_Position = projMatrix * pos4;
-    bumpX = (viewMatrix * vec4(rot*bumpaxis, 0.0)).xyz;
+
+    vec3 adjbump = bumpaxis*(objectScale/2.0 + (objectScale.x/0.1)*pos.x*vec3(0,1,1));
+    bumpX = (viewMatrix * vec4(rot*adjbump, 0.0)).xyz;
     mat_pos = texpos;
     vcolor = vec4(color*objectColor.rgb, opacity*objectColor.a);
     
