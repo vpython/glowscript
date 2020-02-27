@@ -174,16 +174,6 @@ window, or you can  specify which window a new object belongs to: </p>
 &nbsp;&nbsp;&nbsp;&nbsp;rate(100)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;g.plot( x, sin(x) )</p>
       <p class="Normal"></p>
-      <p class="Normal"><em>The convenient scroll option shown above is not yet available in VPython 7</em>, but you can imitate the effect by continually adjusting the graph's xmin and xmax values to show only the most recent portions of the graph. With fast=False you can pan along the whole graph when completed. You must specify the initial xmin and xmax, and xmax must be greater than xmin.      </p>
-      <p class="program">gr = graph(fast=False, xmin=0, xmax=10)        <br>
-      g = gcurve()<br>
-      for x in arange(0,30,0.1):<br>
-&nbsp;&nbsp;&nbsp; rate(100)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if x &gt; gr.xmax:<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d = x-gr.xmax<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr.xmin += d<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr.xmax += d<br>
-&nbsp;&nbsp;&nbsp;&nbsp;g.plot( x, sin(x) )</p>
       <p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
           <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc.</p>
