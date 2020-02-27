@@ -18,7 +18,7 @@ At [glowscript.org](http://glowscript.org) click Help for full documentation. Th
 
 GlowScript was inspired by [VPython](http://vpython.org). The project was begun in 2011 by David Scherer and Bruce Sherwood. Originally programs had to be written in JavaScript, but in November 2014 it became possible to use Python, thanks to the [RapydScript](https://github.com/atsepkov/RapydScript) Python-to-JavaScript compiler created by Alex Tsepkov. GlowScript is now using a later version, [RapydScript-ng](https://github.com/kovidgoyal/rapydscript-ng) developed by Kovid Goyal.
 
-For information related to building the GlowScript application, see MakingNewVersion.txt in the docs folder. Also in the docs folder is an overview of the GlowScript architecture, GlowScriptOverview.md.
+For information related to building the GlowScript application, see MakingNewVersion.txt in the [docs](docs) folder. Also in the [docs](docs) folder is an overview of the GlowScript architecture, [GlowScriptOverview.md](docs/GlowScriptOverview.md).
 
 Sister Project
 --------------
@@ -32,7 +32,7 @@ In this repository, click GlowScriptOffline2.9.zip and download the zip file.
 
 Unzip the GlowScriptOffline package to any convenient place on your computer.
 
-Inside the GlowScriptOffline folder, read the README file to learn how to use the package. 
+Inside the [GlowScriptOffline](GlowScriptOffline) folder, read the README file to learn how to use the package. 
  
 Run a Local Server
 ------------------
@@ -42,7 +42,7 @@ This repository is a Google App Engine application. Here are instructions for ru
 
 For Developers
 --------------
-In this repository's docs folder is a file GlowScriptOverview.md that describes the architecture of GlowScript in detail. For many of the current issues, the relevant part of the document is the section on Execution (run-time). To test changes it is necessary to run a local server, as is describe in the previous heading. When you want to run using recent changes, you need to choose a version 0.1 greater than the current version number, and append "dev". For example, if the current version is 2.9, the first line of a test program would be GlowScript 3.0dev VPython.
+In this repository's [docs](docs/) folder is a file [GlowScriptOverview.md](docs/GlowScriptOverview.md) that describes the architecture of GlowScript in detail. For many of the current issues, the relevant part of the document is the section on Execution (run-time). To test changes it is necessary to run a local server, as is describe in the previous heading. When you want to run using recent changes, you need to choose a version 0.1 greater than the current version number, and append "dev". For example, if the current version is 2.9, the first line of a test program would be GlowScript 3.0dev VPython.
 
 License
 -------
