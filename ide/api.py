@@ -492,4 +492,3 @@ app = web.WSGIApplication(
         (r'/api/admin/upgrade', ApiAdminUpgrade),
     ],
     debug=True)
-
