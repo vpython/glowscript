@@ -57,13 +57,13 @@ glowscript_libraries = {
         ],
     "compile": [
         "../lib/compiling/GScompiler.js",
-        "../lib/compiling/acorn.es.js",
+        "../lib/compiling/acorn.js",
         "../lib/compiling/papercomp.js"
         ],
     "RScompile": [
         "../lib/rapydscript/compiler.js",
         "../lib/compiling/GScompiler.js",
-        "../lib/compiling/acorn.es.js",
+        "../lib/compiling/acorn.js",
         "../lib/compiling/papercomp.js"
         ],
     "RSrun": [
