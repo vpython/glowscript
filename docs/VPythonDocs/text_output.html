@@ -74,7 +74,38 @@
       <p class="Normal">The elements &quot;sep=..., end=...&quot; must be the last arguments in the print statement. </p>
       <h1 class="Heading-1"><font color="#0000a0"> String formatting</font></h1>
       <div>
-        <p class="Normal">Python has a powerful mechanism for formatting a string. This has now been implemented in GlowScript (for VPython, RapydScript, and JavaScript). Here is an example (in VPython):</p>
+        <p class="Normal">The easiest way to format a string is to use what are called &quot;f-strings&quot;, so-called because the string is preceded by &quot;f&quot; or, equivalently, &quot;F&quot;:</p>
+      </div>
+      <div></div>
+      <div>
+        <p class="program">V = 13.47<br>
+          units = 'liters'
+          <br />
+          s = f&quot;There are {V:.1f} {units}.&quot;<br />
+          print(s) # &quot;There are 13.5 liters.&quot; </p>
+      </div>
+      <div>
+        <p class="Normal">The string begins with an initial &quot;f&quot; (or &quot;F&quot;). Quantities within braces are evaluated and converted to strings. The form {V:.1f} means &quot;evaluate the variable V and display it in fixed format, with 1 digit after the decimal point. The value 13.47 is rounded to 13.5. If you specify {V:12.3f}, what will be displayed is &quot;      13.470&quot;, with 6 spaces before the number, plus the 6 digits of &quot;13.470&quot; (3 after the decimal point), for a total of 12 characters.</p>
+        <p class="Normal">A variable quantity such as V above can be a call to a function, whether your own function or a built-in function such as sqrt(). In fact, you can have entire expressions within braces, such as &quot;10*V + sqrt(pi)&quot;.</p>
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div>
+        <p class="Normal">There are many formats available in addtion to fixed format numbers: b for binary (base 2), o for octal (base 8), x for hexidecimal (base 16; 28 displays as 1c), d for decimal integer, e for exponential (e.g. 5.32e-7), c for character code (e.g. converts &quot;b&quot; to 97), % for percent (displays 0.34 as 34%). The E exponential format gives 5.32E-7 and the X hexidecimal format gives 1C. The g format (g for general) is particularly useful because it flips between fixed and exponential formats depending on the size of the number.</p>
+      </div>
+      <div></div>
+      <div>
+        <p class="Normal">Currently the standard Python way to use f-strings in multiline situations does not work in GlowScript, so it is necessary to insert &quot;\n&quot; new-line characters: <span class="program">f&quot;There are\n{V:12.3f} {units}.&quot;</span>        </p>
+        <div></div>
+        <div></div>
+        <div>
+          <div> </div>
+      </div>
+      </div>
+      <div>
+        <h1 class="Heading-1"><font color="#0000a0">An older form of string formatting</font></h1>
+<p class="Normal">Here is an older form of string formatting):</p>
       </div>
       <div></div>
       <div>
@@ -92,7 +123,7 @@
       </div>
       <div></div>
       <div>
-        <p class="Normal">The element &quot;{}&quot; indicates that the default method for representing an argument should be used. In this case &quot;bucket&quot; is displayed.</p>
+        <p class="Normal">The element &quot;{}&quot; indicates that the default method for representing an argument should be used. In this case &quot;liters&quot; is displayed.</p>
       </div>
       <div></div>
       <div>
