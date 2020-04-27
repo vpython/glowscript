@@ -1334,8 +1334,10 @@ $(function () {
 
         define('ace/mode/visualjs_highlight_rules', function (ace_require, exports, module) {
             var oop = ace_require("ace/lib/oop")
-            if (lang == 'coffeescript' || lang == 'rapydscript' || lang == 'vpython') var Rules = ace_require("ace/mode/coffee_highlight_rules").CoffeeHighlightRules
-            else var Rules = ace_require("ace/mode/javascript_highlight_rules").JavaScriptHighlightRules
+            var Rules
+            if (lang == 'rapydscript' || lang == 'vpython') Rules = ace_require("ace/mode/python_highlight_rules").PythonHighlightRules
+            else if (lang == 'coffeescript') Rules = ace_require("ace/mode/coffee_highlight_rules").CoffeeHighlightRules
+            else Rules = ace_require("ace/mode/javascript_highlight_rules").JavaScriptHighlightRules
 
             var VisualHighlightRules = function () {
                 this.$rules = (new Rules()).getRules()
