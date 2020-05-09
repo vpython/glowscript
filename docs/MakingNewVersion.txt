@@ -61,12 +61,10 @@ to update the package files produced in the previous step that involved build.py
 There is a Glowscript program in build-tools/Symbols.js which you need to copy into (presumably local) 
 glowscript and run to compile the symbols.  
 You have to copy and paste the results into the appropriate file (package/symbols.X.Y.min.js).
-Update the symbols reference at the end of ide/index.html.
-
-You also have to change ide/index.html to point to the new Symbols file, 
+You also have to make a change at the end of ide/index.html to point to the new Symbols file, 
 since the IDE doesn't yet dynamically load symbols based on the version header.
 
-Also change "Welcome to GlowScript X.Y" appropriately in ide/index.html.
+Also change "G l o w S c r i p t   X.Y" appropriately in ide/index.html.
 
 There is a jquery version reference in untrusted/run.html.
 

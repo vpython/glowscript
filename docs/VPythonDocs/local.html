@@ -1,0 +1,117 @@
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+</style>
+<!-- InstanceEndEditable -->
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
+      <div>
+      <div>
+        <h1 class="Heading-1"><font color="#0000A0">Running locally, plus information for developers</font></h1>
+      </div>
+      <div class="Normal">
+        <p class="Normal">When internet access is missing or poor, you may find it useful to run locally, independent of the internet. At <a href="https://vpython.org"><strong>vpython.org</strong></a>, in the section on using VPython without installing software, see the instructions for how to use GlowScript without an internet connection. Before going offline, use the download options at glowscript.org to get local copies of your programs.</p>
+        <p class="Normal">Another option is to install Python and the VPython 7 module. At <a href="https://vpython.org"><strong>vpython.org</strong></a> see the section on using VPython with installed Python. As long as you don't import Python modules other than vpython, you will also be able to run the program at glowscript.org without having to make changes.</p>
+        <p class="Normal">Yet another option is to follow the instructions below. Even if you do not wish to help develop VPython, you might want to install the GlowScript machinery on your computer, to be able to use it without access to the internet.</p>
+        <p class="Normal">&nbsp; </p>
+        <p class="Normal"><strong>For developers</strong><br />
+          If  you want to be able to contribute to developing GlowScript, here are the (rather complex) steps required to be able to run locally with changes that you make to the GlowScript code, almost all of which is written in JavaScript (there is also some Python server code and some html code). An excellent, up to date textbook on JavaScript is available at <a href="https://javascript.info/">javascript.info</a>.</p>
+        <p class="Normal"><strong>(1) Watch a YouTube overview of the VPython architecture:</strong><br />
+          <a href="https://tinyurl.com/GSarchitecture" target="_blank"><strong>&nbsp;&nbsp;&nbsp;&nbsp;tinyurl.com/GSarchitecture</strong></a><br>
+          At a later time you should also study this document: <br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/vpython/glowscript/blob/master/docs/GlowScriptOverview.md"><strong>GlowScriptOverview.md</strong></a></p>
+        <p class="Normal"><strong>(2)  Download the GlowScript source files</strong><br />
+          At the glowscript repository on GitHub, <a href="https://github.com/vpython/glowscript" target="_blank"><strong>https://github.com/vpython/glowscript</strong></a>, click &quot;Clone or download&quot; and then clone the repository, or click on &quot;Download ZIP&quot; and unpack the contents of the glowscript-master folder into a new local folder  named glowscript. </p>
+        <p class="Normal"><strong>(3) Install the Google Cloud SDK for Python</strong><br />
+          At <a href="https://developers.google.com/appengine/downloads" target="_blank"><strong>developers.google.com/appengine/downloads</strong></a> choose Standard environment Python for your platform. Next, if you have not already installed the Google Cloud SDK (&quot;Software Development Kit&quot;), do this:<br>
+          1) 
+          Click the Download button for &quot;Install and initialize Google Cloud SDK&quot; and then click &quot;Cloud SDK installer&quot;. Run this installer,  which will install a Python 2.7 (which is required by the Google software) unless you uncheck &quot;Bundled Python&quot;. Let it execute &quot;gcloud init&quot; for you.<br>
+          3) 
+          In a command-line terminal, execute the following  statement (on Mac or Linux, you may need to preface this command with &quot;sudo&quot;):<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;gcloud components install app-engine-python </p>
+        <p class="Normal"><strong>(4) Using gcloud with Google App Engine</strong><br>
+          To run GlowScript, execute<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;dev_appserver.py /..../glowscript/app.yaml<br>
+          where the location of the GlowScript code is at<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;/..../glowscript (on Windows, use backslashes instead of slashes).<br>
+          <br>
+          Then start a browser and enter 
+          &quot;localhost:8080&quot; to run GlowScript.<br>
+          <br>
+          Alternatively, change directory (&quot;cd&quot;) to the glowscript folder you downloaded, and execute<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;dev_appserver.py app.yaml<br>
+          <br>
+          More precisely, 8080 is the default port number. At the start of ide/api.py, if the variable &quot;localport&quot; is XXXX instead of 8080, to start up the application you must execute<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;          dev_appserver.py --port=XXXX /..../glowscript/app.yaml<br>
+          and the browser must point to &quot;localhost:XXXX&quot;.</p>
+        <p class="Normal"><strong>(5) Testing your changes</strong><br />
+          Suppose the current version of GlowScript is 3.0. Change the version number in a program to 3.1dev; that is, 0.1 greater than the current 3.0, plus dev. When you run the program, it will use your latest JavaScript changes. If you make further changes to the JavaScript code, just re-execute a test program to get the latest changes. You don't have to restart the application.<br />
+          <br />
+          If you want to remake/update the existing version 3.0, or create a new version 3.1, see MakingNewVersion.txt in the docs folder of the GlowScript GitHub repository. Note that use of the build program requires that there be an appropriate version of node in the build-tools folder.<br />
+          <br />
+          It is very useful to insert console.log(....) at critical points in the JavaScript code, which will generate output to the web page that is viewable if you turn on the browser developer console. On Chrome or Edge just press Ctrl-Shift-j. </p>
+        <p class="Normal"><strong>(6) Save your test programs</strong><br />
+          Updates to the Google software can have the effect that you  lose the VPython programs you used for testing purposes.         On Windows these programs are stored in C:\Users\YourName\AppData\Local\Temp\appengine.glowscript. On Mac, look for datastore.db in /private/var/folders/..... It is highly recommended that you keep a copy of the programs folder before updating the Google software.</p>
+        <p class="Normal"><br>
+        </p>
+      </div>
+      <div><br>
+        <p class="Normal"></p>
+        <p class="Normal"><em><strong>Important: The &quot;original App Engine SDK&quot; described below, with its graphical user interface, will no longer be available after July 30, 2020, at which time it will be necessary to use the &quot;gcloud&quot; mechanism documented above.</strong></em></p>
+        <p class="Normal"><strong>* Install the Google App Engine SDK for Python</strong><br />
+          At <a href="https://developers.google.com/appengine/downloads" target="_blank"><strong>developers.google.com/appengine/downloads</strong></a>, download the package for your platform. Choose Standard environment Python, then scroll down and click &quot;Download and install the original App Engine SDK for Python&quot;. If using Linux, unpack to a folder whose name will probably be google_appengine. <br>
+        </p>
+        <p class="Normal"><strong>* On Windows and Mac</strong>, the Google App Engine installer includes an app &quot;Google APP Engine Launcher&quot; which simplifies launching GlowScript.<br />
+          <br />
+          On Windows, there will be a Google App Engine Launcher icon on your desktop, or in your Start menu. Run the app.<br />
+          <br />
+          On Mac, drag the GoogleAppEngineLauncher out of the installer package (for example, drag it into the Applications folder), then double-click it. When asked, accept the offer to create some symlinks.<br />
+          <br />
+          In the Launcher, choose File &gt;  Add Existing Application and specify the glowscript folder. Make a note of the Port number. Click Add. In ide/api.py and untrusted/run.js, search for &quot;localhost:&quot; and adjust the port number to the number assigned by the launcher.<br />
+          <br />
+          With the glowscript entry selected in the launcher, click the green Run button. When the  Browse button lights up, click it, which will run your standard browser (which should be Chrome or Edge for best error reporting).<br />
+          <br />
+          Click Sign in, then click Login and use the name &quot;test&quot;. Write or import a program and check that it runs properly.</p>
+        <p class="Normal"><strong>* On Ubuntu</strong>, in a terminal cd to the google_appengine folder and execute<br />
+          python dev_appserver.py ../glowscript<br />
+          <br />
+          Next open a browser, preferably an up-to-date version of Chrome (which gives the best error reporting).<br />
+          <br />
+          Enter as a URL &quot;localhost:8080&quot;<br />
+          <br />
+          Click Sign in, then click Login and use the name &quot;test&quot;.</p>
+      </div>
+      <!-- InstanceEndEditable -->		
+    </div>
+</div>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

@@ -1,0 +1,74 @@
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.style1 {	color: #0000A0;
+	font-weight: bold;
+}
+</style>
+<!-- InstanceEndEditable -->
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
+      <div>
+        <h1 class="Heading-1"> <font color="#0000A0">For those with Python and/or previous VPython experience</font></h1>
+      </div>
+      <div>
+        <p class="Normal">As a convenience to novice programmers to provide everything that is needed to get started, VPython by default imports all of the VPython features and includes <a href="math.html">standard math functions</a> such as sqrt. The documentation is written as though &quot;from vpython import *&quot; were present. Also provided are clock(), random(), and arange(), and range() is like arange(); it accepts floating-point arguments.</p>
+        <p class="Normal">You can however import selectively, as shown in the following examples, which are compatible with VPython 7. (To help with converting from Classic VPython, VPython 6, you can  refer to &quot;vis&quot; or &quot;visual&quot; instead of &quot;vpython&quot;.)</p>
+        <p class="program">import vpython<br />
+          import vpython as vp # &quot;vp&quot; is any name of your choice<br />
+          from vpython import box, color </p>
+        <p class="Normal">When using the form &quot;from vpython import .....&quot;, if canvas is not specified, it is added, as GlowScript VPython cannot run without canvas.</p>
+        <p class="Normal">&nbsp;</p>
+<p class="Normal"><span class="style1">For those who have used Classic VPython</span></p>
+        <p class="Normal">A few Classic VPython objects are not currently available in  VPython: convex, faces, and frame. The objects <a href="vector.html" target="_blank">vertex</a>, <a href="triangle.html" target="_blank">triangle</a>, and <a href="triangle.html" target="_blank">quad</a> represent a more powerful alternative to faces. Many applications of frame can be handled with the <a href="compound.html" target="_blank">compound</a> object. </p>
+        <p class="Normal">One way to deal with differences is to check the elements of the &quot;version&quot; variable that is available in all versions of VPython:</p>
+        <p class="program">Classic VPython: &nbsp;&nbsp;&nbsp;version is ['X.Y', 'release']<br />
+          GlowScript VPython: version is ['X.Y', 'glowscript']<br />
+          VPython 7:     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;version is ['X.Y.Z', 'jupyter']<br />
+          &nbsp;&nbsp;&nbsp;and in VPython 7, the version of the GlowScript          graphics library<br>
+&nbsp;&nbsp;           is given by GSversion as ['X.Y', 'glowscript']</p>
+        <p class="Normal">The <a href="curve.html">curve</a> and <a href="points.html">points</a> objects are somewhat different from Classic VPython. Note that now the list of points in a curve object is not a numpy array, so that a loop is required to change all of the points.</p>
+        <p class="Normal">To handle <a href="mouse.html"><strong>mouse events</strong></a> one cannot use scene.getevent() but must use scene.bind(),  which is available  in all versions of VPython, starting with Classic VPython 6. Also available are scene.pause() and scene.waitfor('click') and related options.</p>
+        <p class="Normal">In GlowScript VPython it is not possible to import arbitrary Python modules such as numpy, and any  program that uses numpy will have to be modifed. However, loops are fast in the JavaScript language to which GlowScript programs compile, so if you are using numpy solely for the speed of array manipulation, you may be able to replace a numpy calculation easily and efficiently with a loop.</p>
+        <p class="Normal">GlowScript by default processes VPython programs as though they had the following  statements at the start of the program (which you don't need to include; they will be ignored):</p>
+        <p class="program">from __future__ import division, print_function<br />
+          from vpython import *</p>
+        <div>
+          <p class="Normal">GlowScript treats 3/2 as 1.5 as in Python 3.x, not 1 as in the Python 2.x language, and the print statement must take the Python 3.x form of print('hello') rather than the Python 2.x form of print 'hello'.</p>
+        </div>
+        <p class="Normal">Many programs written in Classic <a href="https://vpython.org" target="_blank"><strong>VPython 6</strong></a> will run in GlowScript VPython or VPython 7 without change after  being run through a <a href="VPtoGS.py" target="_blank"><strong>conversion program</strong></a> written in Python. This  program converts<strong> (x,y,z) =&gt; vector(x,y,z)</strong> and <strong>obj.x =&gt; obj.pos.x</strong>. These changes are necessary because GlowScript does not recognize <strong>(x,y,z)</strong> as a vector nor <strong>obj.x</strong> as a shorthand for <strong>obj.pos.x</strong>. The program also converts <strong>display =&gt; canvas</strong> and <strong>gdisplay =&gt; graph</strong>. The program also converts <strong>scene.mouse.getclick() =&gt; scene.waitfor('click')</strong>, which works in both environments.</p>
+        <p class="Normal">In GlowScript VPython and VPython 7 you can use the shorthand &quot;vec&quot; for &quot;vector&quot;. If you wish to use a GlowScript program containing &quot;vec&quot; in the Classic VPython environment, just add the statement &quot;vec = vector&quot; at the start of the program.</p>
+      </div>
+      <div> </div>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

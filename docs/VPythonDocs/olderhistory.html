@@ -1,0 +1,138 @@
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {color: #0000A0}
+-->
+</style>
+<style type="text/css">
+<!--
+.style2 {
+	font-size: x-large;
+	color: #FF0000;
+	font-weight: bold;
+}
+.style2 {font-size: xx-large}
+-->
+</style>
+<style type="text/css">
+<!--
+.style3 {	font-size: large;
+	font-weight: bold;
+	color: #0000A0;
+}
+-->
+</style>
+<style type="text/css">
+.style31 {font-size: large;
+	font-weight: bold;
+	color: #0000A0;
+}
+</style>
+<!-- InstanceEndEditable -->
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
+      <table width="100%" border="1">
+        <tr>
+          <td width="99%"><div align="center" class="style2">Log of the development of Classic VPython</div></td>
+          <td width="1%">&nbsp;</td>
+        </tr>
+      </table>
+      <h3><span class="style1"><a name="credits" id="credits"></a>Credits</span></h3>
+      <p class="Normal">VPython  was initially created by David Scherer in the spring of 2000. Assisting him were David Andersen, Ruth Chabay, Ari Heitner, Ian Peters, and Bruce Sherwood.</p>
+      <p class="Normal">Starting in 2002, Jonathan Brandmeyer made several major contributions
+        to VPython 3, including changing the connection between Python and C++
+        from CXX, which was no longer supported, to the Boost C++ libraries,
+      and implementing auto-configurable installations for Linux.</p>
+      <p class="Normal">Arthur Siegel implemented dependence on the currently supported
+        numpy library in place of Numeric, which is no longer supported. Hugh
+        Fisher provided a big start on the native-mode Mac version and initiated work on stereo display, which was completed by John Zelle and Bruce Sherwood. Shaun Press implemented the pyramid and ellipsoid objects. Michael
+      Temkine fixed some bugs and implemented keyboard handling for Windows.</p>
+      <p class="Normal">VPython 5 was created by David Scherer and Bruce Sherwood in 2008.
+        Jonathan Brandmeyer provided support in VPython 4beta for opacity, local
+        lighting, and textures, and made some important architectural changes,
+        but had to stop work on the project before it was completed.  Further
+        development  led to API changes which were incompatible with the VPython 
+        4beta release, so there was no  version 4.      </p>
+      <p class="Normal">Kadir Haldenbilen and Bruce Sherwood collaborated to create the 3D text object and the extrusion object for VPython 5.</p>
+      <p class="Normal">The development of VPython 6, based on wxPython, was initiated by Bruce Sherwood in June 2012. Major contributions to the  release were made by Steve Spicklemire.</p>
+<h3 class="style1"><a name="log" id="log"></a>A log of developments</h3>
+      <p class="Normal">Here is a log of changes to VPython since the initial release of  VPython 5 in December 2008, continuing with VPython 6, first released in February 2013.</p>
+      <p class="Normal">2014-07-11: VPython 6.10 introduces ways to delete displays and wxPython windows without ending the program, which lets you clear everything away and create new displays or windows. Suppose w = window() and d = display(window=w): then w.delete() deletes the wxPython window and all the widgets contained in that window, including the d display; d.delete() just deletes the display from the window it appears in unless d.window = None, in which case the entire window is deleted; window.delete_all(), not w.delete_all(), deletes all VPython windows and displays. Moreover, w.cursor.visible or d.cursor.visible can now be set to True or False (only d.cursor.visible works on a Macintosh). You can now specify a window style when creating a wxPython window; see the example program widgets.py for an example. Something that was either a bug or a feature has been addressed: If you set shaftwidth to be nonzero for an arrow, you also had to set fixedwidth = True, which seemed awkward. Now when you set shaftwidth this automatically sets fixedwidth = True. If you set fixedwidth = False later in the program, you get the somewhat quirky behavior currently seen with this combination. Creation of displays or wxPython windows now checks for part of the area being off screen and decreases the width and/or height to make all of the area appear on screen. Setting scene.fullscreen = True now works properly (but is inactive on a Macintosh). Pressing CTRL while dragging the mouse now rotates the camera on all platforms.The statement exit() kills the program. Many bugs have been fixed; a list is available <strong><a href="https://github.com/BruceSherwood/vpython-wx/issues?direction=desc&amp;page=1&amp;sort=updated&amp;state=closed" target="_blank">here</a></strong>. A history of source-code changes is available <strong><a href="https://github.com/BruceSherwood/vpython-wx/commits/master" target="_blank">here</a></strong><a href="https://github.com/BruceSherwood/vpython-wx/commits/master" target="_blank"></a>.      </p>
+      <p class="Normal">2013-04-20: VPython 6.05 released to fix  bugs and improve documentation.</p>
+      <p class="Normal">2013-03-01: VPython 6.04 released to fix  bugs and improve documentation.</p>
+      <p class="Normal">2013-02-19: VPython 6.03 released by Bruce Sherwood and Steve Spicklemire. This version is based on the wxPython cross-platform GUI library, which has made possible the elimination of almost all platform-dependent code, and of the threading structure of VPython 5. Moreover, wxPython makes it possible for a window to contain a VPython 3D animation along with standard widgets such as buttons and sliders. VPython 5 on the Macintosh was based on the Carbon framework, which is no longer supported, whereas VPython 6 uses the supported Cocoa framework (through wxPython). VPython 6 includes improved mechanisms for handling mouse and keyboard events.</p>
+      <p class="Normal"><br />
+      </p>
+      <p class="Normal">2012-04-23: Visual 5.74 fixes a bug in the display of ellipsoids</p>
+      <p class="Normal">2012-04-15: Visual 5.73 with minor bug fixes (controls module, text object).</p>
+      <p class="Normal">2012-04-01: Aaron Mavrinac moved the VPython source files from the increasingly obsolete CVS-format repository at sourceforge.net to an up-to-date git repository at github.com.</p>
+      <p class="Normal">2011-12-10: Rebuilt Visual 5.72 source package for Linux to replace a Linux routine that is broken on recent releases of Ubuntu and Debian (and probably Fedora). This fixes the crashes of Visual on Linux that happened with the simplest programs.</p>
+      <p class="Normal">2011-10-24 Visual 5.72 rebuilt to include a patch by Jason Morgan to fix a bug in packaging materials when using py2exe.</p>
+      <p class="Normal">2011-10-19 Visual 5.72: Corrects a bug in graphs where plotting (0,.001) followed by (.001,.001) failed to autoscale correctly. Also added documentation explaining what objects are used to represent gdots, gcurves, ghbars, and gvbars.      </p>
+      <p class="Normal">2011-05-06 VPython 5.71: Adds log-log and semilog plots to graphs, and the ability to offset the graph origin. Thanks to a diagnosis by David Scherer, random dots around the text of label objects (Windows and Linus) are (nearly) eliminated. A bug that occasionally prevented a graph from displaying has been fixed.</p>
+      <p class="Normal">2011-03-27 VPython 5.70: Adds an easy to use way to <strong><a href="trail.html">leave a trail</a></strong> behind a moving object..</p>
+      <p class="Normal">2011-03-23 VPython 5.61: Adds mouse crosshairs to graphs, simplifies the use of controls (no need to call interact), fixes a long-standing inconsistency in the background of a label object's box, and fixes bugs in materials.bricks and in the checking for the presence of Polygon and font modules.</p>
+      <p class="Normal">2011-03-13 VPython 5.60: Add facilities to extract faces data from extrusion and text objects, and to make extrusion and text objects single-sided for speed. Kadir Haldenbilen contributed improved gear facilities to the shapes library, including rack gears.</p>
+      <p class="Normal">2011-03-01 VPython 5.51: Fix memory leak on Windows and Mac. Correct errors in assigning color and material to a text object.</p>
+      <p class="Normal">2011-02-20 VPython 5.50 for all platforms introduces the powerful extrusion object developed by Kadir Haldenbilen and Bruce Sherwood. Included are shapes and paths libraries that simplify the creation of complex extrusions. Haldenbilen has also contributed new materials which can be viewed in the updated example program material_test.py. The curve object has been modified to be able to use the new shapes and paths libraries.</p>
+      <p class="Normal">2010-12-02 VPython 5.41 for Windows, to fix bugs in active and passive stereo.</p>
+      <p class="Normal">2010-11-22 VPython 5.4 package for Python 2.6 for Windows and Mac, which includes numpy 1.5.1. It was pointed out that there was no scipy module for Python 2.7 or Python 3.1, and the existing VPython 5.32 for Python 2.6 included numpy 1.3, whereas scipy now requires numpy 1.4.</p>
+      <p class="Normal">2010-11-03 VPython 5.4 package for Python 2.5, 2.6, or 2.7 for Linux. This package can presumably also be used to build on Python 3.1, but this would require building Boost libraries for Python 3.1, for which there may not be Linux packages.</p>
+      <p class="Normal">2010-10-27 VPython 5.4 for Python 2.7 and Python 3.1, for Windows and Mac.This release includes a new module, &quot;vis&quot;, which permits selective import of VPython objects without the importing of math and numpy that is done for &quot;from visual import *&quot;. See the main page of the full documentation for details. The font modules included in this VPython installer have been updated to work with Python 3.1, but tested only to the extent that they work with VPython. It is quite possible that additional work is needed to make them fully functional with Python 3.1. Ned Deily fixed a problem with IDLE (and VIDLE) on Macs; it was recently noticed that quitting on the Mac did not prompt you to save unsaved code.</p>
+      <p class="Normal">2010-09-14 Beta test version of VPython 5.32 for Python 3.1, currently only for Windows.</p>
+      <p class="Normal">2010-09-04 VPython 5.32 for Python 2.7 rebuilt for Intel Mac to use production version of numpy 1.5.0..</p>
+      <p class="Normal">2010-08-31 VPython 5.32 for Python 2.7 rebuilt for Windows to use production version of numpy 1.5.0.</p>
+      <p class="Normal">2010-08-16 VPython 5.32 is now available for Python 2.7 for Windows and Intel Macs using beta version of numpy 1.5.0.</p>
+      <p class="Normal">2010-04-10 VPython 5.32 released for all platforms. Now the 3D text object handles multiline text containing newline characters (&quot;\n&quot;), and Kadir Haldenbilen made a 20% speedup in the creation of the text object.</p>
+      <p class="Normal">2010-04-02 VPython 5.31 released for all platforms. Kadir Haldenbilen made further corrections to the ttfquery and FontTools modules, which fixed a variety of errors in rendering 3D text.</p>
+      <p class="Normal">2010-03-30 VPython 5.3 released for all platforms. Thanks to great work by Kadir Haldenbilen, there is a new &quot;text&quot; object that from any True Type (.ttf) font produces extruded 3D text. This supercedes the very limited old visual.text machinery (which however is being left in place for upward compatibility). The Windows and Mac versions install some font-handling modules that include Polygon, for which the following conditions apply: &quot;Polygon is being distributed subject to the following conditions: This distribution contains code from the GPC Library, and/or code resulting from the use of the GPC Library. This usage has been authorized by The University of Manchester, on the understanding that the GPC-related features are used only in the context of this distribution. It is not permitted to extract the GPC code from the distribution as the basis for commercial exploitation, unless a GPC Commercial Use Licence is obtained from The University of Manchester, contact: http://www.cs.man.ac.uk/~toby/gpc/&quot;. There are new faces functions make_normals() and make_twosided(), and you can now specify your own criterion for smooth(). The gcurve object for making graphs now has an option &quot;dot=True&quot; that highlights the currently plotted point on the curve. Some minor bugs were fixed in faces, points, and helix.</p>
+      <p class="Normal">2010-02-17 Gary Pajer pointed out that numpy 1.4.0 had been withdrawn, so VPython 5.24 for Windows and for Mac were built to use numpy 1.3.0 instead.</p>
+      <p class="Normal">2010-02-03 Mirko Bordignon fixed a bug in the Mac build procedure that made VPython 5.22 not work on OSX 10.5. VPython 5.23 for the Mac should work on OSX 10.4 or later.</p>
+      <p class="Normal">2010-01-28 Thanks to work by Mirko Bordignon on threading problems, VPython 5.21 released for the Mac, which may address problems seen on the Mac with VPython refusing to start. It was discovered that 5.21 didn't work on OSX 10.5, so Mirko rebuilt the Boost libraries on OSX 10.5 and verified that VPython would then work on both 10.5 and 10.6, and a VPython 5.22 installer was released based on these libraries.</p>
+      <p class="Normal">2010-01-26 VPython 5.2 released for Windows, Mac, and Linux includes new faces function &quot;smooth()&quot; which averages similar normals at shared vertices to make an object look smoother. See faces documentation.</p>
+      <p class="Normal">2009-12-23 VPython 5.14 released for Windows for any version of Python 2.6. This fixes a problem that until the development of Boost 1.41 it was not possible to build an installer for VPython that worked with Python 2.6.4. VPython 5.14 is otherwise identical to VPython 5.13. Work is proceeding to deal with the same problem on Macintosh (work completed 2010-01-23, thanks to help from Mirko Bordignon). For Linux, simply use Boost 1.41 to build VPython.</p>
+      <p class="Normal">2009-10-13 VPython 5.13 released for Windows (Python 2.6), Mac (Python 2.6, Intel, OSX 10.4 and above), and Linux. Bugs fixed on Linux concerned with making windows visible and invisible, and with reporting correct values of scene.x, scene.y, scene.width, and scene.height. Bugs fixed on all platforms: vector.mag now is ordinary number instead of numpy.ndarray; helix.color is (red,green,blue) instead of an array (the array of colors in the helical curve is helix.helix.color); corrected documentation error which erroneously claimed that that you couldn't specify a list of points for gcurve, gvbars, or ghbars; error in VIDLE corrected by Guilherme Polo -- sometimes initially scrolled so that the first line was not visible.</p>
+      <p class="Normal">2009-08-21 VPython 5.12 released for Windows (Python 2.6), Mac (Python 2.6, Intel, OSX 10.4 and 10.5), and Linux. New: frame_to_world and world_to_frame functions for converting between frame and &quot;world&quot; coordinates, stimulated by a suggestion of Robert Xiao. Fixes: bug in frame manipulations (pointed out by Robert Xiao), bug in helix that didn't permit creating additional attributes when creating a helix. There are significant improvements to VIDLE thanks to Guilherme Polo, including the ability to edit and test without first saving a file, and the shell window coming forward when there is an error, to alert you. The VIDLE startup icon on the Mac (in /Applications/VPython) has been simplified and is probably more robust.</p>
+      <p class="Normal">2009-06-19 VPython 5.11 released for Windows (Python 2. 5 and 2.6 ), Mac (Python 2.6, Intel and PowerPC, OSX 10.4 and 10.5), and Linux. Not yet released for Mac with Python 2.5. VPython 5.11 fixes a minor bug in the handling of arrow attributes fixedwidth, shaftwidth, headwidth, and headlength to make behavior consistent with VPython 3. The documentation on these arrow attributes has been made clearer.</p>
+      <p class="Normal">2009-05-15 VPython 5.1 for Python 2.6 released for Windows, Mac, and Linux. David Scherer provided crucial help for getting VPython to work on Python 2.6. VPython 5.1 includes formerly missing features of VPython 3, including right-button and middle-button mouse event handling. VPython 5 provides the basic mouse event functionality that was present in VPython 3 for handling events from right and middle buttons when userspin or userzoom is disabled, out of concern for supporting old programs. However, it has become evident that there are limitations to this approach which could preclude some kinds of mouse handling that people might want to do in the future. For example, you might want to allow userspin with right drags yet also pick up right clicks. For that reason it is conceivable that future developments in this area might break existing programs, and therefore for maximum forward compatibility it is prudent to use only left-button interactions in new programs.</p>
+      <p class="Normal">2009-03-27 Release of VIDLE, an alternative to IDLE which fixes some long-standing problems; David Scherer, assisted by Bruce Sherwood.</p>
+      <p class="Normal">2009-01-20 VPython 5.03 for all platforms incorporates a fix to handling keyboard events proposed by CL Cheung after his careful analysis of a deadlock condition.</p>
+      <p class="Normal">2009-01-17 VPython 5.02 for all platforms incorporates corrections made by CL Cheung: fixing a bug associated with changing the opacity of an object in a frame, and, on Windows, changing some details of mouse handling which affected docking/undocking operations in the wxpython context. Tests of the frame bug which failed on Windows did not fail on Mac or Ubuntu, but the fix has been incorporated anyway, as there really was a bug in the code.</p>
+      <p class="Normal">2008-12-31 VPython 5.01 for Linux corrects an error in the size attribute of the points object. New documentation of size and shape attributes for graphing gdots. Package now includes threadpool files.</p>
+      <p class="Normal">2008-12-30 VPython 5.01 for Windows and Mac corrects an error in the size attribute of the points object. New documentation of size and shape attributes for graphing gdots.</p>
+      <p class="Normal">2008-12-8 Release of VPython 5.0 by David Scherer and Bruce Sherwood: opacity, local lights, materials such as wood. Includes for the first time a native-mode version for the Mac.</p>
+      <p class="Normal">2008-06-20 John Armstrong contributed an easy-to-use installer for VPython 3.2.11 for Intel Macs running OS X 10.5 (Leopard).</p>
+      <p class="Normal">2008-03-10 A major redesign for VPython-4 Beta is underway. The central goal of the new design is to create an architecture which is more robust, easier to maintain and to extend, and easier to install and to use. The principal architects are David Scherer and Bruce Sherwood. Steve Spicklemire and Ruth Chabay have also been involved in discussions. As a result, a number of changes to the current beta version are likely. Support for textures will change. Rather than creating a texture bitmap, a programmer will be able to specify a material (such as wood). Transparency will be supported. At this point it is unclear exactly what support there will be for bitmapped images; they may be supported only as &quot;decals&quot; which can be applied to flat surfaces. Lighting options may change; it is likely that spotlights will not be supported at first in this version. You can look forward to higher-quality rendering of scenes on computers with modern graphics cards. A Macintosh version which does not require X11 or Fink will be created. Both the Windows version and the Mac version will no longer depend on the large GTK libraries, which will however still be the foundation for Linux. </p>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>
