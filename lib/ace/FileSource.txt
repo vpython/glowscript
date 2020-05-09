@@ -1,4 +1,4 @@
-The originals of the ACE files used by GlowScript are found here:
+The originals of the ACE files used by GlowScript were found here:
 
 https://github.com/ajaxorg/ace-builds/tree/master/src
 (At https://github.com/ajaxorg/ace-builds are src-min, src-noconflict, and src-min-noconflict,
@@ -20,4 +20,7 @@ Small modifications to the ACE files for GlowScript purposes:
  Note that between May 2011 and August 2012 there were significant
  changes to ACE which required different (simpler) modifications
  than had been made in 2011. This occurred again in 2014.
+
+Currently, built files are at https://github.com/ajaxorg/ace-builds/
+
  
