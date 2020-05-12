@@ -66,8 +66,8 @@ $(function () {
     }
     
     parseVersionHeader.defaultVersion = "3.0"
-    parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
-    parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
+    parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython or JavaScript'
+    parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion+' VPython or JavaScript'
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
     parseVersionHeader.okVersions = {
         __proto__: null,
@@ -1264,7 +1264,7 @@ $(function () {
 		        editor.getSession().setMode(new mode())
 	            editor.setTheme({ cssClass: "ace-custom" })
 	            editor.getSession().setValue(progData.source)
-	            editor.setReadOnly( !isWritable )
+                editor.setReadOnly( !isWritable )
 	            editor.selection.moveCursorDown() // position cursor at start of line 2, below GlowScript header
                 editor.focus()
 	            if (isWritable) {
@@ -1357,98 +1357,12 @@ $(function () {
             }
             oop.inherits(Mode, BaseMode); // nead a semicolon here due to following left parens
             
-            
-            (function () {
-                this.createWorker = function (session) { // *****************************************************
-                    
-                    if (worker !== undefined && worker !== null) worker.terminate() // stop a previous worker
-                    
-                    //if (lang == 'javascript') worker = new WorkerClient(["ace"], "ace/mode/javascript_worker", "JavaScriptWorker")
-                    worker = new WorkerClient(["ace"], "ace/mode/javascript_worker", "JavaScriptWorker")
-                    
-                    var doc = session.getDocument()
-                    if (worker !== undefined && worker !== null) worker.$doc = doc // must set this in order to be able to execute worker.terminate()
-                    
-                    if (lang == 'vpython') worker.call("setValue", [''])
-                    else worker.call("setValue", [lintPrefix])
-                    worker.call("setValue", [lintPrefix])
-
-                    var header = null
-                    var headerError = null
-
-                    doc.on("change", function (e) {
-                        // Check the header declaration and adjust for the lintPrefix comment /* */ inserted before JavaScript source
-                        var ee = JSON.parse(JSON.stringify(e)) // We don't want to modify our parameter, so clone it
-                        
-                        if (e.data.range.start.row === 0) {
-                            // Could note that language has changed, suggest reloading the page
-                            header = parseVersionHeader(doc.getValue())
-                            if ((header.lang == 'javascript' || header.lang == 'vpython') && header.lang != lang) 
-                                alert("Reload the page to switch to editing " + header.lang)
-                            else if (header.isCurrent)
-                                headerError = null
-                            else if (header.ok)
-                                headerError = { row: 0, column: 0, text: "Not the current version.  Expected: " + parseVersionHeader.errorMessage, type: "warning" }
-                            else
-                                headerError = { row: 0, column: 0, text: "Missing required version declaration.  Expected: " + parseVersionHeader.errorMessage, type: "error" }
-
-                            ee.data.range.start.column += 2
-                        }
-                        if (e.data.range.end.row === 0) 
-                            ee.data.range.end.column += 2
-                        
-                        if (lang == 'javascript') {
-                            // Adjust for the fact that we inserted a row into JavaScript documents sent to the worker.
-                            ee.data.range.start.row += 1
-                            ee.data.range.end.row += 1
-                            ee.range = { start: ee.data.range.start, end: ee.data.range.end }
-                        }
-
-                        worker.emit("change", ee)
-                    })
-                    
-                    // CoffeeScript (no conflict with worker.on options for JavaScript):
-                    worker.on("error", function(e) {
-                        var errors = [e.data]
-                        errors[0].row += 1
-                        if (headerError) errors.push(headerError)
-                        session.setAnnotations(errors)
-                    })
-                    
-                    worker.on("ok", function(e) {
-                        session.clearAnnotations()
-                    })
-
-                    // JavaScript
-                    worker.on("jslint", function (results) {
-                        var errors = [];
-                        if (headerError) errors.push(headerError)
-                        for (var i = 0; i < results.data.length; i++) {
-                            var error = results.data[i];
-                            if (error) {
-                                errors.push({
-                                    row: error.line - 2,
-                                    column: error.character - 1,
-                                    text: error.reason,
-                                    type: "warning",
-                                    lint: error
-                                })
-                            }
-                        }
-                        session.setAnnotations(errors)
-                    })
-
-                    worker.on("narcissus", function (e) {
-                        var errors = [e.data]
-                        errors[0].row -= 1
-                        if (headerError) errors.push(headerError)
-                        session.setAnnotations(errors)
-                    })
-
-                    return worker
-                }
-                
-            }).call(Mode.prototype)
+            // There was formerly "worker" machinery here which showed a warning icon at the left of an line with an error, but
+            //     (1) This tends to confuse students.
+            //     (2) GlowScript catches lots of errors already with respect to parens, brackets, braces, and quotes.
+            //     (3) Highlighting is handled separately, so is not affected by eliminating workers.
+            //     (4) Caused some awkwardness in changing the language on the first line.
+            //     (5) And the killer issue: workers chew up LOTS of CPU time for little gain.
             
             exports.Mode = Mode
         })
