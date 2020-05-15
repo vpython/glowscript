@@ -66,8 +66,8 @@ $(function () {
     }
     
     parseVersionHeader.defaultVersion = "3.0"
-    parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython or JavaScript'
-    parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion+' VPython or JavaScript'
+    parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
+    parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
     parseVersionHeader.okVersions = {
         __proto__: null,
