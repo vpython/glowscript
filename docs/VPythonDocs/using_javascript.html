@@ -43,12 +43,14 @@
 b.axis = vec(1,1,0) </p>
           <p class="Normal">At the moment, the ACE editor used at glowscript.org is an old version that doesn't recognize some (now valid) elements of JavaScript, including in particular async, await, and clas, and as a result statements containing these elements are marked as being in error. Evidently glowscript.org needs to upgrade its use of ACE.</p>
           <h1 class="Heading-1"><font color="#0000A0">Using async and await</font></h1>
-          <p class="Normal">An animation loop <strong><em>must</em></strong> contain a <span class="attribute">rate()</span>,  <span class="attribute">sleep()</span>, <span class="attribute">scene.pause()</span>, or <span class="attribute">scene.waitfor()</span> statement; otherwise the browser will lock up, and it is difficult to kill the browser. Moreover, these statements <em><strong>must</strong></em> be preceded by <span class="attribute">await</span>, which is inserted automatically when VPython programs are transpiled to JavaScript but must be entered explicitly into a JavaScript program. Here is what these JavaScript statements must look like, including the three other GlowScript functions that take time to complete and therefore also need <span class="attribute">await</span>:</p>
+          <p class="Normal">An animation loop <strong><em>must</em></strong> contain a <span class="attribute">rate()</span>,  <span class="attribute">sleep()</span>, <span class="attribute">scene.pause()</span>, or <span class="attribute">scene.waitfor()</span> statement; otherwise the browser will lock up, and it is difficult to kill the browser. Moreover, these statements <em><strong>must</strong></em> be preceded by <span class="attribute">await</span>, which is inserted automatically when VPython programs are transpiled to JavaScript but must be entered explicitly into a JavaScript program. Here is what these JavaScript statements must look like, including the five other GlowScript functions that take time to complete and therefore also need <span class="attribute">await</span>:</p>
           <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;await rate(30)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;await sleep(2)<br>
         &nbsp;&nbsp;&nbsp;&nbsp;await scene.pause()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;await scene.waitfor('click')<br>
 &nbsp;&nbsp;&nbsp;&nbsp;await scene.capture(filename)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await input()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await winput()<br>
 &nbsp;&nbsp;&nbsp;&nbsp;await get_library(webaddress)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;await read_local_file(scene.title.anchor) </p>
           <p class="Normal"> If you write your own function or class method that includes any of these waiting statements, you <strong><em>must</em></strong> prepend <span class="attribute">async</span> to the function or method declaration, and all calls to these functions or methods <strong><em>must</em></strong> be prepended with <span class="attribute">await</span>, as with the GlowScript functions shown above and in the runnable html file shown at the end of this article.<br>
