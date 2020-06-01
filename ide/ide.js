@@ -28,7 +28,7 @@ $(function () {
         // Remove a newline or similar character at the end of header:
         if (header.charCodeAt(header.length-1) < 32)
             header = header.substring(0,header.length-1)
-        var rest = source.substr( header.length+1 )
+        var rest = source.substr( sourceLines[0].length+1 )
         var ret = {
             version: null,
             lang: '', // 'vpython' (default) or 'javascript' or a string that is neither (e.g. when editing header)
@@ -58,7 +58,7 @@ $(function () {
         return {
             version: okv,
             lang: ret.lang,
-            source: rest, 
+            source: source, 
             ok: okv, 
             unpackaged:unpackaged, 
             isCurrent: okv && (unpackaged || ver==parseVersionHeader.defaultVersion) 
@@ -1123,7 +1123,7 @@ $(function () {
                 var compiler_url
                 if (header.lang == 'vpython') {
                 	compiler_url = "../package/RScompiler." + header.version + ".min.js"
-            	} else compiler_url = "../package/compiler." + header.version + ".min.js"
+                } else compiler_url = "../package/compiler." + header.version + ".min.js"
                 window.glowscript_compile = undefined
                 $.ajax({
                     url: compiler_url,
