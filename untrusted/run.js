@@ -77,7 +77,6 @@ function reportScriptError(program, err) { // This machinery only gives trace in
     var feedback = err.toString()+'\n'
     var compile_error = (feedback.slice(0,7) === 'Error: ')
     var prog = program.split('\n')
-    //for(var i=0; i<prog.length; i++) console.log(i, prog[i])
     var unpack = /[ ]*at[ ]([^ ]*)[^>]*>:(\d*):(\d*)/
     var traceback = []
     if (err.cursor) {
@@ -149,8 +148,8 @@ function reportScriptError(program, err) { // This machinery only gives trace in
                 if (L === undefined) continue
                 var N = Number(L)
                 if (isNaN(N)) break // Sometimes necessary.....
-                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-2])
-                else traceback.push('Called from line '+N+': '+window.__original.text[N-2])
+                if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-1])
+                else traceback.push('Called from line '+N+': '+window.__original.text[N-1])
                 first = false
                 traceback.push("")
                 if (caller == '__$main') break
