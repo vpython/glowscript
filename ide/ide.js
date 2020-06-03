@@ -54,6 +54,8 @@ $(function () {
         var ver = elements[1]
         var okv = parseVersionHeader.okVersions[ver]
         if (okv === undefined) okv = false
+        // Prior to version 3.0, we stripped the header line from the source:
+        else if (Number(okv) < 3.0) source = source.substr(sourceLines[0].length+1) 
         var unpackaged = (okv === "unpackaged")
         return {
             version: okv,
