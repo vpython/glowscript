@@ -60,7 +60,7 @@
 <input type="file" id="read_local_file"/>
 
 <script>
-var gsversion = 3.0
+var gsversion = '3.0'
 var printpane = false
 var exporting = false // not currently in export mode
 var lastprintwidth = null
@@ -72,9 +72,10 @@ if (!navigator.onLine) window.Jupyter_VPython = 'glowscript_data/' // get textur
 
 // localCompile is a modification of https://github.com/vpython/glowscript/blob/master/ide/ide.js
 function localCompile(header, compReady, errordiv) {
+    header.source = 'GlowScript '+gsversion+' VPython\n'+header.source
 	errordiv.innerHTML = ""
     var compiler_url
-    if (header.lang == 'vpython' || header.lang == 'rapydscript') {
+    if (header.lang == 'vpython') {
         compiler_url = "glowscript_libraries/RScompiler." + header.version + ".min.js"
     } else compiler_url = "glowscript_libraries/compiler." + header.version + ".min.js"
     window.glowscript_compile = undefined
@@ -139,7 +140,7 @@ function parseVersionHeader( source ) {
     ret.lang = 'javascript' // the default if no language is specified
     if (elements.length == 3) {
         ret.lang = elements[2].toLowerCase()
-        if (!(ret.lang == 'javascript' || ret.lang == 'rapydscript' || ret.lang == 'vpython')) return ret
+        if (!(ret.lang == 'javascript' || ret.lang == 'vpython')) return ret
     }
     var ver = elements[1]
     if (ver != gsversion) alert('The version number, '+ver+', should be '+gsversion)
@@ -165,7 +166,7 @@ function getHeader(exporting) {
             var end = header.source.indexOf('\n')
             var insert
             var w = (lastprintwidth === null) ? 300 : 0.01*lastprintwidth*window.innerWidth
-            if (header.lang == 'vpython' || header.lang == 'rapydscript')
+            if (header.lang == 'vpython')
                  insert = "print_options(place=$('#printing'),  width="+w+", height=window.innerHeight, clear=True)\n"
             else insert = "print_options({place:$('#printing'), width:"+w+", height:window.innerHeight, clear:true})\n"
             header.source = insert + header.source

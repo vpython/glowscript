@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>VPython Help</title>
@@ -8,33 +6,29 @@
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython see more <br />
-      Help at glowscript.org</p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
-        
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
       <div>
         <h1 class="Heading-1"> <font color="#0000A0">Math Functions</font></h1>
       </div>
@@ -53,7 +47,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         asin(x) &nbsp;&nbsp;&nbsp;# arc sine<br />
         acos(x) &nbsp;&nbsp;&nbsp;# arc cosine<br />
         atan(x) &nbsp;&nbsp;&nbsp;# arc tangent; -pi/2 to pi/2<br />
-        atan2(y,x) # angle whose tangent is y/x; -pi to pi<br />
+        atan2(y,x) # angle whose tangent is y/x; -pi to pi<br>
+        sqrt(x)&nbsp;&nbsp;&nbsp;&nbsp;# square root<br />
         exp(x) &nbsp;&nbsp;&nbsp;&nbsp;# e to the x<br />
         log(x)  &nbsp;&nbsp;&nbsp;&nbsp;# natural log, base e<br />
         # log(x)/log(10) gives log base 10<br />
@@ -61,6 +56,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         pi    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 3.14159.... <br />
         ceil(x)&nbsp;&nbsp;&nbsp;&nbsp;# round up to nearest integer<br />
         floor(x)&nbsp;&nbsp;&nbsp;# round down to nearest integer<br />
+        sign(x)    &nbsp;&nbsp;&nbsp;# +1 if x &gt; 0, -1 if x &lt; 0, 0 if x == 0<br />
         round(x)   &nbsp;&nbsp;# round to nearest integer <br />
         max(x,y,z) # the largest of x,y,z<br />
         min(x,y,z) # the smallest of x,y,z<br />
@@ -69,7 +65,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         combin(x,y)     &nbsp;&nbsp;#  x!/(y!*(x-y)!) <br />
         max(a,b,c,..) # maximum of these<br />
         min(a,b,c,..) # minimum of these</p>
-      <p class="Normal">Many of the quantities above are short forms of the JavaScript functions Math.abs(x), Math.sqrt(x), etc. <strong><a href="factorial.html">Here are details</a></strong> of the factorial and combin functions.</p>
+      <p class="Normal">Many of the quantities above are short forms of the JavaScript functions Math.abs(x), Math.sqrt(x), etc.      </p>
+      <div>
+        <div></div>
+      </div>
+      <p class="Normal">In general, Python modules cannot be imported into VPython programs, because GlowScript VPython functions in a JavaScript environment. However, one can import the Python &quot;random&quot; module into a VPython program, provided by the RapydScript-NG tool that converts Python to JavaScript. One cannot use the form &quot;from random import *&quot; but must use &quot;import random&quot; or &quot;import random as rr&quot; (or other name) or &quot;from random import randint, uniform&quot; (or other list of functions). Here is <strong><a href="https://docs.python.org/3/library/random.html">documentation</a></strong> of the Python random module, however only seed_state, get_random_byte, seed, random, randrange, randint, uniform, choice, shuffle, and sample have been implemented in GlowScript. You do not need to import the random module in order to be able to use the random() function described above.</p>
       <p class="Normal">There are functions for converting between degrees and
         radians, where there are 2*pi radians in 360 degrees: </p>
       <p class="program">radians(360) &nbsp;# equal to 2*pi<br />
@@ -79,17 +79,48 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       <p class="program">t1 = clock()<br />
         sleep(1.5)<br />
         t2 = clock()<br />
-        print(t2-t1)</p>
-      <p class="Normal"></p>
+        print(t2-t1) </p>
       <p class="Normal">There is also a function msclock() which gives the time in milliseconds instead of seconds.</p>
       <p class="Normal">You can <a href="MathJax.html" target="_blank"><strong>use LaTeX</strong></a> to display mathematical expressions on the page.</p>
-      <br />
-<!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+      <p class="Normal">Here are functions that are useful in statistical calculations:</p>
+      <div>
+        <div>
+          <p class="program"> print(factorial(4)) # gives 24 <br />
+            print(combin(10,2)) # gives 45 </p>
+          <p class="Normal"><span class="program">The factorial function factorial(N)
+            is N!; 4! is (4)(3)(2)(1) = 24, and 0! is defined to be 1.<br />
+            The combin function is combin(a,b) = a!/(b!*(a-b)!)</span>.</p>
+          <p class="Normal">A major use of these functions is in calculating the number 
+            of ways of arranging a group of objects. For example, if there are 5 numbered 
+            balls in a sack, there are <span class="attribute">factorial(5)</span> = 
+            5! = 5*4*3*2*1 = 120 ways of taking them sequentially out of the sack (5 
+            possibilities for the first ball, 4 for the next, and so on). </p>
+          <p class="Normal">If on the other hand the 5 balls are not numbered, but 2 
+            
+            are green and 3 are red, of the 120 ways of picking the balls there are 
+            
+            2! indistinguishable ways of arranging the green balls and 3! ways of arranging 
+            
+            the red balls, so the number of different arrangements of the balls is <span class="attribute">combin(5,2)</span> = 5!/(3!*2!) = 10.</p>
+          <p class="Normal">Logically, the combin function is just a combination of 
+            
+            factorial functions. However, cancellations in the numerator and denominator 
+            
+            make it possible to evaluate the combin function for values of its arguments 
+            
+            that would overflow the factorial function, due to the limited size of floating-point 
+            
+            numbers. For example, <span class="attribute">combin(5,2)</span> = 5!/(3!*2!) 
+            
+          = (5*4)/(2*1) = (2.5*4) = 10, and we didn't have to evaluate any of the factorials fully.</p>
+          <p class="Normal">&nbsp;</p>
+          <p class="Normal"><br />
+          </p>
+        </div>
+      </div>
+		<!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
-<script type="text/javascript" language="javascript"  src="navigation.js"></script>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>

@@ -1,5 +1,5 @@
 a:link, a:visited, a:hover {
-	color: #006699;
+	color: #0066dd;
 	text-decoration: none;
 }
 a:hover {
@@ -219,4 +219,28 @@ EM.Symbol {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 16px;
 	text-align: center;
+}
+
+#wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  padding: 0;
+}
+
+#leftmenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  background-color: #EEEEEE;
+}
+
+#content {
+  float: right;
+  width: 80%;
+  height: 100%;
+  background-color: white;
 }

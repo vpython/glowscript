@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>VPython Help</title>
@@ -14,33 +12,29 @@
 -->
 </style>
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython see more <br />
-      Help at glowscript.org</p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
-        
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
         <table width="100%" border="1">
           <tr>
             <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">cylinder</font></span></div></td>
@@ -50,8 +44,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="Normal"><strong>Studying this description of the cylinder object
             provides an overview of  important aspects common to all of the
             VPython 3D objects, box, sphere, pyramid, etc. </strong>Additional details about how to orient an object using &quot;axis&quot; and &quot;up&quot; are found in the description of the <a href="box.html"><strong>box object</strong></a>. </p>
+        <p class="Normal">This documentation explains how to use GlowScript VPython. If you prefer to write programs in JavaScript, see this <strong><a href="using_javascript.html">document</a></strong>.</p>
       <p class="Normal"> <img src="VisualRef-1.gif" alt="cylinder" align="right" /> Here is an example 
-          of how to make a cylinder, naming it &quot;rod&quot; for future reference:</p>
+        of how to make a cylinder, naming it &quot;rod&quot; for future reference:</p>
 
           <p class="program"> rod = cylinder(pos=vector(0,2,1), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(5,0,0), radius=1)</p>
           <p class="Normal"> The center of one end of this cylinder is at x=0, y=2, 
@@ -86,16 +81,16 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position: the center of one end of the cylinder; default = vector(0,0,0)<br />
   </p>
           <p class="attributes"> <font color="#FF0000">axis</font> The axis points from 
-        pos to the other end of the cylinder, default = vector(1,0,0). Setting the axis makes  <span class="attribute">length</span> equal  to the magnitude of the axis. An object's <font color="#FF0000">axis</font> and <span class="attribute">up</span> attributes are always perpendicular to each other. Changing the direction of <font color="#FF0000">axis</font> also changes the direction of <span class="attribute">up</span> so that the two directions always remain at right angles to each other.</p>
+        pos to the other end of the cylinder, default = vector(1,0,0). Setting the axis makes  <span class="attribute">length </span>and <span class="attribute">size.x</span> equal  to the magnitude of the axis. An object's <font color="#FF0000">axis</font> and <span class="attribute">up</span> attributes are always perpendicular to each other. Changing the direction of <font color="#FF0000">axis</font> also changes the direction of <span class="attribute">up</span> so that the two directions always remain at right angles to each other.</p>
           <p class="attributes"><span class="attribute">up</span> Which side
             of the  cylinder is &quot;up&quot;; this has only a subtle effect
             on the 3D appearance  of the cylinder unless a non-smooth texture 
             is specified or the cross section is oval; the default is vector(0,1,0). An object's <font color="#FF0000">axis</font> and up attributes are always perpendicular to each other. Changing the direction of<span class="attribute"> up</span><font color="#FF0000"> </font>also changes the direction of <font color="#FF0000">axis</font> so that the two directions always remain at right angles to each other.</p>
           <p class="attributes"> <span class="attribute">length</span> Length of axis and x component of size; default is 1. 
-            Setting the length makes the magnitude of the axis equal to the length.</p>
+            Setting the length makes the magnitude of <font color="#FF0000">axis</font> equal to the length. The following feature is not yet available in VPython 7, in which you should update axis, not length: If you set the length to zero, the current value of <font color="#FF0000">axis</font> is saved, the object becomes invisible, and <font color="#FF0000">axis</font> is set to vector(0,0,0). If you later set length to nonzero, <font color="#FF0000">axis</font>  is set to the direction of the saved value,  multiplied by the new length.</p>
           <p class="attributes"> <span class="attribute">radius</span> The radius of 
             the cylinder, default = 1</p>
-          <p class="attributes"> <span class="attribute">size</span> Instead of specifying length and radius, you can set size=vector(length,height,width), which means that the cross section of the cylinder can be elliptical, which is not currently possible in classic VPython. Setting size makes the magnitude of axis be equal to the x component of the size (the length).</p>
+          <p class="attributes"> <span class="attribute">size</span> Instead of specifying length and radius, you can set size=vector(length,height,width), which means that the cross section of the cylinder can be elliptical. Setting size makes <font color="#FF0000">axis</font> be equal to <span class="attribute">size.x</span> (the length) times the direction of <span class="attribute">axis</span>. or (except in VPython 7 currently) if <span class="attribute">axis</span> is vector(0,0,0), the direction of the saved value of <span class="attribute">axis</span>.</p>
           <p class="attributes"> <span class="attribute">color</span> Color of object, 
             as a red-green-blue (RGB) triple: vector(1,0,0) is pure red, default = vector(1,1,1), 
             which is color.white</p>
@@ -124,12 +119,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <p class="Normal"><br />
           </p>
 
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
-<script type="text/javascript" language="javascript"  src="navigation.js"></script>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>

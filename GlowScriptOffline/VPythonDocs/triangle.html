@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>VPython Help</title>
@@ -19,33 +17,29 @@
 -->
 </style>
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython see more <br />
-      Help at glowscript.org</p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
-        
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
 
         <table width="100%" border="1">
           <tr>
@@ -54,7 +48,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           </tr>
         </table>
         <div class="program0">
-          <p class="Normal">There is a set of built-in 3D objects (box, sphere, etc.). You can also create your own 3D objects, and even change their shapes dynamically, as in the case of the <strong><a href="../Demos/Rug.py" target="_blank">example program</a></strong> shown above, in which a pulse moves up along a rug.</p>
+          <p class="Normal">There is a set of built-in 3D objects (box, sphere, etc.). You can also create your own 3D objects, and even change their shapes dynamically, as in the case of the <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Rug" target="_blank">example program</a></strong> shown above, in which a pulse moves up along a rug.</p>
           <p class="Normal">The surface of an object consists of a mesh of triangles, and a triangle consists of 3 vertices. We can create a triangle by first creating three <strong>vertex</strong> objects, then using them to form a triangle:          </p>
           <p class="program"> a = vertex( pos=vec(0,0,0) )<br />
             b = vertex( pos=vec(1,0,0) )<br />
@@ -80,7 +74,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <p align="center" class="Normal">The role of the &quot;normals&quot;, shown here as arrows perpendicular to the plane of the triangle, is discussed in detail below. If you point the thumb of your right hand in the direction of the normal, and curl the fingers of your right hand, your fingers should go from v0 to v1 to v2. To put it another way, looking down the normals from above, going from v0 to v1 to v2 should go counterclockwise.</p>
           <p class="Normal"><strong><font color="#0000a0">The power of triangles and quads</font></strong></p>
           <p class="Normal">There are two powerful capabilities of triangles and/or quads: First, any surface can be approximated by a mesh of  triangles, so <em><strong>you can make any shape you like</strong></em>. Second, by changing the attributes of vertex objects, <strong><em>you can change the shape of a surface dynamically</em></strong>. A vertex object can be shared by several adjacent triangles, and changing that vertex object simultaneously affects all of the triangles that include that vertex object.</p>
-          <p class="Normal">In the <strong><a href="../Demos/Rug.py" target="_blank">rug example</a></strong> pictured above, the rug is divided into a rectangular mesh of vertex objects, and quad objects are created from these vertex objects. The same vertex may be shared by as many as four adjacent quad objects. Changing the z position of a shared vertex object affects all those quads that refer to that vertex, which makes it easy to create a moving pulse simply by modifying the vertex positions. In the rug program the quad objects are needed to display the rug, but once the quads have been created all further calculations refer just to the underlying vertex objects.</p>
+          <p class="Normal">In the <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Rug" target="_blank">rug example</a></strong> pictured above, the rug is divided into a rectangular mesh of vertex objects, and quad objects are created from these vertex objects. The same vertex may be shared by as many as four adjacent quad objects. Changing the z position of a shared vertex object affects all those quads that refer to that vertex, which makes it easy to create a moving pulse simply by modifying the vertex positions. In the rug program the quad objects are needed to display the rug, but once the quads have been created all further calculations refer just to the underlying vertex objects.</p>
           <p class="Normal">For a triangle or quad, in addition to specifying vertex objects you can specify <span class="attribute">texture</span> and/or <span class="attribute">visible</span>, but the usual attributes for other objects such as <span class="attribute">pos</span> or <span class="attribute">color</span> don't apply; this information is specified in the vertex objects. (It is not possible to specify place, flipx, flipy, or turn for a triangle or quad texture. These effects can be achieved by  the way <span class="attribute">texpos</span> is specified in the vertex objects.)</p>
           <p class="Normal">If you wish to specify a <span class="attribute">bumpmap</span> to go with a <span class="attribute">texture</span>, use the same scheme used with other objects.<em> <strong>This example assumes that you have specified <span class="attribute">texpos</span> values in the vertex objects (see below):</strong></em></p>
           <p class="program">quad(vs=[a, b, c, d], &nbsp;&nbsp;&nbsp;&nbsp;texture=dict(file=textures.stones, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bumpmap=bumpmaps.stones))          </p>
@@ -115,12 +109,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           </div>
         </div>
         <p class="Normal">&nbsp;</p>
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
-<script type="text/javascript" language="javascript"  src="navigation.js"></script>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>
