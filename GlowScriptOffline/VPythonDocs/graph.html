@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>VPython Help</title>
@@ -14,41 +12,37 @@
 -->
 </style>
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython see more <br />
-      Help at glowscript.org</p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
-        
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
       <div>
         <table width="100%" border="1">
               <tr>
                 <td width="47%"><div align="center"><span class="style1 style2"><font color="#0000A0">Graphs</font></span></div></td>
                 <td width="53%"><div align="center"><a href="arrow.html"></a><img src="images/graph.png" alt="graph" width="382" height="245" /></div></td>
               </tr>
-            </table>
-          </div>
+        </table>
+      </div>
           <p class="Normal">In this section we describe features for plotting graphs 
           
           with tick marks and labels as shown above.  Graphs can  be log-log or semilog (see below). As you drag the mouse across the graph you will find options to read information off the graph. </p>
@@ -57,16 +51,16 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <p class="Normal"><strong>Two graph options</strong></p>
           <p class="Normal">You can  choose between two graphing packages, one which is faster (currently based on Flot), or one which offers rich interactive capabilities such as zooming and panning but is slower (currently based on Plotly). The default is the fast version, corresponding to specifying <span class="attribute">fast=True</span> in a graph, gcurve, gdots, gvbars, or ghbars statement. To use the slower but more interactive version, say <span class="attribute">fast=False</span>. In many programs the &quot;slow&quot; version may run nearly as fast as the &quot;fast&quot; version, but if you plot a large number of data points the speed difference can be significant.<br />
             <br />
-            Do try <span class="attribute">fast=False</span> to see the many options provided. As you drag the mouse across the graph with the mouse button up, you are shown the numerical values of the plotted points. You can drag with the mouse button down to select a region of the graph, and the selected region then fills the graph. As you drag just below the graph you can pan left and right, and if you drag along the left edge of the graph you can pan up and down. As you move the mouse you'll notice that there are many options at the upper right. Hover over each of the options for a brief description. The &quot;home&quot; icon restores the display you saw before zooming or panning. Try <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/GraphTest" target="_blank">this demo</a></strong>.</p>
+      Do try <span class="attribute">fast=False</span> to see the many options provided. As you drag the mouse across the graph with the mouse button up, you are shown the numerical values of the plotted points. You can drag with the mouse button down to select a region of the graph, and the selected region then fills the graph. As you drag just below the graph you can pan left and right, and if you drag along the left edge of the graph you can pan up and down. As you move the mouse you'll notice that there are many options at the upper right. Hover over each of the options for a brief description. The &quot;home&quot; icon restores the display you saw before zooming or panning. Try <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/GraphTest" target="_blank">this demo</a></strong>.</p>
           <p class="Normal">&nbsp;</p>
           <p class="Normal"><strong>The basics</strong></p>
       <p class="Normal">Here is a simple example of how to plot a 2D graph (arange creates a numeric array running from 0 to 8, stopping short of 8.1):</p>
           <p class="program">f1 = gcurve(color=color.cyan)		# a graphics curve<br />
           for x in arange(0, 8.05, 0.1):		# x goes from 0 to 8<br />
-          &nbsp;&nbsp;&nbsp;&nbsp;f1.plot(pos=(x,5*cos(2*x)*exp(-0.2*x)))	# plot          </p>
+          &nbsp;&nbsp;&nbsp;&nbsp;f1.plot( x,5*cos(2*x)*exp(-0.2*x) )          </p>
           <p class="Normal"> A connected curve (<span class="attribute">gcurve</span>) 
             is  one of several kinds of graph plotting objects. Other options are 
-            disconnected dots (<span class="attribute">gdots</span>), 
+            disconnected dots (<span class="attribute">gdots</span>), vertical bars (
 <span class="attribute">gvbars</span>), and horizontal bars (<span class="attribute">ghbars</span>). </p>
           <p class="Normal">When creating <span class="attribute">gcurve</span>, <span class="attribute">gdots</span>, <span class="attribute">gvbars</span>, or <span class="attribute">ghbars</span>, you can optionally give a list of data points and/or a color (if no color is specified, the plotting color will be black):</p>
           <p class="program"> f1 = gcurve(data=[ [1,2],[5,-2],[8,4] ], <br />
@@ -80,6 +74,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         f1.plot([1,2], [3,4], [5,6])<br />
 f1.plot([ [1,2], [3,4], [5,6] ])</p>
       <p class="Normal">Once you have created a graphing object such as gcurve, its initial color will be used throughout. You can change the color later, but this will change the color of all the elements already plotted.</p>
+      <p class="Normal"> For a graphing object you can specify <span class="attribute">label=&quot;cos(x)&quot;</span> and this text, in the color of the object, will appear at the upper right. If you say <span class="attribute">legend=False</span> the label is not actually shown. The <span class="attribute">dot</span> (see below) and <span class="attribute">label</span> options need to be specified when you create the graphing object.</p>
 <p class="Normal"> You can plot more than one thing on the same graph:</p>
 <p class="program"> f1 = gcurve(color=color.cyan) <br />
   f2 = gvbars(delta=0.05, color=color.blue)<br />
@@ -106,7 +101,8 @@ f1.plot([ [1,2], [3,4], [5,6] ])</p>
   specifies the radius or diameter of the dot in pixels (default is <span class="attribute">radius=3</span>).</p>
           <p class="Normal">For <span class="attribute">gvbars</span> and <span class="attribute">ghbars</span> you can  specify a <span class="attribute">delta</span> attribute, which 
             specifies the width of the bar (the default is <span class="attribute">delta=1</span>).</p>
-          <p class="Normal">&nbsp;</p>
+          <p class="Normal">For all these graph objects you can specify <span class="attribute">visible</span> to be True or False, as with other VPython objects.</p>
+<p class="Normal">&nbsp;</p>
       <p class="Normal"><strong><font color="#0000A0">Deleting data or an entire graph</font></strong></p>
           <p class="Normal">If you create a gcurve, gdots, gvbars, or ghbars entity and name it g, you can delete the associated data from a graph by saying g.delete(). Similarly, if you say gd = graph(), you can delete the entire graph by saying gd.delete().</p>
           <p class="Normal">&nbsp;</p>
@@ -142,8 +138,7 @@ displays as<br />
 &nbsp;&nbsp;&nbsp;&nbsp;The <b>mass <i>M</i></b><sub>sys</sub> = 10<sup>3</sup> kg. <br />
 <br />
 Multiple lines in a </span><span class="attribute">title</span><span class="attributes"> can be displayed by inserting line breaks (\n), as in &quot;Three\nlines\nof 
-      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</span> You cannot use line breaks in <span class="attribute">xtitle</span> or <span class="attribute">ytitle</span>. If a <span class="attribute">title</span> is specified, the height of the graph is increased to provide space for the title.</p>
-          <p class="Normal"><br />
+      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</span> You cannot use line breaks in <span class="attribute">xtitle</span> or <span class="attribute">ytitle</span>. If a <span class="attribute">title</span> is specified, the height of the graph is increased to provide space for the title.<br />
           </p>
           <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
             
@@ -151,15 +146,16 @@ Multiple lines in a </span><span class="attribute">title</span><span class="attr
             
   no titles, fully autoscaled.      </p>
           <p class="Normal">You can align a graph to the left or right of another graph or a canvas:</p>
-      <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (graph forced to left side of window), &quot;right&quot; (graph forced to right side of window), or &quot;none&quot; (the default alignment). If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot;, then create the canvas without specifying its value of align.</p>
-          <p class="Normal">You can have more than one graph window: just create another <span class="attribute"> graph</span>. By default, any graphing objects 
+      <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (graph forced to left side of window), &quot;right&quot; (graph forced to right side of window), or &quot;none&quot; (the default alignment). If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot; and activate the graph by plotting something in it, then create the canvas without specifying its value of align. Another option is to specify align='left' for all canvases and graphs, in which case they will abut each other.</p>
+      <br>
+<p class="Normal">You can have more than one graph window: just create another <span class="attribute"> graph</span>. By default, any graphing objects 
             
             created following a <span class="attribute">graph</span> belong to that 
             
-    window, or you can  specify which window a new object belongs to: </p>
+window, or you can  specify which window a new object belongs to: </p>
 
           <p class="program"> energy = gdots(graph=graph2, color=color.blue)</p>
-          <p class="program">&nbsp;</p>
+          <p class="attributes"></p>
           <p class="Normal">You can also obtain the current graph with <span class="attribute">graph.get_selected()</span>, and you can set the current graph to be the graph named gd by executing <span class="attribute">gd.select()</span>.</p>
           <p class="Normal">Here is a summary of what determines in which of several possible 2D graphs a graphing object such as a gcurve or gdots will be placed:</p>
           <p class="program">g1 = graph() # default properties<br />
@@ -172,37 +168,23 @@ Multiple lines in a </span><span class="attribute">title</span><span class="attr
             gvbars(graph=g1, ...) # will appear in &quot;g1&quot; </p>
           <p class="Normal">The key point is that after creating a graph, 2D objects will by default be placed in the most recently created graph, unless you explicitly specify a different graph for the object.</p>
           <p class="Normal">&nbsp;</p>
-          <p class="Normal"><strong><font color="#0000A0">A scrolling &quot;chart recorder&quot;</font></strong></p>
-          <p class="Normal">You can imitate a &quot;chart recorder&quot; in which as you add more and more points to the right of the graph, only the most recent portions of the graph are shown. With fast=False, you can pan along the whole graph when completed. You must specify the initial xmin and xmax, and xmax must be greater than xmin.</p>
-          <p class="program">graph(scroll=True, fast=False, xmin=0, xmax=10)<br />
-            g = gcurve()<br />
-            for x in arange(0,30,0.1):<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;rate(100)<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;g.plot( x, sin(x) )</p>
-          <p class="Normal"></p>
-          <p class="Normal"><em>The convenient scroll option shown above is not yet available in VPython 7</em>, but you can imitate the effect by continually adjusting the graph's xmin and xmax values to show only the most recent portions of the graph. With fast=False you can pan along the whole graph when completed. You must specify the initial xmin and xmax, and xmax must be greater than xmin. </p>
-          <p class="program">gr = graph(fast=False, xmin=0, xmax=10) <br />
-            g = gcurve()<br />
-            for x in arange(0,30,0.1):<br />
-  &nbsp;&nbsp;&nbsp; rate(100)<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;if x &gt; gr.xmax:<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d = x-gr.xmax<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr.xmin += d<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr.xmax += d<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;g.plot( x, sin(x) )</p>
+      <p class="Normal"><strong><font color="#0000A0">A scrolling &quot;chart recorder&quot;</font></strong></p>
+      <p class="Normal">You can imitate a &quot;chart recorder&quot; in which as you add more and more points to the right of the graph, only the most recent portions of the graph are shown. With fast=False, you can pan along the whole graph when completed. You must specify the initial xmin and xmax, and xmax must be greater than xmin.</p>
+      <p class="program">graph(scroll=True, fast=False, xmin=0, xmax=10)<br>
+        g = gcurve()<br>
+        for x in arange(0,30,0.1):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rate(100)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;g.plot( x, sin(x) )</p>
       <p class="Normal"></p>
-<p class="Normal">&nbsp;</p>
+      <p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
           <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc.</p>
-<p class="Normal">&nbsp;</p>
+          <p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000A0">Histograms (sorted, binned data)</font></strong></p>
-          <p class="Normal">There is no ghistogram option. However, the program <a href="../Demos/HardSphereGas-VPython.py" target="_blank">HardSphereGas</a> provides an example of how to make a histogram.</p>
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+          <p class="Normal">There is no ghistogram option. However, the program <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/HardSphereGas-VPython" target="_blank">HardSphereGas</a> provides an example of how to make a histogram.</p>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
-<script type="text/javascript" language="javascript"  src="navigation.js"></script>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>

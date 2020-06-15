@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>VPython Help</title>
@@ -14,33 +12,29 @@
 -->
 </style>
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython see more <br />
-      Help at glowscript.org</p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
-        
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
       <table width="100%" border="1">
         <tr>
           <td width="56%"><div align="center">
@@ -48,8 +42,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               button,<br />
               radio, checkbox,<br />
               slider, menu,              winput,<br />
-              wtext
-            </font><br />
+              input, wtext</font><br />
             </h1>
 </div></td>
           <td width="44%"><a href="controls.html"><img src="images/gswidgets.png" alt="controls" width="244" height="281" /></a><a href="arrow.html"></a></td>
@@ -57,8 +50,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
       </table>
       <div></div>
       <div class="Normal">
-        <p class="Normal">Tthe example shown above, <a href="../Demos/ButtonsSlidersMenus-VPython.py" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, contains buttons, a slider, radio buttons,  a drop-down menu, and a check box. The example program <a href="../Demos/Color-RGB-HSV-VPython.py" target="_blank"><strong>Color-RGB-HSV-VPython</strong></a><strong></strong> uses six sliders to explore RGB and HSV colors. The winput object lets the user enter a numeric expression or text. The wtext object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets.</p>
-        <p class="Normal">Here is the basic idea for using button, radio buttion, checkbox, slider,  menu, and winput:</p>
+        <p class="Normal">Tthe example shown above, <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython" target="_blank"><strong>ButtonsSlidersMenus-VPython</strong></a>, contains buttons, a slider, radio buttons,  a drop-down menu, and a check box. The example program <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank"><strong>Color-RGB-HSV-VPython</strong></a><strong></strong> uses six sliders to explore RGB and HSV colors. The winput object lets the user enter a numeric expression or text. The wtext object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets. The input function mimics the Python input function, letting the user input a character string. The wtext object isn't interactive; it facilitates managing text elements in a canvas title or caption.</p>
+        <p class="Normal">Here is the basic idea for using button, radio buttion, checkbox, slider,  menu,  winput, input:</p>
         <p class="program">box()<br />
           def B(b):<br />
           &nbsp;&nbsp;&nbsp;&nbsp;print(&quot;The button  said this: &quot;, b.text)<br />
@@ -88,17 +81,16 @@ scene.append_to_caption('\n\n')<br />
 <br />
 def T(s): <br />
 &nbsp;&nbsp;&nbsp;&nbsp;print(s.text, s.number)<br />
-winput( bind=T )</p>
+winput( bind=T )<br />
+<br />
+s = input( 'What is your name?')</p>
 <p class="Normal">By default, widgets are appended to scene.caption_anchor, below the canvas. The append_to_caption statements above cause the radio button to appear below the button, the checkbox to appear below the radio button, the slider to appear below the checkbox, and the dropdown menu to appear below the slider. If you specify pos=scene.title_anchor, the widget will appear above the canvas.</p>
 <p class="Normal">The function specified by &quot;bind&quot; is called when the user clicks a button or radio button or checkbox, drags a slider, chooses a menu option, or enters a numeric expression or string in a winput box. The function is sent a pointer to the widget, which lets you reference or change information about the widget. For the radio button and checkbox, the (optional) text is placed one space to the right of the widget.</p>
-<p class="Normal"><strong>Important limitation of GlowScript VPython:</strong> The bound function cannot contain the statements rate, sleep, pause, waitfor, get_library, or read_local_file, statements that require pausing during execution. This limitation does not apply to VPython 7.</p>
 <p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000a0">Adding your own attributes </font></strong></p>
-<div class="Normal"></div>
 <p class="Normal">As with other objects, you can add your own attributes to those listed below. For example, you might have three buttons all bound to the same function but with different attributes &quot;id=1&quot;, &quot;id=2&quot;, and &quot;id=3&quot;. When the function is called by the user clicking the button, you could decide what to do based on the value of the &quot;id&quot; attribute you created.</p>
 <p class="Normal">&nbsp;</p>
 <p class="Normal"><strong><font color="#0000a0">button</font></strong></p>
-<div class="Normal"></div>
 <p class="Normal">A space is placed to the right of the button, so that there is always some space between a button and an adjacent widget. Here are the attributes of a <strong>button</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the button.</p>
 <p class="attributes"> <span class="attribute">text</span> The text shown on the button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold.</p>
@@ -108,10 +100,7 @@ winput( bind=T )</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the button text is grayed out and the button is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If B is a button, B.delete() deletes the button from the display.</p>
 <p class="Normal"></p>
-<p class="Header">&nbsp;</p>
 <p class="Header"><strong><font color="#0000a0">radio</font></strong></p>
-<p class="Header"></p>
-<div class="Normal"></div>
 <p class="Normal">Radio buttons are often used in a group of two or more, in which you arrange that only one is checked at any time. Here are the attributes of a <strong>radio</strong> widget (a radio button):</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the radio button. </p>
 <p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the radio button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
@@ -120,7 +109,6 @@ winput( bind=T )</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the radio button is grayed out and the radio button is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If R is a radio button, R.delete() deletes the radio button from the display.</p>
 <p class="Normal"></p>
-<p class="Header">&nbsp;</p>
 <p class="Header"><strong><font color="#0000a0">checkbox</font></strong></p>
 <p class="Normal">Here are the attributes of a <strong>checkbox</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the checkbox.</p>
@@ -130,9 +118,7 @@ winput( bind=T )</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the checkbox is grayed out and the checkbox is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If C is a checkbox, C.delete() deletes the checkbox from the display.</p>
 <p class="Normal"></p>
-<p class="Header">&nbsp;</p>
 <p class="Header"><strong><font color="#0000a0">slider</font></strong></p>
-<div class="Normal"></div>
 <p class="Normal">Here are the attributes of a <strong>slider</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">vertical</span> If True, the slider is vertical, otherwise the slider is horizontal (the default). Cannot be changed after creating the slider.</p>
@@ -140,34 +126,32 @@ winput( bind=T )</p>
 <p class="attributes"> <span class="attribute">min</span> The minimum value of the slider; default is 0. Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">max</span> The maximum value of the slider; default is 1. Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">step</span> The step size when clicking or dragging. The default is 0.001*(max-min). Cannot be changed after creating the slider.</p>
-<p class="attributes"> <span class="attribute">value</span> The current value (between min and max) of the slider. Can be set by program as well as by user motions. When you set the value by program (slider.value = something), the bind function is NOT executed, which prevents confusion that would arise in situations such as the <a href="../Demos/Color-RGB-HSV-VPython.py" target="_blank">RGB-HSV demo program</a>, where a user change in a slider causes program changes to the values of other sliders.</p>
+<p class="attributes"> <span class="attribute">value</span> The current value (between min and max) of the slider. Can be set by program as well as by user motions. When you set the value by program (slider.value = something), the bind function is NOT executed, which prevents confusion that would arise in situations such as the <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank">RGB-HSV demo program</a>, where a user change in a slider causes program changes to the values of other sliders.</p>
 <p class="attributes"> <span class="attribute">length</span> The length of the slider, whether vertical or horizontal; default is 400 (pixels). Cannot be changed after creating the slider.</p>
 <p class="attributes"> <span class="attribute">width</span> The width of the slider, whether vertical or horizontal; default is 10 (pixels). Cannot be changed after creating the slider.</p>
-<p class="attributes"> <span class="attribute">left</span> Margin to the left of the slider; default is 0 (pixels). Cannot be changed after creating the slider.</p>
-<p class="attributes"> <span class="attribute">right</span> Margin to the right of the slider; default is 0 (pixels). Cannot be changed after creating the slider.</p>
-<p class="attributes"> <span class="attribute">top</span> Margin above the slider; default is 0 (pixels). Cannot be changed after creating the slider.</p>
-<p class="attributes"> <span class="attribute">bottom</span> Margin below the slider; default is 0 (pixels). Cannot be changed after creating the slider. Currently does not seem to work properly.</p>
-<p class="attributes"><font color="#FF0000">align</font> If 'left' (the default), the slider is displayed at the left of the window; if 'right', the slider is displayed at the right of the window. Cannot be changed after creating the slider.</p>
-<p class="attributes"><font color="#FF0000">disabled</font> If True, moving the slider does not create an event. Can be changed at any time.</p>
+<p class="attributes"> <span class="attribute">left</span> Margin to the left of the slider; default is 12 (pixels), and 12 is the minimum, to prevent overwriting neighboring text. Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">right</span> Margin to the right of the slider; default is 12 (pixels), and 12 is the minimum, to prevent overwriting neighboring text. Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">top</span> Margin above the slider; default is 0 (pixels) for a horizontal slider; for a vertical slider 8 is the minimum, to prevent overwriting neighboring text. Cannot be changed after creating the slider.</p>
+<p class="attributes"> <span class="attribute">bottom</span> Margin below the slider; default is 0 (pixels) for a horizontal slider; for a vertical slider 8 is the minimum, to prevent overwriting neighboring text. Cannot be changed after creating the slider. Currently does not seem to work properly.</p>
+<p class="attributes"><font color="#FF0000">align</font> If 'left' , the slider is displayed at the left of the window; if 'right', the slider is displayed at the right of the window. The default is 'none' (no moving to left or right edge of the window). Cannot be changed after creating the slider.</p>
+<p class="attributes"><font color="#FF0000">disabled</font> If True, the slider is grayed out and the slider is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If S is a slider, S.delete() deletes the slider from the display.</p>
 <p class="Normal"></p>
-<p class="Header">&nbsp;</p>
 <p class="Header"><strong><font color="#0000a0">menu</font></strong></p>
-<div class="Normal"></div>
 <p class="Normal">A space is placed to the right of the menu, so that there is always some space between a menu and an adjacent widget. Here are the attributes of a  <strong>menu</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the menu.</p>
-<p class="attributes"> <span class="attribute">choices</span> A list of strings to appear on the menu, such as ['cat', 'dog', 'horse']. Cannot be changed after creating the menu.</p>
+<p class="attributes"> <span class="attribute">choices</span> A list of strings to appear on the menu, such as ['cat', 'dog', 'horse']. Can be changed after creating the menu by specifying a new list of strings to replace the existing list.</p>
 <p class="attributes"><font color="#FF0000">selected</font> The chosen string, such as 'dog'.  Can be set by program as well as by user choice. </p>
 <p class="attributes"><font color="#FF0000">index</font> The position of the chosen string in the choices list, starting from zero.  Can be set by program as well as by user choice.</p>
 <p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when a menu item is chosen. Cannot be changed after creating the menu.</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the menu is grayed out and the menu is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If M is a menu, M.delete() deletes the menu from the display.</p>
 <p class="Normal"></p>
-<p class="Header">&nbsp;</p>
 <p class="Header"><strong><font color="#0000a0">winput</font></strong></p>
 <p class="Normal">The <strong>winput</strong> object (widget input) displays a box in which the user can input a numeric expression or text. The user must select the text either by clicking in the box or by using the tab key.</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the object.</p>
-<p class="attributes"><font color="#FF0000" class="attribute">bind</font> The name of the function to be called when the user presses Enter. Cannot be changed after creating the object.</p>
+<p class="attributes"><font color="#FF0000" class="attribute">bind</font> The name of the function to be called when the user presses Enter. Cannot be changed after creating the object. In GlowScript VPython, if no bind function is specified, a pop-up dialog box appears for the user to type some input; this no-bind version is not yet available with installed Python (VPython 7).</p>
+<p class="attributes"><font color="#FF0000" class="attribute">prompt</font> If bind is specified, the prompt text is displayed to the left of the input box, and this text is erased if the winput object is deleted. If no bind is specified, the prompt text is displayed above the place where the user types the input. This prompt option is not yet available with installed Python (VPython 7).</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">type</font> &quot;numeric&quot; (the default) or &quot;string&quot;. If it is numeric, the user can input expressions such as 3+2*sqrt(5.2e4). An error message is displayed if there is something wrong with the expression, and the bound function is not called. Cannot be changed after creating the object.</p>
 <p class="attributes"><font color="#FF0000" class="attribute">width</font> The width of the winput box in pixels; default is 100. Cannot be changed after creating the object.</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">height</font> The height of the winput box in pixels; default is 20. Cannot be changed after creating the object.</p>
@@ -176,41 +160,37 @@ winput( bind=T )</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the  text is grayed out and the winput is inactive.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If W is a winput, W.delete() deletes the winput box from the display.</p>
 <p class="Normal"></p>
-<p class="Header">&nbsp;</p>
+<p class="Header"><strong><font color="#0000a0">input</font></strong></p>
+<p class="Normal">The <strong><font color="#0000a0">input </font></strong>function mimics the functionality of the Python input function, namely that the user types an input, obtained from a pop-up dialog box. If you say input('Enter a value'), this prompt will be displayed to the user. You can also say input(prompt='Enter a value'), as with winput, but note that this is not standard Python.</p>
+<p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">wtext</font></strong></p>
 <p class="Normal">The <strong>wtext</strong> object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets.</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the wtext object.</p>
 <p class="attributes"><span class="attribute">text</span> The text shown at the specified place. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the start or end of the text to separate the text from an adjacent widget. The text need not be a string; it will be converted to a string for display.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If W is a wtext, W.delete() deletes the wtext from the display. An alternative is to set the text to &quot;&quot;, which leaves the wtext in place but without displaying anything.</p>
 <p class="Normal"></p>
-<p class="Normal"></p>
-<p class="Header">&nbsp;</p>
-<p class="Header">&nbsp;</p>
-<p class="Header"><strong><font color="#0000a0">Appending to anchor points</font></strong>        </p>
-<div class="Normal"></div>
+<p class="Header"><strong><font color="#0000a0">Appending to anchor points</font></strong></p>
 <p class="Normal">VPython provides three anchor points that can be used to append  widgets to the page, by specifying the widget's <span class="attribute">pos</span> attribute as one of these anchor points:</p>
         <p class="program">scene.title_anchor<br />
           scene.caption_anchor<br />
           print_anchor</p>
         <p class="Normal">Specifying <strong>print_anchor</strong> adds a widget to the bottom of the web page, where the print area is.</p>
         <p class="Normal"></p>
-        <p class="Header">&nbsp;</p>
-        <p class="Header"><strong><font color="#0000a0">Positioning widgets</font></strong>        </p>
-        <div class="Normal"></div>
+        <p class="Header"><strong><font color="#0000a0">Positioning widgets</font></strong></p>
         <p class="Normal">When you create a widget it is appended to the anchor point. As explained above, a space is placed after button and menu widgets to separate them. If you want more space between them, and they are in the caption, execute scene.append_to_caption('&nbsp;&nbsp;&nbsp;&nbsp;') between the creations of the buttons. In the case of checkbox and radio widgets, you can increase the space between it and an adjacent widget simply by adding extra spaces to the end of the checkbox or radio text.</p>
         <p class="Normal">If you want to provide a margin of 20 pixels between adjacent vertical sliders, one method is to set left=20 for all but the leftmost slider.</p>
-        <p class="Normal">To provide vertical spacing between widgets in the caption, execute something like scene.append_to_caption('\n\n') between the creations of the widgets. The string &quot;\n&quot; represents a new line (a &quot;carriage return&quot;).</p>
+        <p class="Normal">To provide vertical spacing between widgets in the caption, execute something like scene.append_to_caption('\n\n') between the creations of the widgets. The string &quot;\n&quot; represents a new line (a &quot;carriage return&quot;).<br>
+          <br>
+<br>
+        </p>
         <div> </div>
       </div>
       <div>
         <div> </div>
       </div>
-      <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+      <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
-<script type="text/javascript" language="javascript"  src="navigation.js"></script>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>

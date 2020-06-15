@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>VPython Help</title>
@@ -8,39 +6,35 @@
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
 <!-- InstanceEndEditable -->
-<script type="text/javascript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-</script>
 </head>
 
 <body>
-<table width="800" border="0" cellpadding="1" cellspacing="0">
-  <!--DWLayoutDefaultTable-->
-  <tr>
-    <td width="10" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="10" height="272" valign="top" bgcolor="#DDDDDD"><p>&nbsp;</p>    </td>
-    <td width="173" valign="top" bgcolor="#DDDDDD"><p class="Normal"><a href="index.html">Home</a></p>
-      <p class="Normal">If you're new to Python <br />
-      and VPython see more <br />
-      Help at glowscript.org</p>
-      <p class="Normal"><a href="primitives.html">Pictures</a> of 3D objects</p>
-<p><select id="menu1" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu2" onchange="jumpMenu(this)"></select></p>
-<p><select id="menu3" onchange="jumpMenu(this)"></select></p>
-        
-    <td width="21" valign="top" bgcolor="#FFFFFF"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td width="586" rowspan="2" valign="top"><!-- InstanceBeginEditable name="content" -->
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
       <h1 class="Title" align="center"> <font color="#FF0000">Simple 3D Programming 
         
         Using VPython</font> </h1>
       <div>
         <h3 class="Heading-1"> <font color="#0000A0">I. Getting started</font></h3>
-        <p class="Normal">To write a VPython program in the browser, sign in at glowscript.org, click the link to your programs, then click Create New Program. A blank edit page will open with a header line that says something like &quot;GlowScript 1.1 VPython&quot;. Start typing your program on the second line. Click &quot;Run this program&quot; to try out your program.</p>
+        <p class="Normal">To write a VPython program in the browser, sign in at glowscript.org, click the link to your programs, then click Create New Program. A blank edit page will open with a header line that says something like &quot;GlowScript 3.0 VPython&quot;. Start typing your program on the second line. Click &quot;Run this program&quot; to try out your program.</p>
       </div>
       <div>
         <h3 class="Heading2"> <font color="#0000A0">The canvas</font></h3>
@@ -61,7 +55,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
         <h3 class="Heading2"> <font color="#0000A0">The Code window</font></h3>
         <p class="Normal">If you type or copy the following simple program into the program editor and run it (click &quot;Run this program&quot; or press Ctrl-1 or Ctrl-2), you will see 
-          a canvas like the one shown in the figure. </p>
+          a canvas conatining a red box and a green sphere, as shown in the figure. </p>
         <p class="program">        redbox=box(pos=vector(4,2,3),<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        size=vector(8,4,6),color=color.red)<br />
       ball=sphere(pos=vector(4,7,3),radius=2,color=color.green)</p>
@@ -73,7 +67,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           or down. Click and drag up or down with the 
           middle mouse button to move closer to the scene or farther away (on a 2-button 
           mouse, hold down the left and right buttons; on a 1-button mouse, hold down 
-          the Alt key).</p>
+          the Alt key). To pan left/right and up/down, drag with the shift key held down.</p>
 
         <h3 class="Heading-1"> <font color="#0000A0">II. VPython Entities</font></h3>
 
@@ -90,7 +84,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           
           properties like <span class="attribute">ball.pos</span> (the position 
           
-          of the sphere), <span class="attribute">ball.color</span>, and <span class="attribute">radius</span> or other size parameter. If you change an attribute of an object, such as 
+          of the sphere), <span class="attribute">ball.color</span>, and <span class="attribute">ball.</span><span class="attribute">radius</span> or other size parameter. If you change an attribute of an object, such as 
           
           its position or color, VPython will automatically display the object in its 
           
@@ -115,23 +109,23 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           you may refer to its components as <strong>a.x</strong><em class="code">,  </em><strong>a.y</strong>, and <strong> a.z</strong>. To add two vectors, <strong> a</strong> and <strong> b</strong>, however, you do not need to add the 
           
       components one by one; VPython will do the vector addition for you:</span>      </p>
-        <p class="program"> a = vector(1,2,3)<br />
+        <p class="program"> a = vector(1,2,3) # can also be written briefly as vec(1,2,3)<br />
         b = vector(4,5,6)<br />
         c = a+b</p>
         <p class="Normal"> If you include print(c), you will see that 
           
-          it is a vector with components (5, 7, 9.).</p>
+          it is a vector with components &lt;5, 7, 9&gt;.</p>
         <h3 class="Heading2"><font color="#0000A0">Scalar multiplication</font></h3>
-        <p class="program">d = 3*a # d is a vector with components (3, 6, 9)</p>
+        <p class="program">d = 3*a # d is a vector with components &lt;3, 6, 9&gt;</p>
 
           <h3 class="Heading2"><font color="#0000A0">Vector magnitude</font> </h3>
-          <p class="program">s = mag(c) # s is a scalar<br />
-          z = mag(c)**2 # you can square the magnitude of a vector</p>
+          <p class="program">s = mag(c) &nbsp;&nbsp;&nbsp;# s is a scalar magnitude<br />
+          z = mag(c)**2 # square the magnitude of the vector; ** means &quot;to the power of&quot;</p>
 
           <h3 class="Heading2"><font color="#0000A0">Vector products</font> </h3>
           <p class="program">f = cross(a,b) # cross product<br />
-          g = dot(a,b)			# dot product<br />
-          h = norm(a) # normalized (unit) vector; a/mag(a) </p>
+          g = dot(a,b)&nbsp;&nbsp;			# dot product<br />
+          h = norm(a) &nbsp;&nbsp;&nbsp;# normalized (unit) vector; a/mag(a); same as hat(a) or a.hat</p>
           <p class="Normal"> The attributes of VPython objects can be vectors, such 
             
             as velocity or momentum.</p>
@@ -140,24 +134,23 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
         <h3 class="Heading2"><font color="#0000A0">Using the 3D Graphics Module</font></h3>
 
-          <p class="Normal"> The necessary first line of your program is created for you, and looks like this, if the current version is 1.1:</p>
-          <p class="program"> GlowScript 1.1 VPython</p>
+          <p class="Normal"> The necessary first line of your program is created for you, and looks like this, if the current version is 3.0:</p>
+          <p class="program"> GlowScript 3.0 VPython</p>
 
           <h3 class="Heading2"><font color="#0000A0">Comments</font></h3>
         <p class="Normal"> A comment in a Python program starts with &quot;#&quot;</p>
-        <p class="program"> # this line is a comment</p>
+        <p class="program"> # This line is a comment</p>
 
         <h3 class="Heading2"><font color="#0000A0">Variables</font></h3>
 
         <p class="Normal"> Variables can be created anywhere in a Python program, simply by assigning a variable name to a value. The type of the variable is determined by the assignment statement.</p>
-        <p class="program"> a = 3 # an integer<br />
-        b = -2.5 # a floating-point number<br />
+        <p class="program"> a = 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# an integer<br />
+        b = -2.4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# a floating-point number<br />
         c = vector(0.4, 3e3, -1e1) # a vector<br />
-        Earth = sphere(pos=vector(0,0,0), <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        radius=6.4e6) # a 3D object<br />
+        Earth = sphere(pos=vector(0,0,0), radius=6.4e6) # a 3D object<br />
         bodies = [ship, Earth, Moon]	
           
-          # a list of objects</p>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# a list of objects</p>
         <p class="Normal"> Basic VPython objects such as sphere() and box() have
           a set  
           of &quot;attributes&quot; such as color, and you can define additional attributes
@@ -231,8 +224,9 @@ else:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# any other case<br />
         <p class="program"> angles = arange (0, 2*pi, pi/100) <br />
         # from 0 to 2*pi-(pi/100) in steps of (pi/100)<br />
         <br />
-        numbers = arange(10) # integer argument -&gt; integers<br />
-        print(numbers) # [0,1,2,3,4,5,6,7,8,9] </p>
+        numbers = arange(5)<br>
+        for i in numbers:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(i) # prints 0, 1, 2, 3, 4</p>
 
         <h3 class="Heading2"> <font color="#0000A0">Loops</font></h3>
         <p class="Normal"> The simplest loop in Python is a &quot;while&quot; loop. The loop continues as long as the specified logical expression is true (note the obligatory indentation):</p>
@@ -264,18 +258,16 @@ else:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# any other case<br />
         <p class="program"> print(Europa.momentum)</p>
         <p class="Normal"> To print a text message, enclose it in quotes:</p>
         <p class="program"> print(&quot;We   crashed with speed&quot;, v, &quot;m/s.&quot;)</p>
-        <p class="Normal"> This could also be done like this:</p>
-        <p class="program"> print(&quot;We   crashed with speed {} m/s.&quot;.format(v))</p>
+        <p class="Normal"> This could also be done like this (note the initial &quot;f&quot; that makes this work):</p>
+        <p class="program"> print(f&quot;We   crashed with speed {v} m/s.&quot;)</p>
       <h3 class="Heading2"><font color="#0000A0">More Information about Python</font></h3>
         <p class="Normal">We have summarized a  small but important subset of the Python programming
           language. Extensive Python information is available on the internet.</p>
+        <p class="Normal">&nbsp;</p>
 
-    <!-- InstanceEndEditable --></td>
-  </tr>
-  <tr>
-    <td height="16" colspan="4"></td>
-  </tr>
-</table>
+      <!-- InstanceEndEditable -->		
+    </div>
+</div>
 </body>
-<script type="text/javascript" language="javascript"  src="navigation.js"></script>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
 <!-- InstanceEnd --></html>

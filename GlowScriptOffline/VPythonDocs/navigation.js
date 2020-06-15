@@ -26,6 +26,7 @@ document.getElementById("menu1").innerHTML = s
 
 s = ''
 s += '<option>Work with 3D objects</option>'
+s += '<option value="videos.html">Introductory Videos</option>'
 s += '<option value="color.html">Color/Opacity</option>'
 s += '<option value="text_output.html">Text Output</option>'
 s += '<option value="textures.html">Textures</option>'
