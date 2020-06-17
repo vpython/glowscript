@@ -43,19 +43,19 @@
         s = None # declare s to be used below<br />
   <br />
         def down():<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;nonlocal drag, s<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;global drag, s<br />
   &nbsp;&nbsp;&nbsp;&nbsp;s = sphere(pos=scene.mouse.pos,<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.red,<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size=0.2*vec(1,1,1))<br />
   &nbsp;&nbsp;&nbsp;&nbsp;drag = True<br />
   <br />
         def move():<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;nonlocal drag, s <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;global drag, s <br />
   &nbsp;&nbsp;&nbsp;&nbsp;if drag: # mouse button is down<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.pos = scene.mouse.pos<br />
   <br />
         def up():<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;nonlocal drag, s<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;global drag, s<br />
   &nbsp;&nbsp;&nbsp;&nbsp;s.color = color.cyan<br />
   &nbsp;&nbsp;&nbsp;&nbsp;drag = False<br />
   <br />
@@ -64,7 +64,7 @@
         scene.bind(&quot;mousemove&quot;, move)<br />
   <br />
         scene.bind(&quot;mouseup&quot;, up)</p>
-      <p class="Normal">It is also possible to use &quot;anonymous&quot; (unnamed) functions, an extended feature of the RapydScript Python-to-JavaScript compiler, as shown here:</p>
+      <p class="Normal">It is also possible to use &quot;anonymous&quot; (unnamed) functions, an extended feature of the RapydScript-NG Python-to-JavaScript compiler, as shown here (this will NOT work with installed Python):</p>
       <p class="program">scene.range = 5<br />
         box()<br />
   <br />
@@ -72,7 +72,7 @@
         s = None # declare s to be used below<br />
   <br />
         scene.bind(&quot;mousedown&quot;, def ():<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;nonlocal drag, s<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;global drag, s<br />
   &nbsp;&nbsp;&nbsp;&nbsp;s = sphere(pos=scene.mouse.pos,<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.red,<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size=0.2*vec(1,1,1))<br />
@@ -80,13 +80,13 @@
         )<br />
   <br />
         scene.bind(&quot;mousemove&quot;, def ():<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;nonlocal drag, s <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;global drag, s <br />
   &nbsp;&nbsp;&nbsp;&nbsp;if drag: # mouse button is down<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s.pos = scene.mouse.pos<br />
         )<br />
   <br />
         scene.bind(&quot;mouseup&quot;, def ():<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;nonlocal drag, s<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;global drag, s<br />
   &nbsp;&nbsp;&nbsp;&nbsp;s.color = color.cyan<br />
   &nbsp;&nbsp;&nbsp;&nbsp;drag = False<br />
         )</p>
