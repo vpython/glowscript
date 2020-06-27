@@ -1,0 +1,124 @@
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.style1 {font-size: x-large}
+.style2 {font-size: xx-large}
+</style>
+<!-- InstanceEndEditable -->
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
+      <div>
+        <div>
+          <table width="100%" border="1">
+            <tr>
+              <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">Log of major developments</font></span></div></td>
+              <td width="23%"><div align="center"><img src="images/bounce2.jpg" alt="ball in box" width="161" height="162" /><a href="arrow.html"></a></div></td>
+            </tr>
+          </table>
+        </div>
+        <div>
+        <p class="Normal">Also see <strong><a href="https://brucesherwood.net/?p=136">&quot;A time line for VPython development&quot;</a></strong>. There is also a log of work on the earlier<a href="olderhistory.html"> <strong>Classic VPython</strong></a>.</p>
+        <p class="Normal"><strong>2020 May 9: GlowScript 3.0</strong><br />
+        Significant improvements in translating VPython to JavaScript with respect to inserting async and await. RapydScript, which was a stepping stone to GlowScript VPython, is not supported in GlowScript 3.0. JavaScript programs now link axis and size, as with VPython, and JavaScript programs need to <strong><a href="using_javascript.html">handle async and await</a></strong> themselves (this is done automatically for VPython programs). </p>
+        <p class="Normal"><strong>2019 Aug. 26: GlowScript 2.9</strong><br />
+The Streamline library is eliminated thanks to the new &quot;async&quot; and &quot;await&quot; options in JavaScript; compilation is now about 6 times faster. Can now put waiting functions such as pause, waitfor, sleep, and rate in functions that are bound to events. A new input() function mimics that of Python, and the winput function is enhanced to permit use without binding to a function, and to provide a prompt for the user. It is now possible for a program to trigger an event to be processed by a bound function. There is no longer any need to avoid naming an object &quot;wait&quot;, which was associated with the use of Streamline.</p>
+        <p class="Normal"><strong>2018 June 20: GlowScript 2.8</strong><br />
+          An update to the Streamline library fixes bugs in complex programs.</p>
+        <p class="Normal"><strong>2018 Jan. 28: GlowScript 2.7</strong><br />
+          Now two graphing packages 
+          are available, a somewhat improved version based on Flot (fast=True), and a new version based on Plotly (fast=False). The Plotly version offers powerful interactivity for the viewer but is significantly slower than the Flot version.</p>
+        <p class="Normal">2017 Oct. 11 Provide clear error messages for scalar/vector errors. </p>
+        <p class="Normal">2017 Sept. 7 Make it again possible to put pause() etc. inside functions. </p>
+        <p class="Normal"><strong>2017 July 31: GlowScript 2.6</strong><br />
+          Significant fixes to cloning and to the 3D text object. Adam Thompson implemented being able to resize a canvas, either by resetting width and/or height, or by user dragging. Andrew Morrison improved graph xtitle and ytitle to appear below and to the left of the graph rather than above the graph. GlowScript 2.6 incorporates an update by Kovid Goyal to RapydScript-NG to support class variables (that is, variables that are shared by all instances of the class). </p>
+        <p class="Normal"><strong>2017 June 11: GlowScript 2.5</strong><br />
+          Fix a bug in extrusion object that removed the last element in a user-supplied shape. The version number had to be incremented to 2.5 because some existing 2.4 programs might fail. </p>
+        <p class="Normal"><strong>2017 Feb. 2: GlowScript 2.4</strong><br />
+          Fix a long-standing error in changing axis without updating up to remain perpendicular to axis (and vice versa). The result was that rotating an object by continually changing its axis could cause abrupt changes in the appearance of the object which were only noticeable if there was a texture or a compound object that lacked symmetry.</p>
+        <p class="Normal"><strong>2017 Jan. 4: GlowScript 2.3</strong><br />
+          Replaced the original RapydScript Python-to-JavaScript compiler with RapydScript-NG by Kovid Goyal, which comes closer to supporting true Python syntax and also provides Python string methods such as lower() and upper() and split().</p>
+        <p class="Normal">2016 Nov. 12: <strong>GlowScript 2.2</strong><br />
+          Improved extrusion and compound objects. They now have pos at their centers and size that represents the bounding box. The extrusion path is now specified by &quot;path&quot;, making it possible to specify &quot;pos&quot; as the location of the center of the extrusion's bounding box.</p>
+        <p class="Normal">&nbsp;</p>
+        <p class="Normal">2016 Aug. 22: Much more powerful version of the extrusion object, with full shapes and paths libraries. Also added text to radio buttons and check boxes.</p>
+        <p class="Normal">2016 Aug. 4: Widgets implemented -- button, radio button, check box, slider, and drop-down menu.</p>
+        <p class="Normal">2016 July 2: 3D text object implemented, with major contributions by Kadir Haldenbilen.</p>
+        <p class="Normal">&nbsp;</p>
+        <p class="Normal">2016 Feb. 28: <strong>GlowScript 2.1</strong><br />
+          Improves and simplifies <strong>scene.title</strong> and <strong>scene.caption</strong>. Now you can say <strong>scene.title = &quot;Watch the &lt;b&gt;ball&lt;/b&gt;&quot;</strong> (&quot;ball&quot; will be bold) and <strong>scene.caption = &quot;This is what &lt;i&gt;always&lt;/i&gt; happens&quot;</strong> (&quot;always&quot; will be italic). You can also obtain the current contents for the title (<strong>T = scene.title</strong>) and caption (<strong>C = scene.caption</strong>).  You can add to existing title or caption with <strong>scene.append_to_title(...)</strong> or <strong>scene.append_to_caption(...)</strong>. </p>
+        <p class="Normal">The old forms <strong>scene.title.text()</strong> and <strong>scene.title.html()</strong> could be used to specify the title but there wasn't a way to retrieve the current title. You had to decide between text and html, but now it doesn't matter; you always get full HTML capabilities. </p>
+        <p class="Normal">These changes are not fully compatible with previous versions of GlowScript, which is why the version number has been changed to 2.1, but older versions will continue to work as before. Another reason for the changes has to do with making the Jupyter version of VPython work well.</p>
+        <p class="Normal"><strong>Changes to the use of jQuery:</strong> If you use jQuery to display widgets (buttons, sliders, menus), see <a href="https://www.glowscript.org/docs/VPythonDocs/controls.html" target="_blank"><strong>this documentation</strong></a> on changes to how to reference the title, caption, and print regions of the page.</p>
+        <p class="Normal">2016 Jan. 24: <strong>GlowScript 2.0</strong><br />
+          * Fixes a serious problem in make_trail, that long trails were very slow. New trail-related features: trail_color, trail_radius, pps (points per second), clear() which deletes existing points. Setting make_trail False stops leaving a trail; setting make_trail True turns the trail on again, without drawing an undesirable line between the stop and start points.<br />
+  <br />
+          * 
+          If v is a vector, v.mag() must now be written as v.mag and v.mag2() must now be written as v.mag2. The older form was a mistake and is incompatible with the new Jupyter version of VPython.<br />
+  <br />
+          * display should be written as canvas; gdisplay as graph. The older names still work at present but are incompatible with the new Jupyter version of VPython.<br />
+  <br />
+          * The list of positions in a curve named c cannot be referenced directly as c.pos. If the curve is named c and N is the nth point in the curve, c.point(N) returns {pos:p, color:col, radius:r, visible:v}. To change the nth point, use c.modify(N, pos=p, color=col, radius=r, visible=v). See the documentation for the curve object for the full list of methods available for accessing or changing an existing curve.<br />
+  <br />
+          *
+          The points object has a radius, not a size (size was a scalar and confusing given that size is a vector elsewhere; size_units can still be used to specify whether the radius is in pixels or real-world measure).<br />
+          <br />
+          * Because it is hardly being used, CoffeeScript is not supported in GlowScript 2.0. It can still be used with &quot;GlowScript 1.1 CoffeeScript&quot;. <br />
+  <br />
+          * <strong><a href="https://vpython.org/contents/announcements/evolution.html" target="_blank">Here is a description</a></strong> of the plan for future development of VPython.</p>
+        <p class="Normal">&nbsp;</p>
+        <p class="Normal">2015 Dec. 21: Update of files that permit operator overloading (being able to add two vectors a and b simply as a+b) and the ability to use synchronous code (such as infinite loops)  thanks to files supplied by Salvatore di Dio. Changes to Firefox made this update necessary. An added bonus was that GlowScript now runs on Internet Explorer and Edge.</p>
+        <p class="Normal">2015 Oct. 18: Implement display.delete(), gdisplay.delete(), and the ability to delete a set of data from a graph. Add to the make_trail machinery the ability to set trail_color and trail_radius without having to reference trail_object.</p>
+        <p class="Normal">2015 Oct. 15: scene.mouse.pos now always contains the up-to-date mouse information, which makes it possible to drag objects with the mouse buttons up.</p>
+        <p class="Normal">2015 Sept. 19: Implement the standard Python string.format mechanism.</p>
+        <p class="Normal">2015 August 27: Improve sphere and curve rendering; provide textures.earth.</p>
+        <p class="Normal">2015 August 2: Implement simple editor as alternative to the ACE editor, so that it is now possible to edit programs on mobile devices.</p>
+        <p class="Normal">2015 June 23: Implement Python-style string formatting.</p>
+        <p class="Normal">2015 June 3: Ring is now a regular primitive and supports transparency.</p>
+        <p class="Normal">2015 April 21: Add factorial and combin functions.</p>
+        <p class="Normal">2015 Feb. 22: Enable transparency on mobile devices.</p>
+        <p class="Normal">2015 Jan. 20: Support touch inputs on touch-sensitive devices.</p>
+        <p class="Normal">2014 November 17: Updated GlowScript 1.1 to fix a problem with JavaScript programs. This also introduces the ability to handle programs written in classic VPython, with some restrictions; see the <a href="../VPythonDocs/index.html" target="_blank">VPython Help</a>. There are  new vector capabilities such as dot(A,B), equivalent to A.dot(B). The curve object now has an attribute &quot;origin&quot; for moving the entire curve, relative to this origin.</p>
+        <p class="Normal">2014 October 25: Released GlowScript 1.1. Support added for RapydScript, a Python look-alike, with much help from Alexander Tsepkov, Charles Law, and Salvatore di Dio. CoffeScript compiler updated, which among other things means that 3**4 now equals 81. Also, jquery and jquery-ui updated thanks to the work of Adam Thompson, who also added the ability to place print output to the right of the canvas and improved resizing of a canvas. </p>
+        <p class="Normal">2012 October 10: Textures can now use images from other (&quot;CORS-enabled&quot;) web sites. GlowScript programs run well on the latest version of Firefox for Android (smartphones and tablets), though you can't yet rotate the camera, and transparency is buggy.</p>
+        <p class="Normal">2012 September 12: Add functions compound_to_world, world_to_compound, pixel_to_world, print,  print_options, get_library, and read_local_file. Improve rate behavior for high rate values.</p>
+        <p class="Normal">2012 August 21: Updated Version 1.0 to improve error reporting for both JavaScript and CoffeeScript programs, and to improve editing of CoffeeScript programs. Added to the Help sections on text output for debugging, and how to run GlowScript in the absence of an internet connection.</p>
+        <p class="Normal">2012 May 30: Version 1.0 implements <strong>triangles</strong> and <strong>quads</strong>, based on <strong>vertex</strong> objects, which make it possible to design your own objects and even change their shape dynamically. Also new are <strong>compound</strong> (groups of objects that can be manipulated as though they were one object) and <strong>clone</strong> (make a copy of an existing object). David Scherer made major contributions to the design of these new features. Also, the <strong>curve</strong> object now permits rapid change of position, size, and orientation, and the array <strong>scene.objects</strong> now includes label objects. </p>
+        <p class="Normal">2012 April 21: Now in version 0.7 you can write your program in CoffeeScript as well as in JavaScript. See the <a href="index.html">home page</a> for details.</p>
+        <p class="Normal">2012 March 27: Transparency added to version 0.7. <span class="attributes">You can set the opacity of an object, with default = 1 (fully opaque); 0 is completely transparent.</span></p>
+        <p class="Normal">2012 Jan. 29: Release GlowScript version 0.7. The major new capability is <a href="textures.html"><strong>textures</strong></a>, including bump maps (normal maps), for objects other than curves (and the curve-like objects helix and ring). Other new features include shininess, emissive, and scene.visible. Changes were made to require named arguments for object.rotate, vector.rotate, local and distant lights, and scene.mouse.project. Improved glowscript.org front page thanks to Tim Sherwood.</p>
+        <p class="Normal">May/June 2011: David Scherer and Bruce Sherwood begin collaborating on implementing GlowScript, patterned on VPython but running in a web browser, exploiting the the new JavaScript/WebGL environment.</p>
+<h1 class="Heading-1">&nbsp;</h1></div><div>
+      </div>
+      <div> </div>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>

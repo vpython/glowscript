@@ -1,0 +1,133 @@
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
+      <div>
+        <div>
+          <h1 class="Heading-1"><font color="#0000A0">Technical issues</font></h1>
+          <p class="Normal">Here are  discussions of two technical aspects of GlowScript, which may be of interest to other software developers.</p>
+          <p class="Normal"><strong><font color="#0000a0">Pixel-level transparency based on depth peeling</font></strong></p>
+          <p class="Normal">Handling transparency correctly in WebGL is challenging. A standard technique is to order the centers of objects according to their z depth from the camera and render back to front. This approach can make serious errors in the case of intersecting or enclosing transparent objects, where some parts of one object are in front of a second object, and other parts are behind the second object.</p>
+          <p class="Normal">A better approach is called &quot;depth peeling&quot;, in which transparency is dealt with at the pixel level rather than at the object level. Consider for example a transparent sphere enclosing an opaque box, and carry out the following operations:</p>
+          <p class="Normal">1) Render the pixels of the opaque box to a texture, which we'll call a color texture. This of course takes into consideration the lights in the scene. Call this color texture C0. Note that all opacity values (the &quot;a&quot; in rgba) are 1.0 for this opaque object.</p>
+          <p class="Normal">2) Render the z depths (distance from the camera) to a texture, which we'll call a depth texture. That is, given the depth of a pixel, the fragment shader stores a false color into the texture, a false color whose 4 bytes represents in some form the depth. Call this depth texture D0.</p>
+          <p class="Normal">3) Render the transparent object (the sphere) to a texture C1, but using information in the depth texture D0. In the fragment shader, read the (false color) depth from D0, and if the z depth of the transparent sphere pixel is not in front of the opaque box pixel, discard the pixel (using the &quot;discard&quot; statement in the fragment shader). Upon completion of this render step, C1 contains color and opacity information (rgba) for the front-most transparent surface, a hemisphere. This is called a &quot;depth peel&quot;.</p>
+          <p class="Normal">4) We now have two color textures, C0 and C1, which we can merge to form a scene with an opaque box and a transparent hemisphere in front of the box. Render a simple quad object (two triangles) that fill the canvas. In the fragment shader, read the color information from C0 and C1. Store a pixel color that is determined like this, where (1.0-C1.a) is the transparency of the transparent layer:</p>
+          <p class="program">vec3 color = C1.rgb*C1.a +<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          (1.0-C1.a)*C0.rgb;<br />
+            gl_FragColor = vec4 (color, 1.0);</p>
+          <p class="Normal">These four steps illustrate the basic idea. In GlowScript, four transparent depth peels are performed rather than one, and 10 separate renders are carried out:</p>
+          <p class="Normal"><strong>C0</strong> -- opaque color texture<br />
+            <strong>D0</strong> -- opaque depth texture<br />
+            <strong>C1</strong> -- frontmost transparent color texture<br />
+            <strong>D1</strong> -- frontmost transparent depth texture, corresponding to C1<br />
+            <strong>C2</strong> -- transparent color texture for the next deeper &quot;peel&quot; after C1; if the pixel does not have a depth between that of D0 and D1, the pixel is discarded<br />
+            <strong>D2</strong> -- transparent depth texture corresponding to C2<br />
+            <strong>C3</strong> -- next deeper transparent color texture; discard a pixel if z not between D0 and D2<br />
+            <strong>D3</strong> -- transparent depth texture corresponding to C3<br />
+            <strong>C4 </strong>-- deepest transparent color texture; discard a pixel if z not between D0 and D3 </p>
+          <p class="Normal"><strong>MERGE</strong> -- The final render is a merge of C0, C1, C2, C3, and C4:</p>
+          <p class="program">vec3 color = C1.rgb*C1.a + <br />
+            &nbsp;&nbsp;&nbsp;(1.0-C1.a)*(C2.rgb*C2.a +<br />
+            &nbsp;&nbsp;&nbsp;(1.0-C2.a)*(C3.rgb*C3.a +<br />
+            &nbsp;&nbsp;&nbsp;(1.0-C3.a)*(C4.rgb*C4.a + <br />
+            &nbsp;&nbsp;&nbsp;(1.0-C4.a)*C0.rgb)));<br />
+            gl_FragColor = vec4 (color, 1.0);</p>
+          <p class="Normal">It may be that C2, C3, and C4 are all empty, but there is no obvious inexpensive way to get the information needed to tell the CPU to avoid scheduling those extra renders, because readPixels is very expensive. If there are more than four transparent layers, this algorithm will not treat them properly. However, note that the fifth and later peels will contribute little to the final pixel color, being partially occluded by four transparent layers in front.</p>
+          <p class="Normal">Before starting the many renders the objects are sorted into opaque and transparent lists, and if there are no transparent objects a simple C0 render is all that is needed. Moreover, this simple render can exploit antialiasing, whereas the storage into textures for depth peeling unfortunately turns off antialiasing.</p>
+          <p class="Normal">It is remarkable that doing 10 separate renders runs adequately fast for real-time rendering of moderately complicated scenes. For example, displaying a 10x10x10 grid of rotating transparent boxes can run at around 20 frames per second on ordinary computers, depending on the graphics card.</p>
+          <p class="Normal">In OpenGL it is possible to create several textures in one render, but WegGL permits attaching just one texture to a framebuffer object, hence a large number of separate renders are needed.</p>
+          <p class="Normal">To see this algorithm in action, run this <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Transparency" target="_blank">Transparency</a> example program. </p>
+          <p class="Normal">Note that the code for this transparency demo is remarkably short. GlowScript is aimed at making it feasible for nonexpert programmers to exploit WebGL to generate navigable real-time 3D animations.</p>
+          <p class="Normal">At <a href="https://www.glowscript.org/docs/GlowScriptDocs/technical.html">https://www.glowscript.org/docs/GlowScriptDocs/technical.html</a><a href="https://github.com/BruceSherwood/glowscript" target="_blank"></a>, the key files dealing with depth peeling are lib/glow/WebGLRender.js and the shader programs in the shaders folder.</p>
+          <p class="Normal">It is possible  to implement &quot;Fast Approximate Anti-Aliasing&quot; (FXAA) to get around the problem that the use of framebuffer objects turns off anti-aliasing:<br />
+            <a href="http://www.codinghorror.com/blog/2011/12/fast-approximate-anti-aliasing-fxaa.html" target="_blank">http://www.codinghorror.com/blog/2011/12/fast-approximate-anti-aliasing-fxaa.html</a></p>
+          <p class="Normal">This has not been tried in GlowScript.</p>
+          <p class="Normal"><strong><font color="#0000a0">Mouse picking</font></strong><br />
+          </p>
+          <p class="Normal">Here is how mouse picking has been implemented in GlowScript. For an object with id number N, create a false color like this:</p>
+          <p class="program">function id_to_falsecolor(N) { 
+            // convert integer object id to floating RGBA<br />
+            &nbsp;&nbsp;&nbsp;let R=0, G=0, B=0<br />
+            &nbsp;&nbsp;&nbsp;if (N &gt;= 16777216) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R = Math.floor(N/16777216)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N -= R*16777216<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;if (N &gt;= 65536) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;G = Math.floor(N/65536)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N -= G*65536<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;if (N &gt;= 256) {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B = Math.floor(N/256)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N -= B*256<br />
+            &nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;return [R/255, G/255, B/255, N/255]<br />
+          }</p>
+          <p class="Normal">We want to render the false colors of the objects to a texture the size of the canvas (need not be powers of 2):</p>
+          <p class="program">let pick_texture = gl.createTexture()<br />
+            gl.bindTexture(gl.TEXTURE_2D, pick_texture )</p>
+          <p class="program">gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR)<br />
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)<br />
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)</p>
+          <p class="program">gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null)<br />
+            gl.bindTexture(gl.TEXTURE_2D, null)</p>
+          <p class="Normal">Set up a framebuffer to render to:</p>
+          <p class="program">let pickFramebuffer = gl.createFramebuffer()<br />
+            gl.bindFramebuffer(gl.FRAMEBUFFER, pickFramebuffer)</p>
+          <p class="program">// create depth buffer:<br />
+            let pickRenderbuffer = gl.createRenderbuffer()<br />
+            gl.bindRenderbuffer(gl.RENDERBUFFER, pickRenderbuffer)<br />
+            gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT16, width, height)<br />
+            gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, pickRenderbuffer)</p>
+          <p class="program">gl.bindRenderbuffer(gl.RENDERBUFFER, null)<br />
+            gl.bindFramebuffer(gl.FRAMEBUFFER, null)</p>
+          <p class="Normal">At the start of a render cycle execute this:</p>
+          <p class="program">gl.bindFramebuffer(gl.FRAMEBUFFER, pickFramebuffer)<br />
+            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D,
+            pick_texture, 0)</p>
+          <p class="Normal">After rendering all the objects, with no lighting calculations (so that all pixels of an object have the same false color), get the id number of the object under the mouse like this:</p>
+          <p class="program">let pixels = new Uint8Array(4)<br />
+            gl.readPixels(canvas.mouse.__pickx, canvas.mouse.__picky, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixels)<br />
+            let id = 16777216*pixels[0] + 65536*pixels[1] + 256*pixels[2] + pixels[3]</p>
+          <p class="Normal">A non-power-of-two texture has restrictions; see            <a href="http://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences" target="_blank">http://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences</a>. <br />
+          Important note: This destroys antialiasing, so render to texture is        fully useful only for doing some computations, unless we do our own antialiasing.</p>
+          <p class="Normal">Note that antialiasing being turned off is actually what one wants for mouse picking because you don't want an object with id of 10 that is next to an object of id 30 to get picked with an id of 20, which could happen with antialiasing turned on, due to the averaging of neighboring colors. </p>
+        </div>
+        <div></div>
+        <div> </div>
+<h1 class="Heading-1">&nbsp;</h1></div><div>
+      </div>
+      <div> </div>
+    <!-- InstanceEndEditable -->		
+    </div>
+</div>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>
