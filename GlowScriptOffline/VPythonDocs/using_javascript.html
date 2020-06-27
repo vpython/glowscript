@@ -1,0 +1,124 @@
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>VPython Help</title>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="VisualRef.css" rel="stylesheet" type="text/css" />
+<!-- InstanceEndEditable -->
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="leftmenu">
+		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
+		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
+		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
+		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
+		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
+		  <br />
+		</p>
+		</td>
+	</div>
+
+	<div id="content">
+		<!-- InstanceBeginEditable name="content" -->
+      <div>
+        <h1 class="Heading-1"> <font color="#0000A0">Writing GlowScript programs using JavaScript</font></h1>
+        <p class="Normal"> To write GlowScript programs using JavaScript instead of VPython, change the first line of the program to the form &quot;GlowScript X.Y JavaScript&quot;, where &quot;X.Y&quot; is the current version of GlowScript. </p>
+        <p class="Normal">The GlowScript documentation describes the syntax to use when writing VPython code. Here is the relationship between the VPython documentation and what you would write in JavaScript:</p>
+      </div>
+      <div>
+        <div>
+        <p class="program">b = box(pos=vec(2,1,0, color=color.cyan)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# VPython<br>
+          b.axis = vec(1,1,0)
+        </p>
+          <p class="program">        let b = box({pos:vec(2,1,0), color:color.cyan})&nbsp;&nbsp;// JavaScript<br>
+b.axis = vec(1,1,0) </p>
+          <p class="Normal">At the moment, the ACE editor used at glowscript.org is an old version that doesn't recognize some (now valid) elements of JavaScript, including in particular async, await, and clas, and as a result statements containing these elements are marked as being in error. Evidently glowscript.org needs to upgrade its use of ACE.</p>
+          <h1 class="Heading-1"><font color="#0000A0">Using async and await</font></h1>
+          <p class="Normal">An animation loop <strong><em>must</em></strong> contain a <span class="attribute">rate()</span>,  <span class="attribute">sleep()</span>, <span class="attribute">scene.pause()</span>, or <span class="attribute">scene.waitfor()</span> statement; otherwise the browser will lock up, and it is difficult to kill the browser. Moreover, these statements <em><strong>must</strong></em> be preceded by <span class="attribute">await</span>, which is inserted automatically when VPython programs are transpiled to JavaScript but must be entered explicitly into a JavaScript program. Here is what these JavaScript statements must look like, including the five other GlowScript functions that take time to complete and therefore also need <span class="attribute">await</span>:</p>
+          <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;await rate(30)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await sleep(2)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;await scene.pause()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await scene.waitfor('click')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await scene.capture(filename)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await input()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await winput()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await get_library(webaddress)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;await read_local_file(scene.title.anchor) </p>
+          <p class="Normal"> If you write your own function or class method that includes any of these waiting statements, you <strong><em>must</em></strong> prepend <span class="attribute">async</span> to the function or method declaration, and all calls to these functions or methods <strong><em>must</em></strong> be prepended with <span class="attribute">await</span>, as with the GlowScript functions shown above and in the runnable html file shown at the end of this article.<br>
+            <br>
+          At glowscript.org your program is wrapped in an async function, which makes it possible to use <span class="attribute">await</span> outside any of your functions. If you do not use glowscript.org to prepare your JavaScript program, you may  need to wrap your program in an <span class="attribute">async</span> function,  as shown in the runnable html file below. It is not possible to use <span class="attribute">await</span> outside an <span class="attribute">async</span> function.</p>
+<h1 class="Heading-1"><font color="#0000A0">Operator overloading for vectors</font></h1>
+          <p class="Normal">Something that is automatic at glowscript.org for JavaScript programs as well as for VPython programs is the &quot;operator overloading&quot; that permits vector operations such as &quot;let v = v1+v2&quot;, where v1 and v2 are vectors. If you do not use glowscript.org to prepare your JavaScript program, you will need to write this statement in the form &quot;v1.add(v2)&quot;. Similarly, &quot;v1-v2&quot; would be written &quot;v1.sub(v2)&quot;, 5*v would be written &quot;v.multiply(5)&quot;, and v/5 would be written &quot;v.divide(5)&quot;. An alternative is to pass your program through glowscript.org and click &quot;Share or export this program&quot; to obtain an operator-overloaded version of your program.</p>
+          <h1 class="Heading-1"><font color="#0000A0">New in GlowScript 3.0: linkage of axis and size; default sphere radius now 1</font></h1>
+      <p class="Normal">Starting with GlowScript version 3.0, JavaScript programs, like VPython programs, link changes in an object's axis to its size, and changes in its size to its axis. Prior to version 3.0, JavaScript programs did not perform such linkage, and the arrow object had a special attribute &quot;axis_and_length&quot; instead of &quot;axis&quot;. Using axis_and_length now will cause an error.<br>
+            <br>
+        A related matter is that, for historical reasons, the default radius of a VPython sphere is 1, which is now also the default 
+        radius of a JavaScript sphere. Formerly a JavaScript sphere did not have a radius attribute, and its default size was vec(1,1,1), so the radius was 0.5.</p>
+          <h1 class="Heading-1"><font color="#0000A0">JavaScript class &quot;constructor&quot; method</font></h1>
+        <p class="Normal">When you create a JavaScript class instance the arguments are sent to a method named &quot;constructor&quot;. Neither the class itself nor its constructor method can be of type async, which means that in the constructor method you cannot use await. If you do need to use await in some part of the initialization of a class instance, write the program like this:</p>
+        <p class="program">class C {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;constructor(n) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C.n = n  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// a class variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.x = 20&nbsp;&nbsp;// a class instance variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;async init(y) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.y = y        <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(&quot;Sleep...&quot;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await sleep(2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(C.n, this.x, this.y) // displays 10 20 30<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+<br>
+let a = new C(10)<br>
+        await a.init(30)</p>
+          <h1 class="Heading-1"><font color="#0000A0">Passing methods as arguments to other functions</font></h1>
+          <p class="Normal">Suppose you create a class named <span class="attribute">C</span> with an instance named<span class="attribute"> c1</span> and a method<span class="attribute"> c1.m</span>. You might wish to create a reference in the form <span class="attribute">let cm = c1.m</span> (no parentheses) and pass it to a function f in the form <span class="attribute">f(cm)</span>. In that case, you need to write the assignment to <span class="attribute">cm</span> like this: <span class="attribute">let cm = c1.m.bind(c1)</span>. Again, this is done automatically for VPython programs.</p>
+          <h1 class="Heading-1"><font color="#0000A0">A runnable html file</font></h1>
+          <p class="Normal">If  you store the following program in an .html file and then double-click the file to invoke a browser, you should see a rotating cube (adjust the version number for the glow library appropriately):</p>
+          <p class="program">&lt;div id=&quot;glowscript&quot; class=&quot;glowscript&quot;&gt;<br>
+  &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;<br>
+  &lt;link type=&quot;text/css&quot; href=&quot;https://s3.amazonaws.com/glowscript/css/redmond/2.1/jquery-ui.custom.css&quot; rel=&quot;stylesheet&quot; /&gt;<br>
+  &lt;link type=&quot;text/css&quot; href=&quot;https://s3.amazonaws.com/glowscript/css/ide.css&quot; rel=&quot;stylesheet&quot; /&gt;<br>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery.min.js&quot;&gt;&lt;/script&gt;<br>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;https://s3.amazonaws.com/glowscript/lib/jquery/2.1/jquery-ui.custom.min.js&quot;&gt;&lt;/script&gt;<br>
+  &lt;script type=&quot;text/javascript&quot; src=&quot;https://s3.amazonaws.com/glowscript/package/glow.3.0.min.js&quot;&gt;&lt;/script&gt;<br>
+  &lt;script type=&quot;text/javascript&quot;&gt;<br>
+            window.__context = { glowscript_container: $(&quot;#glowscript&quot;).removeAttr(&quot;id&quot;) }<br>
+  <br>
+            async function __main__() { // async wrapper permits use of await outside your own functions<br>
+  <br>
+            var vector = vec // optional: makes vector a synonym of the fundamental vec<br>
+            let scene = canvas()<br>
+            let b = box({color:color.cyan})<br>
+            async function f(obj) { // needs async because f() contains an await <br>
+&nbsp;&nbsp;&nbsp;&nbsp;let t = clock()            <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;while (true) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await rate(100)<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.rotate({angle:0.01, axis:vec(0,1,0)})<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (clock()-t &gt; 3) break<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 25  <br>
+            } <br>
+            let x = await f(b) // needs await (inside async __main__) because f() contains an await<br>
+  print(x)<br>
+            } // end of __main__ wrapper<br>
+            __main__()<br>
+  &lt;/script&gt;<br>
+  &lt;/div&gt; </p>
+          <p class="Normal"><br>
+          </p>
+		<!-- InstanceEndEditable -->		
+    </div>
+</div>
+</body>
+<script type="text/javascript" language="javascript" src="navigation.js"></script>
+<!-- InstanceEnd --></html>
