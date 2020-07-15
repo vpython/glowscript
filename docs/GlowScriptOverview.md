@@ -1,4 +1,4 @@
-Jan. 2020 workshop on the architecture of GlowScript VPython:
+Jan. 2020 workshop on the architecture of GlowScript VPython: 
 
 [![Jan. 2020 Workshop](https://img.youtube.com/vi/lV_q3UqjsGA/0.jpg)](https://www.youtube.com/watch?v=lV_q3UqjsGA)
 
