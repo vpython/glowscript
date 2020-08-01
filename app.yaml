@@ -1,48 +1,34 @@
 application: glowscript
-version: 1
-runtime: python27
-api_version: 1
-threadsafe: true
-
-builtins:
-- admin_redirect: on
+version: 2
+runtime: python38
 
 handlers:
 - url: /css
   static_dir: css
-  secure: always
 
 - url: /
   static_files: ide/index.html
   upload: ide/index.html
-  secure: always
 
 - url: /ide.js
   static_files: ide/ide.js
   upload: ide/ide.js
-  secure: always
 
 - url: /lib
   static_dir: lib
-  secure: always
 
 - url: /package
   static_dir: package
-  secure: always
 
 - url: /docs
   static_dir: docs
-  secure: always
 
 - url: /api/.*
   script: ide.api.app
-  secure: always
   
 - url: /favicon\.ico
   static_files: static/images/favicon.ico
   upload: static/images/favicon\.ico
-  secure: always
 
 - url: /untrusted
   static_dir: untrusted
-  secure: always
