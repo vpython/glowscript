@@ -1,5 +1,3 @@
-application: glowscript
-version: 2
 runtime: python38
 
 handlers:
@@ -7,8 +5,7 @@ handlers:
   static_dir: css
 
 - url: /
-  static_files: ide/index.html
-  upload: ide/index.html
+  script: auto
 
 - url: /ide.js
   static_files: ide/ide.js
@@ -24,7 +21,7 @@ handlers:
   static_dir: docs
 
 - url: /api/.*
-  script: ide.api.app
+  script: auto
   
 - url: /favicon\.ico
   static_files: static/images/favicon.ico
