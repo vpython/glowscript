@@ -1,5 +1,9 @@
 runtime: python38
 
+env_variables:
+  FN_AUTH_REDIRECT_URI: https://glowscript-py38.uc.r.appspot.com/google/auth
+  FN_BASE_URI: https://glowscript-py38.uc.r.appspot.com
+
 handlers:
 - url: /css
   static_dir: css
