@@ -45,6 +45,7 @@ def build_credentials():
 
 def get_user_info():
     
+    print("In get_user_info:" + str(is_logged_in()))
     credentials = build_credentials()
 
     oauth2_client = googleapiclient.discovery.build(

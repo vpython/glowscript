@@ -29,7 +29,7 @@
 
 localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
-weblocs = ["www."+website+".org", website+".org", "localhost:"+localport]
+weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "glowscript-py38.uc.r.appspot.com"]
 
 import json
 from io import StringIO
@@ -39,10 +39,13 @@ import datetime
 import uuid
 
 from google.cloud import ndb
-from flask import Flask, render_template, request, send_from_directory, url_for
+from flask import Flask, render_template, send_from_directory, url_for
+import flask
 from google.auth.transport import requests
 from google.cloud import ndb
 import google.oauth2.id_token
+
+from .models import User, Program, Folder
 
 import os, re, base64, logging # logging.info(string variable) prints to GAE launcher log, for debugging
 from datetime import datetime
@@ -107,172 +110,160 @@ def favicon_static():
 @app.route('/untrusted/<path:filename>')
 def untrusted_static(filename):
     return send_from_directory('../untrusted', filename)
-    
 
-def store_time(email, dt):
-    entity = datastore.Entity(key=datastore_client.key('User', email, 'visit'))
-    entity.update({
-        'timestamp': dt
-    })
-
-    datastore_client.put(entity)
-
+#
+# The root route
+#
 
 @app.route('/')
 @app.route('/index')
 def root():
     return render_template('index.html')
 
+#
+# Here are some utilities for validating names, hosts, and usernames
+#
+
+def validate_names(*names):
+    # TODO: check that the encoding is 'normalized' (e.g. that unreserved characters are NOT percent-escaped).
+    for name in names:
+        for c in name:
+            if c not in unreserved and c != "%":
+                return False
+    return True
+
+def authorize_host():
+    return flask.request.headers.get('Host') in weblocs
+    
+def authorize_user(username):
+    if not authorize_host():
+        return False
+        
+    if auth.is_logged_in():
+        logged_in_email = auth.get_user_info().get('email')
+        ndb_user = ndb.Key("User", username).get()
+        if not ndb_user or ndb_user.gaeUser.email != username or flask.request.headers.get('X-CSRF-Token') != ndb_user.secret:
+            return False
+        return True
+    else:
+        return False
+        
+def override(user):
+    # return True if superuser, to permit the recovery of private programs for a user who can no longer log in
+    return str(user) == 'basherwo@ncsu.edu'
+
+#
+# The rest are the api routes and the main page route
+#
+
 @app.route('/api/login')
 def api_login():
     if auth.is_logged_in():
-        return {'state':'logged_in', 'username':auth.get_user_info().get('email'), 'logout_url':'/google/logout'}
+        email = auth.get_user_info().get('email')
+        ndb_user = User.query().filter(User.email == email).get()
+        if ndb_user:
+            return { 'state':'logged_in', 'username':ndb_user.key.id(), 'secret':ndb_user.secret, 'logout_url':'/google/logout'}
+        else:
+            nickname = logged_in_username
+            if "@" in nickname: nickname = nickname.split("@",2)[0]
+            return  { 'state':'new_user', 'suggested_name':nickname } 
     else:
-        return  { 'state':'not_logged_in', 'login_url':'/google/login' }
+        return { 'state':'not_logged_in', 'login_url':'/google/login' }
+
+
+@app.route('/api/user/<user>/folder/<folder>/program/<program>/option/<option>/oldfolder/<oldfolder>/oldprogram/<oldprogram>')
+def programCopy(user, folder, program, option, oldfolder, oldprogram):
+    return "got user:%s folder:%s progrm: %s option: %s oldfolder: %s oldprogram %s"  % (user, folder, program, option, oldfolder, oldprogram)
     
-# 
-# 
-# class ApiRequest(web.RequestHandler):
-#     allowJSONP=None
-# 
-#     def validate(self, *names):
-#         # TODO: check that the encoding is 'normalized' (e.g. that unreserved characters are NOT percent-escaped).
-#         for name in names:
-#             for c in name:
-#                 if c not in unreserved and c != "%":
-#                     self.error(400)
-#                     return False
-#         return True
-# 
-#     def authorize(self):
-#         if self.request.headers['Host'] not in weblocs: 
-#             self.error(403)
-#             return False
-#         return True
-# 
-#     def authorize_user(self, username):
-#         """Make sure the current request is an authorized request by the given username"""
-# 
-#         if not self.authorize(): return
-# 
-#         gaeUser = users.get_current_user()
-#         if not gaeUser:
-#             self.error(403)
-#             return False
-# 
-#         ndb_user = ndb.Key("User",username).get()
-#         if not ndb_user or ndb_user.gaeUser != gaeUser or self.request.headers.get('X-CSRF-Token') != ndb_user.secret:
-#             self.error(403)
-#             return False
-# 
-#         return True
-# 
-#     def respond( self, data ):
-#         jsonpCallback = self.allowJSONP and self.request.get("callback")
-#         if jsonpCallback:
-#             if not re.match("^[A-Za-z0-9_]+$", jsonpCallback):
-#                 self.error(403)
-#                 return False
-#             self.response.headers['Content-Type'] = 'text/javascript'
-#             self.response.out.write( self.allowJSONP[0] + jsonpCallback + "(" + json.dumps( data ) + ")" + self.allowJSONP[1] )
-#         else:
-#             self.response.headers["Content-Type"] = "application/json"
-#             self.response.out.write( json.dumps(data) )
-# 
-# class ApiLogin(ApiRequest):
-#     allowJSONP = None
-# 
-#     def get(self):
-#         if not self.authorize(): return
-#         user = users.get_current_user()
-#         if not user:
-#             self.respond( { 'state':'not_logged_in', 'login_url':users.create_login_url("/#/action/loggedin") } )
-#             return
-#         ndb_user = User.gql("WHERE gaeUser = :user", user=user).get()
-#         if ndb_user:
-#             self.respond( { 'state':'logged_in', 'username':ndb_user.key.id(), 'secret':ndb_user.secret, 'logout_url':users.create_logout_url("/#/action/loggedout") } )
-#         else:
-#             # TODO: CSRF protection for subsequent PUT /user/{name}
-#             # Not super critical, because normally accounts are not in this state for long, and by definition don't
-#             # have any sensitive data yet
-#             nickname = user.nickname()
-#             if "@" in nickname: nickname = nickname.split("@",2)[0]
-#             self.respond( { 'state':'new_user', 'suggested_name':nickname } )
-# 
-# class ApiUsers(ApiRequest):
-#     def get(self):
-#         if not self.authorize(): return
-#         #if not self.authorize_user("Bruce_Sherwood"): return # a mechanism for temporary shutdown of glowscript.org
-#         N = User.query().count()
-#         self.respond("Nusers = "+str(N))
-# 
-# class ApiUser(ApiRequest):
-#     def get(self, username):
-#         m = re.search(r'/user/([^/]+)', self.request.path)
-#         username = m.group(1)
-#         if not self.authorize(): return
-#         if not self.validate(username): return
-# 
-#         # This is just used to validate that a user does/doesn't exist
-#         ndb_user = ndb.Key("User",username).get()
-#         if not ndb_user:
-#             return self.error(404)
-#         self.respond({})
-# 
-#     def put(self, username):
-#         m = re.search(r'/user/([^/]+)', self.request.path)
-#         username = m.group(1)
-#         if not self.authorize(): return
-#         if not self.validate(username): return
-# 
-#         # The caller must be logged in
-#         gaeUser = users.get_current_user()
-#         if not gaeUser: return self.error(403)
-# 
-#         # TODO: CSRF protection (see ApiLogin)
-#         # The caller mustn't already have a user account
-#         ndb_user = User.gql("WHERE gaeUser = :gaeUser", gaeUser=gaeUser).get()
-#         if ndb_user: return self.error(403)
-# 
-#         # The username mustn't already exist - that's stealing!
-#         ndb_user = ndb.Key("User",username).get()
-#         if ndb_user: return self.error(403)
-# 
-#         # TODO: Make sure *nothing* exists in the database with an ancestor of this user, just to be sure
-# 
-#         ndb_user = User( id=username, gaeUser=gaeUser, secret=base64.urlsafe_b64encode(os.urandom(16)) )
-#         ndb_user.put()
-# 
-#         ndb_my_programs = Folder( parent=ndb_user.key, id="MyPrograms", isPublic=True )
-#         ndb_my_programs.put()
-#         ndb_my_programs = Folder( parent=ndb_user.key, id="Private", isPublic=False )
-#         ndb_my_programs.put()
-# 
-# def override(user):
-#     # return True if superuser, to permit the recovery of private programs for a user who can no longer log in
-#     return str(user) == 'basherwo@ncsu.edu'
-# 
-# class ApiUserFolders(ApiRequest):
-#     def get(self, user):                                                        ##### display all public or owned folders                                           
-#         m = re.search(r'/user/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         if not self.authorize(): return
-#         if not self.validate(user): return
-#         gaeUser = users.get_current_user()
-#         ndb_user = ndb.Key("User",user).get()
-#         folders = []
-#         publics = []
-#         for k in Folder.query(ancestor=ndb.Key("User",user)):
-#             #if k.isPublic != None and not k.isPublic and gaeUser != ndb_user.gaeUser: continue
-#             if k.isPublic != None and not k.isPublic: # private folder
-#                 if override(gaeUser):
-#                     pass
-#                 elif gaeUser != ndb_user.gaeUser:
-#                     continue
-#             folders.append(k.key.id())
-#             publics.append(k.isPublic)
-#         self.respond( {"user":user, "folders":folders, "publics":publics} )
-# 
+@app.route('/api/user')
+def ApiUsers():
+    N = User.query().count()
+    return "Nusers = " + str(N)
+
+@app.route('/api/user/<user>', methods=['GET','PUT'])
+def ApiUser(username):
+
+    m = re.search(r'/user/([^/]+)', flask.request.path)
+    user = m.group(1)
+
+    if not authorize_host():
+        return flask.make_response('Unauthorized Host',403)
+
+    if not validate_names(user):
+        return flask.make_response('Invalid username', 400)
+
+    if flask.request.method == 'GET':
+
+        # This is just used to validate that a user does/doesn't exist
+        ndb_user = ndb.Key("User",user).get()
+        if not ndb_user:
+            return flask.make_response('Unknown username', 404)
+
+        return {}
+
+    elif flask.request.method == 'PUT':
+    
+        if not auth.is_logged_in():
+            return flask.make_request("user not logged in", 403)
+
+        else:
+            email = auth.get_user_info().get('email')
+
+            # TODO: CSRF protection (see ApiLogin)
+            # The caller mustn't already have a user account
+            ndb_user = ndb.Key("User", user).get()
+            if ndb_user: 
+                return flask.make_request("user already exists", 403)
+
+            # TODO: Make sure *nothing* exists in the database with an ancestor of this user, just to be sure
+
+            ndb_user = User( id=user, email=email, secret=base64.urlsafe_b64encode(os.urandom(16)) )
+            ndb_user.put()
+
+            ndb_my_programs = Folder( parent=ndb_user.key, id="MyPrograms", isPublic=True )
+            ndb_my_programs.put()
+            
+            ndb_my_programs = Folder( parent=ndb_user.key, id="Private", isPublic=False )
+            ndb_my_programs.put()
+            
+            return {}
+
+@app.route('/api/user/<username>/folder/')
+def ApiUserFolders(username):
+
+    m = re.search(r'/user/([^/]+)', flask.request.path)
+    user = m.group(1)
+    
+    if not authorize_host():
+        return flask.make_response('Unauthorized Host',403)
+
+    if not validate_names(user):
+        return flask.make_response('Invalid username', 400)
+
+    if auth.is_logged_in():
+        logged_in_email = auth.get_user_info().get('email')
+    else:
+        logged_in_email = '' # anonymous user
+
+    folder_owner = ndb.Key("User",user).get()
+
+    print("folder_owner = ", folder_owner)
+    print("logged_in_email = ", logged_in_email)
+
+    folders = []
+    publics = []
+    for k in Folder.query(ancestor=ndb.Key("User",user)):
+        #if k.isPublic != None and not k.isPublic and gaeUser != ndb_user.gaeUser: continue
+        if k.isPublic != None and not k.isPublic: # private folder
+            if override(logged_in_email):
+                pass
+            elif logged_in_email != folder_owner.email:
+                continue
+        folders.append(k.key.id())
+        publics.append(k.isPublic)
+    return {"user":user, "folders":folders, "publics":publics}
+    
+
 # class ApiUserFolder(ApiRequest):
 #     def put(self, user, folder):                                                ##### create a new folder
 #         m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
@@ -308,7 +299,7 @@ def api_login():
 #         if program_count > 0:
 #             return self.error(409)
 #         ndb_folder.key.delete()
-# 
+
 # class ApiUserFolderPrograms(ApiRequest):
 #     def get(self, user, folder):                                                ##### display all programs in a public or owned folder
 #         m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
@@ -538,3 +529,5 @@ def api_login():
 #         (r'/api/admin/upgrade', ApiAdminUpgrade),
 #     ],
 #     debug=True)
+#
+
