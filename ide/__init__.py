@@ -1,9 +1,12 @@
 #
 # import some things so they are availabel to main.py
 #
+import flask
+import os
+import uuid
 
-from . import models
-from . import api
+app = Flask(__name__, static_folder='../static', static_url_path='/')
+app.secret_key = str(uuid.uuid4())
 
-app = api.app
+from . import routes, models
 

@@ -76,8 +76,6 @@ def ndb_wsgi_middleware(wsgi_app):
 
 # [END gae_python37_datastore_store_and_fetch_user_times]
 
-app = Flask(__name__, static_folder='../static', static_url_path='/')
-app.secret_key = str(uuid.uuid4())
 app.wsgi_app = ndb_wsgi_middleware(app.wsgi_app)  # Wrap the app in middleware.
 
 #
@@ -155,7 +153,7 @@ def root():
 
 @app.route('/api/login')
 def login():
-    return  { 'state':'not_logged_in', 'login_url':'/index' }
+    return  { 'state':'not_logged_in', 'login_url':'/#SignIn' }
     
 # 
 # 
