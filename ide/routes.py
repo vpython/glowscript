@@ -41,7 +41,6 @@ import uuid
 from google.cloud import ndb
 from flask import Flask, render_template, request, send_from_directory, url_for
 from google.auth.transport import requests
-from google.cloud import datastore
 from google.cloud import ndb
 import google.oauth2.id_token
 
@@ -57,8 +56,6 @@ unreserved = chrange('A','Z') | chrange('a','z') | chrange('0','9') | set("-_.~"
 # See documentation of db.Model at https://cloud.google.com/appengine/docs/python/datastore/modelclass
 # Newer ndb:                       https://cloud.google.com/appengine/docs/standard/python/ndb/db_to_n
 
-firebase_request_adapter = requests.Request()  # for auth
-datastore_client = datastore.Client()          # for login times etc.
 client = ndb.Client()                          # for user data, folders, and programs
 
 def ndb_wsgi_middleware(wsgi_app):
@@ -74,7 +71,7 @@ def ndb_wsgi_middleware(wsgi_app):
 
     return middleware
 
-# [END gae_python37_datastore_store_and_fetch_user_times]
+from . import app, auth
 
 app.wsgi_app = ndb_wsgi_middleware(app.wsgi_app)  # Wrap the app in middleware.
 
@@ -124,36 +121,14 @@ def store_time(email, dt):
 @app.route('/')
 @app.route('/index')
 def root():
-    # Verify Firebase auth.
-    id_token = request.cookies.get("token")
-    error_message = None
-    claims = None
-
-    if id_token:
-        try:
-            # Verify the token against the Firebase Auth API. This example
-            # verifies the token on each page load. For improved performance,
-            # some applications may wish to cache results in an encrypted
-            # session store (see for instance
-            # http://flask.pocoo.org/docs/1.0/quickstart/#sessions).
-            claims = google.oauth2.id_token.verify_firebase_token(
-                id_token, firebase_request_adapter)
-
-            store_time(claims['email'], datetime.now())
-
-        except ValueError as exc:
-            # This will be raised if the token is expired or any other
-            # verification checks fail.
-            error_message = str(exc)
-
-    return render_template(
-        'index.html',
-        user_data=claims, error_message=error_message)
-
+    return render_template('index.html')
 
 @app.route('/api/login')
-def login():
-    return  { 'state':'not_logged_in', 'login_url':'/#SignIn' }
+def api_login():
+    if auth.is_logged_in():
+        return {'state':'logged_in', 'username':auth.get_user_info().get('email'), 'logout_url':'/google/logout'}
+    else:
+        return  { 'state':'not_logged_in', 'login_url':'/google/login' }
     
 # 
 # 

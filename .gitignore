@@ -5,4 +5,5 @@ bower_components
 /venv
 __pycache__/
 *~
+/ide/secret.py
 

@@ -28,7 +28,7 @@ AUTH_TOKEN_KEY = 'auth_token'
 AUTH_STATE_KEY = 'auth_state'
 
 def is_logged_in():
-    return True if AUTH_TOKEN_KEY in flask.session else False
+    return AUTH_TOKEN_KEY in flask.session
 
 def build_credentials():
     if not is_logged_in():
@@ -67,7 +67,7 @@ def no_cache(view):
 
 @app.route('/google/login')
 @no_cache
-def login():
+def google_login():
 
     session = OAuth2Session(CLIENT_ID, CLIENT_SECRET,
                             scope=AUTHORIZATION_SCOPE,
@@ -112,7 +112,7 @@ def google_auth_redirect():
 
 @app.route('/google/logout')
 @no_cache
-def logout():
+def google_logout():
     print("in logout")
     flask.session.pop(AUTH_TOKEN_KEY, None)
     flask.session.pop(AUTH_STATE_KEY, None)

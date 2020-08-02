@@ -1,4 +1,4 @@
-Authlib==0.14.3
+Authlib==0.11
 cachetools==4.1.1
 certifi==2020.6.20
 cffi==1.14.1
