@@ -2,13 +2,10 @@
 # import some things so they are availabel to main.py
 #
 
-import os
-import uuid
-
 from flask import Flask
 
 app = Flask(__name__, static_folder='../static', static_url_path='/')
 
-from . import routes, models, auth, secret
+from . import routes, models, auth, secret, modDBFunctions
 
 app.secret_key = secret.FN_SECRET_KEY

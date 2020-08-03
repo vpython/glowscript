@@ -6,9 +6,9 @@ from google.cloud import ndb
 def make_shell_context():
     client = ndb.Client()
 
-    def wc(func):
+    def wc(func, **args):
         with client.context():
-            func()
+            func(**args)
             
     return {'app': app, 'User': models.User, 'Folder':models.Folder, 'Program':models.Program, 'ndb':ndb, 'wc':wc}
 
