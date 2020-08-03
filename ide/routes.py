@@ -132,7 +132,13 @@ def validate_names(*names):
     return True
 
 def authorize_host():
-    return flask.request.headers.get('Host') in weblocs
+    host_header = flask.request.headers.get('Host')
+    result =  host_header in weblocs
+
+    if not result:
+        print("Host failed to authorize:", host_header)
+
+    return result
     
 def authorize_user(username):
     if not authorize_host():
@@ -142,9 +148,11 @@ def authorize_user(username):
         logged_in_email = auth.get_user_info().get('email')
         ndb_user = ndb.Key("User", username).get()
         if not ndb_user or ndb_user.email != logged_in_email or flask.request.headers.get('X-CSRF-Token') != ndb_user.secret:
+            print("user not authorized username:%s logged_in_email: %s ndb_user.email %s" % (str(username), str(logged_in_email), str(ndb_user.email)))
             return False
         return True
     else:
+        print("in authorize_user, but user not logged in.")
         return False
 
 def override(user):
