@@ -1,35 +1,45 @@
 runtime: python38
 
 env_variables:
-  FN_AUTH_REDIRECT_URI: http://www.glowscriptdev.spvi.net/google/auth
-  FN_BASE_URI: http://www.glowscriptdev.spvi.net
+  FN_AUTH_REDIRECT_URI: https://www.glowscriptdev.spvi.net/google/auth
+  FN_BASE_URI: https://www.glowscriptdev.spvi.net
 
 handlers:
-- url: /css
-  static_dir: css
 
 - url: /
   script: auto
+  secure: always
+
+- url: /css
+  static_dir: css
+  secure: always
 
 - url: /ide.js
   static_files: ide/ide.js
   upload: ide/ide.js
+  secure: always
 
 - url: /lib
   static_dir: lib
+  secure: always
 
 - url: /package
   static_dir: package
+  secure: always
 
 - url: /docs
   static_dir: docs
+  secure: always
 
 - url: /api/.*
   script: auto
+  secure: always
   
 - url: /favicon\.ico
   static_files: static/images/favicon.ico
-  upload: static/images/favicon\.ico
+  upload: static/images/favicon.ico
+  secure: always
 
 - url: /untrusted
   static_dir: untrusted
+  secure: always

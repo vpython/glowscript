@@ -4,7 +4,7 @@ $(function () {
     var worker
     var sourceLines
     var website = 'glowscriptdev.spvi.net' // normally glowscript
-    var sandbox_prefix = 'http://sandbox.' // https for production
+    var sandbox_prefix = 'https://sandbox.' // https for production
     var disable_writes = false // prevent all writes (edit, create/delete folder or program, copy/rename program)
 
     var onNavigate = {
