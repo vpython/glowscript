@@ -6,7 +6,8 @@ class User (ndb.Model):
     # No parent
     # key is the user's unique name
     joinDate = ndb.DateTimeProperty(auto_now_add=True)
-    email = ndb.StringProperty() # gaeUser = ndb.UserProperty() cannot seem to search by entity on cloud.ndb?
+    email = ndb.StringProperty()
+    gaeUser = ndb.UserProperty()
     secret = ndb.StringProperty()
 
 class Folder (ndb.Model):
