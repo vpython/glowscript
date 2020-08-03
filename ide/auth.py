@@ -34,7 +34,7 @@ def build_credentials():
     if not is_logged_in():
         raise Exception('User must be logged in')
 
-    oauth2_tokens = flask.session[AUTH_TOKEN_KEY]
+    oauth2_tokens = flask.session.get(AUTH_TOKEN_KEY)
     
     return google.oauth2.credentials.Credentials(
                 oauth2_tokens['access_token'],
@@ -90,13 +90,13 @@ def google_auth_redirect():
     print("checking auth state:", req_state)
     print("Current session state:", flask.session.get(AUTH_STATE_KEY))
 
-    if req_state != flask.session[AUTH_STATE_KEY]:
+    if req_state != flask.session.get(AUTH_STATE_KEY):
         response = flask.make_response('Invalid state parameter', 401)
         return response
     
     session = OAuth2Session(CLIENT_ID, CLIENT_SECRET,
         scope=AUTHORIZATION_SCOPE,
-        state=flask.session[AUTH_STATE_KEY],
+        state=flask.session.get(AUTH_STATE_KEY),
         redirect_uri=AUTH_REDIRECT_URI)
   
     

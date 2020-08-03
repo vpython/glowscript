@@ -29,7 +29,7 @@
 
 localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
-weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "glowscript-py38.uc.r.appspot.com"]
+weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "glowscript-py38.uc.r.appspot.com", "www.glowscriptdev.spvi.net"]
 
 import json
 from io import StringIO
@@ -212,7 +212,7 @@ def api_login():
         if ndb_user:
             return { 'state':'logged_in', 'username':ndb_user.key.id(), 'secret':ndb_user.secret, 'logout_url':'/google/logout'}
         else:
-            nickname = logged_in_username
+            nickname = email
             if "@" in nickname: nickname = nickname.split("@",2)[0]
             return  { 'state':'new_user', 'suggested_name':nickname } 
     else:
@@ -224,7 +224,7 @@ def ApiUsers():
     N = User.query().count()
     return "Nusers = " + str(N)
 
-@app.route('/api/user/<user>', methods=['GET','PUT'])
+@app.route('/api/user/<username>', methods=['GET','PUT'])
 def ApiUser(username):
     """
     ndb_user is the existing user object for 'user'
@@ -283,9 +283,6 @@ def ApiUserFolders(username):
     
     user = names and names[0] or ''
     
-    print("folder_owner = ", folder_owner)
-    print("logged_in_email = ", logged_in_email)
-
     folders = []
     publics = []
     for k in Folder.query(ancestor=ndb.Key("User",user)):

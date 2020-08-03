@@ -3,7 +3,8 @@ $(function () {
     
     var worker
     var sourceLines
-    var website = 'glowscript' // normally glowscript
+    var website = 'glowscriptdev.spvi.net' // normally glowscript
+    var sandbox_prefix = 'http://sandbox.' // https for production
     var disable_writes = false // prevent all writes (edit, create/delete folder or program, copy/rename program)
 
     var onNavigate = {
@@ -907,8 +908,8 @@ $(function () {
             // abuse the user's credentials with our API.  That's important because one logged-in user may be running a different user's program!
             // When this page is served from localhost, we run the iframe from the same origin (not having access to another web server, and not being concerned about security)
 
-            var untrusted_src = "https://sandbox."+website+".org/untrusted/run.html"
-            var untrusted_origin = "https://sandbox."+website+".org"
+            var untrusted_origin = sandbox_prefix + website
+            var untrusted_src = untrusted_origin + "/untrusted/run.html"
             var ready = false
             
             try {
@@ -918,7 +919,7 @@ $(function () {
             
                     var NotRunningTheDevServerTimeout = setTimeout( function() {
                         if (!ready)
-                            alert("You have configured "+website+".org to load files from '" + untrusted_origin + "', but that server is apparently not responding.  Try setting localStorage.dev='' in the console.")
+                            alert("You have configured "+website+" to load files from '" + untrusted_origin + "', but that server is apparently not responding.  Try setting localStorage.dev='' in the console.")
                     }, 5000)
                     onNavigate.on(function(cb) { clearTimeout(NotRunningTheDevServerTimeout); cb() })
                 } else if (document.domain == "localhost") {
@@ -1164,7 +1165,7 @@ $(function () {
                     else if (v >= 2.2) verdir = "2.1"
                     else verdir = header.version.substr(0,3)
                     var runner = ''
-                    var exporturl = "https://www."+website+".org/"
+                    var exporturl = "https://www."+website+"/"
                     if (v >= 2.5) exporturl = "https://s3.amazonaws.com/glowscript/"
                     if (header.lang == 'vpython') 
                     	runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'
