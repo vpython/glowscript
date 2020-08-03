@@ -305,7 +305,7 @@ def ApiUserFolders(username):
     return {"user":user, "folders":folders, "publics":publics}
     
 @app.route(r'/api/user/<username>/folder/<foldername>', methods=['PUT','DELETE'])
-def ApiUserFolder():
+def ApiUserFolder(username, foldername):
 
     try:
         names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)', 2)
@@ -317,42 +317,38 @@ def ApiUserFolder():
     folder = names and names[1] or ''
     
     if flask.request.method == 'PUT':
-        pass
-#        import pdb
-#        pdb.set_trace()
     
-    return {}
+        if not authorize_user(user):
+            return flask.make_response("Unauthorized", 401)
 
-#         return self.error(404)
-#         import cgi
-#         params = cgi.parse_qs(self.request.body)
-#         req_program = params['program'][0]
-#         changes = json.loads( req_program )
-#         folder = Folder( parent=ndb_user.key, id=folder, isPublic=changes['public'] )
-#         ### Also change public=True in My Programs, above
-#         folder.put()
-#         
-#     def delete(self, user, folder):                                             ##### delete an existing folder
-#         m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         folder = m.group(2)
-#         if not self.validate(user, folder): return
-#         if not self.authorize_user(user): return
-#         ndb_folder = ndb.Key("User", user, "Folder", folder).get()
-#         if not ndb_folder:
-#             return self.error(404)
-#         # Make sure the folder is empty
-#         program_count = 0
-#         for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)):
-#             program_count += 1
-#         
-#         if program_count > 0:
-#             return self.error(409)
-#         ndb_folder.key.delete()
+        public = True
+        value = flask.request.values.get("program")
 
+        if value:
+            public = json.loads(value).get('public')
 
-# r'/api/user/([^/]+)/folder/([^/]+)/program/', ApiUserFolderPrograms),
+        folder = Folder( parent=ndb_user.key, id=folder, isPublic=public)
+        folder.put()
+        
+        return {}
+        
+    elif flask.request.method == 'DELETE':
 
+        ndb_folder = ndb.Key("User", user, "Folder", folder).get()
+        if not ndb_folder:
+            return self.error(404)
+        program_count = 0
+        for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)):
+            program_count += 1
+
+        if program_count > 0:
+            return self.error(409)
+        ndb_folder.key.delete()
+        return {}
+        
+    else:
+        return flask.make_response('Invalid API operation', 400)
+        
 @app.route('/api/user/<username>/folder/<foldername>/program/')
 def ApiUserFolderPrograms(username, foldername):
     try:
@@ -554,39 +550,3 @@ def ApiUserFolderProgram(username, foldername, programname):
 #         if option == 'rename':
 #             ndb_program_old.key.delete()
 # 
-# class ApiAdminUpgrade(ApiRequest):
-#     allowJSONP = None
-#     def post(self):
-#         if not self.authorize_user("David"): return
-#         programs = list( Program.query() )
-#         changeCount = 0
-#         for p in programs:
-#             if self.upgradeProgram(p):
-#                 changeCount += 1
-#                 p.put()
-#         self.respond( {"processed":len(programs), "changed":changeCount} )
-# 
-#     def upgradeProgram(self, p):
-#         if not p.source.startswith("GlowScript 2.7\n"):
-#             p.source = "GlowScript 3.0 VPython\n" + p.source
-#             return True
-#         #(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)/option/([^/]+)', ApiUserProgramCopy),
-# 
-# app = web.WSGIApplication(
-#     [
-#         (r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)', ApiUserProgramCopy),
-#         (r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)', ApiUserFolderProgramDownload),
-#         (r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)', ApiUserFolderProgram),
-#         (r'/api/user/([^/]+)/folder/([^/]+)/program/', ApiUserFolderPrograms),
-#         (r'/api/user/([^/]+)/folder/([^/]+)', ApiUserFolder),
-#         (r'/api/user/([^/]+)/folder/', ApiUserFolders),
-#         (r'/api/user/([^/]+)', ApiUser),
-#         (r'/api/user/', ApiUsers),
-# 
-#         (r'/api/login', ApiLogin),
-# 
-#         (r'/api/admin/upgrade', ApiAdminUpgrade),
-#     ],
-#     debug=True)
-#
-
