@@ -29,7 +29,7 @@
 
 localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
-weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "glowscript-py38.uc.r.appspot.com", "www.glowscriptdev.spvi.net"]
+weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "www.glowscriptdev.spvi.net"]
 
 import json
 from io import StringIO
