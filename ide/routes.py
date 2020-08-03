@@ -37,10 +37,9 @@ import zipfile
 import cgi
 import datetime
 import uuid
+import flask
 
 from google.cloud import ndb
-from flask import Flask, render_template, send_from_directory, url_for
-import flask
 from google.auth.transport import requests
 from google.cloud import ndb
 import google.oauth2.id_token
@@ -85,31 +84,31 @@ app.wsgi_app = ndb_wsgi_middleware(app.wsgi_app)  # Wrap the app in middleware.
 
 @app.route('/css/<path:filename>')
 def css_static(filename):
-    return send_from_directory('../css', filename)
+    return flask.send_from_directory('../css', filename)
     
 @app.route('/ide.js')
 def idejs_static():
-    return send_from_directory('.', 'ide.js')
+    return flask.send_from_directory('.', 'ide.js')
 
 @app.route('/lib/<path:filename>')
 def lib_static(filename):
-    return send_from_directory('../lib', filename)
+    return flask.send_from_directory('../lib', filename)
 
 @app.route('/package/<path:filename>')
 def package_static(filename):
-    return send_from_directory('../package', filename)
+    return flask.send_from_directory('../package', filename)
 
 @app.route('/docs/<path:filename>')
 def docs_static(filename):
-    return send_from_directory('../docs', filename)
+    return flask.send_from_directory('../docs', filename)
 
 @app.route(r'/favicon.ico')
 def favicon_static():
-    return send_from_directory('../static/images', r'favicon.ico')
+    return flask.send_from_directory('../static/images', r'favicon.ico')
     
 @app.route('/untrusted/<path:filename>')
 def untrusted_static(filename):
-    return send_from_directory('../untrusted', filename)
+    return flask.send_from_directory('../untrusted', filename)
 
 #
 # The root route
@@ -118,7 +117,7 @@ def untrusted_static(filename):
 @app.route('/')
 @app.route('/index')
 def root():
-    return render_template('index.html')
+    return flask.render_template('index.html')
 
 #
 # Here are some utilities for validating names, hosts, and usernames
@@ -142,15 +141,64 @@ def authorize_user(username):
     if auth.is_logged_in():
         logged_in_email = auth.get_user_info().get('email')
         ndb_user = ndb.Key("User", username).get()
-        if not ndb_user or ndb_user.gaeUser.email != username or flask.request.headers.get('X-CSRF-Token') != ndb_user.secret:
+        if not ndb_user or ndb_user.email != logged_in_email or flask.request.headers.get('X-CSRF-Token') != ndb_user.secret:
             return False
         return True
     else:
         return False
-        
+
 def override(user):
     # return True if superuser, to permit the recovery of private programs for a user who can no longer log in
     return str(user) == 'basherwo@ncsu.edu'
+
+class ParseUrlPathException( Exception ):
+    pass
+
+def parseUrlPath(theRegexp, numGroups):
+    """
+    This is boiler plate code for a lot of the route handlers.
+    
+    All these handlers require a user, but there's also the authenticated user.
+    
+    Inputs:
+        theRegExp: A regular expression to evaluate the path
+        numGroups: How many groups are in the regexp.
+        
+    It is assumed that the 'user' (typically the owner of the folder) is group 1.
+    
+    It is further assumed that all the names need to be checked for escaped values.
+
+    returns:
+        numGroups strings
+        folderOwnerUser (from ndb) or None
+        logged_in_email (if the someone is currently logged in)
+        
+    throws:
+        ParseUrlPathException which has an error message + HTTP return code
+    """
+    folder_owner = None
+    
+    if not authorize_host():
+        raise ParseUrlPathException('Unauthorized Host',403)
+
+    try:
+        m = re.search(theRegexp, flask.request.path)
+        names = list(map(lambda i: m.group(i+1), range(numGroups)))
+    except:
+        raise ParseUrlPathException('Parsing URL failed', 400)
+        
+    if names and not validate_names(*names):
+        raise ParseUrlPathException('Invalid string in URL', 400)
+
+    if auth.is_logged_in():
+        logged_in_email = auth.get_user_info().get('email')
+    else:
+        logged_in_email = '' # anonymous user
+
+    if names:
+        folder_owner = ndb.Key("User",names[0]).get()
+
+    return names, folder_owner, logged_in_email
 
 #
 # The rest are the api routes and the main page route
@@ -171,10 +219,6 @@ def api_login():
         return { 'state':'not_logged_in', 'login_url':'/google/login' }
 
 
-@app.route('/api/user/<user>/folder/<folder>/program/<program>/option/<option>/oldfolder/<oldfolder>/oldprogram/<oldprogram>')
-def programCopy(user, folder, program, option, oldfolder, oldprogram):
-    return "got user:%s folder:%s progrm: %s option: %s oldfolder: %s oldprogram %s"  % (user, folder, program, option, oldfolder, oldprogram)
-    
 @app.route('/api/user')
 def ApiUsers():
     N = User.query().count()
@@ -182,20 +226,23 @@ def ApiUsers():
 
 @app.route('/api/user/<user>', methods=['GET','PUT'])
 def ApiUser(username):
+    """
+    ndb_user is the existing user object for 'user'
+    email is the email address of the logged in user
+    """    
 
-    m = re.search(r'/user/([^/]+)', flask.request.path)
-    user = m.group(1)
-
-    if not authorize_host():
-        return flask.make_response('Unauthorized Host',403)
-
-    if not validate_names(user):
-        return flask.make_response('Invalid username', 400)
-
+    try:
+        names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)', 1)
+    except ParseUrlPathException as pup:
+        errorMsg, code = pup.args
+        return flask.make_response(errorMsg, code)
+    
+    user = names and names[0] or ''
+    
     if flask.request.method == 'GET':
 
         # This is just used to validate that a user does/doesn't exist
-        ndb_user = ndb.Key("User",user).get()
+
         if not ndb_user:
             return flask.make_response('Unknown username', 404)
 
@@ -203,15 +250,7 @@ def ApiUser(username):
 
     elif flask.request.method == 'PUT':
     
-        if not auth.is_logged_in():
-            return flask.make_request("user not logged in", 403)
-
-        else:
-            email = auth.get_user_info().get('email')
-
-            # TODO: CSRF protection (see ApiLogin)
-            # The caller mustn't already have a user account
-            ndb_user = ndb.Key("User", user).get()
+        if email:
             if ndb_user: 
                 return flask.make_request("user already exists", 403)
 
@@ -231,22 +270,19 @@ def ApiUser(username):
 @app.route('/api/user/<username>/folder/')
 def ApiUserFolders(username):
 
-    m = re.search(r'/user/([^/]+)', flask.request.path)
-    user = m.group(1)
+    """
+    ndb_user is the existing user object for 'user'
+    email is the email address of the logged in user
+    """    
+
+    try:
+        names, folder_owner, logged_in_email = parseUrlPath(r'/api/user/([^/]+)/folder/', 1)
+    except ParseUrlPathException as pup:
+        errorMsg, code = pup.args
+        return flask.make_response(errorMsg, code)
     
-    if not authorize_host():
-        return flask.make_response('Unauthorized Host',403)
-
-    if not validate_names(user):
-        return flask.make_response('Invalid username', 400)
-
-    if auth.is_logged_in():
-        logged_in_email = auth.get_user_info().get('email')
-    else:
-        logged_in_email = '' # anonymous user
-
-    folder_owner = ndb.Key("User",user).get()
-
+    user = names and names[0] or ''
+    
     print("folder_owner = ", folder_owner)
     print("logged_in_email = ", logged_in_email)
 
@@ -263,17 +299,26 @@ def ApiUserFolders(username):
         publics.append(k.isPublic)
     return {"user":user, "folders":folders, "publics":publics}
     
+@app.route(r'/api/user/<username>/folder/<foldername>', methods=['PUT','DELETE'])
+def ApiUserFolder():
 
-# class ApiUserFolder(ApiRequest):
-#     def put(self, user, folder):                                                ##### create a new folder
-#         m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         folder = m.group(2)
-#         if not self.authorize_user(user): return
-#         if not self.validate(user, folder): return
-#         ndb_user = ndb.Key("User",user).get()
-#         if not ndb_user:
-#             return self.error(404)
+    try:
+        names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)', 2)
+    except ParseUrlPathException as pup:
+        errorMsg, code = pup.args
+        return flask.make_response(errorMsg, code)
+    
+    user = names and names[0] or ''
+    folder = names and names[1] or ''
+    
+    if flask.request.method == 'PUT':
+        pass
+#        import pdb
+#        pdb.set_trace()
+    
+    return {}
+
+#         return self.error(404)
 #         import cgi
 #         params = cgi.parse_qs(self.request.body)
 #         req_program = params['program'][0]
@@ -300,98 +345,107 @@ def ApiUserFolders(username):
 #             return self.error(409)
 #         ndb_folder.key.delete()
 
-# class ApiUserFolderPrograms(ApiRequest):
-#     def get(self, user, folder):                                                ##### display all programs in a public or owned folder
-#         m = re.search(r'/user/([^/]+)/folder/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         folder = m.group(2)
-#         if not self.authorize(): return
-#         if not self.validate(user, folder): return
-#         ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-#         gaeUser = users.get_current_user()
-#         ndb_user = ndb.Key("User",user).get()
-#         try:
-#         	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
-#         except:
-#         	pub = True
-#         if not pub and not override(gaeUser):
-#             self.respond( {"user":user,"folder":folder,
-#                 "error": str('The folder "'+user+'/'+folder+'" is a private folder\nto which you do not have access.')} )
-#         else:
-#             programs = [
-#                 { "name": p.key.id(),
-#                   #"description": unicode(p.description or unicode()), # description not currently used
-#                   "screenshot": str(p.screenshot or ""),
-#                   "datetime": str(p.datetime)
-#                 } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)) ]
-#             self.respond( {"user":user, "folder":folder, "programs":programs} )
-# 
-# class ApiUserFolderProgram(ApiRequest):
-#     def get(self, user, folder, name):                                          ##### access a public or owned program
-#         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         folder = m.group(2)
-#         name = m.group(3)
-#         if not self.authorize(): return
-#         if not self.validate(user, folder, name): return
-#         ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-#         gaeUser = users.get_current_user()
-#         ndb_user = ndb.Key("User",user).get()
-#         try:
-#         	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
-#         except:
-#         	pub = True
-#         if not pub and not override(gaeUser):
-#             self.respond( {"user":user,"folder":folder,"name":name,
-#                 "error": str('The program "'+name+'" is in a private folder\nto which you do not have access.')} )
-#         else:
-#             ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
-#             if not ndb_program:
-#                 self.respond( {"user":user,"folder":folder,"name":name,
-#                     "error": str(user+'/'+folder+'/'+name+' does not exist.')} )
-#             else:
-#                 self.respond( {"user":user,"folder":folder,"name":name,
-#                     #"description": unicode(ndb_program.description or unicode()), # description not currently used
-#                     "screenshot": str(ndb_program.screenshot or ""),
-#                     "datetime": str(ndb_program.datetime),
-#                     "source": unicode(ndb_program.source or unicode())} )
-#             
-#     def put(self, user, folder, program):                          ##### create or write an owned program
-#         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         folder = m.group(2)
-#         program = m.group(3)
-#         if not self.validate(user, folder, program): return
-#         if not self.authorize_user(user): return
-#         params = cgi.parse_qs(self.request.body)
-#         req_program = params['program'][0]
-#         changes = json.loads( req_program )
-#         
-#         # This is a slight abuse of the PUT verb, since attributes not specified are left unchanged
-#         ndb_program = ndb.Key("User",user,"Folder",folder,"Program",program).get()
-#         if not ndb_program: # if not ndb_program already, this is a request to create a new program
-#             ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-#             if not ndb_folder:
-#                 return self.error(404)
-#             ndb_program = Program( parent=ndb_folder.key, id=program )
-#             
-#         if "source" in changes: ndb_program.source = changes["source"]
-#         if "screenshot" in changes:  ndb_program.screenshot = str(changes["screenshot"])
-#         ndb_program.datetime = datetime.now()
-#         ndb_program.description = "" # description currently not used
-#         ndb_program.put()
-#         
-#     def delete(self, user, folder, name):                                       ##### delete an owned program
-#         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         folder = m.group(2)
-#         name = m.group(3)
-#         if not self.validate(user, folder, name): return
-#         if not self.authorize_user(user): return
-#         ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
-#         if ndb_program:
-#             ndb_program.key.delete()
-# 
+
+# r'/api/user/([^/]+)/folder/([^/]+)/program/', ApiUserFolderPrograms),
+
+@app.route('/api/user/<username>/folder/<foldername>/program/')
+def ApiUserFolderPrograms(username, foldername):
+    try:
+        names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/', 2)
+    except ParseUrlPathException as pup:
+        errorMsg, code = pup.args
+        return flask.make_response(errorMsg, code)
+    
+    user = names and names[0] or ''
+    folder = names and names[1] or ''
+
+    ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+    ndb_user = ndb.Key("User",user).get()
+    try:
+        pub = ndb_folder.isPublic is None or ndb_folder.isPublic or email == ndb_user.email # before March 2015, isPublic wasn't set
+    except:
+        pub = True
+    if not pub and not override(gaeUser):
+        return {"user":user,"folder":folder,
+                "error": str('The folder "'+user+'/'+folder+'" is a private folder\nto which you do not have access.')}
+    else:
+        programs = [
+                { "name": p.key.id(),
+                  "screenshot": str(p.screenshot or ""),
+                  "datetime": str(p.datetime)
+                } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder))]
+        return  {"user":user, "folder":folder, "programs":programs}
+
+
+@app.route('/api/user/<username>/folder/<foldername>/program/<programname>', methods=['GET','PUT','DELETE'])
+def ApiUserFolderProgram(username, foldername, programname):
+
+    try:
+        names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)', 3)
+    except ParseUrlPathException as pup:
+        errorMsg, code = pup.args
+        return flask.make_response(errorMsg, code)
+
+    user = names and names[0] or ''
+    folder = names and names[1] or ''
+    program = name = names and names[2] or ''
+
+    if flask.request.method == 'GET':
+        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+        try:
+            pub = ndb_folder.isPublic is None or ndb_folder.isPublic or email == ndb_user.email # before March 2015, isPublic wasn't set
+        except:
+            pub = True
+        if not pub and not override(email):
+            return {"user":user,"folder":folder,"name":name,
+                    "error": str('The program "'+name+'" is in a private folder\nto which you do not have access.')}
+        else:
+             ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+             if not ndb_program:
+                return {"user":user,"folder":folder,"name":name,
+                        "error": str(user+'/'+folder+'/'+name+' does not exist.')}
+             else:
+                 return {"user":user,"folder":folder,"name":name,
+                         "screenshot": str(ndb_program.screenshot or ""),
+                         "datetime": str(ndb_program.datetime),
+                         "source": ndb_program.source or ''}
+
+    elif flask.request.method == 'PUT':
+
+        if not authorize_user(user):
+            return flask.make_response("Unauthorized", 401)
+
+        source = ''
+        value = flask.request.values.get("program")
+
+        if value:
+            source = json.loads(value).get('source')
+
+        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",program).get()
+        
+        if not ndb_program: # if not ndb_program already, this is a request to create a new program
+            ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+            if not ndb_folder:
+                return flask.make_response("No such folder", 403)
+
+            ndb_program = Program( parent=ndb_folder.key, id=program )
+        if source: ndb_program.source = source
+        ndb_program.datetime = datetime.now()
+        ndb_program.description = "" # description currently not used
+        ndb_program.put()
+        return {}
+
+    else:
+
+        if not authorize_user(user):
+            return flask.make_response("Unauthorized", 401)
+
+        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+        if ndb_program:
+            ndb_program.key.delete()
+
+        return {}
+
 # class ApiUserFolderProgramDownload(ApiRequest):
 # 	# route = /api/user/username/folder/foldername/program/programname/option/downloadProgram or ...../downloadFolder
 #     def get(self, user, folder, name, op):                                   ##### download a public or owned program or folder
