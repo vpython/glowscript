@@ -189,9 +189,17 @@ def parseUrlPath(theRegexp, numGroups):
     if not authorize_host():
         raise ParseUrlPathException('Unauthorized Host',403)
 
+    names = ['']*numGroups
+
     try:
+        """
+        Easy way to guarantee numGroups valid strings regardless.
+        """
         m = re.search(theRegexp, flask.request.path)
-        names = list(map(lambda i: m.group(i+1), range(numGroups)))
+        for i in range(numGroups):
+            value = m.group(i+1)
+            if value:
+                names[i] = value
     except:
         raise ParseUrlPathException('Parsing URL failed', 400)
         
@@ -275,6 +283,10 @@ def ApiUser(username):
             
             return {}
 
+    else:
+        return flask.make_response('Invalid API operation', 400)
+
+
 @app.route('/api/user/<username>/folder/')
 def ApiUserFolders(username):
 
@@ -357,8 +369,7 @@ def ApiUserFolderPrograms(username, foldername):
         errorMsg, code = pup.args
         return flask.make_response(errorMsg, code)
     
-    user = names and names[0] or ''
-    folder = names and names[1] or ''
+    user, folder = names
 
     ndb_folder = ndb.Key("User",user,"Folder",folder).get()
     ndb_user = ndb.Key("User",user).get()
@@ -387,9 +398,8 @@ def ApiUserFolderProgram(username, foldername, programname):
         errorMsg, code = pup.args
         return flask.make_response(errorMsg, code)
 
-    user = names and names[0] or ''
-    folder = names and names[1] or ''
-    program = name = names and names[2] or ''
+    user, folder, program = names
+    name = program # for PUT clause
 
     if flask.request.method == 'GET':
         ndb_folder = ndb.Key("User",user,"Folder",folder).get()
@@ -436,7 +446,7 @@ def ApiUserFolderProgram(username, foldername, programname):
         ndb_program.put()
         return {}
 
-    else:
+    elif flask.request.method == 'DELETE':
 
         if not authorize_user(user):
             return flask.make_response("Unauthorized", 401)
@@ -446,43 +456,51 @@ def ApiUserFolderProgram(username, foldername, programname):
             ndb_program.key.delete()
 
         return {}
+        
+    else:
+        return flask.make_response('Invalid API operation', 400)
 
-# class ApiUserFolderProgramDownload(ApiRequest):
-# 	# route = /api/user/username/folder/foldername/program/programname/option/downloadProgram or ...../downloadFolder
-#     def get(self, user, folder, name, op):                                   ##### download a public or owned program or folder
-#         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         folder = m.group(2)
-#         name = m.group(3)   # If option is downloadFolder, name is meaningless
-#         option = m.group(4) # Currently downloadProgram or downloadFolder
-#     	if not self.authorize(): return
-#         gaeUser = users.get_current_user()
-#         ndb_user = ndb.Key("User",user).get()
-#         if option == 'downloadProgram':
-#         	if not self.validate(user, folder, name): return
-# 	        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-# 	        try:
-# 	        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
-# 	        except:
-# 	        	pub = True
-# 	        if not pub:
-# 	            return self.error(405)
-# 	        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
-# 	        if not ndb_program:
-# 	            return self.error(404)
-# 	        source = unicode(ndb_program.source or unicode())
-# 	        end = source.find('\n')
-# 	        if source[0:end].find('ython') > -1: # VPython
-# 	        	source = "from vpython import *\n#"+source
-# 	        	extension = '.py'
-# 	        elif source[0:end].find('apyd') > -1: # RapydScript
-# 	        	extension = '.py'
-# 	        elif source[0:end].find('ofee') > -1: # CofeeScript (1.1 is the only version)
-# 	        	extension = '.cs'
-# 	        else:                    # JavaScript
-# 	        	extension = '.js'
-# 	        self.response.headers['Content-Disposition'] = 'attachment; filename='+user+'_'+name+extension
-# 	        self.response.write(source)
+@app.route('/api/user/<username>/folder/<foldername>/program/<programname>/option/<optionname>')
+def ApiUserFolderProgramDownload(username, foldername, programname, optionname):
+
+    try:
+        names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)', 4)
+    except ParseUrlPathException as pup:
+        errorMsg, code = pup.args
+        return flask.make_response(errorMsg, code)
+        
+    user, folder, name, option = names
+
+    if option == 'downloadProgram':
+        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+        try:
+            pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
+        except:
+            pub = True
+        if not pub:
+            return flask.make_response('Unauthorized', 405)
+        ndb_program = ndb.Key("User",user,"Folder",folder,"Program",name).get()
+        if not ndb_program:
+            return flask.make_response('Not found', 404)
+        source = ndb_program.source
+        end = source.find('\n')
+        if source[0:end].find('ython') > -1: # VPython
+            source = "from vpython import *\n#"+source
+            extension = '.py'
+        elif source[0:end].find('apyd') > -1: # RapydScript
+            extension = '.py'
+        elif source[0:end].find('ofee') > -1: # CofeeScript (1.1 is the only version)
+            extension = '.cs'
+        else:                    # JavaScript
+            extension = '.js'
+
+        response = flask.make_response(source, 200)
+        response.headers['Content-Disposition'] = 'attachment; filename=' + user + '_'+name+extension
+        
+        return response
+    else:
+        return {}
+
 #         elif option == 'downloadFolder':
 # 	        if not self.validate(user, folder): return
 # 	        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
