@@ -91,17 +91,16 @@ def google_auth_redirect():
     print("Current session state:", flask.session.get(AUTH_STATE_KEY))
 
     if req_state != flask.session.get(AUTH_STATE_KEY):
-        response = flask.make_response('Invalid state parameter', 401)
+        """
+        Sometimes the browser just gets confused. Go home and try again.
+        """
+        response = flask.redirect(flask.url_for('index'))
         return response
     
     session = OAuth2Session(CLIENT_ID, CLIENT_SECRET,
         scope=AUTHORIZATION_SCOPE,
         state=flask.session.get(AUTH_STATE_KEY),
         redirect_uri=AUTH_REDIRECT_URI)
-  
-    
-    
-
 
     oauth2_tokens = session.fetch_access_token(
                         ACCESS_TOKEN_URI,            

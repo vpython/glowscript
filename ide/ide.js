@@ -155,7 +155,7 @@ $(function () {
             dataType: 'json',
             success: callback,
             error: function (xhr, message, exc) {
-                apiError("API " + message + " getting " + url + ": " + exc)
+                apiError("API GET" + message + " getting " + url + ": " + exc)
             }
         })
     }
@@ -224,7 +224,7 @@ $(function () {
                 if (xhr.status == 404) 
                     callback(false)
                 else
-                    apiError("API " + message + " getting " + url + ": " + exc)
+                    apiError("API Exists " + message + " getting " + url + ": " + exc)
             }
         })
     }
