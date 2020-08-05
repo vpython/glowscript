@@ -16,13 +16,12 @@ def UpdateUsers(**kwargs):
     """
 
     count = 0
-    for c in kwargs['User'].query():
-        if c.email == None:
-            if c.gaeUser:
-                c.email = c.gaeUser.email()
-                c.put()
-                print("Updated user: ", c.key.id(), ":", c.email, " count = ", count)
-                count += 1
+    for c in kwargs['User'].query().filter(kwargs['User'].email == None):
+        if c.gaeUser:
+            c.email = c.gaeUser.email()
+            c.put()
+            print("Updated user: ", c.key.id(), ":", c.email, " count = ", count)
+            count += 1
 
 
                 
