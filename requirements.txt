@@ -24,6 +24,7 @@ protobuf==3.12.4
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
+python-dotenv==0.14.0
 pytz==2020.1
 redis==3.5.3
 requests==2.24.0
