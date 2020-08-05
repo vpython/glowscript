@@ -32,7 +32,7 @@ website = 'glowscript' # normally glowscript
 weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "www.glowscriptdev.spvi.net"]
 
 import json
-from io import StringIO
+from io import BytesIO
 import zipfile
 import cgi
 import datetime
@@ -493,7 +493,7 @@ def ApiUserFolderProgramDownload(username, foldername, programname, optionname):
     if option == 'downloadProgram':
         ndb_folder = ndb.Key("User",user,"Folder",folder).get()
         try:
-            pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
+            pub = ndb_folder.isPublic is None or ndb_folder.isPublic or ndb_user.email == email # before March 2015, isPublic wasn't set
         except:
             pub = True
         if not pub:
@@ -517,45 +517,46 @@ def ApiUserFolderProgramDownload(username, foldername, programname, optionname):
         response.headers['Content-Disposition'] = 'attachment; filename=' + user + '_'+name+extension
         
         return response
-    else:
-        return {}
 
-#         elif option == 'downloadFolder':
-# 	        if not self.validate(user, folder): return
-# 	        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-# 	        try:
-# 	        	pub = ndb_folder.isPublic is None or ndb_folder.isPublic or gaeUser == ndb_user.gaeUser # before March 2015, isPublic wasn't set
-# 	        except:
-# 	        	pub = True
-# 	        if not pub:
-# 	            return self.error(405)
-# 	        # https://newseasandbeyond.wordpress.com/2014/01/27/creating-in-memory-zip-file-with-python/
-# 	        buff = StringIO.StringIO()
-# 	        za = zipfile.ZipFile(buff, mode='w', compression=zipfile.ZIP_DEFLATED)
-# 	        programs = [
-# 	            { "name": p.key.id(),
-# 	              "source": p.source  # unicode(p.source or unicode())
-# 	            } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)) ]
-# 	        for p in programs:
-# 	        	source = p['source']
-# 		        end = source.find('\n')
-# 		        if source[0:end].find('ython') > -1: # VPython
-# 		        	source = "from vpython import *\n#"+source
-# 		        	extension = '.py'
-# 		        elif source[0:end].find('apyd') > -1: # RapydScript
-# 		        	extension = '.py'
-# 		        elif source[0:end].find('ofee') > -1: # CofeeScript (1.1 is the only version)
-# 		        	extension = '.cs'
-# 		        else:                    # JavaScript
-# 	        		extension = '.js'
-# 		        out = StringIO.StringIO()
-# 		        out.write(unicode(source))
-# 		        za.writestr(p['name']+extension, out.getvalue().encode('utf-8'))
-# 	        za.close()
-# 	        self.response.headers['Content-Disposition'] = 'attachment; filename='+user+'_'+folder+'.zip'
-# 	        self.response.write(buff.getvalue())
-#         else:
-# 	        self.error(404)
+    elif option == 'downloadFolder':
+
+        ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+        try:
+            pub = ndb_folder.isPublic is None or ndb_folder.isPublic or ndb_user.email == email # before March 2015, isPublic wasn't set
+        except:
+            pub = True
+        if not pub:
+            return flask.make_response('Unauthorized', 405)
+
+        # https://newseasandbeyond.wordpress.com/2014/01/27/creating-in-memory-zip-file-with-python/
+        buff = BytesIO()
+        za = zipfile.ZipFile(buff, mode='w', compression=zipfile.ZIP_DEFLATED)
+        programs = [
+          { "name": p.key.id(),
+            "source": p.source  # unicode(p.source or unicode())
+          } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)) ]
+        for p in programs:
+            source = p['source']
+            end = source.find('\n')
+            if source[0:end].find('ython') > -1: # VPython
+                source = "from vpython import *\n#"+source
+                extension = '.py'
+            elif source[0:end].find('apyd') > -1: # RapydScript
+                extension = '.py'
+            elif source[0:end].find('ofee') > -1: # CofeeScript (1.1 is the only version)
+                extension = '.cs'
+            else:                    # JavaScript
+                extension = '.js'
+
+            za.writestr(p['name']+extension, source)
+        za.close()
+
+        response = flask.make_response(buff.getvalue(), 200)
+        response.headers['Content-Disposition'] = 'attachment; filename='+user+'_'+folder+'.zip'
+        return response
+    else:
+        return flask.make_response('No such option', 404)
+
 # 
 # class ApiUserProgramCopy(ApiRequest):
 # 	# route = /api/user/username/folder/foldername/program/programname/option/copy or rename/
