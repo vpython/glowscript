@@ -557,34 +557,33 @@ def ApiUserFolderProgramDownload(username, foldername, programname, optionname):
     else:
         return flask.make_response('No such option', 404)
 
-# 
-# class ApiUserProgramCopy(ApiRequest):
-# 	# route = /api/user/username/folder/foldername/program/programname/option/copy or rename/
-# 	# oldfolder/oldfoldername/oldprogram/oldprogramname
-#            
-#     def put(self, user, folder, program, oldfolder, oldprogram, op):       ##### copy or rename a program
-#         m = re.search(r'/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)', self.request.path)
-#         user = m.group(1)
-#         folder = m.group(2)
-#         program = m.group(3)
-#         option = m.group(4) # Currently copy or rename
-#         oldfolder = m.group(5)
-#         oldprogram = m.group(6)
-#         # The following tests are in principle not needed, due to copy/rename options not being available 
-#         if not self.validate(user, folder, program): return
-#         if not self.validate(user, oldfolder, oldprogram): return
-#         ndb_folder = ndb.Key("User",user,"Folder",folder).get()
-#         if not ndb_folder:
-#             return self.error(404) # should not occur; ide.js checks for existence
-#         ndb_program = Program( parent=ndb_folder.key, id=program )
-#         ndb_program_old = ndb.Key("User",user,"Folder",oldfolder,"Program",oldprogram).get()
-#         if not ndb_program_old:
-#             return self.error(404) # should not occur; ide.js checks for existence
-#         ndb_program.source = ndb_program_old.source
-#         ndb_program.screenshot = ndb_program_old.screenshot
-#         ndb_program.datetime = ndb_program_old.datetime
-#         ndb_program.description = "" # description currently not used
-#         ndb_program.put()
-#         if option == 'rename':
-#             ndb_program_old.key.delete()
-# 
+@app.route('/api/user/<username>/folder/<foldername>/program/<programname>/option/<optionname>/oldfolder/<oldfoldername>/oldprogram/<oldprogramname>', methods=['PUT'])
+def ApiUserProgramCopy(username, foldername, programname, optionname, oldfoldername, oldprogramname):
+
+    try:
+        names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)', 6)
+    except ParseUrlPathException as pup:
+        errorMsg, code = pup.args
+        return flask.make_response(errorMsg, code)
+        
+    user, folder, program, option, oldfolder, oldprogram = names
+
+    ndb_folder = ndb.Key("User",user,"Folder",folder).get()
+    if not ndb_folder:
+        return flask.make_response('Folder not found', 404)
+
+    ndb_program = Program( parent=ndb_folder.key, id=program )
+    
+    ndb_program_old = ndb.Key("User",user,"Folder",oldfolder,"Program",oldprogram).get()
+    if not ndb_program_old:
+        return flask.make_response('Old program not found', 404)
+
+    ndb_program.source = ndb_program_old.source
+    ndb_program.screenshot = ndb_program_old.screenshot
+    ndb_program.datetime = ndb_program_old.datetime
+    ndb_program.description = "" # description currently not used
+    ndb_program.put()
+    if option == 'rename':
+        ndb_program_old.key.delete()
+    
+    return {}
