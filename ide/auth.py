@@ -93,7 +93,7 @@ def google_auth_redirect():
         """
         Sometimes the browser just gets confused. Go home and try again.
         """
-        response = flask.redirect(flask.url_for('index'))
+        response = flask.redirect(flask.url_for('.index'))
         return response
     
     session = OAuth2Session(CLIENT_ID, CLIENT_SECRET,
