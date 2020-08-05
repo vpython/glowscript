@@ -191,11 +191,23 @@ def parseUrlPath(theRegexp, numGroups):
 
     names = ['']*numGroups
 
+    #
+    # Monkey business to get the raw URL. It turns out flask.request.path is
+    # already escaped, but flask.request.base_url is the original unadulterated URL
+    # from the API call. Split on '/', get rid of the protocol, host, port and
+    # restore the unescaped path.
+    #
+    # Another approach might be to escape the unescaped names before using 
+    # them as keys in ndb? That might actually be simpler.
+    #
+    
+    rawPath = '/' + '/'.join(flask.request.base_url.split('/')[3:])
+    
     try:
         """
         Easy way to guarantee numGroups valid strings regardless.
         """
-        m = re.search(theRegexp, flask.request.path)
+        m = re.search(theRegexp, rawPath)
         for i in range(numGroups):
             value = m.group(i+1)
             if value:
@@ -383,7 +395,7 @@ def ApiUserFolderPrograms(username, foldername):
     else:
         programs = [
                 { "name": p.key.id(),
-                  "screenshot": str(p.screenshot or ""),
+                  "screenshot": str(p.screenshot and p.screenshot.decode('utf-8') or ""),
                   "datetime": str(p.datetime)
                 } for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder))]
         return  {"user":user, "folder":folder, "programs":programs}
@@ -417,7 +429,7 @@ def ApiUserFolderProgram(username, foldername, programname):
                         "error": str(user+'/'+folder+'/'+name+' does not exist.')}
              else:
                  return {"user":user,"folder":folder,"name":name,
-                         "screenshot": str(ndb_program.screenshot or ""),
+                         "screenshot": str(ndb_program.screenshot and ndb_program.screenshot.decode('utf-8') or ""),
                          "datetime": str(ndb_program.datetime),
                          "source": ndb_program.source or ''}
 
@@ -430,7 +442,11 @@ def ApiUserFolderProgram(username, foldername, programname):
         value = flask.request.values.get("program")
 
         if value:
-            source = json.loads(value).get('source')
+            changes = json.loads(value)
+        else:
+            changes = {}
+
+
 
         ndb_program = ndb.Key("User",user,"Folder",folder,"Program",program).get()
         
@@ -440,7 +456,10 @@ def ApiUserFolderProgram(username, foldername, programname):
                 return flask.make_response("No such folder", 403)
 
             ndb_program = Program( parent=ndb_folder.key, id=program )
-        if source: ndb_program.source = source
+
+        if "source" in changes: ndb_program.source = changes["source"]
+        if "screenshot" in changes: ndb_program.screenshot = changes["screenshot"].encode('utf-8')
+
         ndb_program.datetime = datetime.now()
         ndb_program.description = "" # description currently not used
         ndb_program.put()

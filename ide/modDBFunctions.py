@@ -24,6 +24,3 @@ def UpdateUsers(**kwargs):
             count += 1
 
 
-                
-
-
