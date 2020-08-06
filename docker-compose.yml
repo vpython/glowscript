@@ -1,4 +1,9 @@
 version: "2"
+
+#
+# This compose file is just for running the datastore locally.
+#
+
 services:
   datastore:
     image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest

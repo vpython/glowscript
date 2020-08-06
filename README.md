@@ -48,6 +48,12 @@ This will store your credentials in a well known place:
       macOS/Linux: ~/.config/gcloud/application_default_credentials.json
       Windows:~/AppData/Roaming/gcloud/application_default_credentials.json
 
+You'll also need to select a "fake" google project to make sdk happy:
+
+      gcloud config set project glowscript-dev
+
+You'll probably see an error indicating that you don't own any such project, but it's OK.
+
 You need a recent version of Python3 and pip installed. The easiest way 
 is probably to install [anaconda](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html), if you don't want the
 GUI package manager and extra applications). Once you have that you can check out
