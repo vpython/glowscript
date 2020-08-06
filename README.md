@@ -41,7 +41,7 @@ so that you can call Google's cloud APIs. To aqcuire these credentials you'll
 need to download and install the [Google Cloud SDK](https://cloud.google.com/sdk).
 Once installed you can open a shell window and type:
 
-   gcloud auth application-default login
+      gcloud auth application-default login
 
 This will store your credentials in a well known place: 
 
