@@ -59,7 +59,7 @@ unreserved = chrange('A','Z') | chrange('a','z') | chrange('0','9') | set("-_.~"
 # See documentation of db.Model at https://cloud.google.com/appengine/docs/python/datastore/modelclass
 # Newer ndb:                       https://cloud.google.com/appengine/docs/standard/python/ndb/db_to_n
 
-client = ndb.Client()                          # for user data, folders, and programs
+emulator = os.environ.get('DATASTORE_EMULATOR_HOST')
 
 def ndb_wsgi_middleware(wsgi_app):
     """
@@ -68,6 +68,11 @@ def ndb_wsgi_middleware(wsgi_app):
     https://cloud.google.com/appengine/docs/standard/python3/migrating-to-cloud-ndb
     
     """
+
+    project = emulator and 'glowscript-dev' or None
+    
+    client = ndb.Client(project=project) # for user data, folders, and programs
+
     def middleware(environ, start_response):
     
         if False and environ.get('REQUEST_METHOD') == 'PUT':
