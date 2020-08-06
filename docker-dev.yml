@@ -15,7 +15,7 @@ services:
     command: gcloud beta emulators datastore start --host-port=0.0.0.0:8081 --project glowscript-dev
 
   flask:
-    image: glowscript-flask
+    image: us.gcr.io/glowscript-py38/glowscript-flask:0.1
     ports:
     - 8080:8080
     links:
