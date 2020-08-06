@@ -34,11 +34,82 @@ Unzip the GlowScriptOffline package to any convenient place on your computer.
 
 Inside the [GlowScriptOffline](GlowScriptOffline) folder, read the README file to learn how to use the package. 
  
-Run a Local Server
+Run a Local Server (Py3 version)
 ------------------
-This repository is a Google App Engine application. Here are instructions for running locally, using a local server (this is much more complicated than running locally as described under the previous heading):
+To run a local server you'll need to acquire Google [Application Default Credentials](https://cloud.google.com/sdk/gcloud/reference/auth/application-default)
+so that you can call Google's cloud APIs. To aqcuire these credentials you'll
+need to download and install the [Google Cloud SDK](https://cloud.google.com/sdk).
+Once installed you can open a shell window and type:
 
-   https://www.glowscript.org/docs/GlowScriptDocs/local.html
+   gcloud auth application-default login
+
+This will store your credentials in a well known place: 
+
+      macOS/Linux: ~/.config/gcloud/application_default_credentials.json
+      Windows:~/AppData/Roaming/gcloud/application_default_credentials.json
+
+You need a recent version of Python3 and pip installed. The easiest way 
+is probably to install [anaconda](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html), if you don't want the
+GUI package manager and extra applications). Once you have that you can check out
+the glowscript repository (currently the `py38-app-engine` branch) and
+create a virtual environment for glowscript:
+
+      git clone git@github.com:vpython/glowscript.git
+      cd glowscript
+      git checkout py38-app-engine
+      python -m venv venv
+
+This will build a virtual environment for running locally. To activiate the virtual environment:
+
+      mac: source venv/bin/activate
+      windows (power shell): ./venv/Scripts/Activate.ps1
+
+Your terminal prompt shoudl now have a `(venv)` indicating that you have
+activated the glowscript virtual environment. Before you can run glowscript the 
+first time, you'll need to install dependencies into the virtual environment.
+This can be done with pip:
+
+      pip install -r requirements.txt
+
+In order to run the local datastore emulator it's easiest to use 
+[Docker](https://www.docker.com/products/docker-desktop). Download 
+a version of Docker that works with your OS. To test that you've 
+got docker installed OK, in the glowscript directory type:
+
+      docker-compose up
+
+You'll see a lot of log messages, but among them you shoudl see:
+
+      datastore_1  | [datastore] Dev App Server is now running.
+
+In this case you're good! If not, check the error messages and
+see if there are any useful clues. Good luck. 
+
+If the datastore is running, hit ctrl-c, and then type:
+
+      docker-compose up -d
+
+This will run the datastore in the background. 
+
+With the datastore running, you can run the webserver by typing:
+
+      flask run
+
+and then browse to: [http://localhost:8080](http://localhost:8080) to view the website.
+
+When you're finished type:
+
+      docker-compose down
+
+To stop the background datastore emulator.
+
+Then next time you're ready to develop, you can simply type:
+
+      docker-compose up -d
+
+      flask run
+
+And you'll be up and running!
 
 For Developers
 --------------
