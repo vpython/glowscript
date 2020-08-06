@@ -30,6 +30,7 @@
 localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
 weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "www.glowscriptdev.spvi.net"]
+local_hosts = ['http://localhost','http://127.0.0.1']
 
 import json
 from io import BytesIO
@@ -68,6 +69,16 @@ def ndb_wsgi_middleware(wsgi_app):
     
     """
     def middleware(environ, start_response):
+    
+        if False and environ.get('REQUEST_METHOD') == 'PUT':
+            #
+            # this can be useful for debugging late exceptions in PUT operations
+            # just remove 'False' above.
+            #
+            
+            import pdb
+            pdb.set_trace()
+        
         with client.context():
             return wsgi_app(environ, start_response)
 
@@ -228,12 +239,19 @@ def parseUrlPath(theRegexp, numGroups):
 
     return names, folder_owner, logged_in_email
 
+def is_running_locally():
+    "check to see if URL is a localhost URL"
+    hostList = flask.request.base_url.split(':')
+    host = (len(hostList) > 1) and ':'.join(hostList[0:2])
+    return host in local_hosts
+
 #
 # The rest are the api routes and the main page route
 #
 
 @app.route('/api/login')
 def api_login():
+
     if auth.is_logged_in():
         email = auth.get_user_info().get('email')
         ndb_user = User.query().filter(User.email == email).get()

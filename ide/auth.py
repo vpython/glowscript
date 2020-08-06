@@ -13,6 +13,7 @@ from authlib.client import OAuth2Session
 
 from . import secret
 from . import app
+from . import routes
 
 ACCESS_TOKEN_URI = 'https://www.googleapis.com/oauth2/v4/token'
 AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent'
@@ -28,7 +29,7 @@ AUTH_TOKEN_KEY = 'auth_token'
 AUTH_STATE_KEY = 'auth_state'
 
 def is_logged_in():
-    return AUTH_TOKEN_KEY in flask.session
+    return (AUTH_TOKEN_KEY in flask.session) or (routes.is_running_locally())
 
 def build_credentials():
     if not is_logged_in():
@@ -45,6 +46,9 @@ def build_credentials():
 
 def get_user_info():
     
+    if routes.is_running_locally():
+        return {'email':'localuser@local.host'}
+
     credentials = build_credentials()
 
     oauth2_client = googleapiclient.discovery.build(
