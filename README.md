@@ -75,7 +75,9 @@ Then run the webserver and datastore in docker:
 
       docker-compose up
 
-and then browse to: [http://localhost:8080](http://localhost:8080) to view the website. That's it! This will run in a window and show you how the
+this will take a substantial amount of time the first time, since it has to download all 
+the docker images. Once it's running, browse to: [http://localhost:8080](http://localhost:8080) 
+to view the website. That's it! This will run in a window and show you how the
 webserver is handling requests. If you'd rather run this in the background
 you can use:
 
@@ -130,7 +132,8 @@ got docker installed OK, in the glowscript directory type:
 
       docker-compose -f docker-datastore.yml up
 
-You'll see a lot of log messages, but among them you shoudl see:
+this will take a substantial amount of time the first time, since it has to download all 
+the docker images. You'll see a lot of log messages, but among them you should see:
 
       datastore_1  | [datastore] Dev App Server is now running.
 
