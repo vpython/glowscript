@@ -301,7 +301,7 @@ def ApiUser(username):
     
         if email:
             if ndb_user: 
-                return flask.make_request("user already exists", 403)
+                return flask.make_response("user already exists", 403)
 
             # TODO: Make sure *nothing* exists in the database with an ancestor of this user, just to be sure
 

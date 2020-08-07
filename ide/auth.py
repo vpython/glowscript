@@ -54,7 +54,7 @@ if (not GRL):
     CLIENT_ID = client_secrets.get("FN_CLIENT_ID")
     CLIENT_SECRET = client_secrets.get("FN_CLIENT_SECRET")
     if CLIENT_ID is None:
-        raise Error("We are not running locally, but CLIENT_ID is not set. Dang. Did you mean to set GLOWSCRIPT_RUNNING_LOCALLY?")
+        raise RuntimeError("We are not running locally, but CLIENT_ID is not set. Dang. Did you mean to set GLOWSCRIPT_RUNNING_LOCALLY?")
 else:
     CLIENT_ID = ''
     CLIENT_SECRET = ''
