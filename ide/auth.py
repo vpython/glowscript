@@ -36,7 +36,8 @@ BASE_URI = os.environ.get("FN_BASE_URI", default=False)
 # Robust way to check for running locally. Also easy to modify.
 #
 GRL = os.environ.get("GLOWSCRIPT_RUNNING_LOCALLY")
-GRL = GRL not in (None, 'False') # Anything but None or 'False'
+GRL = GRL and GRL.lower()        # let's keep it case insenstive
+GRL = GRL not in (None, 'false') # Anything but None or 'false'
 
 if (not GRL):
     #
@@ -52,6 +53,8 @@ if (not GRL):
     client_secrets = json.loads(theSecret)
     CLIENT_ID = client_secrets.get("FN_CLIENT_ID")
     CLIENT_SECRET = client_secrets.get("FN_CLIENT_SECRET")
+    if CLIENT_ID is None:
+        raise Error("We are not running locally, but CLIENT_ID is not set. Dang. Did you mean to set GLOWSCRIPT_RUNNING_LOCALLY?")
 else:
     CLIENT_ID = ''
     CLIENT_SECRET = ''
