@@ -36,19 +36,70 @@ Inside the [GlowScriptOffline](GlowScriptOffline) folder, read the README file t
  
 Run a Local Server (Py3 version)
 ------------------
-To run a local server you'll need to acquire Google [Application Default Credentials](https://cloud.google.com/sdk/gcloud/reference/auth/application-default)
-so that you can call Google's cloud APIs. To aqcuire these credentials you'll
-need to download and install the [Google Cloud SDK](https://cloud.google.com/sdk).
-Once installed you can open a shell window and type:
+There are two sets of instructions given here for two possible
+approaches. 
 
-      gcloud auth application-default login
+1. The first, "All Docker", is quite simple, and involves only
+minimal new software (just [Docker](https://www.docker.com/products/docker-desktop)). 
+If you're using macOS or Linux you can run the 
+local webserver and datastore all in Docker. You don't need to install
+anything else. However there is a rather annoying
+bug in Windows that prevents the webserver from automatically restarting when 
+source files change. For this reason, if they wish to have this feature,
+windows users must run a python process concurrently that tracks file
+changes during development. Having said that, if you just want to try a
+local webserver, and you don't care about having to restart the server
+manually every time you change the source code, you can skip running 
+the extra python process. This is all described below.
 
-This will store your credentials in a well known place: 
+2. The second, "Only Datastore in Docker", requires that users also install a 
+recent (e.g., 3.7+) version of python (and pip) such as that provided by 
+[anaconda](https://docs.anaconda.com/anaconda/install/) 
+(or [miniconda](https://docs.conda.io/en/latest/miniconda.html)), as well as
+[Docker](https://www.docker.com/products/docker-desktop). This is all also described below.
 
-      macOS/Linux: ~/.config/gcloud/application_default_credentials.json
-      Windows:~/AppData/Roaming/gcloud/application_default_credentials.json
+### Local Server Approach (1) All Docker
 
-You need a recent version of Python3 and pip installed. The easiest way 
+First install [Docker](https://www.docker.com/products/docker-desktop. 
+
+Next, checkout the py38-app-engine branch of the glowscript git repository:
+
+      git clone git@github.com:vpython/glowscript.git
+      cd glowscript
+      git checkout py38-app-engine
+
+(Note, you can get back to the master branch with `git checkout master` if you need to)
+
+Then run the webserver and datastore in docker:
+
+      docker-compose up
+
+and then browse to: [http://localhost:8080](http://localhost:8080) to view the website. That's it! This will run in a window and show you how the
+webserver is handling requests. If you'd rather run this in the background
+you can use:
+
+      docker-compose up -d
+
+When you're finished, shut down the system with:
+
+      docker-compose down
+
+* P.S. If you're using windows an you want to use the "auto-restart" feature when code files change
+you'll need to run the filesystem monitoring tool 
+[docker-windows-volume-watcher](https://pypi.org/project/docker-windows-volume-watcher/)
+
+      pip install docker-windows-volume-watcher
+
+* And when you're running the glowscript server locally, in a *separate* window, execute:
+
+      docker-volume-watcher glowscript_flask_1
+
+* and it will take care of the rest.
+
+### Local Server Approach (2) Only Datastore In Docker
+
+To run a local webserver with only the datastore in Docker, but the 
+webserver itself running natively you need a recent version of Python3 and pip installed. The easiest method 
 is probably to install [anaconda](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html), if you don't want the
 GUI package manager and extra applications). Once you have that you can check out
 the glowscript repository (currently the `py38-app-engine` branch) and
@@ -76,7 +127,7 @@ In order to run the local datastore emulator it's easiest to use
 a version of Docker that works with your OS. To test that you've 
 got docker installed OK, in the glowscript directory type:
 
-      docker-compose up
+      docker-compose -f docker-datastore.yml up
 
 You'll see a lot of log messages, but among them you shoudl see:
 
@@ -87,7 +138,7 @@ see if there are any useful clues. Good luck.
 
 If the datastore is running, hit ctrl-c, and then type:
 
-      docker-compose up -d
+      docker-compose -f docker-datastore.yml up -d
 
 This will run the datastore in the background. 
 
@@ -99,13 +150,13 @@ and then browse to: [http://localhost:8080](http://localhost:8080) to view the w
 
 When you're finished type:
 
-      docker-compose down
+      docker-compose -f docker-datastore.yml down
 
 To stop the background datastore emulator.
 
 Then next time you're ready to develop, you can simply type:
 
-      docker-compose up -d
+      docker-compose -f docker-datastore.yml up -d
 
       flask run
 

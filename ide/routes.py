@@ -72,7 +72,7 @@ def ndb_wsgi_middleware(wsgi_app):
     project = emulator and 'glowscript-dev' or None
     
     client = ndb.Client(project=project) # for user data, folders, and programs
-
+    
     def middleware(environ, start_response):
     
         if False and environ.get('REQUEST_METHOD') == 'PUT':
@@ -245,18 +245,16 @@ def parseUrlPath(theRegexp, numGroups):
     return names, folder_owner, logged_in_email
 
 def is_running_locally():
-    "check to see if URL is a localhost URL"
-    hostList = flask.request.base_url.split(':')
-    host = (len(hostList) > 1) and ':'.join(hostList[0:2])
-    return host in local_hosts
-
+    #
+    # Just use the environment. Simpler!
+    #
+    return auth.GRL
 #
 # The rest are the api routes and the main page route
 #
 
 @app.route('/api/login')
 def api_login():
-
     if auth.is_logged_in():
         email = auth.get_user_info().get('email')
         ndb_user = User.query().filter(User.email == email).get()

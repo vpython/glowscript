@@ -1,0 +1,17 @@
+version: "2"
+
+#
+# This compose file is just for running the datastore locally.
+#
+
+services:
+  datastore:
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+    ports:
+    - 8081:8081
+    volumes:
+     - datastore:/root/.config
+    command: gcloud beta emulators datastore start --host-port=0.0.0.0:8081 --project glowscript-dev
+
+volumes:
+  datastore:

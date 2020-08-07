@@ -6,14 +6,23 @@ import flask
 import functools
 import google.oauth2.credentials
 import googleapiclient.discovery
+from google.cloud import secretmanager
+
 import os
+import json
 
 from flask import request
 from authlib.client import OAuth2Session
 
-from . import secret
 from . import app
 from . import routes
+
+try:
+    from . import secret
+except ImportError:
+    from . import default_secret as secret  # if there is no "new" secret, just use the default
+
+app.secret_key = secret.FN_SECRET_KEY # set up encryption key for flask
 
 ACCESS_TOKEN_URI = 'https://www.googleapis.com/oauth2/v4/token'
 AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent'
@@ -22,8 +31,30 @@ AUTHORIZATION_SCOPE ='openid email profile'
 
 AUTH_REDIRECT_URI = os.environ.get("FN_AUTH_REDIRECT_URI", default=False)
 BASE_URI = os.environ.get("FN_BASE_URI", default=False)
-CLIENT_ID = os.environ.get("FN_CLIENT_ID", default=secret.FN_CLIENT_ID)
-CLIENT_SECRET = os.environ.get("FN_CLIENT_SECRET", default=secret.FN_CLIENT_SECRET)
+
+#
+# Robust way to check for running locally. Also easy to modify.
+#
+GRL = os.environ.get("GLOWSCRIPT_RUNNING_LOCALLY")
+GRL = GRL not in (None, 'False') # Anything but None or 'False'
+
+if (not GRL):
+    #
+    # If we're not running locally, we should get the secrets from the secret manager.
+    #
+
+    GOOGLE_PROJECT_ID=os.environ.get('GOOGLE_PROJECT_ID') or 'glowscript-py38'
+    CLIENT_SECRET_VERSION=os.environ.get('CLIENT_SECRET_VERSION') or '1'
+    from google.cloud import secretmanager
+    secrets = secretmanager.SecretManagerServiceClient()
+    secret_path = f"projects/{GOOGLE_PROJECT_ID}/secrets/OAUTH_CLIENT_SECRETS/versions/{CLIENT_SECRET_VERSION}"
+    theSecret = secrets.access_secret_version(secret_path).payload.data.decode("utf-8")
+    client_secrets = json.loads(theSecret)
+    CLIENT_ID = client_secrets.get("FN_CLIENT_ID")
+    CLIENT_SECRET = client_secrets.get("FN_CLIENT_SECRET")
+else:
+    CLIENT_ID = ''
+    CLIENT_SECRET = ''
 
 AUTH_TOKEN_KEY = 'auth_token'
 AUTH_STATE_KEY = 'auth_state'
