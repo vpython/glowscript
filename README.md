@@ -60,7 +60,8 @@ recent (e.g., 3.7+) version of python (and pip) such as that provided by
 
 ### Local Server Approach (1) All Docker
 
-First install [Docker](https://www.docker.com/products/docker-desktop. 
+First install [Docker](https://www.docker.com/products/docker-desktop. Once
+installed, start the Docker process.
 
 Next, checkout the py38-app-engine branch of the glowscript git repository:
 
