@@ -118,7 +118,7 @@ This will build a virtual environment for running locally. To activiate the virt
       mac: source venv/bin/activate
       windows (power shell): ./venv/Scripts/Activate.ps1
 
-Your terminal prompt shoudl now have a `(venv)` indicating that you have
+Your terminal prompt should now have a `(venv)` indicating that you have
 activated the glowscript virtual environment. Before you can run glowscript the 
 first time, you'll need to install dependencies into the virtual environment.
 This can be done with pip:
