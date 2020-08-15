@@ -63,7 +63,7 @@ recent (e.g., 3.7+) version of python (and pip) such as that provided by
 First install [Docker](https://www.docker.com/products/docker-desktop. Once
 installed, start the Docker process.
 
-Next check out or download the py38-app-engine of the glowscript repository (currently the `py38-app-engine` branch).
+Next check out or download the py38-app-engine branch of the glowscript repository (currently the `py38-app-engine` branch).
 (How you do this depends on your familiarity with git. The simplest is to download a .zip file of the
 `py38-app-engine` branch of the repository [here](https://github.com/vpython/glowscript/archive/py38-app-engine.zip))Then
 open a console in the `glowscript` directory of the repository and run the webserver and datastore in docker:
@@ -99,7 +99,7 @@ you'll need to run the filesystem monitoring tool
 To run a local webserver with only the datastore in Docker, but the 
 webserver itself running natively you need a recent version of Python3 and pip installed. The easiest method 
 is probably to install [anaconda](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html), if you don't want the GUI package manager and extra applications). Once you have that you need to check out
-or download the py38-app-engine of the glowscript repository (currently the `py38-app-engine` branch).
+or download the py38-app-engine branch of the glowscript repository (currently the `py38-app-engine` branch).
 (How you do this depends on your familiarity with git. The simplest is to download a .zip file of the
 `py38-app-engine` branch of the repository [here](https://github.com/vpython/glowscript/archive/py38-app-engine.zip))
 First "cd" to the `glowscript` directory (the root directory of the repository) 
