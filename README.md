@@ -154,7 +154,7 @@ When you're finished hit ctrl-c and then type:
 
 To stop the background datastore emulator.
 
-Then next time you're ready to develop, you can simply activate the environment again and type:
+Then next time you're ready to develop, you can simply activate the environment again (make sure you see the "(venv)" in the shell prompt) and type:
 
       docker-compose -f docker-datastore.yml up -d
 
