@@ -909,6 +909,7 @@ $(function () {
 
             var untrusted_src = "https://sandbox."+website+".org/untrusted/run.html"
             var untrusted_origin = "https://sandbox."+website+".org"
+            var devdomain = "-glowscript-py38.uc.r.appspot.com" // for testing pre-deployment instances only
             var ready = false
             
             try {
@@ -923,6 +924,9 @@ $(function () {
                     onNavigate.on(function(cb) { clearTimeout(NotRunningTheDevServerTimeout); cb() })
                 } else if (document.domain == "localhost") {
                     untrusted_origin = "http://" + window.location.host
+                    untrusted_src = "/untrusted/run.html"
+                } else if (document.domain.slice(-devdomain.length) == devdomain) {
+                    untrusted_origin = window.location.origin
                     untrusted_src = "/untrusted/run.html"
                 }
             } catch (err) {

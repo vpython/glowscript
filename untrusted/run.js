@@ -3,7 +3,11 @@
 var localport = '8080' // normally 8080
 var website = 'glowscript' // normally glowscript
 var runloc = (document.domain == "localhost") ? "http" : "https"
-var weblocs = ["https://"+website+".org", "https://www."+website+".org", runloc+"://localhost:"+localport]
+var weblocs = ["https://"+website+".org", "https://www."+website+".org", runloc+"://localhost:"+localport,]
+var devdomain = "-glowscript-py38.uc.r.appspot.com"
+if (document.domain.slice(-devdomain.length) == devdomain) {
+    weblocs.push(window.location.origin)
+}
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     run: [

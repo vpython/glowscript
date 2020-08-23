@@ -29,7 +29,7 @@
 
 localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
-weblocs = ["www."+website+".org", website+".org", "localhost:"+localport]
+weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,'-glowscript-py38.uc.r.appspot.com']
 
 import webapp2 as web # docs at https://webapp2.readthedocs.io/en/latest/
 # Also see RequestHandler docs at https://webapp2.readthedocs.io/en/latest/api/webapp2.html#webapp2.RequestHandler
@@ -99,9 +99,16 @@ class ApiRequest(web.RequestHandler):
         return True
 
     def authorize(self):
+        host = self.request.headers['Host']
+        hlist = host.split('dot')
+        if len(hlist) > 1:
+            if hlist[1] in weblocs:
+                return True
+
         if self.request.headers['Host'] not in weblocs: 
             self.error(403)
             return False
+
         return True
 
     def authorize_user(self, username):
