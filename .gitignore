@@ -5,5 +5,5 @@ bower_components
 /venv
 __pycache__/
 *~
-/ide/secret.py
+/.vscode/setting.json
 
