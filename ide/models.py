@@ -25,3 +25,17 @@ class Program (ndb.Model):
     screenshot = ndb.BlobProperty()
     datetime = ndb.DateTimeProperty() # this is UTC date and time
 
+class Setting(ndb.Model):
+    """A setting value"""
+    # No parent
+    # Key is the setting name
+    value = ndb.StringProperty()
+
+    @staticmethod
+    def get(name):
+        NOT_SET_VALUE = "NOT SET"
+        ndb_setting = ndb.Key("Setting",name).get()
+        if not ndb_setting:
+            ndb_setting = Setting(id=name, value=NOT_SET_VALUE)
+            ndb_setting.put()
+        return ndb_setting

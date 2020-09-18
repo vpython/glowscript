@@ -29,7 +29,10 @@
 
 localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
-weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "www.glowscriptdev.spvi.net","devbasherwo.uc.r.appspot.com"]
+
+weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, 
+           "www.glowscriptdev.spvi.net","devbasherwo.uc.r.appspot.com","www.devbasherwo.org"]
+
 local_hosts = ['http://localhost','http://127.0.0.1']
 
 import json
@@ -39,13 +42,14 @@ import cgi
 import datetime
 import uuid
 import flask
+import traceback
 
 from google.cloud import ndb
 from google.auth.transport import requests
 from google.cloud import ndb
 import google.oauth2.id_token
 
-from .models import User, Program, Folder
+from .models import User, Program, Folder, Setting
 
 import os, re, base64, logging # logging.info(string variable) prints to GAE launcher log, for debugging
 from datetime import datetime
@@ -98,13 +102,36 @@ app.wsgi_app = ndb_wsgi_middleware(app.wsgi_app)  # Wrap the app in middleware.
 # in production
 #
 
+module_cache = {}  # cache some things, like ide.js, so we don't need to keep reloading them
+
+#
+# we need to replace WEBSERVER_NAME_TEMPLATE in ide.js with the correct
+# webserver name from the datastore.
+#
+
+def load_idejs(webserver='devbasherwo.spvi.net'):
+    try:
+        ide_js = open('ide/ide.js').read()
+        ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',webserver)
+        module_cache['ide.js'] = ide_js
+    except:
+        ide_js='Ack! Cannot load ide.js'
+        traceback.print_exc()
+
+    return ide_js
+
 @app.route('/css/<path:filename>')
 def css_static(filename):
     return flask.send_from_directory('../css', filename)
     
 @app.route('/ide.js')
 def idejs_static():
-    return flask.send_from_directory('.', 'ide.js')
+    ide_js = module_cache.get('ide_js')
+    if not ide_js:
+        web_setting = Setting.get('web_domain_name')
+        ide_js = load_idejs(web_setting.value)
+
+    return ide_js,200
 
 @app.route('/lib/<path:filename>')
 def lib_static(filename):
@@ -286,7 +313,8 @@ def ApiUser(username):
     try:
         names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)', 1)
     except ParseUrlPathException as pup:
-        errorMsg, code = pup.args
+        errorMsg = pup.args[0]
+        code = pup.args[1]
         return flask.make_response(errorMsg, code)
     
     user = names and names[0] or ''
@@ -334,7 +362,8 @@ def ApiUserFolders(username):
     try:
         names, folder_owner, logged_in_email = parseUrlPath(r'/api/user/([^/]+)/folder/', 1)
     except ParseUrlPathException as pup:
-        errorMsg, code = pup.args
+        errorMsg = pup.args[0]
+        code = pup.args[1]
         return flask.make_response(errorMsg, code)
     
     user = names and names[0] or ''
@@ -356,9 +385,10 @@ def ApiUserFolders(username):
 def ApiUserFolder(username, foldername):
 
     try:
-        names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)', 2)
+        names, ndb_user, _ = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)', 2)
     except ParseUrlPathException as pup:
-        errorMsg, code = pup.args
+        errorMsg = pup.args[0]
+        code = pup.args[1]
         return flask.make_response(errorMsg, code)
     
     user = names and names[0] or ''
@@ -384,13 +414,13 @@ def ApiUserFolder(username, foldername):
 
         ndb_folder = ndb.Key("User", user, "Folder", folder).get()
         if not ndb_folder:
-            return self.error(404)
+            return flask.make_response("Not found", 403)
         program_count = 0
-        for p in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)):
+        for _ in Program.query(ancestor=ndb.Key("User",user,"Folder",folder)):
             program_count += 1
 
         if program_count > 0:
-            return self.error(409)
+            return flask.make_response("There are programs here", 409)
         ndb_folder.key.delete()
         return {}
         
@@ -402,7 +432,8 @@ def ApiUserFolderPrograms(username, foldername):
     try:
         names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/', 2)
     except ParseUrlPathException as pup:
-        errorMsg, code = pup.args
+        errorMsg = pup.args[0]
+        code = pup.args[1]
         return flask.make_response(errorMsg, code)
     
     user, folder = names
@@ -413,7 +444,7 @@ def ApiUserFolderPrograms(username, foldername):
         pub = ndb_folder.isPublic is None or ndb_folder.isPublic or email == ndb_user.email # before March 2015, isPublic wasn't set
     except:
         pub = True
-    if not pub and not override(gaeUser):
+    if not pub and not override(ndb_user.email):
         return {"user":user,"folder":folder,
                 "error": str('The folder "'+user+'/'+folder+'" is a private folder\nto which you do not have access.')}
     else:
@@ -431,7 +462,8 @@ def ApiUserFolderProgram(username, foldername, programname):
     try:
         names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)', 3)
     except ParseUrlPathException as pup:
-        errorMsg, code = pup.args
+        errorMsg = pup.args[0]
+        code = pup.args[1]
         return flask.make_response(errorMsg, code)
 
     user, folder, program = names
@@ -462,7 +494,6 @@ def ApiUserFolderProgram(username, foldername, programname):
         if not authorize_user(user):
             return flask.make_response("Unauthorized", 401)
 
-        source = ''
         value = flask.request.values.get("program")
 
         if value:
@@ -509,7 +540,8 @@ def ApiUserFolderProgramDownload(username, foldername, programname, optionname):
     try:
         names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)', 4)
     except ParseUrlPathException as pup:
-        errorMsg, code = pup.args
+        errorMsg = pup.args[0]
+        code = pup.args[1]
         return flask.make_response(errorMsg, code)
         
     user, folder, name, option = names
@@ -585,9 +617,10 @@ def ApiUserFolderProgramDownload(username, foldername, programname, optionname):
 def ApiUserProgramCopy(username, foldername, programname, optionname, oldfoldername, oldprogramname):
 
     try:
-        names, ndb_user, email = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)', 6)
+        names, _, _ = parseUrlPath(r'/api/user/([^/]+)/folder/([^/]+)/program/([^/]+)/option/([^/]+)/oldfolder/([^/]+)/oldprogram/([^/]+)', 6)
     except ParseUrlPathException as pup:
-        errorMsg, code = pup.args
+        errorMsg = pup.args[0]
+        code = pup.args[1]
         return flask.make_response(errorMsg, code)
         
     user, folder, program, option, oldfolder, oldprogram = names
