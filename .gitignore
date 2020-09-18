@@ -6,4 +6,4 @@ bower_components
 __pycache__/
 *~
 /.vscode/setting.json
-
+/ide/.vscode
