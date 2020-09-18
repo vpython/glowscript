@@ -29,7 +29,7 @@
 
 localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
-weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "www.glowscriptdev.spvi.net"]
+weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, "www.glowscriptdev.spvi.net","devbasherwo.uc.r.appspot.com"]
 local_hosts = ['http://localhost','http://127.0.0.1']
 
 import json
