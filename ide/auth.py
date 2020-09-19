@@ -19,7 +19,7 @@ from . import routes
 from . import models
 
 try:
-    from . import secret
+    from . import flask_secret as secret
 except ImportError:
     from . import default_secret as secret  # if there is no "new" secret, just use the default
 
