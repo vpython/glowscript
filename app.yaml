@@ -14,11 +14,6 @@ handlers:
   static_dir: css
   secure: always
 
-- url: /ide.js
-  static_files: ide/ide.js
-  upload: ide/ide.js
-  secure: always
-
 - url: /lib
   static_dir: lib
   secure: always
