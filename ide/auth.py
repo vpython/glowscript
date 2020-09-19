@@ -30,13 +30,17 @@ AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth?access_type=of
 
 AUTHORIZATION_SCOPE ='openid email profile'
 
-AUTH_REDIRECT_URI = os.environ.get("FN_AUTH_REDIRECT_URI", default=False)
 BASE_URI = os.environ.get("FN_BASE_URI", default=False)
 
 def get_project_name():
     web_setting = models.Setting.get('google_project_name')
     return web_setting.value
 
+def get_redirect_uri():
+    return get_base_url() + '/google/auth'
+
+def get_base_url():
+    return models.Setting.get('auth_base_url').value
 #
 # Robust way to check for running locally. Also easy to modify.
 #
@@ -44,7 +48,10 @@ GRL = os.environ.get("GLOWSCRIPT_RUNNING_LOCALLY")
 GRL = GRL and GRL.lower()        # let's keep it case insenstive
 GRL = GRL not in (None, 'false') # Anything but None or 'false'
 
-class ModuleCache:
+class SecretCache:
+    """
+    We need to cache the client_id and the client_secret.
+    """
 
     def __init__(self):
         self.cache = {}
@@ -76,7 +83,7 @@ class ModuleCache:
             CLIENT_SECRET = ''
 
         self.cache['CLIENT_ID'] = CLIENT_ID
-        self.cache['CLINET_SECRET'] = CLIENT_SECRET
+        self.cache['CLIENT_SECRET'] = CLIENT_SECRET
 
     def getID(self):
         theID = self.cache.get('CLIENT_ID')
@@ -86,13 +93,13 @@ class ModuleCache:
         return theID
 
     def getSecret(self):
-        theSecret = self.cache.get('CLINET_SECRET')
+        theSecret = self.cache.get('CLIENT_SECRET')
         if theSecret is None:
             self.fillCache()
-            theSecret = self.cache.get('CLINET_SECRET')
+            theSecret = self.cache.get('CLIENT_SECRET')
         return theSecret
 
-module_cache = ModuleCache()
+secret_cache = SecretCache()
 
 AUTH_TOKEN_KEY = 'auth_token'
 AUTH_STATE_KEY = 'auth_state'
@@ -109,8 +116,8 @@ def build_credentials():
     return google.oauth2.credentials.Credentials(
                 oauth2_tokens['access_token'],
                 refresh_token=oauth2_tokens['refresh_token'],
-                client_id=module_cache.getID(),
-                client_secret=module_cache.getSecret(),
+                client_id=secret_cache.getID(),
+                client_secret=secret_cache.getSecret(),
                 token_uri=ACCESS_TOKEN_URI)
 
 def get_user_info():
@@ -123,7 +130,7 @@ def get_user_info():
     oauth2_client = googleapiclient.discovery.build(
                         'oauth2', 'v2',
                         credentials=credentials)
-    return oauth2_client.userinfo().get().execute()
+    return oauth2_client.userinfo().get().execute() # pylint: disable=maybe-no-member" 
 
 
 def no_cache(view):
@@ -142,9 +149,9 @@ def no_cache(view):
 @no_cache
 def google_login():
 
-    session = OAuth2Session(module_cache.getID(), module_cache.getSecret(),
+    session = OAuth2Session(secret_cache.getID(), secret_cache.getSecret(),
                             scope=AUTHORIZATION_SCOPE,
-                            redirect_uri=AUTH_REDIRECT_URI)
+                            redirect_uri=get_redirect_uri())
   
     uri, state = session.create_authorization_url(AUTHORIZATION_URL)
 
@@ -168,10 +175,10 @@ def google_auth_redirect():
         """
         return flask.redirect('/index')
     
-    session = OAuth2Session(module_cache.getID(), module_cache.getSecret(),
+    session = OAuth2Session(secret_cache.getID(), secret_cache.getSecret(),
         scope=AUTHORIZATION_SCOPE,
         state=flask.session.get(AUTH_STATE_KEY),
-        redirect_uri=AUTH_REDIRECT_URI)
+        redirect_uri=get_redirect_uri())
 
     oauth2_tokens = session.fetch_access_token(
                         ACCESS_TOKEN_URI,            
@@ -179,7 +186,7 @@ def google_auth_redirect():
 
     flask.session[AUTH_TOKEN_KEY] = oauth2_tokens
 
-    return flask.redirect(BASE_URI, code=302)
+    return flask.redirect(get_base_url(), code=302)
 
 @app.route('/google/logout')
 @no_cache
@@ -188,5 +195,4 @@ def google_logout():
     flask.session.pop(AUTH_TOKEN_KEY, None)
     flask.session.pop(AUTH_STATE_KEY, None)
 
-    return flask.redirect(BASE_URI, code=302)
-
+    return flask.redirect(get_base_url(), code=302)

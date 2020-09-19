@@ -1,5 +1,5 @@
 
-from ide import app, models, routes
+from ide import app, models, routes, modDBFunctions
 from google.cloud import ndb
 
 @app.shell_context_processor
@@ -13,6 +13,8 @@ def make_shell_context():
         with client.context():
             func(**args)
             
-    return {'app': app, 'User': models.User, 'Folder':models.Folder, 'Program':models.Program, 'ndb':ndb, 'wc':wc}
+    return {'app': app, 'User': models.User, 'Folder':models.Folder, 'Program':models.Program, 'Setting':models.Setting,
+            'ndb':ndb, 'wc':wc, 'models':models, 'routes':routes,
+            'project':project, 'client':client, 'modDBFunctions':modDBFunctions}
 
 

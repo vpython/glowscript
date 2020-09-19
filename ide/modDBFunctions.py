@@ -25,3 +25,17 @@ def UpdateUsers(**kwargs):
                 count += 1
 
 
+def DumpSettings(**kwargs):
+    for s in kwargs['Setting'].query():
+        print (s)
+
+def DumpUsers(**kwargs):
+    for s in kwargs['User'].query():
+        print (s)
+
+
+def SetSetting(name, value, **kwargs):
+    Setting = kwargs['Setting']
+    s = Setting(id=name, value=value)
+    s.put()
+    
