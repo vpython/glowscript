@@ -33,6 +33,9 @@ AUTHORIZATION_SCOPE ='openid email profile'
 BASE_URI = os.environ.get("FN_BASE_URI", default=False)
 
 def get_project_name():
+    """
+    Get the project name from the Datastore.
+    """
     web_setting = models.Setting.get('google_project_name')
     return web_setting.value
 
@@ -40,6 +43,9 @@ def get_redirect_uri():
     return get_base_url() + '/google/auth'
 
 def get_base_url():
+    """
+    Get the base_url from the datastore
+    """
     return models.Setting.get('auth_base_url').value
 #
 # Robust way to check for running locally. Also easy to modify.

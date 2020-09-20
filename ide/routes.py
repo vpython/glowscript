@@ -126,6 +126,13 @@ def css_static(filename):
     
 @app.route('/ide.js')
 def idejs_static():
+    """
+    ide.js is a special file in that it has the `approved` webserver name embedded in it.
+    (e.g., "glowscript.org"). Since we're deploying on development/test servers as well
+    we need to be able to swap out the approved name at runtime. This scheme let's us
+    swap it out the first time it's requested, and cache the result in memory so
+    we can deliver it again without having to re-read the file from disk.
+    """
     ide_js = module_cache.get('ide_js')
     if not ide_js:
         web_setting = Setting.get('web_domain_name')
