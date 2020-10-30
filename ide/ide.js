@@ -1165,7 +1165,8 @@ $(function () {
                     else verdir = header.version.substr(0,3)
                     var runner = ''
                     var exporturl = "https://www."+website+".org/"
-                    if (v >= 2.5) exporturl = "https://s3.amazonaws.com/glowscript/"
+                    if (v >= 2.5 && v < 3.0) exporturl = "https://s3.amazonaws.com/glowscript/"
+                    // Note: some already exported 3.0 programs contain references to s3.amazonaws.com
                     if (header.lang == 'vpython') 
                     	runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'
                     var embedHTML = (
