@@ -256,6 +256,9 @@ function ideRun() {
         var options = {lang: lang, version: version, run: true}
         try { // compile the user program:
             program = glowscript_compile(program, options)
+            //program = program.replace(/await/g, '')
+            //program = program.replace(/async/g, '')
+            //program = program.replace(/__module__ : {value: "__main__"}/g, '    ')
             if (lang == 'javascript' && (options.version >= 2.9 || options.version == 'unp') ) {
                 program = program+'if (!__main__.__module__) Object.defineProperties(__main__, {\n__module__ : {value: null}\n});'
             }
