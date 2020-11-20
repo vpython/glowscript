@@ -76,8 +76,9 @@
       <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
                 <p class="Normal">The 2D paths in the <strong><a href="shapes.html">shapes and paths library</a></strong> go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
                 <p class="Normal">However, when specifying a path from the shapes and paths library, you can specify a pos and up, to tip the path out of the x-z plane. The path of the following extrusion will have a center at the location vec(1,2,0), oriented perpendicular to the vec(1,0,0):</p>
-                <p class="program">extrusion(path=paths.circle(pos=vec(1,2,0),<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;up=vec(1,0,0), radius=2), color=color.cyan)</p>
+                <p class="program">extrusion(path=paths.circle(pos=vec(1,2,0)),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;up=vec(1,0,0), radius=2, color=color.cyan)</p>
                 <p class="Normal"></p>
               <p class="Normal"><strong><font color="#0000a0">Color blending</font></strong></p>
               <p class="Normal">As with a compound object, setting the color of an extrusion that was made with a color other than white makes a multiplicative blend of the overall color with the original color. For example, if the color of the extrusion was originally cyan, vector(0,1,1), and you later set the color to yellow, vector(1,1,0), the blend results in vector(0*1, 1*1, 0*0) or vector(0,1,0), which is green. If you plan to vary the color after creating the extrusion object, start with the color being white, vector(1,1,1), which is the default.              </p>

@@ -560,13 +560,14 @@ $(function () {
         })
     }
     pages.folder = function (route) {
-        var username = route.user, folder = route.folder
-        var isWritable = route.user === loginStatus.username
+        let username = route.user, folder = route.folder
+        let isWritable = route.user === loginStatus.username
         if (disable_writes) isWritable = false
 
-        var page = $(".folderPage.template").clone().removeClass("template")
-        var programTemplate = page.find(".program.template")
-        var folderTemplate = page.find(".folderListItem.template")
+        let page = $(".folderPage.template").clone().removeClass("template")
+        let programTemplate = page.find(".program.template")
+        let programDetailsTemplate = page.find(".program-details.template")
+        let folderTemplate = page.find(".folderListItem.template")
 
         if (!isWritable) {
             page.find(".folder-public.button").addClass("template")
@@ -820,68 +821,103 @@ $(function () {
         })
         	
         // Get a list of programs from the server
-        var list_of_programs = []
         apiGet( {user:username, folder:folder, program:LIST}, function (data) {
         	if ("error" in data)
         		alert(data.error)
         	else {
-	            var progList = page.find(".programs")
-	            var programs = data.programs
-	            for (var i = 0; i < programs.length; i++) {
-		                (function (prog) {
-		                var p = programTemplate.clone().removeClass("template")
-		                var name = decode(prog.name)
-		                list_of_programs.push(name)
-		                var proute = { user:username, folder:folder, program:name }
-		                p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
-		                p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
-		                p.find(".prog-name").text(name)
-		                var td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
-			            p.find(".prog-datetime").text(td)
-		
-		                if (!isWritable) {
-		                    p.find(".prog-edit.button").text("View")
-		                    p.find(".prog-copy.button").addClass("template")
-		                    p.find(".prog-rename.button").addClass("template")
-		                    p.find(".prog-delete.button").addClass("template")
-		                }
-		            	
-		                p.find(".prog-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
-		                	ev.preventDefault()
-		                	copyOrRename("#prog-copy-dialog", folder, name)
-		                })
-		            	
-		                p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
-		                	ev.preventDefault()
-		                	copyOrRename("#prog-rename-dialog", folder, name)
-		                })
-		                
-		                p.find(".prog-delete.button").click(function (ev) { 
-		                    ev.preventDefault()
-		                    return delProgramOrFolder("#prog-delete-dialog", name, function() {
-		                        apiDelete( {user:username, folder:folder, program: name}, function () {
-		                            navigate({page: "folder", user:username, folder:folder})
-		                        })
-		                    })
-		                })
-		                if (prog.screenshot) {
-		                    p.find(".prog-screenshot").prop("src", prog.screenshot)
-			                p.find(".prog-screenshot").click(function (ev) {
-			                    ev.preventDefault()
-			                    window.location.href = unroute(proute, {page:"run"})
-			                })
-		                }
-		                progList.append(p)
-		            })(programs[i])
-	            }
-	            if (isWritable && programs.length==0) {
-	            	page.find(".folder-delete").removeClass("template")
-	            	page.find(".folder-download.button").addClass("template")
-	            } else {
-	            	page.find(".folder-delete").addClass("template")
-	            	page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}    )   )
-	            }
-        	}
+                let progList = page.find(".programs")
+                let programs = data.programs // sent from server, an alphabetized list of objects: {name, datetime, snapshot}
+
+                if (programs.length == 0) {
+                    page.find(".folder-download.button").addClass("template")
+                    if (isWritable) page.find(".folder-delete").removeClass("template")
+                    else page.find(".folder-delete").addClass("template")
+                } else page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}))
+
+                if (true) { // List, ordered by name or date
+                    let edit = 'view'
+                    if (isWritable) edit = 'edit'
+
+                    // Set up names that looks like this: {AtomicSolid:0, Billboarding:1, BinaryStar:2, Bounce:3}
+                    // This is used to access the position in the programs list of {name, datetime, snapshot}
+                    let names = {}
+                    let i = 0
+                    for (const pr of programs) {
+                        names[pr.name] = i // tie location in programs to the program name
+                        i++
+                    }
+                    // Set up datetimes whose entries look like this: '2020-10-22 15:46:30.101000?AtomicSolid'.
+                    // These entries are sorted to time-order the programs.
+                    let datetimes = []
+                    for (const pr of programs) datetimes.push(pr.datetime+'?'+pr.name)
+                    datetimes.sort() // now ordered oldest to newest
+                    let dates = [] // oldest to newest program; index into programs
+                    for (const pr of datetimes) {
+                        let q = pr.indexOf('?')
+                        dates.push(names[pr.slice(q+1)]) // programs ordered oldest to newest
+                    }
+                    let inverse_dates = [] // newest to oldest program; index into programs
+                    for (let n=dates.length-1; n>=0; n--) inverse_dates.push(dates[n])
+
+                    page.find(".prog-separator").html('<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Click program name to '+edit+' it:') // need extra <br> with ordered list
+                    for (const prog of programs) {
+                        let p = programDetailsTemplate.clone().removeClass("template")
+                        let name = decode(prog.name)
+                        let proute = { user:username, folder:folder, program:name }
+                        p.find(".prog-details-run.button").prop("href", unroute(proute, {page:"run"}))
+                        p.find(".prog-details-name.button").text(name)
+                        p.find(".prog-details-name.button").prop("href", unroute(proute, {page:"edit"}))
+                        let td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
+                        p.find(".prog-details-datetime").text(td.slice(0,-3))
+                        progList.append(p)
+                    }
+                } else {// "Classic" icon-based listing of programs
+                    for (const prog of programs) { 
+                        let p = programTemplate.clone().removeClass("template")
+                        let name = decode(prog.name)
+                        let proute = { user:username, folder:folder, program:name }
+                        p.find(".prog-name").text(name)
+                        let td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
+                        p.find(".prog-datetime").text(td)
+                        p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
+                        p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
+        
+                        if (!isWritable) {
+                            p.find(".prog-edit.button").text("View")
+                            p.find(".prog-copy.button").addClass("template")
+                            p.find(".prog-rename.button").addClass("template")
+                            p.find(".prog-delete.button").addClass("template")
+                        }
+                        
+                        p.find(".prog-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
+                            ev.preventDefault()
+                            copyOrRename("#prog-copy-dialog", folder, name)
+                        })
+                        
+                        p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
+                            ev.preventDefault()
+                            copyOrRename("#prog-rename-dialog", folder, name)
+                        })
+                        
+                        p.find(".prog-delete.button").click(function (ev) { 
+                            ev.preventDefault()
+                            return delProgramOrFolder("#prog-delete-dialog", name, function() {
+                                apiDelete( {user:username, folder:folder, program: name}, function () {
+                                    navigate({page: "folder", user:username, folder:folder})
+                                })
+                            })
+                        })
+                        if (prog.screenshot) {
+                            p.find(".prog-screenshot").prop("src", prog.screenshot)
+                            p.find(".prog-screenshot").click(function (ev) {
+                                ev.preventDefault()
+                                window.location.href = unroute(proute, {page:"run"})
+                            })
+                        }
+                        progList.append(p)
+                    }
+                }
+            }
         })
     }
     pages.run = function(route) {
