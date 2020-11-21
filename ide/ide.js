@@ -5,6 +5,10 @@ $(function () {
     var sourceLines
     var website = 'glowscript' // normally glowscript
     var disable_writes = false // prevent all writes (edit, create/delete folder or program, copy/rename program)
+    
+    window.icons = true // default display of folder contents is the "classic" icon display
+    window.names = 'down' // 'down' means A->Z; 'up' means Z->A; '' means ordering by dates
+    window.dates = ''     // 'down' means early->late; 'up' means late->early; '''' means ordering by names
 
     var onNavigate = {
         callbacks: [],
@@ -397,6 +401,7 @@ $(function () {
     }
 
     /********** Router *********/
+
     function router() {
         // This takes the "virtual url" from the hash portion of window.location and turns it into a "route" structure, e.g.
         //   { page:"edit", user:"Me", folder:"My Programs", program:"Some Program" }
@@ -559,6 +564,7 @@ $(function () {
         	navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
         })
     }
+
     pages.folder = function (route) {
         let username = route.user, folder = route.folder
         let isWritable = route.user === loginStatus.username
@@ -566,6 +572,7 @@ $(function () {
 
         let page = $(".folderPage.template").clone().removeClass("template")
         let programTemplate = page.find(".program.template")
+        let programUpdownTemplate = page.find(".up-down.template")
         let programDetailsTemplate = page.find(".program-details.template")
         let folderTemplate = page.find(".folderListItem.template")
 
@@ -799,6 +806,12 @@ $(function () {
             })
         })
 
+        page.find(".folder-listing").click(function(ev) { // toggle Icons/List for a folder
+            ev.preventDefault()
+            window.icons = !window.icons
+            navigate({page: "folder", user:username, folder:folder})
+        })
+
         // Get a list of folders.  May return multiple times if list is updated
         var set_of_folders = {} // {folder_name : isPublic, ..... }
         getFolderList(username, function (data) {
@@ -818,6 +831,8 @@ $(function () {
             var pub = set_of_folders[folder] // will be null if folder predates the PRIVATE option
             if (pub === null || pub === true) s = "PUBLIC"
             page.find(".folder-public.button").text(s)
+            s = window.icons ? "Icons" : "List"
+            page.find(".folder-listing").text(s)
         })
         	
         // Get a list of programs from the server
@@ -834,18 +849,22 @@ $(function () {
                     else page.find(".folder-delete").addClass("template")
                 } else page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}))
 
-                if (true) { // List, ordered by name or date
-                    let edit = 'view'
-                    if (isWritable) edit = 'edit'
+                if (!window.icons) { // List, ordered by name or date
+                    page.find(".prog-separator").html('<br>') // need extra <br> with ordered list
 
                     // Set up names that looks like this: {AtomicSolid:0, Billboarding:1, BinaryStar:2, Bounce:3}
                     // This is used to access the position in the programs list of {name, datetime, snapshot}
-                    let names = {}
+                    let namelinks = {}
+                    let names = []
                     let i = 0
                     for (const pr of programs) {
-                        names[pr.name] = i // tie location in programs to the program name
+                        namelinks[pr.name] = i // tie location in programs to the program name
+                        names.push(i)
                         i++
                     }
+                    let inverse_names = []
+                    for (let n=names.length-1; n>=0; n--) inverse_names.push(names[n])
+
                     // Set up datetimes whose entries look like this: '2020-10-22 15:46:30.101000?AtomicSolid'.
                     // These entries are sorted to time-order the programs.
                     let datetimes = []
@@ -854,21 +873,88 @@ $(function () {
                     let dates = [] // oldest to newest program; index into programs
                     for (const pr of datetimes) {
                         let q = pr.indexOf('?')
-                        dates.push(names[pr.slice(q+1)]) // programs ordered oldest to newest
+                        dates.push(namelinks[pr.slice(q+1)]) // programs ordered oldest to newest
                     }
                     let inverse_dates = [] // newest to oldest program; index into programs
                     for (let n=dates.length-1; n>=0; n--) inverse_dates.push(dates[n])
 
-                    page.find(".prog-separator").html('<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Click program name to '+edit+' it:') // need extra <br> with ordered list
-                    for (const prog of programs) {
-                        let p = programDetailsTemplate.clone().removeClass("template")
+                    let p = programUpdownTemplate.clone().removeClass("template")
+                    let listing
+                    if (window.names == 'down') {
+                        p.find(".updown-names").text('Names ˅') // up/down markers:  ˄   ˅
+                        listing = names
+                    } else if (window.names == 'up') {
+                        p.find(".updown-names").text('Names ˄')
+                        listing = inverse_names
+                    } else if (window.names == '') {
+                        p.find(".updown-names").text('Names')
+                    }
+                    if (window.dates == 'down') {
+                        p.find(".updown-dates").text('Dates ˅')
+                        listing = dates
+                    } else if (window.dates == 'up') {
+                        p.find(".updown-dates").text('Dates ˄')
+                        listing = inverse_dates
+                    } else if (window.dates == '') {
+                        p.find(".updown-dates").text('Dates')
+                    }
+                    
+                    p.find(".updown-names.button").click(function (ev) { // toggle sorting of program names
+                        ev.preventDefault()
+                        if (window.names == 'down') {
+                            window.names = 'up'
+                        } else if (window.names == 'up' || window.dates != '') {
+                            window.names = 'down'
+                            window.dates = ''
+                        }
+                        navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
+                    })
+                    
+                    p.find(".updown-dates.button").click(function (ev) { // toggle sorting of program last-edited dates
+                        ev.preventDefault()
+                        if (window.dates == 'down') {
+                            window.dates = 'up'
+                        } else if (window.dates == 'up' || window.names != '') {
+                            window.dates = 'down'
+                            window.names = ''
+                        }
+                        navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
+                    })
+
+                    progList.append(p)
+                    
+                    for (const i of listing) {
+                        let prog = programs[i]
+                        p = programDetailsTemplate.clone().removeClass("template")
                         let name = decode(prog.name)
                         let proute = { user:username, folder:folder, program:name }
                         p.find(".prog-details-run.button").prop("href", unroute(proute, {page:"run"}))
-                        p.find(".prog-details-name.button").text(name)
+                        p.find(".prog-details-name").text(name)
                         p.find(".prog-details-name.button").prop("href", unroute(proute, {page:"edit"}))
                         let td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
-                        p.find(".prog-details-datetime").text(td.slice(0,-3))
+                        let minute = td.slice(-5,-3)
+                        let second = td.slice(-2)
+                        if (second >= 30) minute = parseInt(minute)+1 // If >= 30 seconds, increment minutes
+                        p.find(".prog-details-datetime").text(td.slice(0,-5)+minute)
+                        
+                        p.find(".prog-details-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
+                            ev.preventDefault()
+                            copyOrRename("#prog-copy-dialog", folder, name)
+                        })
+                        
+                        p.find(".prog-details-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
+                            ev.preventDefault()
+                            copyOrRename("#prog-rename-dialog", folder, name)
+                        })
+                        
+                        p.find(".prog-details-delete.button").click(function (ev) { 
+                            ev.preventDefault()
+                            return delProgramOrFolder("#prog-delete-dialog", name, function() {
+                                apiDelete( {user:username, folder:folder, program: name}, function () {
+                                    navigate({page: "folder", user:username, folder:folder})
+                                })
+                            })
+                        })
                         progList.append(p)
                     }
                 } else {// "Classic" icon-based listing of programs
