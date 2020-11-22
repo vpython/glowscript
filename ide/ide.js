@@ -934,9 +934,7 @@ $(function () {
                         p.find(".prog-details-name.button").prop("href", unroute(proute, {page:"edit"}))
                         let td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
                         let minute = td.slice(-5,-3)
-                        let second = td.slice(-2)
-                        if (second >= 30) minute = parseInt(minute)+1 // If >= 30 seconds, increment minutes
-                        p.find(".prog-details-datetime").text(td.slice(0,-5)+minute)
+                        p.find(".prog-details-datetime").text(td.slice(0,-5)+minute) // ignore the seconds
                         
                         p.find(".prog-details-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
                             ev.preventDefault()
