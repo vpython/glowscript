@@ -858,6 +858,7 @@ $(function () {
                     let names = []
                     let i = 0
                     for (const pr of programs) {
+                        if (pr.datetime == 'None') pr.datetime = '2017-01-02 00:00:00.000000'
                         namelinks[pr.name] = i // tie location in programs to the program name
                         names.push(i)
                         i++
