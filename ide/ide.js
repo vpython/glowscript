@@ -587,6 +587,30 @@ $(function () {
         page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}))
         pageBody.html(page)
 
+        function folderPublicPrivate(templ, name, pub, action) { // dialog for toggling folder to be PUBLIC or PRIVATE
+            let title = pub ? 'PRIVATE' : 'PUBLIC'
+            let $dialog = $(templ).clone().removeClass("template")
+            $dialog.find(".public-private").text(title)
+            $dialog.dialog({
+                width: "300px",
+                modal: true,
+                autoOpen: true,
+                buttons: {
+                    "Yes": function () {
+                        $(this).dialog("close")
+                        action()
+                    },
+                    "Cancel": function () { $(this).dialog("close") }
+                }
+            }).submit(function(ev){
+                let $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
+                if (!$button.prop("disabled")) $button.click()
+                ev.preventDefault()
+                return false
+            })
+            return false
+        }
+
         function createDialog( templ, doCreate ) {
             // dialog for creating a new program (temp1 == '#prog-new-dialog') or a new folder (temp1 == '#folder-new-dialog')
             var $dialog = $(templ).clone().removeClass("template")
@@ -653,14 +677,12 @@ $(function () {
             return false
         }
 
-
-        pages.downloadFolder = function(route) { // Currently the only program option is download (download a program to user computer) // Currently the only program option is download (download a program to user computer)
+        pages.downloadFolder = function(route) { // Currently the only program option is download (download a program to user computer)
             apiDownload( {user:route.user, folder:route.folder, program:'program', option:'downloadFolder'}, function(ret) {
         		window.location = apiURL(route) // this sends the file to the user's download folder
             	navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
             })
         }
-        
         
         function renameDialog( dialog, oldname, doRename ) {
         	// dialog for renaming/copying a program (can include moving to another folder)
@@ -796,13 +818,15 @@ $(function () {
                 })
             })
             return false
-        })
+        })        
 
         page.find(".folder-public").click(function(ev) { // toggle PUBLIC/PRIVATE for a folder
             ev.preventDefault()
-    		var pub = set_of_folders[folder]
-            apiPut({user:username, folder:folder}, {public:!pub}, function () {
-                navigate( {page:"folder", user:username, folder:folder} )
+            let pub = set_of_folders[folder]
+            return folderPublicPrivate("#public-dialog", folder, pub, function() {
+                apiPut({user:username, folder:folder}, {public:!pub}, function () {
+                    navigate( {page:"folder", user:username, folder:folder} )
+                })
             })
         })
 
