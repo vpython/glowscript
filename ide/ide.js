@@ -6,6 +6,10 @@ $(function () {
     var website = 'WEBSERVER_NAME_TEMPLATE' // normally glowscript
     var sandbox_prefix = 'https://sandbox.' // https for production
     var disable_writes = false // prevent all writes (edit, create/delete folder or program, copy/rename program)
+    
+    window.icons = true // default display of folder contents is the "classic" icon display
+    window.names = 'down' // 'down' means A->Z; 'up' means Z->A; '' means ordering by dates
+    window.dates = ''     // 'down' means early->late; 'up' means late->early; '''' means ordering by names
 
     var onNavigate = {
         callbacks: [],
@@ -398,6 +402,7 @@ $(function () {
     }
 
     /********** Router *********/
+
     function router() {
         // This takes the "virtual url" from the hash portion of window.location and turns it into a "route" structure, e.g.
         //   { page:"edit", user:"Me", folder:"My Programs", program:"Some Program" }
@@ -560,14 +565,17 @@ $(function () {
         	navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
         })
     }
+
     pages.folder = function (route) {
-        var username = route.user, folder = route.folder
-        var isWritable = route.user === loginStatus.username
+        let username = route.user, folder = route.folder
+        let isWritable = route.user === loginStatus.username
         if (disable_writes) isWritable = false
 
-        var page = $(".folderPage.template").clone().removeClass("template")
-        var programTemplate = page.find(".program.template")
-        var folderTemplate = page.find(".folderListItem.template")
+        let page = $(".folderPage.template").clone().removeClass("template")
+        let programTemplate = page.find(".program.template")
+        let programUpdownTemplate = page.find(".up-down.template")
+        let programDetailsTemplate = page.find(".program-details.template")
+        let folderTemplate = page.find(".folderListItem.template")
 
         if (!isWritable) {
             page.find(".folder-public.button").addClass("template")
@@ -579,6 +587,30 @@ $(function () {
         page.find(".foldername").text(folder)
         page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}))
         pageBody.html(page)
+
+        function folderPublicPrivate(templ, name, pub, action) { // dialog for toggling folder to be PUBLIC or PRIVATE
+            let title = pub ? 'PRIVATE' : 'PUBLIC'
+            let $dialog = $(templ).clone().removeClass("template")
+            $dialog.find(".public-private").text(title)
+            $dialog.dialog({
+                width: "300px",
+                modal: true,
+                autoOpen: true,
+                buttons: {
+                    "Yes": function () {
+                        $(this).dialog("close")
+                        action()
+                    },
+                    "Cancel": function () { $(this).dialog("close") }
+                }
+            }).submit(function(ev){
+                let $button = $dialog.siblings('.ui-dialog-buttonpane').find("button:eq(0)")
+                if (!$button.prop("disabled")) $button.click()
+                ev.preventDefault()
+                return false
+            })
+            return false
+        }
 
         function createDialog( templ, doCreate ) {
             // dialog for creating a new program (temp1 == '#prog-new-dialog') or a new folder (temp1 == '#folder-new-dialog')
@@ -646,14 +678,12 @@ $(function () {
             return false
         }
 
-
-        pages.downloadFolder = function(route) { // Currently the only program option is download (download a program to user computer) // Currently the only program option is download (download a program to user computer)
+        pages.downloadFolder = function(route) { // Currently the only program option is download (download a program to user computer)
             apiDownload( {user:route.user, folder:route.folder, program:'program', option:'downloadFolder'}, function(ret) {
         		window.location = apiURL(route) // this sends the file to the user's download folder
             	navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
             })
         }
-        
         
         function renameDialog( dialog, oldname, doRename ) {
         	// dialog for renaming/copying a program (can include moving to another folder)
@@ -789,14 +819,22 @@ $(function () {
                 })
             })
             return false
-        })
+        })        
 
         page.find(".folder-public").click(function(ev) { // toggle PUBLIC/PRIVATE for a folder
             ev.preventDefault()
-    		var pub = set_of_folders[folder]
-            apiPut({user:username, folder:folder}, {public:!pub}, function () {
-                navigate( {page:"folder", user:username, folder:folder} )
+            let pub = set_of_folders[folder]
+            return folderPublicPrivate("#public-dialog", folder, pub, function() {
+                apiPut({user:username, folder:folder}, {public:!pub}, function () {
+                    navigate( {page:"folder", user:username, folder:folder} )
+                })
             })
+        })
+
+        page.find(".folder-listing").click(function(ev) { // toggle Icons/List for a folder
+            ev.preventDefault()
+            window.icons = !window.icons
+            navigate({page: "folder", user:username, folder:folder})
         })
 
         // Get a list of folders.  May return multiple times if list is updated
@@ -818,71 +856,178 @@ $(function () {
             var pub = set_of_folders[folder] // will be null if folder predates the PRIVATE option
             if (pub === null || pub === true) s = "PUBLIC"
             page.find(".folder-public.button").text(s)
+            s = window.icons ? "Icons" : "List"
+            page.find(".folder-listing").text(s)
         })
         	
         // Get a list of programs from the server
-        var list_of_programs = []
         apiGet( {user:username, folder:folder, program:LIST}, function (data) {
         	if ("error" in data)
         		alert(data.error)
         	else {
-	            var progList = page.find(".programs")
-	            var programs = data.programs
-	            for (var i = 0; i < programs.length; i++) {
-		                (function (prog) {
-		                var p = programTemplate.clone().removeClass("template")
-		                var name = decode(prog.name)
-		                list_of_programs.push(name)
-		                var proute = { user:username, folder:folder, program:name }
-		                p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
-		                p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
-		                p.find(".prog-name").text(name)
-		                var td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
-			            p.find(".prog-datetime").text(td)
-		
-		                if (!isWritable) {
-		                    p.find(".prog-edit.button").text("View")
-		                    p.find(".prog-copy.button").addClass("template")
-		                    p.find(".prog-rename.button").addClass("template")
-		                    p.find(".prog-delete.button").addClass("template")
-		                }
-		            	
-		                p.find(".prog-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
-		                	ev.preventDefault()
-		                	copyOrRename("#prog-copy-dialog", folder, name)
-		                })
-		            	
-		                p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
-		                	ev.preventDefault()
-		                	copyOrRename("#prog-rename-dialog", folder, name)
-		                })
-		                
-		                p.find(".prog-delete.button").click(function (ev) { 
-		                    ev.preventDefault()
-		                    return delProgramOrFolder("#prog-delete-dialog", name, function() {
-		                        apiDelete( {user:username, folder:folder, program: name}, function () {
-		                            navigate({page: "folder", user:username, folder:folder})
-		                        })
-		                    })
-		                })
-		                if (prog.screenshot) {
-		                    p.find(".prog-screenshot").prop("src", prog.screenshot)
-			                p.find(".prog-screenshot").click(function (ev) {
-			                    ev.preventDefault()
-			                    window.location.href = unroute(proute, {page:"run"})
-			                })
-		                }
-		                progList.append(p)
-		            })(programs[i])
-	            }
-	            if (isWritable && programs.length==0) {
-	            	page.find(".folder-delete").removeClass("template")
-	            	page.find(".folder-download.button").addClass("template")
-	            } else {
-	            	page.find(".folder-delete").addClass("template")
-	            	page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}    )   )
-	            }
-        	}
+                let progList = page.find(".programs")
+                let programs = data.programs // sent from server, an alphabetized list of objects: {name, datetime, snapshot}
+
+                if (programs.length == 0) {
+                    page.find(".folder-download.button").addClass("template")
+                    if (isWritable) page.find(".folder-delete").removeClass("template")
+                    else page.find(".folder-delete").addClass("template")
+                } else page.find(".folder-download.button").prop("href", unroute({page:"downloadFolder", user:username, program:'program', folder:folder}))
+
+                if (!window.icons) { // List, ordered by name or date
+                    page.find(".prog-separator").html('<br>') // need extra <br> with ordered list
+
+                    // Set up names that looks like this: {AtomicSolid:0, Billboarding:1, BinaryStar:2, Bounce:3}
+                    // This is used to access the position in the programs list of {name, datetime, snapshot}
+                    let namelinks = {}
+                    let names = []
+                    let i = 0
+                    for (const pr of programs) {
+                        if (pr.datetime == 'None') pr.datetime = '2017-01-02 00:00:00.000000'
+                        namelinks[pr.name] = i // tie location in programs to the program name
+                        names.push(i)
+                        i++
+                    }
+                    let inverse_names = []
+                    for (let n=names.length-1; n>=0; n--) inverse_names.push(names[n])
+
+                    // Set up datetimes whose entries look like this: '2020-10-22 15:46:30.101000?AtomicSolid'.
+                    // These entries are sorted to time-order the programs.
+                    let datetimes = []
+                    for (const pr of programs) datetimes.push(pr.datetime+'?'+pr.name)
+                    datetimes.sort() // now ordered oldest to newest
+                    let dates = [] // oldest to newest program; index into programs
+                    for (const pr of datetimes) {
+                        let q = pr.indexOf('?')
+                        dates.push(namelinks[pr.slice(q+1)]) // programs ordered oldest to newest
+                    }
+                    let inverse_dates = [] // newest to oldest program; index into programs
+                    for (let n=dates.length-1; n>=0; n--) inverse_dates.push(dates[n])
+
+                    let p = programUpdownTemplate.clone().removeClass("template")
+                    let listing
+                    if (window.names == 'down') {
+                        p.find(".updown-names").text('Names ˅') // up/down markers:  ˄   ˅
+                        listing = names
+                    } else if (window.names == 'up') {
+                        p.find(".updown-names").text('Names ˄')
+                        listing = inverse_names
+                    } else if (window.names == '') {
+                        p.find(".updown-names").text('Names')
+                    }
+                    if (window.dates == 'down') {
+                        p.find(".updown-dates").text('Dates ˅')
+                        listing = dates
+                    } else if (window.dates == 'up') {
+                        p.find(".updown-dates").text('Dates ˄')
+                        listing = inverse_dates
+                    } else if (window.dates == '') {
+                        p.find(".updown-dates").text('Dates')
+                    }
+                    
+                    p.find(".updown-names.button").click(function (ev) { // toggle sorting of program names
+                        ev.preventDefault()
+                        if (window.names == 'down') {
+                            window.names = 'up'
+                        } else if (window.names == 'up' || window.dates != '') {
+                            window.names = 'down'
+                            window.dates = ''
+                        }
+                        navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
+                    })
+                    
+                    p.find(".updown-dates.button").click(function (ev) { // toggle sorting of program last-edited dates
+                        ev.preventDefault()
+                        if (window.dates == 'down') {
+                            window.dates = 'up'
+                        } else if (window.dates == 'up' || window.names != '') {
+                            window.dates = 'down'
+                            window.names = ''
+                        }
+                        navigate(unroute(route, {page:"folder"})) // return to (stay on) folder page
+                    })
+
+                    progList.append(p)
+                    
+                    for (const i of listing) {
+                        let prog = programs[i]
+                        p = programDetailsTemplate.clone().removeClass("template")
+                        let name = decode(prog.name)
+                        let proute = { user:username, folder:folder, program:name }
+                        p.find(".prog-details-run.button").prop("href", unroute(proute, {page:"run"}))
+                        p.find(".prog-details-name").text(name)
+                        p.find(".prog-details-name.button").prop("href", unroute(proute, {page:"edit"}))
+                        let td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
+                        let minute = td.slice(-5,-3)
+                        p.find(".prog-details-datetime").text(td.slice(0,-5)+minute) // ignore the seconds
+                        
+                        p.find(".prog-details-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
+                            ev.preventDefault()
+                            copyOrRename("#prog-copy-dialog", folder, name)
+                        })
+                        
+                        p.find(".prog-details-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
+                            ev.preventDefault()
+                            copyOrRename("#prog-rename-dialog", folder, name)
+                        })
+                        
+                        p.find(".prog-details-delete.button").click(function (ev) { 
+                            ev.preventDefault()
+                            return delProgramOrFolder("#prog-delete-dialog", name, function() {
+                                apiDelete( {user:username, folder:folder, program: name}, function () {
+                                    navigate({page: "folder", user:username, folder:folder})
+                                })
+                            })
+                        })
+                        progList.append(p)
+                    }
+                } else {// "Classic" icon-based listing of programs
+                    for (const prog of programs) { 
+                        let p = programTemplate.clone().removeClass("template")
+                        let name = decode(prog.name)
+                        let proute = { user:username, folder:folder, program:name }
+                        p.find(".prog-name").text(name)
+                        let td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
+                        p.find(".prog-datetime").text(td)
+                        p.find(".prog-run.button").prop("href", unroute(proute, {page:"run"}))
+                        p.find(".prog-edit.button").prop("href", unroute(proute, {page:"edit"}))
+        
+                        if (!isWritable) {
+                            p.find(".prog-edit.button").text("View")
+                            p.find(".prog-copy.button").addClass("template")
+                            p.find(".prog-rename.button").addClass("template")
+                            p.find(".prog-delete.button").addClass("template")
+                        }
+                        
+                        p.find(".prog-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
+                            ev.preventDefault()
+                            copyOrRename("#prog-copy-dialog", folder, name)
+                        })
+                        
+                        p.find(".prog-rename.button").click(function (ev) { // RENAME a file (can specify folder/file to move to different folder)
+                            ev.preventDefault()
+                            copyOrRename("#prog-rename-dialog", folder, name)
+                        })
+                        
+                        p.find(".prog-delete.button").click(function (ev) { 
+                            ev.preventDefault()
+                            return delProgramOrFolder("#prog-delete-dialog", name, function() {
+                                apiDelete( {user:username, folder:folder, program: name}, function () {
+                                    navigate({page: "folder", user:username, folder:folder})
+                                })
+                            })
+                        })
+                        if (prog.screenshot) {
+                            p.find(".prog-screenshot").prop("src", prog.screenshot)
+                            p.find(".prog-screenshot").click(function (ev) {
+                                ev.preventDefault()
+                                window.location.href = unroute(proute, {page:"run"})
+                            })
+                        }
+                        progList.append(p)
+                    }
+                }
+            }
         })
     }
     pages.run = function(route) {
@@ -1165,8 +1310,9 @@ $(function () {
                     else if (v >= 2.2) verdir = "2.1"
                     else verdir = header.version.substr(0,3)
                     var runner = ''
-                    var exporturl = "https://www."+website+"/"
-                    if (v >= 2.5) exporturl = "https://s3.amazonaws.com/glowscript/"
+                    var exporturl = "https://www."+website+".org/"
+                    if (v >= 2.5 && v < 3.0) exporturl = "https://s3.amazonaws.com/glowscript/"
+                    // Note: some already exported 3.0 programs contain references to s3.amazonaws.com
                     if (header.lang == 'vpython') 
                     	runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'
                     var embedHTML = (

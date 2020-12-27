@@ -49,15 +49,6 @@ window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     ide: []
 } 
 
-async function runprog() { 
-    try {
-        eval(window.__program)
-        await __main__()
-    } catch(err) {
-        reportScriptError(err)
-    }
-}
-
 var trusted_origin = "*"
     
 function send(msg) {
@@ -260,11 +251,14 @@ function ideRun() {
 
     var ver
 
-    function compileAndRun(program, container, lang, version) {
+    async function compileAndRun(program, container, lang, version) {
         if (program[0] == '\n') program = program.substr(1) // There can be a spurious '\n' at the start of the program source
         var options = {lang: lang, version: version, run: true}
         try { // compile the user program:
             program = glowscript_compile(program, options)
+            if (lang == 'javascript' && (options.version >= 2.9 || options.version == 'unp') ) {
+                program = program+'if (!__main__.__module__) Object.defineProperties(__main__, {\n__module__ : {value: null}\n});'
+            }
         } catch(err) {
             send({ error: err.toString(), traceback: ''})
             return
@@ -280,26 +274,20 @@ function ideRun() {
         if (options.version == 'unp') ver = 'unp' // version is first 3 characters of 'unpublished" (e.g. 3.0dev)
         else ver = parseFloat(options.version)
 
-        if (ver >= 2.9 || ver == 'unp') { // GlowScript 2.9 and later
-            runprog()
-        } else {
-            try { // GlowScript earlier than 2.9
-                window.userMain = eval(program)
-                //usermain = eval(program)
-                // At this point the user program has not been executed.
-                // Rather, the user program has been prepared to be run.
-                //window.userMain = usermain
+        try {
+            window.userMain = eval(program)
+            // At this point the user program has not been executed.
+            // Rather, the user program has been prepared to be run.
 
-                window.userMain(function (err) {
-                    if (err) {
-                        window.lasterr = err
-                        reportScriptError(err)
-                    }
-                })
-            } catch (err) {
-                window.lasterr = err
-                reportScriptError(err)
-            }
+            await window.userMain(function (err) {
+                if (err) {
+                    window.lasterr = err
+                    reportScriptError(err)
+                }
+            })
+        } catch (err) {
+            window.lasterr = err
+            reportScriptError(err)
         }
     }
 
