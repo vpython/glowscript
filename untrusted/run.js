@@ -1,9 +1,28 @@
 // IDE functionality
 // This file has to handle ALL versions of GlowScript.
-var localport = '8080' // normally 8080
-var website = 'glowscript' // normally glowscript
-var runloc = (document.domain == "localhost") ? "http" : "https"
-var weblocs = ["https://"+website+".org", "https://www."+website+".org", runloc+"://localhost:"+localport, "https://glowscriptdev.spvi.net", "https://devbasherwo.org"]
+
+var localport = '8080'
+var localhost = 'localhost:' + localport;
+var weblocs = [/^https:\/\/glowscript\.org$/,
+    /^https:\/\/www\.glowscript\.org$/,
+    new RegExp("^http:\/\/" + localhost),
+    /^https:\/\/glowscriptdev\.spvi\.net$/,
+    /^https:\/\/devbasherwo.org$/,
+    /^https:\/\/.*\.uc\.r\.appspot\.com$/]
+
+function checkTrustedHosts(aHost) {
+    let found = false
+    console.log("checking host: " + aHost);
+    for (let i = 0; i < weblocs.length; i++) {
+        found = aHost.match(weblocs[i]);
+        if (found) {
+            break;
+        }
+    }
+    let notfound = !found;
+    console.log("returning:" + notfound);
+    return notfound;
+}
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
     run: [
@@ -180,7 +199,7 @@ function ideRun() {
         function receiveMessage(event) {
             event = event.originalEvent // originalEvent is a jquery entity
             trusted_origin = event.origin
-            if (weblocs.indexOf(trusted_origin) < 0) { // ensure that message is from glowscript
+            if (checkTrustedHosts(trusted_origin)) { // ensure that message is from glowscript
                 return;
             }
             var message = JSON.parse(event.data)
