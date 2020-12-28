@@ -182,7 +182,7 @@ def favicon_static():
 @app.route('/untrusted/<path:filename>')
 def untrusted_static(filename):
     cache_timeout = None
-    if is_running_locally():
+    if is_running_locally(): # don't cache this file if running locally
         cache_timeout=0
     
     if filename == 'run.js':
@@ -191,6 +191,8 @@ def untrusted_static(filename):
             runjs = load_runjs()
 
         return runjs, 200
+
+    print("sending untrusted file:" + str(filename))
 
     return flask.send_from_directory('../untrusted', filename, cache_timeout=cache_timeout)
 

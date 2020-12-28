@@ -18,8 +18,12 @@ from . import app
 from . import routes
 from . import models
 
+#
+# The 'flask_secret.py' file is not checked in to the git repository, but it's deployed with the application.
+# 
+
 try:
-    from . import flask_secret as secret
+    from . import flask_secret as secret    # need to find a better way, but for now, this works
 except ImportError:
     from . import default_secret as secret  # if there is no "new" secret, just use the default
 
