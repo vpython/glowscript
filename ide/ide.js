@@ -4,7 +4,7 @@ $(function () {
     var worker
     var sourceLines
     var website = 'WEBSERVER_NAME_TEMPLATE' // normally glowscript
-    var sandbox_prefix = 'https://sandbox.' // https for production
+    var sandbox_prefix = 'SANDBOX_PREFIX_TEMPLATE' // https for production
     var disable_writes = false // prevent all writes (edit, create/delete folder or program, copy/rename program)
     
     window.icons = true // default display of folder contents is the "classic" icon display

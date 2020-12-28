@@ -31,7 +31,7 @@ localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
 
 weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, 
-           "www.glowscriptdev.spvi.net","devbasherwo.uc.r.appspot.com","www.devbasherwo.org","devbasherwo.org"]
+           "glowscriptdev.spvi.net","uc.r.appspot.com","www.devbasherwo.org","devbasherwo.org"]
 
 local_hosts = ['http://localhost','http://127.0.0.1']
 
@@ -109,10 +109,17 @@ module_cache = {}  # cache some things, like ide.js, so we don't need to keep re
 # webserver name from the datastore.
 #
 
-def load_idejs(webserver='devbasherwo.spvi.net'):
+def load_idejs(webserver='devbasherwo.org'):
     try:
         ide_js = open('ide/ide.js').read()
-        ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',webserver)
+        host_name = get_auth_host_name()
+        if host_name.endswith('uc.r.appspot.com'): # once I figure out how to proxy OAUTH2 for appspot instances this will make sense
+            ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
+            ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://')
+        else:
+            ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
+            ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
+
         module_cache['ide.js'] = ide_js
     except:
         ide_js='Ack! Cannot load ide.js'
@@ -131,7 +138,7 @@ def idejs_static():
     (e.g., "glowscript.org"). Since we're deploying on development/test servers as well
     we need to be able to swap out the approved name at runtime. This scheme let's us
     swap it out the first time it's requested, and cache the result in memory so
-    we can deliver it again without having to re-read the file from disk.
+    we can deliver it again without having to re-read the file from disk each time.
     """
     ide_js = module_cache.get('ide_js')
     if not ide_js:
@@ -184,8 +191,22 @@ def validate_names(*names):
                 return False
     return True
 
+def get_auth_host_name():
+    return flask.request.headers.get('Host')
+
+def trim_auth_host_name():
+    #
+    # if the host name has more than two parts, trim off the first part.
+    # this allows appspot version to be tested that are not in production
+    # e.g., 20201227t175543-dot-py38-glowscript.uc.r.appspot.com
+    #
+    host_header = get_auth_host_name()
+    parts = host_header.split('.')
+    host_header = '.'.join(parts[1:]) if len(parts)>4 else host_header
+    return host_header
+
 def authorize_host():
-    host_header = flask.request.headers.get('Host')
+    host_header = trim_auth_host_name()
     result =  host_header in weblocs
 
     if not result:
