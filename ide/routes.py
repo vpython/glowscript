@@ -109,11 +109,12 @@ module_cache = {}  # cache some things, like ide.js, so we don't need to keep re
 # webserver name from the datastore.
 #
 
-def load_idejs(webserver='devbasherwo.org'):
+def load_idejs(webserver='glowscript.org'):
     try:
         ide_js = open('ide/ide.js').read()
         host_name = get_auth_host_name()
-        if host_name.endswith('uc.r.appspot.com'): # once I figure out how to proxy OAUTH2 for appspot instances this will make sense
+        if host_name.endswith('uc.r.appspot.com'): # no sandbox for uc.r.appspot.com test instances
+                                                   # since we can't authenticate these instances anyway, no sanbox is needed
             ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
             ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://')
         else:
@@ -126,6 +127,18 @@ def load_idejs(webserver='devbasherwo.org'):
         traceback.print_exc()
 
     return ide_js
+
+def load_runjs():
+    try:
+        run_js = open('untrusted/run.js').read()
+        host_name = get_auth_host_name()
+        run_js = run_js.replace('HOST_NAME_TEMPLATE',host_name)
+        module_cache['run.js'] = run_js
+    except:
+        run_js='Ack! Cannot load ide.js'
+        traceback.print_exc()
+
+    return run_js
 
 @app.route('/css/<path:filename>')
 def css_static(filename):
@@ -140,7 +153,7 @@ def idejs_static():
     swap it out the first time it's requested, and cache the result in memory so
     we can deliver it again without having to re-read the file from disk each time.
     """
-    ide_js = module_cache.get('ide_js')
+    ide_js = module_cache.get('ide.js')
     if not ide_js:
         web_setting = Setting.get('web_domain_name')
         ide_js = load_idejs(web_setting.value)
@@ -168,7 +181,18 @@ def favicon_static():
     
 @app.route('/untrusted/<path:filename>')
 def untrusted_static(filename):
-    return flask.send_from_directory('../untrusted', filename)
+    cache_timeout = None
+    if is_running_locally():
+        cache_timeout=0
+    
+    if filename == 'run.js':
+        runjs = module_cache.get('run.js')
+        if not runjs:
+            runjs = load_runjs()
+
+        return runjs, 200
+
+    return flask.send_from_directory('../untrusted', filename, cache_timeout=cache_timeout)
 
 #
 # The root route
@@ -196,7 +220,7 @@ def get_auth_host_name():
 
 def trim_auth_host_name():
     #
-    # if the host name has more than two parts, trim off the first part.
+    # if the host name has more than four parts, trim off the first part.
     # this allows appspot version to be tested that are not in production
     # e.g., 20201227t175543-dot-py38-glowscript.uc.r.appspot.com
     #
@@ -231,7 +255,7 @@ def authorize_user(username):
 
 def override(user):
     # return True if superuser, to permit the recovery of private programs for a user who can no longer log in
-    return str(user) == 'basherwo@ncsu.edu'
+    return str(user) in ['basherwo@ncsu.edu','spicklemire@uindy.edu']
 
 class ParseUrlPathException( Exception ):
     pass

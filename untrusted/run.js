@@ -3,25 +3,21 @@
 
 var localport = '8080'
 var localhost = 'localhost:' + localport;
-var weblocs = [/^https:\/\/glowscript\.org$/,
+var weblocs = [/^https:\/\/glowscript\.org$/, // put a couple of these explicitly in the list just in case.
     /^https:\/\/www\.glowscript\.org$/,
-    new RegExp("^http:\/\/" + localhost),
-    /^https:\/\/glowscriptdev\.spvi\.net$/,
-    /^https:\/\/devbasherwo.org$/,
-    /^https:\/\/.*\.uc\.r\.appspot\.com$/]
+    new RegExp("^http:\/\/" + localhost + "$"),
+    /^https:\/\/HOST_NAME_TEMPLATE$/
+]
 
-function checkTrustedHosts(aHost) {
+function checkTrustedHosts(aHost) { // go through the known trusted hosts
     let found = false
-    console.log("checking host: " + aHost);
     for (let i = 0; i < weblocs.length; i++) {
         found = aHost.match(weblocs[i]);
         if (found) {
             break;
         }
     }
-    let notfound = !found;
-    console.log("returning:" + notfound);
-    return notfound;
+    return !found; // return true to bail out.
 }
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
