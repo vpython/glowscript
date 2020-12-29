@@ -34,8 +34,6 @@ AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth?access_type=of
 
 AUTHORIZATION_SCOPE ='openid email profile'
 
-BASE_URI = os.environ.get("FN_BASE_URI", default=False)
-
 def get_project_name():
     """
     Get the project name from the Datastore.
