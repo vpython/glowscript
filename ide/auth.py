@@ -2,7 +2,6 @@
 # Code for OAuth2 support for flask
 #
 
-import functools
 from google.cloud import secretmanager
 
 from flask import Flask, url_for, session, request, make_response, redirect
@@ -10,9 +9,8 @@ from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
 from authlib.common.security import generate_token
 import json, base64
-
 import os
-import json
+from urllib.parse import urlparse, urlunparse
 
 from . import app
 from . import routes
@@ -31,7 +29,7 @@ app.secret_key = secret.FN_SECRET_KEY
 
 CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 
-authNamespace = {}
+authNamespace = {} # we need to create the oauth object lazily, this is a "cache" that let's us build the oauth object only when needed.
 
 def get_project_name():
     """
@@ -41,7 +39,7 @@ def get_project_name():
     return web_setting.value
 
 def get_redirect_uri():
-    return get_base_url() + '/google/auth'
+    return get_base_url() + '/google/auth'  # get the valid redirect URL from the datastore setting
 
 def get_base_url():
     """
@@ -136,15 +134,51 @@ def get_user_info():
 
 @app.route('/google/login')
 def login():
+    """
+    This is a bit too tricky, but I couldn't find another way. Google only allows specific 
+    redirect URLs to use OAuth2. We want to be able to test with alternative version specific servers
+    (e.g., 20201227t175543-dot-py38-glowscript.uc.r.appspot.com). The solution here is to embed
+    the real hostname in the state parameter and have the 'approved' server redirect back 
+    to the host we're actually testing.
+    """
     redirect_uri = get_redirect_uri()
+    stateDict = {'dstHost':routes.get_auth_host_name(), 'salt':generate_token()}
+    state = base64.b64encode(json.dumps(stateDict).encode()).decode()
     oauth = authNamespace.get('oauth') or fillAuthNamespace()
-    return oauth.google.authorize_redirect(redirect_uri)
+    return oauth.google.authorize_redirect(redirect_uri, state=state)
 
 @app.route('/google/auth')
 def auth():
+    auth_host = routes.get_auth_host_name()
+    stateEncoded = request.args.get('state')
+
+    if stateEncoded:
+        stateDict = json.loads(base64.b64decode(stateEncoded.encode()).decode())
+        app.logger.info("got state:" + str(stateDict))
+        dstHost = stateDict.get('dstHost')
+        if dstHost != auth_host:                  # check to see if we are the final server
+            oldURL = urlparse(request.url)        # we must be the Google Listed server, redirect
+            if dstHost.startswith('localhost'):
+                scheme = 'http'                   # no ssl for localhost
+            else:
+                scheme = oldURL[0]
+            newURL = urlunparse((scheme,dstHost) + oldURL[2:])  # build the final URL
+            return redirect(newURL)
+    else:
+        app.logger.inro("Yikes! No state found. This shoudln't happen.")
+
+    #
+    # If we get to here it means we're the final server. Go ahead and process.
+    #
+        
     oauth = authNamespace.get('oauth') or fillAuthNamespace()
     token = oauth.google.authorize_access_token()
     user = oauth.google.parse_id_token(token)
+    
+    if auth_host.endswith('uc.r.appspot.com'): # it's a test server, no sandbox!
+        if user.get('email') not in ['spicklemire@uindy.edu','basherwo@ncsu.edu']:  # only finish login for these guys
+            return redirect('/')
+
     session['user'] = user
     return redirect('/')
 

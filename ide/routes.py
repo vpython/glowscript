@@ -43,6 +43,7 @@ import datetime
 import uuid
 import flask
 import traceback
+import functools
 
 from google.cloud import ndb
 from google.auth.transport import requests
@@ -108,18 +109,9 @@ module_cache = {}  # cache some things, like ide.js, so we don't need to keep re
 # webserver name from the datastore.
 #
 
-def load_idejs(webserver='glowscript.org'):
+def load_idejs():
     try:
         ide_js = open('ide/ide.js').read()
-        host_name = get_auth_host_name()
-        if host_name.endswith('uc.r.appspot.com'): # no sandbox for uc.r.appspot.com test instances
-                                                   # since we can't authenticate these instances anyway, no sanbox is needed
-            ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
-            ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://')
-        else:
-            ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
-            ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
-
         module_cache['ide.js'] = ide_js
     except:
         ide_js='Ack! Cannot load ide.js'
@@ -130,8 +122,6 @@ def load_idejs(webserver='glowscript.org'):
 def load_runjs():
     try:
         run_js = open('untrusted/run.js').read()
-        host_name = get_auth_host_name()
-        run_js = run_js.replace('HOST_NAME_TEMPLATE',host_name)
         module_cache['run.js'] = run_js
     except:
         run_js='Ack! Cannot load ide.js'
@@ -142,8 +132,20 @@ def load_runjs():
 @app.route('/css/<path:filename>')
 def css_static(filename):
     return flask.send_from_directory('../css', filename)
-    
+
+def no_cache(view):
+    @functools.wraps(view)
+    def no_cache_impl(*args, **kwargs):
+        response = flask.make_response(view(*args, **kwargs))
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '-1'
+        return response
+
+    return functools.update_wrapper(no_cache_impl, view)
+
 @app.route('/ide.js')
+@no_cache
 def idejs_static():
     """
     ide.js is a special file in that it has the `approved` webserver name embedded in it.
@@ -153,9 +155,18 @@ def idejs_static():
     we can deliver it again without having to re-read the file from disk each time.
     """
     ide_js = module_cache.get('ide.js')
+    
     if not ide_js:
-        web_setting = Setting.get('web_domain_name')
-        ide_js = load_idejs(web_setting.value)
+        ide_js = load_idejs()
+
+    host_name = get_auth_host_name()
+    if host_name.endswith('uc.r.appspot.com'): # no sandbox for uc.r.appspot.com test instances
+                                                # since we can't authenticate these instances anyway, no sanbox is needed
+        ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
+        ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://')
+    else:
+        ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
+        ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
 
     return ide_js,200
 
@@ -179,21 +190,21 @@ def favicon_static():
     return flask.send_from_directory('../static/images', r'favicon.ico')
     
 @app.route('/untrusted/<path:filename>')
+@no_cache
 def untrusted_static(filename):
-    cache_timeout = None
-    if is_running_locally(): # don't cache this file if running locally
-        cache_timeout=0
     
     if filename == 'run.js':
-        runjs = module_cache.get('run.js')
-        if not runjs:
-            runjs = load_runjs()
+        run_js = module_cache.get('run.js')
+        if not run_js:
+            run_js = load_runjs()
 
-        return runjs, 200
+        host_name = get_auth_host_name()
+        if host_name.startswith('sandbox.'):
+            host_name = '.'.join(host_name.split('.')[1:]) # take off the sandbox.
+        run_js = run_js.replace('HOST_NAME_TEMPLATE',host_name)
+        return run_js, 200
 
-    print("sending untrusted file:" + str(filename))
-
-    return flask.send_from_directory('../untrusted', filename, cache_timeout=cache_timeout)
+    return flask.send_from_directory('../untrusted', filename)
 
 #
 # The root route
