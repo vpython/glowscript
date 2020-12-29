@@ -121,8 +121,9 @@ def load_idejs():
 
 def load_runjs():
     try:
-        run_js = open('untrusted/run.js').read()
-        module_cache['run.js'] = run_js
+        with open('untrusted/run.js') as f:
+            run_js = f.read()
+            module_cache['run.js'] = run_js
     except:
         run_js='Ack! Cannot load ide.js'
         traceback.print_exc()
@@ -161,9 +162,12 @@ def idejs_static():
 
     host_name = get_auth_host_name()
     if host_name.endswith('uc.r.appspot.com'): # no sandbox for uc.r.appspot.com test instances
-                                                # since we can't authenticate these instances anyway, no sanbox is needed
+                                               # since we can't authenticate these instances anyway, no sanbox is needed
         ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
         ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://')
+    elif host_name.startswith('www.'):
+        ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name[4:])
+        ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
     else:
         ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
         ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
@@ -192,17 +196,20 @@ def favicon_static():
 @app.route('/untrusted/<path:filename>')
 @no_cache
 def untrusted_static(filename):
-    
+    app.logger.info("serving untrusted")
     if filename == 'run.js':
         run_js = module_cache.get('run.js')
         if not run_js:
+            app.logger.info("not found in cache")
             run_js = load_runjs()
+        else:
+            app.logger.info("found in cache")
 
         host_name = get_auth_host_name()
         if host_name.startswith('sandbox.'):
             host_name = '.'.join(host_name.split('.')[1:]) # take off the sandbox.
         run_js = run_js.replace('HOST_NAME_TEMPLATE',host_name)
-        return run_js, 200
+        return run_js, 200, {'content_type':'text/plain'}
 
     return flask.send_from_directory('../untrusted', filename)
 

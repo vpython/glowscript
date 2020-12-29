@@ -1053,7 +1053,11 @@ $(function () {
             // abuse the user's credentials with our API.  That's important because one logged-in user may be running a different user's program!
             // When this page is served from localhost, we run the iframe from the same origin (not having access to another web server, and not being concerned about security)
 
-            var untrusted_origin = sandbox_prefix + website
+            var sandbox_suffix = website
+            if (sandbox_suffix.slice(0,4) == 'www.') {
+                sandbox_suffix = sandbox_suffix.slice(4)
+            }
+            var untrusted_origin = sandbox_prefix + sandbox_suffix
             var untrusted_src = untrusted_origin + "/untrusted/run.html"
             var ready = false
             
