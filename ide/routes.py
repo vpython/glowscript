@@ -47,7 +47,6 @@ import traceback
 from google.cloud import ndb
 from google.auth.transport import requests
 from google.cloud import ndb
-import google.oauth2.id_token
 
 from .models import User, Program, Folder, Setting
 

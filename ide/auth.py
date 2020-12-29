@@ -2,17 +2,17 @@
 # Code for OAuth2 support for flask
 #
 
-import flask
 import functools
-import google.oauth2.credentials
-import googleapiclient.discovery
 from google.cloud import secretmanager
+
+from flask import Flask, url_for, session, request, make_response, redirect
+from flask import render_template, redirect
+from authlib.integrations.flask_client import OAuth
+from authlib.common.security import generate_token
+import json, base64
 
 import os
 import json
-
-from flask import request
-from authlib.client import OAuth2Session
 
 from . import app
 from . import routes
@@ -27,12 +27,11 @@ try:
 except ImportError:
     from . import default_secret as secret  # if there is no "new" secret, just use the default
 
-app.secret_key = secret.FN_SECRET_KEY # set up encryption key for flask
+app.secret_key = secret.FN_SECRET_KEY
 
-ACCESS_TOKEN_URI = 'https://www.googleapis.com/oauth2/v4/token'
-AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent'
+CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 
-AUTHORIZATION_SCOPE ='openid email profile'
+authNamespace = {}
 
 def get_project_name():
     """
@@ -109,98 +108,47 @@ class SecretCache:
 
 secret_cache = SecretCache()
 
-AUTH_TOKEN_KEY = 'auth_token'
-AUTH_STATE_KEY = 'auth_state'
+def fillAuthNamespace():
+    """
+    We've got to get the oath object lazily since the client_id and client_secret are stored in the cloud.
+    """
+    app.config.update(GOOGLE_CLIENT_ID=secret_cache.getID(), GOOGLE_CLIENT_SECRET=secret_cache.getSecret())
+
+    oauth = OAuth(app)
+    oauth.register(
+        name='google',
+        server_metadata_url=CONF_URL,
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+    authNamespace['oauth'] = oauth
+    return oauth
 
 def is_logged_in():
-    return (AUTH_TOKEN_KEY in flask.session) or (routes.is_running_locally())
-
-def build_credentials():
-    if not is_logged_in():
-        raise Exception('User must be logged in')
-
-    oauth2_tokens = flask.session.get(AUTH_TOKEN_KEY)
-    
-    return google.oauth2.credentials.Credentials(
-                oauth2_tokens['access_token'],
-                refresh_token=oauth2_tokens['refresh_token'],
-                client_id=secret_cache.getID(),
-                client_secret=secret_cache.getSecret(),
-                token_uri=ACCESS_TOKEN_URI)
+    return ('user' in session) or (routes.is_running_locally())
 
 def get_user_info():
-    
     if routes.is_running_locally():
         return {'email':'localuser@local.host'}
 
-    credentials = build_credentials()
-
-    oauth2_client = googleapiclient.discovery.build(
-                        'oauth2', 'v2',
-                        credentials=credentials)
-    return oauth2_client.userinfo().get().execute() # pylint: disable=maybe-no-member" 
-
-
-def no_cache(view):
-    @functools.wraps(view)
-    def no_cache_impl(*args, **kwargs):
-        response = flask.make_response(view(*args, **kwargs))
-        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
-        response.headers['Pragma'] = 'no-cache'
-        response.headers['Expires'] = '-1'
-        return response
-
-    return functools.update_wrapper(no_cache_impl, view)
-
+    return session.get('user') or {}
 
 @app.route('/google/login')
-@no_cache
-def google_login():
-
-    session = OAuth2Session(secret_cache.getID(), secret_cache.getSecret(),
-                            scope=AUTHORIZATION_SCOPE,
-                            redirect_uri=get_redirect_uri())
-  
-    uri, state = session.create_authorization_url(AUTHORIZATION_URL)
-
-    flask.session[AUTH_STATE_KEY] = state
-    print("saving auth state:", state, flask.session.get(AUTH_STATE_KEY))
-    flask.session.permanent = True
-
-    return flask.redirect(uri, code=302)
+def login():
+    redirect_uri = get_redirect_uri()
+    oauth = authNamespace.get('oauth') or fillAuthNamespace()
+    return oauth.google.authorize_redirect(redirect_uri)
 
 @app.route('/google/auth')
-@no_cache
-def google_auth_redirect():
-    req_state = flask.request.args.get('state', default=None, type=None)
-
-    print("checking auth state:", req_state)
-    print("Current session state:", flask.session.get(AUTH_STATE_KEY))
-
-    if req_state != flask.session.get(AUTH_STATE_KEY):
-        """
-        Sometimes the browser just gets confused. Go home and try again.
-        """
-        return flask.redirect('/index')
-    
-    session = OAuth2Session(secret_cache.getID(), secret_cache.getSecret(),
-        scope=AUTHORIZATION_SCOPE,
-        state=flask.session.get(AUTH_STATE_KEY),
-        redirect_uri=get_redirect_uri())
-
-    oauth2_tokens = session.fetch_access_token(
-                        ACCESS_TOKEN_URI,            
-                        authorization_response=flask.request.url)
-
-    flask.session[AUTH_TOKEN_KEY] = oauth2_tokens
-
-    return flask.redirect(get_base_url(), code=302)
+def auth():
+    oauth = authNamespace.get('oauth') or fillAuthNamespace()
+    token = oauth.google.authorize_access_token()
+    user = oauth.google.parse_id_token(token)
+    session['user'] = user
+    return redirect('/')
 
 @app.route('/google/logout')
-@no_cache
-def google_logout():
-    print("in logout")
-    flask.session.pop(AUTH_TOKEN_KEY, None)
-    flask.session.pop(AUTH_STATE_KEY, None)
-
-    return flask.redirect(get_base_url(), code=302)
+def logout():
+    session.pop('user', None)
+    return redirect('/')
