@@ -31,7 +31,8 @@ localport = '8080'     # normally 8080
 website = 'glowscript' # normally glowscript
 
 weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, 
-           "glowscriptdev.spvi.net","uc.r.appspot.com","www.devbasherwo.org","devbasherwo.org"]
+           "glowscriptdev.spvi.net","www.glowscriptdev.spvi.net","uc.r.appspot.com",
+           "www.devbasherwo.org","devbasherwo.org"]
 
 local_hosts = ['http://localhost','http://127.0.0.1']
 
