@@ -16,13 +16,19 @@ def UpdateUsers(**kwargs):
     """
 
     count = 0
+    modCount = 0
     for c in kwargs['User'].query():
+        count += 1
+        if (count % 100) == 0:
+            print("Checking user: ", c.key.id(), " count = ", count)
+            
         if not c.email:
             if c.gaeUser:
+                modCount += 1
                 c.email = c.gaeUser.email()
                 c.put()
-                print("Updated user: ", c.key.id(), ":", c.email, " count = ", count)
-                count += 1
+                if (modCount % 100) == 0:
+                    print("Modified 100 more users: ", c.key.id(), " modCount = ", modCount, "email=", c.email)
 
 
 def DumpSettings(**kwargs):
