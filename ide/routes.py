@@ -28,8 +28,7 @@
 # python_version 2.7 works and can be deployed with Google App Engine Launcher 1.7.6
 
 localport = '8080'     # normally 8080
-weblocs_safe = ["glowscript.org", "localhost:"+localport, "127.0.0.1:"+localport, 
-                "spvi.net","appspot.com", "devbasherwo.org"] # safe for now
+weblocs_safe = ["localhost:"+localport, "127.0.0.1:"+localport,] # only need these for local development
 
 import json
 from io import BytesIO
