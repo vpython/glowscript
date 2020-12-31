@@ -60,12 +60,16 @@ def get_preview_suffixes():
     """
     Get the last domain parts of domains permitted for testing.
     """
-    return getSetting('preview_domain_suffixes',['.appspot.com'])
+    return getSetting('preview_domain_suffixes',['appspot.com'])
 
 def check_auth_host_for_preview(auth_host):
     """
     Check to see of the current auth_host has one of the preview domains as a "suffix".
     """
+
+    parts = auth_host.split('.')
+    auth_host = '.'.join(parts[-2:]) # just keep last two components
+
     for phost in get_preview_suffixes():
         if auth_host.endswith(phost):
             return True
