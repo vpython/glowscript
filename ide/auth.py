@@ -31,12 +31,52 @@ CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 
 authNamespace = {} # we need to create the oauth object lazily, this is a "cache" that let's us build the oauth object only when needed.
 
+def getSetting(name, default=None, returnObject=False):
+    """
+    Grab some setting from the datastore. If it's not a string, it should be stored as a JSON representation.
+    Set returnObject to True to force a JSON load. Otherwise use the type of the default to trigger JSON conversion
+    """
+    app.logger.info("Getting setting for:" + str(name))
+    result = models.Setting.get(name).value
+    if result == 'NOT SET':
+        result = default
+    elif ((default is not None) and (type(default) != type(''))) or returnObject:
+        # assume it's a JSON representation of an object, decode it and return that.
+        try:
+            result = json.loads(result)
+        except json.decoder.JSONDecodeError:
+            pass # maybe not?
+
+    app.logger.info("Got result:" + str(result))
+    return result
+
+def get_preview_users():
+    """
+    Get the email addresses of users who are permitted to authenticate with a preview version of the app.
+    """
+    return getSetting('preview_users', ['spicklemire@uindy.edu','basherwo@ncsu.edu'])
+
+def get_preview_suffixes():
+    """
+    Get the last domain parts of domains permitted for testing.
+    """
+    return getSetting('preview_domain_suffixes',['.appspot.com'])
+
+def check_auth_host_for_preview(auth_host):
+    """
+    Check to see of the current auth_host has one of the preview domains as a "suffix".
+    """
+    for phost in get_preview_suffixes():
+        if auth_host.endswith(phost):
+            return True
+    
+    return False
+
 def get_project_name():
     """
     Get the project name from the Datastore.
     """
-    web_setting = models.Setting.get('google_project_name')
-    return web_setting.value
+    return getSetting('google_project_name','glowscript') 
 
 def get_redirect_uri():
     return get_base_url() + '/google/auth'  # get the valid redirect URL from the datastore setting
@@ -45,7 +85,7 @@ def get_base_url():
     """
     Get the base_url from the datastore
     """
-    return models.Setting.get('auth_base_url').value
+    return getSetting('auth_base_url')
 #
 # Robust way to check for running locally. Also easy to modify.
 #
@@ -175,8 +215,8 @@ def auth():
     token = oauth.google.authorize_access_token()
     user = oauth.google.parse_id_token(token)
     
-    if auth_host.endswith('uc.r.appspot.com'): # it's a test server, no sandbox!
-        if user.get('email') not in ['spicklemire@uindy.edu','basherwo@ncsu.edu']:  # only finish login for these guys
+    if check_auth_host_for_preview(auth_host): # are we in a preview version?
+        if user.get('email') not in get_preview_users():  # only finish login for these guys
             return redirect('/')
 
     session['user'] = user

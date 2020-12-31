@@ -28,13 +28,8 @@
 # python_version 2.7 works and can be deployed with Google App Engine Launcher 1.7.6
 
 localport = '8080'     # normally 8080
-website = 'glowscript' # normally glowscript
-
-weblocs = ["www."+website+".org", website+".org", "localhost:"+localport,"127.0.0.1:"+localport, 
-           "glowscriptdev.spvi.net","www.glowscriptdev.spvi.net","uc.r.appspot.com",
-           "www.devbasherwo.org","devbasherwo.org"]
-
-local_hosts = ['http://localhost','http://127.0.0.1']
+weblocs_safe = ["glowscript.org", "localhost:"+localport, "127.0.0.1:"+localport, 
+                "spvi.net","appspot.com", "devbasherwo.org"] # safe for now
 
 import json
 from io import BytesIO
@@ -68,10 +63,12 @@ emulator = os.environ.get('DATASTORE_EMULATOR_HOST')
 
 def ndb_wsgi_middleware(wsgi_app):
     """
-    This is helpful for Flask and DNB to play nice together.
+    This is helpful for Flask and NDB to play nice together.
     
     https://cloud.google.com/appengine/docs/standard/python3/migrating-to-cloud-ndb
-    
+
+    We need to be able to access NDB in the application context.
+    If we're running a local datastore, make up a dummy project name.
     """
 
     project = emulator and 'glowscript-dev' or None
@@ -94,9 +91,29 @@ def ndb_wsgi_middleware(wsgi_app):
 
     return middleware
 
+#
+# Now let's deal with the app
+#
+
 from . import app, auth
 
 app.wsgi_app = ndb_wsgi_middleware(app.wsgi_app)  # Wrap the app in middleware.
+
+#
+# set up logging
+#
+
+import logging
+import google.cloud.logging # Don't conflict with standard logging
+from google.cloud.logging.handlers import CloudLoggingHandler
+
+client = google.cloud.logging.Client()
+handler = CloudLoggingHandler(client)
+handler.setLevel(logging.INFO)
+app.logger.addHandler(handler)
+
+def get_weblocs():
+    return auth.getSetting('weblocs', weblocs_safe)
 
 #
 # These next few routes are to serve static files in dev mode. GAE will handle these
@@ -162,10 +179,9 @@ def idejs_static():
         ide_js = load_idejs()
 
     host_name = get_auth_host_name()
-    if host_name.endswith('uc.r.appspot.com'): # no sandbox for uc.r.appspot.com test instances
-                                               # since we can't authenticate these instances anyway, no sanbox is needed
-        ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
-        ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://')
+    if auth.check_auth_host_for_preview(host_name): # are we running in a preview?
+        ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name) 
+        ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://') # no sandbox
     elif host_name.startswith('www.'):
         ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name[4:])
         ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
@@ -197,14 +213,10 @@ def favicon_static():
 @app.route('/untrusted/<path:filename>')
 @no_cache
 def untrusted_static(filename):
-    app.logger.info("serving untrusted")
     if filename == 'run.js':
         run_js = module_cache.get('run.js')
         if not run_js:
-            app.logger.info("not found in cache")
             run_js = load_runjs()
-        else:
-            app.logger.info("found in cache")
 
         host_name = get_auth_host_name()
         if host_name.startswith('sandbox.'):
@@ -240,21 +252,22 @@ def get_auth_host_name():
 
 def trim_auth_host_name():
     #
-    # if the host name has more than four parts, trim off the first part.
-    # this allows appspot version to be tested that are not in production
-    # e.g., 20201227t175543-dot-py38-glowscript.uc.r.appspot.com
+    # if the host name has more than two parts, return the last two parts only.
+    # This allows appspot version to be tested that are not in production 
+    # e.g., 20201227t175543-dot-glowscript.appspot.com
     #
+
     host_header = get_auth_host_name()
     parts = host_header.split('.')
-    host_header = '.'.join(parts[1:]) if len(parts)>4 else host_header
+    host_header = '.'.join(parts[-2:]) if len(parts)>2 else host_header
     return host_header
 
 def authorize_host():
     host_header = trim_auth_host_name()
-    result =  host_header in weblocs
+    result =  host_header in get_weblocs()
 
     if not result:
-        print("Host failed to authorize:", host_header)
+        app.logger.info("Host failed to authorize:" + host_header + ":" + str(get_weblocs()))
 
     return result
     
