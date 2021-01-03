@@ -39,6 +39,7 @@ import uuid
 import flask
 import traceback
 import functools
+import urllib.parse
 
 from google.cloud import ndb
 from google.auth.transport import requests
@@ -341,7 +342,13 @@ def parseUrlPath(theRegexp, numGroups):
         for i in range(numGroups):
             value = m.group(i+1)
             if value:
-                names[i] = value
+                newValue = []
+                for char in value:
+                    if char == '%' or char in unreserved:
+                        newValue.append(char)
+                    else:
+                        newValue.append(urllib.parse.quote(char))
+                names[i] = ''.join(newValue)
     except:
         raise ParseUrlPathException('Parsing URL failed', 400)
         
