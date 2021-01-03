@@ -25,7 +25,14 @@ def UpdateUsers(**kwargs):
         if not c.email:
             if c.gaeUser:
                 modCount += 1
-                c.email = c.gaeUser.email()
+                c.email = c.gaeUser.email().lower()
+                c.put()
+                if (modCount % 100) == 0:
+                    print("Modified 100 more users: ", c.key.id(), " modCount = ", modCount, "email=", c.email)
+        elif c.gaeUser:
+            if c.email != c.email.lower():
+                modCount += 1
+                c.email = c.email.lower()
                 c.put()
                 if (modCount % 100) == 0:
                     print("Modified 100 more users: ", c.key.id(), " modCount = ", modCount, "email=", c.email)
