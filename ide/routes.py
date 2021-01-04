@@ -380,8 +380,8 @@ def check_for_escaped_hash():
     special case to check for escaped hash at beginning of path. Joe Heafner reported a problem where an URL with a '%23'
     immidiately after the first '/' would produce a 404. Unfortunatey this happens before our routes are matched, so we
     need to handle it in 'before_request'. Here we just check for this situation and redirect using a regular hash/fragment.
-    It occurst to me that this is a rather expensive check, affecting every single request, however, my attempts to have
-    flask handle this as an explicit route (e.g., app.route('/%23/<path>')) have unfortunately failed.
+    It occurs to me that this is a rather expensive check, affecting every single request, however, my attempts to have
+    flask handle this as an explicit route (e.g., app.route('/%23/<path>')) have, unfortunately, failed.
     """
     url = flask.request.url
     p = urllib.parse.urlparse(url)
