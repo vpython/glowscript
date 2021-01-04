@@ -374,6 +374,20 @@ def is_running_locally():
 # The rest are the api routes and the main page route
 #
 
+@app.before_request
+def check_for_escaped_hash():
+    """
+    special case to check for escaped hash at beginning of path. Joe Heafner reported a problem where an URL with a '%23'
+    immidiately after the first '/' would produce a 404. Unfortunatey this happens before our routes are matched, so we
+    need to handle it in 'before_request'. Here we just check for this situation and redirect using a regular hash/fragment.
+    """
+    url = flask.request.url
+    p = urllib.parse.urlparse(url)
+    if p.path.startswith('/%23'):
+        newPath = '/#' + p.path[4:]
+        newURL = urllib.parse.urlunparse(p[0:2]+('/#' + p.path[4:],)+p[3:])
+        return flask.redirect(newURL)
+
 @app.route('/api/login')
 def api_login():
     if auth.is_logged_in():
