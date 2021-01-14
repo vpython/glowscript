@@ -197,11 +197,7 @@ function ideRun() {
         function receiveMessage(event) {
             event = event.originalEvent // originalEvent is a jquery entity
             trusted_origin = event.origin
-            console.log("checking for www. (" + trusted_origin.slice(8,12) + ")")
-            if (trusted_origin.slice(8,12) === 'www.') {  // strip out www. if it's there. Keep 'https://' and the rest...
-                trusted_origin = trusted_origin.slice(0,8) + trusted_origin.slice(12)
-                console.log("found www., new trusted_origin:" + trusted_origin)
-            }
+            console.log("Setting trusted_origin:" + trusted_origin)
             if (checkTrustedHosts(trusted_origin)) { // ensure that message is from glowscript
                 return;
             }
