@@ -47,7 +47,7 @@ from google.cloud import ndb
 
 from .models import User, Program, Folder, Setting
 
-import os, re, base64, logging # logging.info(string variable) prints to GAE launcher log, for debugging
+import os, re, base64
 from datetime import datetime
 
 # URI encoding (percent-escaping of all characters other than [A-Za-z0-9-_.~]) is used for names
@@ -98,19 +98,6 @@ def ndb_wsgi_middleware(wsgi_app):
 from . import app, auth
 
 app.wsgi_app = ndb_wsgi_middleware(app.wsgi_app)  # Wrap the app in middleware.
-
-#
-# set up logging
-#
-
-import logging
-import google.cloud.logging # Don't conflict with standard logging
-from google.cloud.logging.handlers import CloudLoggingHandler
-
-client = google.cloud.logging.Client()
-handler = CloudLoggingHandler(client)
-handler.setLevel(logging.INFO)
-app.logger.addHandler(handler)
 
 def get_weblocs():
     return auth.getSetting('weblocs', weblocs_safe)
