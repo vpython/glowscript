@@ -11,7 +11,7 @@ services:
     - 8081:8081
     volumes:
      - datastore:/root/.config
-    command: gcloud beta emulators datastore start --host-port=0.0.0.0:8081 --project glowscript-dev
+    command: sh -c "gcloud beta emulators datastore start --host-port=0.0.0.0:8081 --project glowscript-dev"
 
 volumes:
   datastore:
