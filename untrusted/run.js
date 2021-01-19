@@ -11,14 +11,14 @@ var weblocs = [/^https:\/\/glowscript\.org$/, // put a couple of these explicitl
 
 function checkTrustedHosts(aHost) { // go through the known trusted hosts
     let found = false;
-    console.log("checking trusted hosts:" + aHost);
+    //console.log("checking trusted hosts:" + aHost);
     for (let i = 0; i < weblocs.length; i++) {
         found = aHost.match(weblocs[i]);
         if (found) {
             break;
         }
     }
-    console.log("Found =" + found);
+    //console.log("Found =" + found);
     return !found; // return true to bail out.
 }
 
@@ -197,7 +197,7 @@ function ideRun() {
         function receiveMessage(event) {
             event = event.originalEvent // originalEvent is a jquery entity
             trusted_origin = event.origin
-            console.log("Setting trusted_origin:" + trusted_origin)
+            //console.log("Setting trusted_origin:" + trusted_origin)
             if (checkTrustedHosts(trusted_origin)) { // ensure that message is from glowscript
                 return;
             }
