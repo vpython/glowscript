@@ -10,8 +10,10 @@ def make_shell_context():
     client = ndb.Client(project=project) # for user data, folders, and programs
 
     def wc(func, **args):
+        result = None
         with client.context():
-            func(**args)
+            result = func(**args)
+        return result
             
     return {'app': app, 'User': models.User, 'Folder':models.Folder, 'Program':models.Program, 'Setting':models.Setting,
             'ndb':ndb, 'wc':wc, 'models':models, 'routes':routes,
