@@ -9,4 +9,4 @@ __pycache__/
 /.vscode/
 /ide/.vscode
 /ide/flask_secret.py
-
+/output.json

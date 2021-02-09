@@ -43,9 +43,11 @@ def DumpSettings(**kwargs):
         print (s)
 
 def DumpUsers(**kwargs):
+    result = []
     for s in kwargs['User'].query():
-        print (s)
+        result.append({'keyID':s.key.id(), 'email':s.email})
 
+    return result
 
 def SetSetting(name, value, **kwargs):
     Setting = kwargs['Setting']
