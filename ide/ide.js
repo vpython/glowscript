@@ -1314,7 +1314,7 @@ $(function () {
                     else if (v >= 2.2) verdir = "2.1"
                     else verdir = header.version.substr(0,3)
                     var runner = ''
-                    var exporturl = "https://www."+website+".org/"
+                    var exporturl = "https://www."+website+"/"
                     if (v >= 2.5 && v < 3.0) exporturl = "https://s3.amazonaws.com/glowscript/"
                     // Note: some already exported 3.0 programs contain references to s3.amazonaws.com
                     if (header.lang == 'vpython') 
