@@ -169,6 +169,9 @@ def idejs_static():
     if auth.check_auth_host_for_preview(host_name): # are we running in a preview?
         ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name) 
         ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://') # no sandbox
+    elif host_name.startswith('www.'):
+        ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name[4:])
+        ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
     else:
         ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
         ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
