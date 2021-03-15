@@ -1383,8 +1383,8 @@ $(function () {
                 ev.preventDefault()
                 // If I don't pass anything for features, I get a new tab instead
                 var features = "titlebar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes"
-                window.open("/#/", "GlowScriptRun", features, true)
-                window.open(run_link, "GlowScriptRun", features, true)
+                window.open("/#/", "GlowScriptRun", features)
+                window.open(run_link, "GlowScriptRun", features)
             }
         }
 
