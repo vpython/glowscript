@@ -114,7 +114,7 @@ print('Finished JavaScript compiler package\n')
 minify( glowscript_libraries["RScompile"], [], "package/RScompiler." + version + ".min.js" )
 print('Finished RapydScript compiler package\n')
 
-# For GlowScript 2.6 runtime.js had the encoding "UCS-2 LE BOM" which the Uglify
+# For GlowScript 3.1 runtime.js had the encoding "UCS-2 LE BOM" which the Uglify
 # machinery could not handle. Using (on Windows) notepad++ the encoding was changed
 # to "UTF-8" which solved the problem.
 minify( glowscript_libraries["RSrun"], [], "package/RSrun." + version + ".min.js" )
