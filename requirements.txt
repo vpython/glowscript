@@ -37,7 +37,7 @@ python-dotenv==0.14.0
 pytz==2020.1
 redis==3.5.3
 requests==2.24.0
-rsa==4.6
+rsa==4.7
 six==1.15.0
 toml==0.10.1
 uritemplate==3.0.1
