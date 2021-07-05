@@ -11,9 +11,10 @@ var weblocs = [/^https:\/\/glowscript\.org$/, // put a couple of these explicitl
 
 function checkTrustedHosts(aHost) { // go through the known trusted hosts
     let found = false;
+    let trimhost = aHost.replace('www.','') // remove www. if it's there
     //console.log("checking trusted hosts:" + aHost);
     for (let i = 0; i < weblocs.length; i++) {
-        found = aHost.match(weblocs[i]);
+        found = trimhost.match(weblocs[i]);
         if (found) {
             break;
         }

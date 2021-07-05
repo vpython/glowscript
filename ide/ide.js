@@ -72,7 +72,7 @@ $(function () {
         }
     }
     
-    parseVersionHeader.defaultVersion = "3.0"
+    parseVersionHeader.defaultVersion = "3.1"
     parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
     parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
@@ -96,6 +96,7 @@ $(function () {
         "2.8": "2.8",
         "2.9": "2.9",
         "3.0": "3.0",
+        "3.1": "3.1",
         "0.4dev" : "0.4",
         "0.5dev" : "0.5",
         "0.6dev" : "0.6",
@@ -113,7 +114,8 @@ $(function () {
         "2.8dev" : "2.8",
         "2.9dev" : "2.9",
         "3.0dev" : "3.0",
-        "3.1dev" : "unpackaged"
+        "3.1dev" : "3.1",
+        "3.2dev" : "unpackaged"
     }
 
     /******** Functions to talk to the API on the server ***********/
@@ -1314,7 +1316,7 @@ $(function () {
                     else if (v >= 2.2) verdir = "2.1"
                     else verdir = header.version.substr(0,3)
                     var runner = ''
-                    var exporturl = "https://www."+website+".org/"
+                    var exporturl = "https://www."+website+"/"
                     if (v >= 2.5 && v < 3.0) exporturl = "https://s3.amazonaws.com/glowscript/"
                     // Note: some already exported 3.0 programs contain references to s3.amazonaws.com
                     if (header.lang == 'vpython') 
@@ -1383,8 +1385,8 @@ $(function () {
                 ev.preventDefault()
                 // If I don't pass anything for features, I get a new tab instead
                 var features = "titlebar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes"
-                window.open("/#/", "GlowScriptRun", features, true)
-                window.open(run_link, "GlowScriptRun", features, true)
+                window.open("/#/", "GlowScriptRun", features)
+                window.open(run_link, "GlowScriptRun", features)
             }
         }
 

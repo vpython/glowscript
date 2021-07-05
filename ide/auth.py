@@ -209,7 +209,7 @@ def auth():
             newURL = urlunparse((scheme,dstHost) + oldURL[2:])  # build the final URL
             return redirect(newURL)
     else:
-        app.logger.inro("Yikes! No state found. This shoudln't happen.")
+        app.logger.info("Yikes! No state found. This shouldn't happen.")
 
     #
     # If we get to here it means we're the final server. Go ahead and process.
