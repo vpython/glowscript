@@ -962,6 +962,12 @@ $(function () {
                         let td = date_to_string(prog.datetime) // format 2017-12-21 11:25:31.776000, or 'None'; this is UTC time; needs adjusting to display local time
                         let minute = td.slice(-5,-3)
                         p.find(".prog-details-datetime").text(td.slice(0,-5)+minute) // ignore the seconds
+        
+                        if (!isWritable) {
+                            p.find(".prog-details-copy.button").addClass("template")
+                            p.find(".prog-details-rename.button").addClass("template")
+                            p.find(".prog-details-delete.button").addClass("template")
+                        }
                         
                         p.find(".prog-details-copy.button").click(function (ev) { // COPY a file (can specify folder/file to move to different folder)
                             ev.preventDefault()
