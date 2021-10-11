@@ -120,15 +120,18 @@
                       b.clear()</p>
                     <p class="Normal">&nbsp;</p>
                     <p class="Normal"><strong><font color="#0000A0"><a name="attach_arrow" id="attach_arrow"></a>attach_arrow</font></strong></p>
-                    <p class="Normal"><a href="https://www.glowscript.org/docs/GlowScriptDocs/trail.html"><strong>attach_arrow</strong></a> lets you specify a quantity and a scale factor to display an arrow at the location of a moving object. The following statement will automatically display a green arrow at the current location of the ball. The arrow will have shaftwidth=0.3, and its axis and length  is determined by scale*ball.axis:</p>
+                    <p class="Normal"><a href="https://www.glowscript.org/docs/GlowScriptDocs/trail.html"><strong>attach_arrow</strong></a> creates an arrow representing a vector attribute of an object, and the arrow is continually displayed at the current location of a moving object. The following statement will automatically display a green arrow at the current location of the ball, as the ball moves. The arrow will have shaftwidth=0.3, and its axis and length  is determined by scale*ball.axis:</p>
                     <div></div>
                     <div>
                       <p class="program">attach_arrow(ball, &quot;axis&quot;, scale=1e3,<br />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      shaftwidth=0.3, color=color.green)</p>
-                      <p class="Normal">The default value of scale is 1, the default color of the arrow is the color of the ball, and the default shaftwidth is 0.5*ball.size.y; you can also specify round=True (the default is round=False). You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:</p>
+                      <p class="Normal">The default value of scale is 1, the default color of the arrow is the color of the ball, and the default shaftwidth is 0.5*ball.size.y. You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:</p>
                       <div></div>
                       <div>
-                        <p class="program">attach_arrow(ball, &quot;velocity&quot;)</p>
+                        <p class="program">a = attach_arrow(ball, &quot;velocity&quot;)<br>
+                          ...<br>
+                          a.velocity = ...
+                        </p>
                       </div>
                       <div>
                         <div>
@@ -136,12 +139,34 @@
                           You can start and stop displaying the arrow:</div>
                         <div></div>
                         <div>
-                          <p class="program">b = attach_arrow(ball)<br />
+                          <p class="program">a = attach_arrow(ball, &quot;velocity&quot;)<br />
                             ...<br />
-                            b.stop()<br />
+                            a.stop()<br />
                             ...<br />
-                            b.start()</p>
-                          <p class="Normal"></p>
+                            a.start()</p>
+                          <p class="Normal">It is usually sufficient to attach an arrow to a moving object just once, before starting the motion. However, you can modify the appearance of the arrow later by doing this, using color as an example::</p>
+                          <div></div>
+                          <div></div>
+                          <div>
+                            <p class="program">a = attach_arrow(ball, &quot;velocity&quot;, color=color.green)<br />
+                              ...<br />
+                              a.color = color.red # change the color of the arrow<br />
+                            </p>
+                          </div>
+<p class="Normal">The following scheme will also work, because specifying the moving object (ball) and the attribute of interest (&quot;velocity&quot;) is sufficient for identifying the appropriate arrow to modify:</p>
+<div></div>
+<div></div>
+<div>
+  <p class="program">attach_arrow(ball, &quot;velocity&quot;, color=color.green)<br />
+    ...<br />
+    attach_arrow(ball, &quot;velocity&quot;, color=color.red)</p>
+  <div>
+    <p class="program"><br />
+    </p>
+  </div>
+  <p class="Normal">&nbsp; </p>
+</div>
+<p class="Normal"></p>
                         </div>
                       </div>
                     </div>
@@ -152,8 +177,7 @@
           </div>
         </div>
       </div>
-<p class="Normal"></p>
-    <!-- InstanceEndEditable -->		
+	  <!-- InstanceEndEditable -->		
     </div>
 </div>
 </body>
