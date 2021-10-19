@@ -50,18 +50,15 @@ for example, GlowScript version 2.2 uses the same verdir value as 2.1 for jquery
 In untrusted/run.js, update choice of jquery library.
 Add to css/redmond a folder with the new name if necessary (sometimes no change is needed)
 
-Modify build_original.py and property.js to have version = "0.4" and
+Modify build_original.py and lib/glow/property.js to have version = "0.4" and
    run it to create the final packages for 0.4.  
-Then change build_original.py and property.js to have version = "0.5dev" and save build_original.py, 
+Then change build_original.py and lib/glow/property.js to have version = "0.5dev" and save build_original.py, 
 so that the 0.4 package doesn't get overwritten by accident.
-
-If you're just fixing a bug in 0.4, all you need to do is Deploy from the Google App Engine Launcher,
-to update the package files produced in the previous step that involved build.py and property.js.
 
 There is a Glowscript program in build-tools/Symbols.js which you need to copy into (presumably local) 
 glowscript and run to compile the symbols.  
 You have to copy and paste the results into the appropriate file (package/symbols.X.Y.min.js).
-You also have to make a change at the end of ide/index.html to point to the new Symbols file, 
+You also have to make a change at the end of ide/templates/index.html to point to the new Symbols file, 
 since the IDE doesn't yet dynamically load symbols based on the version header.
 
 Also change "G l o w S c r i p t   X.Y" appropriately in ide/index.html.
@@ -77,6 +74,18 @@ At some point hopefully the build process will be more automated
 Ideally we should create a branch "version-0.4" in the repository at this point, 
 in case we have to come back and patch an old version for some critical bug.  
 This has not actually been done so far.
+
+If you're just fixing a bug in 0.4, all you need to do to update the package files produced
+ in the previous step that involved build.py and property.js is this:
+
+In a terminal, cd to glowscript folder.
+Execute 'gcloud info' to check that the project is set to 'glowscript'.
+gcloud app deploy --no-promote
+   This will give a URL to use to test in the cloud, similar to this: https://20211014t164505-dot-glowscript.appspot.com
+   Alternatively, 'gcloud app browse' brings up glowscript.appspot.com, though I saw this fail (didn't see changes, but this might have been due to caching of an earlier version).
+If okay, go to https://console.cloud.google.com/appengine/versions?project=glowscript
+   You will be in App Engine > Versions; make the window wide to see MIGRATE TRAFFIC.
+   Choose the new version and then click MIGRATE TRAFFIC to update user glowscript.org
 
 ************************************************************************************
     UPDATE library files in the GlowScriptOffline package and create zip file
