@@ -28,7 +28,7 @@ Run Locally
 ------------------
 At glowscript.org, your programs are stored in the cloud and are accessible from anywhere. However, there are times when you might need to write and run programs even when disconnected from the internet.
 
-In this repository, click GlowScriptOffline2.9.zip and download the zip file.
+In this repository, click GlowScriptOffline3.1.zip and download the zip file.
 
 Unzip the GlowScriptOffline package to any convenient place on your computer.
 
