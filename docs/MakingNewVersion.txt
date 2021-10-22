@@ -50,23 +50,19 @@ for example, GlowScript version 2.2 uses the same verdir value as 2.1 for jquery
 In untrusted/run.js, update choice of jquery library.
 Add to css/redmond a folder with the new name if necessary (sometimes no change is needed)
 
+In ide/templates/index.html change "V e r s i o n   X.Y" appropriately, and at the end of
+the file update the package/symbols version.
+
+There is a jquery version reference in untrusted/run.html.
+
 Modify build_original.py and lib/glow/property.js to have version = "0.4" and
-   run it to create the final packages for 0.4.  
-Then change build_original.py and lib/glow/property.js to have version = "0.5dev" and save build_original.py, 
-so that the 0.4 package doesn't get overwritten by accident.
+   run it to create the final packages for 0.4.   
+since the IDE doesn't yet dynamically load symbols based on the version header.
 
 There is a Glowscript program in build-tools/Symbols.js which you need to copy into (presumably local) 
 glowscript and run to compile the symbols.  
 You have to copy and paste the results into the appropriate file (package/symbols.X.Y.min.js).
-You also have to make a change at the end of ide/templates/index.html to point to the new Symbols file, 
-since the IDE doesn't yet dynamically load symbols based on the version header.
-
-Also change "G l o w S c r i p t   X.Y" appropriately in ide/index.html.
-
-There is a jquery version reference in untrusted/run.html.
-
-There is a reference to version number in ide/api.py upgradeProgram().
-Not clear that this is ever used.
+You also have to make a change at the end of ide/templates/index.html to point to the new Symbols file.
 
 At some point hopefully the build process will be more automated 
 (using node to run this and other javascript parts locally).
@@ -94,10 +90,6 @@ If okay, go to https://console.cloud.google.com/appengine/versions?project=glows
     Until Nov. 2020 we updated library files at AWS/S3: https://s3.amazonaws.com/glowscript/package/
        but this is no longer relevant; exported files now reference glowscript.org.
 *********************************************************************************************
-
-Note that at this point property.js should have version 0.5dev.
-
-If using the graphical Google App Engine launcher, click "Deploy" to upload the new version.
 
 After July 30, 2020, the graphical Google App Engine launcher will not work, and one must
 use the gcloud machinery in a terminal. See www.glowscript.org/docs/GlowScriptDocs/local.html
