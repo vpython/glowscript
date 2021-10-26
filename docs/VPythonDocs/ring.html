@@ -44,31 +44,38 @@
         </table>
         </div>
     <div>
-        <p class="Normal"> <img src="ring.gif" alt="ring" width="153" height="247" align="right" /> The ring object 
+        <p class="Normal">  The ring object 
           is by default circular, with a specified  radius and thickness and with its center 
           given by the <span class="attribute">pos</span> attribute:</p>
         <div>
           <p class="program"> ring(pos=vector(1,1,1), <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(0,1,0), <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.5, thickness=0.1)</p>
-          <p class="Normal"> The ring object has the following attributes and
-            default  values, similar to those for cylinders: <span class="attribute">pos<font color="#000000"> vector(0,0,0)</font></span>, <span class="attribute">axis<font color="#000000"> vector(1,0,0)</font></span>, <span class="attribute">length<font color="#000000"> (</font></span><font color="#000000">0.2<span class="attribute">)</span></font>, <span class="attribute">color<font color="#000000"> vector(1,1,1)
-             which is color.white</font></span>, <span class="attribute">red<font color="#000000"> (1)</font></span>, <span class="attribute">green<font color="#000000"> (1)</font></span>, <span class="attribute">blue<font color="#000000"> (1)</font></span>, <span class="attribute">opacity</span> (1),
-             <span class="attribute">shininess</span> (0.6), <span class="attribute">emissive</span> (False), <a href="textures.html"><strong>texture</strong></a>, and <span class="attribute">up<font color="#000000"> (0,1,0)</font></span>.
-              As with cylinders, <span class="attribute">up</span> has a subtle
-              effect  on the 3D appearance of a ring unless a non-smooth texture
-              is specified or the ring is oval. The <span class="attribute">axis</span> attribute
-              only affects the orientation of the ring; the magnitude of the <span class="attribute">axis</span> attribute
-          is irrelevant. Additional  ring attributes:</p>
-          <p class="attributes"> <span class="attribute">radius</span> Radius 
-            of the  central part of the ring, default = 1, so <br />
-            outer radius = radius+thickness<br />
-          inner radius = radius-thickness </p>
+          <p class="program">&nbsp;</p>
+<table width="100%" border="2">
+            <tr>
+              <td width="65%" class="attributes"><p class="Normal"><span class="Normal"><span class="attributes">The ring object has the following attributes and
+                default  values, similar to those for cylinders: <span class="attribute">pos<font color="#000000"> vector(0,0,0)</font></span>, <span class="attribute">axis<font color="#000000"> vector(1,0,0)</font></span>, <span class="attribute">length<font color="#000000"> (</font></span><font color="#000000">0.2<span class="attribute">)</span></font>, <span class="attribute">color<font color="#000000"> vector(1,1,1)
+                  which is color.white</font></span>, <span class="attribute">red<font color="#000000"> (1)</font></span>, <span class="attribute">green<font color="#000000"> (1)</font></span>, <span class="attribute">blue<font color="#000000"> (1)</font></span>, <span class="attribute">opacity</span> (1), <span class="attribute">shininess</span> (0.6), <span class="attribute">emissive</span> (False), <a href="textures.html"><strong>texture</strong></a>, and <span class="attribute">up<font color="#000000"> (0,1,0)</font></span>.
+                As with cylinders, <span class="attribute">up</span> has a subtle
+                effect  on the 3D appearance of a ring unless a non-smooth texture
+                is specified or the ring is oval. The <span class="attribute">axis</span> attribute
+                only affects the orientation of the ring; the magnitude of the <span class="attribute">axis</span> attribute
+              is irrelevant. </span></span></p>
+              <p class="Normal">&nbsp;</p>
+              <p class="Normal"><span class="Normal"><span class="attributes">Additional  ring attributes are described below:</span></span></p></td>
+              <td width="35%"><span class="Normal"><img src="images/ring2.png" alt="" width="299" height="284"></span></td>
+            </tr>
+          </table>
+  <p class="attributes"> <span class="attribute">radius</span> Radius 
+      of the  central part of the ring, default = 1, so <br />
+            outer radius = radius+thickness/2<br />
+          inner radius = radius-thickness/2<br>
+          Setting radius overrides the size attribute. Note that size.x = thickness and in a circular ring size.y = 2*radius + thickness.</p>
           <p class="attributes"> <span class="attribute">thickness</span> The
-            radius of the cross section of the ring (1/10th of radius if not
-            specified), not the full diameter as you might
-            expect. </p>
-          <p class="attributes"> <span class="attribute">size</span> Instead of specifying radius and thickness, you can make the ring be oval by specifying its size as size=vector(length,height,width), with different height and width..</p>
+            thickness of the cross section of the ring, equal to 0.2*radius if not
+            specified. Setting thickness overrides the size attribute. (Prior to Glowscript VPython 3.2, thickness was half the thickness of the cross section and was 0.1*radius if not specified.).   Note that size.x = thickness and in a circular ring size.y = 2*radius + thickness.</p>
+          <p class="attributes"> <span class="attribute">size</span> Instead of specifying radius and thickness, you can make the ring be oval by specifying its size as size=vector(length,height,width), with different height and width.</p>
       <p class="Normal"> Note that the <span class="attribute">pos</span> attribute 
             for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
             whereas for a ring, sphere, and box it corresponds to the center of the 
