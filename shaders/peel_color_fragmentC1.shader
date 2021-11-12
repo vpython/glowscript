@@ -7,8 +7,8 @@ precision mediump float;
 #endif
 
 uniform int light_count;
-uniform vec4 light_pos[8];
-uniform vec3 light_color[8];
+uniform vec4 light_pos[32];
+uniform vec3 light_color[32];
 uniform vec3 light_ambient;
 #define LP(i) light_pos[i]
 #define LC(i) light_color[i]
@@ -70,26 +70,11 @@ void lightAt()
     }
     
     color = light_ambient * diffuse_color;
-    
-    // It was necessary to restructure this shader completely in order to
-    // run on the Samsung Galaxy S3 smartphone. Apparently its compiler
-    // does not handle for loops correctly. An Asus Android tablet was ok.
-    if (light_count == 0) return;
-    calc_color(LP(0), LC(0));
-    if (light_count == 1) return;
-    calc_color(LP(1), LC(1));
-    if (light_count == 2) return;
-    calc_color(LP(2), LC(2));
-    if (light_count == 3) return;
-    calc_color(LP(3), LC(3));
-    if (light_count == 4) return;
-    calc_color(LP(4), LC(4));
-    if (light_count == 5) return;
-    calc_color(LP(5), LC(5));
-    if (light_count == 6) return;
-    calc_color(LP(6), LC(6));
-    if (light_count == 7) return;
-    calc_color(LP(7), LC(7));
+
+    for (int i=0; i<100; i++) { // for cannot test against a variable
+        if (i == light_count) break;
+        calc_color(LP(i), LC(i));
+    }
 }
 
 ivec4 encode(float k) { // assumes k is >= 0
