@@ -32,7 +32,7 @@
       <div>
         <div>
           <h1 class="Heading-1"><font color="#0000A0">Technical issues</font></h1>
-          <p class="Normal">Here are  discussions of two technical aspects of GlowScript, which may be of interest to other software developers.</p>
+          <p class="Normal">Here are  discussions of two technical aspects of VPython, which may be of interest to other software developers.</p>
           <p class="Normal"><strong><font color="#0000a0">Pixel-level transparency based on depth peeling</font></strong></p>
           <p class="Normal">Handling transparency correctly in WebGL is challenging. A standard technique is to order the centers of objects according to their z depth from the camera and render back to front. This approach can make serious errors in the case of intersecting or enclosing transparent objects, where some parts of one object are in front of a second object, and other parts are behind the second object.</p>
           <p class="Normal">A better approach is called &quot;depth peeling&quot;, in which transparency is dealt with at the pixel level rather than at the object level. Consider for example a transparent sphere enclosing an opaque box, and carry out the following operations:</p>
@@ -43,7 +43,7 @@
           <p class="program">vec3 color = C1.rgb*C1.a +<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          (1.0-C1.a)*C0.rgb;<br />
             gl_FragColor = vec4 (color, 1.0);</p>
-          <p class="Normal">These four steps illustrate the basic idea. In GlowScript, four transparent depth peels are performed rather than one, and 10 separate renders are carried out:</p>
+          <p class="Normal">These four steps illustrate the basic idea. In VPython, four transparent depth peels are performed rather than one, and 10 separate renders are carried out:</p>
           <p class="Normal"><strong>C0</strong> -- opaque color texture<br />
             <strong>D0</strong> -- opaque depth texture<br />
             <strong>C1</strong> -- frontmost transparent color texture<br />
@@ -65,14 +65,14 @@
           <p class="Normal">It is remarkable that doing 10 separate renders runs adequately fast for real-time rendering of moderately complicated scenes. For example, displaying a 10x10x10 grid of rotating transparent boxes can run at around 20 frames per second on ordinary computers, depending on the graphics card.</p>
           <p class="Normal">In OpenGL it is possible to create several textures in one render, but WegGL permits attaching just one texture to a framebuffer object, hence a large number of separate renders are needed.</p>
           <p class="Normal">To see this algorithm in action, run this <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Transparency" target="_blank">Transparency</a> example program. </p>
-          <p class="Normal">Note that the code for this transparency demo is remarkably short. GlowScript is aimed at making it feasible for nonexpert programmers to exploit WebGL to generate navigable real-time 3D animations.</p>
+          <p class="Normal">Note that the code for this transparency demo is remarkably short. Web VPython is aimed at making it feasible for nonexpert programmers to exploit WebGL to generate navigable real-time 3D animations.</p>
           <p class="Normal">At <a href="https://www.glowscript.org/docs/GlowScriptDocs/technical.html">https://www.glowscript.org/docs/GlowScriptDocs/technical.html</a><a href="https://github.com/BruceSherwood/glowscript" target="_blank"></a>, the key files dealing with depth peeling are lib/glow/WebGLRender.js and the shader programs in the shaders folder.</p>
           <p class="Normal">It is possible  to implement &quot;Fast Approximate Anti-Aliasing&quot; (FXAA) to get around the problem that the use of framebuffer objects turns off anti-aliasing:<br />
             <a href="http://www.codinghorror.com/blog/2011/12/fast-approximate-anti-aliasing-fxaa.html" target="_blank">http://www.codinghorror.com/blog/2011/12/fast-approximate-anti-aliasing-fxaa.html</a></p>
-          <p class="Normal">This has not been tried in GlowScript.</p>
+          <p class="Normal">This has not been tried in VPython.</p>
           <p class="Normal"><strong><font color="#0000a0">Mouse picking</font></strong><br />
           </p>
-          <p class="Normal">Here is how mouse picking has been implemented in GlowScript. For an object with id number N, create a false color like this:</p>
+          <p class="Normal">Here is how mouse picking has been implemented in VPython. For an object with id number N, create a false color like this:</p>
           <p class="program">function id_to_falsecolor(N) { 
             // convert integer object id to floating RGBA<br />
             &nbsp;&nbsp;&nbsp;let R=0, G=0, B=0<br />

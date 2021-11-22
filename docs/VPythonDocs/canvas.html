@@ -49,7 +49,7 @@ a background color of cyan filling the window.</p>
             <p class="Normal"><span class="attributes"><strong>Selecting a canvas:</strong> By default, any objects that you create go into the most recently created canvas, such as <span class="attribute">scene</span>. If you create another canvas <span class="attribute">cvs</span>, new objects will go into the <span class="attribute">cvs</span> canvas. You can later execute <span class="attribute">scene.select()</span> to make the <span class="attribute">scene</span> canvas the one that new objects go into.</span> You can find out which canvas is selected: <span class="attributes"><span class="attribute">current = </span><font color="#FF0000">canvas.get_selected()</font> returns
                 a reference to the canvas into which objects are currently being
       created.</span> You can also specify which canvas to use when creating an object, as in box(canvas=cvs, .....).</p>
-            <p class="Normal">In GlowScript VPython you can say canvas.selected = cvs, or current = canvas.selected, but unfortunately it doesn't seem possible to implement this syntax in VPython 7, so for compatibiity between GlowScript VPython and VPython 7 you may wish to use cvs.select() and canvas.get_selected() in GlowScript programs.</p>
+            <p class="Normal">In Web VPython you can say canvas.selected = cvs, or current = canvas.selected, but unfortunately it doesn't seem possible to implement this syntax in VPython 7, so for compatibiity between Web VPython and VPython 7 you may wish to use cvs.select() and canvas.get_selected() in Web VPython programs.</p>
 <p class="Normal">Here is a summary of what determines in which of several possible 3D canvases an object such as a box or sphere will be placed:</p>
       <p class="program">scene = canvas() # automatic; you don't need to say this<br />
         box(...) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# will appear in the canvas named &quot;scene&quot;<br />
@@ -93,7 +93,7 @@ cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 2*ball.pos<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.camera.follow(f)</p>
           <p class="attributes"></p>
-          <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alternatively, in GlowScript VPython you can specify an &quot;anonymous&quot; (unnamed) function, though this does not work in true Python:</p>
+          <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alternatively, in Web VPython you can specify an &quot;anonymous&quot; (unnamed) function, though this does not work in true Python:</p>
           <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.camera.follow(def ():<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 2*ball.pos<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      )</p>
