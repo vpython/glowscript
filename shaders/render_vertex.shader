@@ -1,19 +1,13 @@
-#ifdef GL_ES
-#  ifdef GL_FRAGMENT_PRECISION_HIGH
-precision highp float;
-#  else
-precision mediump float;
-#  endif
-#endif
+#version 300 es
 
-attribute vec3 pos;
-attribute vec3 normal;
-attribute vec3 color;
-attribute float opacity;
-attribute float shininess;
-attribute float emissive;
-attribute vec2 texpos;
-attribute vec3 bumpaxis;
+in vec3 pos;
+in vec3 normal;
+in vec3 color;
+in float opacity;
+in float shininess;
+in float emissive;
+in vec2 texpos;
+in vec3 bumpaxis;
 
 uniform vec4 objectData[5];
 #define objectPos objectData[0].xyz
@@ -28,12 +22,12 @@ uniform vec4 objectData[5];
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 
-varying vec3 es_position;     // eye space surface position
-varying vec3 es_normal;       // eye space surface normal
-varying vec2 mat_pos;         // surface material position in [0,1]^2
-varying vec4 vcolor;
-varying vec3 bumpX;
-varying vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, flipy, turn
+out vec3 es_position;     // eye space surface position
+out vec3 es_normal;       // eye space surface normal
+out vec2 mat_pos;         // surface material position in [0,1]^2
+out vec4 vcolor;
+out vec3 bumpX;
+out vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, flipy, turn
 
 mat3 getObjectRotation() { // Construct the object rotation matrix.
     // Divide objectAxis by its largest component before normalizing,

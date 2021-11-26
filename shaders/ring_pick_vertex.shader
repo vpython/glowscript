@@ -1,16 +1,9 @@
+#version 300 es
 // Vertex shader for picking standard 'objects' parameterized by
 // pos, axis, up, size, color
 
-#ifdef GL_ES
-#  ifdef GL_FRAGMENT_PRECISION_HIGH
-precision highp float;
-#  else
-precision mediump float;
-#  endif
-#endif
-
-attribute vec3 pos;
-attribute vec3 normal;
+in vec3 pos;
+in vec3 normal;
 
 uniform vec4 objectData[5];
 #define objectPos objectData[0].xyz
@@ -22,7 +15,7 @@ uniform vec4 objectData[5];
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 
-varying vec4 vcolor;
+out vec4 vcolor;
 
 mat3 getObjectRotation() { // Construct the object rotation matrix.
     // Divide objectAxis by its largest component before normalizing,

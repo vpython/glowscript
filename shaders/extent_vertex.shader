@@ -1,20 +1,13 @@
+#version 300 es
 // Vertex shader for rendering standard 'objects' parameterized by
 // pos, axis, up, scale, color
 
-#ifdef GL_ES
-#  ifdef GL_FRAGMENT_PRECISION_HIGH
-precision highp float;
-#  else
-precision mediump float;
-#  endif
-#endif
-
-attribute vec3 pos;
-attribute vec3 normal;
-attribute vec3 color;
-attribute float opacity;
-attribute vec2 texpos;
-attribute vec3 bumpaxis;
+in vec3 pos;
+in vec3 normal;
+in vec3 color;
+in float opacity;
+in vec2 texpos;
+in vec3 bumpaxis;
 
 uniform vec4 objectData[5];
 #define objectPos objectData[0].xyz
@@ -30,12 +23,12 @@ uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 uniform vec3 center;
 
-varying vec3 es_position;     // eye space surface position
-varying vec3 es_normal;       // eye space surface normal
-varying vec2 mat_pos;         // surface material position in [0,1]^2
-varying vec4 vcolor;
-varying vec3 bumpX;
-varying vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, flipy, turn
+out vec3 es_position;     // eye space surface position
+out vec3 es_normal;       // eye space surface normal
+out vec2 mat_pos;         // surface material position in [0,1]^2
+out vec4 vcolor;
+out vec3 bumpX;
+out vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, flipy, turn
 
 vec3 encode_float(float k) { // assumes k is >= 0
     if (k <= 0.0) return vec3(0.0, 0.0, 0.0);

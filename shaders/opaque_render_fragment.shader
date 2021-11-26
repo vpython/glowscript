@@ -1,10 +1,9 @@
-#ifdef GL_ES
+#version 300 es
 #  ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
 #  else
 precision mediump float;
 #  endif
-#endif
 
 uniform int light_count;
 uniform vec4 light_pos[32];
@@ -17,12 +16,12 @@ uniform vec2 canvas_size;
 uniform sampler2D texmap;  // TEXTURE0 - user texture
 uniform sampler2D bumpmap; // TEXTURE1 - user bumpmap
 
-varying vec3 es_position;     // eye space surface position
-varying vec3 es_normal;       // eye space surface normal
-varying vec2 mat_pos;         // surface material position in [0,1]^2
-varying vec4 vcolor;
-varying vec3 bumpX;
-varying vec4 parameters; // shininess, emissive, hasTexture, hasBump
+in vec3 es_position;     // eye space surface position
+in vec3 es_normal;       // eye space surface normal
+in vec2 mat_pos;         // surface material position in [0,1]^2
+in vec4 vcolor;
+in vec3 bumpX;
+in vec4 parameters; // shininess, emissive, hasTexture, hasBump
 #define shininess parameters[0]
 #define emissive parameters[1]
 #define hasTexture parameters[2]
@@ -33,6 +32,8 @@ vec3 pos;
 vec3 diffuse_color;
 vec3 specular_color;
 vec3 color;
+
+out vec4 output_color;
 
 void calc_color(vec4 lpos, vec3 lcolor)
 {
@@ -51,11 +52,11 @@ void calc_color(vec4 lpos, vec3 lcolor)
 void lightAt()
 {    
     if (hasTexture != 0.0) {
-        diffuse_color = diffuse_color * texture2D(texmap, mat_pos).xyz;
+        diffuse_color = diffuse_color * texture(texmap, mat_pos).xyz;
     }
     if (hasBump != 0.0) {
         vec3 Y = cross(normal, bumpX);
-        vec3 Nb = texture2D(bumpmap, mat_pos).xyz;
+        vec3 Nb = texture(bumpmap, mat_pos).xyz;
         Nb = 2.0*Nb - 1.0;
         normal = normalize(Nb.x*bumpX + Nb.y*Y + Nb.z*normal);
     }
@@ -82,5 +83,5 @@ void main(void) {
     diffuse_color = vcolor.rgb;
     specular_color = vec3(.8,.8,.8);
     lightAt(); // determine color from lighting
-    gl_FragColor = vec4( color, 1.0 );
+    output_color = vec4( color, 1.0 );
 }

@@ -1,10 +1,9 @@
-#ifdef GL_ES
+#version 300 es
 #  ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
 #  else
 precision mediump float;
 #  endif
-#endif
 
 uniform int light_count;
 uniform vec4 light_pos[32];
@@ -19,16 +18,19 @@ uniform sampler2D bumpmap; // TEXTURE1 - user bumpmap
 uniform sampler2D D0; // TEXTURE3 - opaque depth map (minormode 5)
 uniform sampler2D D2; // TEXTURE7 - depth map (minormode 9)
 
-varying vec3 es_position;     // eye space surface position
-varying vec3 es_normal;       // eye space surface normal
-varying vec2 mat_pos;         // surface material position in [0,1]^2
-varying vec4 vcolor;
-varying vec3 bumpX;
-varying vec4 parameters; // shininess, emissive, hasTexture, hasBump
+in vec3 es_position;     // eye space surface position
+in vec3 es_normal;       // eye space surface normal
+in vec2 mat_pos;         // surface material position in [0,1]^2
+in vec4 vcolor;
+in vec3 bumpX;
+in vec4 parameters; // shininess, emissive, hasTexture, hasBump
+
 #define shininess parameters[0]
 #define emissive parameters[1]
 #define hasTexture parameters[2]
 #define hasBump parameters[3]
+
+out vec4 output_color;
 
 vec3 normal;
 vec3 pos;
@@ -54,11 +56,11 @@ void calc_color(vec4 lpos, vec3 lcolor)
 void lightAt()
 {    
     if (hasTexture != 0.0) {
-        diffuse_color = diffuse_color * texture2D(texmap, mat_pos).xyz;
+        diffuse_color = diffuse_color * texture(texmap, mat_pos).xyz;
     }
     if (hasBump != 0.0) {
         vec3 Y = cross(normal, bumpX);
-        vec3 Nb = texture2D(bumpmap, mat_pos).xyz;
+        vec3 Nb = texture(bumpmap, mat_pos).xyz;
         Nb = 2.0*Nb - 1.0;
         normal = normalize(Nb.x*bumpX + Nb.y*Y + Nb.z*normal);
     }
@@ -104,8 +106,8 @@ void main(void) {
     ivec4 c = encode(1.0 - gl_FragCoord.z);
     int z = decode(c);
     vec2 loc = vec2(gl_FragCoord.x/canvas_size.x, gl_FragCoord.y/canvas_size.y);
-    int zmin = fdecode(texture2D(D0, loc));
-    int zmax = fdecode(texture2D(D2, loc));
+    int zmin = fdecode(texture(D0, loc));
+    int zmax = fdecode(texture(D2, loc));
     
     normal = normalize(es_normal);
     pos = es_position;
@@ -114,7 +116,7 @@ void main(void) {
     lightAt(); // determine color from lighting
     
     if (zmin < z && z < zmax) {
-        gl_FragColor = vec4( color, vcolor.a );
+        output_color = vec4( color, vcolor.a );
     } else {
         discard;
     }

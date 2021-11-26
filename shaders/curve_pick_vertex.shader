@@ -1,12 +1,6 @@
-#ifdef GL_ES
-#  ifdef GL_FRAGMENT_PRECISION_HIGH
-precision highp float;
-#  else
-precision mediump float;
-#  endif
-#endif
+#version 300 es
 
-attribute vec4 pos;       // pos.w is 0 at the beginning of the segment and 1 at the end; 
+in vec4 pos;       // pos.w is 0 at the beginning of the segment and 1 at the end; 
                           // pos.xyz are relative to that end in an normal basis with x pointing along the segment and scaled by radius
 
 uniform vec4 objectData[5];
@@ -27,7 +21,7 @@ uniform vec4 segmentData[4];
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 
-varying vec4 vcolor;
+out vec4 vcolor;
 
 vec4 start;
 vec4 end;

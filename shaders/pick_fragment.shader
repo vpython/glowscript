@@ -1,13 +1,14 @@
-#ifdef GL_ES
+#version 300 es
 #  ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
 #  else
 precision mediump float;
 #  endif
-#endif
 
-varying vec4 vcolor;
+in vec4 vcolor;
+
+out vec4 output_color;
 
 void main(void) {
-    gl_FragColor = vcolor;
+    output_color = vcolor;
 }

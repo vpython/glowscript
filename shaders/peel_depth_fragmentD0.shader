@@ -1,10 +1,11 @@
-#ifdef GL_ES
+#version 300 es
 #  ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
 #  else
 precision mediump float;
 #  endif
-#endif
+
+out vec4 output_color;
 
 // Construct depth maps for depth peeling handling of opacity
 
@@ -25,5 +26,5 @@ ivec4 encode(float k) { // assumes k is >= 0
 void main(void) {
     // create depth map D0 (5)
     ivec4 c = encode(1.0 - gl_FragCoord.z);
-    gl_FragColor = vec4(float(c.r)/255.0, float(c.g)/255.0, 0, 0);
+    output_color = vec4(float(c.r)/255.0, float(c.g)/255.0, 0, 0);
 }

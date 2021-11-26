@@ -1,17 +1,10 @@
+#version 300 es
 // Vertex shader for rendering curve segments, parameterized by
 // pos1, pos2, radius, color
 
-#ifdef GL_ES
-#  ifdef GL_FRAGMENT_PRECISION_HIGH
-precision highp float;
-#  else
-precision mediump float;
-#  endif
-#endif
-
-attribute vec4 pos;       // pos.w is 0 at the beginning of the segment and 1 at the end; 
+in vec4 pos;       // pos.w is 0 at the beginning of the segment and 1 at the end; 
                           // pos.xyz are relative to that end in a normal basis with x pointing along the segment and scaled by radius
-attribute vec3 normal;
+in vec3 normal;
 
 uniform vec4 objectData[5];
 #define objectPos objectData[0].xyz
@@ -31,12 +24,12 @@ uniform vec4 segmentData[4];
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
 
-varying vec3 es_position;     // eye space surface position
-varying vec3 es_normal;       // eye space surface normal
-varying vec2 mat_pos;         // surface material position in [0,1]^2
-varying vec4 vcolor;
-varying vec3 bumpX;
-varying vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, flipy, turn
+out vec3 es_position;     // eye space surface position
+out vec3 es_normal;       // eye space surface normal
+out vec2 mat_pos;         // surface material position in [0,1]^2
+out vec4 vcolor;
+out vec3 bumpX;
+out vec4 parameters; // shininess, emissive, hasTexture, hasBump, flipx, flipy, turn
 
 vec4 start;
 vec4 end;

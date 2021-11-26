@@ -1,13 +1,7 @@
-#ifdef GL_ES
-#  ifdef GL_FRAGMENT_PRECISION_HIGH
-precision highp float;
-#  else
-precision mediump float;
-#  endif
-#endif
+#version 300 es
 
-attribute vec3 pos;
-attribute vec3 normal;
+in vec3 pos;
+in vec3 normal;
 
 uniform vec4 objectData[5];
 #define objectPos objectData[0].xyz

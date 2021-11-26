@@ -77,10 +77,8 @@
         <p class="Normal"><strong><font color="#0000a0">Current restrictions</font></strong></p>
         <p class="Normal">Currently objects in a compound can have their own values of <strong>color</strong>, <strong>opacity</strong>, <strong>shininess</strong>, and <strong>emissive</strong>, but they cannot have individual textures or bumpmaps, which can only be specified for the combined object, and which affect all of the compounded objects.</p>
       <p class="Normal">Currently label objects, lights, and objects based on curve objects (curve, helix) cannot be compounded. However, <a href="triangle.html">triangles</a>, <a href="triangle.html">quads</a>, and even other compounds can be compounded. Also, a compound object can be <a href="clone.html">cloned</a> to make additional copies.</p>
-        <p class="Normal"><strong>Limitation on the number of objects to compound:</strong> In the WebGL 3D graphics library that is used by VPython, a compound cannot have more than 65536 (2**16) vertexes (pos, normal, color), due to WebGL using 16-bit integers to reference the vertexes. For example, a box object has 8*3 = 24 vertex objects, because each corner requires three vertex objects, all with the same positions but with three different normals. That means that a list of boxes to compound must not contain more than int(65536/24) = 2730 boxes. A cylinder, in order to have smooth sides, requires 206 vertexes, so a list of cylinders to compound must not contain more than int(65536/206) = 318 cylinders. If you need to compound more than 2730 boxes, a way to deal with the limitation is to make several compounds, each with less than 2730 boxes (and it may be convenient to store these compounds in a list). You can compound a list of compound objects, but the total number of vertexes cannot exceed the limit.</p>
-        <p class="Normal">Currently here are the number of vertexes in each of the basic objects: box 24, cylinder 206, sphere 961, simple_sphere 81, pyramid 16, cone 604, ring 1281. Consequently, at present  the limits on the number of objects that can be compounded are these (if all the objects are boxes, or cylinders, etc.): box 2730, cylinder 318, sphere 68, simple_sphere 809, pyramid 4096, cone 108, ring 51.</p>
-        <p class="Normal">An informative error message is given if the vertex limit is exceeded.</p>
-    <!-- InstanceEndEditable -->		
+      <p>&nbsp;</p>
+      <!-- InstanceEndEditable -->		
     </div>
 </div>
 </body>
