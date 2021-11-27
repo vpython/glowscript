@@ -71,8 +71,7 @@ void lightAt()
     
     color = light_ambient * diffuse_color;
 
-    for (int i=0; i<100; i++) { // for cannot test against a variable
-        if (i == light_count) break;
+    for (int i=0; i<light_count; i++) {
         calc_color(LP(i), LC(i));
     }
 }
