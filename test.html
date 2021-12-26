@@ -1,35 +1,80 @@
-<div id="glowscript" class="glowscript">
+<<div id="glowscript" class="glowscript">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
-<link type="text/css" href="https://www.glowscript.org/css/ide.css" rel="stylesheet" />
-<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
-<script type="text/javascript" src="https://www.glowscript.org/package/glow.3.0.min.js"></script>
-<script type="text/javascript" src="https://www.glowscript.org/package/RSrun.3.0.min.js"></script>
+<link type="text/css" href="css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
+<link type="text/css" href="css/ide.css" rel="stylesheet" />
+<script type="text/javascript" src="lib/jquery/2.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="package/glow.3.2.min.js"></script>
+<script type="text/javascript" src="package/RSrun.3.2.min.js"></script>
 <script type="text/javascript"><!--//--><![CDATA[//><!--
 
 // START JAVASCRIPT
 ;(function() {;
+var ρσ_modules = {};
+ρσ_modules.pythonize = {};
+
+(function(){
+    function strings() {
+        var string_funcs, exclude, name;
+        string_funcs = set("capitalize strip lstrip rstrip islower isupper isspace lower upper swapcase center count endswith startswith find rfind index rindex format join ljust rjust partition rpartition replace split rsplit splitlines zfill".split(" "));
+        if (!arguments.length) {
+            exclude = (function(){
+                var s = ρσ_set();
+                s.jsset.add("split");
+                s.jsset.add("replace");
+                return s;
+            })();
+        } else if (arguments[0]) {
+            exclude = Array.prototype.slice.call(arguments);
+        } else {
+            exclude = null;
+        }
+        if (exclude) {
+            string_funcs = string_funcs.difference(set(exclude));
+        }
+        var ρσ_Iter0 = string_funcs;
+        ρσ_Iter0 = ((typeof ρσ_Iter0[Symbol.iterator] === "function") ? (ρσ_Iter0 instanceof Map ? ρσ_Iter0.keys() : ρσ_Iter0) : Object.keys(ρσ_Iter0));
+        for (var ρσ_Index0 of ρσ_Iter0) {
+            name = ρσ_Index0;
+            (ρσ_expr_temp = String.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name] = (ρσ_expr_temp = ρσ_str.prototype)[(typeof name === "number" && name < 0) ? ρσ_expr_temp.length + name : name];
+        }
+    };
+    if (!strings.__module__) Object.defineProperties(strings, {
+        __module__ : {value: "pythonize"}
+    });
+
+    ρσ_modules.pythonize.strings = strings;
+})();
 async function __main__() {
 "use strict";
+    var display = canvas;
+    var scene = canvas();
 
-    var version, display, vector, print, arange, __name__, type, scene, RS_ls;
-    version = RS_list_decorate([ "3.0", "glowscript" ]);
+    var version, print, arange, __name__, type, ρσ_ls, c;
+    version = ρσ_list_decorate([ "3.2", "glowscript" ]);
     Array.prototype['+'] = function(r) {return this.concat(r)}
     Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
     window.__GSlang = "vpython";
-    display = canvas;
-    vector = vec;
     print = GSprint;
     arange = range;
     __name__ = "__main__";
     type = pytype;
-    scene = canvas();
+    var strings = ρσ_modules.pythonize.strings;
+
+    strings();
     "2";
-    box();
+    c = ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({texture: (function(){
+        var ρσ_d = ρσ_dict();
+        ρσ_d["file"] = textures.stones
+        ρσ_d["bumpmap"] = bumpmaps.stones
+        //ρσ_d.set("file", textures.stones);
+        //ρσ_d.set("bumpmap", bumpmaps.stones);
+        console.log(ρσ_d)
+        return ρσ_d;
+    }).call(this)})]);
 };
 if (!__main__.__module__) Object.defineProperties(__main__, {
-    __module__ : {value: "__main__"}
+    __module__ : {value: null}
 });
 
 ;$(function(){ window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }; __main__() })})()
