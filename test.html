@@ -1,4 +1,4 @@
-<<div id="glowscript" class="glowscript">
+<div id="glowscript" class="glowscript">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link type="text/css" href="css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
 <link type="text/css" href="css/ide.css" rel="stylesheet" />
@@ -11,6 +11,7 @@
 // START JAVASCRIPT
 ;(function() {;
 var ρσ_modules = {};
+var running, col, currentobject;
 ρσ_modules.pythonize = {};
 
 (function(){
@@ -50,7 +51,7 @@ async function __main__() {
     var display = canvas;
     var scene = canvas();
 
-    var version, print, arange, __name__, type, ρσ_ls, c;
+    var version, print, arange, __name__, type, ρσ_ls, running, box_object, cone_object, pyramid_object, cylinder_object, col, currentobject, cbutton, sl, wt, r1, r2, dt;
     version = ρσ_list_decorate([ "3.2", "glowscript" ]);
     Array.prototype['+'] = function(r) {return this.concat(r)}
     Array.prototype['*'] = function(r) {return __array_times_number(this, r)}
@@ -63,15 +64,222 @@ async function __main__() {
 
     strings();
     "2";
-    c = ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({texture: (function(){
-        var ρσ_d = ρσ_dict();
-        ρσ_d["file"] = textures.stones
-        ρσ_d["bumpmap"] = bumpmaps.stones
-        //ρσ_d.set("file", textures.stones);
-        //ρσ_d.set("bumpmap", bumpmaps.stones);
-        console.log(ρσ_d)
-        return ρσ_d;
-    }).call(this)})]);
+    scene.width = 350;
+    "3";
+    scene.height = 300;
+    "4";
+    scene.range = 1.3;
+    "5";
+    scene.title = "Widgets (buttons, etc.)\n";
+    "7";
+    running = true;
+    "9";
+    async function Run(b) {
+        "10";
+        "11";
+        running = !running;
+        "12";
+        if (running) {
+            b.text = "Pause";
+        } else {
+            b.text = "Run";
+        }
+    };
+    if (!Run.__argnames__) Object.defineProperties(Run, {
+        __argnames__ : {value: ["b"]},
+        __module__ : {value: null}
+    });
+
+    "15";
+    ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({text: "Pause", pos: scene.title_anchor, bind: Run})]);
+    "17";
+    box_object = ρσ_interpolate_kwargs.call(this, box, [ρσ_desugar_kwargs({visible: true})]);
+    "18";
+    cone_object = ρσ_interpolate_kwargs.call(this, cone, [ρσ_desugar_kwargs({visible: false, radius: .5})]);
+    "19";
+    pyramid_object = ρσ_interpolate_kwargs.call(this, pyramid, [ρσ_desugar_kwargs({visible: false})]);
+    "20";
+    cylinder_object = ρσ_interpolate_kwargs.call(this, cylinder, [ρσ_desugar_kwargs({visible: false, radius: .5})]);
+    "22";
+    col = color.cyan;
+    "23";
+    currentobject = box_object;
+    "24";
+    currentobject.color = col;
+    "26";
+    async function Color(c) {
+        "27";
+        "28";
+        if (col.equals(color.cyan)) {
+            "29";
+            currentobject.color = col = color.red;
+            "30";
+            c.text = "<b>Cyan<\/b>";
+            "31";
+            c.color = color.cyan;
+            "32";
+            c.background = color.red;
+            "33";
+            r1.checked = false;
+            "34";
+            r2.checked = true;
+            "35";
+        } else {
+            "36";
+            currentobject.color = col = color.cyan;
+            "37";
+            c.text = "<b>Red</b>";
+            "38";
+            c.color = color.red;
+            "39";
+            c.background = color.cyan;
+            "40";
+            r1.checked = true;
+            "41";
+            r2.checked = false;
+        }
+    };
+    if (!Color.__argnames__) Object.defineProperties(Color, {
+        __argnames__ : {value: ["c"]},
+        __module__ : {value: null}
+    });
+
+    "43";
+    async function cc(c) {
+        "44";
+        "45";
+        if (col.equals(color.cyan)) {
+            "46";
+            currentobject.color = col = color.red;
+            "47";
+            cbutton.text = "<b>Cyan</b>";
+            "48";
+            cbutton.color = color.cyan;
+            "49";
+            cbutton.background = color.red;
+            "50";
+        } else {
+            "51";
+            currentobject.color = col = color.cyan;
+            "52";
+            cbutton.text = "<b>Red</b>";
+            "53";
+            cbutton.color = color.red;
+            "54";
+            cbutton.background = color.cyan;
+        }
+    };
+    if (!cc.__argnames__) Object.defineProperties(cc, {
+        __argnames__ : {value: ["c"]},
+        __module__ : {value: null}
+    });
+
+    "56";
+    cbutton = ρσ_interpolate_kwargs.call(this, button, [ρσ_desugar_kwargs({text: "<b>Red</b>", color: color.red, background: color.cyan, pos: scene.title_anchor, bind: Color})]);
+    "58";
+    scene.caption = "Vary the rotation speed: \n\n";
+    "60";
+    async function setspeed(s) {
+        "61";
+        wt.text = "{:1.2f}".format(s.value);
+    };
+    if (!setspeed.__argnames__) Object.defineProperties(setspeed, {
+        __argnames__ : {value: ["s"]},
+        __module__ : {value: null}
+    });
+
+    "63";
+    sl = ρσ_interpolate_kwargs.call(this, slider, [ρσ_desugar_kwargs({min: .3, max: 3, value: 1.5, length: 220, bind: setspeed, right: 15})]);
+    "65";
+    wt = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "{:1.2f}".format(sl.value)})]);
+    "67";
+    scene.append_to_caption(" radians/s\n");
+    "69";
+    r1 = ρσ_interpolate_kwargs.call(this, radio, [ρσ_desugar_kwargs({bind: cc, checked: true, text: "Cyan", name: "rads"})]);
+    "71";
+    scene.append_to_caption("       ");
+    "73";
+    async function M(m) {
+        var ρσ_ls, op, currentaxis, val;
+        "74";
+        "75";
+        op = currentobject.opacity;
+        "76";
+        currentaxis = currentobject.axis;
+        "77";
+        currentobject.visible = false;
+        "78";
+        val = m.selected;
+        "79";
+        if ((val === "box" || typeof val === "object" && ρσ_equals(val, "box"))) {
+            "80";
+            currentobject = box_object;
+            "81";
+        } else if ((val === "cone" || typeof val === "object" && ρσ_equals(val, "cone"))) {
+            "82";
+            currentobject = cone_object;
+            "83";
+        } else if ((val === "pyramid" || typeof val === "object" && ρσ_equals(val, "pyramid"))) {
+            "84";
+            currentobject = pyramid_object;
+            "85";
+        } else if ((val === "cylinder" || typeof val === "object" && ρσ_equals(val, "cylinder"))) {
+            "86";
+            currentobject = cylinder_object;
+        }
+        "87";
+        currentobject.color = col;
+        "88";
+        currentobject.axis = currentaxis;
+        "89";
+        currentobject.visible = true;
+        "90";
+        currentobject.opacity = op;
+    };
+    if (!M.__argnames__) Object.defineProperties(M, {
+        __argnames__ : {value: ["m"]},
+        __module__ : {value: null}
+    });
+
+    "92";
+    ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: ρσ_list_decorate([ "Choose an object", "box", "cone", "pyramid", "cylinder" ]), index: 0, bind: M})]);
+    "94";
+    scene.append_to_caption("\n");
+    "96";
+    r2 = ρσ_interpolate_kwargs.call(this, radio, [ρσ_desugar_kwargs({bind: cc, text: "Red", name: "rads"})]);
+    "98";
+    scene.append_to_caption("         ");
+    "100";
+    async function transparency(b) {
+        "101";
+        if (b.checked) {
+            "102";
+            currentobject.opacity = .5;
+            "103";
+        } else {
+            "104";
+            currentobject.opacity = 1;
+        }
+    };
+    if (!transparency.__argnames__) Object.defineProperties(transparency, {
+        __argnames__ : {value: ["b"]},
+        __module__ : {value: null}
+    });
+
+    "106";
+    ρσ_interpolate_kwargs.call(this, checkbox, [ρσ_desugar_kwargs({bind: transparency, text: "Transparent"})]);
+    "108";
+    dt = .01;
+    "109";
+    while (true) {
+        "110";
+        (await rate(1["/"](dt)));
+        "111";
+        if (running) {
+            "112";
+            ρσ_interpolate_kwargs.call(currentobject, currentobject.rotate, [ρσ_desugar_kwargs({angle: sl.value["*"](dt), axis: vector(0, 1, 0)})]);
+        }
+    }
 };
 if (!__main__.__module__) Object.defineProperties(__main__, {
     __module__ : {value: null}
