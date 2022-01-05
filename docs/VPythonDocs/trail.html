@@ -161,7 +161,8 @@
       <div>
         <p class="program">a = attach_light(ball, offset=vec(5,1,0), color=color.green)</p>
         <p class="Normal">The default value of the offset is vec(0,0,0), in which case the local_light will always be located at the center of the moving ball. The default value of the light's color is ball.color. After attaching a local_light to a moving object, you can at any time modify its offset (a.offset) and/or color (a.color).You can specify more than one attach_light for an object.</p>
-        <p class="Normal">If you specify a zero offset for a sphere, you will find hat the local_light does not affect the lighting of the outer surface of the sphere; it does of course affect the lighting of objects outside the sphere. In this case you may wish to specify ball.emissive = True, which makes the ball seem to glow.</p><div><div><div><div>
+        <p class="Normal">Think of the offset as connecting the moving object and the local_light by an (invisible) rigid rod, so that, for example, if you rotate the object, the local_light will rotate around the moving object.</p>
+        <p class="Normal">If you specify a zero offset for a sphere, you will find that the local_light does not affect the lighting of the outer surface of the sphere; it does of course affect the lighting of objects outside the sphere. In this case you may wish to specify ball.emissive = True, which makes the ball seem to glow.</p><div><div><div><div>
               </div>
               <div></div>
             </div>
