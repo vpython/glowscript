@@ -4,9 +4,9 @@ Jan. 2020 workshop on the architecture of GlowScript VPython:
 
 [A pdf of the slides including the tasks carried out by the participants](https://github.com/vpython/glowscript/blob/master/docs/GlowScriptArchitecture%20.pdf)
 
-[A case study video: adding a new feature to VPython](https://www.youtube.com/watch?v=9igLky5crY8) presented by Bruce Sherwood to his colleagues Aaron Titus and Steve Spicklemire
+[A case study video: adding a new feature to VPython](https://www.youtube.com/watch?v=9igLky5crY8) presented by Bruce Sherwood to his colleagues Aaron Titus and Steve Spicklemire. It should have been mentioned that "attach_light" needed to be included in the exports at the end of the file primitives.js.
    
-[How to install the GlowScript software locally](https://www.glowscript.org/docs/GlowScriptDocs/local.html) so as to be able to experiment with changing the code, as did the participants in the workshop
+[How to install the GlowScript software locally](https://www.glowscript.org/docs/GlowScriptDocs/local.html) so as to be able to experiment with changing the code, as did the participants in the workshop.
    
 ## THE ELEMENTS OF THE GLOWSCRIPT LIBRARY
 
