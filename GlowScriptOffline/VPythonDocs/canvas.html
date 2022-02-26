@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>canvas</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" /><!-- InstanceEndEditable -->
@@ -49,7 +49,7 @@ a background color of cyan filling the window.</p>
             <p class="Normal"><span class="attributes"><strong>Selecting a canvas:</strong> By default, any objects that you create go into the most recently created canvas, such as <span class="attribute">scene</span>. If you create another canvas <span class="attribute">cvs</span>, new objects will go into the <span class="attribute">cvs</span> canvas. You can later execute <span class="attribute">scene.select()</span> to make the <span class="attribute">scene</span> canvas the one that new objects go into.</span> You can find out which canvas is selected: <span class="attributes"><span class="attribute">current = </span><font color="#FF0000">canvas.get_selected()</font> returns
                 a reference to the canvas into which objects are currently being
       created.</span> You can also specify which canvas to use when creating an object, as in box(canvas=cvs, .....).</p>
-            <p class="Normal">In GlowScript VPython you can say canvas.selected = cvs, or current = canvas.selected, but unfortunately it doesn't seem possible to implement this syntax in VPython 7, so for compatibiity between GlowScript VPython and VPython 7 you may wish to use cvs.select() and canvas.get_selected() in GlowScript programs.</p>
+            <p class="Normal">In Web VPython you can say canvas.selected = cvs, or current = canvas.selected, but unfortunately it doesn't seem possible to implement this syntax in VPython 7, so for compatibiity between Web VPython and VPython 7 you may wish to use cvs.select() and canvas.get_selected() in Web VPython programs.</p>
 <p class="Normal">Here is a summary of what determines in which of several possible 3D canvases an object such as a box or sphere will be placed:</p>
       <p class="program">scene = canvas() # automatic; you don't need to say this<br />
         box(...) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# will appear in the canvas named &quot;scene&quot;<br />
@@ -85,7 +85,7 @@ cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj.color = color.red      </p>
       <p class="attributes"> <span class="attribute">visible </span>Setting scene.visible = False means that no objects are displayed, until scene.visible is set True again.</p>
       <p class="attributes"><span class="attribute">delete() </span>Deletes all the objects in this canvas and then deletes the canvas itself</p>
-      <p class="attributes"><span class="attribute">capture(filename) </span>Sends to your Download folder a png screen shot of the canvas. If filename is the string &quot;boxes&quot; or &quot;boxes.png&quot; the file will be named &quot;boxes.png&quot;. Because label objects are displayed in a separate 2D transparent canvas in front of the 3D canvas, labels are not displayed in a captured scene. If you need text to be part of the captured scene, use the 3D text() object.</p>
+      <p class="attributes"><span class="attribute">capture(filename) </span>Sends to your Download folder a png screen shot of the canvas. If filename is the string &quot;boxes&quot; or &quot;boxes.png&quot; the file will be named &quot;boxes.png&quot;. If you execute scene.capture(&quot;boxes&quot;) repeatedly, the additional files will be named &quot;boxes(1).png&quot;, &quot;boxes(2).png&quot;, etc. If you do not want to capture "label" objects, execute scene.capture(filename, False)</p>
       <p class="attributes"><span class="attribute"><font color="#000000">To obtain the current location of the camera, <a href="#camera"><strong>see </strong></a></font></span><strong><a href="#camera">below</a></strong> for details of <span class="attribute">scene.camera.pos</span><font color="#000000">.</font></p>
           <p class="attributes"><span class="attribute">camera.follow</span> If you say <span class="attribute">scene.camera.follow(ball)</span>, the center of the scene will continually be reset to the current position of the ball object. To stop following the object, execute <span class="attribute">scene.camera.follow(None)</span>.</p>
           <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Instead of specifying an object to follow, you can provide a  function of your own:</p>
@@ -93,7 +93,7 @@ cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 2*ball.pos<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.camera.follow(f)</p>
           <p class="attributes"></p>
-          <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alternatively, in GlowScript VPython you can specify an &quot;anonymous&quot; (unnamed) function, though this does not work in true Python:</p>
+          <p class="attributes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alternatively, in Web VPython you can specify an &quot;anonymous&quot; (unnamed) function, though this does not work in true Python:</p>
           <p class="program">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scene.camera.follow(def ():<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 2*ball.pos<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      )</p>
@@ -200,7 +200,7 @@ cone(canvas=scene, ...) # will appear in &quot;scene&quot;      </p>
           <p class="Normal"><strong><font color="#0000A0">Controlling the view using scene.camera</font></strong></p>
           <p class="Normal">The mechanisms described above for controlling the view are designed to try to make sure that the objects are visible no matter how the user rotates or zooms the view, because the camera direction is always automatically adjusted to point toward scene.center, which by default is at the origin, and scene.range is automatically adjusted to correspond to the user zoom.</p>
           <p class="Normal">However, if you want to &quot;fly&quot; through the scene, with scene.center necessarily varying but zoom held constant, it is more convenient to move and point the camera directly. <span class="attribute"><strong><em>WARNING: </em></strong></span>When you take direct control of the camera, there is increased risk of seeing nothing, due to unintentionally pointing the camera  away from the objects, or  moving the camera far away from the objects. </p>
-          <p class="Normal">An example of controlling the camera directly is the fly-through in the program <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Stonehenge-VPython" target="_blank">Stonehenge</a></strong>, in which changing <span class="attribute">scene.camera.pos</span> (the location of the camera) and <span class="attributes">&nbsp;<span class="attribute">scene.camera.axis</span></span> (the direction the camera is pointing) is a convenient way to move through the scene.</p>
+          <p class="Normal">An example of controlling the camera directly is the fly-through in the program <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Stonehenge-VPython" target="_blank">Stonehenge</a></strong>, in which changing <span class="attribute">scene.camera.pos</span> (the location of the camera) and <span class="attributes">&nbsp;<span class="attribute">scene.camera.axis</span></span> (the direction the camera is pointing) is a convenient way to move through the scene. Using these statements means that you are controlling the view, so autoscaling is turned off (scene.autoscale is set to False).</p>
           <p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/camera2.png" width="650" height="240" alt="canvas" /></p>
           <p class="attributes">&nbsp; </p>
           <p class="attributes">&nbsp;<span class="attribute">scene.camera.pos</span><span class="Normal"> The current 

@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>Widgets</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
@@ -96,7 +96,7 @@ s = input( 'What is your name?')</p>
 <p class="attributes"> <span class="attribute">text</span> The text shown on the button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold.</p>
 <p class="attributes"> <span class="attribute">color</span> The color of the text shown on the button. Can be changed at any time.</p>
 <p class="attributes"> <span class="attribute">background</span> The background color of the button. Can be changed at any time.</p>
-<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the button is clicked. Cannot be changed after creating the button.</p>
+<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the button is clicked. Cannot be changed after creating the button. If you say B = button(text=YES', bind=None), then print(B.text) will display 'Yes', and if you then say B.text = 'NO', the text on the button will lchange to 'NO'. (Currently, setting bind=None gives an error when using VPython with installed Python.)</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the button text is grayed out and the button is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If B is a button, B.delete() deletes the button from the display.</p>
 <p class="Normal"></p>
@@ -104,16 +104,17 @@ s = input( 'What is your name?')</p>
 <p class="Normal">Radio buttons are often used in a group of two or more, in which you arrange that only one is checked at any time. Here are the attributes of a <strong>radio</strong> widget (a radio button):</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the radio button. </p>
 <p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the radio button. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
-<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the radio button is clicked. Cannot be changed after creating the radio button.</p>
+<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the radio button is clicked. Cannot be changed after creating the radio button. If you say R = radio(text=YES', bind=None), then print(R.text) will display 'Yes', and if you then say R.text = 'NO', the text on the radio button will lchange to 'NO'. (Currently, setting bind=None gives an error when using VPython with installed Python.)</p>
 <p class="attributes"><font color="#FF0000">checked</font> If True, the radio button is highlighted; default is False. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the radio button is grayed out and the radio button is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If R is a radio button, R.delete() deletes the radio button from the display.</p>
+<p class="attributes"><font color="#FF0000">name</font> If you specify a name (as a string, such as &quot;group&quot;) for several radio buttons, clicking on one of the unhighlighted &quot;group&quot; radio buttons unhighlights all the others. Clicking on an already hightlighted radio button has no effect. If you do not specify a name, radio buttons simply behave as toggles, just like checkbox widgets; the only difference is that radio widgets are round and checkbox widgets are square.The name cannot be changed after creating the radio button.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">checkbox</font></strong></p>
 <p class="Normal">Here are the attributes of a <strong>checkbox</strong> widget:</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the checkbox.</p>
 <p class="attributes"><span class="attribute">text</span> The text shown one space to the right of the checkbox. Can be changed at any time. The text can contain html directives. For example '&lt;b&gt;Run&lt;/b&gt;' will display 'Run' in bold. You may wish to add some spaces to the end of the text to separate the text from an adjacent widget.</p>
-<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the checkbox is clicked. Cannot be changed after creating the checkbox.</p>
+<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when the checkbox is clicked. Cannot be changed after creating the checkbox. If you say C = checkbox(text=YES', bind=None), then print(C.text) will display 'YES', and if you then say C.text = 'NO', the text on the checkbox will lchange to 'NO'. (Currently, setting bind=None gives an error when using VPython with installed Python.)</p>
 <p class="attributes"><font color="#FF0000">checked</font> If True, the checkbox is highlighted; default is False. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the checkbox is grayed out and the checkbox is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If C is a checkbox, C.delete() deletes the checkbox from the display.</p>
@@ -143,15 +144,15 @@ s = input( 'What is your name?')</p>
 <p class="attributes"> <span class="attribute">choices</span> A list of strings to appear on the menu, such as ['cat', 'dog', 'horse']. Can be changed after creating the menu by specifying a new list of strings to replace the existing list.</p>
 <p class="attributes"><font color="#FF0000">selected</font> The chosen string, such as 'dog'.  Can be set by program as well as by user choice. </p>
 <p class="attributes"><font color="#FF0000">index</font> The position of the chosen string in the choices list, starting from zero.  Can be set by program as well as by user choice.</p>
-<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when a menu item is chosen. Cannot be changed after creating the menu.</p>
+<p class="attributes"> <font color="#FF0000">bind</font> The name of the function to be called when a menu item is chosen. Cannot be changed after creating the menu. If you say M = menu(choices=['dog', 'cat']', bind=None), then print(M.selected) will display 'dog', and if you then choose 'cat', print(M.selected) will display 'cat'. (Currently, setting bind=None gives an error when using VPython with installed Python.)</p>
 <p class="attributes"><font color="#FF0000">disabled</font> If True, the menu is grayed out and the menu is inactive. Can be changed at any time.</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If M is a menu, M.delete() deletes the menu from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">winput</font></strong></p>
-<p class="Normal">The <strong>winput</strong> object (widget input) displays a box in which the user can input a numeric expression or text. The user must select the text either by clicking in the box or by using the tab key.</p>
+<p class="Normal">The <strong>winput</strong> object (widget input) displays a box in which the user can input a numeric expression or text. The user must select the text either by clicking in the box or by using the tab key. <em>A function bound to a winput object is executed if the user presses Enter or Tab or clicks somewhere other than in a VPython canvas (clicks in a canvas are handled separately).</em></p>
 <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position to which to append the widget (see &quot;Appending to anchor points&quot; below). Cannot be changed after creating the object.</p>
-<p class="attributes"><font color="#FF0000" class="attribute">bind</font> The name of the function to be called when the user presses Enter. Cannot be changed after creating the object. In GlowScript VPython, if no bind function is specified, a pop-up dialog box appears for the user to type some input; this no-bind version is not yet available with installed Python (VPython 7).</p>
-<p class="attributes"><font color="#FF0000" class="attribute">prompt</font> If bind is specified, the prompt text is displayed to the left of the input box, and this text is erased if the winput object is deleted. If no bind is specified, the prompt text is displayed above the place where the user types the input. This prompt option is not yet available with installed Python (VPython 7).</p>
+<p class="attributes"><font color="#FF0000" class="attribute">bind</font> The name of the function to be called when the user presses Enter. Cannot be changed after creating the object. In Web VPython, if no bind function is specified, a pop-up dialog box appears for the user to type some input; this no-bind version is not yet available with installed Python. If you say W = winput(bind=None), then enter '42' and press Enter while at a pause, print(W.text) will display '42', and if you then say W.text = '31', the text in the winput box will lchange to '31'.. (Currently, setting bind=None gives an error when using VPython with installed Python.)</p>
+<p class="attributes"><font color="#FF0000" class="attribute">prompt</font> If bind is specified, the prompt text is displayed to the left of the input box, and this text is erased if the winput object is deleted. If no bind is specified, the prompt text is displayed above the place where the user types the input. This prompt option is not yet available with installed Python..</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">type</font> &quot;numeric&quot; (the default) or &quot;string&quot;. If it is numeric, the user can input expressions such as 3+2*sqrt(5.2e4). An error message is displayed if there is something wrong with the expression, and the bound function is not called. Cannot be changed after creating the object.</p>
 <p class="attributes"><font color="#FF0000" class="attribute">width</font> The width of the winput box in pixels; default is 100. Cannot be changed after creating the object.</p>
 <p class="attributes"> <font color="#FF0000" class="attribute">height</font> The height of the winput box in pixels; default is 20. Cannot be changed after creating the object.</p>

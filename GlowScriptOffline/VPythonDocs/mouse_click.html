@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>Mouse Clicks</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
@@ -53,7 +53,7 @@
         <div></div>
         <div>
           <p class="program"> &nbsp;&nbsp;&nbsp;&nbsp;loc = 
-            evt.project(normal=vector(0,0,1))<br />
+            scene.mouse.project(normal=vector(0,0,1))<br />
             &nbsp;&nbsp;&nbsp;&nbsp;# loc is None if no intersection with plane<br />
             &nbsp;&nbsp;&nbsp;&nbsp;if loc:<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sphere(pos=loc,radius=0.2,color=color.cyan)</p>

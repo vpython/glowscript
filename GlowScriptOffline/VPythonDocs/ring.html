@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>ring</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
@@ -63,13 +63,14 @@
           <p class="attributes"> <span class="attribute">radius</span> Radius 
             of the  central part of the ring, default = 1, so <br />
             outer radius = radius+thickness<br />
-          inner radius = radius-thickness </p>
+          inner radius = radius-thickness <br>
+          Setting radius overrides the size attribute. Note that size.x = 2*thickness and in a circular ring size.y = 2*(radius + thickness).</p>
           <p class="attributes"> <span class="attribute">thickness</span> The
             radius of the cross section of the ring (1/10th of radius if not
             specified), not the full diameter as you might
-            expect. </p>
-          <p class="attributes"> <span class="attribute">size</span> Instead of specifying radius and thickness, you can make the ring be oval by specifying its size as size=vector(length,height,width), with different height and width..</p>
-      <p class="Normal"> Note that the <span class="attribute">pos</span> attribute 
+            expect. Note that size.x = 2*thickness and in a circular ring size.y = 2*(radius + thickness).</p>
+          <p class="attributes"> <span class="attribute">size</span> Instead of specifying radius and thickness, you can make the ring be oval by specifying its size as size=vector(length,height,width), with different height and width. Setting thickness overrides the size attribute.      </p>
+        <p class="Normal"> Note that the <span class="attribute">pos</span> attribute 
             for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
             whereas for a ring, sphere, and box it corresponds to the center of the 
             object. </p>

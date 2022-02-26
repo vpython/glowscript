@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>Shapes and Paths</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
@@ -73,10 +73,12 @@
         <p class="Normal">creates a list of 2D x-y coordinates of the corners of a rectangle of width=10 and height=6. If the height value is omitted the shape is a square with its sides equal to the given width.  If you print <strong>rt</strong> you will see this  list of 2D coordinates, starting at the lower right and continuing counterclockwise, end at the starting location:</p>
         <p class="program">[[5, -3], [5, 3], [-5, 3], [-5, -3], [5, -3]]</p>
         <p class="Normal"> The shape can be visualized in VPython by executing the following statement, which extrudes the rectangular shape into the screen, along the line from vec(0,0,0) to vec(0,0,-0.1):</p>
-        <table width="675" height="128" border="0">
+        <table width="727" height="128" border="0">
           <tr>
-            <td width="489" height="124"><p class="program">extrusion(path=[vec(0,0,0), vec(0,0,-0.1)], <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=rt)</p></td>
+            <td width="545" height="124"><p class="program">extrusion(path=[vec(0,0,0), vec(0,0,-0.1)], <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=rt)<br>
+            </p>
+            <h3 class="attribute"><strong><em>The shape is shown in  gray on the default black canvas background.</em></strong></h3></td>
             <td width="172"><p><img src="images/rectangle_shape.jpg" width="172" height="122" alt="rotate rectangle" /></p></td>
           </tr>
         </table>

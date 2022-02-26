@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>Math Functions</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
@@ -35,7 +35,7 @@
       <div>
         <p class="Normal"> For versions of Python prior to 3.0, Python performs integer division with truncation, 
           so that 3/4 is 0, not 0.75. This is inconvenient when doing scientific computations, 
-          and can lead to hard-to-find bugs in programs. In the GlowScript environment, where VPython code is compiled to JavaScript, 3/4 is always 0.75.</p>
+          and can lead to hard-to-find bugs in programs. In the Web VPython environment, where VPython code is compiled to JavaScript, 3/4 is always 0.75.</p>
 <div> </div>
       </div>
       <p class="Normal">The following math functions are provided:</p>
@@ -69,7 +69,7 @@
       <div>
         <div></div>
       </div>
-      <p class="Normal">In general, Python modules cannot be imported into VPython programs, because GlowScript VPython functions in a JavaScript environment. However, one can import the Python &quot;random&quot; module into a VPython program, provided by the RapydScript-NG tool that converts Python to JavaScript. One cannot use the form &quot;from random import *&quot; but must use &quot;import random&quot; or &quot;import random as rr&quot; (or other name) or &quot;from random import randint, uniform&quot; (or other list of functions). Here is <strong><a href="https://docs.python.org/3/library/random.html">documentation</a></strong> of the Python random module, however only seed_state, get_random_byte, seed, random, randrange, randint, uniform, choice, shuffle, and sample have been implemented in GlowScript. You do not need to import the random module in order to be able to use the random() function described above.</p>
+      <p class="Normal">In general, Python modules cannot be imported into VPython programs, because Web VPython functions in a JavaScript environment. However, one can import the Python &quot;random&quot; module into a VPython program, provided by the RapydScript-NG tool that converts Python to JavaScript. One cannot use the form &quot;from random import *&quot; but must use &quot;import random&quot; or &quot;import random as rr&quot; (or other name) or &quot;from random import randint, uniform&quot; (or other list of functions). Here is <strong><a href="https://docs.python.org/3/library/random.html">documentation</a></strong> of the Python random module, however only seed_state, get_random_byte, seed, random, randrange, randint, uniform, choice, shuffle, and sample have been implemented in Web VPython. You do not need to import the random module in order to be able to use the random() function described above.</p>
       <p class="Normal">There are functions for converting between degrees and
         radians, where there are 2*pi radians in 360 degrees: </p>
       <p class="program">radians(360) &nbsp;# equal to 2*pi<br />

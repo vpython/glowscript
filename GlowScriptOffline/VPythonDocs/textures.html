@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>Textures</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
@@ -84,10 +84,10 @@
             <br />
             There should be a change to VPython 7 to accept 'T.jpg&quot; in either environment.
             It should first look for the file where your program is located, and then in the vpython_data folder.</p>
-<p class="Normal">If you use &quot;Share this program&quot; in the GlowScript editor and copy code to a page on your own web site, you can fetch an image to use as a texture from the same web site, even if your web site isn't CORS-enabled.</p>
+<p class="Normal">If you use &quot;Share this program&quot; in the editor and copy code to a page on your own web site, you can fetch an image to use as a texture from the same web site, even if your web site isn't CORS-enabled.</p>
             <div></div>
           </div>
-          <p class="Normal"><strong>Placing a texture on portions of the object:</strong> Placement options are <span class="attribute">'left'</span>, <span class="attribute">'right'</span>, <span class="attribute">'sides'</span> (all but the left and right ends), <span class="attribute">'ends'</span> (both left and right), and <span class="attribute">'all'</span> (the default). The meaning of left and right is that by default GlowScript objects have their axis in the (1,0,0) direction (+x), and the right end is on the right initially, before possible later changes of axis. In the case of a cylinder, 'sides' specifies the curving surface.</p>
+          <p class="Normal"><strong>Placing a texture on portions of the object:</strong> Placement options are <span class="attribute">'left'</span>, <span class="attribute">'right'</span>, <span class="attribute">'sides'</span> (all but the left and right ends), <span class="attribute">'ends'</span> (both left and right), and <span class="attribute">'all'</span> (the default). The meaning of left and right is that by default VPython objects have their axis in the (1,0,0) direction (+x), and the right end is on the right initially, before possible later changes of axis. In the case of a cylinder, 'sides' specifies the curving surface.</p>
         </div>
         <div>
           <p class="Normal">You can combine these options: <span class="attribute">'place' : ['left', 'sides']</span> will place the texture on the left end and the sides.</p>
@@ -116,7 +116,7 @@
           <p class="Normal">Textured objects are not displayed until the texture has been loaded. If you don't wait with scene.waitfor(&quot;textures&quot;), you may see objects become visible in a random sequence, depending on when the various textures have been loaded.</p>
           <p class="Normal"><strong>Removing a texture:</strong> If you set <span class="attribute">texture=None</span>, no texture is displayed.</p>
           <p class="Normal"><strong><font color="#0000A0">Bump maps</font></strong></p>
-          <p class="Normal">Another option is to specify a &quot;bump map&quot;. Bump maps make small distortions in a surface to give the illusion of a non-smooth surface. There are several kinds of bump maps, but the type of bump map currently supported in GlowScript is a &quot;normals map&quot;, in which the normals (perpendiculars) to the surface, which affect the lighting of the surface, are varied across a surface in such a way that the surface no longer seems smooth. When you move the surface or the lights you will see an enhanced 3D effect. Bump maps can be produced from images by using computer tools made for this purpose, and a few bumpmaps have been provided in GlowScript. For example, bumpmaps.stucco is a normals map that enhances the 3D appearance of textures.stucco. Here is the statement that adds the built-in bump map to the built-in texture:</p>
+          <p class="Normal">Another option is to specify a &quot;bump map&quot;. Bump maps make small distortions in a surface to give the illusion of a non-smooth surface. There are several kinds of bump maps, but the type of bump map currently supported in VPython is a &quot;normals map&quot;, in which the normals (perpendiculars) to the surface, which affect the lighting of the surface, are varied across a surface in such a way that the surface no longer seems smooth. When you move the surface or the lights you will see an enhanced 3D effect. Bump maps can be produced from images by using computer tools made for this purpose, and a few bumpmaps have been provided in VPython. For example, bumpmaps.stucco is a normals map that enhances the 3D appearance of textures.stucco. Here is the statement that adds the built-in bump map to the built-in texture:</p>
           <div></div>
           <div>
             <p class="program"> box(texture={'file':textures.stucco,<br />

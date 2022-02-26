@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>Attach trail/arrow/light</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
@@ -38,7 +38,7 @@
       <div>
         <table width="100%" border="1">
           <tr>
-            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">Attach a trail or arrow</font></span></div></td>
+            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">Attach trail/arrow/light</font></span></div></td>
             <td width="23%"><div align="center"><img src="images/trail.png" width="414" height="113" alt="trails" /><a href="arrow.html"></a></div></td>
           </tr>
         </table>
@@ -120,29 +120,63 @@
                       b.clear()</p>
                     <p class="Normal">&nbsp;</p>
                     <p class="Normal"><strong><font color="#0000A0"><a name="attach_arrow" id="attach_arrow"></a>attach_arrow</font></strong></p>
-                    <p class="Normal"><a href="https://www.glowscript.org/docs/GlowScriptDocs/trail.html"><strong>attach_arrow</strong></a> lets you specify a quantity and a scale factor to display an arrow at the location of a moving object. The following statement will automatically display a green arrow at the current location of the ball. The arrow will have shaftwidth=0.3, and its axis and length  is determined by scale*ball.axis:</p>
+                    <p class="Normal"><a href="https://www.glowscript.org/docs/GlowScriptDocs/trail.html"><strong>attach_arrow</strong></a> creates an arrow representing a vector attribute of an object, and the arrow is continually displayed at the current location of the moving object. This arrow contains some additional information compared to an ordinary arrow, such as what object it is attached to and which attribute of that object is being represented by the arrow. The following statement will automatically display a green arrow at the current location of the ball, as the ball moves. The arrow will have shaftwidth=0.3, and its axis  is determined by 1000*ball.axis:</p>
                     <div></div>
                     <div>
-                      <p class="program">attach_arrow(ball, &quot;axis&quot;, scale=1e3,<br />
+                      <p class="program">attach_arrow(ball, &quot;axis&quot;, scale=1000,<br />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      shaftwidth=0.3, color=color.green)</p>
-                      <p class="Normal">The default value of scale is 1, the default color of the arrow is the color of the ball, and the default shaftwidth is 0.5*ball.size.y. You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:</p>
+                      <p class="Normal">The default value of scale is 1, the default color of the arrow is the color of the ball, and the default shaftwidth is 0.5*ball.size.y. You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:&nbsp;&nbsp;</p>
                       <div></div>
                       <div>
                         <p class="program">attach_arrow(ball, &quot;velocity&quot;)</p>
                       </div>
                       <div>
                         <div>
+  <p class="Normal">After attaching an arrow to a moving object, you can modify the appearance of the arrow later by doing this, using color as an example: </p>
                           <div></div>
-                          You can start and stop displaying the arrow:</div>
-                        <div></div>
-                        <div>
-                          <p class="program">b = attach_arrow(ball)<br />
-                            ...<br />
-                            b.stop()<br />
-                            ...<br />
-                            b.start()</p>
-                          <p class="Normal"></p>
-                        </div>
+                          <div></div>
+                          <div>
+                            <p class="program">myarrow = attach_arrow(ball, &quot;velocity&quot;, color=color.green)<br />
+                              ...<br />
+                              myarrow.color = color.red # later, change the color of the arrow.</p>
+                            <p class="Normal">If there is more than one vector attribute of an object that you would like to visualize by attaching multiple arrows&nbsp;to the moving object, simply execute additional attach_arrow statements for the additional attributes.</p>
+                          </div>
+                          <div></div>
+  <div>
+    <div>
+      <div></div>
+      <p class="Normal">You can start and stop displaying the arrow:</p>
+    </div>
+    <div></div>
+    <div>
+      <p class="program">myarrow = attach_arrow(ball, &quot;velocity&quot;)<br />
+        ...<br />
+        myarrow.stop()<br />
+        ...<br />
+        myarrow.start()</p>
+      <p class="Normal">&nbsp;</p>
+      <p class="Normal"><strong><font color="#0000A0"><a name="attach_arrow" id="attach_arrow2"></a>attach_light</font></strong></p>
+      <p class="Normal"><a href="https://www.glowscript.org/docs/GlowScriptDocs/trail.html"><strong>attach_light</strong></a> creates a local_light that is bound to a moving object. The following statement will place a green local_light that will always be positioned at the current location of the ball plus the specified offset, as the ball moves:</p>
+      <div></div>
+      <div>
+        <p class="program">a = attach_light(ball, offset=vec(5,1,0), color=color.green)</p>
+        <p class="Normal">The default value of the offset is vec(0,0,0), in which case the local_light will always be located at the center of the moving ball. The default value of the light's color is ball.color. After attaching a local_light to a moving object, you can at any time modify its offset (a.offset) and/or color (a.color).You can specify more than one attach_light for an object.</p>
+        <p class="Normal">Think of the offset as connecting the moving object and the local_light by an (invisible) rigid rod, so that, for example, if you rotate the object, the local_light will rotate around the moving object.</p>
+        <p class="Normal">If you specify a zero offset for a sphere, you will find that the local_light does not affect the lighting of the outer surface of the sphere; it does of course affect the lighting of objects outside the sphere. In this case you may wish to specify ball.emissive = True, which makes the ball seem to glow.</p><div><div><div><div>
+              </div>
+              <div></div>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="program"><br />
+    </p>
+</div>
+<p class="Normal"></p>
+                      </div>
                       </div>
                     </div>
                   </div>
@@ -152,8 +186,7 @@
           </div>
         </div>
       </div>
-<p class="Normal"></p>
-    <!-- InstanceEndEditable -->		
+	  <!-- InstanceEndEditable -->		
     </div>
 </div>
 </body>

@@ -1,7 +1,7 @@
 <!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
+<title>Vectors</title>
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="VisualRef.css" rel="stylesheet" type="text/css" />
@@ -119,12 +119,13 @@ For convenience, <span class="attribute">norm(vec(0,0,0))</span> or<span class="
           <p class="Normal"> There is a function for rotating a vector:<font color="#0000a0"></font></p>
           <p class="program"> v2 = rotate(v1, angle=a, axis=vector(x,y,z))</p>
           <p class="Normal">The angle must be in radians. The default axis is
-            (0,0,1), for a rotation in the xy plane around the z axis. There
-            is no origin for rotating a vector. You can also write <span class="attribute">v2
-            = v1.rotate(angle=a, axis=vector(x,y,z))</span>. There is also a <a href="rotation.html">rotate capability for 
-              objects</a>.</p>
+            (0,0,1), for a rotation in the xy plane around the z axis. You can also write <span class="attribute">v2
+        = v1.rotate(angle=a, axis=vector(x,y,z))</span>. Note that v2 is a new vector; v1 remains unchanged. Unlike the case with rotating a 3D object, there
+        is no origin for rotating a vector.</p>
+          <p class="Normal">There is also a <a href="rotation.html">rotate capability for 
+            3D objects</a>. which doesn't return anything; you just write<span class="attribute"> obj.rotate(...)</span>, which changes the axis of the existing object. It also rotates &quot;up&quot; to remain at right angles to the axis.</p>
           <p class="Normal">There are functions for converting between degrees
-            and radians, where there are 2*pi radians in 360 degrees: </p>
+          and radians, where there are 2*pi radians in 360 degrees: </p>
           <p class="program">radians(360) is equivalent to 2*pi</p>
           <p class="program">degrees(2*pi) is equivalent to  360</p>
     <!-- InstanceEndEditable -->		
