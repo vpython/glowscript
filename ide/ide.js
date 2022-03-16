@@ -29,12 +29,12 @@ $(function () {
     function parseVersionHeader( source ) { // null if sourceLines already exists
     	if (source !== null) sourceLines = source.split("\n")
         else source = 'already exists\n'
-        var header = sourceLines[0]
+        let header = sourceLines[0]
         // Remove a newline or similar character at the end of header:
         if (header.charCodeAt(header.length-1) < 32)
             header = header.substring(0,header.length-1)
-        var rest = source.substr( sourceLines[0].length+1 )
-        var ret = {
+            let rest = source.substr( sourceLines[0].length+1 )
+            let ret = {
             version: null,
             lang: '', // 'vpython' (default) or 'javascript' or a string that is neither (e.g. when editing header)
             source: rest,
@@ -42,26 +42,40 @@ $(function () {
             unpackaged: false,
             isCurrent: false
         }
+        // Here are the possible headers (version can be for example 3.2 or 3.3dev)
+        // 2 entries: 'JavaScript 3.2', 'GlowScript 3.2'
+        // 3 entries: 'GlowScript 3.2 VPython', 'GlowScript 3.2 JavaScript', 'Web VPython 3.2'
+        header = header.toLowerCase()
         header = header.split(" ")
         if (header.length === undefined) return ret
         if (header[0] == ' ') return ret
-        var elements = []
-        for (var i=0; i<header.length; i++) { // remove empty strings corresponding to spaces
+        let elements = []
+        for (let i=0; i<header.length; i++) { // remove empty strings corresponding to spaces
             if (header[i] != '') elements.push(header[i])
         }
     	if (elements.length < 2 || elements.length > 3) return ret
-        if (elements[0] != 'GlowScript') return ret
-        ret.lang = 'javascript' // the default if no language is specified
-        if (elements.length == 3) {
-            ret.lang = elements[2].toLowerCase()
-            if (!(ret.lang == 'javascript' || ret.lang == 'vpython')) return ret
+        if (elements[0] != 'glowscript' && elements[0] != 'web' && elements[0] != 'javascript') return ret
+        let ver
+        if (elements.length == 2) {
+            if (elements[0] != 'glowscript' && elements[0] != 'javascript') return ret
+            ret.lang = 'javascript'
+            ver = elements[1]
+        } else {
+            if (elements[0] == 'web' && elements[1] == 'vpython') {
+                ret.lang = 'vpython'
+                ver = elements[2]
+            } else {
+                if (elements[0] != 'glowscript') return ret
+                if (elements[2] != 'javascript' && elements[2] != 'vpython') return ret
+                ret.lang = elements[2]
+                ver = elements[1]
+            }
         }
-        var ver = elements[1]
-        var okv = parseVersionHeader.okVersions[ver]
+        let okv = parseVersionHeader.okVersions[ver]
         if (okv === undefined) okv = false
         // Prior to version 3.0, we stripped the header line from the source:
         else if (Number(okv) < 3.0) source = source.substr(sourceLines[0].length+1) 
-        var unpackaged = (okv === "unpackaged")
+        let unpackaged = (okv === "unpackaged")
         return {
             version: okv,
             lang: ret.lang,
@@ -73,8 +87,9 @@ $(function () {
     }
     
     parseVersionHeader.defaultVersion = "3.2"
-    parseVersionHeader.defaultHeader = "GlowScript " + parseVersionHeader.defaultVersion+' VPython'
-    parseVersionHeader.errorMessage = "GlowScript " + parseVersionHeader.defaultVersion
+    parseVersionHeader.defaultHeader = "Web VPython " + parseVersionHeader.defaultVersion
+    parseVersionHeader.errorMessage = "Web VPython " + parseVersionHeader.defaultVersion +
+                                 ' (or JavaScript ' + parseVersionHeader.defaultVersion + ')'
     // Map each version that can be loaded to a packaged version (usually itself), or "unpackaged" if it is the current development version
     parseVersionHeader.okVersions = {
         __proto__: null,
@@ -1114,6 +1129,7 @@ $(function () {
             	} else {
 	            	page.find(".prog-datetime").text(date_to_string(progData.datetime))
 	                var header = parseVersionHeader( progData.source )
+                    console.log(1137, 'header', header)
 	                if (header.ok) {
 	                    haveScreenshot = progData.screenshot != ""
 	                    sendMessage(JSON.stringify({ program: header.source, version: header.version, lang: header.lang, unpackaged: header.unpackaged, autoscreenshot:isWritable && !haveScreenshot }))
