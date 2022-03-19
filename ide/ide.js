@@ -1129,7 +1129,6 @@ $(function () {
             	} else {
 	            	page.find(".prog-datetime").text(date_to_string(progData.datetime))
 	                var header = parseVersionHeader( progData.source )
-                    console.log(1137, 'header', header)
 	                if (header.ok) {
 	                    haveScreenshot = progData.screenshot != ""
 	                    sendMessage(JSON.stringify({ program: header.source, version: header.version, lang: header.lang, unpackaged: header.unpackaged, autoscreenshot:isWritable && !haveScreenshot }))
