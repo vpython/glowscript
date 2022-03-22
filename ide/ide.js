@@ -1364,7 +1364,7 @@ $(function () {
         })
 
         var frameSrc = run_link
-        var frameHTML = '<iframe style="border-style:none; border:0; width:650px; height:500px; margin:0; padding:0;" frameborder=0 src="' + frameSrc + '"></iframe>'
+        var frameHTML = '<iframe style="border-style:none; border:0; width:650px; height:500px; margin:0; padding:0;" allow="hid" frameborder=0 src="' + frameSrc + '"></iframe>'
         page.find(".frameSource").text( frameHTML );
     }
     pages.downloadProgram = function(route) { // Currently the only program option is download (download a program to user computer)
