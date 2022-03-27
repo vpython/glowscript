@@ -462,8 +462,8 @@ $(function () {
         // Reverses what router() does, returning a URI (starting with #)
         if (ext) route = $.extend({}, route, ext)
         var h = "#/"
-        if (route.page=="welcome") return h
-        if (route.page=="action") return h+e(route.action)
+        if (route.page == "welcome") return h
+        if (route.page == "action") return h+e(route.action)
         if (route.user) {
             h += "user/" + e(route.user) + "/"
             if (route.page == "user") return h
@@ -474,6 +474,7 @@ $(function () {
                     h += "program/" + e(route.program)
                     if (route.page == "run") return h
                     if (route.page == "downloadFolder") return h + "/option/" + e(route.page)
+                    if (route.page == "downloadHTML") return h + "/option/" + e(route.page)
                     if (route.page == "downloadProgram") return h + "/option/" + e(route.page)
                     if (route.page == "share" || route.page == "edit") return h + "/" + e(route.page)
                 }
@@ -558,6 +559,7 @@ $(function () {
 
     /********** Pages **********/
     // Each of these replaces pageBody with the contents of a page
+    var embedHTML // The JavaScript code generated at pages.share
     var pageBody = $("#ajaxBody")
     pages.redirect = function(route) { redirect(route.target) }
     pages.error = function(route) {
@@ -1295,6 +1297,7 @@ $(function () {
             if (!header.ok)
                 page.find(".embedWarning").text("This program cannot be embedded because its version declaration is unknown.")
             else {
+                embedHTML = '' // Will be an ampty string if there is a compile error
                 if (header.unpackaged) 
                     page.find(".embedWarning").text("Embedding programs with development versions of GlowScript is not recommended.  They will likely be broken by further changes, and the packages used for embedding may not match the packages used to run in an development version.")
                 var compiler_url
@@ -1343,8 +1346,8 @@ $(function () {
                     if (v >= 2.5 && v < 3.0) exporturl = "https://s3.amazonaws.com/glowscript/"
                     // Note: some already exported 3.0 programs contain references to s3.amazonaws.com
                     if (header.lang == 'vpython') 
-                    	runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'
-                    var embedHTML = (
+                        runner = '<script type="text/javascript" src="'+exporturl+'package/RSrun.' + header.version + '.min.js"></script>\n'
+                    embedHTML = ( // embedHTML is a var introduced above to make it easy for downloadHTML
                         '<div id="' + divid + '" class="glowscript">\n' + 
                         '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n' +
                         '<link type="text/css" href="'+exporturl+'css/redmond/' + verdir + '/jquery-ui.custom.css" rel="stylesheet" />\n' +
@@ -1359,13 +1362,28 @@ $(function () {
                         '\n//--><!]]></script>' +
                         '\n</div>');
                     page.find(".embedSource").text( embedHTML )
+                    page.find(".prog-download-html.button").prop("href", unroute(route, {page:"downloadHTML"}))
+                    page.find(".prog-download-html.button").text('Download as HTML')
+                    // page.find(".prog-edit.button").prop("href", unroute(route, {page:"edit"}))
+                    // if (isWritable) page.find(".prog-edit.button").text('Edit this program')
+                    // else page.find(".prog-edit.button").text('View this program')
                 })
             }
         })
-
         var frameSrc = run_link
         var frameHTML = '<iframe style="border-style:none; border:0; width:650px; height:500px; margin:0; padding:0;" allow="hid" frameborder=0 src="' + frameSrc + '"></iframe>'
         page.find(".frameSource").text( frameHTML );
+    }
+    pages.downloadHTML = function(route) { // Download an .html file suitable for running just by clicking it
+        if (embedHTML.length > 0) {
+            let a = document.createElement("a")
+            a.setAttribute('href', 'data:text/text;charset=utf-8,' + encodeURIComponent(embedHTML));
+            a.setAttribute('download', route.program+'.html');
+            a.click()
+            a.remove()
+        }
+        
+        navigate(unroute(route, {page:"edit"})) // return to (stay on) edit page
     }
     pages.downloadProgram = function(route) { // Currently the only program option is download (download a program to user computer)
         apiDownload( {user:route.user, folder:route.folder, program: route.program, option:'downloadProgram'}, function(ret) {
