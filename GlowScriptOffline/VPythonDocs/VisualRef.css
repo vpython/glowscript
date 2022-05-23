@@ -239,8 +239,12 @@ EM.Symbol {
 }
 
 #content {
-  float: right;
-  width: 80%;
-  height: 100%;
-  background-color: white;
+	float: right;
+	width: 80%;
+	height: 100%;
+	background-color: white;
+	font-family: Verdana, Geneva, sans-serif;
+}
+#wrapper #content table tr .attributes .Normal .Normal .attributes {
+	font-size: 15px;
 }
