@@ -44,7 +44,7 @@ $(function () {
         }
         // Here are the possible headers (version can be for example 3.2 or 3.3dev)
         // 2 entries: 'JavaScript 3.2', 'GlowScript 3.2'
-        // 3 entries: 'GlowScript 3.2 VPython', 'GlowScript 3.2 JavaScript', 'Web VPython 3.2'
+        // 3 entries: 'GlowScript 3.2 VPython', 'GlowScript 3.2 JavaScript', 'Web VPython 3.2', Web VPython 3.3dev
         header = header.toLowerCase()
         header = header.split(" ")
         if (header.length === undefined) return ret
@@ -131,7 +131,7 @@ $(function () {
         "2.9dev" : "2.9",
         "3.0dev" : "3.0",
         "3.1dev" : "3.1",
-        "3.1dev" : "3.2",
+        "3.2dev" : "3.2",
         "3.3dev" : "unpackaged"
     }
 
