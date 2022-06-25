@@ -5,7 +5,7 @@
   "authors": [
     "Bruce Sherwood <bruce.sherwood@gmail.com>"
   ],
-  "description": "GlowScript is an easy-to-use, powerful environment for creating 3D animations and publishing them on the web.",
+  "description": "Web VPython is an easy-to-use, powerful environment for creating 3D animations and publishing them on the web.",
   "main": [
     "package/glow.1.1.min.js",
     "package/compiler.1.1.min.js",
