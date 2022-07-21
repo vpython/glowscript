@@ -159,7 +159,7 @@ scene.bind('click', change)</p>
       <p class="Normal"><strong><font color="#0000A0">Unbinding</font></strong></p>
       <p class="Normal">Suppose you  executed <strong>scene.bind('mousedown mousemove', Drag)</strong>, but now you no longer want to send mousemove events to that function. Do this:</p>
       <p class="program">scene.unbind('mousemove', Drag)</p>
-      <p class="Normal"><strong><font color="#0000A0">Custom events: triggers</font></strong></p>
+      <p class="Normal"><strong><font color="#0000A0">Custom events: triggers</font></strong> (<em><strong>works in Web VPython but currently not with installed Python</strong></em>)</p>
       <p class="Normal">It is possible to create your own event type, and trigger a  function to do something. Consider the following example, where the custom event type is 'color_the_ball':</p>
       <p class="program">def clickFunc():<br />
         &nbsp;&nbsp;&nbsp;&nbsp;s = sphere(pos=scene.mouse.pos, radius=0.1)<br />
@@ -173,8 +173,10 @@ scene.bind('click', change)</p>
         scene.bind('color_the_ball', ballFunc)<br />
         <br />
         box(pos=vector(1,0,0))</p>
-<p class="Normal">We bind click events to the function clickFunc, and we bind our own special event type 'color_the_ball' to the function ballFunc. The function clickFunc is executed when the user clicks the mouse. This function creates a small sphere at the location of the mouse click, then triggers an event 'color_the_ball', with the effect of passing to the function ballFunc information that includes the new sphere object. Finally ballFunc applies a color to the sphere. (Obviously one could color the sphere in clickFunc; the example is just for illustration of the basic concept.)    </p>
-    <!-- InstanceEndEditable -->		
+<p class="Normal">We bind click events to the function clickFunc, and we bind our own special event type 'color_the_ball' to the function ballFunc. The function clickFunc is executed when the user clicks the mouse. This function creates a small sphere at the location of the mouse click, then triggers an event 'color_the_ball', with the effect of passing to the function ballFunc information that includes the new sphere object. Finally ballFunc applies a color to the sphere. (Obviously one could color the sphere in clickFunc; the example is just for illustration of the basic concept.)    <br>
+</p>
+<p class="Normal">&nbsp;</p>
+      <!-- InstanceEndEditable -->		
     </div>
 </div>
 </body>
