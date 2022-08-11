@@ -18,10 +18,10 @@
 <div id="wrapper">
 	<div id="leftmenu">
 		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
+		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
+		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
+		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
+		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
 		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
 		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
 		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
@@ -56,6 +56,8 @@
         <p class="Normal">The trail of this sphere will show individual points rather than a continuous line, it will display spheres at every 10th sphere location, and it will retain only the most recent 50 of these points.</p>
         <p class="Normal">At any time during the moving of the object, you can specify <span class="attribute">ball.make_trail=False</span>, in which case no more points are added to the ball's trail until you set <span class="attribute">ball.make_trail=True</span> again (at which point a new trail is started at the ball's current position).</p>
         <p class="Normal">If you specify an interval (greater than zero) and do not specify a position when creating the ball, the first point along the trail will occur when a position is later assigned to the ball. If you do specify a position when creating the ball, and make_trail is True, the first point along the trail is that specified position. If no interval is specified, the curve starts with whatever the position is at the time of the first rendering of the scene.</p>
+        <p class="Normal"><strong><font color="#0000a0">A caveat</font></strong></p>
+        <p class="Normal"><em><strong>If the trail's points are far apart, do not use a rate greater than rate(60)</strong></em>. Here's why: Python attempts to render the 3D scene about 60 times per second. Each time it renders the scene it looks through a list of all those objects that have specified &quot;make_trail=True&quot;, and if an object's pos attribute has changed, the render function extends the trail. If you specify rate(300), and you update an object's position once in each pass through the loop, only every 5th position of the object will be added to the trail, because the scene is  rendered only about 60 times per second. In contrast, if you specify rate(10)  and you update an object's position once in each pass through the loop, the trail will be extended 10 times per second.</p>
       <p class="Normal"><strong><font color="#0000a0">Summary of make_trail</font></strong></p>
         <p class="attributes"> <span class="attribute">make_trail</span> Must be mentioned when creating the moving object; if False, no points will be added to the trail until you say <span class="attribute">ball.make_trail = True</span> (assuming the moving object is named ball)</p>
         <p class="attributes"> <span class="attribute">trail_type</span> Default is &quot;curve&quot;, but can be &quot;points&quot;</p>
@@ -63,7 +65,7 @@
           <br />
           If trail_type is &quot;points&quot;, the default interval = 1; interval must have a nonzero value because the points need to be accurately spaced in order to look right.<br />
           <br />
-        If trail_type is &quot;curve&quot; (the default), and no interval is specified, updates to the trail are made every time a new image is rendered, typically about 30 to 60 times a second. This usually looks fine.<br />
+        If trail_type is &quot;curve&quot; (the default), and no interval is specified, updates to the trail are made every time a new image is rendered, typically about 60 times a second. This usually looks fine.<br />
       </p>
       <p class="attributes"> <span class="attribute">pps</span> If trail_type is &quot;curve&quot;, and no interval is specified, pps=15 means &quot;add a point to the curve approximately 15 times per second&quot;.</p>
         <p class="attributes"> <span class="attribute">retain</span> If retain=50, only the 50 most recently added points will be retained </p>
@@ -87,7 +89,7 @@
           <div></div>
           <div>
             <p class="program">attach_trail(ball, retain=30 )</p>
-            <p class="Normal">By default, points are added to the trail every time the scene is rendered, which is typically about 30 times per second. No trail is started until you explicitly specify a position of the ball. You can limit the number of points per second (&quot;pps&quot;) to be added to the trail. In the following case, 5 points are added to the trail per second (the maximum value of pps that makes sense is about 30):</p>
+            <p class="Normal">By default, points are added to the trail every time the scene is rendered, which is typically about 60 times per second. No trail is started until you explicitly specify a position of the ball. You can limit the number of points per second (&quot;pps&quot;) to be added to the trail. In the following case, 5 points are added to the trail per second (the maximum value of pps that makes sense is about 60):</p>
             <div></div>
             <div>
               <p class="program">attach_trail(ball, pps=5 )</p>
