@@ -162,7 +162,7 @@ s = input( 'What is your name?')</p>
 <p class="attributes"><font color="#FF0000">delete()</font> If W is a winput, W.delete() deletes the winput box from the display.</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">input</font></strong></p>
-<p class="Normal">The <strong><font color="#0000a0">input </font></strong>function mimics the functionality of the Python input function, namely that the user types an input, obtained from a pop-up dialog box. If you say input('Enter a value'), this prompt will be displayed to the user. You can also say input(prompt='Enter a value'), as with winput, but note that this is not standard Python.</p>
+<p class="Normal">The <strong><font color="#0000a0">input </font></strong>function mimics the functionality of the Python input function, namely that the user types an input, obtained from a pop-up dialog box. If you say input('Enter a value'), this prompt will be displayed to the user. You can also say input(prompt='Enter a value'), as with winput, but note that this is not standard Python. The dialog box offers the option to click "Cancel", in which case the value returned is None rather than a string, so if you a = say input(), do check with "if a is None: ......". You can convert to a number the string that was typed by saying x = float(a).&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
 <p class="Normal"></p>
 <p class="Header"><strong><font color="#0000a0">wtext</font></strong></p>
 <p class="Normal">The <strong>wtext</strong> object (widget text) isn't interactive like a button or slider but is often used together with other widgets. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to interactions with other widgets.</p>
