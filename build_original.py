@@ -1,5 +1,8 @@
 from __future__ import print_function, division
 
+# Note: After installing nodejs, on Windows you
+# must copy node.exe into the build-tools folder.
+
 # This is the original Python 2.7 build file, used in building GlowScript
 # according to the scheme described in docs/MakingNewVersion.txt.
 # A more sophisticated build program is build_cli.py contributed by Iblis Lin.
