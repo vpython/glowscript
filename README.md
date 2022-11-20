@@ -60,7 +60,7 @@ Python-3.8 such as that provided by
 First install [Docker](https://www.docker.com/products/docker-desktop). Once
 installed, start the Docker desktop application.
 
-Next check out or download the glowscript repository. Then:
+Next check out or download the glowscript repository. Then, in a terminal window, change directory to the glowscript repository and type:
 
       docker-compose up
 
@@ -80,27 +80,24 @@ When you're finished, shut down the system with:
 
 To run a local webserver with only the datastore in Docker, but the 
 webserver itself running natively you need Python-3.8.3. The easiest method 
-is probably to install [anaconda](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html), if you don't want the GUI package manager and extra applications). Once you have that you need to check out
-the glowscript repository.
-(How you do this depends on your familiarity with git. The simplest is to download a .zip file of the repository [here](https://github.com/vpython/glowscript/archive/refs/heads/master.zip))
-First "cd" to the `glowscript` directory (the root directory of the repository) 
-and create a virtual environment for glowscript like so:
+is probably to install [anaconda](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html), if you don't want the GUI package manager and extra applications). With Anaconda or miniconda you can use the `conda` command to do this, for example:
+
+    conda install -n py383 python=3.8.3
+    conda activate py383
+
+Your terminal prompt should now have a `(py383)` indicating that you have
+activated the python-3.8.3 virtual environment. Once you have that you need to check out the glowscript repository. (How you do this depends on your familiarity with git. The simplest is to download a .zip file of the repository [here](https://github.com/vpython/glowscript/archive/refs/heads/master.zip))
+Next change directory to the glowscript repository:
 
       cd /path/to/glowscript
-      python -m venv venv
 
-This will build a virtual environment for running locally. To activiate the virtual environment:
-
-      mac: source venv/bin/activate
-      windows (power shell): venv\Scripts\Activate.ps1
-      windows (cmd.exe shell): venv\Scripts\activate.bat
-
-Your terminal prompt should now have a `(venv)` indicating that you have
-activated the glowscript virtual environment. Before you can run glowscript the 
+Before you can run glowscript the 
 first time, you'll need to install dependencies into the virtual environment.
 This can be done with pip:
 
       pip install -r requirements.txt
+
+If you encounter any problems, follow the suggestions provided by the error messages.
 
 In order to run the local datastore emulator it's easiest to use 
 [Docker](https://www.docker.com/products/docker-desktop). Download 
@@ -135,7 +132,7 @@ When you're finished hit ctrl-c and then type:
 
 To stop the background datastore emulator.
 
-Then next time you're ready to develop, you can simply activate the environment again (make sure you see the "(venv)" in the shell prompt) and type:
+Then next time you're ready to develop, you can simply activate the environment again (make sure you see the "(py383)" in the shell prompt) and type:
 
       docker-compose -f docker-datastore.yml up -d
 
