@@ -34,7 +34,7 @@ Unzip the GlowScriptOffline package to any convenient place on your computer.
 
 Inside the [GlowScriptOffline](GlowScriptOffline) folder, read the README file to learn how to use the package. 
  
-Run a Local Server (Py3 version)
+Run a Local Server 
 ------------------
 There are two sets of instructions given here for two possible
 approaches. 
@@ -45,28 +45,22 @@ If you're using macOS or Linux you can run the
 local webserver and datastore all in Docker. You don't need to install
 anything else. However there is a rather annoying
 bug in Windows that prevents the webserver from automatically restarting when 
-source files change. For this reason, if they wish to have this feature,
-windows users must run a python process concurrently that tracks file
-changes during development. Having said that, if you just want to try a
-local webserver, and you don't care about having to restart the server
-manually every time you change the source code, you can skip running 
-the extra python process. This is all described below.
+source files change. If you just want to try a local webserver, and you don't 
+care about having to restart the server manually every time you change the
+source code, you can skip running the extra python process.
 
-2. The second, "Only Datastore in Docker", requires that users also install a 
-recent (e.g., 3.7+) version of python (and pip) such as that provided by 
+2. The second, "Only Datastore in Docker", requires that users install 
+Python-3.8 such as that provided by 
 [anaconda](https://docs.anaconda.com/anaconda/install/) 
 (or [miniconda](https://docs.conda.io/en/latest/miniconda.html)), as well as
-[Docker](https://www.docker.com/products/docker-desktop). This is all also described below.
+[Docker](https://www.docker.com/products/docker-desktop). 
 
 ### Local Server Approach (1) All Docker
 
-First install [Docker](https://www.docker.com/products/docker-desktop. Once
-installed, start the Docker process.
+First install [Docker](https://www.docker.com/products/docker-desktop). Once
+installed, start the Docker desktop application.
 
-Next check out or download the py38-app-engine branch of the glowscript repository (currently the `py38-app-engine` branch).
-(How you do this depends on your familiarity with git. The simplest is to download a .zip file of the
-`py38-app-engine` branch of the repository [here](https://github.com/vpython/glowscript/archive/py38-app-engine.zip))Then
-open a console in the `glowscript` directory of the repository and run the webserver and datastore in docker:
+Next check out or download the glowscript repository. Then:
 
       docker-compose up
 
@@ -82,26 +76,13 @@ When you're finished, shut down the system with:
 
       docker-compose down
 
-* P.S. If you're using windows an you want to use the "auto-restart" feature when code files change
-you'll need to run the filesystem monitoring tool 
-[docker-windows-volume-watcher](https://pypi.org/project/docker-windows-volume-watcher/)
-
-      pip install docker-windows-volume-watcher
-
-* And when you're running the glowscript server locally, in a *separate* window, execute:
-
-      docker-volume-watcher glowscript_flask_1
-
-* and it will take care of the rest.
-
 ### Local Server Approach (2) Only Datastore In Docker
 
 To run a local webserver with only the datastore in Docker, but the 
-webserver itself running natively you need a recent version of Python3 and pip installed. The easiest method 
+webserver itself running natively you need Python-3.8.3. The easiest method 
 is probably to install [anaconda](https://docs.anaconda.com/anaconda/install/) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html), if you don't want the GUI package manager and extra applications). Once you have that you need to check out
-or download the py38-app-engine branch of the glowscript repository (currently the `py38-app-engine` branch).
-(How you do this depends on your familiarity with git. The simplest is to download a .zip file of the
-`py38-app-engine` branch of the repository [here](https://github.com/vpython/glowscript/archive/py38-app-engine.zip))
+the glowscript repository.
+(How you do this depends on your familiarity with git. The simplest is to download a .zip file of the repository [here](https://github.com/vpython/glowscript/archive/refs/heads/master.zip))
 First "cd" to the `glowscript` directory (the root directory of the repository) 
 and create a virtual environment for glowscript like so:
 
