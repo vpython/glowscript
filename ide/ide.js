@@ -1410,7 +1410,7 @@ $(function () {
 
         pageBody.html(page)
 
-        // I decided to process shortcuts myself instead of relying on ACE, because 
+        // I (David Scherer) decided to process shortcuts myself instead of relying on ACE, because 
         // ACE might not always have focus
         $(document).keydown( shortcutKey )
         onNavigate.on( function(cb) { $(document).off("keydown", shortcutKey); cb() } )
@@ -1424,7 +1424,7 @@ $(function () {
             }
             if (ev.ctrlKey && ev.keyCode == "2".charCodeAt(0)) {
                 ev.preventDefault()
-                // If I don't pass anything for features, I get a new tab instead
+                // If I don't pass anything for features, I get a new tab instead of a separate window
                 var features = "titlebar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes"
                 window.open("/#/", "GlowScriptRun", features)
                 window.open(run_link, "GlowScriptRun", features)
