@@ -9,18 +9,18 @@ var weblocs = [/^https:\/\/glowscript\.org$/, // put a couple of these explicitl
     /^https:\/\/HOST_NAME_TEMPLATE$/
 ]
 
-function checkTrustedHosts(aHost) { // go through the known trusted hosts
-    let found = false;
-    let trimhost = aHost.replace('www.','') // remove www. if it's there
-    //console.log("checking trusted hosts:" + aHost);
-    for (let i = 0; i < weblocs.length; i++) {
-        found = trimhost.match(weblocs[i]);
-        if (found) {
-            break;
-        }
+function checkTrustedHosts(aHost) {
+  // go through the known trusted hosts
+  let found = false
+  //console.log("checking trusted hosts as:", aHost)
+  for (let i = 0; i < weblocs.length; i++) {
+    found = aHost.match(weblocs[i])
+    if (found) {
+      break
     }
-    //console.log("Found =" + found);
-    return !found; // return true to bail out.
+  }
+  //console.log("Found =" + found)
+  return !found // return true to bail out.
 }
 
 window.glowscript_libraries = { // used for unpackaged (X.Ydev) version
@@ -197,12 +197,22 @@ function ideRun() {
         send({ready:true})
         function receiveMessage(event) {
             event = event.originalEvent // originalEvent is a jquery entity
-            trusted_origin = event.origin
+            let trimhost = event.origin.replace("sandbox.", "") // remove sandbox. if it's there
+            //trimhost = trimhost.replace("sandbox.", "") // remove www. if it's there
+            trusted_origin = trimhost
+            //console.log("in iFrame: receivedMessage from: " + event.origin)
             //console.log("Setting trusted_origin:" + trusted_origin)
-            if (checkTrustedHosts(trusted_origin)) { // ensure that message is from glowscript
-                return;
+            if (checkTrustedHosts(trusted_origin)) {
+                // ensure that message is from glowscript
+                //console.log("rejecting origin!")
+                return
             }
-            var message = JSON.parse(event.data)
+            try {
+                var message = JSON.parse(event.data)
+            } catch (err) {
+                //console.log("in iFrame: receivedMessage: JSON parse error on " + event.data)
+                return
+            }
             if (message.program !== undefined) {
                 // Determine the set of libraries to load
                 var progver = message.version.substr(0,3) // 'unp' if unpackaged
@@ -312,6 +322,9 @@ function ideRun() {
 
     function screenshot(isAuto) {
     	var scene
+        if (!canvas.activated) {
+            return
+        }
         for (var c = 0; c < canvas.activated.length; c++) {
         	var ca = canvas.activated[c]
             if (ca !== null) {

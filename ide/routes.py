@@ -176,7 +176,7 @@ def idejs_static():
         ide_js = ide_js.replace('WEBSERVER_NAME_TEMPLATE',host_name)
         ide_js = ide_js.replace('SANDBOX_PREFIX_TEMPLATE','https://sandbox.')
 
-    return ide_js,200
+    return flask.Response(ide_js, mimetype='text/javascript')
 
 @app.route('/lib/<path:filename>')
 def lib_static(filename):
@@ -209,7 +209,7 @@ def untrusted_static(filename):
         if host_name.startswith('sandbox.'):
             host_name = '.'.join(host_name.split('.')[1:]) # take off the sandbox.
         run_js = run_js.replace('HOST_NAME_TEMPLATE',host_name)
-        return run_js, 200, {'content_type':'text/plain'}
+        return flask.Response(run_js, mimetype='text/javascript')
 
     return flask.send_from_directory('../untrusted', filename)
 
