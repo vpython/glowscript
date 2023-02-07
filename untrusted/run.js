@@ -3,8 +3,11 @@
 
 var localport = '8080'
 var localhost = 'localhost:' + localport;
-var weblocs = [/^https:\/\/glowscript\.org$/, // put a couple of these explicitly in the list just in case.
+var weblocs = [
+    /^https:\/\/glowscript\.org$/, // put a couple of these explicitly in the list just in case.
     /^https:\/\/www\.glowscript\.org$/,
+    /^https:\/\/devbasherwo\.org$/, // put a couple of these explicitly in the list just in case.
+    /^https:\/\/www\.devbasherwo\.org$/,
     new RegExp("^http:\/\/" + localhost + "$"),
     /^https:\/\/HOST_NAME_TEMPLATE$/
 ]
@@ -197,12 +200,12 @@ function ideRun() {
         send({ready:true})
         function receiveMessage(event) {
             event = event.originalEvent // originalEvent is a jquery entity
-            let trimhost = event.origin.replace("sandbox.", "") // remove sandbox. if it's there
+            // let trimhost = event.origin.replace("sandbox.", "") // remove sandbox. if it's there
             //trimhost = trimhost.replace("sandbox.", "") // remove www. if it's there
-            trusted_origin = trimhost
+            // trusted_origin = trimhost
             //console.log("in iFrame: receivedMessage from: " + event.origin)
             //console.log("Setting trusted_origin:" + trusted_origin)
-            if (checkTrustedHosts(trusted_origin)) {
+            if (checkTrustedHosts(event.origin)) {
                 // ensure that message is from glowscript
                 //console.log("rejecting origin!")
                 return
@@ -213,6 +216,12 @@ function ideRun() {
                 //console.log("in iFrame: receivedMessage: JSON parse error on " + event.data)
                 return
             }
+
+            if ((trusted_origin === '*') && (event.origin.search('sandbox.') === -1)) {
+                trusted_origin = event.origin
+                //console.log("Setting trusted_origin:" + trusted_origin)
+            }
+
             if (message.program !== undefined) {
                 // Determine the set of libraries to load
                 var progver = message.version.substr(0,3) // 'unp' if unpackaged
