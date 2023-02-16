@@ -42,5 +42,5 @@ six==1.15.0
 toml==0.10.1
 uritemplate==3.0.1
 urllib3==1.26.5
-Werkzeug==1.0.1
+Werkzeug==2.2.3
 wrapt==1.12.1
