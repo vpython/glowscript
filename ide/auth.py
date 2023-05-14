@@ -89,7 +89,7 @@ def get_base_url():
     """
     Get the base_url from the datastore
     """
-    return getSetting('auth_base_url')
+    return getSetting('auth_base_url', default='http://localhost:8080')
 #
 # Robust way to check for running locally. Also easy to modify.
 #
@@ -121,7 +121,7 @@ class SecretCache:
             from google.cloud import secretmanager
             secrets = secretmanager.SecretManagerServiceClient()
             secret_path = f"projects/{GOOGLE_PROJECT_ID}/secrets/OAUTH_CLIENT_SECRETS/versions/{CLIENT_SECRET_VERSION}"
-            theSecret = secrets.access_secret_version(secret_path).payload.data.decode("utf-8")
+            theSecret = secrets.access_secret_version(name=secret_path).payload.data.decode("utf-8")
             client_secrets = json.loads(theSecret)
             CLIENT_ID = client_secrets.get("FN_CLIENT_ID")
             CLIENT_SECRET = client_secrets.get("FN_CLIENT_SECRET")
@@ -217,7 +217,7 @@ def auth():
         
     oauth = authNamespace.get('oauth') or fillAuthNamespace()
     token = oauth.google.authorize_access_token()
-    user = oauth.google.parse_id_token(token)
+    user = token['userinfo']
     
     if check_auth_host_for_preview(auth_host): # are we in a preview version?
         if user.get('email') not in get_preview_users():  # only finish login for these guys
