@@ -183,7 +183,7 @@ def lib_static(filename):
     cache_timeout = None
     if is_running_locally():
         cache_timeout=0
-    return flask.send_from_directory('../lib', filename, cache_timeout=cache_timeout)
+    return flask.send_from_directory('../lib', filename, max_age=cache_timeout)
 
 @app.route('/package/<path:filename>')
 def package_static(filename):
