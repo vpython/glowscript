@@ -35,7 +35,7 @@ pyparsing==3.0.9
 python-dotenv==1.0.0
 pytz==2023.3
 redis==4.5.5
-requests==2.30.0
+requests==2.31.0
 rsa==4.9
 six==1.16.0
 uritemplate==4.1.1
