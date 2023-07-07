@@ -1,6 +1,14 @@
 ### OBTAINING THE LATEST VERSION OF GLOWSCRIPT OFFLINE
 Based on the work of [Vesa Lappalainen](https://github.com/vesal) of Finland, this package makes it possible to write and run
-GlowScript programs even when disconnected from the internet. To obtain the latest version of this package,
+GlowScript programs even when disconnected from the internet. 
+
+To obtain the latest version of this package, go to the following location:
+
+    https://github.com/vpython/glowscript/blob/master/
+
+Click the latest version of GlowScriptOfflineX.Y.zip and click the download icon.  
+
+To obtain the latest version of this package,
 go to the following location and click Download, then unzip the package to any convenient place on your computer:
 * https://github.com/vpython/glowscript/blob/master/GlowScriptOffline2.9.zip
 
