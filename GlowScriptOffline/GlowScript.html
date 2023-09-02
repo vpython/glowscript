@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Using GlowScript locally, based on the work of Vesa Lappalainen vesal@jyu.fi -->
+<c-- Using GlowScript locally, based on the work of Vesa Lappalainen vesal@jyu.fi -->
 <title>GlowScript Offline</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -57,7 +57,6 @@
 &nbsp;&nbsp;&nbsp;
 <button id="export" onclick="exportCode()">Export</button>
 &nbsp;&nbsp;&nbsp;
-<input type="file" id="read_local_file"/>
 
 <script>
 var gsversion = '3.2'
@@ -284,7 +283,9 @@ function readSingleFile(evt) {
 	    }
 	}
 }
-document.getElementById('read_local_file').addEventListener('change', readSingleFile, false)
+
+//document.getElementById('read_local_file').addEventListener('change', readSingleFile, false)
+
 </script>
 
 <div id="gserrors" style="font-family:Verdana;font-size:13px;color:#c00">
