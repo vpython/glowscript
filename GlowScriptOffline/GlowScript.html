@@ -59,10 +59,12 @@
 &nbsp;&nbsp;&nbsp;
 
 <script>
-var gsversion = '3.2'
-var printpane = false
-var exporting = false // not currently in export mode
-var lastprintwidth = null
+const gsversion = '3.2'
+let printpane = false
+let exporting = false // not currently in export mode
+let lastprintwidth = null
+let usertext
+let lang
 
 window.Jupyter_VPython = undefined
 if (!navigator.onLine) window.Jupyter_VPython = 'glowscript_data/' // get textures when offline
@@ -70,13 +72,13 @@ if (!navigator.onLine) window.Jupyter_VPython = 'glowscript_data/' // get textur
 // TAB at end of line should lengthen the line; implement Ctrl-1 and Ctrl-2
 
 // localCompile is a modification of https://github.com/vpython/glowscript/blob/master/ide/ide.js
-function localCompile(header, compReady, errordiv) {
-    header.source = 'GlowScript '+gsversion+' VPython\n'+header.source
+function localCompile(compReady, errordiv) {
 	errordiv.innerHTML = ""
-    var compiler_url
-    if (header.lang == 'vpython') {
-        compiler_url = "glowscript_libraries/RScompiler." + header.version + ".min.js"
-    } else compiler_url = "glowscript_libraries/compiler." + header.version + ".min.js"
+    let compiler_url
+    if (lang == 'vpython') {
+        compiler_url = "glowscript_libraries/RScompiler." + gsversion + ".min.js"
+    } else
+        compiler_url = "glowscript_libraries/compiler." + gsversion + ".min.js"
     window.glowscript_compile = undefined
     $.ajax({
         url: compiler_url,
@@ -91,15 +93,15 @@ function localCompile(header, compReady, errordiv) {
             alert("Failed to load compiler from " + compiler_url)
             return
         }
-                    
-        var embedScript
+                  
+        let embedScript
         try {
-            embedScript = window.glowscript_compile(header.source, {lang: header.lang, 
-                version: header.version.substr(0,3)})
+            embedScript = window.glowscript_compile(usertext, {lang: lang, version: gsversion}) 
+                // version: header.version.substr(0,3)})
         } catch(err) { // need to decrement 3 -> 2 in Error: Missing right parenthesis, see line 3: b = box(pos=37
             err = err.toString() // gets the error message
-            var patt = new RegExp('line(\\s*)([0-9]*):')
-            var m = err.match(patt)
+            const patt = new RegExp('line(\\s*)([0-9]*):')
+            let m = err.match(patt)
             if (m !== null) {
                 var colonindex = m.index + 4 + m[1].length + m[2].length
                 var n = parseFloat(m[2])-1
@@ -112,80 +114,47 @@ function localCompile(header, compReady, errordiv) {
     })
 }
 
-function parseVersionHeader( source ) {
-    var sourceLines = source.split("\n")
-    var header = sourceLines[0]
-    // Remove a newline or similar character at the end of header:
-    if (header.charCodeAt(header.length-1) < 32)
-        header = header.substring(0,header.length-1)
-    var rest = source.substring( header.length+1 )
-    var ret = {
-        version: null,
-        lang: '', // 'vpython' (default) or 'rapydscript' or 'javascript' or a string that is neither (e.g. when editing header)
-        source: rest,
-        ok: false,
-        unpackaged: false,
-        isCurrent: false
-    }
-    header = header.split(" ")
-    if (header.length === undefined) return ret
-    if (header[0] == ' ') return ret
-    var elements = []
-    for (var i=0; i<header.length; i++) { // remove empty strings corresponding to spaces
-        if (header[i] != '') elements.push(header[i])
-    }
-    if (elements.length < 2 || elements.length > 3) return ret
-    if (elements[0] != 'GlowScript') return ret
-    ret.lang = 'javascript' // the default if no language is specified
-    if (elements.length == 3) {
-        ret.lang = elements[2].toLowerCase()
-        if (!(ret.lang == 'javascript' || ret.lang == 'vpython')) return ret
-    }
-    var ver = elements[1]
-    if (ver != gsversion) alert('The version number, '+ver+', should be '+gsversion)
-    var okv = true
-    return {
-        version: ver,
-        lang: ret.lang,
-        source: rest, 
-    }
-}
+let wp = 'Web VPython '+gsversion
+let js = 'JavaScript '+gsversion
+
+const r0 = new RegExp('\\s*from\\s*vpython\\s*import\\s*\\*\\s*\n') // no version number
+const r1 = new RegExp('\\s*Web\\s*VPython\\s*([[1-9]\\.[1-9])\\s*\n')
+const r2 = new RegExp('\\s*\\sGlowScript\\s*([[1-9]\\.[1-9])\\s*VPython\\s*\n')
+const r3 = new RegExp('\\s*\\sGlowScript\\s*([[1-9]\\.[1-9])\\s*JavaScript\\s*\n')
+const r4 = new RegExp('\\s*JavaScript\\s*([[1-9]\\.[1-9])\\s*\n')
+const r5 = new RegExp('\\s*GlowScript\\s*([[1-9]\\.[1-9])\\s*\n')
+let langtype = [ [r0, wp], [r1, wp], [r2, wp], [r3, js], [r4, js], [r5,js] ]
 
 function getHeader(exporting) {
-    var text = GSedit.getValue()
-    var end = text.indexOf('\n')
-    var i = text.slice(0,end).indexOf("GlowScript") // Look for "GlowScipt" in first line
-    var j = text.slice(0,end).indexOf("vpython")    // Look for "vpython" in first line
-    if (i < 0 && j) text = "GlowScript "+gsversion+" VPython" + "\n" + text
-    var header = parseVersionHeader(text)
-    printpane = false
-    if (header.source.search(/print\s*\(/) >= 0) { // if the program uses print() or GSprint(), expand 3rd pane
-    	printpane = true
-        if (!exporting) {
-            var end = header.source.indexOf('\n')
-            var insert
-            var w = (lastprintwidth === null) ? 300 : 0.01*lastprintwidth*window.innerWidth
-            if (header.lang == 'vpython')
-                 insert = "print_options(place=$('#printing'),  width="+w+", height=window.innerHeight, clear=True)\n"
-            else insert = "print_options({place:$('#printing'), width:"+w+", height:window.innerHeight, clear:true})\n"
-            header.source = insert + header.source
+    usertext = GSedit.getValue()
+    let end = usertext.indexOf('\n')
+    let firstline = usertext.slice(0,end+1)
+    lang = null
+    for (let i=0; i<langtype.length; i++) {
+        let m = firstline.match(langtype[i][0])
+        if (m !== null) {
+            usertext = langtype[i][1] + usertext.slice(end)
+            lang = 'vpython'
+            if (i>2) lang = 'javascript'
+            break
         }
     }
-    // Look for mention of MathJax in program and attempt to get it (need internet access; files too big to include in package)
-    if (header.source.indexOf('MathJax') >= 0) {
-        alert('Cannot currently use MathJax in GlowScript Offline.')
+    if (lang == null) {
+        usertext = wp+'\n'+usertext
+        lang = 'vpython'
     }
-    return header
+    GSedit.setValue(usertext)
+    return usertext
 }
 
-var gsErrordiv
-var savecode = null
+let gsErrordiv
+let savecode = null
 
 function runCode() {
-	var header = getHeader(false)
+	usertext = getHeader(false)
 	splitAdjust()
     gsErrordiv = $("#gserrors")[0]
-    localCompile(header, ready, gsErrordiv, false)
+    localCompile(ready, gsErrordiv)
 }
 
 async function runprog(prog) { 
@@ -215,24 +184,24 @@ function exportCode() {
 		
 	} else { // Export operation
 		exporting = true
-		var header = getHeader(true)
+		//var header = getHeader(true)
 	    gsErrordiv = $("#gserrors")[0]
-	    localCompile(header, showcode, gsErrordiv)
+	    localCompile(showcode, gsErrordiv)
 	}
 }
 
 function showcode(sc) {
 	// In creating the string embedHTML it was necessary to break 'script' into 'scr'+'ipt' to avoid problems parsing GlowScript.html
-	var exporturl = "https://s3.amazonaws.com/glowscript/"
-	var verdir = '2.1'
-    var divid = "glowscript"
-    var embedHTML = (
+	let exporturl = "https://www.glowscript.org/"
+    let divid = "glowscript"
+    let jqversion = '2.1'
+    let embedHTML = (
         '<div id="' + divid + '" class="glowscript">\n' + 
-        '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' +
-        '<link type="text/css" href="'+exporturl+'css/redmond/' + verdir + '/jquery-ui.custom.css" rel="stylesheet" />\n' + 
+        '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' + '\n' +
+        '<link type="text/css" href="'+exporturl+'css/redmond/' + jqversion + '/jquery-ui.custom.css" rel="stylesheet" />\n' + 
         '<link type="text/css" href="' + exporturl + 'css/ide.css" rel="stylesheet" />\n' + 
-        '<scr'+'ipt type="text/javascript" src="' + exporturl + 'lib/jquery/' + verdir + '/jquery.min.js"></scr'+'ipt>\n' +
-        '<scr'+'ipt type="text/javascript" src="' + exporturl + 'lib/jquery/' + verdir + '/jquery-ui.custom.min.js"></scr'+'ipt>\n' +
+        '<scr'+'ipt type="text/javascript" src="' + exporturl + 'lib/jquery/' + jqversion + '/jquery.min.js"></scr'+'ipt>\n' +
+        '<scr'+'ipt type="text/javascript" src="' + exporturl + 'lib/jquery/' + jqversion + '/jquery-ui.custom.min.js"></scr'+'ipt>\n' +
         '<scr'+'ipt type="text/javascript" src="' + exporturl + 'package/glow.' + gsversion + '.min.js"></scr'+'ipt>\n' +
         '<scr'+'ipt type="text/javascript" src="' + exporturl + 'package/RSrun.' + gsversion + '.min.js"></scr'+'ipt>\n' +
         '<scr'+'ipt type="text/javascript"><!--//--><![CDATA[//><!--\n' +
@@ -429,7 +398,7 @@ function reportScriptError(program, err) { // This machinery only gives trace in
                     }
                 }
                 if (L === undefined) continue
-                var N = Number(L)-1
+                var N = Number(L)
                 if (first) traceback.push('At or near line '+N+': '+window.__original.text[N-1])
                 else traceback.push('Called from line '+N+': '+window.__original.text[N-1])
                 first = false

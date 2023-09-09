@@ -13,7 +13,7 @@
 <h4>OBTAINING THE LATEST VERSION OF GLOWSCRIPT OFFLINE</h4>
 <p>Based on the work of Vesa Lappalainen of Finland, this package makes it possible to write and run GlowScript programs even when disconnected from the internet.&nbsp;</p>
 <p>To obtain the latest version of this package, go to the following location:</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/vpython/glowscript/blob/master/GlowScriptOffline2.9.zip">https://github.com/vpython/glowscript/blob/master/</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/vpython/glowscript/blob/master/">https://github.com/vpython/glowscript/blob/master/</a></p>
 <p>Click the latest version of GlowScriptOfflineX.Y.zip and click the download icon.&nbsp;&nbsp;</p>
 <h4>CHOICE OF BROWSER</h4>
 <p>It is recommended to use the Chrome browser, as it is the only browser that provides detailed information on run-time errors and also makes it possible to use textures and JavaScript libraries. You can use a different browser if these issues are not important to you.</p>
@@ -60,14 +60,7 @@
 <p>If you make a large number of runs, performance may degrade due to an accumulation of "WebGL contexts". However, there is a simple remedy: reload the web page.</p>
 
 <h4>IMPORT ISSUES, AND USING JAVASCRIPT</h4>
-<p>By default, if you don't start a program with a statement of the form "GlowScript 2.7 JavaScript" or "GlowScript 2.7 RapydScript", it is assumed that this is a VPython program. You can also start a program with one of these kinds of Python import statements (or include such an import statement after "GlowScript 2.7 VPython"):</p>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;from vpython import *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# The default; all VPython elements are available<br>
-&nbsp;&nbsp;&nbsp;&nbsp;from vpython import canvas, box, sphere, vec&nbsp;&nbsp;&nbsp;# This MUST include canvas<br>
-&nbsp;&nbsp;&nbsp;&nbsp;import vpython&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# A red box: vpython.box(color=vpython.color.red)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;import vpython as vp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# A red box: vp.box(color=vp.color.red)</p>
-
-<p>If you don't include a GlowScript or import statement, this is the same as specifying "from vpython import *".</p>
+<p>By default, if you don't specify VPython or JavaScript in the first line, it is assumed that this is a VPython program.</p>
 
 <h4><a name="textures"></a>USING TEXTURES OR JAVASCRIPT LIBRARIES</h4>
 <p>If you don't use textures or JavaScript libraries (using the get_library function), the instructions given above are adequate. If you do however use textures or JavaScript libraries, you need to follow these instructions:</p>
