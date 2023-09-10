@@ -57,6 +57,7 @@
 &nbsp;&nbsp;&nbsp;
 <button id="export" onclick="exportCode()">Export</button>
 &nbsp;&nbsp;&nbsp;
+<input type="file" id="read_local_file"/>
 
 <script>
 const gsversion = '3.2'
@@ -253,7 +254,7 @@ function readSingleFile(evt) {
 	}
 }
 
-//document.getElementById('read_local_file').addEventListener('change', readSingleFile, false)
+document.getElementById('read_local_file').addEventListener('change', readSingleFile, false)
 
 </script>
 

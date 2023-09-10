@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 
 # Bruce Sherwood
 

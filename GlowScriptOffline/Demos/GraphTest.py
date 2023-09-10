@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 s = 'Test of <b><i>graphing</i></b>. Move the mouse over the graph to explore its interactivity.'
 s += '<br>Drag a rectangle in the graph to zoom. Examine the icons at the upper right.'
 s += '<br>Click the "Reset axes" icon to restore. Drag along the bottom or left to pan.'

@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 scene.width = 350
 scene.height = 300
 scene.range = 1.3

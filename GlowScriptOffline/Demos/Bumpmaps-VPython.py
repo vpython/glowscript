@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 scene.title = "Enhanced 3D of surfaces using bump maps"
 scene.caption = "Drag the single light with the left button, rotate with the right button."
 c = box(pos=vec(0,0,0), shininess=0, texture={'file':textures.stones, 'bumpmap':bumpmaps.stones})

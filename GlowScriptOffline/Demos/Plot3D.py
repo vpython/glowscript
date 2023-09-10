@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 scene.width = scene.height = 600
 # There is an L by L grid of vertex objects, numbered 0 through L-1 by 0 through L-1.
 # Only the vertex operators numbered L-2 by L-2 are used to create quads.

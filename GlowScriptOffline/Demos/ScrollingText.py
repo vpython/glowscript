@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 # Create a simple scrolling text object
 scene.width = scene.height = 250
 scene.title = 'This is a test'

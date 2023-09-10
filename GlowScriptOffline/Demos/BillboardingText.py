@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 b = box(pos=vec(-4,2,0), color=color.red)
 c1 = cylinder(pos=b.pos, radius=0.1, axis=vec(0,1.5,0), color=color.yellow)
 s = sphere(pos=vec(4,-4,0), radius=0.5, color=color.green)

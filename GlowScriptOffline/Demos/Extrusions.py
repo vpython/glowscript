@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 scene.background = color.gray(0.8)
 scene.forward = vec(0,-0.2,-1)
 scene.fov = 0.2

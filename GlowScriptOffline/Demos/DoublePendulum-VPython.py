@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 # Double pendulum
 
 # The analysis is in terms of Lagrangian mechanics.

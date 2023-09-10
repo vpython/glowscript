@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 # This program displays most GlowScript 3D objects.
 
 #It also illustrates key features such as mouse handling, rate, and sleep.

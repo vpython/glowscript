@@ -1,5 +1,4 @@
 from vpython import *
-#GlowScript 2.7 VPython
 
 scene.caption = """Right button drag or Ctrl-drag to rotate "camera" to view scene.
 To zoom, drag with middle button or Alt/Option depressed, or use scroll wheel.
