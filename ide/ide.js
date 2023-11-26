@@ -31,12 +31,12 @@ $(function () {
         else source = 'already exists\n'
         let header = sourceLines[0]
         // Remove a newline or similar character at the end of header:
-        if (header.charCodeAt(header.length-1) < 32)
-            header = header.substring(0,header.length-1)
+        if (header.charCodeAt(header.length-1) < 32) header = header.substring(0,header.length-1)
             let rest = source.substr( sourceLines[0].length+1 )
-            let ret = {
+        let ret = {
             version: null,
             lang: '', // 'vpython' (default) or 'javascript' or a string that is neither (e.g. when editing header)
+            nodictionary: false,
             source: rest,
             ok: false,
             unpackaged: false,
@@ -44,7 +44,8 @@ $(function () {
         }
         // Here are the possible headers (version can be for example 3.2 or 3.3dev)
         // 2 entries: 'JavaScript 3.2', 'GlowScript 3.2'
-        // 3 entries: 'GlowScript 3.2 VPython', 'GlowScript 3.2 JavaScript', 'Web VPython 3.2', Web VPython 3.3dev
+        // 3 entries: 'GlowScript 3.2 VPython', 'GlowScript 3.2 JavaScript', 'Web VPython 3.2', 'Web VPython 3.3dev'
+        // 4 entries: 'GlowScript 3.2 VPython nodictionary', 'Web VPython 3.2 nodictionary'
         header = header.toLowerCase()
         header = header.split(" ")
         if (header.length === undefined) return ret
@@ -53,14 +54,14 @@ $(function () {
         for (let i=0; i<header.length; i++) { // remove empty strings corresponding to spaces
             if (header[i] != '') elements.push(header[i])
         }
-    	if (elements.length < 2 || elements.length > 3) return ret
+    	if (elements.length < 2 || elements.length > 4) return ret
         if (elements[0] != 'glowscript' && elements[0] != 'web' && elements[0] != 'javascript') return ret
         let ver
         if (elements.length == 2) {
             if (elements[0] != 'glowscript' && elements[0] != 'javascript') return ret
             ret.lang = 'javascript'
             ver = elements[1]
-        } else {
+        } else if (elements.length == 3) {
             if (elements[0] == 'web' && elements[1] == 'vpython') {
                 ret.lang = 'vpython'
                 ver = elements[2]
@@ -70,15 +71,25 @@ $(function () {
                 ret.lang = elements[2]
                 ver = elements[1]
             }
+        } else { // 4 elements
+            if (elements[0] == 'web' && elements[1] == 'vpython') {
+                ret.lang = 'vpython'
+                ver = elements[2]
+                if (elements[3] == 'nodictionary') ret.nodictionary = true
+                else return ret
+            }
         }
+
         let okv = parseVersionHeader.okVersions[ver]
         if (okv === undefined) okv = false
         // Prior to version 3.0, we stripped the header line from the source:
         else if (Number(okv) < 3.0) source = source.substr(sourceLines[0].length+1) 
         let unpackaged = (okv === "unpackaged")
+        console.log('ide 88', ret)
         return {
             version: okv,
             lang: ret.lang,
+            nodictionary: ret.nodictionary,
             source: source, 
             ok: okv, 
             unpackaged:unpackaged, 
@@ -1133,7 +1144,9 @@ $(function () {
 	                var header = parseVersionHeader( progData.source )
 	                if (header.ok) {
 	                    haveScreenshot = progData.screenshot != ""
-	                    sendMessage(JSON.stringify({ program: header.source, version: header.version, lang: header.lang, unpackaged: header.unpackaged, autoscreenshot:isWritable && !haveScreenshot }))
+	                    sendMessage(JSON.stringify({ program: header.source, version: header.version, 
+                            lang: header.lang, nodictionary: header.nodictionary, unpackaged: header.unpackaged, 
+                            autoscreenshot:isWritable && !haveScreenshot }))
 	                } else {
 	                    if ($dialog) $dialog.dialog("close")
 	                    $dialog = $("#version-error-dialog").clone().removeClass("template")
@@ -1324,9 +1337,11 @@ $(function () {
                     if (header.source.indexOf('MathJax') >= 0)
                     	mathjax = '<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>\n'
 
-					var embedScript = window.glowscript_compile(header.source,
-                    		{lang: header.lang, version: header.version.substr(0,3), run: false})
-                    var divid = "glowscript"
+                    var embedScript = window.glowscript_compile(header.source,
+                    		{lang: header.lang, version: header.version.substr(0,3), 
+                            run: false, nodictionary: header.nodictionary})
+                    console.log('ide 1343', embedScript)
+					var divid = "glowscript"
                     var remove = header.version==='0.3' ? '' : '.removeAttr("id")'
                     var main
                     var v = Number(header.version.substr(0,3))
