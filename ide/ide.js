@@ -85,7 +85,6 @@ $(function () {
         // Prior to version 3.0, we stripped the header line from the source:
         else if (Number(okv) < 3.0) source = source.substr(sourceLines[0].length+1) 
         let unpackaged = (okv === "unpackaged")
-        console.log('ide 88', ret)
         return {
             version: okv,
             lang: ret.lang,
