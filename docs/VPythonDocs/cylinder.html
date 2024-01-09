@@ -1,127 +1,189 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>cylinder</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {font-size: x-large}
-.style2 {font-size: xx-large}
--->
-</style>
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
-        <table width="100%" border="1">
-          <tr>
-            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">cylinder</font></span></div></td>
-            <td width="23%"><div align="center"><img src="images/cylinder.jpg" alt="cylinder" width="131" height="127" /><a href="arrow.html"></a></div></td>
-          </tr>
-        </table>
-        <p class="Normal"><strong>Studying this description of the cylinder object
-            provides an overview of  important aspects common to all of the
-            VPython 3D objects, box, sphere, pyramid, etc. </strong>Additional details about how to orient an object using &quot;axis&quot; and &quot;up&quot; are found in the description of the <a href="box.html"><strong>box object</strong></a>. </p>
-        <p class="Normal">This documentation explains how to use Web VPython. If you prefer to write programs in JavaScript, see this <strong><a href="using_javascript.html">document</a></strong>.</p>
-      <p class="Normal"> <img src="VisualRef-1.gif" alt="cylinder" align="right" /> Here is an example 
-        of how to make a cylinder, naming it &quot;rod&quot; for future reference:</p>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-          <p class="program"> rod = cylinder(pos=vector(0,2,1), &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;axis=vector(5,0,0), radius=1)</p>
-          <p class="Normal"> The center of one end of this cylinder is at x=0, y=2, 
-            and z=1. Its axis lies along the x axis, with length 5, so that the other 
-            end of the cylinder is at (5,2,1), as shown in the accompanying diagram.</p>
-          <p class="Normal"> You can modify the position of the cylinder after it has 
-            been created, which has the effect of moving it immediately to the new position:</p>
+    <title>cylinder &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ellipsoid" href="ellipsoid.html" />
+    <link rel="prev" title="curve" href="curve.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-          <p class="program"> rod.pos = vector(15,11,9)<br />
-          rod.pos.x = 15 # only change pos.x</p>
-          <p class="Normal"> If you create an object such as a cylinder but without 
-            giving it a name such as <span class="attribute">rod</span>, you can't refer 
-            to it later. This doesn't matter if you never intend to modify the object.</p>
-          <p class="Normal"> Since we didn't specify a color, the cylinder will be the 
-            current &quot;foreground&quot; color (see <a href="canvas.html">Controlling 
-              One or More VPython Canvases</a>). The default foreground color is 
-            white. After creating the cylinder, you can change its color:</p>
+  </head><body>
+  
 
-          <p class="program"> rod.color = vector(0,0,1) # make rod be blue</p>
-          <p class="Normal"> This will make the cylinder suddenly turn blue, using the 
-            so-called RGB system for specifying colors in terms of fractions of red, 
-            green, and blue. (For details on choosing colors, see <a href="color.html">Specifying 
-              Colors</a>.) You can set individual amounts of red, green, and blue like 
-            this:</p>
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-          <p class="program"> rod.red = 0.4<br />
-          rod.green = 0.7<br />
-          rod.blue = 0.8</p>
-          <p class="Normal"> The cylinder object can be created with other, optional 
-            attributes, which can be listed in any order. Here is a full list of attributes, 
-            most of which also apply to other objects:</p>
-          <p class="attributes"> <font color="#FF0000" class="attribute">pos</font> Position: the center of one end of the cylinder; default = vector(0,0,0)<br />
-  </p>
-          <p class="attributes"> <font color="#FF0000">axis</font> The axis points from 
-        pos to the other end of the cylinder, default = vector(1,0,0). Setting the axis makes  <span class="attribute">length </span>and <span class="attribute">size.x</span> equal  to the magnitude of the axis. An object's <font color="#FF0000">axis</font> and <span class="attribute">up</span> attributes are always perpendicular to each other. Changing the direction of <font color="#FF0000">axis</font> also changes the direction of <span class="attribute">up</span> so that the two directions always remain at right angles to each other.</p>
-          <p class="attributes"><span class="attribute">up</span> Which side
-            of the  cylinder is &quot;up&quot;; this has only a subtle effect
-            on the 3D appearance  of the cylinder unless a non-smooth texture 
-            is specified or the cross section is oval; the default is vector(0,1,0). An object's <font color="#FF0000">axis</font> and up attributes are always perpendicular to each other. Changing the direction of<span class="attribute"> up</span><font color="#FF0000"> </font>also changes the direction of <font color="#FF0000">axis</font> so that the two directions always remain at right angles to each other.</p>
-          <p class="attributes"> <span class="attribute">length</span> Length of axis and x component of size; default is 1. 
-            Setting the length makes the magnitude of <font color="#FF0000">axis</font> equal to the length. The following feature is not yet available in VPython 7, in which you should update axis, not length: If you set the length to zero, the current value of <font color="#FF0000">axis</font> is saved, the object becomes invisible, and <font color="#FF0000">axis</font> is set to vector(0,0,0). If you later set length to nonzero, <font color="#FF0000">axis</font>  is set to the direction of the saved value,  multiplied by the new length.</p>
-          <p class="attributes"> <span class="attribute">radius</span> The radius of 
-            the cylinder, default = 1</p>
-          <p class="attributes"> <span class="attribute">size</span> Instead of specifying length and radius, you can set size=vector(length,height,width), which means that the cross section of the cylinder can be elliptical. Setting size makes <font color="#FF0000">axis</font> be equal to <span class="attribute">size.x</span> (the length) times the direction of <span class="attribute">axis</span>. or (except in VPython 7 currently) if <span class="attribute">axis</span> is vector(0,0,0), the direction of the saved value of <span class="attribute">axis</span>.</p>
-          <p class="attributes"> <span class="attribute">color</span> Color of object, 
-            as a red-green-blue (RGB) triple: vector(1,0,0) is pure red, default = vector(1,1,1), 
-            which is color.white</p>
-          <p class="attributes"> <span class="attribute">red</span>, <span class="attribute">green</span>, <span class="attribute">blue</span> (can set these color attributes individually), 
-            defaults are all 1</p>
-          <p class="attributes"> <span class="attribute">opacity</span> Opacity
-            of object, default = 1; 0 is completely transparent</p>
-          <p class="attributes"> <span class="attribute">shininess</span> 0 to 1, default 0.6; governs the amount of specular reflections.</p>
-          <p class="attributes"> <span class="attribute">emissive</span> If True, local and distant lights are ignored, and the brightness is governed by the object's own color.   An example of its use is to put an emissive sphere at the location of a local_light, which looks like a glowing lamp.   The default for emissive is False.</p>
-          <p class="attributes"><span class="attribute">texture</span> Texture
-        of object; see <a href="textures.html">Textures</a> for currently available options (there are no materials in as there were in Classic VPython, but textures are similar)</p>
-          <p class="attributes"><span class="attribute">canvas</span> By default, an object such as a cylinder will be displayed in the most recently created 3D canvas, which will be the default canvas named &quot;scene&quot; unless you create a canvas yourself (see the related discussion at the start of the <strong><a href="canvas.html">canvas documentation</a></strong>).</p>
-<p class="Normal"> Note that the <span class="attribute">pos</span> attribute 
-            for cylinder, arrow, cone, and pyramid corresponds to one end of the object, 
-            whereas for a box, sphere, or ring it corresponds to the center of the object.  </p>
-          <p class="Normal">If you include <span class="attribute">make_trail=True</span> when you create the object, a trail will be left behind the object as you move it. For related options, see <a href="trail.html"><strong>Leaving a Trail</strong></a>.</p>
-          <p class="Normal">See <a href="rotation.html"><strong>Rotating an Object</strong></a> for an easy way to change the orientation of an object.</p>
-          <p class="Normal">See description of <a href="options.html">Additional
-              Attributes</a> available
-            for all 3D display objects.</p>
-          <p class="Normal"> When you start a VPython program, for convenience VPython 
-            creates a canvas and names it <span class="attribute">scene</span>. 
-            By default, objects that you create go into that canvas. See <a href="canvas.html">Controlling 
-              One or More VPython Display Windows</a> later in this reference for how you 
-            can create additional canvases and place objects in them.</p>
-          <p class="Normal"><br />
-          </p>
+          <div class="body" role="main">
+            
+  <section id="cylinder">
+<h1>cylinder<a class="headerlink" href="#cylinder" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/cylinder.png"><img alt="_images/cylinder.png" src="_images/cylinder.png" style="width: 200px;" /></a>
+<a class="reference internal image-reference" href="_images/cylinderaxis.png"><img alt="_images/cylinderaxis.png" src="_images/cylinderaxis.png" style="width: 200px;" /></a>
+<dl class="py function">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">cylinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">vec(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">vec(3,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">color.red</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>vector</em>) – Position of left end. Default &lt;0,0,0&gt;.</p></li>
+<li><p><strong>axis</strong> (<em>vector</em>) – Extends from <em>pos</em> to end. Default &lt;1,0,0&gt;.</p></li>
+<li><p><strong>color</strong> (<em>vector</em>) – Default <em>color.white</em>.</p></li>
+<li><p><strong>radius</strong> – Radius of the cylinder.  Default is 1.</p></li>
+<li><p><strong>length</strong> (<em>scalar</em>) – Length of axis. Setting length sets magnitude of axis. Default is 1.</p></li>
+<li><p><strong>size</strong> (<em>vector</em>) – Length, height, width of a box surrounding the cylinder. Default is &lt;1,1,1&gt;.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
-    <!-- InstanceEndEditable -->		
+<p>By setting size appropriately one can make the cross-section of the cylinder elliptical instead of circular.</p>
+<p>Attributes used less often:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">cylinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shininess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">texture</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">textures.wood</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make_trail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">mycanvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emissive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>opacity</strong> (<em>scalar</em>) – Default 1.0; Range 0-1.</p></li>
+<li><p><strong>shininess</strong> (<em>scalar</em>) – Default 0.6; Range 0-1.</p></li>
+<li><p><strong>emissive</strong> (<em>boolean</em>) – Default False. Object glows, losing all shading, if True.</p></li>
+<li><p><strong>texture</strong> (<em>class element</em><em> or </em><em>path</em>) – Default None.</p></li>
+<li><p><strong>visible</strong> (<em>boolean</em>) – If False, object is not displayed.  Default: True</p></li>
+<li><p><strong>canvas</strong> (<em>object</em>) – Default is <code class="xref py py-attr docutils literal notranslate"><span class="pre">scene</span></code>.</p></li>
+<li><p><strong>make_trail</strong> (<em>boolean</em>) – If True, object leaves a trail when moved. See Attaching a Trail for more options.</p></li>
+<li><p><strong>up</strong> (<em>vector</em>) – A vector perpendicular to the axis.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Rotation; <a class="reference internal" href="color.html"><span class="doc">color</span></a>; <a class="reference internal" href="emissive.html"><span class="doc">emissive</span></a>; <a class="reference internal" href="opacity.html"><span class="doc">opacity</span></a>; <a class="reference internal" href="trail.html"><span class="doc">Leaving a trail</span></a>; <a class="reference internal" href="canvas.html"><span class="doc">canvas</span></a>; textures;</p>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="objects.html">3D Objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="box.html">box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cone.html">cone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="curve.html">curve</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">cylinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ellipsoid.html">ellipsoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helix.html">helix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="label.html">label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="points.html">points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyramid.html">pyramid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphere.html">sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text.html">3D text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#designing-objects">Designing objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#delete-an-object">Delete an Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="objects.html">3D Objects in VPython</a><ul>
+      <li>Previous: <a href="curve.html" title="previous chapter">curve</a></li>
+      <li>Next: <a href="ellipsoid.html" title="next chapter">ellipsoid</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cylinder.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

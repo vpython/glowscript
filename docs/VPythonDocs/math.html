@@ -1,126 +1,137 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>Math Functions</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
-      <div>
-        <h1 class="Heading-1"> <font color="#0000A0">Math Functions</font></h1>
-      </div>
-      <div>
-        <p class="Normal"> For versions of Python prior to 3.0, Python performs integer division with truncation, 
-          so that 3/4 is 0, not 0.75. This is inconvenient when doing scientific computations, 
-          and can lead to hard-to-find bugs in programs. In the Web VPython environment, where VPython code is compiled to JavaScript, 3/4 is always 0.75.</p>
-<div> </div>
-      </div>
-      <p class="Normal">The following math functions are provided:</p>
-      <p class="program">abs(x)<br />
-        sqrt(x)<br />
-        sin(x)<br />
-        cos(x)<br />
-        tan(x)<br />
-        asin(x) &nbsp;&nbsp;&nbsp;# arc sine<br />
-        acos(x) &nbsp;&nbsp;&nbsp;# arc cosine<br />
-        atan(x) &nbsp;&nbsp;&nbsp;# arc tangent; -pi/2 to pi/2<br />
-        atan2(y,x) # angle whose tangent is y/x; -pi to pi<br>
-        sqrt(x)&nbsp;&nbsp;&nbsp;&nbsp;# square root<br />
-        exp(x) &nbsp;&nbsp;&nbsp;&nbsp;# e to the x<br />
-        log(x)  &nbsp;&nbsp;&nbsp;&nbsp;# natural log, base e<br />
-        log10(x)&nbsp;&nbsp;&nbsp;# log base 10<br />
-        pow(x,y) &nbsp;&nbsp;# x to the power y<br />
-        pi    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 3.14159.... <br />
-        ceil(x)&nbsp;&nbsp;&nbsp;&nbsp;# round up to nearest integer<br />
-        floor(x)&nbsp;&nbsp;&nbsp;# round down to nearest integer<br />
-        sign(x)    &nbsp;&nbsp;&nbsp;# +1 if x &gt; 0, -1 if x &lt; 0, 0 if x == 0<br />
-        round(x,N)&nbsp;# round x to nearest integer; optional N decimal places&nbsp; <br />
-        max(x,y,z) # the largest of x,y,z<br />
-        min(x,y,z) # the smallest of x,y,z<br />
-        random()   &nbsp;&nbsp;# pseudorandom number 0 to 1<br />
-        factorial(x) &nbsp;# x! = x*(x-1)*(x-2)....(1)<br />
-        combin(x,y)     &nbsp;&nbsp;#  x!/(y!*(x-y)!) <br />
-        max(a,b,c,..) # maximum of these<br />
-        min(a,b,c,..) # minimum of these</p>
-      <p class="Normal">Many of the quantities above are short forms of the JavaScript functions Math.abs(x), Math.sqrt(x), etc.      </p>
-      <div>
-        <div></div>
-      </div>
-      <p class="Normal">In general, Python modules cannot be imported into VPython programs, because Web VPython functions in a JavaScript environment. However, one can import the Python &quot;random&quot; module into a VPython program, provided by the RapydScript-NG tool that converts Python to JavaScript. One cannot use the form &quot;from random import *&quot; but must use &quot;import random&quot; or &quot;import random as rr&quot; (or other name) or &quot;from random import randint, uniform&quot; (or other list of functions). Here is <strong><a href="https://docs.python.org/3/library/random.html">documentation</a></strong> of the Python random module, however only seed_state, get_random_byte, seed, random, randrange, randint, uniform, choice, shuffle, and sample have been implemented in Web VPython. You do not need to import the random module in order to be able to use the random() function described above.</p>
-      <p class="Normal">There are functions for converting between degrees and
-        radians, where there are 2*pi radians in 360 degrees: </p>
-      <p class="program">radians(360) &nbsp;# equal to 2*pi<br />
-        degrees(2*pi) # equal to 360</p>
-      <p class="Normal">See JavaScript documentation on the <strong><a href="https://www.w3schools.com/jsref/jsref_obj_date.asp" target="_blank">Date</a></strong> object which provides methods for determining the current day etc. </p>
-      <p class="Normal">Here is a way to determine elapsed time in seconds, with microsecond accuracy, using the clock() function that is also available in the standard Python &quot;time&quot; module. The displayed text is approximately 1.5:</p>
-      <p class="program">t1 = clock()<br />
-        sleep(1.5)<br />
-        t2 = clock()<br />
-        print(t2-t1) </p>
-      <p class="Normal">There is also a function msclock() which gives the time in milliseconds instead of seconds.</p>
-      <p class="Normal">You can <a href="MathJax.html" target="_blank"><strong>use LaTeX</strong></a> to display mathematical expressions on the page.</p>
-      <p class="Normal">Here are functions that are useful in statistical calculations:</p>
-      <div>
-        <div>
-          <p class="program"> print(factorial(4)) # gives 24 <br />
-            print(combin(10,2)) # gives 45 </p>
-          <p class="Normal"><span class="program">The factorial function factorial(N)
-            is N!; 4! is (4)(3)(2)(1) = 24, and 0! is defined to be 1.<br />
-            The combin function is combin(a,b) = a!/(b!*(a-b)!)</span>.</p>
-          <p class="Normal">A major use of these functions is in calculating the number 
-            of ways of arranging a group of objects. For example, if there are 5 numbered 
-            balls in a sack, there are <span class="attribute">factorial(5)</span> = 
-            5! = 5*4*3*2*1 = 120 ways of taking them sequentially out of the sack (5 
-            possibilities for the first ball, 4 for the next, and so on). </p>
-          <p class="Normal">If on the other hand the 5 balls are not numbered, but 2 
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Math Functions and Vectors &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Math Functions" href="mathfunct.html" />
+    <link rel="prev" title="Graphing" href="graph.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
             
-            are green and 3 are red, of the 120 ways of picking the balls there are 
-            
-            2! indistinguishable ways of arranging the green balls and 3! ways of arranging 
-            
-            the red balls, so the number of different arrangements of the balls is <span class="attribute">combin(5,2)</span> = 5!/(3!*2!) = 10.</p>
-          <p class="Normal">Logically, the combin function is just a combination of 
-            
-            factorial functions. However, cancellations in the numerator and denominator 
-            
-            make it possible to evaluate the combin function for values of its arguments 
-            
-            that would overflow the factorial function, due to the limited size of floating-point 
-            
-            numbers. For example, <span class="attribute">combin(5,2)</span> = 5!/(3!*2!) 
-            
-          = (5*4)/(2*1) = (2.5*4) = 10, and we didn't have to evaluate any of the factorials fully.</p>
-          <p class="Normal">&nbsp;</p>
-          <p class="Normal"><br />
-          </p>
+  <section id="math-functions-and-vectors">
+<h1>Math Functions and Vectors<a class="headerlink" href="#math-functions-and-vectors" title="Permalink to this heading">¶</a></h1>
+<p>VPython supports vector operations as well as the basic mathematical functions.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mathfunct.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector.html">Vector Operations</a></li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
         </div>
       </div>
-		<!-- InstanceEndEditable -->		
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Math Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mathfunct.html">Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector.html">Vector Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="graph.html" title="previous chapter">Graphing</a></li>
+      <li>Next: <a href="mathfunct.html" title="next chapter">Math Functions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/math.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

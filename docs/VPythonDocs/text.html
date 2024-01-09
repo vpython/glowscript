@@ -1,115 +1,200 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>text</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {
-	color: #FF0000;
-	font-weight: bold;
-}
--->
-</style>
-<style type="text/css">
-<!--
-.style2 {
-	font-size: x-large;
-	font-weight: bold;
-}
-.style2 {font-size: xx-large}
--->
-</style>
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-          <table width="100%" border="1">
-            <tr>
-              <td width="21%"><div align="center"><span class="style2"><font color="#0000A0">text</font></span></div></td>
-              <td width="79%"><div align="center"><img src="images/newtext3d.png" alt="3D text" width="447" height="207" /></div></td>
-            </tr>
-          </table>
-      <p class="Normal">See the <a href="text_output.html"><strong>Text Output</strong></a> discussion for additional ways to output text in the Web VPython environment.</p>
-      <p class="Normal">With the text object you can display 3D text.  The
-      green 3D  text shown above was created with the following statement:</p>
-<p class="program"> T = text(text='My text is\ngreen',<br />
-  &nbsp;&nbsp;&nbsp;&nbsp; align='center', color=color.green)</p>
-<p class="Normal">Labels were added to the display above to illustrate
-  some of the main attributes of the text object. Whether you extrude into or out of the screen, the text is created so that it is readable left to right from the normal viewing position, in the +z direction.</p>
-<p class="Normal"><strong>Limitations:</strong> It is important to know that this 3D text object is very complex and expensive to display, nor can you modify the letters displayed once the object has been created. If for example you want to display rapidly changing text, use the <strong><a href="label.html">label object</a></strong> (displayed in front of the canvas) or the <strong><a href="controls.html">wtext object</a></strong><a href="controls.html"></a> (displayed above the canvas as part of the title or below the canvas as part of the caption). Also see the section &quot;Displaying text&quot; of the <strong><a href="canvas.html">canvas documentation</a></strong>.</p>
-<p class="Normal">Currently this 3D text object does not handle HTML options, such as bold, italic, subscript, or superscript. The label and wtext objects do however support these options.</p>
-<p class="Normal">3D text  is made out of <a href="triangle.html"><strong>quads</strong></a> and <a href="triangle.html"><strong>triangles</strong></a> which are then made into a <a href="compound.html"><strong>compound</strong></a> object for speed of display. You can make additional copies of a text object by <a href="clone.html">cloning</a> it. You can move the text by specifying a new <span class="attribute">pos</span>, and you can change its <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects, but note that color and size are &quot;multiplicative&quot;; see <a href="compound.html"><strong>compound</strong></a>.</p>
-<p class="Normal"><strong><em>The 3D text object does not have a <span class="attribute">size</span> attribute.</em></strong> Instead, the size of the display is specified by <span class="attribute">height</span>, <span class="attribute">length</span> and <span class="attribute">depth</span> as discussed below.</p>
-<p class="Normal">Here
-  is a  list of text attributes, in addition to the usual attributes of canvas, color, shininess, and opacity (but not texture or bumpmap, currently):</p>
-<p class="attributes"> <span class="attribute">pos</span> The
-  location of the baseline of the text, to the left, to the right,
-  or at the center of the text, as per align.<span class="attribute"></span><span class="attribute"></span></p>
-<p class="attributes"> <span class="attribute">align </span>Specify 'left'
-  (default), 'right', or 'center'.</p>
-<p class="attributes"> <span class="attribute">text</span> The text to
-  be  displayed, such as &quot;My text is\ngreen&quot; in the example above ('\n' is a new-line character). 
-  Unicode strings are supported. After creating the object, the text is read-only -- it cannot be changed. The reason for this is that it takes a significant portion of a second to create a 3D text object. If you need to change the text, make the current object invisible (visible=False) and create a new object. The text need not be a string; it can be anything that you could print.</p>
-<p class="attributes"> <span class="attribute">height</span> Height
-  of an uppercase letter (see above); default is 1. Specifying the
-  height when creating the text object sets the scale for the entire text display. After creating the 3D text, you can change the height of the object. For example, if you say T.height = 0.5*T.height, the letters become shorter but the length stays the same. Changing
-  the height also changes descent and vertical_spacing.</p>
-<p class="attributes"><span class="attribute">length</span> length
-  of the displayed text. You cannot specify a length when creating the 3D text, but you can change this later. For example, if you say T.length = 0.5*T.length, the letters become narrower but the height stays the same.</p>
-<p class="attributes"><span class="attribute">depth</span> Depth
-  of the text; the default is 0.2 times the height when creating the 3D text. A positive number means extrude toward you, out of the screen; negative
-  means extrude away from you, into the screen. After creating the 3D text, you can change this. For example, if you say T.depth = 2*T.depth, the letters become twice as thick.  If the depth is zero, the thickness is made to be 0.01 times the height, and the text looks like a thin sheet.</p>
-<p class="attributes"> <span class="attribute">font </span>Name of
-  the desired  font, either &quot;sans&quot; (sans serif, the default) or &quot;serif&quot;. This is read-only.</p>
-<p class="attributes"><span class="attribute">billboard</span> In computer graphics &quot;billboard&quot; behavior means that the object always faces you, no matter how you reorient the camera. Specifying billboard = True when creating the text turns this on, and then is read-only. Because lighting changes as you rotate the camera, you may wish to specify emissive = True, so that the text is always bright.</p>
-<p class="attributes"> <span class="attribute">color </span>The color of the text.</p>
-<p class="attributes"><span class="attribute">start_face_color</span> and <span class="attribute">end_face_color</span> By default,the starting and ending faces are given the same color as the rest of the text, as specified by <span class="attribute">color</span>, but you can specify that other colors be used for the starting or ending face of the extruded text.</p>
-<p class="attributes"><span class="attribute">show_start_face</span> and <span class="attribute">show_end_face</span> By default, these attributes are True and the start and end faces of the extruded text are displayed. If you set one of these to False, that face is left open.</p>
-<p class="attributes"><span class="attribute">descender</span> Height
-  of the descender on lower-case letters such as y (whether or not
-  there is such a letter in the text). This is typically about 0.3
-  times the height. This is read-only but is affected by changes in height.</p>
-<p class="attributes"> <span class="attribute">upper_left, upper_right,
-  lower_right, lower_left </span>The bounding box of the displayed
-  text; all of these are read-only. For example, if you create <span class="program"><strong>title = text(text=&quot;My Text&quot;)</strong></span>,
-  you can place a sphere at the upper left corner with the statement <strong>sphere(pos=title.upper_left</strong>). See the screen display above.</p>
-<p class="attributes"> <span class="attribute">start, end </span> The left-most and right-most
-  locations on the baseline. These are read-only. If align is 'left', pos is the same as start. If align is 'right', pos is the same as end.</p>
-<p class="attributes"><span class="attribute">vertical_spacing</span> Vertical
-  distance from one baseline to the next in a multiline text. This is read-only.</p>
-<p class="attributes"><span class="attribute">axis</span> The axis
-  points along the baseline; changing the axis changes the orientation
-  of text.  The default is vector(1,0,0), with text going toward the right. Changing the axis only affects the direction of the line of text, not the length or size.</p>
-<p class="attributes"> <span class="attribute">up</span> Controls
-  the up attribute of the text; changing up makes the text tip away
-  from the vertical.</p>
-    <!-- InstanceEndEditable -->		
+    <title>text &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Animations" href="rate.html" />
+    <link rel="prev" title="sphere" href="sphere.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="text">
+<h1>text<a class="headerlink" href="#text" title="Permalink to this heading">¶</a></h1>
+<img alt="_images/newtext3d.png" src="_images/newtext3d.png" />
+<p>The <em>text</em> object displays 3D text, which is created by extruding the outlines of individual letters and then compounding the resulting objects.  In the image above white labels are used to illustrate some of the key attributes of the <em>text</em> object.</p>
+<p>If you want 2D text superimposed on a canvas, see <em>label</em>.  If you want 2D text above or below the <em>canvas</em>, see <em>canvas</em>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'My</span> <span class="pre">text</span> <span class="pre">is\ngreen'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">color.green</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>vector</em>) – Location of the baseline of the text. Modified by <em>align</em>. Default &lt;0,0,0&gt;.</p></li>
+<li><p><strong>text</strong> (<em>unicode string</em>) – Text to be displayed. Once created cannot be modified.</p></li>
+<li><p><strong>color</strong> (<em>vector</em>) – Color of text. Default is <em>color.white</em></p></li>
+<li><p><strong>align</strong> (<em>string</em>) – Specify ‘left’, ‘right’, or ‘center’. Alignment of baseline with pos. Default ‘left’.</p></li>
+<li><p><strong>font</strong> (<em>string</em>) – ‘sans’ or ‘serif. Default is ‘sans’.</p></li>
+<li><p><strong>billboard</strong> (<em>boolean</em>) – If <em>True</em>, text always faces camera, despite rotation.  Default <em>False</em>.</p></li>
+<li><p><strong>axis</strong> (<em>vector</em>) – The axis points along the baseline. Default &lt;1,0,0&gt;</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The text below has <code class="docutils literal notranslate"><span class="pre">billboard=False</span></code>:</p>
+<img alt="_images/starwarstext.png" src="_images/starwarstext.png" />
+<p>Less frequently used attributes:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mytext'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_face_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">color.red</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_face_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">color.cyan</span></span></em><span class="sig-paren">)</span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_face_color</strong> (<em>vector</em>) – Color of starting (back) face of the text. Default same as text color.</p></li>
+<li><p><strong>end_face_color</strong> (<em>vector</em>) – Color of starting (front) face of the text. Default same as text color.</p></li>
+<li><p><strong>opacity</strong> (<em>scalar</em>) – Opacity of text. Range 0-1.  Default is 0.66.</p></li>
+<li><p><strong>height</strong> (<em>scalar</em>) – Height of text in world coordinates. Default is 1.</p></li>
+<li><p><strong>length</strong> (<em>scalar</em>) – Length of displayed text.  Can’t be specified in constructor, but can be changed later.</p></li>
+<li><p><strong>depth</strong> (<em>scalar</em>) – Depth of text. Default is 0.2*height.  If depth&gt;0, extrude +z, if depth&lt;0, extrude -z.</p></li>
+<li><p><strong>descender</strong> (<em>scalar</em>) – Height of descender on lower case letters such as y.  Read-only.</p></li>
+<li><p><strong>start</strong> (<em>scalar</em>) – Leftmost location on baseline.  Read-only.</p></li>
+<li><p><strong>end</strong> – Rightmost location on baseline.  Read-only.</p></li>
+<li><p><strong>vertical_spacing</strong> (<em>scalar</em>) – Vertical distance from one baseline to next in multiline text. Read-only.</p></li>
+<li><p><strong>opacity</strong> – Default 1.0; Range 0-1.</p></li>
+<li><p><strong>shininess</strong> (<em>scalar</em>) – Default 0.6; Range 0-1.</p></li>
+<li><p><strong>emissive</strong> (<em>boolean</em>) – Default False. Object glows, losing all shading, if True.</p></li>
+<li><p><strong>visible</strong> (<em>boolean</em>) – If False, object is not displayed.  Default: True</p></li>
+<li><p><strong>canvas</strong> (<em>object</em>) – Default is <code class="xref py py-attr docutils literal notranslate"><span class="pre">scene</span></code>.</p></li>
+<li><p><strong>up</strong> (<em>vector</em>) – A vector perpendicular to the axis.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Rotation; <a class="reference internal" href="color.html"><span class="doc">color</span></a>; <a class="reference internal" href="emissive.html"><span class="doc">emissive</span></a>; <a class="reference internal" href="canvas.html"><span class="doc">canvas</span></a></p>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="objects.html">3D Objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="box.html">box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cone.html">cone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="curve.html">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cylinder.html">cylinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ellipsoid.html">ellipsoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helix.html">helix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="label.html">label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="points.html">points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyramid.html">pyramid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphere.html">sphere</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3D text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#designing-objects">Designing objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#delete-an-object">Delete an Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="objects.html">3D Objects in VPython</a><ul>
+      <li>Previous: <a href="sphere.html" title="previous chapter">sphere</a></li>
+      <li>Next: <a href="rate.html" title="next chapter">Animations</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/text.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
