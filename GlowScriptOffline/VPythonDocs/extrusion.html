@@ -1,133 +1,261 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>extrusion</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {font-size: x-large}
-.style2 {font-size: xx-large}
--->
-</style>
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
-		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
-		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
-		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <table width="100%" border="1">
-          <tr>
-            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">extrusion</font></span></div></td>
-            <td width="23%"><div align="center"><a href="arrow.html"></a><img src="images/extrusion.PNG" width="147" height="149" alt="extrusion" /></div></td>
-          </tr>
-        </table>
-        <p class="Normal">The extrusion object extrudes a 2D shape along a path. Here is an <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Extrusions" target="_blank">example</a></strong>, and here is the minimal syntax:</p>
-      <p align="center" class="program">ex = extrusion(path=..., shape=...)</p>
-      <p class="Normal"> The <span class="attribute">path</span> attribute is a list of points defining a path along which a 2D shape is extruded. The <span class="attribute">shape</span> attribute is a list of x-y pairs describing the perimeter of a 2D surface, such as<span class="program">[ [2,0], [0,4], [-2,0], [2,0] ]</span>. This 2D shape is extruded along the points specified by the pos list.        (In Web VPython version 2.1 the <strong><a href="extrusion2.1.html" target="_blank">details were somewhat different</a></strong>.)</p>
-      <p class="Normal"><strong>The size of the extrusion:</strong> After creating an extrusion named &quot;ex&quot;, <strong>ex.size</strong> represents the size of the bounding box of the extrusion. The x, y, and z components of ex.size can also be referred to as ex.length, ex.height, and ex.width.</p>
-      <p class="Normal"><strong>The position of the extrusion</strong> is <strong>ex.pos</strong>: After creating an extrusion named &quot;ex&quot;, <strong>ex.pos</strong> is located at the center of the bounding box. Later changes to ex.pos move the center of the extrusion to a new location. If you specify <span class="attribute">pos</span> when creating the extrusion, the center of the extrusion will be moved to that location, just as if you changed ex.pos after creating the extrusion.</p>
-      <p class="Normal">After creating an extrusion, changing the axis rotates the combined object. As with some other objects such as sphere or compound, changing the axis does not affect the size.</p>
-      <p class="Normal"><strong><font color="#0000a0">Other attributes</font></strong></p>
-      <p class="Normal">An extrusion is made out of <a href="triangle.html">quads</a> and <a href="triangle.html">triangles</a> which are then made into a <a href="compound.html"><strong>compound</strong></a> object for speed of display. You can make additional copies of an extrusion by <a href="clone.html"><strong>cloning</strong></a> it. You can move an extrusion by specifying a new <span class="attribute">pos</span>, and you can change its <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">color</span>, <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>, as with other objects. <span class="attributes"><span class="attribute">up </span><span class="attribute"></span> controls the orientation of the initial cross section; default is vec(0,1,0); see the box object for a discussion of this attribute</span>. Note that color is &quot;multiplicative&quot;; see <a href="compound.html"><strong>compound</strong></a>.</p>
-      <p class="Normal">Here are additional attributes that can be specified when creating an extrusion but cannot be changed later:      </p>
-      <p class="attributes"><span class="attribute">color</span> You can simply say &quot;color=color.red&quot; to make all the segments red, but in Web VPython (and in the next release of VPython 7) you can also say &quot;color = [color.red, color.green, color.blue]&quot;, in which case the first segment will be red, the second will be green, and the third will be blue. The number of colors must be the same as the number of points on the path, so the example here is for an extrusion with three points along the path. At a smooth turn along the path, the colors just before and after the joint are blended together.</p>
-      <p class="attributes"><span class="attribute">show_start_face</span> and <span class="attribute">show_end_face</span> By default, these attributes are True and the start and end faces are displayed. If you set one of these to False, that face is left open. These attributes have no effect if the path is closed.</p>
-      <p class="attributes"><span class="attribute">start_face_color</span> and <span class="attribute">end_face_color</span> By default,the starting and ending faces are given the same color as the color specified for the associated segment, but you can specify that other colors be used for the starting or ending face. These attributes have no effect if the path is closed.</p>
-      <p class="attributes"><span class="attribute">smooth</span> By default, adjacent segments for which the cosine of the angle between the two path elements is greater than 0.95 (corresponding to an angle of 18 degrees) are averaged so as to smooth the adjacent surfaces. You can set <span class="attribute">smooth</span> to a looser criterion for more smoothing. For example, setting smooth=0.9 will smooth adjoining surfaces  whose orientation differs by 53 degrees, a much looser criterion.</p>
-      <p class="attributes"><span class="attribute">scale</span> If scale is 3, all joints are enlarged by a factor of 3. If instead you give a list of numbers, such as &quot;scale = [2, 3, 0.5.]&quot;, the initial cross section is scaled by a factor of 2, the second by a factor of 3, and the third by a factor of 0.5. The number of scale factors must be the same as the number of points along the path. </p>
-      <p class="attributes"><span class="attribute">xscale</span> If xscale is 3, all joints are enlarged in the x direction by a factor of 3. If instead you give a list of numbers, such as &quot;xscale = [2, 3, 0.5.]&quot;, the initial x component of the cross section is scaled by a factor of 2, the second by a factor of 3, and the third by a factor of 0.5. The number of xscale factors must be the same as the number of points along the path. <span class="Normal">By default, the starting face of an extrusion is oriented with &quot;up&quot; in the +y direction (unless you specify a different &quot;up&quot; for the extrusion).+x is to the right and +y is up.</span></p>
-      <p class="attributes"><span class="attribute">yscale</span> If yscale is 3, all joints are enlarged in the y direction by a factor of 3. If instead you give a list of numbers, such as &quot;yscale = [2, 3, 0.5.]&quot;, the initial y component of the cross section is scaled by a factor of 2, the second by a factor of 3, and the third by a factor of 0.5. The number of yscale factors must be the same as the number of points on the path. <span class="Normal">By default, the starting face of an extrusion is oriented with &quot;up&quot; in the +y direction (unless you specify a different &quot;up&quot; for the extrusion).+x is to the right and +y is up.</span></p>
-      <p class="attributes"><span class="attribute">twist</span> If twist is 0.1 (an angle in radians), each segment of the extrusion is rotated 0.1 radians about the path, with respect to the previous segment. If instead you give a list of numbers, such as &quot;twist = [0.1, 0.3, -0.2]&quot;, the initial cross section is rotated counterclockwise by 0.1 radians, the second cross section is rotated counterclockwise by 0.3 radians with respect of the first segment, and the third cross section is rotated clockwise by 0.2 radians with respect of the second segment. The number of twist factors must be the same as the number of points on the path.</p>
-<p class="attributes"><span class="attribute">start_normal</span> and <span class="attribute">end_normal</span> By default,the outward-going normals to the starting and ending faces are determined by the direction of the path from the starting point to the next segment on the path, but you can specify different normals for the starting and/or ending faces. These attributes have no effect if the path is closed.</p>
-<p class="attributes"><span class="attribute">smooth_joints</span> and <span class="attribute">sharp_joints</span>  You can override the <span class="attribute">smooth</span> specification for specific points along the path. Suppose that all of the joints are &quot;smooth'; that is, the differences in direction from one segment to another are all quite small, but you would like to consider segments 2 and 5 nevertheless to be &quot;sharp&quot;, which affects the appearance and color of the joint. In that case you would say &quot;sharp_joints = [2, 5]&quot;. Similarly, if there are sharp turns at segments 1 and 7 that you would like to treat as &quot;smooth&quot;, you would say &quot;smooth_joints = [1, 7]. As usual with lists, 0 is the first joint and 1 is the second joint. Here is an example of the effect on color, where the upper example shows a fade from blue to orange, and the lower example with an inserted&quot;sharp&quot; joint shows an abupt color change:</p>
-      <p class="Normal"></p>
-      <table width="529" border="0">
-        <tr>
-          <td width="523"><div align="center"><span class="Normal"><img src="images/colors_abutting.jpg" width="312" height="200" alt="colors abutting" /></span></div></td>
-        </tr>
-      </table>
-      <p class="Normal"><strong><font color="#0000a0">The three steps to making an extrusion</font></strong></p>
-        <p class="Normal"><strong>1)</strong> Create a 2D <span class="attribute">shape</span>, either by giving a list of points or by choosing a shape from a supplied library of common shapes. Here are three examples. The first creates a triangle by listing 2D points. The second example creates a circular shape from the <strong><a href="shapes.html">shapes and paths library</a></strong>, and the third creates a rectangular shape, using the shapes library.</p>
-        <p class="program">tri = [ [2,0], [0,4], [-2,0], [2,0] ]</p>
-        <p class="program">circ = shapes.circle(radius=3)</p>
-      <p class="program">rect = shapes.rectangle(width=0.2, height=0.4)<br />
-      </p>
-      <p class="Normal">A shape must be closed. That is, the last point must be the same as the first point.</p>
-        <p class="Normal"><strong>2)</strong> Create a 2D or 3D <span class="attribute">path</span> along which to extrude your shape, either by giving a list of points or by choosing a path from  the <strong><a href="shapes.html">shapes and paths library</a></strong>. Here are two examples (2D for simplicity). The first is a triangular path. The second chooses a circular path in the xz plane, and the third chooses a rectangular path in the xz plane. (Recall that &quot;vec&quot; is shorthand for &quot;vector&quot;.)</p>
-        <p class="program">tripath = [ vec(1,0,0), vec(0,0,-2), <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        vec(-1,0,0), vec(1,0,0) ]</p>
-        <p class="program">circpath = paths.circle(radius=3)</p>
-        <p class="program">rectpath = paths.rectangle(width=4, height=2)<br />
-        </p>
-      <p class="Normal">A path need not be closed, in which case there will be end caps. For example, the following path is a portion of a circle:      </p>
-      <p class="program">arcpath = paths.arc(angle1=pi/4, angle2=pi)</p>
-      <p class="Normal"><strong>3)</strong> Create an extrusion object to extrude your shape along your path. For example, using paths and shapes defined above, plus a color specification,</p>
-      <p class="program">extrusion(path=circpath, shape=rect, color=color.red)<br />
-      </p>
-      <p class="Normal">In this example a color (red) will be applied to the extrusion. You can include attributes such as <span class="attribute">pos</span>, <span class="attribute">color</span>, <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>,  <span class="attribute">opacity</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span> when creating the extrusion, and these specifications will be applied to the compound object after it is created.&nbsp;</p>
-      <p class="Normal"><strong><font color="#0000a0">Path direction</font></strong></p>
-                <p class="Normal">The 2D paths in the <strong><a href="shapes.html">shapes and paths library</a></strong> go counterclockwise in the xz plane, as seen from above. That is, if starting from a position on the x axis, they head in the -z direction and bend toward the left. If your shape has something sticking out on the right, it will be on the outer side of the extrusion, whereas something sticking out on the left will be on the inner side of the extrusion.</p>
-                <p class="Normal">However, when specifying a path from the shapes and paths library, you can specify a pos and up, to tip the path out of the x-z plane. The path of the following extrusion will have a center at the location vec(1,2,0), oriented perpendicular to the vec(1,0,0):</p>
-                <p class="program">extrusion(path=paths.circle(pos=vec(1,2,0)),<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shape=shapes.rectangle(width=0.4, height=0.2),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;up=vec(1,0,0), radius=2, color=color.cyan)</p>
-                <p class="Normal"></p>
-              <p class="Normal"><strong><font color="#0000a0">Color blending</font></strong></p>
-              <p class="Normal">As with a compound object, setting the color of an extrusion that was made with a color other than white makes a multiplicative blend of the overall color with the original color. For example, if the color of the extrusion was originally cyan, vector(0,1,1), and you later set the color to yellow, vector(1,1,0), the blend results in vector(0*1, 1*1, 0*0) or vector(0,1,0), which is green. If you plan to vary the color after creating the extrusion object, start with the color being white, vector(1,1,1), which is the default.              </p>
-              <p class="Normal"><strong><font color="#0000a0">How the extrusion machinery works</font></strong></p>
-            <p class="Normal">At every point along the <span class="attribute">path</span>  this point plus the preceding and following points define a plane. A 2D plane is established perpendicular to the plane at this point. The 2D shape is drawn in this 2D plane. A shape should be positioned so that its center is approximately at the location of the <span class="attribute">path</span> locations. If you offset the shape far from the path, you may get odd results, because there is enhanced danger of two adjacent drawing planes  intersecting each other. Also, making sharp turns of wide extrusions may lead to one segment overlapping another. </p>
-            <p class="Normal">If the bending angle from one point to the next is large,  a mitered joint is produced. The bending angle is considered to be large if its cosine is greater than 0.95 (an angle of less than about 18 degrees).            </p>
-            <p class="Normal">&nbsp;</p>
+    <title>Extrusions &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Shapes and Paths" href="shapes_and_paths.html" />
+    <link rel="prev" title="A Mesh of Triangles" href="vertex.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-                    <strong><font color="#0000a0">Holes in the 2D shape</font></strong>
-<p class="Normal">You can create a 2D shape with holes in it, in which case the extrusion has hollow sections. The  statement below creates an extrusion of a circular disk that contains a triangular hole and a trapezoidal hole:</p>
-                    <p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/extrusion_holes.png" width="147" height="149" alt="extrusion" /></p>
-                    <p class="program">extrusion(path=[vec(0,0,0), vec(0,0,-5)], <br />
-&nbsp;&nbsp;&nbsp;&nbsp;color=color.orange,                      <br />
-&nbsp;&nbsp;&nbsp; shape=[ shapes.circle(radius=3),<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; shapes.triangle(length=2),<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shapes.trapezoid(pos=[0,2], width=4,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height=1, top=2) ])<br />
-                    </p>
-<p class="Normal">Here the shape is described by a list of shapes. The first shape in the list is always the outer contour, and the remaining shapes represent holes. Holes must not overlap each other, which gives an error.</p>
-<p class="Normal">It is even possible to have several (non-overlapping) outer contours, each with holes. Suppose &quot;O&quot; represents an outer contour and &quot;I&quot; represents an inner contour (a hole). The following shape has three pieces, two of them with holes:</p>
-<p class="program">s =[ [O, I, I], [O], [O, I] ]</p>
-<p class="Normal">As an example of this, the statement below creates an extrusion of a triangle and a rectangle, and the triangle contains two holes:</p>
-<p align="center" class="Normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/multiple_outer_contours.png" width="260" height="245" alt="extrusion" /></p>
-<p class="Normal"></p>
-<p class="program">extrusion(path=paths.arc(radius=2,<br />
-&nbsp;&nbsp;&nbsp;          angle1=-pi/3, angle2=pi+pi/3), color=color.cyan, <br />
-&nbsp;&nbsp;&nbsp;&nbsp;shape=[ [shapes.triangle(length=2),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shapes.circle(pos=[0,.5], radius=0.2),<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shapes.trapezoid(pos=[0,-0.2],<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width=0.6, height=0.4)],<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[shapes.rectangle(pos=[0,1.8],<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width=1,height=0.3)] ])</p>
-<p class="program">&nbsp;</p>
-    <!-- InstanceEndEditable -->		
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="extrusions">
+<h1><a class="toc-backref" href="#id2" role="doc-backlink">Extrusions</a><a class="headerlink" href="#extrusions" title="Permalink to this heading">¶</a></h1>
+<figure class="align-default" id="id1">
+<img alt="_images/extrusion-shape-vs-path.png" src="_images/extrusion-shape-vs-path.png" />
+<figcaption>
+<p><span class="caption-text">Left (cyan): a circular shape extruded along a rectangular path. Right (magenta): A rectangular shape extruded along a circular path.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#extrusions" id="id2">Extrusions</a></p>
+<ul>
+<li><p><a class="reference internal" href="#basics-of-extrusions" id="id3">Basics of Extrusions</a></p></li>
+<li><p><a class="reference internal" href="#objects-with-holes" id="id4">Objects with Holes</a></p></li>
+<li><p><a class="reference internal" href="#common-shapes-and-paths" id="id5">Common Shapes and Paths</a></p></li>
+<li><p><a class="reference internal" href="#color-blending" id="id6">Color Blending</a></p></li>
+<li><p><a class="reference internal" href="#hemispheres" id="id7">Hemispheres</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="basics-of-extrusions">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Basics of Extrusions</a><a class="headerlink" href="#basics-of-extrusions" title="Permalink to this heading">¶</a></h2>
+<p>An extrusion object is produced by extruding a 2D shape along a 3D path.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">myext</span> <span class="pre">=</span> <span class="pre">extrusion(</span> <span class="pre">shape=myshape,</span> <span class="pre">path=mypath</span> <span class="pre">)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>list</em>) – A list of x-y pairs, each itself a list, describing a closed figure in the <em>xy</em> plane.</p></li>
+<li><p><strong>path</strong> (<em>list</em>) – A list of 3D vectors denoting a path.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The following code creates a triangle shape in the <em>xy</em> plane and extrudes it along a straight line path in the <em>+z</em> direction, making a long wedge:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">triangleshape</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span>
+<span class="n">linepath</span> <span class="o">=</span> <span class="p">[</span> <span class="n">vec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="n">vec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">wedge</span> <span class="o">=</span> <span class="n">extrusion</span><span class="p">(</span> <span class="n">shape</span><span class="o">=</span><span class="n">triangleshape</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">linepath</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">magenta</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/extrusion2.png" src="_images/extrusion2.png" />
+<p>Other attributes of <em>extrusion</em> include:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">myext</span> <span class="pre">=</span> <span class="pre">extrusion(</span> <span class="pre">shape=myshape,</span> <span class="pre">path=mypath,</span> <span class="pre">color=color.red,</span> <span class="pre">smooth=0.9,</span> <span class="pre">scale=3,</span> <span class="pre">twist=0.1</span> <span class="pre">)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>vector</em>) – Color of extrusion. Default is <em>color.white</em></p></li>
+<li><p><strong>smooth</strong> (<em>scalar</em>) – If the cosine of the angle between adjacent path elements is greater than this number, smooth the joint between them. Default: 0.95 (an angle of 18 degrees).</p></li>
+<li><p><strong>scale</strong> (<em>scalar</em><em> or </em><em>list</em>) – If scale is 3, all joints are enlarged by a factor of 3. If instead you give a list of numbers, such as “scale = [2, 3, 0.5.]”, the initial cross section is scaled by a factor of 2, the second by a factor of 3, and the third by a factor of 0.5. For a list, the number of scale factors must be the same as the number of points along the path.</p></li>
+<li><p><strong>xscale</strong> (<em>scalar</em><em> or </em><em>list</em>) – Same as scale, but in x-direction only.</p></li>
+<li><p><strong>yscale</strong> (<em>scalar</em><em> or </em><em>list</em>) – Same as scale, but in y-direction only.</p></li>
+<li><p><strong>twist</strong> (<em>scalar</em><em> or </em><em>list</em>) – Angle in radians (or list of angles) by which subsequent segments should be rotated about path. For a list, the number of twist factors must be the same as the number of points along the path.</p></li>
+<li><p><strong>start_normal</strong> (<em>vector</em>) – Outward-going normal to the starting face. By default this is determined by the direction of the path from the starting point to the next segment on the path. This attribute has no effect if the path is closed.</p></li>
+<li><p><strong>end_normal</strong> (<em>vector</em>) – Same as start_normal but for end face.</p></li>
+<li><p><strong>show_start_face</strong> (<em>boolean</em>) – If <em>False</em> starting face is left open.  Default <em>True</em>.</p></li>
+<li><p><strong>show_end_face</strong> (<em>boolean</em>) – Same as show_start_face, but for end face of extrusion.</p></li>
+<li><p><strong>smooth_joints</strong> (<em>list</em>) – A list of path points, by position in path, whose joints should be smoothed, regardless of overall setting.  First position in path is 0. Setting <code class="docutils literal notranslate"><span class="pre">smooth_joints=[2,5]</span></code> turns on smoothing for these joints.</p></li>
+<li><p><strong>sharp_joints</strong> (<em>list</em>) – Effect opposite to smooth_joints, with same syntax.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<a class="reference internal image-reference" href="_images/extrusion-twist.png"><img alt="_images/extrusion-twist.png" src="_images/extrusion-twist.png" style="width: 200px;" /></a>
+<p>Above: A rectangle extruded along a linear path with a twist.</p>
+</section>
+<section id="objects-with-holes">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Objects with Holes</a><a class="headerlink" href="#objects-with-holes" title="Permalink to this heading">¶</a></h2>
+<p>A path is always a single set of points.  A shape, however, can have holes in it.  If the shape has holes, it will contain multiple sub-lists: the first list denoting the outer perimter of the shape, the others each specifying the perimeter of a hole within the outer perimeter. Holes must not overlap each other.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outershape</span> <span class="o">=</span>  <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">]]</span>
+<span class="n">innershape</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.35</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.20</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.35</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.20</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.35</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.20</span><span class="p">]]</span>
+<span class="n">zpath</span> <span class="o">=</span> <span class="p">[</span> <span class="n">vec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">vec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span> <span class="p">]</span>
+<span class="n">thing</span> <span class="o">=</span> <span class="n">extrusion</span><span class="p">(</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span> <span class="n">outershape</span><span class="p">,</span> <span class="n">innershape</span> <span class="p">],</span> <span class="n">path</span><span class="o">=</span><span class="n">zpath</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span> <span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/extrusion_1hole.png"><img alt="_images/extrusion_1hole.png" src="_images/extrusion_1hole.png" style="width: 175px;" /></a>
+</section>
+<section id="common-shapes-and-paths">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Common Shapes and Paths</a><a class="headerlink" href="#common-shapes-and-paths" title="Permalink to this heading">¶</a></h2>
+<p>VPython provides a <a class="reference internal" href="shapes_and_paths.html"><span class="doc">library of commonly used shapes</span></a>: closed figures in the <em>xy</em> plane. Each shape is a list of precalculated <em>x-y</em> pairs.  You can use these in making an extrusion:</p>
+<p><code class="docutils literal notranslate"><span class="pre">myextrusion</span> <span class="pre">=</span> <span class="pre">extrusion(</span> <span class="pre">shape=shapes.rectangle(width=10,</span> <span class="pre">height=6),</span> <span class="pre">path=mypath</span> <span class="pre">)</span></code></p>
+<p>The <a class="reference internal" href="shapes_and_paths.html"><span class="doc">paths library</span></a> in VPython contains the same figures as does the shapes library.  Each path, however, is a list of precalculated 3D vector positions.</p>
+<p>To extrude a triangular shape along a circular path, you can employ these libraries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trishape</span> <span class="o">=</span> <span class="n">shapes</span><span class="o">.</span><span class="n">triangle</span><span class="p">(</span><span class="n">xscale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">circpath</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">oddring</span> <span class="o">=</span> <span class="n">extrusion</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">trishape</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">circpath</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/extrusion3.png" src="_images/extrusion3.png" />
+<p>For detailed documentation on these libraries, see <a class="reference internal" href="shapes_and_paths.html"><span class="doc">Shapes and Paths Libraries</span></a></p>
+</section>
+<section id="color-blending">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Color Blending</a><a class="headerlink" href="#color-blending" title="Permalink to this heading">¶</a></h2>
+<p>As with a compound object, setting the color of an extrusion that was made with a color other than white makes a multiplicative blend of the overall color with the original color. For example, if the color of the extrusion was originally &lt;0,1,1&gt; (cyan), and you later set the color to &lt;1,1,0&gt; (yellow), the blend results in &lt;0*1, 1*1, 0*0&gt; or &lt;0,1,0&gt;, which is green. If you plan to vary the color after creating the extrusion object, start with <strong>color.white</strong>, which is the default.</p>
+</section>
+<section id="hemispheres">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Hemispheres</a><a class="headerlink" href="#hemispheres" title="Permalink to this heading">¶</a></h2>
+<p>There are two ways to make a hemisphere using an extrusion.  The first involves extruding a quarter-circle arc shape along a circular path using an offset (pos):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hshape</span> <span class="o">=</span> <span class="n">shapes</span><span class="o">.</span><span class="n">arc</span><span class="p">(</span><span class="n">angle1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle2</span><span class="o">=</span><span class="mf">0.999</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">hpath</span> <span class="o">=</span> <span class="n">paths</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">demihemi</span> <span class="o">=</span> <span class="n">extrusion</span><span class="p">(</span> <span class="n">shape</span><span class="o">=</span><span class="n">hshape</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">hpath</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/extrusion-hemisphere-1.png" src="_images/extrusion-hemisphere-1.png" />
+<p>The second way involves extruding a circle shape along a linear path, but adjusting the scale factor for the circle at each step along the path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">dx</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">scalef</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">hpath</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">rr</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">scalef</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rad</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">dx</span>
+    <span class="n">hpath</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">hem</span> <span class="o">=</span> <span class="n">extrusion</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">hpath</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shapes</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">rr</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">scalef</span><span class="p">,</span>
+      <span class="n">show_start_face</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">magenta</span> <span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/extrusion-hemisphere-2.png" src="_images/extrusion-hemisphere-2.png" />
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="makeshapes.html">Design New Objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compound.html">compound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vertex.html">vertex, triangle, and quad</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">extrusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shapes_and_paths.html">shapes and paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clone.html">cloning an object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="makeshapes.html">Making New Objects</a><ul>
+      <li>Previous: <a href="vertex.html" title="previous chapter">A Mesh of Triangles</a></li>
+      <li>Next: <a href="shapes_and_paths.html" title="next chapter">Shapes and Paths</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/extrusion.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,261 +1,240 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>curve</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {font-size: x-large}
-.style2 {font-size: xx-large}
--->
-</style>
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-      <table width="100%" border="1">
-          <tr>
-            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">curve</font></span></div></td>
-            <td width="23%"><div align="center"><img src="images/curve.jpg" alt="curve" width="131" height="127" /><a href="arrow.html"></a></div></td>
-          </tr>
-        </table>
-      <p class="Normal">The curve object displays straight lines between
-          points, and if the points are sufficiently close together you get the
-      appearance of a smooth curve.</p>
-<p class="Normal"><strong><font color="#0000a0">Details of the  curve object</font></strong></p>
-<p class="Normal">The simplest example of a curve is the following statement, which draws a white straight line of length 2, between the positions &lt; -1,-1,0 &gt; and &lt; 1,--1,0 &gt;:</p>
-<div>
-  <p class="program">c = curve(vector(-1,-1,0), vector(1,-1,0))</p>
-</div>
-<p class="Normal">You can add additional points to this curve like this, completing a square of width 2 whose center is at location &lt; 0,0,0 &gt;:</p>
-<div>
-  <p class="program">c.append(vector(1,1,0), vector(-1,1,0), vector(-1,-1,0))</p>
-</div>
-<p class="Normal">Suppose you have two vectors named <strong>v1</strong> and <strong>v2</strong>. Any of the following  schemes will draw a white straight line from postion <strong>v1</strong> to position <strong>v2</strong>:</p>
-<div>
-  <p class="program">1) c = curve(v1,v2)</p>
-  <p class="program">2) c = curve([v1,v2])</p>
-  <p class="program">3) c = curve(pos=[v1,v2])</p>
-  <p class="program">4) c = curve(v1)<br />
-&nbsp;&nbsp;&nbsp;c.append(v2)</p>
-  <p class="program">5) c = curve()<br />
-  &nbsp;&nbsp;&nbsp;c.append(v1,v2)</p>
-  <p class="Normal"><strong><font color="#0000a0">Specifying  overall color and radius</font></strong></p>
-  <p class="Normal">By default a curve is white, with a radius of the cross-section of only a few pixels. You can change the default color and radius for all points, using either of the following schemes: </p>
-  <div>
-    <p class="program">1) c = curve(pos=[v1,v2], color=color.cyan, radius=0.3)</p>
-</div>
-  <div>
-    <p class="program">2) c = curve(color=color.cyan, radius=0.3)    <br />
-      &nbsp;&nbsp;&nbsp;c.append(v1,v2)</p>
-    <div>
-      <p class="Normal"><strong><font color="#0000a0">Specifying  the color and radius of individual points</font></strong></p>
-      <p class="Normal">You can specify the color and radius of individual points that override the color and radius specified for the curve as a whole. The following sequence will create two dictionaries to use as individual points, then will use them to draw a line whose color shades from red to blue and whose radius increases from 0.1 to 0.3:</p>
-      <div>
-        <p class="program">p1 = dict(pos=v1, color=color.red,  &nbsp;radius=0.1)<br />
-          p2 = dict(pos=v2, color=color.blue, radius=.3)<br />
-          curve(p1,p2)</p>
-        <p class="Normal">If you prefer, you can  create the dictionaries like this:</p>
-      </div>
-      <div>
-        <p class="program">p1 = {'pos':v1, 'color':color.red,  &nbsp;'radius':0.1}<br />
-          p2 = {'pos':v2, 'color':color.blue, 'radius':0.3}<br />
-        curve(p1,p2)
-        </p>
-    </div>
-</div>
-</div>
-</div>
-<p class="Normal">In addition to the  attributes <span class="attribute">pos</span>, <span class="attribute">color</span>,   <span class="attribute">radius</span>, and <span class="attribute">emissive</span>, each point has a <span class="attribute">visible</span> attribute, which makes that particular point visible or invisible. One cannot make a curve transparent (opacity &lt; 1).</p>
-      <div>
-        <div>
-          <p class="Normal"><strong><font color="#0000a0">Retaining a limited number of points</font></strong></p>
-    </div>
-        <p class="Normal">When creating a curve, or when appending a point to a curve, you can specify how many points should be retained. The following statement specifies that only the most recent 150 points should be retained as you add points to the curve:</p>
-        <p class="program">c = curve(retain=150)</p>
-<p class="Normal">The following statement specifies that if there are already 30 points in the curve, the oldest one should be deleted and the new point added.</p>
-        <p class="program">c.append( pos=vector(2,-1,0), retain=30)</p>
-        <p class="Normal"><strong><font color="#0000a0">The curve attributes</font></strong></p>
-<p class="Normal">Here is a summary of the attributes for individual points or for the curve as a whole:</p>
-<p class="attributes"> <span class="attribute">pos </span> A vector position or list of positions used in creating a curve. After the curve is created, one must use curve methods such as c.point(N) to read position data.</p>
-<p class="attributes"> <span class="attribute">radius</span> Radius of
-  the cross-section of this segment of the curve; if specified for the curve as a whole, it specifies the radius of any points for which no specific radius was given. The default radius is 0, which makes a thin curve.</p>
-<p class="attributes"> <span class="attribute">color </span> Color
-          of a point; if specified for the curve as a whole, it specifies the color of any points for which no specific color was given.</p>
-<p class="attributes"> <span class="attribute">emissive</span> If True, local and distant lights are ignored, and the brightness is governed by the object's own color.   The effect is that the object looks as though it is glowing.   The default for emissive is False.</p>
-<p class="attributes"><span class="attribute">visible</span> If False, 
+    <title>curve &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cylinder" href="cylinder.html" />
+    <link rel="prev" title="cone" href="cone.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
           
-          point is not displayed; if False for the curve as a whole, no points are displayed.</p>
-        <p class="attributes"><span class="attribute">retain</span> Specify how many points to retain.</p>
-        <p class="Normal"></p>
-        <p class="Normal">A curve also has the standard attributes <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span>. </p>
-<p class="Normal"><strong>No texture, opacity, or compounding:</strong> Currently curves cannot be transparent, it is not possible to apply a texture, and a curve cannot be part of a compound object.</p>
-        <p class="Normal"><strong><font color="#0000a0">Moving, reorienting, and resizing a curve</font></strong></p>
-<p class="Normal"><strong>Point positions are relative; the use of <span class="attribute">origin</span>:</strong> A point whose pos  is <span class="program">vector</span>(2, 1, 0) is of course normally displayed at location <span class="program">vector</span>(2, 1, 0). However, the position of a point is <em>relative</em> to a curve's own <span class="attribute">origin</span> value, which by default is <span class="program">vector</span>(0, 0, 0). If you change the curve's <span class="attribute">origin</span> value to <span class="program">vector</span>(10, 6, 5), the point is displayed at the location <span class="program">vector</span>(12, 7, 5); that is, the point is displayed 2 to the right, 6 above, and 0 in front of the curve's position <span class="program">vector</span>(10, 6, 5). Another way of saying this is that the display location is the vector sum <span class="program">vector</span>(10, 6, 5) + <span class="program">vector</span>(2, 1, 0). This means that you can quickly and efficiently move the entire curve just by changing the curve's <span class="attribute">origin</span> value. The <span class="attribute">pos</span> value of an individual point does not change; it's just that the point is displayed in a shifted position. As a result, moving an entire curve is very fast.</p>
-        <p class="Normal">Similarly, changes to <span class="attribute">size</span>, <span class="attribute">axis</span>, <span class="attribute">up</span>, <span class="attribute">shininess</span>, and <span class="attribute">emissive</span> immediately and quickly change the size of the curve, its orientation in space, and the appearance of its surface. When you specify the position of a point, it is relative to an origin at <span class="program">vector</span>(0,0,0) and with the standard axis <span class="program">vector</span>(1,0,0). Changing the <span class="attribute">size</span> does not change the <span class="attribute">radius</span>; it just moves the points closer or farther apart.<br />
-        </p>
-<p class="Normal"><strong><font color="#0000a0">Rotating a curve</font></strong></p>
-        <p class="Normal">As with other objects, the way to change the orientation of the entire curve is to change the curve's <span class="attribute">axis</span>. You can also rotate the entire curve about a specified axis. If you don't specify an origin, rotation will occur around the origin of the curve:</p>
-        <p class="program">c.rotate( angle=ang, axis=a, origin=o )</p>
-        <p class="program">c.rotate( angle=ang, axis=a )<br />
-          <br />
-        </p>
-        <p class="Normal"><strong><font color="#0000a0">Curve methods</font></strong></p>
-        <p class="Normal">The basic aspects of the  curve object are the same as the Classic VPython curve object. You create a curve and append points to it. However, modifying existing points is not done directly but instead by using a powerful set of functions, and this change makes it possible to display curves much more rapidly. In Classic VPython, the possibility of direct modification of the positions meant that the entire curve had to be reprocessed every time it was rendered, on the chance that some undetected change had occurred.</p>
-        <div>
-          <p class="Normal">The following are useful for modifying a curve named &quot;c&quot; (full documentation below):</p>
-          <p class="attributes"><span class="attribute">c.npoints</span> The total number of points currently in the curve.          </p>
-          <p class="attributes"><span class="attribute">c.append(...)</span> Add a point or several points to the end.</p>
-<p class="attributes"><span class="attribute">c.unshift(...)</span> Insert a point or several points at the start.</p>
-<p class="attributes"><span class="attribute">c.splice(...)</span> Insert a point or several points anywhere.</p>
-<p class="attributes"><span class="attribute">c.modify(...)</span> Modify the Nth point.</p>
-<p class="attributes"><span class="attribute">c.clear()</span> Remove all points.</p>
-<p class="attributes"><span class="attribute">data = c.pop</span><span class="attribute">(n)</span> Get the data for   point number n and remove it. Can use negative values, where -1 is the last point, -2 the next to the last, etc.</p>
-          <p class="attributes"><span class="attribute">data = c.shift</span><span class="attribute">()</span> Get the data for the first point and remove it.</p>
-          <p class="attributes"><span class="attribute">data = c.point(N)</span> Get the data for the Nth point.</p>
-<p class="attributes"><span class="attribute">data = c.slice(start, end)</span> Get the data for a list of points.</p>
-        </div>
-<p class="Normal"><strong><font color="#0000a0">Appending points</font></strong></p>
-        <div>
-          <p class="Normal">Suppose you have created a curve named c. You can add points to the curve one at a time, like this:</p>
-          <p class="program">c.append(pos=vector(-1,0,0), color=color.red,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.05)<br />
-            c.append(pos=vector(0,1,0), color=color.cyan,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.15)<br />
-            c.append(pos=vector(1,0,0), color=color.red,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;radius=0.05)</p>
-          <div>
-            <p class="Normal">This creates the following image:</p>
-            <p align="center" class="Normal"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/curve_append.png" width="250" height="151" alt="curve" /></p>
-            <div>
-              <p class="Normal">If you don't need to specify color or radius you can just give a list of positions, either as individual positions or in a list of positions:</p>
-              <p class="program">c.append( vector(-1,0,0), vector(0,1,0), vector(1,0,0) )<br />
-              c.append([vector(-1,0,0), vector(0,1,0), vector(1,0,0)])</p>
-              <div>
-                <p class="Normal">Suppose you have created a curve named c, and p represents either just a position vector (as just shown above) or a full description of a point:<br />
-                  <br />
-                  &nbsp;&nbsp;&nbsp; <span class="program0"><strong>p = dict(pos=a vector, color=a vector, radius=a number, visible=True or False)</strong></span><br />
-                  <br />
-                  This can also be written in the form of a Python dictionary:
-                  <br />
-  &nbsp;&nbsp;&nbsp;<strong>p = {'pos':vector, 'color':a vector, 'radius':a number, 'visible':t=True or False}</strong></p>
-                <div>
-                  <p class="Normal"></p>
-                </div>
-                <p class="program">c.append( p1, p2, p3 ) # add several points</p>
-              </div>
-              <p class="program">c.append([p1, p2, p3]) # add several points</p>
-              <p class="program">pts = [p1, p2, p3]<br />
-                c.append(pts) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# add several points</p>
-              <div>
-                <p class="Normal">You can also add several points that all have the same color, radius, etc.:</p>
-              </div>
-<div></div>
-              <p class="program">c.append(pos=[p1, p2, p3], color=color.green) </p>
-<p class="Normal"></p>
-              <p class="Normal"><strong><font color="#0000a0">Manipulating points</font></strong></p>
-            </div>
-          </div>
-          <div>
-            <p class="Normal">Here are details on getting data about points in a curve named &quot;c&quot;, or modifying them.</p>
-            <p class="Normal"><span class="attribute">npoints</span></p>
-          </div>
-<p class="program">c.npoints &nbsp; # the number of points in the curve</p>
-<p class="Normal"></p>
-<p class="Normal"><span class="attribute">append</span></p>
-<p class="program">c.append(...) &nbsp;# add points at the end (see above)</p>
-<p class="Normal"></p>
-<p class="Normal"><span class="attribute">unshift</span></p>
-<p class="program">c.unshift(p1, p2, p3) &nbsp;# insert points at start</p>
-<p class="program">pts = [p1, p2, p3]<br />
-  c.unshift(pts) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # insert points at start</p>
-<p class="Normal">The <span class="attribute">splice</span> method inserts new points starting at location &quot;start&quot; (where 0 is the first point of the curve), deleting &quot;howmany&quot; points before doing the insertion:</p>
-<p class="program">c.splice(start,howmany,p1,p2,p3) # insert</p>
-<p class="program">pts = [p1, p2, p3]<br />
-  c.splice(start,howmany,pts) # insert </p>
-<p class="program"></p>
-<p class="Normal">The <span class="attribute">modify</span> method lets you change specified attributes of a point::</p>
-<p class="program"> c.modify(N, # modify point number N<br />
-  &nbsp;&nbsp;&nbsp;            pos=p, color=c, radius=r, visible=v)<br />
-  c.modify(N, x=3, y=5) # changing x and y but not z<br />
-  c.modify(N, vector(x,y,z)) # change only pos</p>
-<p class="Normal"></p>
-<p class="Normal"><span class="attribute">clear</span></p>
-<p class="program">c.clear() # remove all points from curve</p>
-<p class="Normal"></p>
-<p class="Normal"><span class="attribute">pop</span></p>
-<p class="program">data = c.pop() &nbsp;&nbsp;# get &amp; remove last point<br />
-  data = c.pop(3)  &nbsp;# get &amp; remove point number 3</p>
-<p class="Normal"></p>
-<p class="Normal"><span class="attribute">shift</span> This is the same as c.pop(0):</p>
-<p class="program">data = c.shift() # get &amp; remove first point</p>
-<p class="Normal"></p>
-<p class="Normal"><span class="attribute">point</span></p>
-<p class="program">P = c.point(N) # get a point in the form<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            # {'pos':p, 'color':c, 'radius':r, 'visible':v}<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# P['pos'] is p, P['color'] is c, etc.</p>
-<p class="Normal"></p>
-<p class="Normal"><span class="attribute">slice</span></p>
-<p class="program">data = c.slice(2,4) # get a list of<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;# points from point no. 2 through point no. 3,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;# each in the form<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;# {'pos':p, 'color':c, 'radius':r, 'visible':v}<br />
-          &nbsp;&nbsp;&nbsp;&nbsp;# The first point is 0, the last point is -1</p>
+
+          <div class="body" role="main">
+            
+  <section id="curve">
+<h1>curve<a class="headerlink" href="#curve" title="Permalink to this heading">¶</a></h1>
+<img alt="_images/curve.jpg" src="_images/curve.jpg" />
+<p>The curve object consists of a list of points connected by straight lines.  If points are close enough together curves can appear smooth.  Points are supplied as a list of vectors; points can also be appended one at a time to the curve.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[vec(-</span> <span class="pre">1,</span> <span class="pre">3,</span> <span class="pre">2),</span> <span class="pre">vec(2,</span> <span class="pre">0,</span> <span class="pre">-</span> <span class="pre">1)]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">color.yellow</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>list of vectors</em>) – List of positions of points in curve. Default is [] (no points).</p></li>
+<li><p><strong>color</strong> (<em>vector</em>) – Default <em>color.white</em></p></li>
+<li><p><strong>radius</strong> (<em>scalar</em>) – The radius of the curve. Default is 0, which gives a very thin curve.</p></li>
+<li><p><strong>size</strong> (<em>vector</em>) – Changing size scales the entire curve. Default &lt;1,1,1&gt;.</p></li>
+<li><p><strong>origin</strong> (<em>vector</em>) – Changing the origin moves the whole curve. Default &lt;0,0,0&gt;</p></li>
+<li><p><strong>axis</strong> (<em>vector</em>) – Default &lt;1,0,0&gt;</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Curve objects cannot be compounded.  A curve can be neither transparent nor textured.</p>
+<p>Attributes used less often:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">mycanvas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emissive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>retain</strong> (<em>scalar</em>) – Number of points to retain if points are continually added to the curve.</p></li>
+<li><p><strong>shininess</strong> (<em>scalar</em>) – Default 0.6; Range 0-1.</p></li>
+<li><p><strong>emissive</strong> (<em>boolean</em>) – Default False. Object glows, losing all shading, if True.</p></li>
+<li><p><strong>visible</strong> (<em>boolean</em>) – If False, object is not displayed.  Default: True</p></li>
+<li><p><strong>canvas</strong> (<em>object</em>) – Default is <code class="xref py py-attr docutils literal notranslate"><span class="pre">scene</span></code>.</p></li>
+<li><p><strong>up</strong> (<em>vector</em>) – A vector perpendicular to the axis.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Curves cannot use <em>make_trail</em>.</p>
+<section id="appending-points-to-a-curve">
+<h2>Appending points to a curve<a class="headerlink" href="#appending-points-to-a-curve" title="Permalink to this heading">¶</a></h2>
+<p>A curve can be created by appending points one at a time.  In this case it is possible (but not necessary) to specify a different color and radius for each point in the curve, as is done below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mycurve</span> <span class="o">=</span> <span class="n">curve</span><span class="p">()</span>
+<span class="n">mycurve</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">mycurve</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">cyan</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">mycurve</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+</pre></div>
 </div>
+<p>The code above produces this:</p>
+<img alt="_images/curve_append.png" src="_images/curve_append.png" />
+</section>
+<section id="advanced-methods-for-modifying-curves">
+<h2>Advanced Methods for Modifying Curves<a class="headerlink" href="#advanced-methods-for-modifying-curves" title="Permalink to this heading">¶</a></h2>
+<p>All attributes of a point can be combined into a Python dictionary.  In Web VPython 3.1 and later dictionaries are supported; earlier versions use a JavaScript object literal, whose syntax is essentially the same as curly bracket form of a  Python dictionary.</p>
+<p>A Python dict describing a point can be constructed like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mypoint1=dict(pos=myvector1,</span> <span class="pre">color=mycolor1,</span> <span class="pre">radius=myradius1)</span></code></p>
+<p>or like this (same syntax as a JS object literal):</p>
+<p><code class="docutils literal notranslate"><span class="pre">mypoint1</span> <span class="pre">=</span> <span class="pre">{'pos':myvector1,</span> <span class="pre">'color':mycolor1,</span> <span class="pre">'radius':myradius1}</span></code></p>
+<p>For a curve named “mycurve”:</p>
+<ul class="simple">
+<li><p>npoints   <code class="docutils literal notranslate"><span class="pre">mycurve.npoints</span></code> returns the total number of points in the curve.</p></li>
+<li><p>modify()   <code class="docutils literal notranslate"><span class="pre">mycurve.modify(N,</span> <span class="pre">pos=mypos,</span> <span class="pre">color=mycolor,</span> <span class="pre">radius=myradius,</span> <span class="pre">visible=True)</span></code> alters the Nth point (the starting point is N=0).</p></li>
+<li><p>clear()   <code class="docutils literal notranslate"><span class="pre">mycurve.clear()</span></code>  removes all points from the curve.</p></li>
+<li><p>unshift()   <code class="docutils literal notranslate"><span class="pre">mycurve.unshift(</span> <span class="pre">mypointlist</span> <span class="pre">)</span></code> inserts a list of points (dicts) at start of curve.</p></li>
+<li><p>splice()   <code class="docutils literal notranslate"><span class="pre">mycurve.splice(</span> <span class="pre">N,</span> <span class="pre">howmany,</span> <span class="pre">pointlist)</span></code> inserts a list of points starting at location N.</p></li>
+<li><p>pop()   <code class="docutils literal notranslate"><span class="pre">mydata</span> <span class="pre">=</span> <span class="pre">mycurve.pop(N)</span></code> return value of point number N and remove it from curve.</p></li>
+<li><p>point()   <code class="docutils literal notranslate"><span class="pre">mydata</span> <span class="pre">=</span> <span class="pre">mycurve.point(N)</span></code> return Nth point (as a dict).</p></li>
+<li><p>slice()   <code class="docutils literal notranslate"><span class="pre">mydata</span> <span class="pre">=</span> <span class="pre">mycurve.slice(N1,</span> <span class="pre">N2)</span></code> returns list of points (as dicts) from N1-N2.</p></li>
+</ul>
+</section>
+<section id="color-interpolation-in-curves">
+<h2>Color Interpolation in Curves<a class="headerlink" href="#color-interpolation-in-curves" title="Permalink to this heading">¶</a></h2>
+<p>The curve machinery interpolates colors from one point to the next. If you want an abrupt change in color, add another point at the same location. In the following example, adding a cyan point at the same location as the orange point makes the first segment be purely cyan.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">curve</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">cyan</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+<span class="c1"># add an extra cyan point:</span>
+<span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+<span class="c1"># repeat the same point:</span>
+<span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+         <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">orange</span> <span class="p">)</span>
+<span class="c1"># add another orange point:</span>
+<span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span>
+         <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">orange</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>In the image shown here, the upper thick curve, made without the second cyan point, has three pos and color points, cyan, orange, orange, left to right, so the blue fades into the orange. The lower curve includes the extra cyan point and has four pos and color points, cyan, cyan, orange, orange, so there is a sharp break between blue and orange.</p>
+<img alt="_images/colors_abutting_small.png" src="_images/colors_abutting_small.png" />
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Rotation; <a class="reference internal" href="color.html"><span class="doc">color</span></a>; <a class="reference internal" href="emissive.html"><span class="doc">emissive</span></a>; <a class="reference internal" href="canvas.html"><span class="doc">canvas</span></a></p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
       </div>
-      <p class="Normal"><strong><font color="#0000a0">Interpolation of colors</font></strong></p>
-      <div>
-        <p class="Normal">The curve machinery interpolates colors from one point to the next.  If you want an abrupt change in color,  add another
-          point at the same location. In the following example, adding a cyan 
-          point at the same location as the orange point makes the first
-          segment be purely cyan. </p>
-      </div>
-      <p class="program">c = curve(color=color.cyan, radius=0.2)<br />
-        c.append( vector(-1,0.5,0) ) <br />
-        # add an extra cyan point: <br />
-        c.append( vector(0,0,0) )<br />
-        # repeat the same point: <br />
-        c.append( pos=vector(0,0,0), <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;color=color.orange )<br />
-        # add another orange point:<br />
-        c.append( pos=vector(1,0.5,0), <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;color=color.orange ) </p>
-      <p class="Normal">In the image shown here, the upper thick curve, made without the second cyan point, has three pos and color points, cyan, orange, orange, left to right, so the blue fades into the orange. The lower curve includes the extra cyan point and has four pos and color points, cyan, cyan, orange, orange, so there is a sharp break between blue and orange.</p>
-      <table width="450" border="0">
-        <tr>
-          <td width="450"><div align="center"><span class="Normal"><img src="images/colors_abutting.png" width="312" height="200" alt="colors abutting" /></span></div></td>
-        </tr>
-      </table>
-      <div>
-        <div></div>
-      </div>
-      <div> </div>
-    <!-- InstanceEndEditable -->		
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="objects.html">3D Objects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="box.html">box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cone.html">cone</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cylinder.html">cylinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ellipsoid.html">ellipsoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helix.html">helix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="label.html">label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="points.html">points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyramid.html">pyramid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphere.html">sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text.html">3D text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#designing-objects">Designing objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#delete-an-object">Delete an Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="objects.html">3D Objects in VPython</a><ul>
+      <li>Previous: <a href="cone.html" title="previous chapter">cone</a></li>
+      <li>Next: <a href="cylinder.html" title="next chapter">cylinder</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/curve.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

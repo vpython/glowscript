@@ -1,98 +1,178 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>color</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {color: #0000A0}
--->
-</style>
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
-      <div>
-        <h1 class="Heading-1"><font color="#0000A0">Color </font></h1>
-      </div>
-      <div>
-        <p class="Normal"> In the RGB color system, you specify a color in terms of fractions of red, green, and blue, corresponding to how strongly glowing are the tiny red, green, and blue dots of the computer screen. In the RGB scheme, white is the color with a maximum of red, blue, and green (1, 1, 1). Black has minimum amounts (0, 0, 0). The brightest red is represented by (1, 0, 0); that is, it has the full amount of red, no green, and no blue.</p>
-        <p class="Normal"> Here are some examples of RGB colors, with names you can 
-          use in VPython:</p>
-        <table width="97%" border="0">
-          <tr>
-            <td width="42%"><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;vec(1,0,0) color.red</font></td>
-            <td width="32%"><font size="3">vec(1,1,0) color.yellow</font></td>
-            <td width="26%"><font size="3">vec(0,0,0) color.black</font></td>
-          </tr>
-          <tr>
-            <td><font size="3">&nbsp;&nbsp;&nbsp;vec&nbsp;(0,1,0) color.green</font></td>
-            <td><font size="3">vec</font>(1,0.6,0) color.orange</td>
-            <td><font size="3">vec(1,1,1) color.white</font></td>
-          </tr>
-          <tr>
-            <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;vec(0,0,1) color.blue</font></td>
-            <td><font size="3">vec(0,1,1) color.cyan</font></td>
-            <td>&nbsp;</td>
-          </tr>
-          <tr>
-            <td><font size="3">&nbsp;&nbsp;&nbsp;&nbsp;vec(0.4,0.2,0.6) color.purple</font></td>
-            <td><font size="3">vec(1,0,1) color.magenta</font></td>
-            <td>&nbsp;</td>
-          </tr>
-        </table>
-        <p class="Normal">You can also create your own colors, such as these:</p>
-        <p class="attributes"> vector(0.5, 0.5, 0.5) a rather dark gray; or you can say <span class="attribute"><strong>color=color.gray(0.5)</strong></span> to mean (0.5,0.5,0.5)</p>
-        <p class="attributes">vector(1,0.7,0.2) a coppery color</p>
-        <p class="Normal"> Colors may appear differently on different computers, and under different 3D lighting conditions. The named colors above are most likely to display appropriately, because RGB values of 0 or 1 are unaffected by differing color corrections (&quot;gamma&quot; corrections).</p>
-        <p class="Normal"> There is a VPython <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython" target="_blank">demo program</a></strong> that lets you adjust RGB sliders to visualize colors and print color triples that 
-          you copy into your program. It also provides HSV sliders to adjust hue, saturation 
-          (how much white is added to dilute the hue), and value (brightness), which 
-          is an alternative way to describe colors. </p>
-        <p class="Normal"> VPython only accepts RGB color descriptions, but 
-          there are functions for converting color triples between RGB and HSV:</p>
-        <div>
-          <p class="program">c = vector(1,1,0)<br />
-          c2 = color.rgb_to_hsv(c)	# convert RGB to HSV<br />
-          print(hsv)	# vector(0.16667, 1, 1)<br />
-          c3 = color.hsv_to_rgb(c2)	# convert back to RGB<br />
-          print(c3)	# vector(1, 1, 0)</p>
-          <p class="Normal"> Another example: <b>sphere(radius=2, color=color.hsv_to_rgb(vector 
-            (0.5,1,0.8) ) </b></p>
-          <h1 class="Heading-1 style1"><font color="#0000A0">Opacity</font></h1>
-          <p class="Normal">You can make most objects be  transparent by specifying a value from
-        0-1 inclusive for the attribute &quot;opacity&quot;. For example, <span class="attribute"><strong>box(color=color.red,
-        opacity=0.8)</strong></span> is slightly transparent. An opacity value of 0 means totally
-        transparent, 
-        and 1 means totally opaque. Currently curve and helix objects
-        do not allow transparency. </p>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>color &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Opacity" href="opacity.html" />
+    <link rel="prev" title="Color, Transparency, and Emissivity" href="colorOpacityGlow.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="color">
+<h1>color<a class="headerlink" href="#color" title="Permalink to this heading">¶</a></h1>
+<img alt="_images/colors.png" src="_images/colors.png" />
+<p>Every graphical object has a <code class="xref py py-attr docutils literal notranslate"><span class="pre">color</span></code>.  The attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">color</span></code> is a vector whose components are <code class="docutils literal notranslate"><span class="pre">R</span></code> (red), <code class="docutils literal notranslate"><span class="pre">G</span></code> (green), and <code class="docutils literal notranslate"><span class="pre">B</span></code> (blue).   You can specify your own color by specifying RGB components, or you can use one of the colors from the VPython library:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">color.white</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(1,1,1)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.red</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(1,0,0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.green</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(0,1,0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.blue</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(0,0,1)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.cyan</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(0,1,1)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.magenta</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(1,0,1)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.yellow</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(1,1,0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.orange</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(1,0.6,0)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.purple</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(0.4,0.2,0.6)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color.black</span></code> is defined as <code class="docutils literal notranslate"><span class="pre">vec(0,0,0)</span></code></p></li>
+</ul>
+<p>In the RGB color system, a color is specified in terms of fractions of red, green, and blue, corresponding to the intensity of the tiny red, green, and blue dots of the computer screen. In the RGB scheme, white is the color with a maximum of red, blue, and green (1, 1, 1). Black has minimum amounts (0, 0, 0). The brightest red is represented by (1, 0, 0); that is, it has the full amount of red, no green, and no blue.</p>
+<p>In addition to the colors in the color library you can also create your own colors, such as these:</p>
+<p><code class="docutils literal notranslate"><span class="pre">vector(0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.5)</span></code> a rather dark gray
+Alternatively you can say <code class="docutils literal notranslate"><span class="pre">color=color.gray(0.5)</span></code> or <code class="docutils literal notranslate"><span class="pre">color.white*0.5</span></code> to mean <code class="docutils literal notranslate"><span class="pre">vec(0.5,0.5,0.5)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">vector(1,0.7,0.2)</span></code> a coppery color</p>
+<p>Colors may appear differently on different computers, and under different 3D lighting conditions. The named colors above are most likely to display appropriately, because RGB values of 0 or 1 are unaffected by differing color corrections (“gamma” corrections).</p>
+<p>The VPython demo program <a class="reference external" href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython">Color-RGB-HSV</a> lets you adjust RGB sliders to visualize colors and print color triples that you copy into your program. It also provides HSV sliders to adjust hue, saturation, and value.</p>
+<section id="converting-between-rgb-and-hsv-color-descriptors">
+<h2>Converting between RGB and HSV color descriptors<a class="headerlink" href="#converting-between-rgb-and-hsv-color-descriptors" title="Permalink to this heading">¶</a></h2>
+<p>HSV (hue, saturation, and value) is an alternate scheme for describing colors. Although VPython only accepts RGB colors, there are functions for converting between RGB and HSV.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="color.rgb_to_hsv">
+<span class="sig-prename descclassname"><span class="pre">color.</span></span><span class="sig-name descname"><span class="pre">rgb_to_hsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#color.rgb_to_hsv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The argument c is a vector representing a color.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="color.hsv_to_rgb">
+<span class="sig-prename descclassname"><span class="pre">color.</span></span><span class="sig-name descname"><span class="pre">hsv_to_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#color.hsv_to_rgb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">rgb_to_hsv</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="c1"># convert RGB to HSV</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hsv</span><span class="p">)</span> <span class="c1"># vector(0.16667, 1, 1)</span>
+<span class="n">c3</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">hsv_to_rgb</span><span class="p">(</span><span class="n">c2</span><span class="p">)</span> <span class="c1"># convert back to RGB</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c3</span><span class="p">)</span> <span class="c1"># vector(1, 1, 0)</span>
+</pre></div>
+</div>
+<p>The functions can be embedded in object constructors.  For example:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sphere(</span> <span class="pre">radius=2,</span> <span class="pre">color=color.hsv_to_rgb(vector</span> <span class="pre">(0.5,1,0.8)</span> <span class="pre">)</span></code></p>
+</section>
+</section>
+
+
+          </div>
+          
         </div>
       </div>
-    <!-- InstanceEndEditable -->		
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html">Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emissive.html">Emissive</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="colorOpacityGlow.html">Color, Transparency, and Emissivity</a><ul>
+      <li>Previous: <a href="colorOpacityGlow.html" title="previous chapter">Color, Transparency, and Emissivity</a></li>
+      <li>Next: <a href="opacity.html" title="next chapter">Opacity</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/color.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

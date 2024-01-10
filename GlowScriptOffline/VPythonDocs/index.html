@@ -1,168 +1,262 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>VPython Help</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {
-	color: #0000A0;
-	font-weight: bold;
-}
--->
-</style>
-<style type="text/css">
-<!--
-.style2 {color: #009900}
--->
-</style>
-<style type="text/css">
-<!--
-.style3 {
-	font-size: large;
-	font-weight: bold;
-}
--->
-</style>
-<style type="text/css">
-<!--
-.style4 {font-size: x-large}
--->
-</style>
-<style type="text/css">
-<!--
-.style5 {font-size: xx-large}
--->
-</style>
-<style type="text/css">
-<!--
-.style6 {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: small;
-}
--->
-</style>
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
-      <table width="100%" border="1">
-        <tr>
-          <td width="67%"><div align="center"><span class="style3 style4 style5"><font
- color="#000000">VPython</font></span>          </div>
-            <p class="centered"><strong>Web VPython and<br />
-          VPython</strong><strong></strong> 7</p></td>
-          <td width="33%"><img src="images/bounce.png" alt="materialetc" width="234" height="221" /></td>
-        </tr>
-      </table>
-      <p class="Normal"><span class="style1">Using  VPython to create 3D animations</span></p>
-      <p class="Normal">VPython makes it unusually easy to write programs that generate navigable real-time 3D animations. It is based on the Python programming language which is widely used in introductory programming courses thanks to its clean design, and it is also widely used in science and business. At <a href="https://glowscript.org" target="_blank"><strong>webvpython.org</strong></a>, click &quot;Example programs&quot; to see how VPython is used. <a href="https://tinyurl.com/VPintro" target="_blank"><strong>tinyurl.com/VPintro</strong></a> is an 8-minute introduction to VPython by Bruce Sherwood. No software installation is required to use Web VPython, as it runs in your browser. One can also use <strong><a href="https://vpython.org/">VPython with installed Python </a></strong>(&quot;VPython 7&quot;).</p>
-      <p class="Normal">This documentation is written in terms of Python syntax, because almost all Web VPython users write their programs using Python, but one can also write programs in JavaScript.<strong> <a href="using_javascript.html">This article</a></strong> explains how to interpret the documentation for use in JavaScript programs.</p>
-      <p class="Normal"><em><strong>On the left is complete documentation for VPython.</strong></em></p>
-      <p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started"><strong>Welcome to VPython</strong></a>, a <a href="https://trinket.io"><strong>Trinket</strong></a> tutorial, is useful for anyone new to programming in VPython</p>
-      <p class="Normal">For a quick introduction, see the following YouTube videos, but when viewing the English-language videos be aware that  for the current version of VPython the name of the module is &quot;vpython&quot;, not &quot;visual&quot;, and the graphics display is shown in a browser tab rather than in a bare window. (Also, for Web VPython, you can omit importing vpython.)</p>
-      <blockquote>
-        <p class="Normal"><a href="https://vpython.org/video01.html" target="_blank"><strong>3D Objects</strong></a> (Spanish version <a href="https://youtu.be/dWYL2Kj3ND0" target="_blank"><strong>Objetos 3D</strong></a> by Javier Carro)</p>
-        <p class="Normal"><a href="https://vpython.org/video02.html" target="_blank"><strong>Variable Assignment</strong></a> (Spanish version<strong><a href="https://youtu.be/OStBL7GRang" target="_blank"> Asignación de Variables</a></strong><a href="https://youtu.be/OStBL7GRang" target="_blank"></a> by Javier Carro)</p>
-        <p class="Normal"><a href="https://vpython.org/video03.html" target="_blank"><strong>Beginning Loops</strong></a> (Spanish version <strong><a href="https://youtu.be/0lSS14aeAo4" target="_blank">Comenzando con Bucles</a></strong><a href="https://youtu.be/0lSS14aeAo4" target="_blank"></a> by Javier Carro)</p>
-        <p class="Normal"><a href="https://vpython.org/video04.html" target="_blank"><strong>Loops and Animation</strong></a> (Spanish version <strong><a href="https://youtu.be/jyEagdhKt8Q" target="_blank">Bucles y Animación</a></strong><a href="https://youtu.be/jyEagdhKt8Q" target="_blank"></a> by Javier Carro)</p>
-        <p class="Normal"><a href="https://vpython.org/video05.html" target="_blank"><strong>Scale Factors</strong></a> (Spanish version <strong><a href="https://youtu.be/aJqDTpkiyVM" target="_blank">Factores de Escala</a></strong><a href="https://youtu.be/aJqDTpkiyVM" target="_blank"></a> by Javier Carro)</p>
-        <p class="Normal"><a href="https://www.youtube.com/watch?v=kqFdB0lbGa8" target="_blank"><strong>Debugging Syntax Errors</strong></a></p>
-        <p class="Normal"><strong><a href="https://vpython.org/video07.html" target="_blank">Lists, Part 1</a></strong> (Spanish verstion <a href="https://youtu.be/9bTRE9VfslU" target="_blank"><strong>Listas 1</strong></a> by Javier Carro)</p>
-        <p class="Normal"><strong><a href="https://vpython.org/video08.html" target="_blank">Lists, Part 2</a></strong> (Spanish verstion <a href="https://youtu.be/5cTOWf_RPFY" target="_blank"><strong>Listas 2</strong></a> by Javier Carro)</p>
-      </blockquote>
-      <p class="Normal">There is a series of <a href="https://rhettallain_gmail_com.trinket.io/numerical-calculations-in-physics#/numerical-calculation-tutorials/introduction-and-vectors" target="_blank"><strong>Web VPython tutorials</strong></a> by Rhett Allain in the context of predicting motion computationally, at the level of an introductory physics course. His tutorials use tools at <a href="https://trinket.io" target="_blank"><strong>trinket.io</strong></a> that embed writing and running Web VPython programs in a notebook-like environment. It is easy to use Trinkets to add both editing and execution of Web VPython to your own web pages, and Allain in his physics blog for Wired magazine has shown examples of this.</p>
-      <p class="Normal"></p>
-      <p class="Normal"></p>
-      <p class="Normal"><strong><font color="#0000A0">Getting started</font></strong></p>
-<p class="Normal">To write a VPython program, sign in at glowscript.org. It is recommended to use the Chrome or Edge browser, as they provide the most useful error messages, though programs can be written and run in all browsers, including on smartphones and tablets. In some cases program errors are visible only if you press Shift-Ctrl-J to display the browser console.</p>
-<blockquote>
-  <p class="Normal">* You will see the sentence &quot;You are signed in as &lt;your user name&gt; and your programs are <strong>here</strong>.&quot; Click on <strong>here</strong>.</p>
-  <p class="Normal">* Click<strong> Create New Program</strong>, which will create a new program in your <strong>MyPrograms</strong> folder. (Programs in your <strong>Private</strong> folder are not accessible to others.) Choose a name for the program, which should not include spaces or underscores.</p>
-  <p class="Normal">* Below the line <strong>Web VPython 3.2</strong>, type <strong>box()</strong>. Click <strong>Run this program</strong> to run your program. You will see a white box on a black background. (An equivalent header is &quot;GlowScript 3.2 VPython&quot;.)</p>
-  <p class="Normal">* Use the right button (or CTRL-drag left button) of the mouse to rotate the camera to view the scene from different angles.</p>
-  <p class="Normal">* To zoom in and out use two buttons, or ALT/OPTION-drag, or the mouse scrollwheel. Touch screen: swipe or two-finger rotate; pinch/extend to zoom.</p>
-  <p class="Normal">* To pan left/right or up/down, drag the mouse with the SHIFT key held down.</p>
-</blockquote>
-<p class="Normal"><strong><font color="#0000A0">Using the text editor</font></strong></p>
-<p class="Normal">  Here is a list of <a href="https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts" target="_blank"><strong>keyboard shortcuts</strong></a> for find, replace, etc. While editing, press <strong>Ctrl-1</strong>  (Cmd-1 on Mac) to run your program in the same window. Press <strong>Ctrl-2</strong> (Cmd-2 on Mac) to run your program in a separate window, which lets you view your program and its execution side by side. If you  change your program, press <strong>Ctrl-2</strong> again in the editor display to re-run the program with the new changes. Web VPython uses the ACE text editor. A simpler editor is used on mobile devices.</p>
-<p class="Normal">A particularly useful shortcut is <strong>Ctrl-/</strong> (Cmd-/ on Mac). Select one or more lines in your program and use this keypress to toggle whether those lines are commented in or out. Also, select one or more lines and press Tab to indent or Shift-Tab to unindent.</p>
-<p class="Normal"><strong><font color="#0000A0">Letting others run your programs</font></strong></p>
-      <p class="Normal">While viewing the text of your program, click <strong>Share this program</strong> to see how to let other people run your program. For people to run your program by linking to it, the program must be in a public folder or be exported to your own web site. In fact, the code available on the share page can simply be pasted into a file and saved with the extension &quot;.html&quot;, and then you can run the program simply by doubleclicking the html file.</p>
-      <p class="Normal">&nbsp;</p>
-      <div></div>
-      <p class="Normal"><span class="style1">Descriptions of the options available in the left margin</span></p>
-      <blockquote>
-        <p class="Normal"><span class="style1 style2"><a href="VisualIntro.html">Introduction:</a></span> The basics of Python and VPython.</p>
-        <p class="Normal"><span class="style1 style2"><a href="VPython_Intro.pdf">A VPython tutorial:</a></span> More on VPython,
-          including making an animation</p>
-        <p class="Normal"><a href="videos.html"><strong>Introductory Videos</strong></a>: The videos listed above, easily accessible from throughout the Help</p>
-        <p class="Normal"><span class="style2"><strong><a href="primitives.html">Pictures of 3D objects:</a></strong></span> What
-          the objects look like</p>
-        <p class="Normal"><span class="style1 style2">Choose a 3D object:</span> Details of cylinder, box, etc. Start with <a href="cylinder.html">cylinder</a> for an overview. </p>
-        <p class="Normal"><span class="style1 style2">Work with 3D objects:</span> Issues that apply to all 3D objects: color, material, etc. Key elements include these:</p>
-        <p class="Normal"><span class="style1 style2"><a href="vector.html">&nbsp;&nbsp;&nbsp;&nbsp;Vector operations:</a></span> Magnitude, dot and cross product, rotation, etc.</p>
-        <p class="Normal"><span class="style1 style2"><a href="graph.html">&nbsp;&nbsp;&nbsp;&nbsp;Graphs:</a></span> Making graphs of data. </p>
-        <p class="Normal"><span class="style1 style2"><a href="math.html">&nbsp;&nbsp;&nbsp;&nbsp;Math functions:</a></span> Includes factorial/combin statistics functions</p>
-<p class="Normal"><span class="style1 style2">Canvases/Events:</span> Creating/modifying
-          windows; handling mouse/ keyboard events      </p>
-      </blockquote>
-      <p class="Normal"><strong>Be sure to explore the many Web VPython <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/" target="_blank">example programs</a></strong>, written using Python or JavaScript. The VPython option is based on the <strong><a href="https://github.com/kovidgoyal/rapydscript-ng" target="_blank">RapydScript-NG</a></strong> Python-to-JavaScript compiler.</p>
-      <p class="Normal"> As mentioned earlier, <strong><a href="https://trinket.io/">trinket.io</a></strong> offers another environment for writing Web VPython programs. Click &quot;New Trinket&quot;, then choose &quot;GlowScript&quot; and pick Python for normal text editing or Blocks for prompted editing.</p>
-      <p class="Normal">In general, Python modules cannot be imported into Web VPython programs because they function in a JavaScript environment. However, one can import the Python &quot;random&quot; module into a VPython program, provided by the RapydScript-NG tool that converts Python to JavaScript. One cannot use the form &quot;from random import *&quot; but must use &quot;import random&quot; or &quot;import random as rr&quot; (or other name) or &quot;from random import randint, random&quot; (or other list of functions). Not all of the functions provided by the Python random module <strong><a href="math.html">are available</a></strong><a href="math.html"></a>.</p>
-      <p class="Normal">&nbsp;</p>
-<p class="Normal"><font color="#0000A0"><strong>For those with Python and/or previous VPython experience</strong></font></p>
-      <p class="Normal">If you are an experienced Python programmer and/or have extensive experience with older &quot;Classic VPython&quot; (VPython 6 or earlier), do read <strong><a href="experienced.html">this article</a></strong><a href="experienced.html"></a> on the differences.      </p>
-      <p class="Normal">&nbsp;</p>
-      <p class="Normal"><font color="#0000A0"><strong>Using Web VPython without an internet connection; use by developers</strong></font></p>
-      <p class="Normal">There is <strong><a href="local.html">an article</a></strong> that explains how to use Web VPython without an internet connection, including information for how developers can use this capability.</p>
-      <p class="Normal">&nbsp;</p>
-      <p class="Normal"><font color="#0000A0"><strong>The Architecture of Web VPython</strong></font></p>
-      <p class="Normal"><strong><a href="https://vpython.org/contents/VPythonArchitecture.pdf">Here is a brief overview</a></strong> of the Web VPython architecture. Much more extensive technical details of the Web VPython architecture are <a href="https://github.com/vpython/glowscript/blob/master/docs/GlowScriptOverview.md"><strong>available here</strong></a>, which includes a video of a workshop on the topic.There is also <strong><a href="technical.html">an article</a></strong> that describes how pixel-level transparency and mouse picking were implemented.</p>
-      <p class="Normal">&nbsp;</p>
-<p class="Normal"><font color="#0000A0"><strong>Brief history</strong></font></p>
-<p class="Normal">VPython was originated by David Scherer in 2000. In 2011 David Scherer and Bruce Sherwood initiated the development of Web VPython, a similar programming environment but which runs in a browser. Originally, programs had to be written in JavaScript, but in 2014 it became possible to use Python; currently Web VPython programs can be written either in Python or in JavaScript. Here is a <a href="history.html" target="_blank"><strong>log of major developments</strong></a> and here is the <a href="https://github.com/vpython/glowscript" target="_blank"><strong>open source</strong></a> for this project. There is a blog article <strong><a href="https://brucesherwood.net/?p=136">&quot;A time line for VPython development&quot;</a></strong>. Bruce Sherwood is the lead developer.</p>
-<p class="Normal">VPython can also be used with installed Python, thanks to work originated by John Coady in 2014 and  under continuing development by John Coady, Ruth Chabay, Bruce Sherwood,  Steve Spicklemire, and Matt Craig. It uses Web VPython syntax but with standard Python, thereby providing access to standard Python modules. This flavor of VPython is called &quot;VPython 7&quot;. For details see<a href="https://vpython.org" target="_blank"> <strong>vpython.org</strong></a>. This documentation is valid for both Web VPython (browser-based) and for VPython 7 (installed Python).</p>
-<p class="Normal">&nbsp;</p>
-<p class="Normal"><span class="style1">Credits</span></p>
-<p class="Normal">Salvatore di Dio demonstrated in his RapydGlow experiment&nbsp;<a href="http://salvatore.pythonanywhere.com/RapydGlow" target="_blank">http://salvatore.pythonanywhere.com/RapydGlow</a>  how he was able to use the RapydScript Python-to-JavaScript compiler with Web VPython graphics. This inspired the implementation of the VPython (vpython.org) API at glowscript.org.  He provided the file papercomp.js for operator overloading, based on the work of Jürg Lehni (PaperScript: <a href="http://scratchdisk.com/posts/operator-overloading" target="_blank">http://scratchdisk.com/posts/operator-overloading</a>.  He also assembled support for operator overloading and the ability to write synchronous code  in the file transform-all.js, based on the work of&nbsp;Bruno Jouhier (Streamline: <a href="https://github.com/Sage/streamlinejs" target="_blank">https://github.com/Sage/streamlinejs</a>), and Marijn Haverbeke (Acorn.js: <a href="https://github.com/marijnh" target="_blank">https://github.com/marijnh</a>).  Supporting the VPython API in a browser is possible thanks to the work of&nbsp;Alexander Tsepkov (RapydScript: <a href="https://github.com/atsepkov/RapydScript" target="_blank">https://github.com/atsepkov/RapydScript</a>) and&nbsp;Charles Law (browser-based RapydScript: <a href="https://github.com/charleslaw/RapydScript_web" target="_blank">https://github.com/charleslaw/RapydScript_web</a>).</p>
-<p class="Normal">In January 2017 the original RapydScript compiler was replaced with <a href="https://github.com/kovidgoyal/rapydscript-ng" target="_blank">RapydScript-NG</a> by Kovid Goyal, which comes closer to handling true Python syntax. Goyal has been exceptionally supportive, often fixing a reported bug within just a few hours. He is also the developer of Calibre, a widely used tool for converting among ebook formats.</p>
-<p class="Normal">When the GlowScript project was launched in 2011 by David Scherer and Bruce Sherwood, Scherer implemented operator overloading and synchronous code using libraries existing at that time. In 2015 it became necessary to upgrade to newer libraries because compilation failed on some browsers; Salvatore di Dio provided crucial help in this update. In January 2017 the operator overloading machinery was further updated.</p>
-<p class="Normal">&nbsp;</p>
-      <div>
-        <p class="Normal">VPython documentation was produced by Ruth Chabay,
-    David Scherer, and Bruce Sherwood.</p>
-        <p class="Normal"><a href="https://pngflare.com/ru-vpython" target="_blank">Russian translation</a> by Leonid Popov</p>
-        <p class="Normal"><a href="https://paintingvalley.com/uz-vpython" target="_blank">Uzbek translation</a> by Ruslan Tarasov</p>
-        <p class="Normal"><a href="https://www.clothingric.com/community/vpython-help" target="_blank">Urdu translation</a> by Sarah David</p>
-        <p class="Normal"><a href="vpython_hun.pdf" target="_blank">Hungarian translation</a> by Dimitar Todorov</p>
-        <p class="Normal">&nbsp;</p>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>VPython documentation &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3D Objects in VPython" href="objects.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="vpython-documentation">
+<h1>VPython documentation<a class="headerlink" href="#vpython-documentation" title="Permalink to this heading">¶</a></h1>
+<div>
+<iframe src="https://vpython.org/presentation2018/bounce.html" width="314" height="339"></iframe>
+</div><p>VPython enables the creation of navigable realtime 3D animations, and supports 3D vector operations.  A web version is available at <a class="reference external" href="https://webvpython.org">webvpython.org</a>. For Python package installation instructions see <a class="reference external" href="https://vpython.org">vpython.org</a>.</p>
+<p><em>This new version of the VPython documentation has been reorganized and made searchable.  We hope that you find it easier to use.  In the course of the reorganization, some errors have been corrected, but new errors have inevitably crept into the documentation.  Should you find an error, please report it to the one of the :doc:`user forums &lt;resources&gt;`.</em></p>
+<section id="new-to-vpython">
+<h2>New to VPython?<a class="headerlink" href="#new-to-vpython" title="Permalink to this heading">¶</a></h2>
+<p>This Trinket <a class="reference external" href="https://matter-interactions.trinket.io/00_welcome_to_vpython#/welcome-to-vpython/getting-started">Welcome to VPython tutorial</a> offers an introduction.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="box.html">box</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cone.html">cone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="curve.html">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cylinder.html">cylinder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ellipsoid.html">ellipsoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helix.html">helix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="label.html">label</a></li>
+<li class="toctree-l2"><a class="reference internal" href="points.html">points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyramid.html">pyramid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ring.html">ring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphere.html">sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="text.html">3D text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#designing-objects">Designing objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objects.html#delete-an-object">Delete an Object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rate.html#rate">rate()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rate.html#animation-speed">Animation Speed</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="canvas.html#alignment">Alignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="canvas.html#resizing">Resizing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="canvas.html#objects-in-a-canvas">Objects in a Canvas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="canvas.html#screen-capture">Screen Capture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="canvas.html#caption-and-title">Caption and Title</a></li>
+<li class="toctree-l2"><a class="reference internal" href="canvas.html#redraw-events">Redraw Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light.html">Lighting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="color.html">Color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="opacity.html">Opacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emissive.html">Emissive</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compound.html">compound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vertex.html">vertex, triangle, and quad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extrusion.html">extrusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shapes_and_paths.html">shapes and paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clone.html">cloning an object</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file.html#get-library">get_library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file.html#read-local-file">read_local_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file.html#download">download</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="graph.html#terminology">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html#graph">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html#gcurve">gcurve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html#a-simple-plot">A Simple Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html#gdots">gdots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html#gvbars-and-ghbars">gvbars and ghbars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html#plotting-packages">Plotting Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="graph.html#histograms">Histograms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mathfunct.html">Math Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vector.html">Vector Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trail.html">Leaving a Trail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="attacharrow.html">Attach Arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="attach_light.html">Attach Light</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rotation.html#rotate-method">rotate() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rotation.html#rotate-function">rotate() function</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="print.html">print</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wtext.html">wtext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arcanetext.html">webvpython only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="latexmath.html">LaTeX math display</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="texture.html#textures">Textures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="texture.html#bumpmaps">Bumpmaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="texture.html#accessing-textures-and-bumpmaps">Accessing Textures and Bumpmaps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="button.html">Buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checkbox.html">Checkboxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key.html">Key input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mouse.html">Mouse input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiobutton.html">Radio buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textinput.html">Text input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slider.html">Sliders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgetPosition.html">Widget Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userinput.html#processing-events">Processing Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="license.html#history-and-contributors">History and Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#example-programs">Example Programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#user-forums">User Forums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#module-installation">Module Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#javascript-coding">JavaScript Coding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#editor-shortcuts">Editor Shortcuts</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
       </div>
-    <!-- InstanceEndEditable -->		
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="objects.html" title="next chapter">3D Objects in VPython</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

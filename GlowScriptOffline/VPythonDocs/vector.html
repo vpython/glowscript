@@ -1,136 +1,263 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>Vectors</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-        <h1 class="Heading-1"> <font color="#0000a0">The vector Object</font></h1>
+    <title>Vector Operations &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Object Attachments" href="workwithobjects.html" />
+    <link rel="prev" title="Math Functions" href="mathfunct.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-        <p class="Normal"> The vector object is not a displayable object but is
-          a powerful aid to 3D computations. Its properties are similar to
-      vectors used in science and engineering.</p>
+  </head><body>
+  
 
-          <p class="program">vector(x,y,z)</p>
-          <p class="Normal">This creates a 3D vector object with the given components x, y, and z.</p>
-          <p class="Normal"> Vectors can be added or subtracted from each other, or multiplied by an
-            ordinary number. For example,</p>
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
 
-          <p class="program">v1 = vector(1,2,3)<br />
-          v2 = vector(10,20,30)<br />
-          print(v1+v2) # displays &lt;1 22 33&gt;<br />
-          print(2*v1) &nbsp;# displays &lt;2 4 6&gt;</p>
-          <p class="Normal"> You can refer to individual components of a vector:</p>
-          <p class="Normal"> <span class="attribute">v2.x</span> is 10, <span
- class="attribute">v2.y</span> is 20, <span class="attribute">v2.z</span> is 30</p>
-          <p class="Normal"> It is okay to make a vector from a vector: <span
- class="attribute">vector(v2)</span> is still <span class="attribute">vector(10,20,30)</span>. This is a convenient way to make a separate copy of a vector.</p>
-<p class="Normal"><strong><font color="#0000a0">Vector functions</font></strong></p>
-          <p class="Normal">The following functions are available for working with vectors:          </p>
-      <p class="Normal"><strong>mag(A) = A.mag</strong> = |A|, the magnitude of a vector<br />
-        <br />
-        <strong>mag2(A) = A.mag2</strong> = |A|*|A|, the vector's magnitude squared<br />
-        <br />
-        <strong>norm(A) = A.norm()</strong> = A/|A|,  a unit vector in the direction of the vector<br />
-        <br />
-        <strong>hat(A) = A.hat</strong> = 
-A/|A|,  a unit vector in the direction of the vector; an alternative to A.norm(), based on the fact that unit vectors are customarily written in the form <strong>ĉ</strong>, with a &quot;hat&quot; over the vector<br />
-<br />
-For convenience, <span class="attribute">norm(vec(0,0,0))</span> or<span class="attribute"> vec(0,0,0).hat</span> is calculated to be <span class="attribute">vec(0,0,0)</span>. <span class="attribute"></span><br />
-        <br />
-        <strong>dot(A,B) = A.dot(B)</strong> = A dot B, the scalar dot product between two vectors<br />
-        <br />
-        <strong>cross(A,B) = A.cross(B</strong>), the vector cross product between two vectors<br />
-        <br />
-        <strong>diff_angle(A,B) = A.diff_angle(B)</strong>, the angle between two vectors, in radians<br />
-        <br />
-        <strong>proj(A,B) = A.proj(B) = dot(A,norm(B))*norm(B)</strong>, the vector projection of A along B<br />
-        <br />
-        <strong>comp(A,B) = A.comp(B) = dot(A,norm(B))</strong>, the scalar projection of A along B<br />
-        <br />
-        <strong>A.equals(B)</strong> is True if <strong>A</strong> and <strong>B</strong> have the same components (which means that they have the same magnitude and the same direction).<br />
-        <br />
-        <strong>vector.random() </strong>produces a vector each of whose components is a random number in the range -1 to +1<br />
-      <br />
-      Some examples:</p>
+          <div class="body" role="main">
+            
+  <section id="vector-operations">
+<h1><a class="toc-backref" href="#id1" role="doc-backlink">Vector Operations</a><a class="headerlink" href="#vector-operations" title="Permalink to this heading">¶</a></h1>
+<p>The vector object has the properties of 3D vectors in math and science.</p>
+<p><code class="docutils literal notranslate"><span class="pre">r</span> <span class="pre">=</span> <span class="pre">vector(x,y,z)</span></code>  or <code class="docutils literal notranslate"><span class="pre">r=vec(x,y,z)</span></code> produce the 3D vector &lt; x, y, z &gt;.</p>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#vector-operations" id="id1">Vector Operations</a></p>
+<ul>
+<li><p><a class="reference internal" href="#vector-addition-and-subtraction" id="id2">Vector Addition and Subtraction</a></p></li>
+<li><p><a class="reference internal" href="#scalar-multiplication" id="id3">Scalar Multiplication</a></p></li>
+<li><p><a class="reference internal" href="#magnitude" id="id4">Magnitude</a></p></li>
+<li><p><a class="reference internal" href="#unit-vector" id="id5">Unit Vector</a></p></li>
+<li><p><a class="reference internal" href="#dot-product" id="id6">Dot Product</a></p></li>
+<li><p><a class="reference internal" href="#angle-between-vectors" id="id7">Angle Between Vectors</a></p></li>
+<li><p><a class="reference internal" href="#projections" id="id8">Projections</a></p></li>
+<li><p><a class="reference internal" href="#random-vector" id="id9">Random Vector</a></p></li>
+<li><p><a class="reference internal" href="#rotating-a-vector" id="id10">Rotating a Vector</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="vector-addition-and-subtraction">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Vector Addition and Subtraction</a><a class="headerlink" href="#vector-addition-and-subtraction" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>    <span class="c1"># displays &lt; 1, 22, 33 &gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="scalar-multiplication">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Scalar Multiplication</a><a class="headerlink" href="#scalar-multiplication" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>   <span class="c1"># displays &lt; 2, 4, 6 &gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="magnitude">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Magnitude</a><a class="headerlink" href="#magnitude" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">mag</span></code> can be invoked as a function or an attribute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">mag</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>    <span class="c1"># displays 3.74166</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">mag</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>    <span class="c1"># displays 37.4166</span>
+</pre></div>
+</div>
+</section>
+<section id="unit-vector">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Unit Vector</a><a class="headerlink" href="#unit-vector" title="Permalink to this heading">¶</a></h2>
+<p>There are two names for the function that calculates a unit vector: hat() and norm(). Both can be invoked as functions or attributes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">hat</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># displays &lt; 0.267261, 0.534522, 0.801784 &gt;</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>  <span class="c1"># displays &lt; 0.267261, 0.534522, 0.801784 &gt;</span>
 
-          <p class="program"> mag(A) # calculates length of A<br />
-          mag(vector(1,1,1)) &nbsp;# = sqrt(3) = 1.732...<br />
-          mag2(vector(1,1,1)) # = 3, the magnitude
-            squared</p>
-          <p class="Normal">It is possible to reset the magnitude or the
-            magnitude squared of a vector:</p>
+<span class="n">h</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">hat</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">norm</span>
+</pre></div>
+</div>
+<p>For convenience, <code class="docutils literal notranslate"><span class="pre">hat(</span> <span class="pre">vec(0,0,0)</span> <span class="pre">)</span> <span class="pre">=</span> <span class="pre">vec(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code> to avoid runtime errors.</p>
+</section>
+<section id="dot-product">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Dot Product</a><a class="headerlink" href="#dot-product" title="Permalink to this heading">¶</a></h2>
+<p>Both dot and cross products can be invoked as functions or attributes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">j</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>   <span class="c1"># displays 2</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">cross</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>   <span class="c1"># displays &lt; 0, 0, 6 &gt;</span>
 
-            <p class="program"> v2.mag = 5 # sets magnitude to 5; no change in direction<br />
-            v2.mag2 = 2.7 # sets squared magnitude of v2 to
-              2.7</p>
+<span class="n">m</span> <span class="o">=</span> <span class="n">a1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">a1</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="angle-between-vectors">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink">Angle Between Vectors</a><a class="headerlink" href="#angle-between-vectors" title="Permalink to this heading">¶</a></h2>
+<p>The diff_angle() function returns the angle between two vectors in radians:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">diff_angle</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>  <span class="c1"># displays 1.24905</span>
 
-          <p class="Normal">You can reset the magnitude to 1 with norm():</p>
+<span class="n">q</span> <span class="o">=</span> <span class="n">a1</span><span class="o">.</span><span class="n">diff_angle</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="projections">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Projections</a><a class="headerlink" href="#projections" title="Permalink to this heading">¶</a></h2>
+<p>For convenience, the proj() function calculates the vector projection of one vector onto another:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">proj</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>   <span class="c1"># displays &lt; 0, 1, 0 &gt;</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">proj(A,B)</span> <span class="pre">=</span> <span class="pre">dot(</span> <span class="pre">A,</span> <span class="pre">hat(B)</span> <span class="pre">)</span> <span class="pre">*</span> <span class="pre">hat(B)</span></code></p>
+<p>The comp() function calculates the scalar projection of A along B:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">comp</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>   <span class="c1"># displays 1.</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">comp(A,B)</span> <span class="pre">=</span> <span class="pre">dot(</span> <span class="pre">A,</span> <span class="pre">hat(B)</span> <span class="pre">)</span></code></p>
+</section>
+<section id="random-vector">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Random Vector</a><a class="headerlink" href="#random-vector" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">vector.random()</span></code> produces a vector whose components are random numbers in the range -1 to +1.</p>
+</section>
+<section id="rotating-a-vector">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Rotating a Vector</a><a class="headerlink" href="#rotating-a-vector" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">myvec2</span> <span class="pre">=</span> <span class="pre">rotate(</span> <span class="pre">myvec1,</span> <span class="pre">angle=a,</span> <span class="pre">axis=vector(x,y,z)</span> <span class="pre">)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>firstargument</strong> (<em>vector</em>) – Vector to be rotated (<em>myvec1</em> in example above).</p></li>
+<li><p><strong>angle</strong> (<em>scalar</em>) – Angle of rotation in radians.</p></li>
+<li><p><strong>axis</strong> (<em>vector</em>) – Axis of rotation.  Default &lt; 0, 0, 1 &gt;.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
-          <p class="program">norm(A) # A/|A|, normalized; magnitude of 1<br />
-          norm(vector(1,1,1)) = vector(1,1,1)/sqrt(3)</p>
-          <p class="Normal">You can also write <span class="attribute">v1.norm()</span><span
- class="attribute"></span> or <span class="attribute">v1.hat</span>. </p>
-          <p class="Normal">You can change the direction of a vector without changing its magnitude:</p>
-      <p class="program"> v2.hat = v1 # changes the direction of v2 to that of v1<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# but not the magnitude of v2</p>
-          <p class="Normal">To calculate the angle between two vectors (the &quot;difference&quot; 
-            of the angles of the two vectors).</p>
+</section>
+</section>
 
-            <p class="program">diff_angle(v1,v2)</p>
-            <p class="Normal"> You can also write <span class="attribute">v1.diff_angle(v2)</span><span
- class="attribute"></span>. For convenience, if either of the vectors has zero 
-              magnitude, the difference of the angles is calculated to be zero<span class="attribute"></span>.</p>
 
-          <p class="Normal"> <strong>cross(A,B)</strong> or <strong>A.cross(B)</strong> gives the cross product of two vectors, a vector perpendicular to the plane defined by <strong>A</strong> and <strong>B</strong>, 
-            in a direction defined by the right-hand rule: if the fingers of the right 
-            hand bend from <strong>A</strong> toward <strong>B</strong>, the thumb points in the direction 
-            of the cross product. The magnitude of this vector is equal  <strong>mag(A)*mag(B)*sin(diff_angle(A,B))</strong>.</p>
-          <p class="Normal"> <strong>dot(A,B)</strong> or <strong>A.dot(B)</strong> gives the dot product of two vectors, 
-            which is an ordinary number equal to <strong>mag(A)*mag(B)*cos(diff_angle(A,B))</strong>. If the 
-            two vectors are normalized, the dot product gives the cosine of the angle 
-            between the vectors, which is often useful.          </p>
-<p class="Normal"><font color="#0000a0"><strong>Rotating a vector</strong></font></p>
-          <p class="Normal"> There is a function for rotating a vector:<font color="#0000a0"></font></p>
-          <p class="program"> v2 = rotate(v1, angle=a, axis=vector(x,y,z))</p>
-          <p class="Normal">The angle must be in radians. The default axis is
-            (0,0,1), for a rotation in the xy plane around the z axis. You can also write <span class="attribute">v2
-        = v1.rotate(angle=a, axis=vector(x,y,z))</span>. Note that v2 is a new vector; v1 remains unchanged. Unlike the case with rotating a 3D object, there
-        is no origin for rotating a vector.</p>
-          <p class="Normal">There is also a <a href="rotation.html">rotate capability for 
-            3D objects</a>. which doesn't return anything; you just write<span class="attribute"> obj.rotate(...)</span>, which changes the axis of the existing object. It also rotates &quot;up&quot; to remain at right angles to the axis.</p>
-          <p class="Normal">There are functions for converting between degrees
-          and radians, where there are 2*pi radians in 360 degrees: </p>
-          <p class="program">radians(360) is equivalent to 2*pi</p>
-          <p class="program">degrees(2*pi) is equivalent to  360</p>
-    <!-- InstanceEndEditable -->		
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="math.html">Math Functions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mathfunct.html">Math Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Vector Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="math.html">Math Functions and Vectors</a><ul>
+      <li>Previous: <a href="mathfunct.html" title="previous chapter">Math Functions</a></li>
+      <li>Next: <a href="workwithobjects.html" title="next chapter">Object Attachments</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/vector.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

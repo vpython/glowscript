@@ -1,196 +1,188 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>Attach trail/arrow/light</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {font-size: x-large}
-.style2 {font-size: xx-large}
--->
-</style>
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp;If you're new to Python <br />
-		   &nbsp;&nbsp;and VPython: <a href="VisualIntro.html">Introduction</a></p>
-		<p class="Normal">&nbsp;&nbsp;A VPython <a href="VPython_Intro.pdf" target="_blank">tutorial</a></p>
-		<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
-      <div>
-        <table width="100%" border="1">
-          <tr>
-            <td width="77%"><div align="center"><span class="style1 style2"><font color="#0000A0">Attach trail/arrow/light</font></span></div></td>
-            <td width="23%"><div align="center"><img src="images/trail.png" width="414" height="113" alt="trails" /><a href="arrow.html"></a></div></td>
-          </tr>
-        </table>
-      </div>
-    <div>
-    <p class="Normal"> This article emphasizes the simple &quot;make_trail&quot; mechanism for leaving a trail behind a moving object, as shown in the image above. Also see the articles below on <a href="#attach_trail"><strong>attach_trail</strong></a> and <strong><a href="#attach_arrow">attach_arrow</a></strong>.</p>
-        <p class="Normal"><strong><font color="#0000a0">make_trail</font></strong> </p>
-        <p class="Normal">You can leave a trail behind a moving object simply by specifying <span class="attribute">make_trail=True</span>:</p>
-        <div>
-        <p class="program"> ball = sphere(make_trail=True)</p>
-        <p class="Normal"> Each time the scene is rendered, the new position <span class="attribute">ball.pos</span> is added to a curve, thereby leaving a trail behind the moving sphere. This works with all objects, including compound objects, except for the curve and points objects.</p>
-        <p class="Normal">You can specify using a points object rather than a curve object for displaying the trail, and you can specify how many points to skip or retain:</p>
-        <p class="program"> ball = sphere(make_trail=True, trail_type=&quot;points&quot;,<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval=10, retain=50)</p>
-        <p class="Normal">The trail of this sphere will show individual points rather than a continuous line, it will display spheres at every 10th sphere location, and it will retain only the most recent 50 of these points.</p>
-        <p class="Normal">At any time during the moving of the object, you can specify <span class="attribute">ball.make_trail=False</span>, in which case no more points are added to the ball's trail until you set <span class="attribute">ball.make_trail=True</span> again (at which point a new trail is started at the ball's current position).</p>
-        <p class="Normal">If you specify an interval (greater than zero) and do not specify a position when creating the ball, the first point along the trail will occur when a position is later assigned to the ball. If you do specify a position when creating the ball, and make_trail is True, the first point along the trail is that specified position. If no interval is specified, the curve starts with whatever the position is at the time of the first rendering of the scene.</p>
-        <p class="Normal"><strong><font color="#0000a0">A caveat</font></strong></p>
-        <p class="Normal"><em><strong>If the trail's points are far apart, do not use a rate greater than rate(60)</strong></em>. Here's why: Python attempts to render the 3D scene about 60 times per second. Each time it renders the scene it looks through a list of all those objects that have specified &quot;make_trail=True&quot;, and if an object's pos attribute has changed, the render function extends the trail. If you specify rate(300), and you update an object's position once in each pass through the loop, only every 5th position of the object will be added to the trail, because the scene is  rendered only about 60 times per second. In contrast, if you specify rate(10)  and you update an object's position once in each pass through the loop, the trail will be extended 10 times per second.</p>
-      <p class="Normal"><strong><font color="#0000a0">Summary of make_trail</font></strong></p>
-        <p class="attributes"> <span class="attribute">make_trail</span> Must be mentioned when creating the moving object; if False, no points will be added to the trail until you say <span class="attribute">ball.make_trail = True</span> (assuming the moving object is named ball)</p>
-        <p class="attributes"> <span class="attribute">trail_type</span> Default is &quot;curve&quot;, but can be &quot;points&quot;</p>
-        <p class="attributes"> <span class="attribute">interval</span> If interval=10, a point is added to the trail only every 10th move of the object. If interval is 0, no trail is shown.<br />
-          <br />
-          If trail_type is &quot;points&quot;, the default interval = 1; interval must have a nonzero value because the points need to be accurately spaced in order to look right.<br />
-          <br />
-        If trail_type is &quot;curve&quot; (the default), and no interval is specified, updates to the trail are made every time a new image is rendered, typically about 60 times a second. This usually looks fine.<br />
-      </p>
-      <p class="attributes"> <span class="attribute">pps</span> If trail_type is &quot;curve&quot;, and no interval is specified, pps=15 means &quot;add a point to the curve approximately 15 times per second&quot;.</p>
-        <p class="attributes"> <span class="attribute">retain</span> If retain=50, only the 50 most recently added points will be retained </p>
-        <p class="attributes"> <span class="attribute">trail_color</span> The color of the curve or points<span class="Normal"></span> (default is the object's color). If you change this during the motion, later portions of the trail will have this color.</p>
-        <p class="attributes"> <span class="attribute">trail_radius</span> The radius of the curve or points. The default for the &quot;curve&quot; option is 0, which makes a thin curve (this works best in the xy plane; if it doesn't give the result you want, set trail_radius to the desired value). <br />
-          <br />
-        The default for the &quot;points&quot; option is <span class="Normal">0.2 times the radius, 0.1 times the height or size.y, of the size of the moving object <em><strong>at the time your create that object</strong></em><strong>.</strong></span><strong> If you don't assign your own size or radius to an object until after you've created it, you may also need to set trail_radius at that time</strong>. If you change trail_radius during the motion, later portions of the trail will have this radius.</p>
-      <p class="attributes"> <span class="attribute">clear_trail()</span> Clears all points from the existing trail before adding more. Note that setting make_trail to False stops adding more points.</p>
-      <p class="Normal">&nbsp;</p>
-      <p class="Normal"><strong><font color="#0000A0"><a name="attach_trail" id="attach_trail"></a>attach_trail</font></strong></p>
-      <p class="Normal"><a href="trail.html" target="_blank"><strong>attach_trail</strong></a> is similar to the make_trail mechanism described above but includes the ability to specify an arbitrary function to be called to provide a position rather than using the position of an object. If an object is named &quot;ball&quot;, the following statement will cause  a curve to be drawn along the path of the moving object: </p>
-<div></div>
-      <div>
-        <p class="program">attach_trail(ball)</p>
-        <p class="Normal">By default, the radius of the cross-section of the curve is 0.1 times the size.y of the object, and the color of the curve is the color of the object. You can change this:</p>
-        <div></div>
-        <div>
-          <p class="program">attach_trail(ball, radius=0.1, <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.white )</p>
-          <p class="Normal">You can also specify that only the most recent N points are displayed, which has the effect of giving the object something like a comet's tail:</p>
-          <div></div>
-          <div>
-            <p class="program">attach_trail(ball, retain=30 )</p>
-            <p class="Normal">By default, points are added to the trail every time the scene is rendered, which is typically about 60 times per second. No trail is started until you explicitly specify a position of the ball. You can limit the number of points per second (&quot;pps&quot;) to be added to the trail. In the following case, 5 points are added to the trail per second (the maximum value of pps that makes sense is about 60):</p>
-            <div></div>
-            <div>
-              <p class="program">attach_trail(ball, pps=5 )</p>
-              <p class="Normal">By default, the trail is a curve (connected points), but you can make a trail of separated spheres:</p>
-              <div></div>
-              <div>
-                <p class="program">attach_trail(ball, type='points' )</p>
-                <p class="Normal">Instead of specifying an object whose position is used to add points to the curve or set of spheres, you can specify a function which yields a vector to be used as a position. If you have a function named &quot;center&quot; that returns a vector position, you can say this:</p>
-                <div></div>
-                <div>
-                  <p class="program">def center():<br />
-                    &nbsp;&nbsp;&nbsp;                    return (ball1.pos+ball2.pos)/2<br />
-                    <br />
-                    attach_trail(center) </p>
-                  <div></div>
-                  <p class="Normal">In summary, you can specify a trail to be constructed as a curve or a set of spheres, using the position of an object or  the vector result of a function. You can specify options to control <span class="attribute">color</span>, <span class="attribute">radius</span>, <span class="attribute">retain</span>, <span class="attribute">pps</span>, and <span class="attribute">type</span>. <span class="attributes">The default for the &quot;curve&quot; option is 0, which makes a thin curve (this works best in the xy plane; if it doesn't give the result you want, set trail_radius to the desired value). The default for the &quot;points&quot; option is 0.2 times the radius, 0.1 times the height or size.y, of the moving object.</span> You can change <span class="attribute">color</span> or <span class="attribute">radius</span> and the following points will be displayed with the new attributes.</p>
-                  <p class="Normal"><strong><font color="#0000A0">start, stop, clear</font></strong></p>
-                  <div>
-                    <div> </div>
-                  </div>
-                  <p class="Normal">You can start and stop adding points to a trail, and you can clear the trail (remove the existing points):</p>
-                  <div></div>
-                  <div>
-                    <p class="program">b = attach_trail(ball)<br />
-                      ...<br />
-                      b.stop()<br />
-                      ...<br />
-                      b.start()<br />
-                      ...<br />
-                      b.clear()</p>
-                    <p class="Normal">&nbsp;</p>
-                    <p class="Normal"><strong><font color="#0000A0"><a name="attach_arrow" id="attach_arrow"></a>attach_arrow</font></strong></p>
-                    <p class="Normal"><a href="https://www.glowscript.org/docs/GlowScriptDocs/trail.html"><strong>attach_arrow</strong></a> creates an arrow representing a vector attribute of an object, and the arrow is continually displayed at the current location of the moving object. This arrow contains some additional information compared to an ordinary arrow, such as what object it is attached to and which attribute of that object is being represented by the arrow. The following statement will automatically display a green arrow at the current location of the ball, as the ball moves. The arrow will have shaftwidth=0.3, and its axis  is determined by 1000*ball.axis:</p>
-                    <div></div>
-                    <div>
-                      <p class="program">attach_arrow(ball, &quot;axis&quot;, scale=1000,<br />
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                      shaftwidth=0.3, color=color.green)</p>
-                      <p class="Normal">The default value of scale is 1, the default color of the arrow is the color of the ball, and the default shaftwidth is 0.5*ball.size.y. You can specify any vector attribute of the moving object, not just &quot;axis&quot;. For example, if you continually update a vector quantity ball.velocity and want to continually display an arrow representing this quantity at the location of the moving ball (with scale=1 and the color of the ball), just say this:&nbsp;&nbsp;</p>
-                      <div></div>
-                      <div>
-                        <p class="program">attach_arrow(ball, &quot;velocity&quot;)</p>
-                      </div>
-                      <div>
-                        <div>
-  <p class="Normal">After attaching an arrow to a moving object, you can modify the appearance of the arrow later by doing this, using color as an example: </p>
-                          <div></div>
-                          <div></div>
-                          <div>
-                            <p class="program">myarrow = attach_arrow(ball, &quot;velocity&quot;, color=color.green)<br />
-                              ...<br />
-                              myarrow.color = color.red # later, change the color of the arrow.</p>
-                            <p class="Normal">If there is more than one vector attribute of an object that you would like to visualize by attaching multiple arrows&nbsp;to the moving object, simply execute additional attach_arrow statements for the additional attributes.</p>
-                          </div>
-                          <div></div>
-  <div>
-    <div>
-      <div></div>
-      <p class="Normal">You can start and stop displaying the arrow:</p>
-    </div>
-    <div></div>
-    <div>
-      <p class="program">myarrow = attach_arrow(ball, &quot;velocity&quot;)<br />
-        ...<br />
-        myarrow.stop()<br />
-        ...<br />
-        myarrow.start()</p>
-      <p class="Normal">&nbsp;</p>
-      <p class="Normal"><strong><font color="#0000A0"><a name="attach_arrow" id="attach_arrow2"></a>attach_light</font></strong></p>
-      <p class="Normal"><a href="https://www.glowscript.org/docs/GlowScriptDocs/trail.html"><strong>attach_light</strong></a> creates a local_light that is bound to a moving object. The following statement will place a green local_light that will always be positioned at the current location of the ball plus the specified offset, as the ball moves:</p>
-      <div></div>
-      <div>
-        <p class="program">a = attach_light(ball, offset=vec(5,1,0), color=color.green)</p>
-        <p class="Normal">The default value of the offset is vec(0,0,0), in which case the local_light will always be located at the center of the moving ball. The default value of the light's color is ball.color. After attaching a local_light to a moving object, you can at any time modify its offset (a.offset) and/or color (a.color).You can specify more than one attach_light for an object.</p>
-        <p class="Normal">Think of the offset as connecting the moving object and the local_light by an (invisible) rigid rod, so that, for example, if you rotate the object, the local_light will rotate around the moving object.</p>
-        <p class="Normal">If you specify a zero offset for a sphere, you will find that the local_light does not affect the lighting of the outer surface of the sphere; it does of course affect the lighting of objects outside the sphere. In this case you may wish to specify ball.emissive = True, which makes the ball seem to glow.</p><div><div><div><div>
-              </div>
-              <div></div>
-            </div>
-          </div>
-      </div>
-      </div>
-    </div>
-  </div>
-  <div>
-    <p class="program"><br />
-    </p>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Leaving a Trail &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="attach_arrow()" href="attacharrow.html" />
+    <link rel="prev" title="Object Attachments" href="workwithobjects.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="leaving-a-trail">
+<h1>Leaving a Trail<a class="headerlink" href="#leaving-a-trail" title="Permalink to this heading">¶</a></h1>
+<img alt="_images/trail.png" src="_images/trail.png" />
+<p>There are two ways to leave a trail behind a moving object: <em>make_trail</em> and <em>attach_trail()</em>.</p>
+<section id="make-trail">
+<h2>make_trail<a class="headerlink" href="#make-trail" title="Permalink to this heading">¶</a></h2>
+<p>The simplest way to leave a trail is to set <code class="docutils literal notranslate"><span class="pre">make_trail=True</span></code> for an object. Each time the scene is rendered, the new position <em>ball.pos</em> is added to a curve, thereby leaving a trail behind the moving object. This works with all objects, including compound objects, except for the curve and points objects.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">ball=sphere(</span> <span class="pre">make_trail=True,</span> <span class="pre">trail_type=&quot;points&quot;,</span> <span class="pre">trail_radius=0.2,</span> <span class="pre">interval=10,</span> <span class="pre">retain</span> <span class="pre">=</span> <span class="pre">1000</span> <span class="pre">)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>make_trail</strong> (<em>boolean</em>) – If <em>True</em> a moving object will leave a trail. Default is False.</p></li>
+<li><p><strong>trail_type</strong> (<em>string</em>) – If “points” trail will consist of discrete dots.  Otherwise a continuous curve.</p></li>
+<li><p><strong>trail_radius</strong> (<em>scalar</em>) – Radius of curve or dots. Default 0 (thin curve) for curve; 0.2*ball.radius or 0.1*size.y for points <em>at the time the object is created.</em></p></li>
+<li><p><strong>interval</strong> (<em>scalar</em>) – Number of moves before a point is added. <em>interval=10</em> adds a point to trail every 10th time object moves.</p></li>
+<li><p><strong>retain</strong> (<em>scalar</em>) – Number of points to retain in trail. Default is to retain all.  Oldest points deleted first.</p></li>
+<li><p><strong>pps</strong> (<em>scalar</em>) – For a curve, <em>pps=15</em> will add a point approximately 15 times per second.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>If at any time while the object is moving you set <code class="docutils literal notranslate"><span class="pre">ball.make_trail=False</span></code>, no more points are added to the trail until you set <code class="docutils literal notranslate"><span class="pre">ball.make_trail=True</span></code> again, when a new trail will be started at the ball’s current position.</p>
+<p>If you specify an interval (greater than zero) and do not specify a position when creating the ball, the first point along the trail will occur when a position is later assigned to the ball. If you do specify a position when creating the ball, and make_trail is True, the first point along the trail is that specified position. If no interval is specified, the curve starts with whatever the position is at the time of the first rendering of the scene.</p>
+<p>A caveat: If the trail’s points are far apart, do not use a rate greater than rate(60). VPython attempts to render the 3D scene about 60 times per second. Each time it renders the scene it looks through a list of all those objects that have specified “make_trail=True”, and if an object’s pos attribute has changed, the render function extends the trail. If you specify rate(300), and you update an object’s position once in each pass through the loop, only every 5th position of the object will be added to the trail, because the scene is rendered only about 60 times per second. In contrast, if you specify rate(10) and you update an object’s position once in each pass through the loop, the trail will be extended 10 times per second.</p>
+<section id="clearing-make-trail">
+<h3>Clearing <em>make_trail</em><a class="headerlink" href="#clearing-make-trail" title="Permalink to this heading">¶</a></h3>
+<p><strong>ball.clear_trail()</strong> Clears all points from the existing trail before adding more.  To stop adding points set ball.make_trail to False.</p>
+</section>
+</section>
+<section id="attach-trail">
+<h2>attach_trail<a class="headerlink" href="#attach-trail" title="Permalink to this heading">¶</a></h2>
+<p><strong>attach_trail is currently flaky. Use at your own risk. You must specify a trail color.</strong></p>
+<p>For most purposes <em>make_trail</em> is sufficient.  <em>attach_trail</em> is similar; it has similar parameters, but also permits the specification of an arbitrary function to be called to provide a position rather than using the object’s position.</p>
+<p>Suppose you create a function <code class="docutils literal notranslate"><span class="pre">center()</span></code> that calculates a position offset from the average position of two moving balls. You can create a trail marking the path of that average position:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">center</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="p">(</span><span class="n">ball_1</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">ball_2</span><span class="o">/</span><span class="n">pos</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="p">)</span>
+
+<span class="n">attach_trail</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</pre></div>
 </div>
-<p class="Normal"></p>
-                      </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+<section id="attach-trail-control">
+<h3><em>attach_trail</em> control<a class="headerlink" href="#attach-trail-control" title="Permalink to this heading">¶</a></h3>
+<p>A trail made with <em>attach_trail</em> can be stopped, started, and cleared:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">attach_trail</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">b</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">b</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="n">b</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
           </div>
+          
         </div>
       </div>
-	  <!-- InstanceEndEditable -->		
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="workwithobjects.html">Object Attachments</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Leaving a Trail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="attacharrow.html">Attach Arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="attach_light.html">Attach Light</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="workwithobjects.html">Object Attachments</a><ul>
+      <li>Previous: <a href="workwithobjects.html" title="previous chapter">Object Attachments</a></li>
+      <li>Next: <a href="attacharrow.html" title="next chapter">attach_arrow()</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/trail.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

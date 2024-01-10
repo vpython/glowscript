@@ -1,191 +1,326 @@
-<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" --><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- InstanceBeginEditable name="doctitle" -->
-<title>graph</title>
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
-<link href="VisualRef.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {font-size: x-large}
-.style2 {font-size: xx-large}
--->
-</style>
-<!-- InstanceEndEditable -->
-</head>
 
-<body>
-<div id="wrapper">
-	<div id="leftmenu">
-		<p class="Normal"><a href="index.html">&nbsp;&nbsp;Home</a></p>
-		<p class="Normal">&nbsp;&nbsp; <a href="VisualIntro.html">Overview of Python &amp; VPython<br>
-		</a></p>
-		<p class="Normal"><a href="https://trinket.io/matter-interactions/courses/00_welcome_to_vpython#/welcome-to-vpython/getting-started">&nbsp;&nbsp;&quot;Welcome to VPython&quot; tutorial</a></p>
-<p class="Normal"><a href="videos.html">&nbsp;&nbsp;Introductory Videos</a></p>
-		<p class="Normal"><a href="primitives.html">&nbsp;&nbsp;Pictures</a> of 3D objects</p>
-		<p>&nbsp;&nbsp;<select id="menu1" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu2" onChange="jumpMenu(this)"></select></p>
-		<p>&nbsp;&nbsp;<select id="menu3" onChange="jumpMenu(this)"></select></p>
-		<p class="Normal"><a href="https://vpython.org" target="_blank">&nbsp; VPython 7 web site</a><br />
-		  <a href="license.txt" target="_blank">&nbsp;&nbsp;VPython license</a><br />
-		  <br />
-		</p>
-		</td>
-	</div>
+<!DOCTYPE html>
 
-	<div id="content">
-		<!-- InstanceBeginEditable name="content" -->
-      <div>
-        <table width="100%" border="1">
-              <tr>
-                <td width="47%"><div align="center"><span class="style1 style2"><font color="#0000A0">Graphs</font></span></div></td>
-                <td width="53%"><div align="center"><a href="arrow.html"></a><img src="images/graph.png" alt="graph" width="382" height="245" /></div></td>
-              </tr>
-        </table>
-      </div>
-          <p class="Normal">In this section we describe features for plotting graphs 
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Graphing &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Math Functions and Vectors" href="math.html" />
+    <link rel="prev" title="Files and Libraries" href="file.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
           
-          with tick marks and labels as shown above.  Graphs can  be log-log or semilog (see below). As you drag the mouse across the graph you will find options to read information off the graph. </p>
-          <p class="Normal"> A graph is different from a canvas: a canvas is inherently 3D and contains 3D objects such as spheres and boxes, whereas a graph is inherently 2D and contains graphing objects for displaying curves, dots, and vertical or horizontal bars.</p>
-          <p class="Normal">&nbsp;</p>
-          <p class="Normal"><strong>Two graph options</strong></p>
-          <p class="Normal">You can  choose between two graphing packages, one which is faster (currently based on Flot), or one which offers rich interactive capabilities such as zooming and panning but is slower (currently based on Plotly). The default is the fast version, corresponding to specifying <span class="attribute">fast=True</span> in a graph, gcurve, gdots, gvbars, or ghbars statement. To use the slower but more interactive version, say <span class="attribute">fast=False</span>. In many programs the &quot;slow&quot; version may run nearly as fast as the &quot;fast&quot; version, but if you plot a large number of data points the speed difference can be significant.<br />
-            <br />
-      Do try <span class="attribute">fast=False</span> to see the many options provided. As you drag the mouse across the graph with the mouse button up, you are shown the numerical values of the plotted points. You can drag with the mouse button down to select a region of the graph, and the selected region then fills the graph. As you drag just below the graph you can pan left and right, and if you drag along the left edge of the graph you can pan up and down. As you move the mouse you'll notice that there are many options at the upper right. Hover over each of the options for a brief description. The &quot;home&quot; icon restores the display you saw before zooming or panning. Try <strong><a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/GraphTest" target="_blank">this demo</a></strong>.</p>
-          <p class="Normal">&nbsp;</p>
-          <p class="Normal"><strong>The basics</strong></p>
-      <p class="Normal">Here is a simple example of how to plot a 2D graph (arange creates a numeric array running from 0 to 8, stopping short of 8.1):</p>
-          <p class="program">f1 = gcurve(color=color.cyan)		# a graphics curve<br />
-          for x in arange(0, 8.05, 0.1):		# x goes from 0 to 8<br />
-          &nbsp;&nbsp;&nbsp;&nbsp;f1.plot( x,5*cos(2*x)*exp(-0.2*x) )          </p>
-          <p class="Normal"> A connected curve (<span class="attribute">gcurve</span>) 
-            is  one of several kinds of graph plotting objects. Other options are 
-            disconnected dots (<span class="attribute">gdots</span>), vertical bars (
-<span class="attribute">gvbars</span>), and horizontal bars (<span class="attribute">ghbars</span>). </p>
-          <p class="Normal">When creating <span class="attribute">gcurve</span>, <span class="attribute">gdots</span>, <span class="attribute">gvbars</span>, or <span class="attribute">ghbars</span>, you can optionally give a list of data points and/or a color (if no color is specified, the plotting color will be black):</p>
-          <p class="program"> f1 = gcurve(data=[ [1,2],[5,-2],[8,4] ], <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color=color.green) </p>
-          <p class="Normal">After creating one of these graphing objects, you can add a single point or a list of additional points (for backward compatibility, you can say &quot;pos&quot; instead of &quot;data&quot;):</p>
-      <p class="program"> f1.plot(data=[100,-30]) # add a single point<br />
-      f1.plot(data=[[100,-30], [20,50], [0,-10]]) # add a list      </p>
-      <p class="Normal">You do not need to specify <span class="code">&quot;<strong>data=</strong></span>&quot; when adding points. Here are other permissible formats:</p>
-      <p class="program"> f1.plot(1,2)<br />
-        f1.plot([1,2])<br />
-        f1.plot([1,2], [3,4], [5,6])<br />
-f1.plot([ [1,2], [3,4], [5,6] ])</p>
-      <p class="Normal">Once you have created a graphing object such as gcurve, its initial color will be used throughout. You can change the color later, but this will change the color of all the elements already plotted.</p>
-      <p class="Normal"> For a graphing object you can specify <span class="attribute">label=&quot;cos(x)&quot;</span> and this text, in the color of the object, will appear at the upper right. If you say <span class="attribute">legend=False</span> the label is not actually shown. The <span class="attribute">dot</span> (see below) and <span class="attribute">label</span> options need to be specified when you create the graphing object.</p>
-<p class="Normal"> You can plot more than one thing on the same graph:</p>
-<p class="program"> f1 = gcurve(color=color.cyan) <br />
-  f2 = gvbars(delta=0.05, color=color.blue)<br />
-  for x in arange(0., 8.05, 0.1): <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;f1.plot(x,5*cos(2*x)*exp(-0.2*x)	&nbsp;# gcurve<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;f2.plot(x,4*cos(0.5*x)*exp(-0.1*x)# vbars</p>
-<p class="Normal">You can replace all of the points in a  <span class="attribute">gcurve</span>, <span class="attribute">gdots</span>, <span class="attribute">gvbars</span>, or <span class="attribute">ghbars</span> object like this:</p>
-<p class="program"> f1.data = [ [10,20], [30,40], [50,60] ]</p>
-<p class="Normal">This is equivalent to deleting all the points from the graph and then adding the new ones.</p>
-<p class="Normal">It is often the case that skipping points may hardly affect the display but will make graph plotting much faster, in which case it's useful to specify an interval between plotting of points:</p>
-<p class="attributes"><span class="attribute">interval</span> If interval=10, a point is added to the plot only every 10th time you ask to add a point. If interval is 0, no plot is shown. If interval is -1, no points are skipped.</p>
-<p class="attributes">&nbsp;</p>
-<p class="Normal"><strong><font color="#0000A0">Special options for gcurve, gdots, gvbars, and ghbars</font></strong></p>
-<p class="Normal">For <span class="attribute">gcurve</span> you can specify a <span class="attribute">width</span> of the line in pixels. If you specify <span class="attribute">markers=True</span>, dots will be displayed at each gcurve point, and you can specify the <span class="attribute">radius</span> (the default is slightlly larger than the gcurve width) and <span class="attribute">marker_color</span> (the default is the gcurve color). Instead of setting the radius, you can set <span class="attribute">size</span>, which sets the diameter (equivalent to 2*radius).<br />
-  <br />
-  If you
-            specify <span class="attribute">dot=True</span> the current plotting
-            point is highlighted with a dot, which is particularly useful if
-            a graph retraces its path. You can specify a <span class="attribute">dot_radius</span> attribute,
-            which  specifies the radius of the dot in pixels (default is <span class="attribute">radius=3</span>).
-            By default the dot has the same color as the gcurve, but you can
-      specify a different color, as in <span class="attribute">dot_color=color.green</span>.</p>
-<p class="Normal">For <span class="attribute">gdots</span> you can also specify a <span class="attribute">radius</span> or <span class="attribute">size</span> attribute, which 
-  specifies the radius or diameter of the dot in pixels (default is <span class="attribute">radius=3</span>).</p>
-          <p class="Normal">For <span class="attribute">gvbars</span> and <span class="attribute">ghbars</span> you can  specify a <span class="attribute">delta</span> attribute, which 
-            specifies the width of the bar (the default is <span class="attribute">delta=1</span>).</p>
-          <p class="Normal">For all these graph objects you can specify <span class="attribute">visible</span> to be True or False, as with other VPython objects.</p>
-<p class="Normal">&nbsp;</p>
-      <p class="Normal"><strong><font color="#0000A0">Deleting data or an entire graph</font></strong></p>
-          <p class="Normal">If you create a gcurve, gdots, gvbars, or ghbars entity and name it g, you can delete the associated data from a graph by saying g.delete(). Similarly, if you say gd = graph(), you can delete the entire graph by saying gd.delete().</p>
-          <p class="Normal">&nbsp;</p>
-<p class="Normal"><strong><font color="#0000A0">Overall graph options</font></strong></p>
-          <p class="Normal">You can establish a <span class="attribute">graph</span> to set the size, position, and title for the title bar of the graph window, 
-            
-            specify titles for the x and y axes,  specify maximum values for each 
-            
-            axis, and set foreground and background colors, before creating <span class="attribute">gcurve</span> or other kind 
-            
-            of graph plotting object:          </p>
-          <p class="program"> gd = graph(width=600, height=150, <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title='&lt;b&gt;Test&lt;/b&gt;',<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  xtitle='&lt;i&gt;x&lt;/i&gt;', ytitle='&lt;i&gt;x&lt;/i&gt;&lt;sup&gt;2&lt;/sup&gt;', <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreground=color.black, 
-            
-            background=color.white, <br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xmin=-20, xmax=50, ymin=-2e3, 
-            
-      ymax=5e3)</p>
-          <p class="Normal"> <strong>Setting limits:</strong> In this example, the graph window will have a size of 600 by 150 pixels, and above the graph
-            
-            there will be a centered bold title &quot;Test&quot;. The x and y axes of the graph will have the labels. x and <em>x</em><sup>2</sup>. The foreground color is black (the default), and the background color is white (the default).</p>
-          <p class="Normal">Instead of autoscaling the graph to display all the data, the graph in this example  
-            
-            will have fixed limits. The horizontal axis will extend from -20 to +50. If you specify <span class="attribute">xmax</span> but not <span class="attribute">xmin</span>, it is as though you had also specified <span class="attribute">xmin</span> to be 0; similarly, if you specify <span class="attribute">xmin</span> but not <span class="attribute">xmax</span>, <span class="attribute">xmax</span> will be 0. The same rule holds for <span class="attribute">ymax</span> and <span class="attribute">ymin</span>. When using fast=False, you must specify both xmin and xmax (except that xmin will be set to zero if only xmax is specified), and you must specify both ymin and ymax (except that ymin will be set to zero if only ymax is specified),</p>
-          <p class="Normal"><span class="attributes"><strong>Titles:</strong> For </span><span class="attribute">title</span><span class="attributes">, </span><span class="attribute">xtitle</span><span class="attributes">, and </span><span class="attribute">ytitle</span><span class="attributes"> you can give a number or numerical expression, which will be converted to a string.You can include the HTML styles for italic (&lt;i&gt; or &lt;em&gt;), bold (&lt;b&gt; or &lt;strong&gt;), superscript (&lt;sup&gt;), or subscript (&lt;sub&gt;). For example, the string<br />
-          <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&quot;The &lt;b&gt;mass &lt;i&gt;M&lt;/i&gt;&lt;/b&gt;&lt;sub&gt;sys&lt;/sub&gt; = 10&lt;sup&gt;3&lt;/sup&gt; kg.</strong>&quot;<br />
-<br />
-displays as<br />
-<br />
-&nbsp;&nbsp;&nbsp;&nbsp;The <b>mass <i>M</i></b><sub>sys</sub> = 10<sup>3</sup> kg. <br />
-<br />
-Multiple lines in a </span><span class="attribute">title</span><span class="attributes"> can be displayed by inserting line breaks (\n), as in &quot;Three\nlines\nof 
-      text&quot; and you can  insert &lt;br&gt; or &lt;br/&gt; instead of \n.</span> You cannot use line breaks in <span class="attribute">xtitle</span> or <span class="attribute">ytitle</span>. If a <span class="attribute">title</span> is specified, the height of the graph is increased to provide space for the title.<br />
-          </p>
-          <p class="Normal">If you simply say <span class="attribute">graph()</span>, the defaults 
-            
-            are <span class="attribute">width=640</span>, <span class="attribute">height=400</span>, 
-            
-  no titles, fully autoscaled.      </p>
-          <p class="Normal">You can align a graph to the left or right of another graph or a canvas:</p>
-      <p class="attributes"><span class="attribute">align</span> Set to &quot;left&quot; (graph forced to left side of window), &quot;right&quot; (graph forced to right side of window), or &quot;none&quot; (the default alignment). If you want to place a graph to the right of a canvas, set the canvas align attribute to the string &quot;left&quot; and the graph align attribute to the string &quot;right&quot;. If the window is too narrow, the object that is on the right will be displayed below the other object. If you want to place a graph to the right of the canvas but keep the canvas caption underneath the canvas, create the graph first with align set to &quot;right&quot; and activate the graph by plotting something in it, then create the canvas without specifying its value of align. Another option is to specify align='left' for all canvases and graphs, in which case they will abut each other.</p>
-      <br>
-<p class="Normal">You can have more than one graph window: just create another <span class="attribute"> graph</span>. By default, any graphing objects 
-            
-            created following a <span class="attribute">graph</span> belong to that 
-            
-window, or you can  specify which window a new object belongs to: </p>
 
-          <p class="program"> energy = gdots(graph=graph2, color=color.blue)</p>
-          <p class="attributes"></p>
-          <p class="Normal">You can also obtain the current graph with <span class="attribute">graph.get_selected()</span>, and you can set the current graph to be the graph named gd by executing <span class="attribute">gd.select()</span>.</p>
-          <p class="Normal">Here is a summary of what determines in which of several possible 2D graphs a graphing object such as a gcurve or gdots will be placed:</p>
-          <p class="program">g1 = graph() # default properties<br />
-            gcurve(...) &nbsp;# will appear in the graph named &quot;g1&quot;<br />
-            gdots(graph=g1, ...) # will also appear in &quot;g1&quot;<br />
-  <br />
-            g2 = graph(width=200,height=100,title='A second graph')<br />
-            gcurve(...) &nbsp;# will appear in the graph named &quot;g2&quot;<br />
-            gdots(graph=g2, ...) &nbsp;# will also appear in &quot;g2&quot;<br />
-            gvbars(graph=g1, ...) # will appear in &quot;g1&quot; </p>
-          <p class="Normal">The key point is that after creating a graph, 2D objects will by default be placed in the most recently created graph, unless you explicitly specify a different graph for the object.</p>
-          <p class="Normal">&nbsp;</p>
-      <p class="Normal"><strong><font color="#0000A0">A scrolling &quot;chart recorder&quot;</font></strong></p>
-      <p class="Normal">You can imitate a &quot;chart recorder&quot; in which as you add more and more points to the right of the graph, only the most recent portions of the graph are shown. With fast=False, you can pan along the whole graph when completed. You must specify the initial xmin and xmax, and xmax must be greater than xmin.</p>
-      <p class="program">graph(scroll=True, fast=False, xmin=0, xmax=10)<br>
-        g = gcurve()<br>
-        for x in arange(0,30,0.1):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;rate(100)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;g.plot( x, sin(x) )</p>
-      <p class="Normal"></p>
-      <p class="Normal">&nbsp;</p>
-<p class="Normal"><strong><font color="#0000A0">Log-log and semilog plots</font></strong></p>
-          <p class="Normal">When creating a graph, you can specify logarithmic plots by specifying <span class="attribute">logx=True</span> and/or <span class="attribute">logy=True</span>.<strong> All values must be positive</strong>, representing logarithms of numbers between infinitely small (logarithm approaches 0) and infinitely large; that is, numbers such as 0.01, 0.1, 1, 10, 100, etc. These log options are available only with fast=False.</p>
-          <p class="Normal">&nbsp;</p>
-<p class="Normal"><strong><font color="#0000A0">Histograms (sorted, binned data)</font></strong></p>
-          <p class="Normal">There is no ghistogram option. However, the program <a href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/HardSphereGas-VPython" target="_blank">HardSphereGas</a> provides an example of how to make a histogram.</p>
-          <p class="Normal">&nbsp;</p>
-      <!-- InstanceEndEditable -->		
+          <div class="body" role="main">
+            
+  <section id="graphing">
+<h1>Graphing<a class="headerlink" href="#graphing" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/graph.png"><img alt="_images/graph.png" src="_images/graph.png" style="width: 400px;" /></a>
+<p>Graphing in VPython is dynamic and can be done in real time.  For example, points can be added to a plot of x vs. t as an object moves.  Histogram bars can be adjusted as distributions change.</p>
+<section id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this heading">¶</a></h2>
+<p>A <strong>graph</strong> is a 2D canvas on which plots of various kinds can be displayed.</p>
+<p>A <strong>gcurve</strong> object is a continuous curve connecting data points.</p>
+<p>A <strong>gdots</strong> object displays data as discrete points.</p>
+<p>A <strong>gvbars</strong> object displays discrete vertical bars, and a <code class="docutils literal notranslate"><span class="pre">ghbars</span></code> object displays discrete horizontal bars.</p>
+</section>
+<section id="graph">
+<h2>graph<a class="headerlink" href="#graph" title="Permalink to this heading">¶</a></h2>
+<p>A <em>graph</em> is a 2D region in which 2D data can be plotted, analogous to a 3D canvas in which 3D objects are displayed.  As in the case of <em>canvas</em>, the actual data display objects belong to a specific graph.  Multiple graphs can be created.</p>
+<p>If you create a data object such as a <em>gcurve</em> without first creating a <em>graph</em>, VPython will automatically create a graph for you.  This is convenient for simple, rapid graphing.  The advantage to creating a graph explicitly is that it can be given a title, caption, or key, and its alignment can be specified.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">g1</span> <span class="pre">=</span> <span class="pre">graph(title='My</span> <span class="pre">Graph',</span> <span class="pre">xtitle='x',</span> <span class="pre">ytitle='t',</span> <span class="pre">xmin=0,</span> <span class="pre">ymin=-20</span> <span class="pre">)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>string</em>) – Title of the graph.  html formatting for sub, sup, italic allowed.</p></li>
+<li><p><strong>xtitle</strong> (<em>string</em>) – Title of horizontal axis. html formatting for sub, sup, italic, bold allowed. (e.g. ‘&lt;i&gt;t&lt;/i&gt;’).</p></li>
+<li><p><strong>ytitle</strong> (<em>string</em>) – Title of vertical axis. html formatting for sub, sup, italic, bold allowed. (e.g. ‘x&lt;sub&gt;1&lt;/sub&gt;’).</p></li>
+<li><p><strong>xmin</strong> (<em>scalar</em>) – Minimum value on horizontal axis.  Default: graph will adjust automatically as points are added.</p></li>
+<li><p><strong>xmax</strong> (<em>scalar</em>) – Maximum value on horizontal axis. Default: graph will adjust automatically as points are added.</p></li>
+<li><p><strong>ymin</strong> (<em>scalar</em>) – Minimum value on vertical axis.  Default: graph will adjust automatically as points are added.</p></li>
+<li><p><strong>ymax</strong> (<em>scalar</em>) – Maximum value on vertical axis. Default: graph will adjust automatically as points are added.</p></li>
+<li><p><strong>width</strong> (<em>scalar</em>) – Width of graph in pixels. Default 640.</p></li>
+<li><p><strong>height</strong> (<em>scalar</em>) – Height of graph in pixels. Default 480.</p></li>
+<li><p><strong>background</strong> (<em>vector</em>) – Color of background. Default color.white.</p></li>
+<li><p><strong>foreground</strong> (<em>vector</em>) – Color of foreground (axes, labels, etc.). Default color.black.</p></li>
+<li><p><strong>align</strong> (<em>string</em>) – Placement in window.  Options ‘left’, ‘right’, ‘none’. Default is ‘none’.</p></li>
+<li><p><strong>scroll</strong> (<em>boolean</em>) – If True, points are deleted from one end of the plots in the graph as they are added to the other end (a chart recorder).  You must specify the initial xmin and xmax, where xmax &gt; xmin.</p></li>
+<li><p><strong>fast</strong> (<em>boolean</em>) – If True, plotting is faster but fewer graph inspection options are available.  Default True. See <a class="reference internal" href="#plotting-packages">Plotting Packages</a>.</p></li>
+<li><p><strong>logx</strong> (<em>boolean</em>) – If True, plots on a log scale.  All values must be positive. Only available with fast=False.</p></li>
+<li><p><strong>logy</strong> (<em>boolean</em>) – Same as logx, for vertical axis.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="graph-methods">
+<h3>graph methods<a class="headerlink" href="#graph-methods" title="Permalink to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">mygraph.</span></span><span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<p>Makes this the current graph.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">mygraph.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<p>Deletes this graph and all its contents.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">current</span> <span class="pre">=</span> <span class="pre">graph.get_selected()</span></span></dt>
+<dd></dd></dl>
+
+<p>Returns the currently selected graph (the one to which new gcurves etc. will belong)</p>
+</section>
+</section>
+<section id="gcurve">
+<h2>gcurve<a class="headerlink" href="#gcurve" title="Permalink to this heading">¶</a></h2>
+<p>A gcurve displays a list of data points as a continuous curve.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gc</span> <span class="pre">=</span> <span class="pre">gcurve(color=color.red)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>vector</em>) – Color of this gcurve. Default is color.black.</p></li>
+<li><p><strong>label</strong> (<em>string</em>) – Text identifying this gcurve. Appears at upper right in color of this gcurve.</p></li>
+<li><p><strong>legend</strong> (<em>boolean</em>) – If True, labels are displayed. Default True.</p></li>
+<li><p><strong>width</strong> (<em>scalar</em>) – Width of line in pixels.</p></li>
+<li><p><strong>markers</strong> (<em>boolean</em>) – If True, dots displayed at each data point.</p></li>
+<li><p><strong>width</strong> – Width of dot used for markers. Default slightly larger than gcurve width.</p></li>
+<li><p><strong>marker_color</strong> (<em>vector</em>) – Color of marker dots. Default is the gcurve color.</p></li>
+<li><p><strong>dot</strong> (<em>boolean</em>) – If True, the most recent point plotted is highlighted with a dot. Useful if a graph retraces its path.</p></li>
+<li><p><strong>dot_radius</strong> (<em>scalar</em>) – Width of dot in pixels. Default is 3.</p></li>
+<li><p><strong>dot_color</strong> (<em>vector</em>) – Color of dot. Default same as gcurve.</p></li>
+<li><p><strong>visible</strong> (<em>boolean</em>) – If True this object is displayed. Default True.</p></li>
+<li><p><strong>data</strong> (<em>list</em>) – A list of (x,y) pairs to populate the gcurve. If used after creation, gc.data=[ … ] will replace any existing data in the gcurve.</p></li>
+<li><p><strong>graph</strong> (<em>object</em>) – The graph to which this object belongs. Default: most recently created graph.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="gcurve-methods">
+<h3>gcurve methods<a class="headerlink" href="#gcurve-methods" title="Permalink to this heading">¶</a></h3>
+<p>Plotting a data point:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="gc.plot">
+<span class="sig-prename descclassname"><span class="pre">gc.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gc.plot" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>firstargument</strong> (<em>scalar</em>) – Value on horizontal axis.</p></li>
+<li><p><strong>secondargument</strong> (<em>scalar</em>) – Value on vertical axis.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The point (x,y) is added to the end of the gcurve.</p>
+<p>Alternate form of plot():</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gc.plot(</span> <span class="pre">[</span> <span class="pre">(1,2),</span> <span class="pre">(2,3),</span> <span class="pre">(3,4)</span> <span class="pre">]</span> <span class="pre">).</span></span></dt>
+<dd></dd></dl>
+
+<p>Data pairs can be tuples or lists.</p>
+<p>Deleting a gcurve:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="gc.delete">
+<span class="sig-prename descclassname"><span class="pre">gc.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gc.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+<section id="a-simple-plot">
+<h2>A Simple Plot<a class="headerlink" href="#a-simple-plot" title="Permalink to this heading">¶</a></h2>
+<p>The following VPython program plots a sin function.  Note that no <em>graph</em> is explicitly created.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">gcurve</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">20</span><span class="p">):</span>
+        <span class="n">rate</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">a</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/sin_plot.png"><img alt="_images/sin_plot.png" src="_images/sin_plot.png" style="width: 300px;" /></a>
+<p>Several gcurves (or gdots or gvbars) can be plotted on the same graph.</p>
+</section>
+<section id="gdots">
+<h2>gdots<a class="headerlink" href="#gdots" title="Permalink to this heading">¶</a></h2>
+<p>A gdots object will display a list of (x,y) pairs as discrete points instead of as a connected curve.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gd</span> <span class="pre">=</span> <span class="pre">gdots(color=color.red)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>vector</em>) – Color of this gcurve. Default is color.black.</p></li>
+<li><p><strong>radius</strong> (<em>scalar</em>) – Radius of a dot in pixels. Default 3.</p></li>
+<li><p><strong>size</strong> (<em>scalar</em>) – The diameter of a dot in pixels.</p></li>
+<li><p><strong>label</strong> (<em>string</em>) – Text identifying this gdots. Appears at upper right in color of this gcurve.</p></li>
+<li><p><strong>legend</strong> (<em>boolean</em>) – If True, labels are displayed. Default True.</p></li>
+<li><p><strong>visible</strong> (<em>boolean</em>) – If True this object is displayed. Default True.</p></li>
+<li><p><strong>data</strong> (<em>list</em>) – A list of (x,y) pairs to populate the gdots. If used after creation, gd.data=[ … ] will replace any existing data in the gdots.</p></li>
+<li><p><strong>graph</strong> (<em>object</em>) – The graph to which this object belongs. Default: most recently created graph.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Methods for gdots are the same as for gcurve.</p>
+</section>
+<section id="gvbars-and-ghbars">
+<h2>gvbars and ghbars<a class="headerlink" href="#gvbars-and-ghbars" title="Permalink to this heading">¶</a></h2>
+<p>A gvbars object displays a vertical bar for each (x,y) data point. A ghbars object displays horizontal bars. The syntax and options are the same.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">gv</span> <span class="pre">=</span> <span class="pre">gvbars(delta=0.05,</span> <span class="pre">color=color.blue)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta</strong> (<em>scalar</em>) – Width of the bar. Default 1.</p></li>
+<li><p><strong>color</strong> (<em>vector</em>) – Color of the bars. Default is color.black.</p></li>
+<li><p><strong>label</strong> (<em>string</em>) – Text identifying this gvbars. Appears at upper right in color of this gcurve.</p></li>
+<li><p><strong>legend</strong> (<em>boolean</em>) – If True, labels are displayed. Default True.</p></li>
+<li><p><strong>visible</strong> (<em>boolean</em>) – If True this object is displayed. Default True.</p></li>
+<li><p><strong>data</strong> (<em>list</em>) – A list of (x,y) pairs to populate the gvbars. If used after creation, gv.data=[ … ] will replace any existing data in the gvbars.</p></li>
+<li><p><strong>graph</strong> (<em>object</em>) – The graph to which this object belongs. Default: most recently created graph.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Methods for gvbars and ghbars are the same as for gcurve.</p>
+</section>
+<section id="plotting-packages">
+<h2>Plotting Packages<a class="headerlink" href="#plotting-packages" title="Permalink to this heading">¶</a></h2>
+<p>You can choose between two graphing packages, one which is faster (currently based on Flot), or one which offers rich interactive capabilities such as zooming and panning but is slower (currently based on Plotly). The default is the fast version, corresponding to specifying fast=True in a graph, gcurve, gdots, gvbars, or ghbars statement. To use the slower but more interactive version, say fast=False. In many programs the “slow” version may run nearly as fast as the “fast” version, but if you plot a large number of data points the speed difference can be significant.</p>
+<p>Do try fast=False to see the many options provided. As you drag the mouse across the graph with the mouse button up, you are shown the numerical values of the plotted points. You can drag with the mouse button down to select a region of the graph, and the selected region then fills the graph. As you drag just below the graph you can pan left and right, and if you drag along the left edge of the graph you can pan up and down. As you move the mouse you’ll notice that there are many options at the upper right. Hover over each of the options for a brief description. The “home” icon restores the display you saw before zooming or panning. Try <a class="reference external" href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/GraphTest">this demo</a>.</p>
+</section>
+<section id="histograms">
+<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading">¶</a></h2>
+<p>The program <a class="reference external" href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/HardSphereGas-VPython/edit">HardSphereGas</a> provides an example of a dynamic histogram.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Graphs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#terminology">Terminology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#graph">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gcurve">gcurve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-simple-plot">A Simple Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gdots">gdots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gvbars-and-ghbars">gvbars and ghbars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting-packages">Plotting Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#histograms">Histograms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="file.html" title="previous chapter">Files and Libraries</a></li>
+      <li>Next: <a href="math.html" title="next chapter">Math Functions and Vectors</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
     </div>
 </div>
-</body>
-<script type="text/javascript" language="javascript" src="navigation.js"></script>
-<!-- InstanceEnd --></html>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/graph.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
