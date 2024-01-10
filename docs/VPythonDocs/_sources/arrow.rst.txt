@@ -1,0 +1,57 @@
+======
+arrow
+======
+
+..	image:: images/arrow.jpg
+..	image:: images/arrowaxis.png
+	:width: 200px
+
+.. py:function:: arrow( pos=vec(0,0,0), axis=vec(1,0,0), color=color.orange )
+
+   :param pos: Position of tail. Default <0,0,0>.
+   :type pos: vector
+   :param axis: Extends from tail to tip. Default <1,0,0>.
+   :type axis: vector
+   :param color: Default is *color.white*
+   :type color: vector
+   :param round: Makes shaft and head round instead of square. Default is *False*.
+   :type round: boolean
+   :param shaftwidth: Width of tail. Default 0.1*(length of arrow)
+   :type shaftwidth: scalar
+   :param headwidth:  Default 2*shaftwidth
+   :type headwidth: scalar
+   :param headlength: Default 3*shaftwidth
+   :type headlength: scalar
+
+If you don't set *shaftwidth*,  shorter arrows will be smaller in all dimensions than longer arrows (first image below).  By setting *shaftwidth* you can ensure that all arrows will have the same cross sectional area (second image below).  
+
+.. image:: images/shaftwidth2a.png
+.. image:: images/shaftwidth2b.png
+
+Note that, if you do set *shaftwidth*, the *headlength* of extremely short arrows may need to be adjusted.
+  
+Attributes used less often:
+
+.. py:function:: arrow( opacity=0.5, shininess=0.2, texture=textures.wood, make_trail=True, canvas=mycanvas, emissive=False )
+   :noindex:
+
+   :param opacity:  Default 1.0; Range 0-1.
+   :type opacity: scalar
+   :param shininess: Default 0.6; Range 0-1.
+   :type shininess: scalar
+   :param emissive: Default False. Object glows, losing all shading, if True.
+   :type emissive: boolean
+   :param texture: Default None. 
+   :type texture: class element or path   
+   :param visible: If False, object is not displayed.  Default: True
+   :type visible: boolean
+   :param canvas:  Default is :py:attr:`scene`.  
+   :type canvas: object
+   :param make_trail: If True, object leaves a trail when moved. 
+   :type make_trail: boolean
+   :param up: A vector perpendicular to the axis.
+   :type up: vector
+
+  
+.. include:: ./objectSeeAlso.rst
+

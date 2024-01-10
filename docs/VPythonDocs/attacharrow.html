@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>attach_arrow() &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="attach_light()" href="attach_light.html" />
+    <link rel="prev" title="Leaving a Trail" href="trail.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="attach-arrow">
+<h1>attach_arrow()<a class="headerlink" href="#attach-arrow" title="Permalink to this heading">¶</a></h1>
+<p>Arrows are often used to visualize vectors such as the velocity of a moving object, or the force acting on the object.  <em>attach_arrow</em> allows automatic updating of the position, direction, and size of the arrow as the object moves.</p>
+<figure class="align-default" id="id1">
+<img alt="_images/attach_arrow.png" src="_images/attach_arrow.png" />
+<figcaption>
+<p><span class="caption-text">An arrow representing velocity is attached to a bouncing ball.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Caveats:</p>
+<ul class="simple">
+<li><p>The quantity to be visualized must be a vector attribute of the moving object.</p></li>
+<li><p>The value of the quantity must be updated by the code as the object moves.</p></li>
+<li><p>To keep the cross section of the arrow constant, set <em>shaftwidth</em>.</p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="attach_arrow">
+<span class="sig-name descname"><span class="pre">attach_arrow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ball</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&quot;velocity&quot;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color=color.green</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shaftwidth=ball.radius/3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#attach_arrow" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>firstargument</strong> (<em>object</em>) – Object to which to attach the arrow (<em>ball</em> in example above).</p></li>
+<li><p><strong>secondargument</strong> (<em>string</em>) – Name of vector attribute to be represented by the arrow (“velocity” in example above).</p></li>
+<li><p><strong>scale</strong> (<em>scalar</em>) – Quantity by which to multiply the attribute in order to adjust the magnitude of the axis of the arrow.</p></li>
+<li><p><strong>color</strong> (<em>vector</em>) – Default is the color of the object to which the arrow is attached.</p></li>
+<li><p><strong>shaftwidth</strong> – Cross section of the tail of the arrow.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="turning-attach-arrow-off-and-on">
+<h2>Turning <em>attach_arrow</em> off and on<a class="headerlink" href="#turning-attach-arrow-off-and-on" title="Permalink to this heading">¶</a></h2>
+<p>To start and stop displaying the arrow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="n">vec</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+<span class="n">myarrow</span> <span class="o">=</span> <span class="n">attach_arrow</span><span class="p">(</span> <span class="n">ball</span><span class="p">,</span> <span class="s2">&quot;velocity&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">myarrow</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stops arrow display</span>
+<span class="o">...</span>
+<span class="n">myarrow</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="c1"># restarts arrow display</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="arrow.html"><span class="doc">arrow</span></a></p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="workwithobjects.html">Object Attachments</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="trail.html">Leaving a Trail</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Attach Arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="attach_light.html">Attach Light</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="workwithobjects.html">Object Attachments</a><ul>
+      <li>Previous: <a href="trail.html" title="previous chapter">Leaving a Trail</a></li>
+      <li>Next: <a href="attach_light.html" title="next chapter">attach_light()</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/attacharrow.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

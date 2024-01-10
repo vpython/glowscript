@@ -1,0 +1,115 @@
+
+Writing Programs in JavaScript
+==============================
+
+To write programs using JavaScript instead of VPython, change the first line of the program to "JavaScript X.Y", where "X.Y" is the current version. Equivalent headings are "GlowScript X.Y" and "GlowScript X.Y JavaScript".
+
+Here is the relationship between the VPython documentation and what you would write in JavaScript:
+
+..  code-block::
+
+    b = box(pos=vec(2,1,0, color=color.cyan)          # VPython
+    b.axis = vec(1,1,0)
+
+    let b = box({pos:vec(2,1,0), color:color.cyan})  // JavaScript
+    b.axis = vec(1,1,0)
+
+At the moment, the ACE editor used at glowscript.org is an old version that doesn't recognize some (now valid) elements of JavaScript, including in particular async, await, and class, and as a result statements containing these elements are marked as being in error. Evidently glowscript.org needs to upgrade its use of ACE.
+
+Using async and await
+---------------------
+
+An animation loop must contain a rate(), sleep(), scene.pause(), or scene.waitfor() statement; otherwise the browser will lock up, and it is difficult to kill the browser. Moreover, these statements must be preceded by await, which is inserted automatically when VPython programs are transpiled to JavaScript but must be entered explicitly into a JavaScript program. Here is what these JavaScript statements must look like, including the five other VPython functions that take time to complete and therefore also need await:
+
+..  code-block::
+
+    await rate(30)
+    await sleep(2)
+    await scene.pause()
+    await scene.waitfor('click')
+    await scene.capture(filename)
+    await input()
+    await winput()
+    await get_library(webaddress)
+    await read_local_file(scene.title.anchor)
+
+If you write your own function or class method that includes any of these waiting statements, you must prepend async to the function or method declaration, and all calls to these functions or methods must be prepended with await, as with the functions shown above and in the runnable html file shown at the end of this article.
+
+Also, just before calling input() or winput(), it's a good idea to insert "sleep(0.1)" in order to make sure that the display is up to date before waiting for input.
+
+At glowscript.org your program is wrapped in an async function, which makes it possible to use await outside any of your functions. If you do not use glowscript.org to prepare your JavaScript program, you may need to wrap your program in an async function, as shown in the runnable html file below. It is not possible to use await outside an async function.
+
+Operator overloading for vectors
+--------------------------------
+
+Something that is automatic at glowscript.org for JavaScript programs as well as for VPython programs is the "operator overloading" that permits vector operations such as ``let v = v1+v2``, where ``v1`` and ``v2 ``are vectors. If you do not use glowscript.org to prepare your JavaScript program, you will need to write this statement in the form ``v1.add(v2)``. Similarly, ``v1-v2`` would be written ``v1.sub(v2)``, ``5*v`` would be written ``v.multiply(5)``, and ``v/5`` would be written ``v.divide(5)``. An alternative is to pass your program through glowscript.org and click "Share or export this program" to obtain an operator-overloaded version of your program.
+
+New in version 3.0
+------------------
+
+* Linkage of axis and size: Starting with version 3.0, JavaScript programs, like VPython programs, link changes in an object's axis to its size, and changes in its size to its axis. Prior to version 3.0, JavaScript programs did not perform such linkage, and the arrow object had a special attribute ``axis_and_length`` instead of ``axis``. Using ``axis_and_length`` now will cause an error.
+
+* Default sphere radius now 1: A related matter is that, for historical reasons, the default radius of a VPython sphere is 1, which is now also the default radius of a JavaScript sphere. Formerly a JavaScript sphere did not have a radius attribute, and its default size was ``vec(1,1,1)``, so the radius was 0.5.
+
+JavaScript class constructor method
+-----------------------------------
+
+..  code-block::
+
+    class C {
+        constructor(n) {
+            C.n = n      // a class variable
+            this.x = 20  // a class instance variable
+        }
+        async init(y) {
+            this.y = y
+            print("Sleep...")
+            await sleep(2)
+            print(C.n, this.x, this.y) // displays 10 20 30
+        }
+    }
+    let a = new C(10)
+    await a.init(30)
+
+Passing methods as arguments to other functions
+-----------------------------------------------
+
+Suppose you create a class named C with an instance named c1 and a method c1.m. You might wish to create a reference in the form ``let cm = c1.m`` (no parentheses) and pass it to a function ``f`` in the form ``f(cm)``. In that case, you need to write the assignment to cm like this: ``let cm = c1.m.bind(c1)``. Again, this is done automatically for VPython programs.
+
+A runnable html file
+--------------------
+
+Web VPython programs may be exported to html.  The following runnable html file is produced from Javascript.  Adjust the version number for the glow library appropriately, then save the following as an .html file and open it in a browser (double-click):
+
+..  code-block::
+
+    <div id="glowscript" class="glowscript">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link type="text/css" href="https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css" rel="stylesheet" />
+    <link type="text/css" href="https://www.glowscript.org/css/ide.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js"></script>
+    <script type="text/javascript" src="https://www.glowscript.org/package/glow.3.2.min.js"></script>
+    <script type="text/javascript">
+    window.__context = { glowscript_container: $("#glowscript").removeAttr("id") }
+
+    async function __main__() { // async wrapper permits use of await outside your own functions
+
+    var vector = vec // optional: makes vector a synonym of the fundamental vec
+    let scene = canvas()
+    let b = box({color:color.cyan})
+    async function f(obj) { // needs async because f() contains an await
+        let t = clock()
+        while (true) {
+            await rate(100)
+            obj.rotate({angle:0.01, axis:vec(0,1,0)})
+            if (clock()-t > 3) break
+        }
+        return 25
+    }
+    let x = await f(b) // needs await (inside async __main__) because f() contains an await
+    print(x)
+    } // end of __main__ wrapper
+    __main__()
+    </script>
+    </div>

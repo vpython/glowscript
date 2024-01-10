@@ -1,0 +1,6 @@
+
+Pause
+=====
+
+**scene.pause()**
+

@@ -1,0 +1,72 @@
+
+Lights
+========
+
+.. image:: images/lights.png
+
+The image above shows a white sphere illuminated by a green distant light (at upper right) and a red local light (lower left).
+
+Objects in a VPython scene must be illuminated to be visible.  There can be three kinds of lighting in a VPython scene: 
+
+* Distant lights--point-like lights far away (like the Sun)
+* Local lights--lights close to the objects in the scene
+* Ambient light--uniform diffuse light that illuminates all objects equally
+
+Some care must be taken in changing the illumination in a scene, since if the total lighting intensity exceeds 1 anywhere in the scene the results are unpredictable.
+
+
+distant_light
+-------------
+
+.. py:function:: distant_light( direction=vec(0,-1,0), color=color.orange )
+
+	:param direction: A vector specifying the direction of the light relative to the origin
+	:type direction: vector
+	:param color: The color of the light emitted.
+	:type color: vector
+
+By default there are automatically two distant lights in a VPython scene. 
+
+	* One distant_light has direction < 0.22, 0.44, 0.88> and is a slightly dim white: color.white*0.8
+	* The second distant_light has direction < -0.88, -0.22, -0.44> and is a dimmer white: color.white*0.3
+
+local_light
+-----------
+
+.. py:function:: local_light( pos=vec(-3, 1, -2), color=color.yellow )
+
+	:param pos: The location of the local_light.
+	:type pos: vector
+	:param color: The color of the light emitted.
+	:type color: vector
+
+A local light can look like a lamp if you put an emissive object at the location of the light.
+
+scene.ambient
+-------------
+
+By default the ambient light is very dim, with color color.white*0.2. You can set *scene.ambient* to any color, but note that if the total light intensity becomes greater than 1, results may be unpredictable.
+
+scene.lights
+------------
+
+*scene.lights* is a list of the lights in the scene. To see the attributes of the lights:
+
+::
+
+	for i in range( 0, len(scene.lights) ):
+		LL = scene.lights[i]
+		print( LL.pos, LL.direction, LL.color )
+
+For a distant_light, *pos* will be undefined, as will *direction* for a local_light.
+
+To delete all lights from a scene, set *scene.lights* to an empty list:
+
+``scene.lights=[]``
+
+Color of lights
+---------------
+
+If you create a light that is not white, what you see may be very different.  A green light can make a white sphere look green and a red sphere look very dark (since the red sphere absorbs green light).
+
+.. seealso:: :doc:`color<color>`; :doc:`emissive<emissive>`

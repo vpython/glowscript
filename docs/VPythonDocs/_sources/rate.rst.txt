@@ -1,0 +1,51 @@
+
+Animations
+==========
+
+rate()
+------
+
+..  py:function:: rate(60)
+
+The rate(n) statement halts computations, if necessary, long enough to make sure that at least 1/n second has elapsed.
+
+The ``rate()`` function is an *essential* part of any animation loop in a VPython program.  ``rate(n)`` does four important things:
+
+#. First, ``rate(n)`` determines the real-world execution speed of a loop.  ``rate(1)`` will allow the loop to execute no more than once per real-time second. ``rate(500)`` allows the loop to execute up to 500 times per real-time second.  A loop with ``rate(30)`` will look the same on every computer, regardless of the intrinsic speed of the CPU.
+
+#. Second, ``rate(n)`` makes animations work. It allows VPython time to redraw the display, so objects can move, animations can occur, and graphs can be plotted.  When possible, VPython redraws each canvas 60 times per second, but this will not happen at all without a ``rate()`` statement in a computational loop. Without a ``rate()`` statement, the loop may update the positions of objects but this won't be visible because the screen never gets redrawn.
+
+#. Third, ``rate(n)`` allows the processing of mouse and keyboard events. A loop without a ``rate()`` statement locks these out until it completes.
+
+#. Fourth, ``rate(n)`` makes an infinite loop interruptable.  With a ``rate()`` statement inside a loop, you can break out of an infinite loop by clicking "Edit this program".  Without a ``rate()`` statement, the program will hang, and the only option is to kill the browser tab.
+
+
+
+A simple animation using ``rate()``.  If the ``rate()`` statement is omitted, no motion is seen.
+
+..	code-block::
+
+    ball = sphere(pos=vec(-3,-3,0), radius=0.3, color=color.yellow, make_trail = True)
+    velocity = vec(0.5, 0.5, 0)
+    dt = 0.1
+
+    while ball.pos.y < 3:
+        rate(30)
+        ball.pos = ball.pos + velocity * dt
+
+make_trail and rate()
+^^^^^^^^^^^^^^^^^^^^^
+
+If a trail's points are far apart, do not use a rate greater than rate(60). VPython attempts to render the 3D scene about 60 times per second. Each time it renders the scene it looks through a list of all those objects that have specified "make_trail=True", and if an object's pos attribute has changed, the render function extends the trail. If you specify rate(300), and you update an object's position once in each pass through the loop, only every 5th position of the object will be added to the trail, because the scene is rendered only about 60 times per second. In contrast, if you specify rate(10) and you update an object's position once in each pass through the loop, the trail will be extended 10 times per second.
+
+Animation Speed
+---------------
+
+Web VPython is intrinsically faster than Python, because it is transpiled to JavaScript, and JavaScript loops are significantly faster than Python loops.  However, the addition of Python dictionaries to Web VPython in version 3.2 has led to a slowdown of some Web VPython loops.  In most situations this will not be noticeable.  However, if your code is loop intensive (for example, if you are animating a large number of particles at once), you may wish to disable dictionaries by changing the first line of your program to:
+
+**Web VPython 3.2 nodictionary**
+
+
+
+
+

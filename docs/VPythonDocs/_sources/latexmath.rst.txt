@@ -1,0 +1,30 @@
+
+LaTeX Math Display
+==================
+
+.. image:: /images/mathjax.png
+   :width: 300px
+
+LaTeX is available to users of the vpython module in a Jupyter notebook.
+
+In Web VPython, LaTeX may be used with `MathJax <https://www.mathjax.org>`_ to display math equations in the title or caption field of a canvas.  MathJax requires that:
+
+* All LaTeX backslashes must be replace by double backslashes.
+* Expressions must be bracketed by ``\\(`` and ``\\)`` intstead of dollar signs.
+
+.. code-block::
+
+	box()
+	scene.caption = "Final kinetic energy = \\( \\dfrac {1} {2}mv_i^{2}+\\int _{i}^{f}\\vec{F}\\cdot d \\vec{r} \\)"
+	scene.title = "\\(\\dfrac {5} {7} \\)"
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub])
+
+To typeset only a specific element:
+
+.. code-block::
+
+	scene.title = "\\(\\dfrac {3y} {4x} \\)"
+	MathJax.Hub.Queue(["Typeset",MathJax.Hub,scene.title])
+
+
+	

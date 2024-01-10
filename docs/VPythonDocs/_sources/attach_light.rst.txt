@@ -1,0 +1,27 @@
+
+attach_light()
+==============
+
+.. image:: /images/attach_light.png
+
+*attach_light* creates a *local_light* and binds it to a moving object.
+
+`An example may be seen here <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/BoxLightTest>`_.
+
+.. py:function:: attach_light( ball, offset=vec(3,0,1), color=color.green )
+
+   :param firstargument: Object to which to attach the *local_light* (*ball* in example above).
+   :type firstargument: object
+   :param offset: Displacement of light from the center of the moving object.  Default <0,0,0>.
+   :type offset: vector
+   :param color: Default is the color of the object to which the light is attached.
+   :type color: vector
+
+It is possible to attach more than one light to an object.
+
+The offset may be thought of as an invisible rigid rod connecting the moving object and the local_light, so if the object rotates the local_light will rotate around the moving object.
+
+If you specify a zero offset for a sphere, you will find that the local_light does not affect the lighting of the outer surface of the sphere; it does of course affect the lighting of objects outside the sphere. In this case you may wish to specify ball.emissive = True, which makes the ball seem to glow.
+   
+
+.. seealso:: :doc:`light<light>`

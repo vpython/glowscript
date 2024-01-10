@@ -1,0 +1,21 @@
+
+Web VPython vs. the vpython module
+==================================
+
+There are two ways to use VPython:
+
+#. WebVPython, the web version, runs in a browser and requires no software installation.  WebVPython is faster that Python (sometimes as much as a factor of 30), because it is transpiled to JavaScript before running.  However the web version does not provide access to Python modules such as numpy, pandas, etc.
+
+#. vpython is a Python module that can be installed if you have a Python installation, such as Anaconda, on your computer already. Once installed, you can import the vpython module like any other module.  The graphical display will appear in a browser window when you run a program.  The vpython module may also be imported in a Jupyter notebook.
+
+
+.. toctree::
+   :maxdepth: 1
+
+
+`vpython package installation instructions <https://vpython.org/presentation2018/install.html>`_
+ 
+
+
+
+   

@@ -1,0 +1,13 @@
+
+Color, Transparency, and Emissivity
+===================================
+
+Every object has a *color* (the default is white).  In addition, most objects may be made transparent by adjusting their *opacity*,  and the objects can be made to glow by adjusting their *emissive* attribute.
+
+.. toctree::
+   :maxdepth: 1
+
+   Color <color>
+   Opacity <opacity>
+   Emissive <emissive>
+

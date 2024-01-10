@@ -1,0 +1,48 @@
+
+ellipsoid
+=========
+
+An ellipsoid is a deformed sphere.  A prolate ellipsoid looks like a cigar, and an oblate ellipsoid looks like a pancake.
+
+.. image:: images/ellipsoid.jpg
+
+.. py:function:: ellipsoid(pos=vec(0,0,0), length=2, height=1, width=3, color=color.cyan)
+
+   :param pos: Position of center. Default <0,0,0>.
+   :type pos: vector
+   :param color: Default *color.white*
+   :type color: vector
+   :param length: Magnitude of *axis*.  As created by default, along x-axis.
+   :type length: scalar
+   :param height: By default, y-dimension.
+   :type height: scalar
+   :param width: By default, z-dimension.
+   :type width: scalar
+   :param size: Alternative to length, height, width. Default <1,1,1> (a sphere).
+   :type size: vector
+   :param axis: Default <1,0,0>
+   :type axis: vector
+
+Attributes used less often:
+
+.. py:function:: ellipsoid( opacity=0.5, shininess=0.2, texture=textures.wood, make_trail=True, canvas=mycanvas, emissive=False )
+   :noindex:
+
+   :param opacity:  Default 1.0; Range 0-1.
+   :type opacity: scalar
+   :param shininess: Default 0.6; Range 0-1.
+   :type shininess: scalar
+   :param emissive: Default False. Object glows, losing all shading, if True.
+   :type emissive: boolean
+   :param texture: Default None. 
+   :type texture: class element or path   
+   :param visible: If False, object is not displayed.  Default: True
+   :type visible: boolean
+   :param canvas:  Default is :py:attr:`scene`.  
+   :type canvas: object
+   :param make_trail: If True, object leaves a trail when moved. See Attaching a Trail for more options.
+   :type make_trail: boolean
+   :param up: A vector perpendicular to the axis.
+   :type up: vector
+
+.. include:: ./objectSeeAlso.rst

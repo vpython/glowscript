@@ -1,0 +1,51 @@
+========
+cylinder
+========
+
+..	image:: images/cylinder.png
+	:width: 200px
+..	image:: images/cylinderaxis.png
+	:width: 200px
+
+.. py:function:: cylinder(pos=vec(0,0,0), axis=vec(3,0,0), color=color.red)
+
+   :param pos: Position of left end. Default <0,0,0>.
+   :type pos: vector
+   :param axis: Extends from *pos* to end. Default <1,0,0>.
+   :type axis: vector
+   :param color: Default *color.white*.
+   :type color: vector
+   :param radius: Radius of the cylinder.  Default is 1.
+   :param length: Length of axis. Setting length sets magnitude of axis. Default is 1.
+   :type length: scalar
+   :param size: Length, height, width of a box surrounding the cylinder. Default is <1,1,1>.
+   :type size: vector
+
+By setting size appropriately one can make the cross-section of the cylinder elliptical instead of circular.
+
+Attributes used less often:
+
+.. py:function:: cylinder( opacity=0.5, shininess=0.2, texture=textures.wood, make_trail=True, canvas=mycanvas, emissive=False )
+   :noindex:
+
+   :param opacity:  Default 1.0; Range 0-1.
+   :type opacity: scalar
+   :param shininess: Default 0.6; Range 0-1.
+   :type shininess: scalar
+   :param emissive: Default False. Object glows, losing all shading, if True.
+   :type emissive: boolean
+   :param texture: Default None. 
+   :type texture: class element or path   
+   :param visible: If False, object is not displayed.  Default: True
+   :type visible: boolean
+   :param canvas:  Default is :py:attr:`scene`.  
+   :type canvas: object
+   :param make_trail: If True, object leaves a trail when moved. See Attaching a Trail for more options.
+   :type make_trail: boolean
+   :param up: A vector perpendicular to the axis.
+   :type up: vector
+  
+.. include:: ./objectSeeAlso.rst
+
+   
+ 

@@ -1,0 +1,51 @@
+
+helix
+=====
+
+.. image:: images/helix.jpg
+
+.. py:function:: helix(pos=vec(0,0,0), axis=vec(3,0,0), color=color.red)
+
+   :param pos: Position of left end. Default <0,0,0>.
+   :type pos: vector
+   :param axis: Extends from *pos* to other end. Default <1,0,0>.
+   :type axis: vector
+   :param color: Default *color.white*.
+   :type color: vector
+   :param radius: Radius of the helix.  Default is 1.
+   :type radius: vector
+   :param thickness: Diameter of the cross section of the curve. Default is *radius/20*
+   :type thickness: scalar
+   :param length: Length of axis. Setting length sets magnitude of axis. Default is 1.
+   :type length: scalar
+   :param coils: Number of coils.  Default is 5.
+   :type coils: scalar
+   :param size: Length, height, width of a box surrounding the cylinder. Default is <1,1,1>.
+   :type size: vector
+   :param ccw: If *ccw* is *True* the helix winds counterclockwise (default).
+   :type ccw: boolean
+
+By setting size appropriately one can make the cross-section of the helix elliptical instead of circular.
+
+Because a helix is constructed from a curve, it has the same limitations as curve: a helix cannot be compounded, cannot be transparent, and cannot have a texture.
+   
+Attributes used less often:
+
+.. py:function:: helix(canvas=mycanvas, make_trail=True, emissive=False )
+   :noindex:
+
+   :param shininess: Default 0.6; Range 0-1.
+   :type shininess: scalar
+   :param emissive: Default False. Object glows, losing all shading, if True.
+   :type emissive: boolean
+   :param visible: If False, object is not displayed.  Default: True
+   :type visible: boolean
+   :param canvas:  Default is *scene*.
+   :type canvas: object
+   :param make_trail: If True, object leaves a trail when moved. See Attaching a Trail for more options.
+   :type make_trail: boolean
+   :param up: A vector perpendicular to the axis.
+   :type up: vector
+
+  
+.. seealso:: Rotation; :doc:`color<color>`; :doc:`emissive<emissive>`; :doc:`canvas<canvas>`

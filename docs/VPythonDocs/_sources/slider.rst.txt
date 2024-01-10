@@ -1,0 +1,72 @@
+
+Sliders
+=======
+
+
+..  image:: /images/slider.png
+	:width: 250px
+
+Sliders are widgets that give a numerical value.  Dragging a slider invokes a function (an event handler). The attributes below are labeled "not modifiable" if they cannot be modified after creating the slider.  The demo program `Color-RBG-HSV <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython>`_ uses multiple sliders to adjust colors.
+
+..  py:function:: myslider = slider( bind=myaction, min=0, max=50 )
+
+	:param bind: The function to be called when the button is clicked.
+	:type bind: function
+	:param min: The minimum value of the slider. Default is 0. Not modifiable.
+	:type min: scalar
+	:param max: The maximum value of the slider. Default is 1. Not modifiable.
+	:type max: scalar
+	:param step: The step size when clicking or dragging. Default is 0.001*(max-min). Not modifiable .
+	:type step: scalar
+	:param value: The current value. Can be set by program as well as by user. When a program sets value, the bind function is not executed.
+	:type value: scalar
+	:param vertical: If True, slider is vertical.  Default is False (horizontal). Not modifiable.
+	:type vertical: boolean
+	:param length: The length of the slider in pixels. Default 400 px. Not modifiable.
+	:type length: scalar
+	:param width: The width of the slider in pixels. Default 10 px. Not modifiable.
+	:type width: scalar
+	:param left: Margin to the left of slider, in pixels. Default 12 px. Not modifiable.
+	:type left: scalar
+	:param right: Margin to the right of slider, in pixels. Default is 12 px. Not modifiable.
+	:type right: scalar
+	:param top: Margin above the slider, in pixels. Default is 0 px for horizontal, 8 px for vertical. Not modifiable.
+	:type top: scalar
+	:param bottom: Margin below the slider, in pixels. Default is 0 px for horizontal, 8 px for vertical. Not modifiable.  Currently does not work properly.
+	:type bottom: scalar
+	:param align: If 'left', slider is displayed at left of window. Options are 'left', 'right', 'none' (the default). Not modifiable.
+	:type align: string
+	:param pos: Location of widget. Default is scene.caption_anchor.
+	:type pos: attribute of canvas
+	:param disabled: If True, widget is grayed out and is inactive.
+	:type disabled: boolean
+	:param delete(): ``myslider.delete()`` deletes the widget.
+	:type delete: method
+
+The following code creates a slider with an attribute *id* that adjusts the length of a cone:
+
+..	code-block::
+
+	cc = cone(color=color.yellow, axis=vec(2.5,0,0), pos=vec(-2,0,0) )
+
+	def stretch(evt):
+		console.log(evt)
+		if evt.id is 'x':
+			cc.length = evt.value
+
+	xslider = slider(bind=stretch, max=5, min=0.5, step=0.1, value=cc.length, id='x')
+
+Sliders do not have a text field. If you wish to display the current value of a slider, use :doc:`wtext<wtext>`.
+
+Slider Event Attributes
+-----------------------
+
+The argument of the event handler function ('evt', in the code above) will have the following attributes (properties of the slider at the time it was clicked):
+
+* ``evt.value``
+* ``evt.disabled``
+
+Additionally, any attributes you have created for the widget (for example, ``name`` or ``id``), will be available as attributes of ``evt``.
+
+.. include:: ./eventseealso.rst
+

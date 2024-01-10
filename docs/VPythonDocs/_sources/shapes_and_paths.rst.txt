@@ -1,0 +1,407 @@
+Shapes and Paths
+================
+
+.. contents::
+   :local:
+
+Shapes vs. Paths
+----------------
+
+Each function in the **shapes** library creates a list of 2D coordinates in the xy plane, of form
+
+``[ [x0,y0], [x1,y1], [x2,y2], ... ]``
+
+Each function in the **paths** library creates a list of 3d vectors in the xz plane, of form
+
+``[ vec(x0,y0,z0), vec(x1,y1,z1), ... ]``
+
+The output of **shapes.rectangle()** and **paths.rectangle()** is therefore different.  However, except for the library name, the syntax of the commands is almost the same.  The following descriptions are written for **shapes**, but can be used to make **paths** instead simply by changing "shapes" to "paths".  Differences between *shapes* and *paths* are noted as needed.
+
+rectangle
+---------
+
+.. py:function:: rt = shapes.rectangle(width=10, height=6)
+
+   :param width: Width of rectangle. Default 1.
+   :type width: scalar
+   :param height: Height of rectangle. Default 1.
+   :type height: scalar
+
+The function above creates a list of 2D x-y coordinates of the corners of a rectangle of width 10 and height 6. If the height value is omitted the shape is a square with its sides equal to the given width. If you print the value of the list created above you will see this list of 2D coordinates, starting at the lower right and continuing counterclockwise, end at the starting location:
+
+``[[5, -3], [5, 3], [-5, 3], [-5, -3], [5, -3]]``
+
+The rectangle shape can be visualized in VPython by executing the following statement, which extrudes the rectangular shape into the screen, along the line from vec(0,0,0) to vec(0,0,-0.1):
+
+.. code-block::
+
+   rectshape = shapes.rectangle(width=10, height=6)
+   linepath = [ vec(0,0,0), vec(0,0,-0.1) ]
+   extrusion( shape=rectshape, path=linepath )
+
+.. image:: images/rectangle_shape.jpg
+   :width: 150px
+
+Other Parameters of Rectangle:
+
+.. py:function:: rt = shapes.rectangle(rotate=pi/6, roundness=0.1, invert=True, scale=2, pos=[2,1] )
+   :noindex:
+
+   :param rotate: Rectangle is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.
+   :type rotate: scalar
+   :param roundness: Replaces sharp corners with a circular arc of radius (roundness*min(height,width)).
+   :type roundness: scalar
+   :param invert: Setting *invert* to *True* plus setting roundness produces chamfered corners.
+   :type invert: boolean
+   :param scale: Multiplies height and width by *scale*. Default 1.
+   :type scale: scalar
+   :param xscale: Scale factor for width only.
+   :type xscale: scalar
+   :param yscale: Scale factor for height only.
+   :type yscale: scalar
+   :param thickness: Shape only. Creates a hollow rectangular frame--a rectangle with a rectangular hole in the middle--whose sides have a thickness of (thickness*min(height,width)).  Extruding this will make a hollow box. Default 0 (no hole). If thickness>0, the shape will consist of two lists of 2D points: one for the inner contour and one for the outer contour.
+   :type thickness: scalar
+   :param pos: Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.
+   :type pos: list
+
+
+.. image:: images/rectangle_shape_rotated.jpg
+   :width: 150px
+.. image:: images/rectangle_shape_rounded.jpg
+   :width: 150px
+.. image:: images/rectangle_shape_chamfered.jpg
+   :width: 150px
+.. image:: images/rectangle_shape_frame.jpg
+   :width: 150px
+
+Images left to right: rotated rectangle, rounded rectangle, chamfered rectangle, rectangular frame.
+
+circle
+------
+
+.. image:: images/circle_shape.jpg
+   :width: 150px
+
+.. py:function:: cr = shapes.circle(radius=2, np=128)
+
+   :param radius: The radius of the circle. Default 1.
+   :type radius: scalar
+   :param np: Number of points used to approximate circle. Default 64. An incomplete circle will not have the full number of points.
+   :type np: scalar
+   :param scale: Multiplies height and width by *scale*. Default 1.
+   :type scale: scalar
+   :param xscale: Scale factor for width only.
+   :type xscale: scalar
+   :param yscale: Scale factor for height only.
+   :type yscale: scalar
+   :param angle1: Starting angle in radians, ccw from +x axis. By default 0.
+   :type angle1: scalar
+   :param angle2: Ending angle in radians, ccw from +x axis. By default 2*pi.
+   :type angle2: scalar
+   :param thickness: Shape only. Creates a circular ring of width (thickness*radius).  Extruding this will make a hollow cylinder. Default 0 (no hole). 
+   :type thickness: scalar
+   :param pos: Shape only. 2D position relative to the path. Default: center of circle placed at location of path.
+   :type pos: list
+
+.. image:: images/circle_frame.jpg
+   :width: 150px
+.. image:: images/partial_circle_shape.jpg
+   :width: 150px
+.. image:: images/partial_circle_thickness.png
+   :width: 150px
+
+Images left to right: thickness, angle1 and angle1, angle1 and angle2 and thickness
+
+ellipse
+-------
+
+.. image:: images/ellipse_shape.jpg
+   :width: 150px
+
+.. py:function:: myellipse = shapes.ellipse(width=5, height=3)
+
+   :param width: Dimension along x-axis. Default 2.
+   :type width: scalar
+   :param height: Dimension along y-axis. Default 1.
+   :type height: scalar
+
+The attributes of *ellipse* are almost identical to the attributes of *circle*, with the exception that *xscale* and *yscale* are replaced with *width* and *height*.  The default width of an ellipse is twice that of a circle.
+
+arc
+---
+.. image:: images/arc_shape.jpg
+   :width: 150px
+
+.. py:function:: myarc = shapes.arc(radius=2, angle1=0, angle2=pi/2)
+
+   :param radius: Radius of arc.
+   :type radius: scalar
+
+The attributes of *arc* are very similar to those of *circle*. An arc can be rotated and scaled. For a shape, if no thickness is specified the arc shape is given a very small thickness so that a closed contour is produced.  
+
+Note that *np* is the number of points in a complete circle, not in the arc itself.
+
+An arc shape extruded along an arc path can give a ribbon:
+
+.. code-block::
+
+   hshape = shapes.arc(angle1=0, angle2=pi/3)
+   hpath = paths.arc(angle1=pi/2, angle2=pi)
+   demihemi = extrusion( shape=hshape, path=hpath, color=color.yellow)
+
+.. image:: images/extrusion-arc.png
+
+line
+----
+
+.. py:function:: Lshape = shapes.line(start=(1,0), end=(1,1), np=20)
+
+   :param start: For shape, 2D coordinate of line start. Default [0,0]. For path, start is a vector.
+   :type start: list
+   :param end: For shape, 2D coordinate of line end. Default [0,1]. For path, end is a vector.
+   :type end: list
+   :param np: Number of evenly spaced points in the line.
+   :type np: scalar
+
+Creates a straight line from *start* to *end*, with a total number of n points, equally spaced over the interval.  This can be useful for a path, if you wish to use *twist* in the extrusion. 
+
+..	image:: /images/extrusion-twist.png
+	:width: 300 px
+
+Above: a rectangle extruded along a path with 30 points, with a 0.1 radian twist at each step.
+ 
+triangle
+--------
+
+.. image:: images/triangle_shape.jpg
+   :width: 150px
+
+.. py:function:: trishape = shapes.triangle(length=5, roundness=0.2)
+
+   :param length: Length of side of an equilateral triangle.
+   :type length: scalar
+   :param rotate: Rectangle is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.
+   :type rotate: scalar
+   :param roundness: Replaces sharp corners with a circular arc of radius roundness*length.
+   :type roundness: scalar
+   :param invert: Setting *invert* to *True* plus setting roundness produces chamfered corners.
+   :type invert: boolean
+   :param scale: Multiplies height and width by *scale*. Default 1.
+   :type scale: scalar
+   :param xscale: Scale factor for base only.
+   :type xscale: scalar
+   :param yscale: Scale factor for altitude only.
+   :type yscale: scalar
+   :param thickness: Shape only. Creates a hollow rectangular frame--a rectangle with a rectangular hole in the middle--whose sides have a thickness of (thickness*length).  Extruding this will make a hollow object. Default 0 (no hole). If thickness>0, the shape will consist of two lists of 2D points: one for the inner contour and one for the outer contour.
+   :type thickness: scalar
+   :param pos: Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.
+   :type pos: list
+
+.. image:: images/triangle_frame.jpg
+   :width: 150px
+
+pentagon
+--------
+
+.. image:: images/pentagon_shape.jpg
+   :width: 150px
+
+.. py:function:: pt = shapes.pentagon(length=3)
+
+   :param length: Length of a side.
+   :type length: scalar
+   :param rotate: Star is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.
+   :type rotate: scalar
+   :param roundness: Replaces sharp corners with a circular arc of radius (roundness*length).
+   :type roundness: scalar
+   :param invert: Setting *invert* to *True* plus setting roundness produces chamfered corners.
+   :type invert: boolean
+   :param scale: Multiplies height and width by *scale*. Default 1.
+   :type scale: scalar
+   :param xscale: Scale factor for width only.
+   :type xscale: scalar
+   :param yscale: Scale factor for height only.
+   :type yscale: scalar
+   :param thickness: Shape only. Creates a pentagonal frame. Extruding this will make a hollow pentagon. Default 0 (no hole). If thickness>0, the shape will consist of two lists of 2D points: one for the inner contour and one for the outer contour.
+   :type thickness: scalar
+   :param pos: Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.
+   :type pos: list
+
+hexagon
+-------
+
+.. image:: images/hexagon_shape.jpg
+   :width: 150px
+
+.. py:function:: hx = shapes.hexagon(length=5)
+
+The **hexagon** object has the same attributes as **pentagon**.
+
+
+
+octagon
+-------
+
+.. image:: images/octagon.png
+   :width: 150px
+
+.. py:function:: oc = shapes.octagon(length=5)
+
+The **octagon** shape has the same attributes as **pentagon**.
+
+ngon
+----
+
+.. image:: images/ngon_shape.jpg
+   :width: 150px
+
+.. py:function:: poly = shapes.ngon(np=7, length=5)
+
+   :param np: The number of sides in the figure.
+   :type np: scalar
+   :param radius: The n-gon will fit into a circle with this radius. Side length is calculated automatically in this case.
+   :type radius: scalar
+
+Additional parameters are the same as for **pentagon**.
+
+star
+----
+
+.. image:: /images/star_shape.jpg
+   :width: 160px
+
+
+.. py:function:: starshape = shapes.star(n=6, radius=3, iradius=1)
+
+   :param n: Number of "beams" in the star. Default: 5
+   :type n: scalar
+   :param radius: Radius of a circle within which the star fits. Changing *radius* affects only the convex vertices of the star, leaving the inner, concave ones, unchanged.
+   :type radius: scalar
+   :param iradius: Inner radius: Radius of a circle going through the inner, convex vertices of the star.  Default 0.5*radius.
+   :type iradius: scalar
+   :param rotate: Rotation around center.
+   :type rotate: scalar
+   :param roundness: Replaces sharp corners with a circular arc.
+   :type roundness: scalar
+   :param invert: Setting *invert* to *True* plus setting roundness produces chamfered corners.
+   :type invert: boolean
+   :param scale: Multiplies height and width by *scale*. Default 1.
+   :type scale: scalar
+   :param xscale: Scale factor for width only.
+   :type xscale: scalar
+   :param yscale: Scale factor for height only.
+   :type yscale: scalar
+   :param thickness: Shape only. Creates a star-shaped frame. Extruding this will make a hollow object. Default 0 (no hole). If thickness>0, the shape will consist of two lists of 2D points: one for the inner contour and one for the outer contour.
+   :type thickness: scalar
+   :param pos: Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.
+   :type pos: list
+
+
+
+trapezoid
+---------
+
+.. image:: /images/trapezoid_shape.jpg
+   :width: 160px
+
+
+.. py:function:: tr=shapes.trapezoid(pos=[-2,3], width=5, height=1, top=3)
+
+   :param width: Width of base.
+   :type width: scalar
+   :param height:  Perpendicular distance from base to top. 
+   :type height: scalar
+   :param top: Length of top line. Default is 0.5*width.
+   :type top: scalar
+
+For other attributes, refer to *pentagon*.  
+
+
+cross
+-----
+
+.. image:: /images/cross_shape.jpg
+   :width: 160px
+
+
+.. py:function:: st = shapes.cross(width=10, thickness=2)
+
+  :param width: Width of the cross. Default 1.
+  :type width: scalar
+  :param thickness: Thickness of an arm. Default 0.2. Note that this does *not* create a hollow frame.
+  :type thickness: scalar
+  :param rotate: Star is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.
+  :type rotate: scalar
+  :param scale: Multiplies height and width by *scale*. Default 1.
+  :type scale: scalar
+  :param xscale: Scale factor for width only.
+  :type xscale: scalar
+  :param yscale: Scale factor for height only.
+  :type yscale: scalar
+  :param pos: Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.
+  :type pos: list
+
+**paths.cross()** produces a path, but the *thickness* attribute does not give predictable results for thickness >= 1.
+
+points
+------
+
+This function works for shapes only.  If you want to specify your own path, just use the list of points as the parameter in the extrusion.
+
+.. py:function:: ptshape = shapes.points(pos=[ [1,0], [1,1], [-2,3], [1,0] ], rotate=pi/4)
+
+   :param pos:  A list of points defining the perimeter of a polygon. Last point must be the same as first point.
+   :type pos: list
+   :param scale: Multiplies height and width by *scale*. Default 1.
+   :type scale: scalar
+   :param rotate: Rotation around center.
+   :type rotate: scalar
+   :param roundness: Replaces sharp corners with a circular arc.
+   :type roundness: scalar
+
+Note that *pos* is *not* an offset to the path, as it is in other shapes. 
+
+gear
+----
+
+.. image:: /images/gear.jpg
+   :width: 160px
+
+Gears are used to transmit motion by changing the rotational speed and direction with associated torque.  For a detailed description of gears and gear terminology please refer to https://en.wikipedia.org/wiki/Gear. Be sure to click to enlarge the diagram that explains gear nomenclature. It mentions "involute gears" which are discussed at https://en.wikipedia.org/wiki/Involute_gear. The default gear shape is a "spur" gear.
+
+Gear parameters define the way the gear behaves. These parameters must be in a harmony among each other to obtain a well defined gear. Not all parameters are provided in this program to fully control the gear structure. Some of them are calculated by using the others, hence may result in an inconsistent gear structure. Many gear parameters are derived from the radius. The user is responsible to provide a consistent set of parameters.
+
+.. py:function:: g = shapes.gear()
+
+   :param radius: Extends from center of gear to a point midway between the base and outer edge of a tooth. Placing the centers of two gears two radii apart usually allows gears to mesh properly. Default 1.
+   :type radius: scalar
+   :param scale: Applies a uniform scale to the gear.
+   :type scale: scalar
+   :param pos: Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.
+   :type pos: list
+   :param n: Defines number of teeth in the gear. Normally, "tooth size" and the number of teeth should define the gear circumference (or the radius), but in this program the "tooth size" is not a control parameter, rather it is calculated from the number of teeth and the radius. Hence the number of teeth, n, can be set arbitrarily and some unrealistic values for the "tooth size" can be obtained in turn. The user should be setting the parameters appropriately to obtain a reasonable tooth structure. The default number of teeth is 20.
+   :type n: integer
+   :param phi: Coupled gears exert force on each other on the tooth profile during rotation. Phi is called the Pressure Angle, which is one of the basic parameters defining the tooth profile for a better contact. Also, "tooth size" components like  bottom-land (roughly the gap between two teeth at the bottom of the teeth) and top-land (tooth thickness at the very top) are calculated using the pressure angle. Default value for the pressure angle is 20 degrees.
+   :type phi: scalar
+   :param addendum: The "tooth depth" is defined as the sum of addendum and dedendum. Addendum is the part of the tooth above the radius to the tip of the tooth. Default value for addendum is 0.08 times the radius.
+   :type addendum: scalar
+   :param dedendum: Dedendum is the part of the tooth below the pitch radius to the depth of the tooth. Default value for dedendum is 0.1 times the radius.
+   :type dedendum: scalar
+   :param fradius: Bottom filet radius, fradius defines the radius of curvature at the bottom of the tooth between the bottom-land and the tooth. Default value for fradius is 0.02 times the radius.
+   :param rotate: Gear is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.
+   :type rotate: scalar
+   :param res: This parameter defines the drawing mesh resolution and does not affect the gear structure. Since most of the mesh points are on a circle, or on a curve defining the tooth profile, res is used to control curvature resolution at varying scales for different parts of the mesh. The default value for res is 1.0, and a better resolution is obtained as res is increased.
+   :type res: scalar
+
+Inward-pointed gear teeth
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can make a gear with inward-pointing teeth by combining a circular outer shape with an innner gear shape:
+
+``outer = shapes.circle(radius=1)`` # a disk
+``inner = shapes.gear(radius=0.8)`` # a gear-shaped hole in the disk
+``extrusion(path=[vec(0,0,0), vec(0,0,0.2)], shape=[outer, inner])``
+
+.. image:: /images/inwardgear.jpg
+
+

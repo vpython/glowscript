@@ -1,0 +1,57 @@
+
+
+Radio Buttons
+=============
+
+..  image:: /images/radio.png
+	:width: 250px
+
+A group of radio buttons offer exclusive choices. Checking one will uncheck all others. All radio buttons in a group must have the same *name* attribute.
+
+..	py:function:: radio( bind=myfunction, text='mytext', name='mygroup')
+
+	:param bind: The function to be called when the box is checked or unchecked.
+	:type bind: function
+	:param text: The text displayed next to the box.
+	:type text: string
+	:param name: Name of the group of radio buttons to which this belongs.
+	:type name: string
+	:param checked: If True, the box is checked. Default False.
+	:type checked: boolean
+	:param pos: Location of checkbox. Default is scene.caption_anchor.
+	:type pos: attribute of canvas
+	:param disabled: If True, the checkbox is grayed out and inactive.
+	:type disabled: boolean
+	:param delete(): ``mywidget.delete()`` deletes the widget.
+	:type delete: method
+
+A group of radio buttons that control the color of a sphere:
+
+..	code-block::
+
+	ball = sphere(color=color.red)
+
+	def rfun(evt):
+		if evt.text is'red':
+			ball.color=color.red
+		elif evt.text is 'green':
+			ball.color=color.green
+		elif evt.text is 'blue':
+			ball.color=color.blue
+    
+	redbutton = radio(bind=rfun, text='red', name='colors', checked=True)
+	greenbutton = radio(bind=rfun, text='green', name='colors')
+	bluebutton = radio(bind=rfun, text='blue', name='colors')
+
+Radio Button Event Attributes
+-----------------------------
+
+The argument of the event handler function ('evt', in the code above) will have the following attributes (properties of the radio button at the time it was clicked):
+
+* ``evt.text``
+* ``evt.checked``
+* ``evt.disabled``
+
+Additionally, any attributes you have created for the widget (for example, ``name`` or ``id``), will be available as attributes of ``evt``.
+
+.. include:: ./eventseealso.rst

@@ -1,0 +1,33 @@
+
+Making New Objects
+==================
+
+.. toctree::
+   :maxdepth: 1
+
+   compound <compound>
+   vertex, triangle, and quad <vertex>
+   extrusion <extrusion>
+   shapes and paths <shapes_and_paths>
+   cloning an object <clone>
+
+There are three ways to make a new shape: 
+
+#. Compounding two or more existing objects:
+
+	.. image:: images/compound.jpg
+
+#. Constructing a new shape from vertices, triangles, and quads:
+
+	.. image:: images/3Dmesh.png
+
+#. Extruding a 2D shape along a 3D path:
+
+	.. image:: images/multiple_outer_contours.png
+
+The shapes and paths libraries can be used with *extrusion* to make complex objects.
+
+**Duplicating Objects**
+
+Once an object has been created, a copy of it can be made with *clone*
+

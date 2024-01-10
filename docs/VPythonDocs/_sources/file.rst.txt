@@ -1,0 +1,74 @@
+
+Files and Libraries
+===================
+
+..	image:: /images/filedialog.jpg
+	:width: 400px
+
+The options discussed below are available in Web VPython only.  In Python with the vpython package, use the standard Python file and import methods.
+
+get_library
+-----------
+
+get_library imports a JavaScript library. The library may consist of JavaScript code created by exporting a Web VPython program, with restrictions.
+
+..	py:function:: get_library("https://xyz.org/lib.js")
+
+	:param argument: Location of the library.
+	:type argument: URL
+
+Restrictions:
+
+* Library must be JavaScript (not VPython). 
+* If exported from Web VPython, library cannot include **rate**, **waitfor**, **sleep**, **pause**, **capture**, **input**, **winput**, **get_library**, or **read_local_file**.
+* In exported code, vector operations must be written as:
+
+  * A+B -> A.add(B)
+  * A-B -> A.sub(B)
+  * k*A -> A.multiply(k)
+  * A/k -> A.divide(k)
+
+* Library must reside on a website (not in local files).
+
+read_local_file
+---------------
+
+read_local_file allows a user to select a file from a dialog box.
+
+In a web browser, security issues restrict reading and writing of local files, because an arbitrary website must not be able to read or modify files on a local computer. It is possible, however, to create a file dialog box that allows a user to read a local file.
+
+read_local_file creates a button saying "Choose File" in the canvas caption or title area. Clicking the button brings up a file dialog box allowing the user to choose a file. When done, the dialog box and button disappear, and file info is returned.
+
+..	py:function:: myfile = read_local_file(scene.title_anchor)
+
+	:param argument: Placement of button. Default: scene.caption_anchor.
+	:type argument: canvas attribute
+
+The variable ``myfile`` will now have the following attributes:
+
+* ``myfile.name`` Name of the file
+* ``myfile.size`` File size in bytes
+* ``myfile.type`` File type
+* ``myfile.date`` Creation date if available
+* ``myfile.text`` Contents of the file
+
+download
+--------
+
+Again due to security issues, a browser can write only to the user's Downloads folder.
+
+..	py:function:: download(filename, data)
+
+	:param firstargument: Name of file to be written.
+	:type firstargument: string
+	:param secondargument: Data to be written, formatted as a string.
+	:type secondargument: string
+
+Note that data can be formatted to strings using Python f-strings.
+
+Repeated execution with the same file name produces files with (1), (2), etc. added to their file names.
+
+
+
+
+

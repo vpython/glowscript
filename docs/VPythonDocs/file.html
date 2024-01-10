@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Files and Libraries &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Graphing" href="graph.html" />
+    <link rel="prev" title="clone" href="clone.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="files-and-libraries">
+<h1>Files and Libraries<a class="headerlink" href="#files-and-libraries" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/filedialog.jpg"><img alt="_images/filedialog.jpg" src="_images/filedialog.jpg" style="width: 400px;" /></a>
+<p>The options discussed below are available in Web VPython only.  In Python with the vpython package, use the standard Python file and import methods.</p>
+<section id="get-library">
+<h2>get_library<a class="headerlink" href="#get-library" title="Permalink to this heading">¶</a></h2>
+<p>get_library imports a JavaScript library. The library may consist of JavaScript code created by exporting a Web VPython program, with restrictions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="get_library">
+<span class="sig-name descname"><span class="pre">get_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">&quot;https://xyz.org/lib.js&quot;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#get_library" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>argument</strong> (<em>URL</em>) – Location of the library.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Restrictions:</p>
+<ul class="simple">
+<li><p>Library must be JavaScript (not VPython).</p></li>
+<li><p>If exported from Web VPython, library cannot include <strong>rate</strong>, <strong>waitfor</strong>, <strong>sleep</strong>, <strong>pause</strong>, <strong>capture</strong>, <strong>input</strong>, <strong>winput</strong>, <strong>get_library</strong>, or <strong>read_local_file</strong>.</p></li>
+<li><p>In exported code, vector operations must be written as:</p>
+<ul>
+<li><p>A+B -&gt; A.add(B)</p></li>
+<li><p>A-B -&gt; A.sub(B)</p></li>
+<li><p>k*A -&gt; A.multiply(k)</p></li>
+<li><p>A/k -&gt; A.divide(k)</p></li>
+</ul>
+</li>
+<li><p>Library must reside on a website (not in local files).</p></li>
+</ul>
+</section>
+<section id="read-local-file">
+<h2>read_local_file<a class="headerlink" href="#read-local-file" title="Permalink to this heading">¶</a></h2>
+<p>read_local_file allows a user to select a file from a dialog box.</p>
+<p>In a web browser, security issues restrict reading and writing of local files, because an arbitrary website must not be able to read or modify files on a local computer. It is possible, however, to create a file dialog box that allows a user to read a local file.</p>
+<p>read_local_file creates a button saying “Choose File” in the canvas caption or title area. Clicking the button brings up a file dialog box allowing the user to choose a file. When done, the dialog box and button disappear, and file info is returned.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">myfile</span> <span class="pre">=</span> <span class="pre">read_local_file(scene.title_anchor)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>argument</strong> (<em>canvas attribute</em>) – Placement of button. Default: scene.caption_anchor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The variable <code class="docutils literal notranslate"><span class="pre">myfile</span></code> will now have the following attributes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">myfile.name</span></code> Name of the file</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myfile.size</span></code> File size in bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myfile.type</span></code> File type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myfile.date</span></code> Creation date if available</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">myfile.text</span></code> Contents of the file</p></li>
+</ul>
+</section>
+<section id="download">
+<h2>download<a class="headerlink" href="#download" title="Permalink to this heading">¶</a></h2>
+<p>Again due to security issues, a browser can write only to the user’s Downloads folder.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>firstargument</strong> (<em>string</em>) – Name of file to be written.</p></li>
+<li><p><strong>secondargument</strong> (<em>string</em>) – Data to be written, formatted as a string.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Note that data can be formatted to strings using Python f-strings.</p>
+<p>Repeated execution with the same file name produces files with (1), (2), etc. added to their file names.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Files/Libraries</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#get-library">get_library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-local-file">read_local_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download">download</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="clone.html" title="previous chapter">clone</a></li>
+      <li>Next: <a href="graph.html" title="next chapter">Graphing</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/file.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

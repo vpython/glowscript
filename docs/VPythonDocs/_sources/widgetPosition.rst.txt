@@ -1,0 +1,19 @@
+
+Positioning a Widget
+--------------------
+
+Buttons, checkboxes, menus, radio buttons, and sliders collectively are termed "widgets".  The ``pos`` attributed of a widget specifies its position.
+
+Options:
+
+* ``scene.caption_anchor`` (below the canvas--the default)
+* ``scene.title_anchor`` (above the canvas)
+* ``print_anchor`` (bottom of the page, where the print area is)
+
+When you create a widget it is appended to the anchor point.  
+
+* For more space after the widget, insert spaces: ``scene.append_to_caption('   ')``.  
+* For vertical space insert carriage returns: ``scene.append_to_caption('\n\n')``.
+
+The :doc:`wtext<wtext>` object allows you to create modifiable text in the caption or title of a canvas.
+

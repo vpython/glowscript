@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>print &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="wtext" href="wtext.html" />
+    <link rel="prev" title="Text Output" href="textoutput.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="print">
+<h1>print<a class="headerlink" href="#print" title="Permalink to this heading">¶</a></h1>
+<p>To output text to a scrolling text area (a field beneath the canvas in WebVPython; the console if using the vpython package in Python), you can use the standard Python <strong>print()</strong> function.  Standard Python formatting options are available.</p>
+<p>For <strong>WebVPython only</strong>, you can control the width and height of the print region:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="print_options">
+<span class="sig-name descname"><span class="pre">print_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readonly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">digits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'right'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">place</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">scene.title_anchor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#print_options" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>scalar</em>) – Width of print region.</p></li>
+<li><p><strong>height</strong> (<em>scalar</em>) – Height of print region.</p></li>
+<li><p><strong>readonly</strong> (<em>boolean</em>) – If <em>True</em>, user cannot edit text in print region. Default <em>True</em> (but user can still copy output text).</p></li>
+<li><p><strong>digits</strong> (<em>scalar</em>) – If <em>digits=4</em> then 123.456 will display as 123.4. Default is 6.</p></li>
+<li><p><strong>pos</strong> (<em>string</em>) – Position of print area with respect to the canvas. Default is “bottom” (under the canvas). If you set <em>pos=”right”</em> print are will appear to the right of the canvas, assuming the window is wide enough.</p></li>
+<li><p><strong>place</strong> (<em>anchor location</em>) – If <em>place=scene.title.anchor</em> print area will be in the title region. <em>scene.caption.anchor</em> is also possible.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>To copy the text in the print area:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mytext=print_options(contents=True)</span></code></p>
+<p>To erase everything in the print area:</p>
+<p><code class="docutils literal notranslate"><span class="pre">print_options(clear=True)</span></code></p>
+<p>To delete the entire print region:</p>
+<p><code class="docutils literal notranslate"><span class="pre">print_options(delete=True)</span></code></p>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="textoutput.html">Text output</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">print</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wtext.html">wtext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arcanetext.html">webvpython only</a></li>
+<li class="toctree-l2"><a class="reference internal" href="latexmath.html">LaTeX math display</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="textoutput.html">Text Output</a><ul>
+      <li>Previous: <a href="textoutput.html" title="previous chapter">Text Output</a></li>
+      <li>Next: <a href="wtext.html" title="next chapter">wtext</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/print.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

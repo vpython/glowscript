@@ -1,0 +1,23 @@
+
+   :param pos: Default <0,0,0>.
+   :type pos: vector
+   :param color: :doc: Default :py:class:`color.white`
+   :type color: vector
+   :param axis: Default <1,0,0>.
+   :type axis: vector
+   :param opacity:  Default 1.0; Range 0-1.
+   :type opacity: scalar
+   :param size: Size of a box surrounding the object. Default is <1,1,1> for most objects.
+   :type size: vector
+   :param up: Default <0,1,0>
+   :type up: vector
+   :param visible: Default True.
+   :type visible: boolean
+   :param shininess: Default 0.6; Range 0-1.
+   :type shininess: scalar
+   :param emissive: Default False.
+   :type emissive: boolean
+   :param texture: Default None. 
+   :type texture: library or file
+   :param canvas: Canvas to which this object belongs. Default is :py:attr:`scene`.
+   :type canvas: object

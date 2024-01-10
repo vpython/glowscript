@@ -1,0 +1,71 @@
+
+compound
+========
+
+A compound object is made from two or more other objects.  A compound object is a single object, and can be manipulated as such. Once created, the relative positions of the objects in the compound cannot be altered, but the compound as a whole can be moved.
+
+.. image:: images/compound.jpg
+
+
+.. py:function:: compound( objectlist , pos=vec(3,2,0), axis=vec(1,1,0))
+
+   :param first_argument: List of objects to be compounded. See code example below.
+   :type first_argument: list
+   :param origin: Location of the *pos* of the compound object. Default is center of bounding box. 
+   :type origin: vector
+   :param pos: Position of the compound object. Default <0,0,0>. Changing *pos* moves the whole object.
+   :type pos: vector
+   :param axis: Magnitude is ignored; only direction is used. Default <1,0,0>.
+   :type axis: vector
+   :param color: Modifies color of entire compound object. Default *color.white*
+   :type color: vector
+   :param size: Dimensions of bounding box.  Default <1,1,1>. Changing *size* does **not** change *axis*, and vice versa. 
+   :type size: vector
+
+The hammer in the image at the top of this page is created by this code:
+
+.. code-block:: 
+
+   handle = cylinder( size=vec(1, 0.2, 0.2), color=vec(0.72, 0.42, 0) )
+   head = box( size=vec(0.2, 0.6, 0.2), pos=vec(1.1, 0, 0), color=color.gray(0.6) )
+   hammer = compound( [handle, head] )
+   hammer.axis = vec(1,1,0)
+   
+Attributes used less often:
+
+.. py:function:: compound(  canvas=mycanvas, emissive=False )
+   :noindex:
+
+   :param opacity:  Default 1.0; Range 0-1.
+   :type opacity: scalar
+   :param shininess: Default 0.6; Range 0-1.
+   :type shininess: scalar
+   :param emissive: Default False. Object glows, losing all shading, if True.
+   :type emissive: boolean
+   :param visible: If False, object is not displayed.  Default: True
+   :type visible: boolean
+   :param texture: Texture of entire compound. Default None. 
+   :type texture: class element or path   
+   :param canvas:  Default is *scene*.
+   :type canvas: object
+   :param make_trail: If True, object leaves a trail when moved. 
+   :type make_trail: boolean
+   :param up: A vector perpendicular to the axis.
+   :type up: vector
+
+Restrictions on compounds
+-------------------------
+
+The following objects cannot be compounded: labels, lights, curves, helices. All of the objects to be compounded must be in the same canvas, and the compound itself must also be in the canvas.  It is not possible to clone a compound to a different canvas, but a compound can be cloned to the same canvas to make multiple copies.
+
+Compound and world coordinates
+------------------------------
+
+If a compound object has been moved, rotated, or resized, its internal coordinates may not be the same as world coordinates. If *v1* was, for example, the original location of one of the objects in a *mycompound*:
+
+``newv1 = mycompound.compound_to_world( v1 )`` gives the new location in world coordinates.
+
+``v2 = mycompound.world_to_compound( newv2)`` converts world coordinates to internal coordinates.
+
+.. include:: ./objectSeeAlso.rst
+

@@ -1,0 +1,108 @@
+
+User Input
+==========
+
+.. image:: /images/gswidgets.png
+
+A user can interact with a VPython program in many ways, such as by clicking a button, choosing a menu option, clicking on an object in the scene, pressing a key, and resizing the canvas.  Information about user actions is delivered to your program in the form of *events*.  Events are asynchronous: the timing of these interactions is not predictable.  The cleanest and most flexible way to handle user input is with event handlers: functions that are driven when particular events occur.
+
+Buttons, menus, and sliders are collectively called *widgets*.  The example program `ButtonsSlidersMenus-VPython <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython>`_ illustrates the use of widgets.
+
+.. toctree::
+   :maxdepth: 1
+
+   Buttons <button>
+   Checkboxes <checkbox>
+   Key input <key>
+   Menus <menu>
+   Mouse input <mouse>
+   Radio buttons <radiobutton>
+   Text input <textinput>
+   Sliders <slider>
+   Widget Position <widgetPosition>
+
+..  _Event Handling:
+
+Processing Events
+-----------------
+
+There are three approaches to processing events:  
+
+#. Waiting for an event: All program execution is stopped until the event occurs. 
+
+#. Creating an event handler: An event can be bound to a function. The program keeps running until the specified event occurs; then the bound function is immediately called. 
+
+#. Polling for events: inside a computational loop, checking to see if an event has occurred, and if so, what the event was.
+
+Waiting for an event
+^^^^^^^^^^^^^^^^^^^^
+
+Waiting for an input pauses the program until the input occurs.
+
+..  py:function:: scene.pause()
+    :noindex:   
+
+``scene.pause()`` is the simplest way of waiting for an input.  When a program reaches this statement it will go no farther until the mouse is clicked.  The code below will draw the sphere, then put a white triangle in the lower right corner of the screen, and wait until the mouse is clicked before erasing the triangle and drawing the box.
+
+..  code-block::
+
+    ball = sphere(pos=vec(-1,0,0), radius=0.5, color=color.magenta)
+    scene.pause()
+    cube = box(pos=vec(1,0,0), color=color.green)
+
+A more versatile method specifies the event waited for, which can be a mouse event or a keypress:
+
+..  py:function:: scene.waitfor('click keydown')
+    :noindex:
+
+See :doc:`Mouse Input<mouse>` for a detailed discussion.
+
+..  _eventhandler:
+
+Event Handlers
+^^^^^^^^^^^^^^
+
+A general and flexible scheme for handling events, including interactions with buttons, menus, and sliders, is to use an event handler. To set this up:
+
+* define a function to respond to a particular event
+* **bind** the event to that function
+
+The function will automatically be invoked when the event occurs, no matter what else is going on in the program. If the function has an argument, this will contain information about the event which can be used by the function.
+
+..  py:function:: scene.bind('keydown', key_pressed)
+
+    :param firstargument: The first argument gives the event type. 
+    :type firstargument: string
+    :param secondargument: The second argument is the name of the function to be called.
+    :type secondargument: function
+
+This code detects a keypress, and prints the name of the key that was pressed:
+
+..  code-block::
+
+    box()  # we need an object to get a canvas
+
+    def key_pressed(evt):  # info about event is stored in evt
+        keyname = evt.key
+        print('The ' + keyname + ' key was pressed.')  
+    
+    scene.bind('keydown', key_pressed) 
+
+The attributes of the event object depend on the type of event (key, mouse, etc.)
+
+..  _polling:
+
+Polling
+^^^^^^^
+
+Checking for the status of the mouse or keyboard can be done explicity inside a loop. The code below checks to see if the "q" key is down, and if so, exits the loop.  
+
+..  code-block::
+
+    ball = sphere(color=color.cyan)
+    while True:
+        rate(10)   
+        k = keysdown() # a list of keys that are down
+        if 'q' in k: 
+            break
+    print('Done with loop')   

@@ -1,0 +1,40 @@
+
+=====================
+3D Objects in VPython
+=====================
+
+.. image:: /images/allobjects.png
+
+The basic graphical objects in VPython are:
+
+.. toctree::
+   :maxdepth: 1
+   
+   arrow
+   box
+   cone
+   curve
+   cylinder
+   ellipsoid
+   helix
+   label
+   points
+   pyramid
+   ring
+   sphere
+   3D text <text>
+
+Designing objects
+-----------------
+
+You can also design your own object: See :doc:`Design New Objects <makeshapes>`
+
+Delete an Object
+------------------
+
+The Python function *del* does not work with VPython objects.
+
+To hide a VPython object make it invisible: 
+
+``ball.visible = False``
+

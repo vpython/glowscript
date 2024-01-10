@@ -1,0 +1,11 @@
+=======
+Opacity
+=======
+
+.. figure:: /images/opacity.png
+
+   A blue sphere with opacity 0.4 in front of a red box.
+
+:py:attr:`opacity` is a parameter whose range is 0-1.  An object with ``opacity=0`` is completely transparent; an object with ``opacity=1`` is completely opaque.  Curve and helix objects are always completely opaque, and do not have an opacity attribute.
+
+Note that if you make one or more objects transparent, antialiasing is turned off, and the edges of objects become jagged.  This limitation is due to the current implementation of the VPython graphics engine in WebGL.  

@@ -1,0 +1,142 @@
+
+Extrusions
+==========
+
+.. figure:: /images/extrusion-shape-vs-path.png
+
+   Left (cyan): a circular shape extruded along a rectangular path. Right (magenta): A rectangular shape extruded along a circular path.
+
+.. contents::
+
+Basics of Extrusions
+--------------------
+
+An extrusion object is produced by extruding a 2D shape along a 3D path.
+
+.. py:function:: myext = extrusion( shape=myshape, path=mypath )
+
+   :param shape: A list of x-y pairs, each itself a list, describing a closed figure in the *xy* plane.
+   :type shape: list
+   :param path: A list of 3D vectors denoting a path.
+   :type path: list
+
+The following code creates a triangle shape in the *xy* plane and extrudes it along a straight line path in the *+z* direction, making a long wedge:
+
+.. code-block::
+
+	triangleshape = [ [2,0], [0,4], [-2,0], [2,0] ]
+	linepath = [ vec(0,0,-4), vec(0,0,4) ]
+	wedge = extrusion( shape=triangleshape, path=linepath, color=color.magenta)
+
+.. image:: images/extrusion2.png 
+
+Other attributes of *extrusion* include:
+
+.. py:function:: myext = extrusion( shape=myshape, path=mypath, color=color.red, smooth=0.9, scale=3, twist=0.1 )
+   :noindex:
+
+   :param color: Color of extrusion. Default is *color.white*
+   :type color: vector
+   :param smooth: If the cosine of the angle between adjacent path elements is greater than this number, smooth the joint between them. Default: 0.95 (an angle of 18 degrees).
+   :type smooth: scalar
+   :param scale: If scale is 3, all joints are enlarged by a factor of 3. If instead you give a list of numbers, such as "scale = [2, 3, 0.5.]", the initial cross section is scaled by a factor of 2, the second by a factor of 3, and the third by a factor of 0.5. For a list, the number of scale factors must be the same as the number of points along the path.
+   :type scale: scalar or list
+   :param xscale: Same as scale, but in x-direction only.
+   :type xscale: scalar or list
+   :param yscale: Same as scale, but in y-direction only.
+   :type yscale: scalar or list
+   :param twist: Angle in radians (or list of angles) by which subsequent segments should be rotated about path. For a list, the number of twist factors must be the same as the number of points along the path.
+   :type twist: scalar or list
+   :param start_normal: Outward-going normal to the starting face. By default this is determined by the direction of the path from the starting point to the next segment on the path. This attribute has no effect if the path is closed.
+   :type start_normal: vector
+   :param end_normal: Same as start_normal but for end face.
+   :type end_normal: vector
+   :param show_start_face: If *False* starting face is left open.  Default *True*.
+   :type show_start_face: boolean
+   :param show_end_face: Same as show_start_face, but for end face of extrusion.
+   :type show_end_face: boolean
+   :param smooth_joints: A list of path points, by position in path, whose joints should be smoothed, regardless of overall setting.  First position in path is 0. Setting ``smooth_joints=[2,5]`` turns on smoothing for these joints. 
+   :type smooth_joints: list
+   :param sharp_joints: Effect opposite to smooth_joints, with same syntax.
+   :type sharp_joints: list
+
+..	image:: /images/extrusion-twist.png
+	:width: 200px
+
+Above: A rectangle extruded along a linear path with a twist.
+
+Objects with Holes
+------------------
+
+A path is always a single set of points.  A shape, however, can have holes in it.  If the shape has holes, it will contain multiple sub-lists: the first list denoting the outer perimter of the shape, the others each specifying the perimeter of a hole within the outer perimeter. Holes must not overlap each other.
+
+.. code-block::
+
+   outershape =  [[0.5, -0.5], [0.5, 0.5], [-0.5, 0.5], [-0.5, -0.5], [0.5, -0.5]]
+   innershape = [[0.35, -0.20], [0, 0.40], [-0.35, -0.20], [0.35, -0.20]]
+   zpath = [ vec(0,0,0), vec(0,0,0.5) ]
+   thing = extrusion( shape=[ outershape, innershape ], path=zpath, color=color.yellow )
+
+.. image:: images/extrusion_1hole.png 
+   :width: 175px
+
+Common Shapes and Paths
+-----------------------
+
+VPython provides a :doc:`library of commonly used shapes<shapes_and_paths>`: closed figures in the *xy* plane. Each shape is a list of precalculated *x-y* pairs.  You can use these in making an extrusion:
+
+``myextrusion = extrusion( shape=shapes.rectangle(width=10, height=6), path=mypath )``
+
+The :doc:`paths library<shapes_and_paths>` in VPython contains the same figures as does the shapes library.  Each path, however, is a list of precalculated 3D vector positions. 
+
+To extrude a triangular shape along a circular path, you can employ these libraries:
+
+.. code-block::
+
+	trishape = shapes.triangle(xscale=0.5, yscale=0.3)
+	circpath = paths.circle(scale=2)
+	oddring = extrusion(shape=trishape, path=circpath, color=color.yellow)
+
+.. image:: images/extrusion3.png 
+
+For detailed documentation on these libraries, see :doc:`Shapes and Paths Libraries<shapes_and_paths>`
+
+
+Color Blending
+--------------
+
+As with a compound object, setting the color of an extrusion that was made with a color other than white makes a multiplicative blend of the overall color with the original color. For example, if the color of the extrusion was originally <0,1,1> (cyan), and you later set the color to <1,1,0> (yellow), the blend results in <0*1, 1*1, 0*0> or <0,1,0>, which is green. If you plan to vary the color after creating the extrusion object, start with **color.white**, which is the default.
+
+Hemispheres
+-----------
+
+There are two ways to make a hemisphere using an extrusion.  The first involves extruding a quarter-circle arc shape along a circular path using an offset (pos):
+
+.. code-block::
+
+   hshape = shapes.arc(angle1=0, angle2=0.999*pi/2, radius=0.5, thickness=0.01, pos=[-0.5,0] )
+   hpath = paths.circle(radius=0.5)
+   demihemi = extrusion( shape=hshape, path=hpath, color=color.green)
+
+.. image:: /images/extrusion-hemisphere-1.png
+
+The second way involves extruding a circle shape along a linear path, but adjusting the scale factor for the circle at each step along the path:
+
+.. code-block::
+
+   rr = 1
+   N = 400
+   x = 0
+   dx = 1/(N)
+   scalef = []
+   hpath = []
+   for i in range(0,N+1,1):
+       rad = sqrt(rr**2 - x**2)
+       scalef.append(rad)
+       x = i*dx
+       hpath.append(vec(0,x,0))    
+   hem = extrusion(path=hpath, shape=shapes.circle(radius=rr), scale=scalef,
+         show_start_face = False, color=color.magenta )
+
+.. image:: /images/extrusion-hemisphere-2.png
+

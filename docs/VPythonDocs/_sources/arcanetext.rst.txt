@@ -1,0 +1,18 @@
+
+These work on WebVPython only
+=============================
+
+console.log()
+-------------
+
+It is possible to output text and variable values to the JavaScript console.  In a browser press CTRL-J to open the console.
+
+``console.log('A scalar', a+10, 'and a vector', v.toString())``
+
+alert()
+-------
+
+An alert pauses execution and displays the string in a dialog box. Numeric values are converted to strings.
+
+``alert('The mass is '+m+' kg.')``
+

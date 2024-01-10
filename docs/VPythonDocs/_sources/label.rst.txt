@@ -1,0 +1,57 @@
+=====
+label
+=====
+
+.. image:: images/label.jpg
+              
+.. image:: images/label2.png
+
+A label can be used to display 2D text in a 3D world.  Labels are billboarded--the label will automatically face the camera no matter how the camera is rotated.
+
+.. py:function:: label( pos=vec(0,0,0), text='Early', xoffset=20, yoffset=50, space=30, height=16, border=4, font='sans' )
+
+   :param pos: Default <0,0,0>.
+   :type pos: vector
+   :param text: Text to be displayed.  html formatting for sup, sub, italic, bold accepted.
+   :type text: string or numerical expression
+   :param color: Color of text. Default is *color.white*
+   :type color: vector
+   :param align: Specify 'left', 'right', or 'center'. Alignment of text with pos. Default 'center'.
+   :type align: string
+   :param xoffset: x offset in pixels from *pos*.
+   :type xoffset: scalar
+   :param yoffset: y offset in pixels from *pos*.
+   :type yoffset: scalar
+   :param font: 'sans' or 'serif or 'monospace' (fixed width). Default is 'sans'.
+   :type font: string
+   :param background: Color of the background of the box. Default *scene.background*.
+   :type param: vector
+   :param opacity: Opacity of box background. Range 0-1.  Default is 0.66.
+   :param box: True if box should be drawn.  Default *True*.
+   :type box: boolean
+   :param border: Distance in pixels from text to surrounding box. Default 5 pixels.
+   :type border: scalar
+   :param line: True if a line should be drawn from *pos* to the box. Default *True*.
+   :type line: boolean
+   :param linecolor: Color of the line and box. Default is *scene.foreground*.
+   :type linecolor: vector
+   :param linewidth: Thickness of line and edges of box, in pixels. Default 1 pixel.
+   :type linewidth: scalar
+   :param space: Radius in pixels of a sphere surrounding *pos*, from which line is excluded.
+   :type space: scalar
+   
+Setting *xoffset* overrides *align*.
+
+Less frequently used attributes:
+
+.. py:function:: label( opacity=0.5, canvas=mycanvas, visible=True )
+   :noindex:
+
+   :param opacity:  Default 1.0; Range 0-1.
+   :type opacity: scalar
+   :param visible: If False, label is not displayed.  Default: True
+   :type visible: boolean
+   :param canvas:  Default is *scene*.
+   :type canvas: object
+  
+.. seealso:: :doc:`opacity<opacity>`; :doc:`color<color>`; :doc:`emissive<emissive>`; :doc:`canvas<canvas>`

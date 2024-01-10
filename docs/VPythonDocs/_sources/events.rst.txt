@@ -1,0 +1,22 @@
+======
+Events
+======
+
+Information sent to your program by an outside agent is an *event*.  Usually events involve user interaction with the program; clicking a button, choosing a menu option, clicking on an object in the scene, pressing a key, and resizing the canvas all generate events.
+
+A program can detect a relevant event and take appropriate actions by *binding* a particular event to a function designed to respond to that input. 
+
+.. toctree::
+   :maxdepth: 1
+
+.. Button <buttons>
+.. Checkbox <checkbox>
+.. Keyboard <keyboard>
+.. Menu <menus>
+.. Mouse <mouse>
+.. Radio button <radio>
+.. Resize canvas <resize>
+.. Pause <pause>
+.. Slider <sliders>
+.. Text input <winput>
+.. Widget position <widgetpos> # include wtext with canvas/caption

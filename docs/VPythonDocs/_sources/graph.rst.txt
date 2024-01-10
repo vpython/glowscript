@@ -1,0 +1,224 @@
+
+Graphing
+========
+
+..	image:: /images/graph.png
+	:width: 400px
+
+Graphing in VPython is dynamic and can be done in real time.  For example, points can be added to a plot of x vs. t as an object moves.  Histogram bars can be adjusted as distributions change.
+
+Terminology
+-----------
+
+A **graph** is a 2D canvas on which plots of various kinds can be displayed.
+
+A **gcurve** object is a continuous curve connecting data points.
+
+A **gdots** object displays data as discrete points.
+
+A **gvbars** object displays discrete vertical bars, and a ``ghbars`` object displays discrete horizontal bars.
+
+graph
+-----
+
+A *graph* is a 2D region in which 2D data can be plotted, analogous to a 3D canvas in which 3D objects are displayed.  As in the case of *canvas*, the actual data display objects belong to a specific graph.  Multiple graphs can be created.  
+
+If you create a data object such as a *gcurve* without first creating a *graph*, VPython will automatically create a graph for you.  This is convenient for simple, rapid graphing.  The advantage to creating a graph explicitly is that it can be given a title, caption, or key, and its alignment can be specified.
+
+..	py:function:: g1 = graph(title='My Graph', xtitle='x', ytitle='t', xmin=0, ymin=-20 )
+
+	:param title: Title of the graph.  html formatting for sub, sup, italic allowed.
+	:type title: string
+	:param xtitle: Title of horizontal axis. html formatting for sub, sup, italic, bold allowed. (e.g. '<i>t</i>').
+	:type xtitle: string
+	:param ytitle: Title of vertical axis. html formatting for sub, sup, italic, bold allowed. (e.g. 'x<sub>1</sub>').
+	:type ytitle: string
+	:param xmin: Minimum value on horizontal axis.  Default: graph will adjust automatically as points are added.
+	:type xmin: scalar
+	:param xmax: Maximum value on horizontal axis. Default: graph will adjust automatically as points are added.
+	:type xmax: scalar
+	:param ymin: Minimum value on vertical axis.  Default: graph will adjust automatically as points are added.
+	:type ymin: scalar
+	:param ymax: Maximum value on vertical axis. Default: graph will adjust automatically as points are added.
+	:type ymax: scalar
+	:param width: Width of graph in pixels. Default 640.
+	:type width: scalar
+	:param height: Height of graph in pixels. Default 480.
+	:type height: scalar
+	:param background: Color of background. Default color.white.
+	:type background: vector
+	:param foreground: Color of foreground (axes, labels, etc.). Default color.black.
+	:type foreground: vector
+	:param align: Placement in window.  Options 'left', 'right', 'none'. Default is 'none'.
+	:type align: string
+	:param scroll: If True, points are deleted from one end of the plots in the graph as they are added to the other end (a chart recorder).  You must specify the initial xmin and xmax, where xmax > xmin.
+	:type scroll: boolean
+	:param fast: If True, plotting is faster but fewer graph inspection options are available.  Default True. See `Plotting Packages`_.
+	:type fast: boolean
+	:param logx: If True, plots on a log scale.  All values must be positive. Only available with fast=False.
+	:type logx: boolean
+	:param logy: Same as logx, for vertical axis.
+	:type logy: boolean
+
+graph methods
+^^^^^^^^^^^^^
+
+..	py:function:: mygraph.select() 
+	:noindex:
+
+Makes this the current graph.
+
+..	py:function:: mygraph.delete()
+	:noindex:
+
+Deletes this graph and all its contents.
+
+..	py:function:: current = graph.get_selected()
+
+Returns the currently selected graph (the one to which new gcurves etc. will belong)
+
+
+gcurve
+------
+
+A gcurve displays a list of data points as a continuous curve.
+
+..	py:function:: gc = gcurve(color=color.red)
+
+	:param color: Color of this gcurve. Default is color.black.
+	:type color: vector
+	:param label: Text identifying this gcurve. Appears at upper right in color of this gcurve. 
+	:type label: string
+	:param legend: If True, labels are displayed. Default True.
+	:type legend: boolean
+	:param width: Width of line in pixels.
+	:type width: scalar
+	:param markers: If True, dots displayed at each data point.
+	:type markers: boolean
+	:param width: Width of dot used for markers. Default slightly larger than gcurve width.
+	:type width: scalar
+	:param marker_color: Color of marker dots. Default is the gcurve color.
+	:type marker_color: vector
+	:param dot: If True, the most recent point plotted is highlighted with a dot. Useful if a graph retraces its path.
+	:type dot: boolean
+	:param dot_radius: Width of dot in pixels. Default is 3.
+	:type dot_radius: scalar
+	:param dot_color: Color of dot. Default same as gcurve.
+	:type dot_color: vector
+	:param visible: If True this object is displayed. Default True.
+	:type visible: boolean
+	:param data: A list of (x,y) pairs to populate the gcurve. If used after creation, gc.data=[ ... ] will replace any existing data in the gcurve.
+	:type data: list
+	:param graph: The graph to which this object belongs. Default: most recently created graph.
+	:type graph: object
+
+
+
+gcurve methods
+^^^^^^^^^^^^^^
+
+Plotting a data point:
+
+..	py:function:: gc.plot(x,y)
+
+	:param firstargument: Value on horizontal axis.
+	:type firstargument: scalar
+	:param secondargument: Value on vertical axis.
+	:type secondargument: scalar
+	:type interval: If interval = 10 a point is added to the plot only every 10th time you add a point.  If interval = -1 no points are skipped; if interval=0 no plot is shown. Default -1.
+
+The point (x,y) is added to the end of the gcurve.
+
+Alternate form of plot():
+
+..	py:function:: gc.plot( [ (1,2), (2,3), (3,4) ] ). 
+	:noindex:
+
+Data pairs can be tuples or lists.
+
+Deleting a gcurve:
+
+..	py:function:: gc.delete()
+
+A Simple Plot
+-------------
+
+The following VPython program plots a sin function.  Note that no *graph* is explicitly created.
+
+..	code-block::
+
+	a = gcurve()
+
+	for x in arange(0, 2*pi, pi/20):
+		rate(30)
+		a.plot(x, sin(x))
+
+..	image:: /images/sin_plot.png
+	:width: 300px
+
+Several gcurves (or gdots or gvbars) can be plotted on the same graph.
+
+gdots
+-----
+
+A gdots object will display a list of (x,y) pairs as discrete points instead of as a connected curve.
+
+..	py:function:: gd = gdots(color=color.red)
+
+	:param color: Color of this gcurve. Default is color.black.
+	:type color: vector
+	:param radius: Radius of a dot in pixels. Default 3. 
+	:type radius: scalar
+	:param size: The diameter of a dot in pixels. 
+	:type size: scalar
+	:param label: Text identifying this gdots. Appears at upper right in color of this gcurve. 
+	:type label: string
+	:param legend: If True, labels are displayed. Default True.
+	:type legend: boolean
+	:param visible: If True this object is displayed. Default True.
+	:type visible: boolean
+	:param data: A list of (x,y) pairs to populate the gdots. If used after creation, gd.data=[ ... ] will replace any existing data in the gdots.
+	:type data: list
+	:param graph: The graph to which this object belongs. Default: most recently created graph.
+	:type graph: object
+
+
+Methods for gdots are the same as for gcurve.
+
+
+gvbars and ghbars
+-----------------
+
+A gvbars object displays a vertical bar for each (x,y) data point. A ghbars object displays horizontal bars. The syntax and options are the same.
+
+..	py:function:: gv = gvbars(delta=0.05, color=color.blue)
+
+	:param delta: Width of the bar. Default 1.
+	:type delta: scalar
+	:param color: Color of the bars. Default is color.black.
+	:type color: vector
+	:param label: Text identifying this gvbars. Appears at upper right in color of this gcurve. 
+	:type label: string
+	:param legend: If True, labels are displayed. Default True.
+	:type legend: boolean
+	:param visible: If True this object is displayed. Default True.
+	:type visible: boolean
+	:param data: A list of (x,y) pairs to populate the gvbars. If used after creation, gv.data=[ ... ] will replace any existing data in the gvbars.
+	:type data: list
+	:param graph: The graph to which this object belongs. Default: most recently created graph.
+	:type graph: object
+
+
+Methods for gvbars and ghbars are the same as for gcurve.
+
+Plotting Packages
+-----------------
+
+You can choose between two graphing packages, one which is faster (currently based on Flot), or one which offers rich interactive capabilities such as zooming and panning but is slower (currently based on Plotly). The default is the fast version, corresponding to specifying fast=True in a graph, gcurve, gdots, gvbars, or ghbars statement. To use the slower but more interactive version, say fast=False. In many programs the "slow" version may run nearly as fast as the "fast" version, but if you plot a large number of data points the speed difference can be significant.
+
+Do try fast=False to see the many options provided. As you drag the mouse across the graph with the mouse button up, you are shown the numerical values of the plotted points. You can drag with the mouse button down to select a region of the graph, and the selected region then fills the graph. As you drag just below the graph you can pan left and right, and if you drag along the left edge of the graph you can pan up and down. As you move the mouse you'll notice that there are many options at the upper right. Hover over each of the options for a brief description. The "home" icon restores the display you saw before zooming or panning. Try `this demo <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/GraphTest>`_.
+
+Histograms
+----------
+
+The program `HardSphereGas <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/HardSphereGas-VPython/edit>`_ provides an example of a dynamic histogram.

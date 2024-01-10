@@ -1,0 +1,25 @@
+
+Packages
+========
+
+How to install vpython module with pip, conda.
+
+.. contents::
+   :local:
+
+thing A
+-------
+
+AAAAA
+
+thing B
+-------
+
+BBBBB
+
+thing C
+-------
+
+CCCCCCC
+
+

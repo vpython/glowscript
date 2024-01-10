@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>User Input &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Buttons" href="button.html" />
+    <link rel="prev" title="Textures and Bumpmaps" href="texture.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="user-input">
+<h1>User Input<a class="headerlink" href="#user-input" title="Permalink to this heading">¶</a></h1>
+<img alt="_images/gswidgets.png" src="_images/gswidgets.png" />
+<p>A user can interact with a VPython program in many ways, such as by clicking a button, choosing a menu option, clicking on an object in the scene, pressing a key, and resizing the canvas.  Information about user actions is delivered to your program in the form of <em>events</em>.  Events are asynchronous: the timing of these interactions is not predictable.  The cleanest and most flexible way to handle user input is with event handlers: functions that are driven when particular events occur.</p>
+<p>Buttons, menus, and sliders are collectively called <em>widgets</em>.  The example program <a class="reference external" href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython">ButtonsSlidersMenus-VPython</a> illustrates the use of widgets.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="button.html">Buttons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkbox.html">Checkboxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key.html">Key input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">Mouse input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radiobutton.html">Radio buttons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textinput.html">Text input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slider.html">Sliders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widgetPosition.html">Widget Position</a></li>
+</ul>
+</div>
+<section id="processing-events">
+<span id="event-handling"></span><h2>Processing Events<a class="headerlink" href="#processing-events" title="Permalink to this heading">¶</a></h2>
+<p>There are three approaches to processing events:</p>
+<ol class="arabic simple">
+<li><p>Waiting for an event: All program execution is stopped until the event occurs.</p></li>
+<li><p>Creating an event handler: An event can be bound to a function. The program keeps running until the specified event occurs; then the bound function is immediately called.</p></li>
+<li><p>Polling for events: inside a computational loop, checking to see if an event has occurred, and if so, what the event was.</p></li>
+</ol>
+<section id="waiting-for-an-event">
+<h3>Waiting for an event<a class="headerlink" href="#waiting-for-an-event" title="Permalink to this heading">¶</a></h3>
+<p>Waiting for an input pauses the program until the input occurs.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">scene.</span></span><span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<p><code class="docutils literal notranslate"><span class="pre">scene.pause()</span></code> is the simplest way of waiting for an input.  When a program reaches this statement it will go no farther until the mouse is clicked.  The code below will draw the sphere, then put a white triangle in the lower right corner of the screen, and wait until the mouse is clicked before erasing the triangle and drawing the box.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vec</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">magenta</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+<span class="n">cube</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A more versatile method specifies the event waited for, which can be a mouse event or a keypress:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">scene.</span></span><span class="sig-name descname"><span class="pre">waitfor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">'click</span> <span class="pre">keydown'</span></span></em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<p>See <a class="reference internal" href="mouse.html"><span class="doc">Mouse Input</span></a> for a detailed discussion.</p>
+</section>
+<section id="event-handlers">
+<span id="eventhandler"></span><h3>Event Handlers<a class="headerlink" href="#event-handlers" title="Permalink to this heading">¶</a></h3>
+<p>A general and flexible scheme for handling events, including interactions with buttons, menus, and sliders, is to use an event handler. To set this up:</p>
+<ul class="simple">
+<li><p>define a function to respond to a particular event</p></li>
+<li><p><strong>bind</strong> the event to that function</p></li>
+</ul>
+<p>The function will automatically be invoked when the event occurs, no matter what else is going on in the program. If the function has an argument, this will contain information about the event which can be used by the function.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="scene.bind">
+<span class="sig-prename descclassname"><span class="pre">scene.</span></span><span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">'keydown'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_pressed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scene.bind" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>firstargument</strong> (<em>string</em>) – The first argument gives the event type.</p></li>
+<li><p><strong>secondargument</strong> (<em>function</em>) – The second argument is the name of the function to be called.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>This code detects a keypress, and prints the name of the key that was pressed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">box</span><span class="p">()</span>  <span class="c1"># we need an object to get a canvas</span>
+
+<span class="k">def</span> <span class="nf">key_pressed</span><span class="p">(</span><span class="n">evt</span><span class="p">):</span>  <span class="c1"># info about event is stored in evt</span>
+    <span class="n">keyname</span> <span class="o">=</span> <span class="n">evt</span><span class="o">.</span><span class="n">key</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The &#39;</span> <span class="o">+</span> <span class="n">keyname</span> <span class="o">+</span> <span class="s1">&#39; key was pressed.&#39;</span><span class="p">)</span>
+
+<span class="n">scene</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="n">key_pressed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The attributes of the event object depend on the type of event (key, mouse, etc.)</p>
+</section>
+<section id="polling">
+<span id="id1"></span><h3>Polling<a class="headerlink" href="#polling" title="Permalink to this heading">¶</a></h3>
+<p>Checking for the status of the mouse or keyboard can be done explicity inside a loop. The code below checks to see if the “q” key is down, and if so, exits the loop.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ball</span> <span class="o">=</span> <span class="n">sphere</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">cyan</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">rate</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">keysdown</span><span class="p">()</span> <span class="c1"># a list of keys that are down</span>
+    <span class="k">if</span> <span class="s1">&#39;q&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+        <span class="k">break</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done with loop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Input</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="button.html">Buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checkbox.html">Checkboxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key.html">Key input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mouse.html">Mouse input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiobutton.html">Radio buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textinput.html">Text input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="slider.html">Sliders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgetPosition.html">Widget Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processing-events">Processing Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="texture.html" title="previous chapter">Textures and Bumpmaps</a></li>
+      <li>Next: <a href="button.html" title="next chapter">Buttons</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/userinput.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

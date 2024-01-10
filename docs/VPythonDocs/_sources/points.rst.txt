@@ -1,0 +1,38 @@
+
+points
+======
+
+.. image:: images/points.jpg
+
+The *points* object is similar to the *curve* object.  It displays individual points at the specified locations instead of connecting them with lines. *points* provides a fast way to display a large number of For maximum display speed the points are displayed as :ref:`simple_sphere` objects. The *points* object does not have *origin*, *size*, *axis*, or *up* attributes, and can be neither compounded nor rotated. Points can, however, be transparent.
+
+.. py:function:: points( pos=[ vec(-1,3,2), vec(2,0,-1) ] ,  color=color.yellow)
+
+   :param pos: List of positions of points in curve. Default is [] (no points).
+   :type pos: list of vectors
+   :param color: Default *color.white*
+   :type color: vector
+   :param radius: Radius of one *simple_sphere*. Default is 2.5 pixels.
+   :type radius: scalar
+   :param size_units: Units for size of points.  Default is 'pixels'.  An alternative is 'world'.
+   :type size_units: string
+   
+Attributes used less often:
+
+.. py:function:: points( opacity=0.5, shininess=0.2, canvas=mycanvas, emissive=False )
+   :noindex:
+
+   :param opacity:  Default 1.0; Range 0-1.
+   :type opacity: scalar
+   :param shininess: Default 0.6; Range 0-1.
+   :type shininess: scalar
+   :param emissive: Default False. Object glows, losing all shading, if True.
+   :type emissive: boolean 
+   :param visible: If False, object is not displayed.  Default: True
+   :type visible: boolean
+   :param canvas:  Default is *scene*.
+   :type canvas: object
+
+Most options for manipulating a *curve* can be used with *points*.
+
+.. seealso:: :doc:`opacity<opacity>`; :doc:`color<color>`; :doc:`emissive<emissive>`; :doc:`canvas<canvas>`

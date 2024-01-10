@@ -1,0 +1,34 @@
+
+print
+=====
+
+To output text to a scrolling text area (a field beneath the canvas in WebVPython; the console if using the vpython package in Python), you can use the standard Python **print()** function.  Standard Python formatting options are available.
+
+For **WebVPython only**, you can control the width and height of the print region:
+
+.. py:function:: print_options(width=500, height=300, readonly=False, digits=4, pos='right', place=scene.title_anchor)
+
+   :param width: Width of print region.
+   :type width: scalar
+   :param height: Height of print region.
+   :type height: scalar
+   :param readonly: If *True*, user cannot edit text in print region. Default *True* (but user can still copy output text).
+   :type readonly: boolean
+   :param digits: If *digits=4* then 123.456 will display as 123.4. Default is 6.
+   :type digits: scalar
+   :param pos: Position of print area with respect to the canvas. Default is "bottom" (under the canvas). If you set *pos="right"* print are will appear to the right of the canvas, assuming the window is wide enough.
+   :type pos: string
+   :param place: If *place=scene.title.anchor* print area will be in the title region. *scene.caption.anchor* is also possible.
+   :type place: anchor location
+
+To copy the text in the print area:
+
+``mytext=print_options(contents=True)``
+
+To erase everything in the print area:
+
+``print_options(clear=True)``
+
+To delete the entire print region:
+
+``print_options(delete=True)``

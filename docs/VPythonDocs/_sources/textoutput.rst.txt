@@ -1,0 +1,21 @@
+
+Text Output
+===========
+
+The following options offer ways to output ordinary text in fields *outside* the canvas.  If instead you want to display 2D text inside the graphical canvas, see :doc:`label`. If you want to display 3D text, see :doc:`text`.
+
+.. toctree::
+   :maxdepth: 1
+
+   print
+   wtext
+   webvpython only <arcanetext>
+   LaTeX math display <latexmath>
+
+Using the *print()* command to display text in a scrolling text area is the simplest option, and is generally the method of choice.
+
+*wtext* is used to update text (such as changing values) in a title or caption, without scrolling.
+
+
+
+

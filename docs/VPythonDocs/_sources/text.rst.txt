@@ -1,0 +1,69 @@
+
+text
+====
+
+.. image:: images/newtext3d.png
+
+The *text* object displays 3D text, which is created by extruding the outlines of individual letters and then compounding the resulting objects.  In the image above white labels are used to illustrate some of the key attributes of the *text* object.
+
+If you want 2D text superimposed on a canvas, see *label*.  If you want 2D text above or below the *canvas*, see *canvas*.
+
+.. py:function:: text(text='My text is\ngreen', align='center', color=color.green)
+
+   :param pos: Location of the baseline of the text. Modified by *align*. Default <0,0,0>.
+   :type pos: vector
+   :param text: Text to be displayed. Once created cannot be modified.
+   :type text: unicode string
+   :param color: Color of text. Default is *color.white*
+   :type color: vector
+   :param align: Specify 'left', 'right', or 'center'. Alignment of baseline with pos. Default 'left'.
+   :type align: string
+   :param font: 'sans' or 'serif. Default is 'sans'.
+   :type font: string
+   :param billboard: If *True*, text always faces camera, despite rotation.  Default *False*.
+   :type billboard: boolean
+   :param axis: The axis points along the baseline. Default <1,0,0>
+   :type axis: vector
+
+The text below has ``billboard=False``:
+
+.. image:: images/starwarstext.png
+
+Less frequently used attributes:
+
+.. py:function:: text(text="mytext", start_face_color=color.red, end_face_color=color.cyan)
+   :noindex:
+
+   :param start_face_color: Color of starting (back) face of the text. Default same as text color.
+   :type start_face_color: vector
+   :param end_face_color: Color of starting (front) face of the text. Default same as text color.
+   :type end_face_color: vector
+   :param opacity: Opacity of text. Range 0-1.  Default is 0.66.
+   :type opacity: scalar
+   :param height: Height of text in world coordinates. Default is 1.
+   :type height: scalar
+   :param length: Length of displayed text.  Can't be specified in constructor, but can be changed later.
+   :type length: scalar
+   :param depth: Depth of text. Default is 0.2*height.  If depth>0, extrude +z, if depth<0, extrude -z.
+   :type depth: scalar
+   :param descender: Height of descender on lower case letters such as y.  Read-only.
+   :type descender: scalar
+   :param start: Leftmost location on baseline.  Read-only.
+   :type start: scalar
+   :param end:  Rightmost location on baseline.  Read-only.
+   :param vertical_spacing: Vertical distance from one baseline to next in multiline text. Read-only.
+   :type vertical_spacing: scalar
+   :param opacity:  Default 1.0; Range 0-1.
+   :type opacity: scalar
+   :param shininess: Default 0.6; Range 0-1.
+   :type shininess: scalar
+   :param emissive: Default False. Object glows, losing all shading, if True.
+   :type emissive: boolean
+   :param visible: If False, object is not displayed.  Default: True
+   :type visible: boolean
+   :param canvas:  Default is :py:attr:`scene`.  
+   :type canvas: object
+   :param up: A vector perpendicular to the axis.
+   :type up: vector
+
+.. seealso:: Rotation; :doc:`color<color>`; :doc:`emissive<emissive>`; :doc:`canvas<canvas>`

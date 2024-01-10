@@ -1,0 +1,59 @@
+
+Checkboxes
+==========
+
+..  image:: /images/checkbox.png
+	:width: 250px
+
+A checkbox is a widget that has two states: selected and not selected.
+
+..	py:function:: checkbox( bind=myfunction, text='mytext')
+
+	:param bind: The function to be called when the box is checked or unchecked.
+	:type bind: function
+	:param text: The text displayed next to the box.
+	:type text: string
+	:param checked: If True, the box is checked.
+	:type checked: boolean
+	:param pos: Location of checkbox. Default is scene.caption_anchor.
+	:type pos: attribute of canvas
+	:param disabled: If True, the checkbox is grayed out and inactive.
+	:type disabled: boolean
+	:param delete(): ``mywidget.delete()`` deletes the widget.
+	:type delete: method
+
+A checkbox that controls the rotation of a cube:
+
+..	code-block::
+
+	cube = box(color=color.orange)
+	spin = True
+
+	def rotate(evt):
+		global spin
+		if evt.checked:
+			spin=True
+		else:
+			spin=False
+     
+	rcheck = checkbox( bind=rotate, text='Spin', checked=True)
+
+	while True:
+		rate(20)
+		if spin:
+			cube.rotate(angle=pi/20, axis=vec(0,1,0))
+		else:
+			pass
+
+Checkbox Event Attributes
+-------------------------
+
+The argument of the event handler function ('evt', in the code above) will have the following attributes (properties of the checkbox at the time it was clicked):
+
+* ``evt.text``
+* ``evt.checked``
+* ``evt.disabled``
+
+Additionally, any attributes you have created for the widget (for example, ``name`` or ``id``), will be available as attributes of ``evt``.
+
+.. include:: ./eventseealso.rst

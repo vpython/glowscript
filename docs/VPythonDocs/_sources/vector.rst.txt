@@ -1,0 +1,135 @@
+
+Vector Operations
+=================
+
+The vector object has the properties of 3D vectors in math and science.
+
+``r = vector(x,y,z)``  or ``r=vec(x,y,z)`` produce the 3D vector < x, y, z >.  
+
+.. contents::
+
+Vector Addition and Subtraction
+-------------------------------
+
+.. code-block::
+
+	a = vector(1,2,3)
+	b = vector(10,20,30)
+	print(a+b)    # displays < 1, 22, 33 > 
+
+Scalar Multiplication
+---------------------
+
+.. code-block::
+
+	a = vector(1,2,3)
+	c = 2*a
+	print(c)   # displays < 2, 4, 6 >
+
+Magnitude
+---------
+
+``mag`` can be invoked as a function or an attribute:
+
+.. code-block::
+
+	a = vector(1,2,3)
+	b = vector(10,20,30)
+	d = mag(a)  
+	print(d)    # displays 3.74166
+	e = b.mag
+	print(e)    # displays 37.4166
+
+Unit Vector
+-----------
+
+There are two names for the function that calculates a unit vector: hat() and norm(). Both can be invoked as functions or attributes:
+
+.. code-block::
+
+	a = vector(1,2,3)
+	b = vector(10,20,30)
+	f = hat(a)  
+	print(f)  # displays < 0.267261, 0.534522, 0.801784 >
+	g = norm(a)
+	print(g)  # displays < 0.267261, 0.534522, 0.801784 >
+
+	h = a.hat
+	i = b.norm
+
+For convenience, ``hat( vec(0,0,0) ) = vec(0, 0, 0)`` to avoid runtime errors.
+
+Dot Product
+-----------
+
+Both dot and cross products can be invoked as functions or attributes:
+
+.. code-block::
+
+	a1 = vector(3,1,0)
+	b1 = vector(0,2,0)
+	j = dot(a,b)
+	print(j)   # displays 2
+	k = cross(a,b)
+	print(k)   # displays < 0, 0, 6 > 
+
+	m = a1.dot(b1)
+	n = a1.cross(b1)
+
+Angle Between Vectors
+---------------------
+
+The diff_angle() function returns the angle between two vectors in radians:
+
+.. code-block::
+
+	a1 = vector(3,1,0)
+	b1 = vector(0,2,0)
+	p = diff_angle(a1,b1)
+	print(p)  # displays 1.24905
+
+	q = a1.diff_angle(b1)
+
+
+Projections
+-----------
+
+For convenience, the proj() function calculates the vector projection of one vector onto another:
+
+.. code-block::
+
+	A = vector(3,1,0)
+	B = vector(0,2,0)
+	C = proj(A,B) 
+	print(C)   # displays < 0, 1, 0 >
+
+Note that ``proj(A,B) = dot( A, hat(B) ) * hat(B)``
+
+The comp() function calculates the scalar projection of A along B:
+
+.. code-block::
+
+	A = vector(3,1,0)
+	B = vector(0,2,0)
+	C = comp(A,B) 
+	print(C)   # displays 1.
+
+Note that ``comp(A,B) = dot( A, hat(B) )``
+
+Random Vector
+-------------
+
+``vector.random()`` produces a vector whose components are random numbers in the range -1 to +1.
+
+Rotating a Vector
+-----------------
+
+..  py:function:: myvec2 = rotate( myvec1, angle=a, axis=vector(x,y,z) )
+	:noindex:
+
+	:param firstargument: Vector to be rotated (*myvec1* in example above).
+	:type firstargument: vector
+	:param angle: Angle of rotation in radians.
+	:type angle: scalar
+	:param axis: Axis of rotation.  Default < 0, 0, 1 >.
+	:type axis: vector

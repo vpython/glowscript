@@ -1,0 +1,58 @@
+
+Menus
+=====
+
+..	image:: /images/menu.png
+
+A menu widget provides a drop-down menu.  
+
+..	py:function:: menu( bind=myfunction, choices=choicelist )
+
+
+	:param bind: The function to be called when a menu selection is made.
+	:type bind: function
+	:param choices: The list of options (as strings) to appear on the menu.
+	:type choices: list
+	:param selected: The text of the currently selected menu option.
+	:type selected: string
+	:param index: The list position of the currently selected option.
+	:type index: scalar
+	:param disabled: If True, menu is grayed out and does not respond.
+	:type disabled: boolean
+	:param delete(): ``mymenu.delete()`` deletes the menu.
+	:type delete: method
+
+The following code creates a menu to change the color of an object:
+
+..	code-block::
+
+	pointer = arrow(pos=vec(-3,-3,0), axis=vec(6,6,0), color=color.white )
+
+	def changeattr(evt):
+		console.log(evt)
+		if evt.index < 1:
+			pass
+		elif evt.index is 1:
+			pointer.color=color.yellow
+		elif evt.index is 2:
+			pointer.color=color.magenta
+		elif evt.index is 3:
+			pointer.color=color.cyan
+    
+	choicelist = ['Color', 'yellow', 'magenta', 'cyan']
+
+	menu( choices=choicelist, bind=changeattr )
+
+
+Menu Event Attributes
+---------------------
+
+The argument of the event handler function ('evt', in the code above) will have the following attributes (properties of the menu):
+
+* ``evt.index``
+* ``evt.selected``
+* ``evt.disabled``
+
+Additionally, any attributes you have created for the widget (for example, ``name`` or ``id``), will be available as attributes of ``evt``.
+
+.. include:: ./eventseealso.rst

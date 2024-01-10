@@ -1,0 +1,17 @@
+
+wtext
+=====
+
+The wtext object (widget text) is often used together with widgets such as sliders. It provides a way to modify dynamically a portion of the title or caption of a canvas, perhaps in response to user interactions or computed changes.
+
+The example program `ButtonsMenusSliders <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/ButtonsSlidersMenus-VPython>`_ uses **wtext** to display the current rotation speed of a cube whose rotation is controlled by a slider.
+
+.. :py:function:: myspeedtxt = wtext(text=f'omega = {vslider.value:.1e} radians/s')
+
+   :param text:
+   :type text: text
+
+Variables must be converted to a string using standard Python formatting options.  Text may be updated any time by setting the *text* attribute of the *wtext* object:
+
+``myspeedtxt.text = f'omega = {vslider.value:.1e} radians/s'``
+

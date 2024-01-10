@@ -1,0 +1,30 @@
+Object Attachments
+==================
+
+.. toctree::
+   :maxdepth: 1
+
+   Leaving a Trail <trail>
+   Attach Arrow <attacharrow>
+   Attach Light <attach_light>
+
+* An object can leave a trail behind it as it moves.  
+
+.. figure:: /images/binary_star.png
+
+   A binary star system, showing two different types of trail.
+
+* An arrow representing a vector quantity can be attached to an object, automatically updating as the object moves.
+
+.. figure:: /images/attach_arrow.png
+
+   The arrow represents the instantaneous velocity of the bouncing ball.
+
+* To make a moving light, a light can also be attached to an object.
+
+.. figure:: /images/attach_light.png
+
+
+
+ 
+   

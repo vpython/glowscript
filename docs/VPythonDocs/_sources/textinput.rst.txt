@@ -1,0 +1,78 @@
+
+Text Input
+==========
+
+The commands ``winput`` and ``input`` allow a user to type input to be processed by a program.
+
+..	contents::
+
+
+input
+-----
+
+The ``input()`` function accepts user input from a pop-up dialog box.  This is similar to the Python ``input()`` function, except that it allows the specification of a prompt.  
+
+..	py:function:: mytext = input(prompt='Enter a color:')
+
+	:param prompt: Text of the prompt.
+	:type prompt: string
+
+If the user presses 'Cancel' instead of typing a string, the function returns ``None``. Input can be converted to a number:  ``val = float(mytext)``.
+
+..	code-block::
+
+	ss = input( 'What is your name?')
+
+	if ss != None:
+		print('Hello',  ss)
+	else:
+		print('Goodbye')
+
+winput
+------
+
+The ``winput()`` widget can be placed either in the caption area of a canvas (the default position) or in the title area.  It displays a box into which a user can type.  The user must select the text input area before typing.  A function bound to a *winput* widget is executed if the user presses *Enter* or *Tab* or clicks somewhere other than in a VPython canvas. The attributes below are labeled "not modifiable" if they cannot be modified after creation.
+
+..	py:function:: ww = winput(bind=myfunction, prompt='value', type='numeric')
+
+	:param bind: The function to be called when the input is ended (by Enter, Tab, or click outside canvas).
+	:type bind: function
+	:param prompt: Text displayed to left of the winput box. (WebVPython only.)
+	:type prompt: string
+	:param type: The type of input requested: 'numeric' (default) or 'string'. Not modifiable.
+	:type type: string
+	:param pos: Location of checkbox. Default is scene.caption_anchor.
+	:type pos: attribute of canvas
+	:param width: Width of input box in pixels. Default is 100. Not modifiable.
+	:type width: scalar
+	:param height: Height of input box in pixels. Default 20. Not modifiable.
+	:type height: scalar
+	:param text: The text displayed in the box, whether entered by user or set by program.
+	:type text: string
+	:param number: The number that results from evaluating the user's input text if the type is 'numeric', otherwise None.  Not modifiable.
+	:type number: scalar
+	:param disabled: If True, text is grayed out and winput is inactive.
+	:type disabled: boolean
+	:param delete(): A method to delete the winput box from the displayl.
+	:type delete(): method
+
+This code uses *winput* to adjust the radius of a sphere:
+
+..	code-block::
+
+	ss = sphere(pos=vec(-2,0,0), radius=0.2, color=color.yellow)
+
+	def change_radius(evt):
+		rad = evt.number
+		if rad != None:
+			if rad < 10:
+				ss.radius=evt.number
+			else:
+				print(rad + ' is too large')
+				ww.text = ''          
+
+	scene.append_to_caption('Radius must be less than 10 \n')
+	ww = winput(prompt='Radius:', bind=change_radius, type='numeric')
+
+.. include:: ./eventseealso.rst
+

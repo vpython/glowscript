@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Lights &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Color, Transparency, and Emissivity" href="colorOpacityGlow.html" />
+    <link rel="prev" title="The Camera" href="camera.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="lights">
+<h1>Lights<a class="headerlink" href="#lights" title="Permalink to this heading">¶</a></h1>
+<img alt="_images/lights.png" src="_images/lights.png" />
+<p>The image above shows a white sphere illuminated by a green distant light (at upper right) and a red local light (lower left).</p>
+<p>Objects in a VPython scene must be illuminated to be visible.  There can be three kinds of lighting in a VPython scene:</p>
+<ul class="simple">
+<li><p>Distant lights–point-like lights far away (like the Sun)</p></li>
+<li><p>Local lights–lights close to the objects in the scene</p></li>
+<li><p>Ambient light–uniform diffuse light that illuminates all objects equally</p></li>
+</ul>
+<p>Some care must be taken in changing the illumination in a scene, since if the total lighting intensity exceeds 1 anywhere in the scene the results are unpredictable.</p>
+<section id="distant-light">
+<h2>distant_light<a class="headerlink" href="#distant-light" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="distant_light">
+<span class="sig-name descname"><span class="pre">distant_light</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">vec(0,</span> <span class="pre">-</span> <span class="pre">1,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">color.orange</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#distant_light" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>direction</strong> (<em>vector</em>) – A vector specifying the direction of the light relative to the origin</p></li>
+<li><p><strong>color</strong> (<em>vector</em>) – The color of the light emitted.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>By default there are automatically two distant lights in a VPython scene.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>One distant_light has direction &lt; 0.22, 0.44, 0.88&gt; and is a slightly dim white: color.white*0.8</p></li>
+<li><p>The second distant_light has direction &lt; -0.88, -0.22, -0.44&gt; and is a dimmer white: color.white*0.3</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="local-light">
+<h2>local_light<a class="headerlink" href="#local-light" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="local_light">
+<span class="sig-name descname"><span class="pre">local_light</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">vec(-</span> <span class="pre">3,</span> <span class="pre">1,</span> <span class="pre">-</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">color.yellow</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#local_light" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> (<em>vector</em>) – The location of the local_light.</p></li>
+<li><p><strong>color</strong> (<em>vector</em>) – The color of the light emitted.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>A local light can look like a lamp if you put an emissive object at the location of the light.</p>
+</section>
+<section id="scene-ambient">
+<h2>scene.ambient<a class="headerlink" href="#scene-ambient" title="Permalink to this heading">¶</a></h2>
+<p>By default the ambient light is very dim, with color color.white*0.2. You can set <em>scene.ambient</em> to any color, but note that if the total light intensity becomes greater than 1, results may be unpredictable.</p>
+</section>
+<section id="scene-lights">
+<h2>scene.lights<a class="headerlink" href="#scene-lights" title="Permalink to this heading">¶</a></h2>
+<p><em>scene.lights</em> is a list of the lights in the scene. To see the attributes of the lights:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">lights</span><span class="p">)</span> <span class="p">):</span>
+        <span class="n">LL</span> <span class="o">=</span> <span class="n">scene</span><span class="o">.</span><span class="n">lights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span> <span class="n">LL</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">LL</span><span class="o">.</span><span class="n">direction</span><span class="p">,</span> <span class="n">LL</span><span class="o">.</span><span class="n">color</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>For a distant_light, <em>pos</em> will be undefined, as will <em>direction</em> for a local_light.</p>
+<p>To delete all lights from a scene, set <em>scene.lights</em> to an empty list:</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.lights=[]</span></code></p>
+</section>
+<section id="color-of-lights">
+<h2>Color of lights<a class="headerlink" href="#color-of-lights" title="Permalink to this heading">¶</a></h2>
+<p>If you create a light that is not white, what you see may be very different.  A green light can make a white sphere look green and a red sphere look very dark (since the red sphere absorbs green light).</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="color.html"><span class="doc">color</span></a>; <a class="reference internal" href="emissive.html"><span class="doc">emissive</span></a></p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="camera.html">Camera</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Lighting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cameraAndLights.html">Lighting and Viewing the Scene</a><ul>
+      <li>Previous: <a href="camera.html" title="previous chapter">The Camera</a></li>
+      <li>Next: <a href="colorOpacityGlow.html" title="next chapter">Color, Transparency, and Emissivity</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/light.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

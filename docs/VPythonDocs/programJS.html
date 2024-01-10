@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Writing Programs in JavaScript &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="writing-programs-in-javascript">
+<h1>Writing Programs in JavaScript<a class="headerlink" href="#writing-programs-in-javascript" title="Permalink to this heading">¶</a></h1>
+<p>To write programs using JavaScript instead of VPython, change the first line of the program to “JavaScript X.Y”, where “X.Y” is the current version. Equivalent headings are “GlowScript X.Y” and “GlowScript X.Y JavaScript”.</p>
+<p>Here is the relationship between the VPython documentation and what you would write in JavaScript:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">cyan</span><span class="p">)</span>          <span class="c1"># VPython</span>
+<span class="n">b</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">vec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">let</span> <span class="n">b</span> <span class="o">=</span> <span class="n">box</span><span class="p">({</span><span class="n">pos</span><span class="p">:</span><span class="n">vec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">color</span><span class="p">:</span><span class="n">color</span><span class="o">.</span><span class="n">cyan</span><span class="p">})</span>  <span class="o">//</span> <span class="n">JavaScript</span>
+<span class="n">b</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">vec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>At the moment, the ACE editor used at glowscript.org is an old version that doesn’t recognize some (now valid) elements of JavaScript, including in particular async, await, and class, and as a result statements containing these elements are marked as being in error. Evidently glowscript.org needs to upgrade its use of ACE.</p>
+<section id="using-async-and-await">
+<h2>Using async and await<a class="headerlink" href="#using-async-and-await" title="Permalink to this heading">¶</a></h2>
+<p>An animation loop must contain a rate(), sleep(), scene.pause(), or scene.waitfor() statement; otherwise the browser will lock up, and it is difficult to kill the browser. Moreover, these statements must be preceded by await, which is inserted automatically when VPython programs are transpiled to JavaScript but must be entered explicitly into a JavaScript program. Here is what these JavaScript statements must look like, including the five other VPython functions that take time to complete and therefore also need await:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">await</span> <span class="n">rate</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">scene</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+<span class="k">await</span> <span class="n">scene</span><span class="o">.</span><span class="n">waitfor</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">scene</span><span class="o">.</span><span class="n">capture</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="k">await</span> <span class="nb">input</span><span class="p">()</span>
+<span class="k">await</span> <span class="n">winput</span><span class="p">()</span>
+<span class="k">await</span> <span class="n">get_library</span><span class="p">(</span><span class="n">webaddress</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">read_local_file</span><span class="p">(</span><span class="n">scene</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">anchor</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you write your own function or class method that includes any of these waiting statements, you must prepend async to the function or method declaration, and all calls to these functions or methods must be prepended with await, as with the functions shown above and in the runnable html file shown at the end of this article.</p>
+<p>Also, just before calling input() or winput(), it’s a good idea to insert “sleep(0.1)” in order to make sure that the display is up to date before waiting for input.</p>
+<p>At glowscript.org your program is wrapped in an async function, which makes it possible to use await outside any of your functions. If you do not use glowscript.org to prepare your JavaScript program, you may need to wrap your program in an async function, as shown in the runnable html file below. It is not possible to use await outside an async function.</p>
+</section>
+<section id="operator-overloading-for-vectors">
+<h2>Operator overloading for vectors<a class="headerlink" href="#operator-overloading-for-vectors" title="Permalink to this heading">¶</a></h2>
+<p>Something that is automatic at glowscript.org for JavaScript programs as well as for VPython programs is the “operator overloading” that permits vector operations such as <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">v</span> <span class="pre">=</span> <span class="pre">v1+v2</span></code>, where <code class="docutils literal notranslate"><span class="pre">v1</span></code> and <code class="docutils literal notranslate"><span class="pre">v2</span> <span class="pre">``are</span> <span class="pre">vectors.</span> <span class="pre">If</span> <span class="pre">you</span> <span class="pre">do</span> <span class="pre">not</span> <span class="pre">use</span> <span class="pre">glowscript.org</span> <span class="pre">to</span> <span class="pre">prepare</span> <span class="pre">your</span> <span class="pre">JavaScript</span> <span class="pre">program,</span> <span class="pre">you</span> <span class="pre">will</span> <span class="pre">need</span> <span class="pre">to</span> <span class="pre">write</span> <span class="pre">this</span> <span class="pre">statement</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">form</span> <span class="pre">``v1.add(v2)</span></code>. Similarly, <code class="docutils literal notranslate"><span class="pre">v1-v2</span></code> would be written <code class="docutils literal notranslate"><span class="pre">v1.sub(v2)</span></code>, <code class="docutils literal notranslate"><span class="pre">5*v</span></code> would be written <code class="docutils literal notranslate"><span class="pre">v.multiply(5)</span></code>, and <code class="docutils literal notranslate"><span class="pre">v/5</span></code> would be written <code class="docutils literal notranslate"><span class="pre">v.divide(5)</span></code>. An alternative is to pass your program through glowscript.org and click “Share or export this program” to obtain an operator-overloaded version of your program.</p>
+</section>
+<section id="new-in-version-3-0">
+<h2>New in version 3.0<a class="headerlink" href="#new-in-version-3-0" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Linkage of axis and size: Starting with version 3.0, JavaScript programs, like VPython programs, link changes in an object’s axis to its size, and changes in its size to its axis. Prior to version 3.0, JavaScript programs did not perform such linkage, and the arrow object had a special attribute <code class="docutils literal notranslate"><span class="pre">axis_and_length</span></code> instead of <code class="docutils literal notranslate"><span class="pre">axis</span></code>. Using <code class="docutils literal notranslate"><span class="pre">axis_and_length</span></code> now will cause an error.</p></li>
+<li><p>Default sphere radius now 1: A related matter is that, for historical reasons, the default radius of a VPython sphere is 1, which is now also the default radius of a JavaScript sphere. Formerly a JavaScript sphere did not have a radius attribute, and its default size was <code class="docutils literal notranslate"><span class="pre">vec(1,1,1)</span></code>, so the radius was 0.5.</p></li>
+</ul>
+</section>
+<section id="javascript-class-constructor-method">
+<h2>JavaScript class constructor method<a class="headerlink" href="#javascript-class-constructor-method" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">C</span> <span class="p">{</span>
+    <span class="n">constructor</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">C</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>      <span class="o">//</span> <span class="n">a</span> <span class="k">class</span> <span class="nc">variable</span>
+        <span class="n">this</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">20</span>  <span class="o">//</span> <span class="n">a</span> <span class="k">class</span> <span class="nc">instance</span> <span class="n">variable</span>
+    <span class="p">}</span>
+    <span class="k">async</span> <span class="n">init</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">this</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sleep...&quot;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="n">this</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">this</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">//</span> <span class="n">displays</span> <span class="mi">10</span> <span class="mi">20</span> <span class="mi">30</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">let</span> <span class="n">a</span> <span class="o">=</span> <span class="n">new</span> <span class="n">C</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">await</span> <span class="n">a</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="passing-methods-as-arguments-to-other-functions">
+<h2>Passing methods as arguments to other functions<a class="headerlink" href="#passing-methods-as-arguments-to-other-functions" title="Permalink to this heading">¶</a></h2>
+<p>Suppose you create a class named C with an instance named c1 and a method c1.m. You might wish to create a reference in the form <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">cm</span> <span class="pre">=</span> <span class="pre">c1.m</span></code> (no parentheses) and pass it to a function <code class="docutils literal notranslate"><span class="pre">f</span></code> in the form <code class="docutils literal notranslate"><span class="pre">f(cm)</span></code>. In that case, you need to write the assignment to cm like this: <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">cm</span> <span class="pre">=</span> <span class="pre">c1.m.bind(c1)</span></code>. Again, this is done automatically for VPython programs.</p>
+</section>
+<section id="a-runnable-html-file">
+<h2>A runnable html file<a class="headerlink" href="#a-runnable-html-file" title="Permalink to this heading">¶</a></h2>
+<p>Web VPython programs may be exported to html.  The following runnable html file is produced from Javascript.  Adjust the version number for the glow library appropriately, then save the following as an .html file and open it in a browser (double-click):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;div id=&quot;glowscript&quot; class=&quot;glowscript&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+&lt;link type=&quot;text/css&quot; href=&quot;https://www.glowscript.org/css/redmond/2.1/jquery-ui.custom.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;link type=&quot;text/css&quot; href=&quot;https://www.glowscript.org/css/ide.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.glowscript.org/lib/jquery/2.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.glowscript.org/lib/jquery/2.1/jquery-ui.custom.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.glowscript.org/package/glow.3.2.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+window.__context = { glowscript_container: $(&quot;#glowscript&quot;).removeAttr(&quot;id&quot;) }
+
+async function __main__() { // async wrapper permits use of await outside your own functions
+
+var vector = vec // optional: makes vector a synonym of the fundamental vec
+let scene = canvas()
+let b = box({color:color.cyan})
+async function f(obj) { // needs async because f() contains an await
+    let t = clock()
+    while (true) {
+        await rate(100)
+        obj.rotate({angle:0.01, axis:vec(0,1,0)})
+        if (clock()-t &gt; 3) break
+    }
+    return 25
+}
+let x = await f(b) // needs await (inside async __main__) because f() contains an await
+print(x)
+} // end of __main__ wrapper
+__main__()
+&lt;/script&gt;
+&lt;/div&gt;
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/programJS.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

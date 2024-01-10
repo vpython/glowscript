@@ -1,0 +1,13 @@
+
+Math Functions and Vectors
+==========================
+
+VPython supports vector operations as well as the basic mathematical functions.
+
+.. toctree::
+   :maxdepth: 1
+   
+   Math Functions <mathfunct>
+   Vector Operations <vector>
+
+

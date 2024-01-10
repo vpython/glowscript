@@ -1,0 +1,51 @@
+.. VPython documentation master file, created by
+   sphinx-quickstart on Thu Nov 23 13:30:59 2023.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+VPython documentation
+=====================
+
+.. raw:: html
+
+    <div>
+    <iframe src="https://vpython.org/presentation2018/bounce.html" width="314" height="339"></iframe>
+    </div>
+
+VPython enables the creation of navigable realtime 3D animations, and supports 3D vector operations.  A web version is available at `webvpython.org <https://webvpython.org>`_. For Python package installation instructions see `vpython.org <https://vpython.org>`_.   
+
+*This new version of the VPython documentation has been reorganized and made searchable.  We hope that you find it easier to use.  In the course of the reorganization, some errors have been corrected, but new errors have inevitably crept into the documentation.  Should you find an error, please report it to the one of the :doc:`user forums <resources>`.*
+
+New to VPython?
+^^^^^^^^^^^^^^^
+
+This Trinket `Welcome to VPython tutorial <https://matter-interactions.trinket.io/00_welcome_to_vpython#/welcome-to-vpython/getting-started>`_ offers an introduction.  
+
+   
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+   
+   3D Objects <objects>
+   Animations <rate>
+   Canvases <canvas>
+   Camera and Lighting <cameraAndLights>
+   Color/Opacity/Glow <colorOpacityGlow>
+   Design New Objects <makeshapes>
+   Files/Libraries <file>
+   Graphs <graph>
+   Math Functions <math>
+   Object Attachments <workwithobjects>
+   Rotation <rotation>
+   Text output <textoutput>
+   Textures <texture>
+   User Input <userinput>
+   VPython/WebVpython <webvs7>
+   VPython license <license>
+   Additional Resources <resources>
+
+   
+..   Package installation <package>
+..   Old Programs <convert>
+
+

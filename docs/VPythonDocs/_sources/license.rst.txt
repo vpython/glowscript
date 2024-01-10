@@ -1,0 +1,50 @@
+
+VPython license
+===============
+
+VPython (c) Copyright 2011, 2023 David Scherer and Bruce Sherwood
+
+.. raw:: html
+
+	<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://vpython.org">VPython</a> by <span property="cc:attributionName">David Scherer and Bruce Sherwood</span> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>
+
+VPython is an open source project.  It is free to use or modify, within the terms of the license.  
+
+History and Contributors
+------------------------
+
+Current developers include:
+Bruce Sherwood, Steve Spicklemire, Matt Craig, and John Coady.  Ruth Chabay works on documentation.
+
+WebVPython uses RapydScript-NG. 
+Copyright (c) 2015-, Kovid Goyal <kovid@kovidgoyal.net>
+Copyright (c) 2013-2014, Alexander Tsepkov <atsepkov@pyjeon.com>
+All rights reserved.
+
+Handling touch events is thanks to jQuery UI Touch Punch of David Furfero.
+See http://touchpunch.furf.com.
+
+(Implementation of spin/rotate/drag was independent of Touch Punch.)
+
+Salvatore di Dio demonstrated in his RapydGlow experiment (http://salvatore.pythonanywhere.com/RapydGlow)
+how he was able to use the RapydScript Python-to-JavaScript compiler with GlowScript graphics.
+This inspired the implementation of the VPython (vpython.org) API at glowscript.org.
+He provided the file papercomp.js for operator overloading, based on the work of Juerg Lehni (PaperScript: http://scratchdisk.com/posts/operator-overloading).
+He also assembled support for operator overloading and the ability to write synchronous code
+    in the file transform-all.js, based on the work of Bruno Jouhier (Streamline: https://github.com/Sage/streamlinejs), and Marijn Haverbeke (Acorn.js: https://github.com/marijnh).
+
+Supporting the VPython API in a browser is possible thanks to the work of Alexander Tsepkov (RapydScript: https://bitbucket.org/pyjeon/rapydscript) and Charles Law (browser-based RapydScript: http://pyjeon.pythonanywhere.com/static/rapydscript_online/index.html) and Kovid Goyal (RapdScript-NG) RapydScript-NG: https://github.com/kovidgoyal/rapydscript-ng
+
+When the GlowScript project was launched in 2011 by David Scherer and Bruce Sherwood,
+Scherer implemented operator overloading and synchronous code using libraries existing at that time.
+In 2015 it became necessary to upgrade to newer libraries because compilation failed on some browsers.
+
+Tessellation with multiple holes, JavaScript version: https://github.com/r3mi/poly2tri.js
+For explanation of poly2tri, see http://sites-final.uclouvain.be/mema/Poly2Tri
+
+Font manipulation: https://github.com/nodebox/opentype.js
+Public-domain sans serif font Roboto-Medium.ttf from http://www.1001freefonts.com/roboto.font
+Public-domain serif font NimbusRomNo9L-Med.otf from http://www.1001fonts.com/nimbus-roman-no9-l-font.html
+
+
+

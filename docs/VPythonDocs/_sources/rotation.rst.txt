@@ -1,0 +1,38 @@
+
+Rotation
+========
+
+..  image:: /images/rotated_box.png
+	:width: 150px
+
+rotate() method
+---------------
+
+Graphical objects may be rotated by invoking the *rotate()* method of the object:
+
+..	py:function::  myobject.rotate(axis=vec(0,1,0), angle=pi/3, origin=vec(0,0,0) )
+
+	:param axis: The axis about which the object is to be rotated. Default is ``myobject.axis``.
+	:type axis: vector
+	:param angle: The angle of rotation in radians, counterclockwise using a right-hand rule (thumb in direction of rotation axis, fingers curl in direction of rotation).
+	:type angle: scalar
+	:param origin: The rotation axis goes through the origin. Default is ``myobject.pos``.
+	:type origin: vector
+
+rotate() function
+-----------------
+
+Alternatively, the ``rotate()`` function works the same way:
+
+..	py:function::  rotate(myobject, axis=vec(0,1,0), angle=pi/3, origin=vec(0,0,0) )
+
+	:param firstargument: Object name.
+	:type firstargument: object
+	:param axis: The axis about which the object is to be rotated. Default is ``myobject.axis``.
+	:type axis: vector
+	:param angle: The angle of rotation in radians, counterclockwise using a right-hand rule (thumb in direction of rotation axis, fingers curl in direction of rotation).
+	:type angle: scalar
+	:param origin: The rotation axis goes through the origin. Default is ``myobject.pos``.
+	:type origin: vector
+
+Vectors may also be rotated, see :doc:`vectors <vector>`.

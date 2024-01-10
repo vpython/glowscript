@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The Camera &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lights" href="light.html" />
+    <link rel="prev" title="Lighting and Viewing the Scene" href="cameraAndLights.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="the-camera">
+<h1>The Camera<a class="headerlink" href="#the-camera" title="Permalink to this heading">¶</a></h1>
+<p>Every canvas, including the default canvas <em>scene</em>, contains a camera.  By default, the camera points at the center of the scene, and zooms in or out to get all objects into its field of view.  Also by default, the user can zoom in or out, rotate the camera around the scene, and pan up and down or left and right.</p>
+<section id="user-control-of-the-camera">
+<h2>User control of the camera<a class="headerlink" href="#user-control-of-the-camera" title="Permalink to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">scene.userzoom</span> <span class="pre">=</span> <span class="pre">True</span></code>  User can zoom in and out of the scene. Default <em>True</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.userspin</span> <span class="pre">=</span> <span class="pre">True</span></code> User can rotate camera.  Default <em>True</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.userpan</span> <span class="pre">=</span> <span class="pre">True</span></code>  User can pan across the scene. Default <em>True</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.autoscale</span> <span class="pre">=</span> <span class="pre">True</span></code>  Camera automatically zooms out to keep all objects in view. Default <em>True</em></p>
+</section>
+<section id="program-control-of-the-view">
+<h2>Program control of the view<a class="headerlink" href="#program-control-of-the-view" title="Permalink to this heading">¶</a></h2>
+<figure class="align-default" id="id1">
+<a class="reference internal image-reference" href="_images/camera.png"><img alt="_images/camera.png" src="_images/camera.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-text">The diagram above depicts the attributes of <em>scene</em> discussed below and indicates their relationships.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">scene.center</span></code>  Location toward which the camera continually looks.  Default &lt;0,0,0&gt;.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.forward</span></code>  Vector pointing in the direction in which the camera points. Default &lt;0,0,-1&gt;. Magnitude of this vector is ignored.  If <em>scene.forward</em> is changed, the camera is moved to a position from which <em>scene.forward</em> points at <em>scene.center</em>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.range</span></code>  Distance from <code class="docutils literal notranslate"><span class="pre">scene.center</span></code> to edge of canvas.  For a rectangular canvas <em>range</em> is the shorter of the two possible distances (the <em>y</em> direction for a canvas that is wider than it is tall).</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.fov</span></code> Field of view of the camera in radians.  Changes automatically if <em>scene.autoscale</em> is <em>True</em>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.up</span></code> A vector perpendicular to <em>scene.forward</em>. By default &lt;0,1,0&gt;. Changing <em>scene.up</em> rotates the camera around the z axis.</p>
+</section>
+<section id="manipulating-the-camera-directly">
+<h2>Manipulating the camera directly<a class="headerlink" href="#manipulating-the-camera-directly" title="Permalink to this heading">¶</a></h2>
+<img alt="_images/camera2.png" src="_images/camera2.png" />
+<p>You may need to manipulate the camera directly if, for example, you are doing a fly-through of the scene:</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.camera.pos</span></code>  The position of the camera.  Changes automatically if <em>scene.autoscale</em> is <em>True</em>. Changing <em>scene.camera.pos</em> changes <em>scene.center</em> to <em>scene.camera.pos + scene.camera.axis</em>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.camera.axis</span></code> The current direction in which the camera is pointing.  <em>scene.camera.axis = scene.center - scene.camera.pos</em>. Changing <em>scene.camera.axis</em> changes <em>scene.forward</em> and <em>scene.center</em>.  NOTE: it is possible to point the camera in a direction in which there is nothing to see.</p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.camera.rotate(angle=myangle,</span> <span class="pre">axis=myaxis,</span> <span class="pre">origin=myorigin)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">scene.camera.follow(myobject)</span></code> Resets the center of the scene to the current position of <em>myobject</em>.  To turn off following set: <code class="docutils literal notranslate"><span class="pre">scene.camera.follow(None)</span></code>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="canvas.html"><span class="doc">canvas</span></a>; Rotation</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="light.html">Lighting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="cameraAndLights.html">Lighting and Viewing the Scene</a><ul>
+      <li>Previous: <a href="cameraAndLights.html" title="previous chapter">Lighting and Viewing the Scene</a></li>
+      <li>Next: <a href="light.html" title="next chapter">Lights</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/camera.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

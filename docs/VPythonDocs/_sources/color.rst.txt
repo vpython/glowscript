@@ -1,0 +1,58 @@
+=====
+color
+=====
+
+.. image:: /images/colors.png
+
+Every graphical object has a :py:attr:`color`.  The attribute :py:attr:`color` is a vector whose components are ``R`` (red), ``G`` (green), and ``B`` (blue).   You can specify your own color by specifying RGB components, or you can use one of the colors from the VPython library:
+
+
+* ``color.white`` is defined as ``vec(1,1,1)``  
+* ``color.red`` is defined as ``vec(1,0,0)``
+* ``color.green`` is defined as ``vec(0,1,0)``
+* ``color.blue`` is defined as ``vec(0,0,1)``
+* ``color.cyan`` is defined as ``vec(0,1,1)``
+* ``color.magenta`` is defined as ``vec(1,0,1)``
+* ``color.yellow`` is defined as ``vec(1,1,0)``
+* ``color.orange`` is defined as ``vec(1,0.6,0)``
+* ``color.purple`` is defined as ``vec(0.4,0.2,0.6)``
+* ``color.black`` is defined as ``vec(0,0,0)``
+
+
+In the RGB color system, a color is specified in terms of fractions of red, green, and blue, corresponding to the intensity of the tiny red, green, and blue dots of the computer screen. In the RGB scheme, white is the color with a maximum of red, blue, and green (1, 1, 1). Black has minimum amounts (0, 0, 0). The brightest red is represented by (1, 0, 0); that is, it has the full amount of red, no green, and no blue.
+	
+In addition to the colors in the color library you can also create your own colors, such as these:
+
+``vector(0.5, 0.5, 0.5)`` a rather dark gray
+Alternatively you can say ``color=color.gray(0.5)`` or ``color.white*0.5`` to mean ``vec(0.5,0.5,0.5)``
+
+``vector(1,0.7,0.2)`` a coppery color
+
+Colors may appear differently on different computers, and under different 3D lighting conditions. The named colors above are most likely to display appropriately, because RGB values of 0 or 1 are unaffected by differing color corrections ("gamma" corrections).
+
+The VPython demo program `Color-RGB-HSV <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython>`_ lets you adjust RGB sliders to visualize colors and print color triples that you copy into your program. It also provides HSV sliders to adjust hue, saturation, and value.
+
+------------------------------------------------
+Converting between RGB and HSV color descriptors
+------------------------------------------------
+
+HSV (hue, saturation, and value) is an alternate scheme for describing colors. Although VPython only accepts RGB colors, there are functions for converting between RGB and HSV.
+
+.. py:function:: color.rgb_to_hsv(c)
+
+The argument c is a vector representing a color.
+
+.. py:function:: color.hsv_to_rgb(c)
+	
+.. code-block:: python
+
+  c = vector(1,1,0)
+  c2 = color.rgb_to_hsv(c) # convert RGB to HSV
+  print(hsv) # vector(0.16667, 1, 1)
+  c3 = color.hsv_to_rgb(c2) # convert back to RGB
+  print(c3) # vector(1, 1, 0)
+
+The functions can be embedded in object constructors.  For example:
+
+``sphere( radius=2, color=color.hsv_to_rgb(vector (0.5,1,0.8) )``
+

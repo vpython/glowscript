@@ -1,0 +1,111 @@
+
+Textures and Bumpmaps
+=====================
+
+..	image:: /images/texture.jpg
+	:width: 200px
+
+Textures
+--------
+
+Applying a texture to a 3D object involves mapping a flat 2D image to a 3D surface. Without a texture, one cannot tell that a sphere is spinning on its axis. Textures and bumpmaps can also aid in perception of depth.
+
+*texture* is an attribute of most VPython objects.  The image above was produced by this statement:
+
+..	py:function:: mybox = box( texture=textures.stucco )
+	:noindex:
+
+Built-in Textures
+^^^^^^^^^^^^^^^^^
+
+Built-in textures include granite, gravel, metal, rock, stones, and wood. For a complete set of the built-in VPython textures, see the example program `Textures <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures-VPython>`_.
+
+Creating a Texture
+^^^^^^^^^^^^^^^^^^
+
+The width and height (in pixels) of an image used as a texture should be powers of 2. If they aren't, the image will be stretched to the next larger size that is a power of 2.
+
+Texture Alignment
+^^^^^^^^^^^^^^^^^
+
+Textures can be rotated before placement, and applied to selected sides of an object. The details of the texture can be specified as a dictionary:
+
+..	py:function:: bb = box( texture={'file':textures.stucco,
+                       'bumpmap': bumpmaps.stucco
+					   'place': ['right', 'sides'],
+					   'flipx': True, 'flipy': True, 'turn': -3 } )
+
+	:param texture: In this case, a dictionary specifying many options.
+	:type texture: dictionary
+
+The options include:
+
+* flipx or flipy: If True, texture is reflected across specified axis (think of reflections in a pond).
+* turn: Number of 90 degree rotations to perform. If negative, rotation is clockwise.
+* place: Options are 'left', 'right', 'sides', 'ends', 'all'.  Applies only to flat sides.
+
+Color
+^^^^^
+
+If you specify a color other than color.white for a textured object, that color is blended with the texture color. If only part of the object is textured, blending doesn't occur.
+
+Texture Loading Time
+^^^^^^^^^^^^^^^^^^^^
+
+It may take some time to load a texture from a specified file.  If it is important to wait for all textures to be loaded before displaying the scene, you can use:
+
+..	py:function:: scene.waitfor("textures")
+	:noindex:
+
+One possible sequence to use is:
+
+..	code-block::
+
+	scene.visible = False  # display nothing
+	# create objects here
+	scene.waitfor("textures")
+	scene.visible = True # now display everything
+
+To see if the texture for a particular object has been loaded, you can check **myobject.ready**, which is True if the texture has been loaded.
+
+Textured objects are not displayed until the texture has been loaded. If you don't wait with scene.waitfor("textures"), you may see objects become visible in a random sequence, depending on when the various textures have been loaded.
+
+To remove a texture: ``myobject.texture = None``
+
+Bumpmaps
+--------
+
+Bump maps make small distortions in a surface to give the appearance of a non-smooth surface. There are several kinds of bump maps, but the type of bump map currently supported in VPython is a "normals map", in which the normals (perpendiculars) to the surface, which affect the lighting of the surface, are varied across a surface in such a way that the surface no longer seems smooth. When you move the surface or the lights you will see an enhanced 3D effect. Bump maps can be produced from images by using computer tools made for this purpose, and a few bumpmaps have been provided in VPython. For example, bumpmaps.stucco is a normals map that enhances the 3D appearance of textures.stucco. Here is the statement that adds the built-in bump map to the built-in texture:
+
+box(texture={'file':textures.stucco,
+        'bumpmap':bumpmaps.stucco})
+
+The example program `Bumpmaps <https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bumpmaps-VPython>`_ lets you move the lighting around as well as rotate the object so that you can see the effects of adding a bumpmap.
+
+The bump maps currently available are bumpmaps.gravel (to accompany textures.gravel), bumpmaps.rock (to accompany textures.rock), bumpmaps.stones (to accompany textures.stones), bumpmaps.stucco (to accompany textures.stucco), and bumpmaps.wood_old (to accompany textures.wood_old).
+
+
+Accessing Textures and Bumpmaps
+-------------------------------
+
+Web Vpython
+^^^^^^^^^^^
+
+In **WebVPython**, textures must be loaded from CORS-enabled ("Cross-Origin Resource Sharing") websites, because of browser restrictions on accessing local files.
+
+For example:
+
+texture="https://s3.amazonaws.com/glowscript/textures/flower_texture.jpg" will fetch an image of a cactus flower.
+
+There is a CORS-enabled site, https://imgur.com, that has extensive galleries of freely usable images. When you see an image you want, right-click the image (Mac Ctrl-click), choose "Copy image address", and paste the address into your texture specification, bracketed by quotation marks. You can upload an image to i.imgur.com by clicking "New post". Apparently you have to register in order to be able to access your image as CORS-enabled.
+
+If you export your program to JavaScript and embed it in an iframe, you can read textures from the same website.
+
+vpython module
+^^^^^^^^^^^^^^
+
+In Python with the vpython module, you can load a texture from your local computer. The texture must be in the same directory as your program file, or a subdirectory of it.  You can say ``texture='images/mytexture.jpg``.  To make textures widely available on your local machine, put them in .``../Lib/site-packages/vpython/vpython_data``.
+
+For Jupyter notebook use ``/nbextensions/vpython_data``
+
+

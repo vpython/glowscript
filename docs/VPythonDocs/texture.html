@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Textures and Bumpmaps &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Input" href="userinput.html" />
+    <link rel="prev" title="LaTeX Math Display" href="latexmath.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="textures-and-bumpmaps">
+<h1>Textures and Bumpmaps<a class="headerlink" href="#textures-and-bumpmaps" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/texture.jpg"><img alt="_images/texture.jpg" src="_images/texture.jpg" style="width: 200px;" /></a>
+<section id="textures">
+<h2>Textures<a class="headerlink" href="#textures" title="Permalink to this heading">¶</a></h2>
+<p>Applying a texture to a 3D object involves mapping a flat 2D image to a 3D surface. Without a texture, one cannot tell that a sphere is spinning on its axis. Textures and bumpmaps can also aid in perception of depth.</p>
+<p><em>texture</em> is an attribute of most VPython objects.  The image above was produced by this statement:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">mybox</span> <span class="pre">=</span> <span class="pre">box(</span> <span class="pre">texture=textures.stucco</span> <span class="pre">)</span></span></dt>
+<dd></dd></dl>
+
+<section id="built-in-textures">
+<h3>Built-in Textures<a class="headerlink" href="#built-in-textures" title="Permalink to this heading">¶</a></h3>
+<p>Built-in textures include granite, gravel, metal, rock, stones, and wood. For a complete set of the built-in VPython textures, see the example program <a class="reference external" href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Textures-VPython">Textures</a>.</p>
+</section>
+<section id="creating-a-texture">
+<h3>Creating a Texture<a class="headerlink" href="#creating-a-texture" title="Permalink to this heading">¶</a></h3>
+<p>The width and height (in pixels) of an image used as a texture should be powers of 2. If they aren’t, the image will be stretched to the next larger size that is a power of 2.</p>
+</section>
+<section id="texture-alignment">
+<h3>Texture Alignment<a class="headerlink" href="#texture-alignment" title="Permalink to this heading">¶</a></h3>
+<p>Textures can be rotated before placement, and applied to selected sides of an object. The details of the texture can be specified as a dictionary:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">bb</span> <span class="pre">=</span> <span class="pre">box(</span> <span class="pre">texture={'file':textures.stucco,</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">'bumpmap':</span> <span class="pre">bumpmaps.stucco</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">'place':</span> <span class="pre">['right',</span> <span class="pre">'sides'],</span></span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">'flipx':</span> <span class="pre">True,</span> <span class="pre">'flipy':</span> <span class="pre">True,</span> <span class="pre">'turn':</span> <span class="pre">-3</span> <span class="pre">}</span> <span class="pre">)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>texture</strong> (<em>dictionary</em>) – In this case, a dictionary specifying many options.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The options include:</p>
+<ul class="simple">
+<li><p>flipx or flipy: If True, texture is reflected across specified axis (think of reflections in a pond).</p></li>
+<li><p>turn: Number of 90 degree rotations to perform. If negative, rotation is clockwise.</p></li>
+<li><p>place: Options are ‘left’, ‘right’, ‘sides’, ‘ends’, ‘all’.  Applies only to flat sides.</p></li>
+</ul>
+</section>
+<section id="color">
+<h3>Color<a class="headerlink" href="#color" title="Permalink to this heading">¶</a></h3>
+<p>If you specify a color other than color.white for a textured object, that color is blended with the texture color. If only part of the object is textured, blending doesn’t occur.</p>
+</section>
+<section id="texture-loading-time">
+<h3>Texture Loading Time<a class="headerlink" href="#texture-loading-time" title="Permalink to this heading">¶</a></h3>
+<p>It may take some time to load a texture from a specified file.  If it is important to wait for all textures to be loaded before displaying the scene, you can use:</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">scene.</span></span><span class="sig-name descname"><span class="pre">waitfor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">&quot;textures&quot;</span></span></em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<p>One possible sequence to use is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scene</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># display nothing</span>
+<span class="c1"># create objects here</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">waitfor</span><span class="p">(</span><span class="s2">&quot;textures&quot;</span><span class="p">)</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># now display everything</span>
+</pre></div>
+</div>
+<p>To see if the texture for a particular object has been loaded, you can check <strong>myobject.ready</strong>, which is True if the texture has been loaded.</p>
+<p>Textured objects are not displayed until the texture has been loaded. If you don’t wait with scene.waitfor(“textures”), you may see objects become visible in a random sequence, depending on when the various textures have been loaded.</p>
+<p>To remove a texture: <code class="docutils literal notranslate"><span class="pre">myobject.texture</span> <span class="pre">=</span> <span class="pre">None</span></code></p>
+</section>
+</section>
+<section id="bumpmaps">
+<h2>Bumpmaps<a class="headerlink" href="#bumpmaps" title="Permalink to this heading">¶</a></h2>
+<p>Bump maps make small distortions in a surface to give the appearance of a non-smooth surface. There are several kinds of bump maps, but the type of bump map currently supported in VPython is a “normals map”, in which the normals (perpendiculars) to the surface, which affect the lighting of the surface, are varied across a surface in such a way that the surface no longer seems smooth. When you move the surface or the lights you will see an enhanced 3D effect. Bump maps can be produced from images by using computer tools made for this purpose, and a few bumpmaps have been provided in VPython. For example, bumpmaps.stucco is a normals map that enhances the 3D appearance of textures.stucco. Here is the statement that adds the built-in bump map to the built-in texture:</p>
+<dl class="simple">
+<dt>box(texture={‘file’:textures.stucco,</dt><dd><p>‘bumpmap’:bumpmaps.stucco})</p>
+</dd>
+</dl>
+<p>The example program <a class="reference external" href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Bumpmaps-VPython">Bumpmaps</a> lets you move the lighting around as well as rotate the object so that you can see the effects of adding a bumpmap.</p>
+<p>The bump maps currently available are bumpmaps.gravel (to accompany textures.gravel), bumpmaps.rock (to accompany textures.rock), bumpmaps.stones (to accompany textures.stones), bumpmaps.stucco (to accompany textures.stucco), and bumpmaps.wood_old (to accompany textures.wood_old).</p>
+</section>
+<section id="accessing-textures-and-bumpmaps">
+<h2>Accessing Textures and Bumpmaps<a class="headerlink" href="#accessing-textures-and-bumpmaps" title="Permalink to this heading">¶</a></h2>
+<section id="web-vpython">
+<h3>Web Vpython<a class="headerlink" href="#web-vpython" title="Permalink to this heading">¶</a></h3>
+<p>In <strong>WebVPython</strong>, textures must be loaded from CORS-enabled (“Cross-Origin Resource Sharing”) websites, because of browser restrictions on accessing local files.</p>
+<p>For example:</p>
+<p>texture=”<a class="reference external" href="https://s3.amazonaws.com/glowscript/textures/flower_texture.jpg">https://s3.amazonaws.com/glowscript/textures/flower_texture.jpg</a>” will fetch an image of a cactus flower.</p>
+<p>There is a CORS-enabled site, <a class="reference external" href="https://imgur.com">https://imgur.com</a>, that has extensive galleries of freely usable images. When you see an image you want, right-click the image (Mac Ctrl-click), choose “Copy image address”, and paste the address into your texture specification, bracketed by quotation marks. You can upload an image to i.imgur.com by clicking “New post”. Apparently you have to register in order to be able to access your image as CORS-enabled.</p>
+<p>If you export your program to JavaScript and embed it in an iframe, you can read textures from the same website.</p>
+</section>
+<section id="vpython-module">
+<h3>vpython module<a class="headerlink" href="#vpython-module" title="Permalink to this heading">¶</a></h3>
+<p>In Python with the vpython module, you can load a texture from your local computer. The texture must be in the same directory as your program file, or a subdirectory of it.  You can say <code class="docutils literal notranslate"><span class="pre">texture='images/mytexture.jpg</span></code>.  To make textures widely available on your local machine, put them in .``../Lib/site-packages/vpython/vpython_data``.</p>
+<p>For Jupyter notebook use <code class="docutils literal notranslate"><span class="pre">/nbextensions/vpython_data</span></code></p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Textures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#textures">Textures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bumpmaps">Bumpmaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-textures-and-bumpmaps">Accessing Textures and Bumpmaps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userinput.html">User Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="latexmath.html" title="previous chapter">LaTeX Math Display</a></li>
+      <li>Next: <a href="userinput.html" title="next chapter">User Input</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/texture.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

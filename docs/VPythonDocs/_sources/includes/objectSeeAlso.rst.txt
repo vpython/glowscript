@@ -1,0 +1,2 @@
+
+.. seealso:: Rotation; :doc:`Color<color>`; :doc:`emissive<emissive>`; Attaching a trail.

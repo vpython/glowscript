@@ -1,0 +1,51 @@
+
+Math Functions
+==============
+
+The **vpython** package for installed Python imports the Python *math* module (``from math import *``).
+
+In Web VPython the following math functions are provided:
+
+.. code-block::
+
+	abs(x)
+	sqrt(x)
+	sin(x)
+	cos(x)
+	tan(x)
+	asin(x)    # arc sine
+	acos(x)    # arc cosine
+	atan(x)    # arc tangent; -pi/2 to pi/2
+	atan2(y,x) # angle whose tangent is y/x; -pi to pi
+	sqrt(x)    # square root
+	exp(x)     # e to the x
+	log(x)     # natural log, base e
+	log10(x)   # log base 10
+	pow(x,y)   # x to the power y, alternative to x**y notation
+	pi         # 3.14159....
+	ceil(x)    # round up to nearest integer
+	floor(x)   # round down to nearest integer
+	sign(x)    # +1 if x > 0, -1 if x < 0, 0 if x == 0
+	round(x,N) # round x to nearest integer; optional N decimal places 
+	max(x,y,z) # the largest of x,y,z
+	min(x,y,z) # the smallest of x,y,z
+	random()   # pseudorandom number 0 to 1
+	factorial(x)  # x! = x*(x-1)*(x-2)....(1)
+	combin(x,y)   # x!/(y!*(x-y)!)
+	max(a,b,c,..) # maximum of these
+	min(a,b,c,..) # minimum of these
+	radians(theta) # converts theta from degrees to radians
+	degrees(phi)  # converts phi from degrees to radians
+	clock()    # from the Python time module
+	msclock()  # time in ms instead of s
+	arange()  # the numpy arange() function
+
+Many of these are based on the JavaScript Math functions. 
+
+Although in general it is not possible to import Python modules into Web VPython programs, an exception is the *random* module, which has been transpiled to a JavaScript library.  In Web VPython use the syntax:
+
+``import random as rr``  or	``from random import randint, uniform``.  
+
+
+
+

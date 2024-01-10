@@ -1,0 +1,58 @@
+
+Buttons
+=======
+
+..  image:: /images/button.png
+	:width: 250px
+
+Buttons are widgets that can be placed either in the title area or the caption area of a canvas.  A click on a button invokes a function that can perform actions, including changing the text of the button or disabling it.
+
+..  py:function:: mybutton = button( bind=myaction, text='Click me!' )
+
+	:param bind: The function to be called when the button is clicked.
+	:type bind: function
+	:param text: Text to appear on the button
+	:type text: string
+	:param pos: Location of button. Default is scene.caption_anchor.
+	:type pos: attribute of canvas
+	:param color: Color of button text. Modifiable.
+	:type color: vector
+	:param background: Color of button background. Modifiable.
+	:type background: vector
+	:param disabled: If True, button is grayed out and does not respond.
+	:type disabled: boolean
+	:param delete(): ``mybutton.delete()`` deletes the button.
+	:type delete: method
+
+A button that changes its own color and the color of a sphere:
+
+..	code-block::
+
+	ball = sphere(color=color.cyan)
+
+	def changecolor(evt):
+		if evt.text == 'red':
+			ball.color=color.red
+			clrbtn.background = color.cyan
+			clrbtn.text = 'cyan'
+		else:
+			ball.color=color.cyan
+			clrbtn.text = 'red'
+			clrbtn.background = color.red
+
+	clrbtn = button( bind=changecolor, text='red', background=color.red )
+
+Button Event Attributes
+-----------------------
+
+The argument of the event handler function ('evt', in the code above) will have the following attributes (properties of the button at the time it was clicked):
+
+* ``evt.text``
+* ``evt.color``
+* ``evt.background``
+* ``evt.disabled``
+
+Additionally, any attributes you have created for the widget (for example, ``name`` or ``id``), will be available as attributes of ``evt``.
+
+.. include:: ./eventseealso.rst
+

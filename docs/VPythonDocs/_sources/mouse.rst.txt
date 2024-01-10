@@ -1,0 +1,134 @@
+
+
+Mouse Input
+===========
+
+..	contents::
+
+Clicking or dragging the mouse generates events. VPython does not currently handle right button or middle button events.
+
+scene.pause
+-----------
+
+The simplest use of the mouse is to pause and wait for a mouse click:
+
+..	py:function:: myevt = scene.pause()
+
+A white triangle is displayed in the canvas to indicate that the program is paused, waiting for a mouse click. When the mouse is clicked, the variable ``myevt`` will have the following attributes:
+
+* ``myevt.event``   Type of event; will be "click".
+* ``myevt.pageX``  The x-coordinate of the mouse position in pixels; (0,0) is in the upper left corner.
+* ``myevt.pageY``  The y-coordinate of the mouse position in pixels.
+* ``myevt.pos`` The position of the mouse in world coordinates (a vector)
+* ``myevt.which`` is the mouse button indicator (mouse is always 1 for now).
+
+..	_waitfor:
+
+scene.waitfor()
+---------------
+
+Using ``scene.waitfor()`` allows you to specify the type of event (which, in addition to the mouse events listed below, can involve keypresses or even redraw events).  A ``scene.waitfor()`` pauses the program until the particular event occurs.
+
+..	py:function:: myevt = scene.waitfor('click')
+
+	:param argument: Event(s) for which to wait.
+	:type argument: string
+
+Possible arguments are:
+
+* ``click``  Wait for mouse button click.
+* ``mousedown`` Wait for mouse button press.
+* ``mouseup``  Wait for mouse button release.
+* ``mousemove``  Wait for mouse to move.
+* ``mouseenter`` Wait for mouse to move into canvas.
+
+Multiple arguments may be combined, for example `mousedown mousemove`.
+
+The variable ``myevt`` will have the following attributes:
+
+* ``myevt.event``  Type of event.
+* ``myevt.pageX``  The x-coordinate of the mouse position in pixels; (0,0) is in the upper left corner.
+* ``myevt.pageY``  The y-coordinate of the mouse position in pixels.
+* ``myevt.pos`` The position of the mouse in world coordinates (a vector)
+* ``myevt.canvas`` The canvas in which the event occured. 
+* ``myevt.which`` is the mouse button indicator (mouse is always 1 for now).
+
+scene.mouse()
+-------------
+
+Information about the current state of the mouse is available in ``scene.mouse()``, which can be interrogated at any time.
+
+..	py:function:: mickey = scene.mouse()
+
+	:param pos: Is the current 3D position of the mouse cursor.  This is always at a location in the plane parallel to the screen, passing through ``scene.center``.
+	:type pos: vector
+	:param pick: The object (if any) on which the mouse cursor currently rests.  If the cursor rests on a box named *cube* then ``scene.mouse.pick == cube`` will be True.  Some objects are *not* pickable:  label, helix, and curves, spheres, and arrows created by ``make_trail``, ``attach_trail``, and ``attach_arrow``.
+	:type pick: object
+	:param ray: A unit vector from the camera to the mouse cursor.
+	:type ray: vector
+	:param alt: True if the ALT key is down.
+	:type alt: boolean
+	:param ctrl: True if the CTRL key is down.
+	:type ctrl: boolean
+	:param shift: True if the SHIFT key is down.
+	:type shift: boolean
+
+scene.mouse.project()
+---------------------
+
+This returns the 3D position of the mouse cursor when projected onto a plane that is parallel to the specified normal, and passes through the point specified.  Returns None if there is no intersection with the plane.
+
+..	py:function::  mypos = scene.mouse.project( normal=vec(0,1,0), point=vec(0,3,0) )
+
+	:param normal: A unit vector normal to the plane onto which the cursor is to be projected.
+	:type normal: vector
+	:param point: A point through which the projection plane passes.  Default is <0, 0, 0>.
+	:type point: vector
+	:param d: Alternative to *point*. Distance from origin to the projection plane.
+	:type d: scalar
+
+The following program allows the user to leave a trail of spheres in a plane parallel to the *xz* plane by moving the mouse with the mouse button up:
+
+..	code-block::
+
+	xax = curve(pos=[ vec(-3,0,0), vec(3,0,0) ] )
+	yax = curve(pos=[ vec(0, -3,0), vec(0,3,0) ] )
+	zax = curve(pos=[ vec(0, 0, -3), vec(0,0,3) ] )   
+	bb = box(pos=vec(0,2,0), size=vec(4,0.01,4), opacity=0.5)
+
+	scene.autoscale = False
+	while True:
+		rate(30)
+		mpos = scene.mouse.project( normal=vec(0,1,0), point=vec(0,2,0) 
+		if mpos != None:
+			sphere(pos=mpos, radius=0.1, color=color.green)
+
+Mouse Event Handlers
+---------------------
+
+A mouse event can be bound to a function.
+
+..	py:function:: scene.bind('click', newcolor)
+	:noindex:
+
+	:param firstargument: Event type. May be 'click', 'mousedown', 'mousemove', 'mouseup'. 
+	:type firstargument: string
+	:param secondargument: Name of function to be called when mouse event occurs.
+	:type secondargument: function
+
+The following code allows the user to change the color of the sphere by clicking anywhere in the canvas:
+
+..	code-block::
+
+	s = sphere(color=color.cyan)
+
+	def change():
+		if s.color.equals(color.cyan):
+			s.color = color.red
+		else:
+			s.color = color.cyan
+
+	scene.bind('click', change)
+
+
+.. include:: ./eventseealso.rst

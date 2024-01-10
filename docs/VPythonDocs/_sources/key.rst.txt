@@ -1,0 +1,62 @@
+
+Key Input
+=========
+
+This section deals with single or combined keypress input.  For input involving typing longer strings, see :doc:`Text Input<textinput>`.
+
+See :ref:`Event Handling` for a discussion of the basics of dealing with input.
+
+Jupyter notebook limitation: Key events are swallowed by the Jupyter notebook as part of the user interface and are not available to a VPython program.
+
+What Keys are Down?
+-------------------
+
+More than one key may be down at once.  The ``keysdown()`` function provides a list of all keys that are currently down.
+
+..	py:function:: mykeys = keysdown()  # a list of keys
+
+Keynames include:
+
+* single characters for alphanumeric keys, e.g. 'b'
+* function keys 'f1' through 'f10'
+* 'backspace'
+* 'caps lock'
+* 'tab'
+* 'shift'
+* 'ctrl'
+* 'alt'
+* 'pageup'
+* 'pagedown'
+* 'end'
+* 'home'
+* 'left'  (left arrow)
+* 'right' (right arrow)
+* 'down'  (down arrow)
+* 'up'  (up arrow)
+* 'insert'
+* 'delete'
+* 'break'  
+
+Typing into a Label
+^^^^^^^^^^^^^^^^^^^
+
+The ``input()`` and ``winput()`` commands allow the processing of longer user input.
+
+The test routine below lets the user type text one character at a time into a label:
+
+..	code-block::
+
+    prose = label() # initially blank text
+
+    def keyInput(evt):
+        s = evt.key
+        if len(s) == 1: # includes enter ('\n')
+            prose.text += s # append new character
+        elif ( s == 'delete' or s is 'backspace' ) and len(prose.text) > 0:
+            prose.text = prose.text[:-1] # erase letter
+
+    scene.bind('keydown', keyInput)
+
+
+.. include:: ./eventseealso.rst
+

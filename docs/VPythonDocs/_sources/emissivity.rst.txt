@@ -1,0 +1,11 @@
+========
+emissive
+========
+
+.. image:: images/emissive.png
+
+:py:attr:`emissive` is a boolean parameter whose value can be True or False.  An object with ``emissive=True`` glows -- that is, its color is brighter than it would be due to available lighting.  An emissive object can look like a light. In the image above, the object on the right is emissive.
+
+Curve and helix objects cannot be emissive.
+
+See also: Lighting 

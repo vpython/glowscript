@@ -1,0 +1,45 @@
+
+attach_arrow()
+==============
+
+Arrows are often used to visualize vectors such as the velocity of a moving object, or the force acting on the object.  *attach_arrow* allows automatic updating of the position, direction, and size of the arrow as the object moves.
+
+.. figure:: images/attach_arrow.png
+	
+   An arrow representing velocity is attached to a bouncing ball.
+
+Caveats:
+
+* The quantity to be visualized must be a vector attribute of the moving object.
+* The value of the quantity must be updated by the code as the object moves.
+* To keep the cross section of the arrow constant, set *shaftwidth*.
+
+.. py:function:: attach_arrow( ball, "velocity", color=color.green, scale=10, shaftwidth=ball.radius/3 )
+
+   :param firstargument: Object to which to attach the arrow (*ball* in example above).
+   :type firstargument: object
+   :param secondargument: Name of vector attribute to be represented by the arrow ("velocity" in example above). 
+   :type secondargument: string
+   :param scale: Quantity by which to multiply the attribute in order to adjust the magnitude of the axis of the arrow.
+   :type scale: scalar
+   :param color: Default is the color of the object to which the arrow is attached.
+   :type color: vector
+   :param shaftwidth: Cross section of the tail of the arrow.
+   :type round: scalar
+
+Turning *attach_arrow* off and on
+---------------------------------
+
+To start and stop displaying the arrow:
+
+.. code::
+
+	ball = sphere(color=color.yellow, velocity=vec(0,0,0) )
+	myarrow = attach_arrow( ball, "velocity", scale=2.0)
+	...
+	myarrow.stop()  # stops arrow display
+	...
+	myarrow.start() # restarts arrow display
+   
+
+.. seealso:: :doc:`arrow<arrow>`

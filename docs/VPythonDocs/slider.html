@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Sliders &#8212; VPython 3.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Positioning a Widget" href="widgetPosition.html" />
+    <link rel="prev" title="Text Input" href="textinput.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="sliders">
+<h1>Sliders<a class="headerlink" href="#sliders" title="Permalink to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="_images/slider.png"><img alt="_images/slider.png" src="_images/slider.png" style="width: 250px;" /></a>
+<p>Sliders are widgets that give a numerical value.  Dragging a slider invokes a function (an event handler). The attributes below are labeled “not modifiable” if they cannot be modified after creating the slider.  The demo program <a class="reference external" href="https://www.glowscript.org/#/user/GlowScriptDemos/folder/Examples/program/Color-RGB-HSV-VPython">Color-RBG-HSV</a> uses multiple sliders to adjust colors.</p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">myslider</span> <span class="pre">=</span> <span class="pre">slider(</span> <span class="pre">bind=myaction,</span> <span class="pre">min=0,</span> <span class="pre">max=50</span> <span class="pre">)</span></span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bind</strong> (<em>function</em>) – The function to be called when the button is clicked.</p></li>
+<li><p><strong>min</strong> (<em>scalar</em>) – The minimum value of the slider. Default is 0. Not modifiable.</p></li>
+<li><p><strong>max</strong> (<em>scalar</em>) – The maximum value of the slider. Default is 1. Not modifiable.</p></li>
+<li><p><strong>step</strong> (<em>scalar</em>) – The step size when clicking or dragging. Default is 0.001*(max-min). Not modifiable .</p></li>
+<li><p><strong>value</strong> (<em>scalar</em>) – The current value. Can be set by program as well as by user. When a program sets value, the bind function is not executed.</p></li>
+<li><p><strong>vertical</strong> (<em>boolean</em>) – If True, slider is vertical.  Default is False (horizontal). Not modifiable.</p></li>
+<li><p><strong>length</strong> (<em>scalar</em>) – The length of the slider in pixels. Default 400 px. Not modifiable.</p></li>
+<li><p><strong>width</strong> (<em>scalar</em>) – The width of the slider in pixels. Default 10 px. Not modifiable.</p></li>
+<li><p><strong>left</strong> (<em>scalar</em>) – Margin to the left of slider, in pixels. Default 12 px. Not modifiable.</p></li>
+<li><p><strong>right</strong> (<em>scalar</em>) – Margin to the right of slider, in pixels. Default is 12 px. Not modifiable.</p></li>
+<li><p><strong>top</strong> (<em>scalar</em>) – Margin above the slider, in pixels. Default is 0 px for horizontal, 8 px for vertical. Not modifiable.</p></li>
+<li><p><strong>bottom</strong> (<em>scalar</em>) – Margin below the slider, in pixels. Default is 0 px for horizontal, 8 px for vertical. Not modifiable.  Currently does not work properly.</p></li>
+<li><p><strong>align</strong> (<em>string</em>) – If ‘left’, slider is displayed at left of window. Options are ‘left’, ‘right’, ‘none’ (the default). Not modifiable.</p></li>
+<li><p><strong>pos</strong> (<em>attribute of canvas</em>) – Location of widget. Default is scene.caption_anchor.</p></li>
+<li><p><strong>disabled</strong> (<em>boolean</em>) – If True, widget is grayed out and is inactive.</p></li>
+<li><p><strong>delete</strong><strong>(</strong><strong>)</strong> – <code class="docutils literal notranslate"><span class="pre">myslider.delete()</span></code> deletes the widget.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>The following code creates a slider with an attribute <em>id</em> that adjusts the length of a cone:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cc</span> <span class="o">=</span> <span class="n">cone</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">yellow</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">vec</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">pos</span><span class="o">=</span><span class="n">vec</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">stretch</span><span class="p">(</span><span class="n">evt</span><span class="p">):</span>
+        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">evt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">evt</span><span class="o">.</span><span class="n">id</span> <span class="ow">is</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span>
+                <span class="n">cc</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">evt</span><span class="o">.</span><span class="n">value</span>
+
+<span class="n">xslider</span> <span class="o">=</span> <span class="n">slider</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">stretch</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">cc</span><span class="o">.</span><span class="n">length</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sliders do not have a text field. If you wish to display the current value of a slider, use <a class="reference internal" href="wtext.html"><span class="doc">wtext</span></a>.</p>
+<section id="slider-event-attributes">
+<h2>Slider Event Attributes<a class="headerlink" href="#slider-event-attributes" title="Permalink to this heading">¶</a></h2>
+<p>The argument of the event handler function (‘evt’, in the code above) will have the following attributes (properties of the slider at the time it was clicked):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">evt.value</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evt.disabled</span></code></p></li>
+</ul>
+<p>Additionally, any attributes you have created for the widget (for example, <code class="docutils literal notranslate"><span class="pre">name</span></code> or <code class="docutils literal notranslate"><span class="pre">id</span></code>), will be available as attributes of <code class="docutils literal notranslate"><span class="pre">evt</span></code>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="userinput.html#eventhandler"><span class="std std-ref">Event Handlers</span></a>; <a class="reference internal" href="userinput.html#event-handling"><span class="std std-ref">Processing Events</span></a>; <a class="reference internal" href="userinput.html#polling"><span class="std std-ref">Polling</span></a>; <a class="reference internal" href="widgetPosition.html"><span class="doc">Widget Position</span></a></p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">VPython</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="objects.html">3D Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rate.html">Animations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">Canvases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cameraAndLights.html">Camera and Lighting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makeshapes.html">Design New Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file.html">Files/Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph.html">Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">Math Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workwithobjects.html">Object Attachments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rotation.html">Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="textoutput.html">Text output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="texture.html">Textures</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="userinput.html">User Input</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="button.html">Buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checkbox.html">Checkboxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="key.html">Key input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menu.html">Menus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mouse.html">Mouse input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radiobutton.html">Radio buttons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textinput.html">Text input</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sliders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="widgetPosition.html">Widget Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userinput.html#processing-events">Processing Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webvs7.html">VPython/WebVpython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">VPython license</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional Resources</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="userinput.html">User Input</a><ul>
+      <li>Previous: <a href="textinput.html" title="previous chapter">Text Input</a></li>
+      <li>Next: <a href="widgetPosition.html" title="next chapter">Positioning a Widget</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Ruth Chabay and Bruce Sherwood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/slider.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
