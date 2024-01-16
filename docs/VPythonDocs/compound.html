@@ -16,7 +16,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="A Mesh of Triangles" href="vertex.html" />
+    <link rel="next" title="group" href="group.html" />
     <link rel="prev" title="Making New Objects" href="makeshapes.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -36,7 +36,7 @@
             
   <section id="compound">
 <h1>compound<a class="headerlink" href="#compound" title="Permalink to this heading">¶</a></h1>
-<p>A compound object is made from two or more other objects.  A compound object is a single object, and can be manipulated as such. Once created, the relative positions of the objects in the compound cannot be altered, but the compound as a whole can be moved.</p>
+<p>A compound object is made from two or more other objects.  A compound object is a single object, and can be manipulated as such. Once created, the constituent objects lose their identities, and cannot be altered, but the compound as a whole can be moved. (In contrast, objects used to create a <a class="reference internal" href="group.html"><span class="doc">group</span></a> retain their individual identities and can be moved, rotated, etc.) Compound is less expensive computationally than group.</p>
 <img alt="_images/compound.jpg" src="_images/compound.jpg" />
 <dl class="py function">
 <dt class="sig sig-object py" id="id0">
@@ -93,7 +93,7 @@
 <p><code class="docutils literal notranslate"><span class="pre">v2</span> <span class="pre">=</span> <span class="pre">mycompound.world_to_compound(</span> <span class="pre">newv2)</span></code> converts world coordinates to internal coordinates.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>Rotation; <a class="reference internal" href="color.html"><span class="doc">color</span></a>; <a class="reference internal" href="emissive.html"><span class="doc">emissive</span></a>; <a class="reference internal" href="opacity.html"><span class="doc">opacity</span></a>; <a class="reference internal" href="trail.html"><span class="doc">Leaving a trail</span></a>; <a class="reference internal" href="canvas.html"><span class="doc">canvas</span></a>; textures;</p>
+<p><a class="reference internal" href="canvas.html"><span class="doc">canvas</span></a>; <a class="reference internal" href="color.html"><span class="doc">color</span></a>; <a class="reference internal" href="emissive.html"><span class="doc">emissive</span></a>; <a class="reference internal" href="trail.html"><span class="doc">make_trail</span></a>; <a class="reference internal" href="opacity.html"><span class="doc">opacity</span></a>; <a class="reference internal" href="rotation.html"><span class="doc">rotate</span></a>; <a class="reference internal" href="texture.html"><span class="doc">texture</span></a>;</p>
 </div>
 </section>
 </section>
@@ -124,6 +124,7 @@
 <li class="toctree-l1"><a class="reference internal" href="colorOpacityGlow.html">Color/Opacity/Glow</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="makeshapes.html">Design New Objects</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">compound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group.html">group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vertex.html">vertex, triangle, and quad</a></li>
 <li class="toctree-l2"><a class="reference internal" href="extrusion.html">extrusion</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shapes_and_paths.html">shapes and paths</a></li>
@@ -149,7 +150,7 @@
   <li><a href="index.html">Documentation overview</a><ul>
   <li><a href="makeshapes.html">Making New Objects</a><ul>
       <li>Previous: <a href="makeshapes.html" title="previous chapter">Making New Objects</a></li>
-      <li>Next: <a href="vertex.html" title="next chapter">A Mesh of Triangles</a></li>
+      <li>Next: <a href="group.html" title="next chapter">group</a></li>
   </ul></li>
   </ul></li>
 </ul>

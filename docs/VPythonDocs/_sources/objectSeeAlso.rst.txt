@@ -1,2 +1,3 @@
 
-.. seealso:: Rotation; :doc:`color<color>`; :doc:`emissive<emissive>`; :doc:`opacity<opacity>`; :doc:`Leaving a trail<trail>`; :doc:`canvas<canvas>`; textures;
+..	seealso:: 
+	 :doc:`canvas<canvas>`; :doc:`color<color>`; :doc:`emissive<emissive>`; :doc:`make_trail<trail>`; :doc:`opacity<opacity>`; :doc:`rotate<rotation>`; :doc:`texture <texture>`; 

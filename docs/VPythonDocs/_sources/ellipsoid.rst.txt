@@ -44,5 +44,7 @@ Attributes used less often:
    :type make_trail: boolean
    :param up: A vector perpendicular to the axis.
    :type up: vector
+   :param group: The group to which this object belongs.
+   :type group: object
 
 .. include:: ./objectSeeAlso.rst

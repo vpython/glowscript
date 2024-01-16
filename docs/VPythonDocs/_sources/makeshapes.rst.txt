@@ -6,6 +6,7 @@ Making New Objects
    :maxdepth: 1
 
    compound <compound>
+   group <group>
    vertex, triangle, and quad <vertex>
    extrusion <extrusion>
    shapes and paths <shapes_and_paths>

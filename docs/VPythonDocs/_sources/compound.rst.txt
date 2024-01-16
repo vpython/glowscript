@@ -2,7 +2,8 @@
 compound
 ========
 
-A compound object is made from two or more other objects.  A compound object is a single object, and can be manipulated as such. Once created, the relative positions of the objects in the compound cannot be altered, but the compound as a whole can be moved.
+A compound object is made from two or more other objects.  A compound object is a single object, and can be manipulated as such. Once created, the constituent objects lose their identities, and cannot be altered, but the compound as a whole can be moved. (In contrast, objects used to create a :doc:`group <group>` retain their individual identities and can be moved, rotated, etc.) Compound is less expensive computationally than group.
+
 
 .. image:: images/compound.jpg
 
