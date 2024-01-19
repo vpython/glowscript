@@ -37,10 +37,9 @@
   <section id="leaving-a-trail">
 <h1>Leaving a Trail<a class="headerlink" href="#leaving-a-trail" title="Permalink to this heading">¶</a></h1>
 <img alt="_images/trail.png" src="_images/trail.png" />
-<p>There are two ways to leave a trail behind a moving object: <em>make_trail</em> and <em>attach_trail()</em>.</p>
 <section id="make-trail">
 <h2>make_trail<a class="headerlink" href="#make-trail" title="Permalink to this heading">¶</a></h2>
-<p>The simplest way to leave a trail is to set <code class="docutils literal notranslate"><span class="pre">make_trail=True</span></code> for an object. Each time the scene is rendered, the new position <em>ball.pos</em> is added to a curve, thereby leaving a trail behind the moving object. This works with all objects, including compound objects, except for the curve and points objects.</p>
+<p>To leave a trail set <code class="docutils literal notranslate"><span class="pre">make_trail=True</span></code> for an object. Each time the scene is rendered, the new position <em>ball.pos</em> is added to a curve, thereby leaving a trail behind the moving object. This works with all objects, including compound objects, except for the curve and points objects.</p>
 <dl class="py function">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">ball=sphere(</span> <span class="pre">make_trail=True,</span> <span class="pre">trail_type=&quot;points&quot;,</span> <span class="pre">trail_radius=0.2,</span> <span class="pre">interval=10,</span> <span class="pre">retain</span> <span class="pre">=</span> <span class="pre">1000</span> <span class="pre">)</span></span></dt>
@@ -60,35 +59,10 @@
 
 <p>If at any time while the object is moving you set <code class="docutils literal notranslate"><span class="pre">ball.make_trail=False</span></code>, no more points are added to the trail until you set <code class="docutils literal notranslate"><span class="pre">ball.make_trail=True</span></code> again, when a new trail will be started at the ball’s current position.</p>
 <p>If you specify an interval (greater than zero) and do not specify a position when creating the ball, the first point along the trail will occur when a position is later assigned to the ball. If you do specify a position when creating the ball, and make_trail is True, the first point along the trail is that specified position. If no interval is specified, the curve starts with whatever the position is at the time of the first rendering of the scene.</p>
-<p>A caveat: If the trail’s points are far apart, do not use a rate greater than rate(60). VPython attempts to render the 3D scene about 60 times per second. Each time it renders the scene it looks through a list of all those objects that have specified “make_trail=True”, and if an object’s pos attribute has changed, the render function extends the trail. If you specify rate(300), and you update an object’s position once in each pass through the loop, only every 5th position of the object will be added to the trail, because the scene is rendered only about 60 times per second. In contrast, if you specify rate(10) and you update an object’s position once in each pass through the loop, the trail will be extended 10 times per second.</p>
+<p>A caveat: If the trail’s points are far apart, do not use a rate greater than rate(60). VPython attempts to render the 3D scene 60 times per second. Each time it renders the scene it looks through a list of all those objects that have specified “make_trail=True”, and if an object’s pos attribute has changed, the render function extends the trail. If you specify rate(300), and you update an object’s position once in each pass through the loop, only every 5th position of the object will be added to the trail, because the scene is rendered only about 60 times per second. In contrast, if you specify rate(10) and you update an object’s position once in each pass through the loop, the trail will be extended 10 times per second.</p>
 <section id="clearing-make-trail">
 <h3>Clearing <em>make_trail</em><a class="headerlink" href="#clearing-make-trail" title="Permalink to this heading">¶</a></h3>
 <p><strong>ball.clear_trail()</strong> Clears all points from the existing trail before adding more.  To stop adding points set ball.make_trail to False.</p>
-</section>
-</section>
-<section id="attach-trail">
-<h2>attach_trail<a class="headerlink" href="#attach-trail" title="Permalink to this heading">¶</a></h2>
-<p><strong>attach_trail is currently flaky. Use at your own risk. You must specify a trail color.</strong></p>
-<p>For most purposes <em>make_trail</em> is sufficient.  <em>attach_trail</em> is similar; it has similar parameters, but also permits the specification of an arbitrary function to be called to provide a position rather than using the object’s position.</p>
-<p>Suppose you create a function <code class="docutils literal notranslate"><span class="pre">center()</span></code> that calculates a position offset from the average position of two moving balls. You can create a trail marking the path of that average position:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">center</span><span class="p">():</span>
-    <span class="k">return</span> <span class="p">(</span> <span class="p">(</span><span class="n">ball_1</span><span class="o">.</span><span class="n">pos</span> <span class="o">+</span> <span class="n">ball_2</span><span class="o">/</span><span class="n">pos</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="p">)</span>
-
-<span class="n">attach_trail</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
-</pre></div>
-</div>
-<section id="attach-trail-control">
-<h3><em>attach_trail</em> control<a class="headerlink" href="#attach-trail-control" title="Permalink to this heading">¶</a></h3>
-<p>A trail made with <em>attach_trail</em> can be stopped, started, and cleared:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">attach_trail</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
-<span class="o">...</span>
-<span class="n">b</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-<span class="o">...</span>
-<span class="n">b</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-<span class="o">...</span>
-<span class="n">b</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</pre></div>
-</div>
 </section>
 </section>
 </section>
