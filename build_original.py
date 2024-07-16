@@ -20,6 +20,7 @@ TODO
 
 from glob import glob
 import re, os, subprocess
+import platform
 
 shader_file = ["Export({ shaders: {"]
 for fn in sorted(glob("shaders/*.shader")):
@@ -95,11 +96,20 @@ def minify(inlibs, inlibs_nomin, outlib):
     outf = open(outlib, "wb")
 
     if True: # minify if True
-        uglify = subprocess.Popen( "build-tools/node.exe build-tools/Uglify-ES/uglify-es/bin/uglifyjs",
-            stdin=subprocess.PIPE,
-            stdout=outf,
-            stderr=outf, # write uglify errors into output file
-            env=env
+        if platform.system() == 'Darwin': # it's spelled a little differently on a mac
+            uglify = subprocess.Popen( "node build-tools/Uglify-ES/uglify-es/bin/uglifyjs",
+                shell=True,
+                stdin=subprocess.PIPE,
+                stdout=outf,
+                stderr=outf, # write uglify errors into output file
+                env=env
+                )
+        else:
+            uglify = subprocess.Popen( "build-tools/node.exe build-tools/Uglify-ES/uglify-es/bin/uglifyjs",
+                stdin=subprocess.PIPE,
+                stdout=outf,
+                stderr=outf, # write uglify errors into output file
+                env=env
             )
         uglify.communicate( all )
         rc = uglify.wait()
