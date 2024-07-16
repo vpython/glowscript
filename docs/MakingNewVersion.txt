@@ -102,3 +102,11 @@ that 0.4dev programs give an error, that 0.4 is the default version for a new pr
 and that 0.5dev programs work.
 
 Update examples to use version 0.4.
+
+# Add python 3 compatible build_original_py3
+
+We're in the process of reorganizing the build tools. For now there is a unix/mac compatible
+version of the build script, build_original_py3.py. This script is not yet fully tested, but it
+works with python 3.11 on a mac. It should work on unix systems as well. It is not yet tested on
+windows. Before running the script you need node installed (tested on node 18). You need to 
+install the uglify dependencies by running `npm install` in the Uglify directory.
