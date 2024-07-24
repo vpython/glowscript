@@ -1224,14 +1224,6 @@ body .ui-tooltip {
 	border-radius: 8px;
 }
 
-.ui-widget-header.ui-slider-range {
-	background: #000000;
-}
-
-.ui-state-default.ui-slider-handle {
-	background: #006CFA;
-}
-
 .visually-hidden {
 	top:0;
 	left:-2px;
