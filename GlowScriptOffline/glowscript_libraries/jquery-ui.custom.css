@@ -1223,3 +1223,12 @@ body .ui-tooltip {
 	filter: Alpha(Opacity=30);
 	border-radius: 8px;
 }
+
+.visually-hidden {
+	top:0;
+	left:-2px;
+	width:1px;
+	height:1px;
+	position:absolute;
+	overflow:hidden;
+}
