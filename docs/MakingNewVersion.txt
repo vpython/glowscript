@@ -1,3 +1,14 @@
+
+# Add python 3 compatible build_original_py3.py
+
+You'll need to install nodejs and npm to run the build script. You can do this with anaconda or directly from the nodejs website: https://nodejs.org/en
+
+You'll need to run "npm install" in the Uglify directory (build-tools/Uglify-ES/uglify-es) to install the dependencies.
+
+Then you can run "python build_original_py3.py" from the root directory.
+
+--------------------------------------------------------------------------
+
 Note: After installing nodejs, on Windows you must copy node.exe into the build-tools folder.
 
 An image of the GoDaddy.com DNS data as of April 2019 is in docs/DomainData.png.
@@ -103,10 +114,3 @@ and that 0.5dev programs work.
 
 Update examples to use version 0.4.
 
-# Add python 3 compatible build_original_py3
-
-We're in the process of reorganizing the build tools. For now there is a unix/mac compatible
-version of the build script, build_original_py3.py. This script is not yet fully tested, but it
-works with python 3.11 on a mac. It should work on unix systems as well. It is not yet tested on
-windows. Before running the script you need node installed (tested on node 18). You need to 
-install the uglify dependencies by running `npm install` in the Uglify directory.
