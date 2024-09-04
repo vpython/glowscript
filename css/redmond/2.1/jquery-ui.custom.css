@@ -1232,3 +1232,5 @@ body .ui-tooltip {
 	position:absolute;
 	overflow:hidden;
 }
+
+:focus-visible { outline: 3px solid rgb(0, 4, 255); }
