@@ -1,5 +1,3 @@
-version: "2"
-
 #
 # This compose file can be used to run locally without using the locally installed python or dependencies
 #
