@@ -13,5 +13,6 @@
 .git
 .gitignore
 /venv
+/.venv
 # Ignored by the build system
 /setup.cfg
