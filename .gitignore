@@ -4,6 +4,7 @@ bower_components
 *.pyc
 .DS_Store
 /venv
+/.venv
 __pycache__/
 *~
 /.vscode/
