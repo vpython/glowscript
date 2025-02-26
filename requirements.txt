@@ -18,7 +18,7 @@ google-cloud-ndb==2.1.1
 google-cloud-secret-manager==2.16.1
 googleapis-common-protos==1.59.0
 grpc-google-iam-v1==0.12.6
-grpcio==1.54.2
+grpcio==1.54.3
 grpcio-status==1.54.2
 httplib2==0.22.0
 idna==3.4
