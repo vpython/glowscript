@@ -2,8 +2,17 @@
 from ide import app, models, routes, modDBFunctions
 from google.cloud import ndb
 
+
 @app.shell_context_processor
 def make_shell_context():
+    """
+    In the flask shell use the `wc` function to call ndb methods like so:
+
+    `wc(modDBFunction.DumpUsers, User=user)`
+
+    This will create an ndb context and then invoke the requested function with kwargs provided.
+    
+    """
 
     project = routes.emulator and 'glowscript-dev' or None # use a fake project for local dev.
     
