@@ -8,7 +8,7 @@ def make_shell_context():
     """
     In the flask shell use the `wc` function to call ndb methods like so:
 
-    `wc(modDBFunction.DumpUsers, User=user)`
+    `wc(modDBFunction.DumpUsers, User=User)`
 
     This will create an ndb context and then invoke the requested function with kwargs provided.
     
