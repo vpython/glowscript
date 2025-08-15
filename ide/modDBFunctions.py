@@ -1,6 +1,20 @@
 #
 # These are some functions that could be usefult to fiddle with the Datastore entities moving from python2 to python3
 
+import functools
+
+def with_context(client):
+    """
+    Set up an ndb client context to call ndb functions
+    """
+    def decorator(func):
+        @functools.wraps(func) # Preserves original function's metadata
+        def wrapper(*args, **kwargs):
+            with client.context():
+                return func(*args, **kwargs)
+        return wrapper
+    return decorator
+
 def NewUser(**kwargs):
     """
     Create a fake user with a gaeUser entity but no email address
@@ -46,6 +60,24 @@ def DumpUsers(**kwargs):
     for s in kwargs['User'].query():
         print (s)
 
+def ListFolders(ndb, user_id, Folder):
+
+    ancestor_key = ndb.Key('User', user_id)
+
+    for f in Folder.query(ancestor=ancestor_key):
+        print (f)
+
+def SetProgramSource(ndb, Program, user_id, folder_id, program_name, code):
+    program_key = ndb.Key('User', user_id, 'Folder', folder_id, 'Program', program_name)
+    ancestor_key = ndb.Key('User', user_id, 'Folder', folder_id)
+
+    program_object = program_key.get()
+
+    if not program_object:
+        program_object = Program(parent=ancestor_key, id=program_name)
+
+    program_object.source = code
+    program_object.put()
 
 def SetSetting(name, value, **kwargs):
     Setting = kwargs['Setting']
