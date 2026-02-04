@@ -12,3 +12,4 @@ __pycache__/
 /ide/flask_secret.py
 /build-tools/Uglify-ES/uglify-es/package-lock.json
 .env
+.claude
