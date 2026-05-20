@@ -222,6 +222,17 @@ def untrusted_static(filename):
 def root():
     return flask.render_template('index.html')
 
+@app.route('/plotusers')
+def plotusers():
+    history_setting = ndb.Key('Setting', 'user_count_history').get()
+    if not history_setting or history_setting.value == 'NOT SET':
+        return flask.render_template('plotusers.html', points=[], updated=None, no_data=True)
+    history = json.loads(history_setting.value)
+    return flask.render_template('plotusers.html',
+                                 points=history['points'],
+                                 updated=history.get('updated'),
+                                 no_data=False)
+
 #
 # Here are some utilities for validating names, hosts, and usernames
 #
