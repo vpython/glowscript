@@ -34,7 +34,6 @@ import json
 from io import BytesIO
 import zipfile
 import cgi
-import datetime
 import uuid
 import flask
 import traceback
@@ -227,9 +226,12 @@ def plotusers():
     history_setting = ndb.Key('Setting', 'user_count_history').get()
     if not history_setting or history_setting.value == 'NOT SET':
         return flask.render_template('plotusers.html', points=[], updated=None, no_data=True)
-    history = json.loads(history_setting.value)
+    try:
+        history = json.loads(history_setting.value)
+    except (json.JSONDecodeError, ValueError):
+        return flask.render_template('plotusers.html', points=[], updated=None, no_data=True)
     return flask.render_template('plotusers.html',
-                                 points=history['points'],
+                                 points=history.get('points', []),
                                  updated=history.get('updated'),
                                  no_data=False)
 
@@ -250,6 +252,8 @@ def update_user_count():
     else:
         try:
             history = json.loads(history_setting.value)
+            if 'points' not in history:
+                history['points'] = []
         except (json.JSONDecodeError, ValueError):
             history = {'points': []}
 
