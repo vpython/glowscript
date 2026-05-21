@@ -39,6 +39,7 @@ def build_history(client):
                 skipped += 1
 
         print(f"Done: {count} users, {skipped} skipped (no joinDate)")
+        expected = count - skipped
 
         sorted_months = sorted(monthly_new.keys())
         cumulative = 0
@@ -46,6 +47,9 @@ def build_history(client):
         for month in sorted_months:
             cumulative += monthly_new[month]
             points.append({'month': month, 'count': cumulative})
+
+        if points and points[-1]['count'] != expected:
+            print(f"WARNING: cumulative total {points[-1]['count']} != expected {expected}")
 
         history = {
             'updated': datetime.now(timezone.utc).strftime('%Y-%m-%d'),
@@ -56,7 +60,12 @@ def build_history(client):
         if not existing:
             existing = Setting(id='user_count_history')
         existing.value = json.dumps(history)
-        existing.put()
+        try:
+            existing.put()
+        except Exception as e:
+            import sys
+            print(f"ERROR: Failed to store user history: {e}", file=sys.stderr)
+            sys.exit(1)
 
         print(f"Stored {len(points)} monthly data points")
         if points:
@@ -64,8 +73,12 @@ def build_history(client):
 
 
 if __name__ == '__main__':
+    import sys
     project = os.environ.get('GOOGLE_CLOUD_PROJECT', 'glowscript')
     emulator = os.environ.get('DATASTORE_EMULATOR_HOST')
-    client = ndb.Client(project='glowscript-dev' if emulator else project)
+    client = ndb.Client(project=project)
     print(f"Connecting to {'emulator at ' + emulator if emulator else 'production Datastore'}...")
-    build_history(client)
+    try:
+        build_history(client)
+    finally:
+        client.close()
