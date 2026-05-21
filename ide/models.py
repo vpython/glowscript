@@ -33,7 +33,7 @@ class Setting(ndb.Model):
     # static configuration values
     #
 
-    value = ndb.StringProperty(indexed=False)
+    value = ndb.TextProperty()
     cache = {}
 
     @staticmethod
