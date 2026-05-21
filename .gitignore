@@ -12,4 +12,5 @@ __pycache__/
 /ide/flask_secret.py
 /build-tools/Uglify-ES/uglify-es/package-lock.json
 .env
-.claude
+# .claude is excluded on main — do NOT merge this line's removal back to main
+!.claude/
