@@ -48,7 +48,7 @@ from google.cloud import ndb
 from .models import User, Program, Folder, Setting
 
 import os, re, base64
-from datetime import datetime
+from datetime import datetime, timezone
 
 # URI encoding (percent-escaping of all characters other than [A-Za-z0-9-_.~]) is used for names
 # of users, folders and programs in the model and in URIs and in JSON, so no (un)escaping is required.  
@@ -248,9 +248,12 @@ def update_user_count():
     elif history_setting.value == 'NOT SET':
         history = {'points': []}
     else:
-        history = json.loads(history_setting.value)
+        try:
+            history = json.loads(history_setting.value)
+        except (json.JSONDecodeError, ValueError):
+            history = {'points': []}
 
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     history['updated'] = now.strftime('%Y-%m-%d')
     history['points'].append({'month': now.strftime('%Y-%m'), 'count': count})
 
