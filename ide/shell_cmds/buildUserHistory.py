@@ -8,25 +8,39 @@ Usage (production):
 Usage (local emulator):
     DATASTORE_EMULATOR_HOST=localhost:8081 python ide/shell_cmds/buildUserHistory.py
 
+Usage (dry-run on first N users, no write):
+    GOOGLE_CLOUD_PROJECT=glowscript-py38 python ide/shell_cmds/buildUserHistory.py --limit 500
+
+Usage (limited run + write):
+    GOOGLE_CLOUD_PROJECT=glowscript-py38 python ide/shell_cmds/buildUserHistory.py --limit 500 --write
+
 Cost: ~$0.16 (reads ~315k User entities). Run once only.
 """
 
+import argparse
 from collections import defaultdict
 from datetime import datetime, timezone
 import json
 import os
+import sys
 
 from google.cloud import ndb
 from ide.models import User, Setting
 
 
-def build_history(client):
+def build_history(client, limit=None, write=True):
     monthly_new = defaultdict(int)
     count = 0
     skipped = 0
 
     with client.context():
-        for user in User.query():  # NDB iterates in batches — does not load all into memory
+        query = User.query()
+        if limit:
+            query = query.fetch(limit)
+        else:
+            query = query.iter()  # NDB iterates in batches — does not load all into memory
+
+        for user in query:
             count += 1
             if count % 10000 == 0:
                 print(f"  {count} users processed...")
@@ -56,6 +70,14 @@ def build_history(client):
             'points': points,
         }
 
+        print(f"Built {len(points)} monthly data points")
+        if points:
+            print(f"Latest: {points[-1]}")
+
+        if not write:
+            print("Dry-run: skipping Datastore write (pass --write to persist)")
+            return
+
         existing = ndb.Key('Setting', 'user_count_history').get()
         if not existing:
             existing = Setting(id='user_count_history')
@@ -63,22 +85,29 @@ def build_history(client):
         try:
             existing.put()
         except Exception as e:
-            import sys
             print(f"ERROR: Failed to store user history: {e}", file=sys.stderr)
             sys.exit(1)
 
         print(f"Stored {len(points)} monthly data points")
-        if points:
-            print(f"Latest: {points[-1]}")
 
 
 if __name__ == '__main__':
-    import sys
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--limit', type=int, default=None,
+                        help='Process only the first N users (implies dry-run unless --write is also set)')
+    parser.add_argument('--write', action='store_true',
+                        help='Write results to Datastore (required when using --limit; always writes without --limit)')
+    args = parser.parse_args()
+
+    write = args.write if args.limit else True
+
     project = os.environ.get('GOOGLE_CLOUD_PROJECT', 'glowscript')
     emulator = os.environ.get('DATASTORE_EMULATOR_HOST')
     client = ndb.Client(project=project)
     print(f"Connecting to {'emulator at ' + emulator if emulator else 'production Datastore'}...")
+    if args.limit:
+        print(f"Limit: {args.limit} users ({'will write' if write else 'dry-run, no write'})")
     try:
-        build_history(client)
+        build_history(client, limit=args.limit, write=write)
     finally:
         client.close()
