@@ -59,6 +59,8 @@ def test_update_user_count_appends_new_point(client):
     setting_mock.value = json.dumps(existing)
 
     def key_factory(*args, **kwargs):
+        # Route calls ndb.Key() twice: once for __Stat_Kind__ (user count),
+        # once for Setting (history). Distinguish by kind name (first arg).
         m = MagicMock()
         if args and args[0] == '__Stat_Kind__':
             m.get.return_value = stat_mock
@@ -74,6 +76,12 @@ def test_update_user_count_appends_new_point(client):
     updated_history = json.loads(setting_mock.value)
     assert len(updated_history['points']) == 2
     assert updated_history['points'][-1]['count'] == 314925
+    assert 'month' in updated_history['points'][-1]
+    # month should be YYYY-MM format
+    assert len(updated_history['points'][-1]['month']) == 7
+    assert updated_history['points'][-1]['month'][4] == '-'
+    assert updated_history.get('updated') != '2026-04-01'
+    assert updated_history.get('updated') is not None
     setting_mock.put.assert_called_once()
 
 
@@ -83,6 +91,8 @@ def test_update_user_count_creates_setting_when_missing(client):
     stat_mock.count = 100
 
     def key_factory(*args, **kwargs):
+        # Route calls ndb.Key() twice: once for __Stat_Kind__ (user count),
+        # once for Setting (history). Distinguish by kind name (first arg).
         m = MagicMock()
         if args and args[0] == '__Stat_Kind__':
             m.get.return_value = stat_mock
@@ -98,3 +108,10 @@ def test_update_user_count_creates_setting_when_missing(client):
     assert response.status_code == 200
     mock_setting_class.assert_called_once_with(id='user_count_history')
     mock_setting_class.return_value.put.assert_called_once()
+    written_value = mock_setting_class.return_value.value
+    assert written_value is not None
+    import json as _json
+    written = _json.loads(written_value)
+    assert 'points' in written
+    assert len(written['points']) == 1
+    assert written['points'][0]['count'] == 100
