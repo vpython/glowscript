@@ -26,27 +26,35 @@
       return year + (month - 1) / 12;
     }
 
-    const xs = points.map(p => toDecimalYear(p.month));
-    const ys = points.map(p => p.count);
+    if (points.length === 0) {
+      document.getElementById('chart').innerHTML = '<p class="no-data">No data points available.</p>';
+    } else {
+      const xs = points.map(p => toDecimalYear(p.month));
+      const ys = points.map(p => p.count);
 
-    const lastPoint = points[points.length - 1];
-    const formattedDate = updated ? updated.replace(/-/g, '/') : '';
-    const formattedCount = lastPoint.count.toLocaleString();
-    const title = `As of ${formattedDate} there were ${formattedCount} Web VPython accounts.`;
+      const lastPoint = points[points.length - 1];
+      const formattedDate = updated ? updated.replace(/-/g, '/') : '';
+      const formattedCount = lastPoint.count.toLocaleString();
+      const title = `As of ${formattedDate} there were ${formattedCount} Web VPython accounts.`;
 
-    Plotly.newPlot('chart', [{
-      x: xs,
-      y: ys,
-      mode: 'lines+markers',
-      type: 'scatter',
-      marker: { color: 'red', size: 4 },
-      line: { color: 'red', width: 1 }
-    }], {
-      title: title,
-      xaxis: { title: 'Year' },
-      yaxis: { title: 'Web VPython accounts' },
-      margin: { t: 60 }
-    });
+      try {
+        Plotly.newPlot('chart', [{
+          x: xs,
+          y: ys,
+          mode: 'lines+markers',
+          type: 'scatter',
+          marker: { color: 'red', size: 4 },
+          line: { color: 'red', width: 1 }
+        }], {
+          title: title,
+          xaxis: { title: 'Year' },
+          yaxis: { title: 'Web VPython accounts' },
+          margin: { t: 60 }
+        });
+      } catch (e) {
+        document.getElementById('chart').innerHTML = '<p class="no-data">Chart failed to render: ' + e.message + '</p>';
+      }
+    }
   </script>
   {% endif %}
 </body>
