@@ -233,6 +233,32 @@ def plotusers():
                                  updated=history.get('updated'),
                                  no_data=False)
 
+@app.route('/admin/update-user-count')
+def update_user_count():
+    if not flask.request.headers.get('X-Appengine-Cron'):
+        return flask.Response('Forbidden', status=403)
+
+    stat = ndb.Key('__Stat_Kind__', 'User').get()
+    count = stat.count if stat else 0
+
+    history_setting = ndb.Key('Setting', 'user_count_history').get()
+    if not history_setting:
+        history_setting = Setting(id='user_count_history')
+        history = {'points': []}
+    elif history_setting.value == 'NOT SET':
+        history = {'points': []}
+    else:
+        history = json.loads(history_setting.value)
+
+    now = datetime.utcnow()
+    history['updated'] = now.strftime('%Y-%m-%d')
+    history['points'].append({'month': now.strftime('%Y-%m'), 'count': count})
+
+    history_setting.value = json.dumps(history)
+    history_setting.put()
+
+    return flask.Response('OK', status=200)
+
 #
 # Here are some utilities for validating names, hosts, and usernames
 #
