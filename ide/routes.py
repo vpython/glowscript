@@ -40,10 +40,9 @@ import traceback
 import functools
 import urllib.parse
 
-from google.cloud import ndb
+from google.cloud import ndb, datastore
 from google.auth.transport import requests
 from google.oauth2 import id_token
-from google.cloud import ndb
 
 from .models import User, Program, Folder, Setting
 
@@ -253,8 +252,9 @@ def update_user_count():
     except Exception:
         return flask.Response('Forbidden', status=403)
 
-    stat = ndb.Key('__Stat_Kind__', 'User').get()
-    count = stat.count if stat else 0
+    ds_client = datastore.Client()
+    stat = ds_client.get(ds_client.key('__Stat_Kind__', 'User'))
+    count = stat['count'] if stat else 0
 
     history_setting = ndb.Key('Setting', 'user_count_history').get()
     if not history_setting:
