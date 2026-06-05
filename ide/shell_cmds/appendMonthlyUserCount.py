@@ -26,11 +26,11 @@ def append_month(client, month_str, write=False):
         print(f"ERROR: invalid month format '{month_str}', expected YYYY-MM", file=sys.stderr)
         sys.exit(1)
 
-    start = datetime(year, month, 1, tzinfo=timezone.utc)
+    start = datetime(year, month, 1)
     if month == 12:
-        end = datetime(year + 1, 1, 1, tzinfo=timezone.utc)
+        end = datetime(year + 1, 1, 1)
     else:
-        end = datetime(year, month + 1, 1, tzinfo=timezone.utc)
+        end = datetime(year, month + 1, 1)
 
     with client.context():
         new_users = User.query(User.joinDate >= start, User.joinDate < end).count()
