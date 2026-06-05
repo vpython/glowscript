@@ -42,6 +42,7 @@ import urllib.parse
 
 from google.cloud import ndb
 from google.auth.transport import requests
+from google.oauth2 import id_token
 from google.cloud import ndb
 
 from .models import User, Program, Folder, Setting
@@ -235,9 +236,21 @@ def plotusers():
                                  updated=history.get('updated'),
                                  no_data=False)
 
+_SCHEDULER_AUDIENCE = 'https://glowscript.org/admin/update-user-count'
+_SCHEDULER_SA = 'glowscript@appspot.gserviceaccount.com'
+
 @app.route('/admin/update-user-count')
 def update_user_count():
-    if not flask.request.headers.get('X-Appengine-Cron'):
+    auth_header = flask.request.headers.get('Authorization', '')
+    if not auth_header.startswith('Bearer '):
+        return flask.Response('Forbidden', status=403)
+    try:
+        claim = id_token.verify_oauth2_token(
+            auth_header[7:], requests.Request(), audience=_SCHEDULER_AUDIENCE
+        )
+        if claim.get('email') != _SCHEDULER_SA:
+            return flask.Response('Forbidden', status=403)
+    except Exception:
         return flask.Response('Forbidden', status=403)
 
     stat = ndb.Key('__Stat_Kind__', 'User').get()
