@@ -19,7 +19,7 @@ VPython enables the creation of navigable realtime 3D animations, and supports 3
 New to VPython?
 ^^^^^^^^^^^^^^^
 
-This Trinket `Welcome to VPython tutorial <https://matter-interactions.trinket.io/00_welcome_to_vpython#/welcome-to-vpython/getting-started>`_ offers an introduction.  
+This Trinket `Welcome to VPython tutorial <https://trinket.matterandinteractions.org/chabaysherwood-2585/courses/m-and-i-welcome-to-vpython#/welcome-to-vpython/getting-started>`_ offers an introduction.  
 
    
 .. toctree::
