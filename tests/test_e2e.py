@@ -3,9 +3,24 @@ End-to-end tests. Any base URL works — these only visit "/" and a few static
 docs pages, and assert on titles, visible links and body text. No sign-in flow
 and no datastore reads, so a local server is enough.
 
-Locally (fastest loop — no deploy needed; see README "Run a Local Server"):
+Locally — datastore in Docker, Flask on the host (see README approach 2).
+PREFER THIS when the thing under test is a dependency or requirements change:
+Flask runs from your activated venv, so it exercises the versions you just
+installed.
+    docker-compose -f docker-datastore.yml up -d
+    pip install -r requirements.txt          # in the venv
+    flask run                                # .flaskenv pins port 8080
+    pytest tests/test_e2e.py --base-url http://localhost:8080 -v
+
+Locally — everything in Docker (README approach 1):
     docker-compose up -d
     pytest tests/test_e2e.py --base-url http://localhost:8080 -v
+
+  ⚠️ one service in docker-compose.yml runs a PREBUILT image
+  (us.gcr.io/glowscript-py38/glowscript-flask:latest), so a plain `up` can serve
+  stale code AND a stale requirements.txt — a dependency change would appear to
+  pass while the old versions were actually running. Use `up --build`, or use
+  the Flask-on-host route above.
 
 Against a deployed (non-promoted) App Engine version, before promoting:
     pytest tests/test_e2e.py --base-url https://VERSION-dot-glowscript.appspot.com -v
