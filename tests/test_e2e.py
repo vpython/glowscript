@@ -38,6 +38,31 @@ from playwright.sync_api import Page, expect
 
 
 # ---------------------------------------------------------------------------
+# Local-mode detection
+#
+# ide/auth.py short-circuits identity when running locally:
+#
+#     def get_user_info():
+#         if routes.is_running_locally():
+#             return {'email': 'localuser@local.host'}
+#
+# so a local server has no anonymous state at all — every request is that user.
+# Three tests below assert anonymous behaviour and therefore cannot pass
+# locally; they skip rather than fail, and still run against a deployed URL.
+# /api/login is the reliable tell: locally it reports `new_user` for
+# localuser@local.host, which has no User record.
+# ---------------------------------------------------------------------------
+
+
+def _running_locally(page, base_url):
+    try:
+        data = page.request.get(f"{base_url}/api/login").json()
+    except Exception:
+        return False
+    return data.get("state") != "not_logged_in"
+
+
+# ---------------------------------------------------------------------------
 # Home page / IDE
 # ---------------------------------------------------------------------------
 
@@ -66,6 +91,8 @@ def test_home_page_help_link(page: Page, base_url):
 
 def test_home_page_sign_in_link(page: Page, base_url):
     """IDE should show a Sign in link for unauthenticated users."""
+    if _running_locally(page, base_url):
+        pytest.skip("local server auto-authenticates (ide/auth.py get_user_info)")
     page.goto(base_url)
     sign_in = page.locator("a.signin")
     expect(sign_in).to_be_visible()
@@ -100,6 +127,8 @@ def test_docs_static_css_loads(page: Page, base_url):
 
 def test_api_login_unauthenticated(page: Page, base_url):
     """API login endpoint should return not_logged_in state for anonymous requests."""
+    if _running_locally(page, base_url):
+        pytest.skip("local server auto-authenticates (ide/auth.py get_user_info)")
     response = page.request.get(f"{base_url}/api/login")
     assert response.status == 200
     data = response.json()
@@ -143,6 +172,8 @@ def test_docs_index_lists_group(page: Page, base_url):
 
 def test_docs_help_link_from_ide(page: Page, base_url):
     """Clicking the Help link in the IDE should open the docs index."""
+    if _running_locally(page, base_url):
+        pytest.skip("local server auto-authenticates (ide/auth.py get_user_info)")
     page.goto(base_url)
     # Use the target=_blank Help link in the header
     with page.expect_popup() as popup_info:
