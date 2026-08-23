@@ -1,2 +1,7 @@
 pytest
 pytest-mock
+# tests/test_e2e.py drives a DEPLOYED App Engine version:
+#   pytest tests/test_e2e.py --base-url https://VERSION-dot-glowscript.appspot.com
+# pytest-playwright supplies the `page` and `base_url` fixtures and pulls
+# playwright itself. Browsers still need `playwright install chromium`.
+pytest-playwright
