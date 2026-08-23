@@ -1,8 +1,22 @@
 """
-End-to-end tests for a deployed (non-promoted) App Engine version.
+End-to-end tests. Any base URL works — these only visit "/" and a few static
+docs pages, and assert on titles, visible links and body text. No sign-in flow
+and no datastore reads, so a local server is enough.
 
-Usage:
+Locally (fastest loop — no deploy needed; see README "Run a Local Server"):
+    docker-compose up -d
+    pytest tests/test_e2e.py --base-url http://localhost:8080 -v
+
+Against a deployed (non-promoted) App Engine version, before promoting:
     pytest tests/test_e2e.py --base-url https://VERSION-dot-glowscript.appspot.com -v
+
+Needs pytest-playwright (requirements-test.txt) for the `page`/`base_url`
+fixtures, plus the browser itself:
+    playwright install chromium
+
+Two caveats when running locally: the Sign In assertion depends on OAuth config
+a local stack may not have, and the docs pages are static files — so passing
+locally says nothing about whether the DEPLOYED docs are current.
 """
 import pytest
 from playwright.sync_api import Page, expect
