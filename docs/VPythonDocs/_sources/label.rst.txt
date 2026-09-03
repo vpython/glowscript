@@ -39,6 +39,8 @@ A label can be used to display 2D text in a 3D world.  Labels are billboarded--t
    :type linewidth: scalar
    :param space: Radius in pixels of a sphere surrounding *pos*, from which line is excluded.
    :type space: scalar
+   :param pixel_pos: indicates that *pos* is a Vector for screen coordinates in pixel (origin is the lower left corner, the z value of the vector is ignored). Default is False. 
+   :type pixel_pos: boolean
    
 Setting *xoffset* overrides *align*.
 
