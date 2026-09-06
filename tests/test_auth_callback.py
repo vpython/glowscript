@@ -32,3 +32,31 @@ def test_callback_with_no_state_at_all_redirects_home(client):
     resp = client.get('/google/auth')
     assert resp.status_code == 302
     assert resp.headers['Location'].startswith('/')
+
+# The THIRD population, and the one the OAuthError handler cannot reach: the
+# outbound token exchange to Google fails at the network level. Reported by
+# Bruce on 2026-09-05 as two Error Reporting alerts — http.client.
+# RemoteDisconnected and the urllib3/requests wrapper of the same exception,
+# which are one event split into two groups by stack signature. The live
+# request hung 13.2s before the far end dropped it.
+#
+# requests.RequestException is NOT an authlib OAuthError, so it escapes the
+# except above and renders GAE's bare 500. Same endpoint, same useless outcome
+# for the user, different exception class — and equally unrecoverable on this
+# request, since the single-use state is consumed either way.
+def test_network_failure_during_token_exchange_redirects_home(client, mocker):
+    import requests
+    from ide import auth as auth_mod
+
+    oauth = auth_mod.authNamespace.get('oauth') or auth_mod.fillAuthNamespace()
+    mocker.patch.object(
+        oauth.google, 'authorize_access_token',
+        side_effect=requests.exceptions.ConnectionError(
+            'Connection aborted.', ConnectionResetError('Remote end closed connection')))
+
+    resp = client.get('/google/auth?state=' + _state('localhost') + '&code=junk')
+
+    assert resp.status_code == 302, (
+        'a network failure talking to Google should land the user somewhere '
+        'useful, got %s' % resp.status_code)
+    assert resp.headers['Location'].startswith('/'), resp.headers['Location']

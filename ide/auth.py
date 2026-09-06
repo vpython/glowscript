@@ -9,6 +9,7 @@ from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
 from authlib.integrations.base_client.errors import OAuthError
 from authlib.common.security import generate_token
+from requests.exceptions import RequestException
 import json, base64
 import os
 from urllib.parse import urlparse, urlunparse
@@ -222,6 +223,17 @@ def auth():
     oauth = authNamespace.get('oauth') or fillAuthNamespace()
     try:
         token = oauth.google.authorize_access_token()
+    except RequestException as err:
+        # The outbound token exchange to Google failed at the NETWORK level, so
+        # this never became an OAuthError and escaped the handler below as a
+        # bare GAE 500. Reported 2026-09-05 (one request hung 13.2s before the
+        # far end dropped it) as two Error Reporting alerts — RemoteDisconnected
+        # and the requests/urllib3 wrapper of it, one event split by stack
+        # signature. Rare next to the replay case, and just as unrecoverable
+        # here: the single-use state is spent either way, so retrying THIS URL
+        # cannot work. Send them somewhere they can start over.
+        app.logger.warning("OAuth token exchange failed to reach Google (%s); sending user home to retry", err)
+        return redirect('/')
     except OAuthError as err:
         # The state is single-use and lives in the session cookie, so this is
         # reached by two real populations, both harmless and both unrecoverable
