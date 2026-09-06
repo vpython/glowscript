@@ -7,7 +7,9 @@ from google.cloud import secretmanager
 from flask import Flask, url_for, session, request, make_response, redirect
 from flask import render_template, redirect
 from authlib.integrations.flask_client import OAuth
+from authlib.integrations.base_client.errors import OAuthError
 from authlib.common.security import generate_token
+from requests.exceptions import RequestException
 import json, base64
 import os
 from urllib.parse import urlparse, urlunparse
@@ -209,14 +211,42 @@ def auth():
             newURL = urlunparse((scheme,dstHost) + oldURL[2:])  # build the final URL
             return redirect(newURL)
     else:
+        # A bare /google/auth with no state — a bookmark or a manually edited
+        # URL. Processing it can only crash; send them home to start over.
         app.logger.info("Yikes! No state found. This shouldn't happen.")
+        return redirect('/')
 
     #
     # If we get to here it means we're the final server. Go ahead and process.
     #
         
     oauth = authNamespace.get('oauth') or fillAuthNamespace()
-    token = oauth.google.authorize_access_token()
+    try:
+        token = oauth.google.authorize_access_token()
+    except RequestException as err:
+        # The outbound token exchange to Google failed at the NETWORK level, so
+        # this never became an OAuthError and escaped the handler below as a
+        # bare GAE 500. Reported 2026-09-05 (one request hung 13.2s before the
+        # far end dropped it) as two Error Reporting alerts — RemoteDisconnected
+        # and the requests/urllib3 wrapper of it, one event split by stack
+        # signature. Rare next to the replay case, and just as unrecoverable
+        # here: the single-use state is spent either way, so retrying THIS URL
+        # cannot work. Send them somewhere they can start over.
+        app.logger.warning("OAuth token exchange failed to reach Google (%s); sending user home to retry", err)
+        return redirect('/')
+    except OAuthError as err:
+        # The state is single-use and lives in the session cookie, so this is
+        # reached by two real populations, both harmless and both unrecoverable
+        # on THIS request:
+        #   - a refresh/replay of the callback URL (the state was consumed on
+        #     the first attempt) — observed live as one machine retrying a dead
+        #     callback 68 times, each retry a bare GAE 500 page;
+        #   - a browser that refused the session cookie, so no state exists.
+        # Production ran at a steady 1-2% of sign-ins failing this way. A retry
+        # of the same URL can never succeed, so the only useful answer is a
+        # clean landing where the user can simply sign in again.
+        app.logger.warning("OAuth callback failed (%s); sending user home to retry", err.error)
+        return redirect('/')
     user = token['userinfo']
     
     if check_auth_host_for_preview(auth_host): # are we in a preview version?
