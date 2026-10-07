@@ -1424,14 +1424,13 @@ $(function () {
 
         pageBody.html(page)
 
-        // I (David Scherer) decided to process shortcuts myself instead of relying on ACE, because 
-        // ACE might not always have focus
+        // I (David Scherer) decided to process shortcuts myself instead of relying on the editor, because 
+        // the editor might not always have focus
         $(document).keydown( shortcutKey )
         onNavigate.on( function(cb) { $(document).off("keydown", shortcutKey); cb() } )
         function shortcutKey(ev) {
             // Ctrl-1: Run
-            // I (David Scherer) haven't figured out how to change or disable keyboard shortcuts in ACE, 
-            // so Ctrl-R is not available - I used Ctrl-1 (like Ctrl-!)
+            // Ctrl-R reloads the page, so we use Ctrl-1 (like Ctrl-!)
             if (ev.ctrlKey && ev.keyCode == "1".charCodeAt(0)) {
                 ev.preventDefault()
                 navigate(run_link)
@@ -1467,115 +1466,84 @@ $(function () {
 	                }
 	            }            	
             } else {
-	            var editor = ace.edit(page.find(".program-editor").get(0));
-	            window.editor = editor
-	            customACEMode(lang, progData.source)
-	            var mode = ace_require("ace/mode/visualjs").Mode
-		        editor.getSession().setMode(new mode())
-	            editor.setTheme({ cssClass: "ace-custom" })
-	            editor.getSession().setValue(progData.source)
-                editor.setReadOnly( !isWritable )
-	            editor.selection.moveCursorDown() // position cursor at start of line 2, below GlowScript header
-                editor.focus()
-	            if (isWritable) {
-	                var save = saver( {user:username, folder:folder, program:program},
-		                function () { return editor.getSession().getValue() },
-	                    function (status) { page.find(".program-status").text(" ("+status+")") }
-	                )
-	                // Save immediately when navigating away from this page
-	                onNavigate.on(function (cb) { save(0, cb) })
-	                editor.getSession().on('change', function () {
-	                    save(1000)  // Save after 1 second of not typing
-	                })
-	            }
+                loadMonaco(function () {
+                    var editor = monaco.editor.create(page.find(".program-editor").get(0), {
+                        value: progData.source,
+                        language: (lang == 'vpython') ? 'python' : 'javascript',
+                        theme: 'glowscript',
+                        readOnly: !isWritable,
+                        automaticLayout: true,
+                        fontFamily: '"Inconsolata", monospace',
+                        fontSize: 16,
+                        tabSize: 4,
+                        insertSpaces: true,
+                        detectIndentation: false,
+                        'semanticHighlighting.enabled': true, // colors the GlowScript library names
+                        quickSuggestions: { other: true, comments: false, strings: false },
+                        suggestOnTriggerCharacters: true,
+                        acceptSuggestionOnEnter: 'smart',
+                        snippetSuggestions: 'top',
+                        tabCompletion: 'on',
+                        suggest: { preview: true, showWords: true, snippetsPreventQuickSuggestions: false },
+                        parameterHints: { enabled: true },
+                        hover: { enabled: true },
+                        folding: true,
+                        showFoldingControls: 'mouseover',
+                        bracketPairColorization: { enabled: true },
+                        guides: { bracketPairs: 'active', indentation: true },
+                        stickyScroll: { enabled: true },
+                        minimap: { enabled: true, renderCharacters: false },
+                        smoothScrolling: true,
+                        mouseWheelZoom: true,
+                        renderWhitespace: 'selection',
+                        scrollBeyondLastLine: false,
+                        fixedOverflowWidgets: true
+                    })
+                    window.editor = editor
+                    // position cursor at start of line 2, below GlowScript header
+                    if (editor.getModel().getLineCount() > 1) editor.setPosition({ lineNumber: 2, column: 1 })
+                    editor.focus()
+                    if (document.fonts) document.fonts.ready.then(function () { monaco.editor.remeasureFonts() })
+                    if (isWritable) {
+                        var save = saver( {user:username, folder:folder, program:program},
+                            function () { return editor.getValue() },
+                            function (status) { page.find(".program-status").text(" ("+status+")") }
+                        )
+                        // Save immediately when navigating away from this page
+                        onNavigate.on(function (cb) { save(0, function () { editor.dispose(); cb() }) })
+                        editor.onDidChangeModelContent(function () {
+                            save(1000)  // Save after 1 second of not typing
+                        })
+                    } else {
+                        onNavigate.on(function (cb) { editor.dispose(); cb() })
+                    }
+                })
             }
             
         })
     }
     
-    // NOTE: We use the "ace_require" function found in ace.js
+    /*********** Monaco editor *************/
+    // Monaco is in lib/monaco; the GlowScript-specific parts are in lib/glowscript-monaco.js
+    var monacoBase = new URL("lib/monaco", window.location.href).href
+    var monacoReady = null // promise, resolved when Monaco has loaded
 
-    /*********** Customization of the ACE editor *************/
-    // See https://github.com/ajaxorg/ace/wiki/Creating-or-Extending-an-Edit-Mode
-    // mode-javascript.js is loaded by ide/index.html.
-    // These modules in turn load worker-javascript.js in lib/ace.
-    // See lib/ace/FileSource.txt for where to find updated ACE files, and how they
-    // were modified in minor ways for GlowScript use.
-    var customACEMode = function(lang, source) { // lang is "javascript" or some fragment
-        
-        var lib = "identifier.builtin"
-        var attr = "attribute.builtin"
-        var libraryWords = {
-            pos: attr, axis: attr, up: attr, /*color: attr, */ x: attr, y: attr, z: attr, size: attr,
-            visible: attr, forward: attr, length: attr, width: attr, radius: attr,
-            wait: "keyword.wait"
-        }
-
-        // Adding "var" and "function" to libraryWords for JavaScript should be unnecessary,
-        // but without them they aren't colorized red as they were in earlier ACE:
-        if (lang == 'javascript') {
-            libraryWords.var = "keyword"
-            libraryWords.function = "keyword"
-        }
-        
-        var globals = []
-        if (window.GlowscriptLibraryNames)
-            for (var i=0; i<window.GlowscriptLibraryNames.length; i++) {
-                var id = window.GlowscriptLibraryNames[i]
-                if (libraryWords[id] === undefined)
-                    libraryWords[id] = lib
+    function loadMonaco(callback) {
+        if (monacoReady) { monacoReady.then(callback); return }
+        window.MonacoEnvironment = { // the workers must come from our own origin
+            getWorkerUrl: function () {
+                var src = "self.MonacoEnvironment = { baseUrl: '" + monacoBase + "/' };" +
+                          "importScripts('" + monacoBase + "/vs/base/worker/workerMain.js');"
+                return URL.createObjectURL(new Blob([src], { type: 'text/javascript' }))
             }
-        for(var id in libraryWords) { // e.g. {sphere : identifier.builtin}
-            if (!libraryWords[id]) delete libraryWords[id];
-            if (libraryWords[id] == lib) globals.push(id)
         }
-        
-        // The "//" at the end of lintPrefix comments out the line "GlowScript X.Y", hence ignored by the worker looking at JavaScript syntax
-        var lintPrefix = "/*jslint asi:true, undef:true*/ /*global wait " + globals.join(" ") + "*/\n//"
-
-        define('ace/mode/visualjs_highlight_rules', function (ace_require, exports, module) {
-            var oop = ace_require("ace/lib/oop")
-            var Rules
-            if (lang == 'vpython') Rules = ace_require("ace/mode/python_highlight_rules").PythonHighlightRules
-            else Rules = ace_require("ace/mode/javascript_highlight_rules").JavaScriptHighlightRules
-
-            var VisualHighlightRules = function () {
-                this.$rules = (new Rules()).getRules()
-                if (lang == 'vpython') this.$rules.start = [{ regex: /GlowScript\s+[\d\.]*[dev]*\s+[A-Za-z]*/, token: "keyword.version_header" } ].concat(this.$rules.start)
-                else this.$rules.start = [{ regex: /GlowScript\s+[\d\.]*[dev]*/, token: "keyword.version_header" } ].concat(this.$rules.start)
-                for(var id in libraryWords) {
-                    this.$rules.start = [{ regex: id, token: libraryWords[id] } ].concat(this.$rules.start)
-                }
-            }
-            oop.inherits(VisualHighlightRules, Rules)
-            exports.VisualHighlightRules = VisualHighlightRules
+        require.config({ paths: { vs: monacoBase + '/vs' } })
+        monacoReady = new Promise(function (resolve) {
+            require(['vs/editor/editor.main'], function () {
+                GlowScriptMonaco.setup(monaco, window.GlowscriptLibraryNames).then(resolve)
+            })
         })
-        
-        
-        //------------------------------------------------------------------------------------------------------
-        define('ace/mode/visualjs', function (ace_require, exports, module) {
-            var oop = ace_require("ace/lib/oop")
-            if (lang == 'vpython') var BaseMode = ace_require("ace/mode/python").Mode
-            else var BaseMode = ace_require("ace/mode/javascript").Mode
-            var Tokenizer = ace_require("ace/tokenizer").Tokenizer
-            var VisualHighlightRules = ace_require("ace/mode/visualjs_highlight_rules").VisualHighlightRules
-            var WorkerClient = ace_require("ace/worker/worker_client").WorkerClient // *****************************************************
-
-            var Mode = function () {
-                BaseMode.call(this)
-                this.$tokenizer = new Tokenizer((new VisualHighlightRules()).getRules());
-            }
-            oop.inherits(Mode, BaseMode); // nead a semicolon here due to following left parens
-            
-            // There was formerly "worker" machinery here which showed a warning icon at the left of an line with an error, but
-            //     (1) This tends to confuse students.
-            //     (2) GlowScript catches lots of errors already with respect to parens, brackets, braces, and quotes.
-            //     (3) Highlighting is handled separately, so is not affected by eliminating workers.
-            //     (4) Caused some awkwardness in changing the language on the first line.
-            //     (5) And the killer issue: workers chew up LOTS of CPU time for little gain.
-            
-            exports.Mode = Mode
-        })
+        monacoReady.then(callback)
     }
 
     function iframefix() {

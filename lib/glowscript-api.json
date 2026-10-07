@@ -1,0 +1,2764 @@
+{
+ "arrow": {
+  "doc": "",
+  "file": "arrow",
+  "params": [
+   {
+    "doc": "Position of tail. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Extends from tail to tip. Default <1,0,0>.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default is color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Makes shaft and head round instead of square. Default is False.",
+    "name": "round",
+    "type": "boolean"
+   },
+   {
+    "doc": "Width of tail. Default 0.1*(length of arrow)",
+    "name": "shaftwidth",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 2*shaftwidth",
+    "name": "headwidth",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 3*shaftwidth",
+    "name": "headlength",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default None.",
+    "name": "texture",
+    "type": "class element or path"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   }
+  ],
+  "signature": "arrow( pos=vec(0,0,0), axis=vec(1,0,0), color=color.orange )"
+ },
+ "attach_arrow": {
+  "doc": "",
+  "file": "attacharrow",
+  "params": [
+   {
+    "doc": "Object to which to attach the arrow (ball in example above).",
+    "name": "firstargument",
+    "type": "object"
+   },
+   {
+    "doc": "Name of vector attribute to be represented by the arrow (\"velocity\" in example above).",
+    "name": "secondargument",
+    "type": "string"
+   },
+   {
+    "doc": "Quantity by which to multiply the attribute in order to adjust the magnitude of the axis of the arrow.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default is the color of the object to which the arrow is attached.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Cross section of the tail of the arrow.",
+    "name": "shaftwidth",
+    "type": ""
+   },
+   {
+    "doc": "",
+    "name": "round",
+    "type": "scalar"
+   }
+  ],
+  "signature": "attach_arrow( ball, \"velocity\", color=color.green, scale=10, shaftwidth=ball.radius/3 )"
+ },
+ "attach_light": {
+  "doc": "",
+  "file": "attach_light",
+  "params": [
+   {
+    "doc": "Object to which to attach the local_light (ball in example above).",
+    "name": "firstargument",
+    "type": "object"
+   },
+   {
+    "doc": "Displacement of light from the center of the moving object. Default <0,0,0>.",
+    "name": "offset",
+    "type": "vector"
+   },
+   {
+    "doc": "Default is the color of the object to which the light is attached.",
+    "name": "color",
+    "type": "vector"
+   }
+  ],
+  "signature": "attach_light( ball, offset=vec(3,0,1), color=color.green )"
+ },
+ "box": {
+  "doc": "'bumpmap': bumpmaps.stucco",
+  "file": "box",
+  "params": [
+   {
+    "doc": "Position of center. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Extends from left to right end. Default <1,0,0>.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default color.white.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Length of box. Default 1.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "Height of box. Default 1.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "Width of box. Default 1.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Length, width, and height in one vector. An alternative to length, height, width.",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default None.",
+    "name": "texture",
+    "type": "dictionary"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   },
+   {
+    "doc": "The group to which this object belongs.",
+    "name": "group",
+    "type": "object"
+   }
+  ],
+  "signature": "box(pos=vec(0,0,0), length=3, height=2, width=1, color=color.cyan)"
+ },
+ "button": {
+  "doc": "",
+  "file": "button",
+  "params": [
+   {
+    "doc": "The function to be called when the button is clicked.",
+    "name": "bind",
+    "type": "function"
+   },
+   {
+    "doc": "Text to appear on the button",
+    "name": "text",
+    "type": "string"
+   },
+   {
+    "doc": "Location of button. Default is scene.caption_anchor.",
+    "name": "pos",
+    "type": "attribute of canvas"
+   },
+   {
+    "doc": "Color of button text. Modifiable.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Color of button background. Modifiable.",
+    "name": "background",
+    "type": "vector"
+   },
+   {
+    "doc": "If True, button is grayed out and does not respond.",
+    "name": "disabled",
+    "type": "boolean"
+   },
+   {
+    "doc": "",
+    "name": "delete",
+    "type": "method"
+   }
+  ],
+  "signature": "button( bind=myaction, text='Click me!' )"
+ },
+ "canvas": {
+  "doc": "",
+  "file": "canvas",
+  "params": [
+   {
+    "doc": "Width of canvas in pixels. Default 640.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Height of canvas in pixels. Default 400",
+    "name": "height",
+    "type": "vector"
+   },
+   {
+    "doc": "Color of background. Default color.black",
+    "name": "background",
+    "type": "vector"
+   },
+   {
+    "doc": "If False, no objects are displayed in this canvas. Default is True.",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "If False, user cannot resize the canvas. Default is True.",
+    "name": "resizable",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is 'none'. Options are 'left', 'right', 'none'.",
+    "name": "align",
+    "type": "string"
+   },
+   {
+    "doc": "Width of a pixel in world coordinates. Read-only.",
+    "name": "pixel_to_world",
+    "type": "scalar"
+   },
+   {
+    "doc": "A string that appears above the canvas.",
+    "name": "title",
+    "type": "string"
+   },
+   {
+    "doc": "A string that appears below the canvas.",
+    "name": "caption",
+    "type": "string"
+   }
+  ],
+  "signature": "canvas(width=600, height=300, background=color.white)"
+ },
+ "checkbox": {
+  "doc": "",
+  "file": "checkbox",
+  "params": [
+   {
+    "doc": "The function to be called when the box is checked or unchecked.",
+    "name": "bind",
+    "type": "function"
+   },
+   {
+    "doc": "The text displayed next to the box.",
+    "name": "text",
+    "type": "string"
+   },
+   {
+    "doc": "If True, the box is checked.",
+    "name": "checked",
+    "type": "boolean"
+   },
+   {
+    "doc": "Location of checkbox. Default is scene.caption_anchor.",
+    "name": "pos",
+    "type": "attribute of canvas"
+   },
+   {
+    "doc": "If True, the checkbox is grayed out and inactive.",
+    "name": "disabled",
+    "type": "boolean"
+   },
+   {
+    "doc": "",
+    "name": "delete",
+    "type": "method"
+   }
+  ],
+  "signature": "checkbox( bind=myfunction, text='mytext')"
+ },
+ "compound": {
+  "doc": "",
+  "file": "compound",
+  "params": [
+   {
+    "doc": "List of objects to be compounded. See code example below.",
+    "name": "first_argument",
+    "type": "list"
+   },
+   {
+    "doc": "Location of the pos of the compound object. Default is center of bounding box.",
+    "name": "origin",
+    "type": "vector"
+   },
+   {
+    "doc": "Position of the compound object. Default <0,0,0>. Changing pos moves the whole object.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Magnitude is ignored; only direction is used. Default <1,0,0>.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Modifies color of entire compound object. Default color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Dimensions of bounding box. Default <1,1,1>. Changing size does not change axis, and vice versa.",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Texture of entire compound. Default None.",
+    "name": "texture",
+    "type": "class element or path"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   }
+  ],
+  "signature": "compound( objectlist , pos=vec(3,2,0), axis=vec(1,1,0))"
+ },
+ "cone": {
+  "doc": "",
+  "file": "cone",
+  "params": [
+   {
+    "doc": "Position of base of cone. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Extends from base to narrow end. Default <1,0,0>.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Length of cone. Magnitude of axis. Default is 1.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "Radius of base of cone. Default is 1.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Dimensions of a box surrounding the cone. An alternative to length and radius. Allows an elliptical base. Default is <1,2,2>.",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default None.",
+    "name": "texture",
+    "type": "class element or path"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved. See Attaching a Trail for more options.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   },
+   {
+    "doc": "The group to which this object belongs.",
+    "name": "group",
+    "type": "object"
+   }
+  ],
+  "signature": "cone(pos=vec(5,2,0), axis=vec(3,0,0),radius=1, color=color.cyan)"
+ },
+ "curve": {
+  "doc": "",
+  "file": "curve",
+  "params": [
+   {
+    "doc": "List of positions of points in curve. Default is [] (no points).",
+    "name": "pos",
+    "type": "list of vectors"
+   },
+   {
+    "doc": "Default color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "The radius of the curve. Default is 0, which gives a very thin curve.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Changing size scales the entire curve. Default <1,1,1>.",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Changing the origin moves the whole curve. Default <0,0,0>",
+    "name": "origin",
+    "type": "vector"
+   },
+   {
+    "doc": "Default <1,0,0>",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Number of points to retain if points are continually added to the curve.",
+    "name": "retain",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   }
+  ],
+  "signature": "curve( pos=[ vec(-1,3,2), vec(2,0,-1) ] ,  color=color.yellow)"
+ },
+ "cylinder": {
+  "doc": "",
+  "file": "cylinder",
+  "params": [
+   {
+    "doc": "Position of left end. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Extends from pos to end. Default <1,0,0>.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default color.white.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Radius of the cylinder. Default is 1.",
+    "name": "radius",
+    "type": ""
+   },
+   {
+    "doc": "Length of axis. Setting length sets magnitude of axis. Default is 1.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "Length, height, width of a box surrounding the cylinder. Default is <1,1,1>.",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default None.",
+    "name": "texture",
+    "type": "class element or path"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved. See Attaching a Trail for more options.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   },
+   {
+    "doc": "The group to which this object belongs.",
+    "name": "group",
+    "type": "object"
+   }
+  ],
+  "signature": "cylinder(pos=vec(0,0,0), axis=vec(3,0,0), color=color.red)"
+ },
+ "distant_light": {
+  "doc": "",
+  "file": "light",
+  "params": [
+   {
+    "doc": "A vector specifying the direction of the light relative to the origin",
+    "name": "direction",
+    "type": "vector"
+   },
+   {
+    "doc": "The color of the light emitted.",
+    "name": "color",
+    "type": "vector"
+   }
+  ],
+  "signature": "distant_light( direction=vec(0,-1,0), color=color.orange )"
+ },
+ "download": {
+  "doc": "",
+  "file": "file",
+  "params": [
+   {
+    "doc": "Name of file to be written.",
+    "name": "firstargument",
+    "type": "string"
+   },
+   {
+    "doc": "Data to be written, formatted as a string.",
+    "name": "secondargument",
+    "type": "string"
+   }
+  ],
+  "signature": "download(filename, data)"
+ },
+ "ellipsoid": {
+  "doc": "",
+  "file": "ellipsoid",
+  "params": [
+   {
+    "doc": "Position of center. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Default color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Magnitude of axis. As created by default, along x-axis.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "By default, y-dimension.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "By default, z-dimension.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Alternative to length, height, width. Default <1,1,1> (a sphere).",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Default <1,0,0>",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default None.",
+    "name": "texture",
+    "type": "class element or path"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved. See Attaching a Trail for more options.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   },
+   {
+    "doc": "The group to which this object belongs.",
+    "name": "group",
+    "type": "object"
+   }
+  ],
+  "signature": "ellipsoid(pos=vec(0,0,0), length=2, height=1, width=3, color=color.cyan)"
+ },
+ "extrusion": {
+  "doc": "",
+  "file": "extrusion",
+  "params": [
+   {
+    "doc": "A list of x-y pairs, each itself a list, describing a closed figure in the xy plane.",
+    "name": "shape",
+    "type": "list"
+   },
+   {
+    "doc": "A list of 3D vectors denoting a path.",
+    "name": "path",
+    "type": "list"
+   },
+   {
+    "doc": "Color of extrusion. Default is color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "If the cosine of the angle between adjacent path elements is greater than this number, smooth the joint between them. Default: 0.95 (an angle of 18 degrees).",
+    "name": "smooth",
+    "type": "scalar"
+   },
+   {
+    "doc": "If scale is 3, all joints are enlarged by a factor of 3. If instead you give a list of numbers, such as \"scale = [2, 3, 0.5.]\", the initial cross section is scaled by a factor of 2, the second by a factor of 3, and the third by a factor of 0.5. For a list, the number of scale factors must be the same as the number of points along the path.",
+    "name": "scale",
+    "type": "scalar or list"
+   },
+   {
+    "doc": "Same as scale, but in x-direction only.",
+    "name": "xscale",
+    "type": "scalar or list"
+   },
+   {
+    "doc": "Same as scale, but in y-direction only.",
+    "name": "yscale",
+    "type": "scalar or list"
+   },
+   {
+    "doc": "Angle in radians (or list of angles) by which subsequent segments should be rotated about path. For a list, the number of twist factors must be the same as the number of points along the path.",
+    "name": "twist",
+    "type": "scalar or list"
+   },
+   {
+    "doc": "Outward-going normal to the starting face. By default this is determined by the direction of the path from the starting point to the next segment on the path. This attribute has no effect if the path is closed.",
+    "name": "start_normal",
+    "type": "vector"
+   },
+   {
+    "doc": "Same as start_normal but for end face.",
+    "name": "end_normal",
+    "type": "vector"
+   },
+   {
+    "doc": "If False starting face is left open. Default True.",
+    "name": "show_start_face",
+    "type": "boolean"
+   },
+   {
+    "doc": "Same as show_start_face, but for end face of extrusion.",
+    "name": "show_end_face",
+    "type": "boolean"
+   },
+   {
+    "doc": "A list of path points, by position in path, whose joints should be smoothed, regardless of overall setting. First position in path is 0. Setting ``smooth_joints=[2,5]`` turns on smoothing for these joints.",
+    "name": "smooth_joints",
+    "type": "list"
+   },
+   {
+    "doc": "Effect opposite to smooth_joints, with same syntax.",
+    "name": "sharp_joints",
+    "type": "list"
+   }
+  ],
+  "signature": "extrusion( shape=myshape, path=mypath )"
+ },
+ "gcurve": {
+  "doc": "",
+  "file": "graph",
+  "params": [
+   {
+    "doc": "Color of this gcurve. Default is color.black.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Text identifying this gcurve. Appears at upper right in color of this gcurve.",
+    "name": "label",
+    "type": "string"
+   },
+   {
+    "doc": "If True, labels are displayed. Default True.",
+    "name": "legend",
+    "type": "boolean"
+   },
+   {
+    "doc": "Width of line in pixels.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "If True, dots displayed at each data point.",
+    "name": "markers",
+    "type": "boolean"
+   },
+   {
+    "doc": "Color of marker dots. Default is the gcurve color.",
+    "name": "marker_color",
+    "type": "vector"
+   },
+   {
+    "doc": "If True, the most recent point plotted is highlighted with a dot. Useful if a graph retraces its path.",
+    "name": "dot",
+    "type": "boolean"
+   },
+   {
+    "doc": "Width of dot in pixels. Default is 3.",
+    "name": "dot_radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Color of dot. Default same as gcurve.",
+    "name": "dot_color",
+    "type": "vector"
+   },
+   {
+    "doc": "If True this object is displayed. Default True.",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "A list of (x,y) pairs to populate the gcurve. If used after creation, gc.data=[ ... ] will replace any existing data in the gcurve.",
+    "name": "data",
+    "type": "list"
+   },
+   {
+    "doc": "The graph to which this object belongs. Default: most recently created graph.",
+    "name": "graph",
+    "type": "object"
+   }
+  ],
+  "signature": "gcurve(color=color.red)"
+ },
+ "gdots": {
+  "doc": "",
+  "file": "graph",
+  "params": [
+   {
+    "doc": "Color of this gcurve. Default is color.black.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Radius of a dot in pixels. Default 3.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "The diameter of a dot in pixels.",
+    "name": "size",
+    "type": "scalar"
+   },
+   {
+    "doc": "Text identifying this gdots. Appears at upper right in color of this gcurve.",
+    "name": "label",
+    "type": "string"
+   },
+   {
+    "doc": "If True, labels are displayed. Default True.",
+    "name": "legend",
+    "type": "boolean"
+   },
+   {
+    "doc": "If True this object is displayed. Default True.",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "A list of (x,y) pairs to populate the gdots. If used after creation, gd.data=[ ... ] will replace any existing data in the gdots.",
+    "name": "data",
+    "type": "list"
+   },
+   {
+    "doc": "The graph to which this object belongs. Default: most recently created graph.",
+    "name": "graph",
+    "type": "object"
+   }
+  ],
+  "signature": "gdots(color=color.red)"
+ },
+ "get_library": {
+  "doc": "",
+  "file": "file",
+  "params": [
+   {
+    "doc": "Location of the library.",
+    "name": "argument",
+    "type": "URL"
+   }
+  ],
+  "signature": "get_library(\"https://xyz.org/lib.js\")"
+ },
+ "graph": {
+  "doc": "",
+  "file": "graph",
+  "params": [
+   {
+    "doc": "Title of the graph. html formatting for sub, sup, italic allowed.",
+    "name": "title",
+    "type": "string"
+   },
+   {
+    "doc": "Title of horizontal axis. html formatting for sub, sup, italic, bold allowed. (e.g. '<i>t</i>').",
+    "name": "xtitle",
+    "type": "string"
+   },
+   {
+    "doc": "Title of vertical axis. html formatting for sub, sup, italic, bold allowed. (e.g. 'x<sub>1</sub>').",
+    "name": "ytitle",
+    "type": "string"
+   },
+   {
+    "doc": "Minimum value on horizontal axis. Default: graph will adjust automatically as points are added.",
+    "name": "xmin",
+    "type": "scalar"
+   },
+   {
+    "doc": "Maximum value on horizontal axis. Default: graph will adjust automatically as points are added.",
+    "name": "xmax",
+    "type": "scalar"
+   },
+   {
+    "doc": "Minimum value on vertical axis. Default: graph will adjust automatically as points are added.",
+    "name": "ymin",
+    "type": "scalar"
+   },
+   {
+    "doc": "Maximum value on vertical axis. Default: graph will adjust automatically as points are added.",
+    "name": "ymax",
+    "type": "scalar"
+   },
+   {
+    "doc": "Width of graph in pixels. Default 640.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Height of graph in pixels. Default 480.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "Color of background. Default color.white.",
+    "name": "background",
+    "type": "vector"
+   },
+   {
+    "doc": "Color of foreground (axes, labels, etc.). Default color.black.",
+    "name": "foreground",
+    "type": "vector"
+   },
+   {
+    "doc": "Placement in window. Options 'left', 'right', 'none'. Default is 'none'.",
+    "name": "align",
+    "type": "string"
+   },
+   {
+    "doc": "If True, points are deleted from one end of the plots in the graph as they are added to the other end (a chart recorder). You must specify the initial xmin and xmax, where xmax > xmin.",
+    "name": "scroll",
+    "type": "boolean"
+   },
+   {
+    "doc": "If True, plotting is faster but fewer graph inspection options are available. Default True. See `Plotting Packages`_.",
+    "name": "fast",
+    "type": "boolean"
+   },
+   {
+    "doc": "If True, plots on a log scale. All values must be positive. Only available with fast=False.",
+    "name": "logx",
+    "type": "boolean"
+   },
+   {
+    "doc": "Same as logx, for vertical axis.",
+    "name": "logy",
+    "type": "boolean"
+   }
+  ],
+  "signature": "graph(title='My Graph', xtitle='x', ytitle='t', xmin=0, ymin=-20 )"
+ },
+ "gvbars": {
+  "doc": "",
+  "file": "graph",
+  "params": [
+   {
+    "doc": "Width of the bar. Default 1.",
+    "name": "delta",
+    "type": "scalar"
+   },
+   {
+    "doc": "Color of the bars. Default is color.black.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Text identifying this gvbars. Appears at upper right in color of this gcurve.",
+    "name": "label",
+    "type": "string"
+   },
+   {
+    "doc": "If True, labels are displayed. Default True.",
+    "name": "legend",
+    "type": "boolean"
+   },
+   {
+    "doc": "If True this object is displayed. Default True.",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "A list of (x,y) pairs to populate the gvbars. If used after creation, gv.data=[ ... ] will replace any existing data in the gvbars.",
+    "name": "data",
+    "type": "list"
+   },
+   {
+    "doc": "The graph to which this object belongs. Default: most recently created graph.",
+    "name": "graph",
+    "type": "object"
+   }
+  ],
+  "signature": "gvbars(delta=0.05, color=color.blue)"
+ },
+ "helix": {
+  "doc": "",
+  "file": "helix",
+  "params": [
+   {
+    "doc": "Position of left end. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Extends from pos to other end. Default <1,0,0>.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default color.white.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Radius of the helix. Default is 1.",
+    "name": "radius",
+    "type": "vector"
+   },
+   {
+    "doc": "Diameter of the cross section of the curve. Default is radius/20",
+    "name": "thickness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Length of axis. Setting length sets magnitude of axis. Default is 1.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "Number of coils. Default is 5.",
+    "name": "coils",
+    "type": "scalar"
+   },
+   {
+    "doc": "Length, height, width of a box surrounding the cylinder. Default is <1,1,1>.",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "If ccw is True the helix winds counterclockwise (default).",
+    "name": "ccw",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved. See Attaching a Trail for more options.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   }
+  ],
+  "signature": "helix(pos=vec(0,0,0), axis=vec(3,0,0), color=color.red)"
+ },
+ "input": {
+  "doc": "",
+  "file": "textinput",
+  "params": [
+   {
+    "doc": "Text of the prompt.",
+    "name": "prompt",
+    "type": "string"
+   }
+  ],
+  "signature": "input(prompt='Enter a color:')"
+ },
+ "label": {
+  "doc": "",
+  "file": "label",
+  "params": [
+   {
+    "doc": "Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Text to be displayed. html formatting for sup, sub, italic, bold accepted.",
+    "name": "text",
+    "type": "string or numerical expression"
+   },
+   {
+    "doc": "Color of text. Default is color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Specify 'left', 'right', or 'center'. Alignment of text with pos. Default 'center'.",
+    "name": "align",
+    "type": "string"
+   },
+   {
+    "doc": "x offset in pixels from pos.",
+    "name": "xoffset",
+    "type": "scalar"
+   },
+   {
+    "doc": "y offset in pixels from pos.",
+    "name": "yoffset",
+    "type": "scalar"
+   },
+   {
+    "doc": "'sans' or 'serif or 'monospace' (fixed width). Default is 'sans'.",
+    "name": "font",
+    "type": "string"
+   },
+   {
+    "doc": "Color of the background of the box. Default scene.background.",
+    "name": "background",
+    "type": ""
+   },
+   {
+    "doc": "",
+    "name": "param",
+    "type": "vector"
+   },
+   {
+    "doc": "Opacity of box background. Range 0-1. Default is 0.66.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "True if box should be drawn. Default True.",
+    "name": "box",
+    "type": "boolean"
+   },
+   {
+    "doc": "Distance in pixels from text to surrounding box. Default 5 pixels.",
+    "name": "border",
+    "type": "scalar"
+   },
+   {
+    "doc": "True if a line should be drawn from pos to the box. Default True.",
+    "name": "line",
+    "type": "boolean"
+   },
+   {
+    "doc": "Color of the line and box. Default is scene.foreground.",
+    "name": "linecolor",
+    "type": "vector"
+   },
+   {
+    "doc": "Thickness of line and edges of box, in pixels. Default 1 pixel.",
+    "name": "linewidth",
+    "type": "scalar"
+   },
+   {
+    "doc": "Radius in pixels of a sphere surrounding pos, from which line is excluded.",
+    "name": "space",
+    "type": "scalar"
+   },
+   {
+    "doc": "If False, label is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   }
+  ],
+  "signature": "label( pos=vec(0,0,0), text='Early', xoffset=20, yoffset=50, space=30, height=16, border=4, font='sans' )"
+ },
+ "local_light": {
+  "doc": "",
+  "file": "light",
+  "params": [
+   {
+    "doc": "The location of the local_light.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "The color of the light emitted.",
+    "name": "color",
+    "type": "vector"
+   }
+  ],
+  "signature": "local_light( pos=vec(-3, 1, -2), color=color.yellow )"
+ },
+ "menu": {
+  "doc": "",
+  "file": "menu",
+  "params": [
+   {
+    "doc": "The function to be called when a menu selection is made.",
+    "name": "bind",
+    "type": "function"
+   },
+   {
+    "doc": "The list of options (as strings) to appear on the menu.",
+    "name": "choices",
+    "type": "list"
+   },
+   {
+    "doc": "The text of the currently selected menu option.",
+    "name": "selected",
+    "type": "string"
+   },
+   {
+    "doc": "The list position of the currently selected option.",
+    "name": "index",
+    "type": "scalar"
+   },
+   {
+    "doc": "If True, menu is grayed out and does not respond.",
+    "name": "disabled",
+    "type": "boolean"
+   },
+   {
+    "doc": "",
+    "name": "delete",
+    "type": "method"
+   }
+  ],
+  "signature": "menu( bind=myfunction, choices=choicelist )"
+ },
+ "points": {
+  "doc": "",
+  "file": "points",
+  "params": [
+   {
+    "doc": "List of positions of points in curve. Default is [] (no points).",
+    "name": "pos",
+    "type": "list of vectors"
+   },
+   {
+    "doc": "Default color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Radius of one simple_sphere. Default is 2.5 pixels.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Units for size of points. Default is 'pixels'. An alternative is 'world'.",
+    "name": "size_units",
+    "type": "string"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   }
+  ],
+  "signature": "points( pos=[ vec(-1,3,2), vec(2,0,-1) ] ,  color=color.yellow)"
+ },
+ "print_options": {
+  "doc": "",
+  "file": "print",
+  "params": [
+   {
+    "doc": "Width of print region.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Height of print region.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "If True, user cannot edit text in print region. Default True (but user can still copy output text).",
+    "name": "readonly",
+    "type": "boolean"
+   },
+   {
+    "doc": "If digits=4 then 123.456 will display as 123.4. Default is 6.",
+    "name": "digits",
+    "type": "scalar"
+   },
+   {
+    "doc": "Position of print area with respect to the canvas. Default is \"bottom\" (under the canvas). If you set pos=\"right\" print are will appear to the right of the canvas, assuming the window is wide enough.",
+    "name": "pos",
+    "type": "string"
+   },
+   {
+    "doc": "If place=scene.title.anchor print area will be in the title region. scene.caption.anchor is also possible.",
+    "name": "place",
+    "type": "anchor location"
+   }
+  ],
+  "signature": "print_options(width=500, height=300, readonly=False, digits=4, pos='right', place=scene.title_anchor)"
+ },
+ "pyramid": {
+  "doc": "",
+  "file": "pyramid",
+  "params": [
+   {
+    "doc": "Position of center. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Extends from base to point. Default <1,0,0>.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Magnitude of axis. As created by default, along x-axis.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "By default, y-dimension of base.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "By default, z-dimension of base.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Alternative to length, height, width. Default <1,1,1>",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default None.",
+    "name": "texture",
+    "type": "class element or path"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved. See Attaching a Trail for more options.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   },
+   {
+    "doc": "The group to which this object belongs.",
+    "name": "group",
+    "type": "object"
+   }
+  ],
+  "signature": "pyramid(pos=vec(0,0,0), axis=vec(1,0,0), color=color.green)"
+ },
+ "quad": {
+  "doc": "",
+  "file": "vertex",
+  "params": [
+   {
+    "doc": "A vertex of the quad.",
+    "name": "v0",
+    "type": "vertex"
+   },
+   {
+    "doc": "The adjacent vertex, using the right-hand rule.",
+    "name": "v1",
+    "type": "vertex"
+   },
+   {
+    "doc": "The adjacent vertex, using the right-hand rule.",
+    "name": "v2",
+    "type": "vertex"
+   },
+   {
+    "doc": "The adjacent vertex, using the right-hand rule.",
+    "name": "v3",
+    "type": "vertex"
+   },
+   {
+    "doc": "A list containing all four vertices in order--an alternative to specifying all four separately.",
+    "name": "vs",
+    "type": "list"
+   }
+  ],
+  "signature": "quad( vs = [a, b, c, d] )"
+ },
+ "radio": {
+  "doc": "",
+  "file": "radiobutton",
+  "params": [
+   {
+    "doc": "The function to be called when the box is checked or unchecked.",
+    "name": "bind",
+    "type": "function"
+   },
+   {
+    "doc": "The text displayed next to the box.",
+    "name": "text",
+    "type": "string"
+   },
+   {
+    "doc": "Name of the group of radio buttons to which this belongs.",
+    "name": "name",
+    "type": "string"
+   },
+   {
+    "doc": "If True, the box is checked. Default False.",
+    "name": "checked",
+    "type": "boolean"
+   },
+   {
+    "doc": "Location of checkbox. Default is scene.caption_anchor.",
+    "name": "pos",
+    "type": "attribute of canvas"
+   },
+   {
+    "doc": "If True, the checkbox is grayed out and inactive.",
+    "name": "disabled",
+    "type": "boolean"
+   },
+   {
+    "doc": "",
+    "name": "delete",
+    "type": "method"
+   }
+  ],
+  "signature": "radio( bind=myfunction, text='mytext', name='mygroup')"
+ },
+ "read_local_file": {
+  "doc": "",
+  "file": "file",
+  "params": [
+   {
+    "doc": "Placement of button. Default: scene.caption_anchor.",
+    "name": "argument",
+    "type": "canvas attribute"
+   }
+  ],
+  "signature": "read_local_file(scene.title_anchor)"
+ },
+ "ring": {
+  "doc": "",
+  "file": "ring",
+  "params": [
+   {
+    "doc": "Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Default color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Perpendicular to plane of ring. Default <1,0,0>.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Radius of the ring. Default 1.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Half the diameter of the cross section of the ring. Default 0.1*radius.",
+    "name": "thickness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Size of a box surrounding the object. Default <0.2, 2,2, 2.2>.",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default None.",
+    "name": "texture",
+    "type": "class element or path"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved. See Attaching a Trail for more options.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   },
+   {
+    "doc": "The group to which this object belongs.",
+    "name": "group",
+    "type": "object"
+   }
+  ],
+  "signature": "ring( pos=vec(0,0,0), axis=vec(1,0,0), radius = 2, thickness = 0.2. color=color.cyan )"
+ },
+ "rotate": {
+  "doc": "",
+  "file": "rotation",
+  "params": [
+   {
+    "doc": "Object name.",
+    "name": "firstargument",
+    "type": "vector"
+   },
+   {
+    "doc": "The axis about which the object is to be rotated. Default is ``myobject.axis``.",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "The angle of rotation in radians, counterclockwise using a right-hand rule (thumb in direction of rotation axis, fingers curl in direction of rotation).",
+    "name": "angle",
+    "type": "scalar"
+   },
+   {
+    "doc": "The rotation axis goes through the origin. Default is ``myobject.pos``.",
+    "name": "origin",
+    "type": "vector"
+   }
+  ],
+  "signature": "rotate(myobject, axis=vec(0,1,0), angle=pi/3, origin=vec(0,0,0) )"
+ },
+ "scene.bind": {
+  "doc": "",
+  "file": "mouse",
+  "params": [
+   {
+    "doc": "Event type. May be 'click', 'mousedown', 'mousemove', 'mouseup'.",
+    "name": "firstargument",
+    "type": "string"
+   },
+   {
+    "doc": "Name of function to be called when mouse event occurs.",
+    "name": "secondargument",
+    "type": "function"
+   }
+  ],
+  "signature": "scene.bind('click', newcolor)"
+ },
+ "scene.mouse": {
+  "doc": "",
+  "file": "mouse",
+  "params": [
+   {
+    "doc": "Is the current 3D position of the mouse cursor. This is always at a location in the plane parallel to the screen, passing through ``scene.center``.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "The object (if any) on which the mouse cursor currently rests. If the cursor rests on a box named cube then ``scene.mouse.pick == cube`` will be True. Some objects are not pickable: label, helix, and curves, spheres, and arrows created by ``make_trail``, ``attach_trail``, and ``attach_arrow``.",
+    "name": "pick",
+    "type": "object"
+   },
+   {
+    "doc": "A unit vector from the camera to the mouse cursor.",
+    "name": "ray",
+    "type": "vector"
+   },
+   {
+    "doc": "True if the ALT key is down.",
+    "name": "alt",
+    "type": "boolean"
+   },
+   {
+    "doc": "True if the CTRL key is down.",
+    "name": "ctrl",
+    "type": "boolean"
+   },
+   {
+    "doc": "True if the SHIFT key is down.",
+    "name": "shift",
+    "type": "boolean"
+   }
+  ],
+  "signature": "scene.mouse()"
+ },
+ "scene.mouse.project": {
+  "doc": "",
+  "file": "mouse",
+  "params": [
+   {
+    "doc": "A unit vector normal to the plane onto which the cursor is to be projected.",
+    "name": "normal",
+    "type": "vector"
+   },
+   {
+    "doc": "A point through which the projection plane passes. Default is <0, 0, 0>.",
+    "name": "point",
+    "type": "vector"
+   },
+   {
+    "doc": "Alternative to point. Distance from origin to the projection plane.",
+    "name": "d",
+    "type": "scalar"
+   }
+  ],
+  "signature": "scene.mouse.project( normal=vec(0,1,0), point=vec(0,3,0) )"
+ },
+ "scene.waitfor": {
+  "doc": "",
+  "file": "canvas",
+  "params": [
+   {
+    "doc": "Event(s) for which to wait.",
+    "name": "argument",
+    "type": "string"
+   }
+  ],
+  "signature": "scene.waitfor('redraw')"
+ },
+ "shapes.arc": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Radius of arc.",
+    "name": "radius",
+    "type": "scalar"
+   }
+  ],
+  "signature": "shapes.arc(radius=2, angle1=0, angle2=pi/2)"
+ },
+ "shapes.circle": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "The radius of the circle. Default 1.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Number of points used to approximate circle. Default 64. An incomplete circle will not have the full number of points.",
+    "name": "np",
+    "type": "scalar"
+   },
+   {
+    "doc": "Multiplies height and width by scale. Default 1.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for width only.",
+    "name": "xscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for height only.",
+    "name": "yscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Starting angle in radians, ccw from +x axis. By default 0.",
+    "name": "angle1",
+    "type": "scalar"
+   },
+   {
+    "doc": "Ending angle in radians, ccw from +x axis. By default 2*pi.",
+    "name": "angle2",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. Creates a circular ring of width (thickness*radius). Extruding this will make a hollow cylinder. Default 0 (no hole).",
+    "name": "thickness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. 2D position relative to the path. Default: center of circle placed at location of path.",
+    "name": "pos",
+    "type": "list"
+   }
+  ],
+  "signature": "shapes.circle(radius=2, np=128)"
+ },
+ "shapes.cross": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Width of the cross. Default 1.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Thickness of an arm. Default 0.2. Note that this does not create a hollow frame.",
+    "name": "thickness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Star is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.",
+    "name": "rotate",
+    "type": "scalar"
+   },
+   {
+    "doc": "Multiplies height and width by scale. Default 1.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for width only.",
+    "name": "xscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for height only.",
+    "name": "yscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.",
+    "name": "pos",
+    "type": "list"
+   }
+  ],
+  "signature": "shapes.cross(width=10, thickness=2)"
+ },
+ "shapes.ellipse": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Dimension along x-axis. Default 2.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Dimension along y-axis. Default 1.",
+    "name": "height",
+    "type": "scalar"
+   }
+  ],
+  "signature": "shapes.ellipse(width=5, height=3)"
+ },
+ "shapes.gear": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Extends from center of gear to a point midway between the base and outer edge of a tooth. Placing the centers of two gears two radii apart usually allows gears to mesh properly. Default 1.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Applies a uniform scale to the gear.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.",
+    "name": "pos",
+    "type": "list"
+   },
+   {
+    "doc": "Defines number of teeth in the gear. Normally, \"tooth size\" and the number of teeth should define the gear circumference (or the radius), but in this program the \"tooth size\" is not a control parameter, rather it is calculated from the number of teeth and the radius. Hence the number of teeth, n, can be set arbitrarily and some unrealistic values for the \"tooth size\" can be obtained in turn. The user should be setting the parameters appropriately to obtain a reasonable tooth structure. The default number of teeth is 20.",
+    "name": "n",
+    "type": "integer"
+   },
+   {
+    "doc": "Coupled gears exert force on each other on the tooth profile during rotation. Phi is called the Pressure Angle, which is one of the basic parameters defining the tooth profile for a better contact. Also, \"tooth size\" components like bottom-land (roughly the gap between two teeth at the bottom of the teeth) and top-land (tooth thickness at the very top) are calculated using the pressure angle. Default value for the pressure angle is 20 degrees.",
+    "name": "phi",
+    "type": "scalar"
+   },
+   {
+    "doc": "The \"tooth depth\" is defined as the sum of addendum and dedendum. Addendum is the part of the tooth above the radius to the tip of the tooth. Default value for addendum is 0.08 times the radius.",
+    "name": "addendum",
+    "type": "scalar"
+   },
+   {
+    "doc": "Dedendum is the part of the tooth below the pitch radius to the depth of the tooth. Default value for dedendum is 0.1 times the radius.",
+    "name": "dedendum",
+    "type": "scalar"
+   },
+   {
+    "doc": "Bottom filet radius, fradius defines the radius of curvature at the bottom of the tooth between the bottom-land and the tooth. Default value for fradius is 0.02 times the radius.",
+    "name": "fradius",
+    "type": ""
+   },
+   {
+    "doc": "Gear is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.",
+    "name": "rotate",
+    "type": "scalar"
+   },
+   {
+    "doc": "This parameter defines the drawing mesh resolution and does not affect the gear structure. Since most of the mesh points are on a circle, or on a curve defining the tooth profile, res is used to control curvature resolution at varying scales for different parts of the mesh. The default value for res is 1.0, and a better resolution is obtained as res is increased.",
+    "name": "res",
+    "type": "scalar"
+   }
+  ],
+  "signature": "shapes.gear()"
+ },
+ "shapes.line": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "For shape, 2D coordinate of line start. Default [0,0]. For path, start is a vector.",
+    "name": "start",
+    "type": "list"
+   },
+   {
+    "doc": "For shape, 2D coordinate of line end. Default [0,1]. For path, end is a vector.",
+    "name": "end",
+    "type": "list"
+   },
+   {
+    "doc": "Number of evenly spaced points in the line.",
+    "name": "np",
+    "type": "scalar"
+   }
+  ],
+  "signature": "shapes.line(start=(1,0), end=(1,1), np=20)"
+ },
+ "shapes.ngon": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "The number of sides in the figure.",
+    "name": "np",
+    "type": "scalar"
+   },
+   {
+    "doc": "The n-gon will fit into a circle with this radius. Side length is calculated automatically in this case.",
+    "name": "radius",
+    "type": "scalar"
+   }
+  ],
+  "signature": "shapes.ngon(np=7, length=5)"
+ },
+ "shapes.pentagon": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Length of a side.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "Star is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.",
+    "name": "rotate",
+    "type": "scalar"
+   },
+   {
+    "doc": "Replaces sharp corners with a circular arc of radius (roundness*length).",
+    "name": "roundness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Setting invert to True plus setting roundness produces chamfered corners.",
+    "name": "invert",
+    "type": "boolean"
+   },
+   {
+    "doc": "Multiplies height and width by scale. Default 1.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for width only.",
+    "name": "xscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for height only.",
+    "name": "yscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. Creates a pentagonal frame. Extruding this will make a hollow pentagon. Default 0 (no hole). If thickness>0, the shape will consist of two lists of 2D points: one for the inner contour and one for the outer contour.",
+    "name": "thickness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.",
+    "name": "pos",
+    "type": "list"
+   }
+  ],
+  "signature": "shapes.pentagon(length=3)"
+ },
+ "shapes.points": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "A list of points defining the perimeter of a polygon. Last point must be the same as first point.",
+    "name": "pos",
+    "type": "list"
+   },
+   {
+    "doc": "Multiplies height and width by scale. Default 1.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Rotation around center.",
+    "name": "rotate",
+    "type": "scalar"
+   },
+   {
+    "doc": "Replaces sharp corners with a circular arc.",
+    "name": "roundness",
+    "type": "scalar"
+   }
+  ],
+  "signature": "shapes.points(pos=[ [1,0], [1,1], [-2,3], [1,0] ], rotate=pi/4)"
+ },
+ "shapes.rectangle": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Width of rectangle. Default 1.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Height of rectangle. Default 1.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "Rectangle is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.",
+    "name": "rotate",
+    "type": "scalar"
+   },
+   {
+    "doc": "Replaces sharp corners with a circular arc of radius (roundness*min(height,width)).",
+    "name": "roundness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Setting invert to True plus setting roundness produces chamfered corners.",
+    "name": "invert",
+    "type": "boolean"
+   },
+   {
+    "doc": "Multiplies height and width by scale. Default 1.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for width only.",
+    "name": "xscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for height only.",
+    "name": "yscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. Creates a hollow rectangular frame--a rectangle with a rectangular hole in the middle--whose sides have a thickness of (thickness*min(height,width)). Extruding this will make a hollow box. Default 0 (no hole). If thickness>0, the shape will consist of two lists of 2D points: one for the inner contour and one for the outer contour.",
+    "name": "thickness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.",
+    "name": "pos",
+    "type": "list"
+   }
+  ],
+  "signature": "shapes.rectangle(width=10, height=6)"
+ },
+ "shapes.star": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Number of \"beams\" in the star. Default: 5",
+    "name": "n",
+    "type": "scalar"
+   },
+   {
+    "doc": "Radius of a circle within which the star fits. Changing radius affects only the convex vertices of the star, leaving the inner, concave ones, unchanged.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Inner radius: Radius of a circle going through the inner, convex vertices of the star. Default 0.5*radius.",
+    "name": "iradius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Rotation around center.",
+    "name": "rotate",
+    "type": "scalar"
+   },
+   {
+    "doc": "Replaces sharp corners with a circular arc.",
+    "name": "roundness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Setting invert to True plus setting roundness produces chamfered corners.",
+    "name": "invert",
+    "type": "boolean"
+   },
+   {
+    "doc": "Multiplies height and width by scale. Default 1.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for width only.",
+    "name": "xscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for height only.",
+    "name": "yscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. Creates a star-shaped frame. Extruding this will make a hollow object. Default 0 (no hole). If thickness>0, the shape will consist of two lists of 2D points: one for the inner contour and one for the outer contour.",
+    "name": "thickness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.",
+    "name": "pos",
+    "type": "list"
+   }
+  ],
+  "signature": "shapes.star(n=6, radius=3, iradius=1)"
+ },
+ "shapes.trapezoid": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Width of base.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Perpendicular distance from base to top.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "Length of top line. Default is 0.5*width.",
+    "name": "top",
+    "type": "scalar"
+   }
+  ],
+  "signature": "shapes.trapezoid(pos=[-2,3], width=5, height=1, top=3)"
+ },
+ "shapes.triangle": {
+  "doc": "",
+  "file": "shapes_and_paths",
+  "params": [
+   {
+    "doc": "Length of side of an equilateral triangle.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "Rectangle is rotated by the specified angle (in radians) counterclockwise around the path. Default 0.",
+    "name": "rotate",
+    "type": "scalar"
+   },
+   {
+    "doc": "Replaces sharp corners with a circular arc of radius roundness*length.",
+    "name": "roundness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Setting invert to True plus setting roundness produces chamfered corners.",
+    "name": "invert",
+    "type": "boolean"
+   },
+   {
+    "doc": "Multiplies height and width by scale. Default 1.",
+    "name": "scale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for base only.",
+    "name": "xscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Scale factor for altitude only.",
+    "name": "yscale",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. Creates a hollow rectangular frame--a rectangle with a rectangular hole in the middle--whose sides have a thickness of (thickness*length). Extruding this will make a hollow object. Default 0 (no hole). If thickness>0, the shape will consist of two lists of 2D points: one for the inner contour and one for the outer contour.",
+    "name": "thickness",
+    "type": "scalar"
+   },
+   {
+    "doc": "Shape only. 2D position relative to the path. Default: center of rectangle placed at location of path.",
+    "name": "pos",
+    "type": "list"
+   }
+  ],
+  "signature": "shapes.triangle(length=5, roundness=0.2)"
+ },
+ "slider": {
+  "doc": "",
+  "file": "slider",
+  "params": [
+   {
+    "doc": "The function to be called when the button is clicked.",
+    "name": "bind",
+    "type": "function"
+   },
+   {
+    "doc": "The minimum value of the slider. Default is 0. Not modifiable.",
+    "name": "min",
+    "type": "scalar"
+   },
+   {
+    "doc": "The maximum value of the slider. Default is 1. Not modifiable.",
+    "name": "max",
+    "type": "scalar"
+   },
+   {
+    "doc": "The step size when clicking or dragging. Default is 0.001*(max-min). Not modifiable .",
+    "name": "step",
+    "type": "scalar"
+   },
+   {
+    "doc": "The current value. Can be set by program as well as by user. When a program sets value, the bind function is not executed.",
+    "name": "value",
+    "type": "scalar"
+   },
+   {
+    "doc": "If True, slider is vertical. Default is False (horizontal). Not modifiable.",
+    "name": "vertical",
+    "type": "boolean"
+   },
+   {
+    "doc": "The length of the slider in pixels. Default 400 px. Not modifiable.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "The width of the slider in pixels. Default 10 px. Not modifiable.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Margin to the left of slider, in pixels. Default 12 px. Not modifiable.",
+    "name": "left",
+    "type": "scalar"
+   },
+   {
+    "doc": "Margin to the right of slider, in pixels. Default is 12 px. Not modifiable.",
+    "name": "right",
+    "type": "scalar"
+   },
+   {
+    "doc": "Margin above the slider, in pixels. Default is 0 px for horizontal, 8 px for vertical. Not modifiable.",
+    "name": "top",
+    "type": "scalar"
+   },
+   {
+    "doc": "Margin below the slider, in pixels. Default is 0 px for horizontal, 8 px for vertical. Not modifiable. Currently does not work properly.",
+    "name": "bottom",
+    "type": "scalar"
+   },
+   {
+    "doc": "If 'left', slider is displayed at left of window. Options are 'left', 'right', 'none' (the default). Not modifiable.",
+    "name": "align",
+    "type": "string"
+   },
+   {
+    "doc": "Location of widget. Default is scene.caption_anchor.",
+    "name": "pos",
+    "type": "attribute of canvas"
+   },
+   {
+    "doc": "If True, widget is grayed out and is inactive.",
+    "name": "disabled",
+    "type": "boolean"
+   },
+   {
+    "doc": "",
+    "name": "delete",
+    "type": "method"
+   }
+  ],
+  "signature": "slider( bind=myaction, min=0, max=50 )"
+ },
+ "sphere": {
+  "doc": "",
+  "file": "sphere",
+  "params": [
+   {
+    "doc": "Position of center. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.",
+    "name": "radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Dimensions of a box surrounding the sphere. Default <2,2,2>.",
+    "name": "size",
+    "type": "vector"
+   },
+   {
+    "doc": "Default <1,0,0>",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 1.0; Range 0-1.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default None.",
+    "name": "texture",
+    "type": "class element or path"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "If True, object leaves a trail when moved. See Attaching a Trail for more options.",
+    "name": "make_trail",
+    "type": "boolean"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   },
+   {
+    "doc": "The group to which this object belongs.",
+    "name": "group",
+    "type": "object"
+   },
+   {
+    "doc": "If \"points\" trail will consist of discrete dots. Otherwise a continuous curve.",
+    "name": "trail_type",
+    "type": "string"
+   },
+   {
+    "doc": "Radius of curve or dots. Default 0 (thin curve) for curve; 0.2ball.radius or 0.1size.y for points at the time the object is created.",
+    "name": "trail_radius",
+    "type": "scalar"
+   },
+   {
+    "doc": "Number of moves before a point is added. interval=10 adds a point to trail every 10th time object moves.",
+    "name": "interval",
+    "type": "scalar"
+   },
+   {
+    "doc": "Number of points to retain in trail. Default is to retain all. Oldest points deleted first.",
+    "name": "retain",
+    "type": "scalar"
+   },
+   {
+    "doc": "For a curve, pps=15 will add a point approximately 15 times per second.",
+    "name": "pps",
+    "type": "scalar"
+   }
+  ],
+  "signature": "sphere(pos=vec(0,0,0), radius=2, color=color.cyan)"
+ },
+ "text": {
+  "doc": "",
+  "file": "text",
+  "params": [
+   {
+    "doc": "Location of the baseline of the text. Modified by align. Default <0,0,0>.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "Text to be displayed. Once created cannot be modified.",
+    "name": "text",
+    "type": "unicode string"
+   },
+   {
+    "doc": "Color of text. Default is color.white",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Specify 'left', 'right', or 'center'. Alignment of baseline with pos. Default 'left'.",
+    "name": "align",
+    "type": "string"
+   },
+   {
+    "doc": "'sans' or 'serif. Default is 'sans'.",
+    "name": "font",
+    "type": "string"
+   },
+   {
+    "doc": "If True, text always faces camera, despite rotation. Default False.",
+    "name": "billboard",
+    "type": "boolean"
+   },
+   {
+    "doc": "The axis points along the baseline. Default <1,0,0>",
+    "name": "axis",
+    "type": "vector"
+   },
+   {
+    "doc": "Color of starting (back) face of the text. Default same as text color.",
+    "name": "start_face_color",
+    "type": "vector"
+   },
+   {
+    "doc": "Color of starting (front) face of the text. Default same as text color.",
+    "name": "end_face_color",
+    "type": "vector"
+   },
+   {
+    "doc": "Opacity of text. Range 0-1. Default is 0.66.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "Height of text in world coordinates. Default is 1.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "Length of displayed text. Can't be specified in constructor, but can be changed later.",
+    "name": "length",
+    "type": "scalar"
+   },
+   {
+    "doc": "Depth of text. Default is 0.2*height. If depth>0, extrude +z, if depth<0, extrude -z.",
+    "name": "depth",
+    "type": "scalar"
+   },
+   {
+    "doc": "Height of descender on lower case letters such as y. Read-only.",
+    "name": "descender",
+    "type": "scalar"
+   },
+   {
+    "doc": "Leftmost location on baseline. Read-only.",
+    "name": "start",
+    "type": "scalar"
+   },
+   {
+    "doc": "Rightmost location on baseline. Read-only.",
+    "name": "end",
+    "type": ""
+   },
+   {
+    "doc": "Vertical distance from one baseline to next in multiline text. Read-only.",
+    "name": "vertical_spacing",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   },
+   {
+    "doc": "If False, object is not displayed. Default: True",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Default is scene.",
+    "name": "canvas",
+    "type": "object"
+   },
+   {
+    "doc": "A vector perpendicular to the axis.",
+    "name": "up",
+    "type": "vector"
+   }
+  ],
+  "signature": "text(text='My text is\\ngreen', align='center', color=color.green)"
+ },
+ "triangle": {
+  "doc": "",
+  "file": "vertex",
+  "params": [
+   {
+    "doc": "A vertex of the triangle.",
+    "name": "v0",
+    "type": "vertex"
+   },
+   {
+    "doc": "The adjacent vertex, using the right-hand rule.",
+    "name": "v1",
+    "type": "vertex"
+   },
+   {
+    "doc": "The adjacent vertex, using the right-hand rule.",
+    "name": "v2",
+    "type": "vertex"
+   },
+   {
+    "doc": "A list of three vertex objects in order, using the right-hand rule. An alternative to specifying each vertext separately.",
+    "name": "vs",
+    "type": "list"
+   },
+   {
+    "doc": "The texture to be applied to the triangle. Alignment uses texpos from vertices.",
+    "name": "texture",
+    "type": "class.attribute or path"
+   },
+   {
+    "doc": "If False, triangle will not be visible.",
+    "name": "visible",
+    "type": "boolean"
+   },
+   {
+    "doc": "Bumpmap associated with a texture.",
+    "name": "bumpmap",
+    "type": "class.attribute or path"
+   }
+  ],
+  "signature": "triangle( v0=myvertex0, v1=myvertex1, v2=myvertex2 )"
+ },
+ "vertex": {
+  "doc": "",
+  "file": "vertex",
+  "params": [
+   {
+    "doc": "The 3D position of the vertex.",
+    "name": "pos",
+    "type": "vector"
+   },
+   {
+    "doc": "In the simplest case, a vector perpendicular to the plane of the triangle of which the vertex is a component. Default: <0,0,1>. For vertices at positions p0, p1, and p2, the normal to the triangle is ``norm( cross( (p1-p0), (p2-p1) ) )``",
+    "name": "normal",
+    "type": "vector"
+   },
+   {
+    "doc": "The color of this vertex. If adjacent vertices differ in color, the colors will be blended smoothly between the vertices.",
+    "name": "color",
+    "type": "vector"
+   },
+   {
+    "doc": "Opacity of the vertex.",
+    "name": "opacity",
+    "type": "scalar"
+   },
+   {
+    "doc": "A 3D vector whose x and y components give texel coordinates. Currently z must be 0. See `Texture Coordinates`_.",
+    "name": "texpos",
+    "type": "vector"
+   },
+   {
+    "doc": "The direction of the x-axis of the bumpmap at that location. Default <1,0,0>. See `Texture Coordinates`_.",
+    "name": "bumpaxis",
+    "type": "vector"
+   },
+   {
+    "doc": "Default 0.6; Range 0-1.",
+    "name": "shininess",
+    "type": "scalar"
+   },
+   {
+    "doc": "Default False. Object glows, losing all shading, if True.",
+    "name": "emissive",
+    "type": "boolean"
+   }
+  ],
+  "signature": "vertex( pos=vec(1,0,0), normal=vec(0,0,1), color=color.green )"
+ },
+ "winput": {
+  "doc": "",
+  "file": "textinput",
+  "params": [
+   {
+    "doc": "The function to be called when the input is ended (by Enter, Tab, or click outside canvas).",
+    "name": "bind",
+    "type": "function"
+   },
+   {
+    "doc": "Text displayed to left of the winput box. (WebVPython only.)",
+    "name": "prompt",
+    "type": "string"
+   },
+   {
+    "doc": "The type of input requested: 'numeric' (default) or 'string'. Not modifiable.",
+    "name": "type",
+    "type": "string"
+   },
+   {
+    "doc": "Location of checkbox. Default is scene.caption_anchor.",
+    "name": "pos",
+    "type": "attribute of canvas"
+   },
+   {
+    "doc": "Width of input box in pixels. Default is 100. Not modifiable.",
+    "name": "width",
+    "type": "scalar"
+   },
+   {
+    "doc": "Height of input box in pixels. Default 20. Not modifiable.",
+    "name": "height",
+    "type": "scalar"
+   },
+   {
+    "doc": "The text displayed in the box, whether entered by user or set by program.",
+    "name": "text",
+    "type": "string"
+   },
+   {
+    "doc": "The number that results from evaluating the user's input text if the type is 'numeric', otherwise None. Not modifiable.",
+    "name": "number",
+    "type": "scalar"
+   },
+   {
+    "doc": "If True, text is grayed out and winput is inactive.",
+    "name": "disabled",
+    "type": "boolean"
+   }
+  ],
+  "signature": "winput(bind=myfunction, prompt='value', type='numeric')"
+ }
+}
