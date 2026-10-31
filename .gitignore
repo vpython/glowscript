@@ -13,3 +13,6 @@ __pycache__/
 /build-tools/Uglify-ES/uglify-es/package-lock.json
 .env
 .claude
+.env.*
+!.env.example
+*.pem
