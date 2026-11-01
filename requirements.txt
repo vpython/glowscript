@@ -1,5 +1,5 @@
 async-timeout==4.0.2
-Authlib==1.6.12
+Authlib==1.9.1
 blinker==1.9.0
 cachetools==5.3.0
 certifi==2026.10.23
@@ -24,10 +24,11 @@ httplib2==0.32.0
 idna==3.15
 itsdangerous==2.2.0
 Jinja2==3.1.6
+joserfc==1.7.7
 MarkupSafe==2.1.2
 proto-plus==1.27.1
 protobuf==6.33.5
-pyasn1==0.6.4
+pyasn1==0.6.5
 pyasn1-modules==0.4.2
 pycparser==2.21
 pymemcache==4.0.0
