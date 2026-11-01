@@ -1,0 +1,13 @@
+Monaco editor 0.52.2 (MIT, see LICENSE), from the monaco-editor npm package. These files were copied
+unmodified from min/vs/ in that package:
+
+    vs/loader.js
+    vs/editor/editor.main.js, editor.main.css
+    vs/base/worker/workerMain.js
+    vs/base/browser/ui/codicons/codicon/codicon.ttf
+    vs/basic-languages/python/python.js
+    vs/basic-languages/javascript/javascript.js
+    vs/language/typescript/tsMode.js, tsWorker.js
+
+The css, html and json language services and the translations are left out.
+If Monaco is updated, copy the same files and test the edit page.
