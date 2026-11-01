@@ -6,11 +6,11 @@ Jan. 2020 workshop on the architecture of GlowScript VPython:
 
 [A case study video: adding a new feature to VPython](https://www.youtube.com/watch?v=9igLky5crY8) presented by Bruce Sherwood to his colleagues Aaron Titus and Steve Spicklemire. It should have been mentioned that "attach_light" needed to be included in the exports at the end of the file primitives.js.
    
-[How to install the GlowScript software locally](https://www.glowscript.org/docs/GlowScriptDocs/local.html) so as to be able to experiment with changing the code, as did the participants in the workshop.
+[How to install the GlowScript software locally](https://github.com/vpython/glowscript#run-a-local-server) so as to be able to experiment with changing the code, as did the participants in the workshop.
    
 ## THE ELEMENTS OF THE GLOWSCRIPT LIBRARY
 
-See www.glowscript.org/docs/GlowScriptDocs/local.html for instructions on
+See "Run a Local Server" in the README (https://github.com/vpython/glowscript#run-a-local-server) for instructions on
 how to install software to be able to make and test changes to GlowScript VPython.
 
 When testing locally, you may need to change the port number 8080 in
@@ -258,12 +258,11 @@ existing user data.
 ---------------------------------------------
 ### TESTING CHANGES
 
-Until July 30, 2020, it is possible to run a test program locally by using the
-graphical-interface Google App Engine launcher, but after that date it will be
-necessary to launch from a terminal (command-line interface or "CLI"). The
-following link describes both schemes:
+To run a test program locally, start a local server from a terminal
+(command-line interface or "CLI"); the graphical Google App Engine launcher was
+retired in 2020. "Run a Local Server" in the README describes how:
 
-    https://www.glowscript.org/docs/GlowScriptDocs/local.html
+    https://github.com/vpython/glowscript#run-a-local-server
 
 To test a new version of GlowScript, change a program header from `X.Y` to `X.Ydev` and
 run the program, which will use the latest, modified code. Make another change in the code
@@ -341,7 +340,7 @@ Note that the code for this transparency demo is remarkably short. Web VPython i
 At github.com/vpython/glowscript the key files dealing with depth peeling are lib/glow/WebGLRender.js and the shader programs in the shaders folder.
 
 It is possible to implement "Fast Approximate Anti-Aliasing" (FXAA) to get around the problem that the use of framebuffer objects turns off anti-aliasing:
-http://www.codinghorror.com/blog/2011/12/fast-approximate-anti-aliasing-fxaa.html
+https://blog.codinghorror.com/fast-approximate-anti-aliasing-fxaa/
 
 This has not been tried in VPython.
 
@@ -404,7 +403,7 @@ let pixels = new Uint8Array(4)
 gl.readPixels(canvas.mouse.__pickx, canvas.mouse.__picky, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, pixels)
 let id = 16777216*pixels[0] + 65536*pixels[1] + 256*pixels[2] + pixels[3]
 
-A non-power-of-two texture has restrictions; see http://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences.
+A non-power-of-two texture has restrictions; see https://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences.
 Important note: This destroys antialiasing, so render to texture is fully useful only for doing some computations, unless we do our own antialiasing.
 
 Note that antialiasing being turned off is actually what one wants for mouse picking because you don't want an object with id of 10 that is next to an object of id 30 to get picked with an id of 20, which could happen with antialiasing turned on, due to the averaging of neighboring colors.
