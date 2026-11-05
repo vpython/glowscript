@@ -1,7 +1,8 @@
 #
-# Make a copy of this file replace 'A_FLASK_SECRET_KEY' with a real secret and save it to flask_secret.py
-# Do not save the real secret in this file as it's checked into git. The flask_secret.py file is *not* checked in, ever.
+# The PUBLIC placeholder session key, for running locally only. A deployed app
+# refuses to start with it (see ide/session_key.py): its key comes from the
+# Secret Manager secret 'glowscript-flask-secret', or from ide/flask_secret.py,
+# which is *not* checked in, ever. Never put a real key in this file.
 #
 
 FN_SECRET_KEY=b'A_FLASK_SECRET_KEY'
-
