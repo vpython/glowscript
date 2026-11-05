@@ -18,16 +18,7 @@ from . import app
 from . import routes
 from . import models
 
-#
-# The 'flask_secret.py' file is not checked in to the git repository, but it's deployed with the application.
-# 
-
-try:
-    from . import flask_secret as secret    # need to find a better way, but for now, this works
-except ImportError:
-    from . import default_secret as secret  # if there is no "new" secret, just use the default
-
-app.secret_key = secret.FN_SECRET_KEY
+from . import session_key
 
 CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 
@@ -98,6 +89,14 @@ def get_base_url():
 GRL = os.environ.get("GLOWSCRIPT_RUNNING_LOCALLY")
 GRL = GRL and GRL.lower()        # let's keep it case insenstive
 GRL = GRL not in (None, 'false') # Anything but None or 'false'
+
+# Deployed, the session key comes from Secret Manager (or ide/flask_secret.py),
+# and the app will not start without one; see ide/session_key.py.
+app.secret_key = session_key.choose_key(
+    GRL,
+    from_secret_manager=lambda: session_key.read_secret_manager(
+        os.environ.get('GOOGLE_CLOUD_PROJECT') or 'glowscript', session_key.SECRET_NAME),
+    from_file=session_key.read_key_file)
 
 class SecretCache:
     """
