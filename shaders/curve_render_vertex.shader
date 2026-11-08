@@ -17,9 +17,14 @@ uniform vec4 objectData[5];
 #define objectRadius objectData[3].w
 #define objectColor objectData[4].rgb
 
-uniform vec4 segmentData[4];
-#define segmentPosR(i) segmentData[i]
-#define segmentColor(i) segmentData[2+i]
+// One instance per segment (WebGLRenderer.js draws a curve with drawElementsInstanced):
+// seg0 and seg1 are the two ends' positions and radii, seg2 and seg3 their colors.
+in vec4 seg0;
+in vec4 seg1;
+in vec4 seg2;
+in vec4 seg3;
+#define segmentPosR(i) ((i) == 0 ? seg0 : seg1)
+#define segmentColor(i) ((i) == 0 ? seg2 : seg3)
 
 uniform mat4 viewMatrix;
 uniform mat4 projMatrix;
