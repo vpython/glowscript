@@ -27,3 +27,8 @@ def test_program_runner_page_loads_no_google_analytics(client):
     assert 'GlowScript Program Template' in page
     assert 'google-analytics' not in page
     assert '_gaq' not in page
+
+def test_privacy_page_covers_children(client):
+    page = client.get('/privacy').get_data(as_text=True)
+    assert '<h2>Children</h2>' in page
+    assert 'general-audience' in page
