@@ -221,6 +221,10 @@ def untrusted_static(filename):
 def root():
     return flask.render_template('index.html')
 
+@app.route('/privacy')
+def privacy():
+    return flask.render_template('privacy.html')
+
 @app.route('/plotusers')
 def plotusers():
     history_setting = ndb.Key('Setting', 'user_count_history').get()
