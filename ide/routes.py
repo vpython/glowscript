@@ -595,7 +595,7 @@ def ApiUserFolderPrograms(username, foldername):
         pub = ndb_folder.isPublic is None or ndb_folder.isPublic or email == ndb_user.email # before March 2015, isPublic wasn't set
     except:
         pub = True
-    if not pub and not override(ndb_user.email):
+    if not pub and not override(email):
         return {"user":user,"folder":folder,
                 "error": str('The folder "'+user+'/'+folder+'" is a private folder\nto which you do not have access.')}
     else:
