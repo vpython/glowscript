@@ -7,6 +7,14 @@ You'll need to run "npm install" in the Uglify directory (build-tools/Uglify-ES/
 
 Then you can run "python build_original_py3.py" from the root directory.
 
+Or, with only Docker installed, run "./build_docker.sh" from the root directory. It builds
+in a scratch copy and lists which package/*.min.js files changed; copy those into package/.
+It also builds an rsWVPRunner checkout: "./build_docker.sh path/to/rsWVPRunner".
+Run it on an unmodified master first: every package should come out "same".
+
+A change to lib/ reaches users only through the rebuilt package/*.min.js, so commit
+both together.
+
 --------------------------------------------------------------------------
 
 Note: After installing nodejs, on Windows you must copy node.exe into the build-tools folder.
