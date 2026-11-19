@@ -1,6 +1,6 @@
 # End-to-end test suite: design
 
-Date: 2026-11-19. Status: draft for review.
+Date: 2026-11-19. Status: reviewed; open questions answered by Steve the same day.
 
 ## Goal
 
@@ -39,14 +39,19 @@ run_e2e.sh               local stack in Docker: Datastore emulator + Flask + Pla
 Anonymous and read-only. Run against every candidate, and once against glowscript.org right
 after a traffic switch. Target: under 2 minutes, in Chromium and WebKit.
 
-1. Run 3–4 public `GlowScriptDemos` programs (`/api/user/GlowScriptDemos/folder/Examples/program/`),
-   at least one VPython and one from `Examples-JavaScript`. Each must compile, draw a
-   non-blank canvas and log no page errors. The test picks programs by name and fails with a
-   clear message if a named demo has gone, rather than guessing a replacement.
+1. Run these public demos (Steve's picks, 2026-11-19), from
+   `/#/user/GlowScriptDemos/folder/Examples/program/<name>`:
+   `VPythonObjects-VPython`, `Extrusions`, `GraphTest`, `ButtonsSlidersMenus-VPython`.
+   Each must compile, draw a non-blank canvas and log no page errors. `GraphTest` also checks
+   that a graph is drawn; `ButtonsSlidersMenus-VPython` that its widgets appear. The list lives
+   in one place in the test file; a demo that has gone fails with a clear message, rather than
+   the test guessing a replacement.
 2. A `rate()` timing check, reusing the loop and thresholds of `tests/test_rate_timing.py`
    against the deployed package.
-3. A program with a deliberate syntax error on line 3 shows an error naming line 3, without
-   a page crash. The program is run without saving it (see Open questions).
+
+A has no compile-error test: the IDE saves as you edit, so running a program of our own means
+writing to the Datastore, which a candidate shares with prod. Compile and runtime errors are
+tested in B1.
 
 Why the post-switch run matters: `-dot-` candidate URLs are the "preview" host, which runs
 programs in an unsandboxed same-origin iframe (`ide/routes.py:168`). Only glowscript.org
@@ -60,7 +65,8 @@ Everything one signed-in user does, through the real UI:
 - Folders: create, list, make public/private, delete.
 - Programs: create; edit in the editor; save; reload and the edit is still there; rename;
   copy and move between folders; delete.
-- Run: output and `print()` reach the page; the marker check below passes; a runtime error is
+- Run: output and `print()` reach the page; the marker check below passes; a syntax error on
+  line 3 shows `#program-error-dialog` naming line 3, without a page crash; a runtime error is
   shown with its line; `input()` if the runtime supports it.
 - Version headers: `Web VPython 3.2` runs; an older supported version runs; an unknown version
   gives a clear error.
@@ -113,12 +119,19 @@ No screenshot comparison: it is fragile across browsers, GPUs and demo edits.
 - A GitHub Actions workflow. The repo has no CI; `run_e2e.sh` is written so one could call it.
 - Visual regression testing.
 
-## Open questions for the plan
+## Selectors
 
-- How the IDE runs an unsaved program anonymously, for A's compile-error test. If there is no
-  such path, that test moves to B1 and A gets a compile check through the demos only.
-- Exact selectors for the IDE's editor, run button and error panel. The plan finds them in
-  `ide/ide.js` and adds nothing to the app unless a stable selector is impossible without it
-  (then a `data-testid`, listed as a change to the app).
-- Which 3–4 demos. Chosen for coverage (3D objects, graph, text output, JavaScript) and short
-  run time.
+No changes to the app. `ide/templates/index.html` already uses meaningful class names and ids:
+page templates `.welcomePage`, `.folderPage`, `.runPage`, `.editPage`, `.sharePage`; buttons
+`.prog-run`, `.prog-edit`, `.prog-copy`, `.prog-rename`, `.prog-delete`, `.program-new`,
+`.folder-new`, `.folder-public`, `.folder-delete`, `.prog-download`; dialogs `#newUser-dialog`,
+`#prog-new-dialog`, `#prog-copy-dialog`, `#prog-rename-dialog`, `#prog-delete-dialog`,
+`#folder-new-dialog`, `#folder-delete-dialog`, `#version-error-dialog`,
+`#program-error-dialog` (`.error-details`, `.error-traceback`); the editor `.program-editor`;
+the run iframe `.untrusted-frame`. Inside the iframe (`untrusted/run.html`): `#loading` and
+`#glowscript`. The canvas check uses `scene.__renderer.screenshot()` in the iframe, the call
+the IDE's own thumbnails use (`untrusted/run.js:350`). Playwright evaluates inside the iframe
+whether it is same-origin (candidates, local) or cross-origin (glowscript.org).
+
+The iframe posts errors to the IDE (`send({ error, traceback })`, `untrusted/run.js:177`),
+which shows `#program-error-dialog`; that dialog is the error check, along with `pageerror`.
