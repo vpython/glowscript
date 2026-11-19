@@ -21,6 +21,11 @@ def list_private_folder(client, owner_email, viewer_email):
         mock_program_query.return_value = [program]
         return client.get('/api/user/owner/folder/Private/program/')
 
+def test_stranger_cannot_list_an_admins_private_folder(client):
+    response = list_private_folder(client, owner_email=ADMIN, viewer_email='stranger@example.com')
+    assert 'error' in response.json
+    assert 'programs' not in response.json
+
 def test_admin_can_list_another_users_private_folder(client):
     response = list_private_folder(client, owner_email='student@example.com', viewer_email=ADMIN)
     assert response.json['programs'][0]['name'] == 'secret_program'
