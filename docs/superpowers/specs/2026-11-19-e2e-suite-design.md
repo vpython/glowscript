@@ -77,8 +77,16 @@ exactly one user and no anonymous state. It cannot test sign-in, sign-out or one
 another's work; that is B2.
 
 **Guard:** tests in B1 carry a `local_only` marker. `conftest.py` skips them unless
-`--base-url` is `localhost` or `127.0.0.1`, so they can never write to prod by accident. The
-guard itself has a test.
+`--base-url` is `localhost`, so they can never write to prod by accident. The guard itself has
+a test.
+
+`127.0.0.1` is refused too, though it is just as local: the IDE runs the program frame
+same-origin only when `document.domain == "localhost"` (`ide/ide.js:1111`). On any other host,
+`ide/routes.py` sets the frame's prefix to `https://sandbox.`, so at `127.0.0.1:8080` the frame
+points at `https://sandbox.127.0.0.1:8080`, which doesn't exist, and programs never run. Pages
+and the editor still work, which makes the failure confusing. Left as is for now (Steve,
+2026-11-20); backlog: make the IDE treat `127.0.0.1` (and `[::1]`) like `localhost`, in its own
+small PR, and then let the guard accept it.
 
 ## How a test decides a program worked
 
