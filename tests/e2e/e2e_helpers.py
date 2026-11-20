@@ -129,3 +129,13 @@ def api_put(request, base_url, path, data, secret):
     r = request.put(f"{base_url}/api/{path}", form={"program": json.dumps(data)},
                     headers={"X-CSRF-Token": secret})
     assert r.ok, f"PUT {path}: {r.status} {r.text()[:200]}"
+
+
+def set_source(page, source):
+    """Replace the editor contents through ACE (window.editor, ide/ide.js:1470); this fires autosave."""
+    page.wait_for_function("() => window.editor && window.editor.getSession", timeout=TIMEOUT)
+    page.evaluate("s => window.editor.getSession().setValue(s)", source)
+
+
+def wait_saved(page):
+    page.locator("#ajaxBody .program-status").filter(has_text="Saved").wait_for(timeout=TIMEOUT)
