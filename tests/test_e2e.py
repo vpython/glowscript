@@ -32,6 +32,9 @@ fixtures, plus the browser itself:
 Two caveats when running locally: the Sign In assertion depends on OAuth config
 a local stack may not have, and the docs pages are static files — so passing
 locally says nothing about whether the DEPLOYED docs are current.
+
+./run_e2e.sh runs this file too, along with the browser tests in tests/e2e (programs
+actually run there); see tests/e2e/README.md.
 """
 import pytest
 from playwright.sync_api import Page, expect
