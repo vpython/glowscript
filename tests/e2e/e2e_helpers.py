@@ -102,5 +102,30 @@ def error_text(page):
     return " | ".join(page.locator(".ui-dialog .error-details:visible").all_inner_texts()).strip()
 
 
+def wait_no_dialog(page):
+    """Wait until no jQuery UI dialog is showing. (":visible" is Playwright's here; it is not CSS.)"""
+    page.locator(".ui-dialog:visible").first.wait_for(state="detached", timeout=TIMEOUT)
+
+
 def real_errors(errors):
     return [e for e in errors if not any(n in e for n in KNOWN_NOISE)]
+
+
+import itertools, json
+_count = itertools.count()
+
+
+def uniq(prefix):
+    """A name no earlier test in this run used (the emulator is empty at the start of each run)."""
+    return f"{prefix}{int(time.time()) % 100000}{next(_count)}"
+
+
+def api_login(request, base_url):
+    return request.get(f"{base_url}/api/login").json()
+
+
+def api_put(request, base_url, path, data, secret):
+    """PUT the way ide.js apiPut does: form field program=<json>, X-CSRF-Token header."""
+    r = request.put(f"{base_url}/api/{path}", form={"program": json.dumps(data)},
+                    headers={"X-CSRF-Token": secret})
+    assert r.ok, f"PUT {path}: {r.status} {r.text()[:200]}"
