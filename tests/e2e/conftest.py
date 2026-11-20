@@ -2,7 +2,7 @@
 from pathlib import Path
 
 import pytest
-from tests.e2e.e2e_helpers import is_local, api_login, api_put, wait_no_dialog
+from tests.e2e.e2e_helpers import is_local, skip_reason, api_login, api_put, wait_no_dialog
 
 LOCAL_USER = "e2e"
 DEMO_DIR = Path(__file__).parent / "demos"
@@ -15,16 +15,10 @@ def pytest_addoption(parser):
 
 def pytest_collection_modifyitems(config, items):
     base_url = config.getoption("--base-url")
-    no_url = pytest.mark.skip(reason="browser test: pass --base-url")
-    not_local = pytest.mark.skip(reason="local_only: writes data; runs only against http://localhost")
     for item in items:
-        path = item.nodeid.replace("\\", "/")
-        if not path.startswith("tests/e2e/") or path.startswith("tests/e2e/test_guard.py"):
-            continue  # only browser tests need a URL; the guard's own tests don't
-        if not base_url:
-            item.add_marker(no_url)
-        elif item.get_closest_marker("local_only") and not is_local(base_url):
-            item.add_marker(not_local)
+        reason = skip_reason(item.nodeid, item.get_closest_marker("local_only") is not None, base_url)
+        if reason:
+            item.add_marker(pytest.mark.skip(reason=reason))
 
 
 @pytest.fixture(scope="session")
@@ -75,3 +69,24 @@ def writes(page):
     sent = []
     page.on("request", lambda r: r.method not in ("GET", "HEAD", "OPTIONS") and sent.append((r.method, r.url)))
     return sent
+
+
+@pytest.fixture(autouse=True)
+def _browser_console(request):
+    """Keep every console message and page error; a failing test's report shows them."""
+    if "page" not in request.fixturenames:
+        yield
+        return
+    page = request.getfixturevalue("page")
+    lines = request.node._browser_console = []
+    page.on("console", lambda m: lines.append(f"{m.type}: {m.text}"))
+    page.on("pageerror", lambda e: lines.append(f"pageerror: {e}"))
+    yield
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    report = (yield).get_result()
+    lines = getattr(item, "_browser_console", None)
+    if report.failed and lines:
+        report.sections.append(("browser console", "\n".join(lines[-200:])))

@@ -6,7 +6,8 @@ Two sets, both Playwright (pytest-playwright), both run in Docker.
 asserts no request but GET was sent). Runs four GlowScriptDemos programs and checks rate().
 
     # before switching traffic, against the --no-promote candidate:
-    pytest tests/e2e/test_smoke.py tests/test_e2e.py --base-url https://VERSION-dot-glowscript.appspot.com --browser chromium --browser webkit
+    pytest tests/e2e/test_smoke.py tests/test_e2e.py --base-url https://VERSION-dot-glowscript.appspot.com \
+        --browser chromium --browser webkit --screenshot only-on-failure --output e2e-artifacts
     # and once right after the switch, against https://glowscript.org (the only run that
     # goes through the real cross-origin sandbox)
 
@@ -24,6 +25,8 @@ program runs: the IDE only runs the program frame same-origin for `localhost`
 (`ide/ide.js:1111`), and anywhere else points it at a `https://sandbox.` host that doesn't exist
 locally. The same applies when you run Flask by hand and open it in a browser. Fixing the IDE
 is a backlog item; until then the `local_only` guard refuses `127.0.0.1`.
+
+A failing test's report includes the browser console; screenshots go to `--output`.
 
 How a test decides a program worked: no page or console errors (see KNOWN_NOISE), our own
 programs print an `E2E-DONE` marker, the 3D canvas has more than one color, graphs have traces.

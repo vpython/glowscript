@@ -16,3 +16,4 @@ __pycache__/
 .env.*
 !.env.example
 *.pem
+e2e-artifacts/

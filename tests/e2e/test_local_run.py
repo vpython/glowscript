@@ -1,8 +1,9 @@
 """B1: running the user's own programs: output, errors, version headers."""
 import pytest
-from playwright.sync_api import Page
+from playwright.sync_api import Page, TimeoutError as PlaywrightTimeout
 from tests.e2e.e2e_helpers import (uniq, api_put, program_url, run_frame, wait_for_print, print_text,
-                                   error_text, wait_for_drawing, canvas_colors, real_errors)
+                                   error_text, wait_for_drawing, canvas_colors, real_errors,
+                                   wait_for_graph, wait_for_widgets)
 
 pytestmark = pytest.mark.local_only
 
@@ -57,8 +58,25 @@ def test_older_version_header_runs(page: Page, base_url, local_user):
     wait_for_print(frame, "E2E-DONE 42")
 
 
-def test_unknown_version_does_not_run(page: Page, base_url, local_user):
+def test_unknown_version_names_the_header_to_use(page: Page, base_url, local_user):
+    # The program is never sent to the frame (ide.js:1144), so only the dialog can be checked.
     run(page, base_url, local_user, 'Web VPython 9.9\nprint("E2E-DONE")\n')
-    page.locator(".ui-dialog:visible").first.wait_for(timeout=20_000)
-    frames = [f for f in page.frames if "/untrusted/run.html" in f.url]
-    assert not frames or "E2E-DONE" not in print_text(frames[0])
+    wanted = page.locator(".ui-dialog .desired-version:visible")
+    wanted.wait_for(timeout=20_000)
+    assert wanted.inner_text() == "Web VPython 3.2 (or JavaScript 3.2)"
+
+
+def test_graph_check_fails_without_traces(page: Page, base_url, local_user):
+    """Sabotage for wait_for_graph: an empty graph has no traces."""
+    frame = run(page, base_url, local_user, 'Web VPython 3.2\ng = graph()\nprint("E2E-DONE")\n')
+    wait_for_print(frame, "E2E-DONE")
+    with pytest.raises(PlaywrightTimeout):
+        wait_for_graph(frame)
+
+
+def test_widget_check_fails_without_widgets(page: Page, base_url, local_user):
+    """Sabotage for wait_for_widgets: a program with no button, slider or menu."""
+    frame = run(page, base_url, local_user, 'Web VPython 3.2\nbox()\nprint("E2E-DONE")\n')
+    wait_for_print(frame, "E2E-DONE")
+    with pytest.raises(PlaywrightTimeout):
+        wait_for_widgets(frame, 1)

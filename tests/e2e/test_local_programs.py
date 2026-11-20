@@ -54,6 +54,19 @@ def test_rename_program(page: Page, base_url, local_user):
     assert source_of(page, base_url, local_user["name"], "MyPrograms", prog) is None
 
 
+def test_move_program_to_other_folder(page: Page, base_url, local_user):
+    # Rename takes "existing folder/new name" (index.html:207), which moves the program.
+    prog = uniq("P"); make(page, base_url, local_user, prog)
+    my_programs(page, base_url, local_user)
+    page.locator("#ajaxBody .program", has_text=prog).locator(".prog-rename").click()
+    dialog = page.locator(".ui-dialog:visible")
+    dialog.locator("input[name=name]").fill(f"Private/{prog}")
+    dialog.get_by_role("button", name="Rename").click()
+    wait_no_dialog(page)
+    assert source_of(page, base_url, local_user["name"], "Private", prog) == SRC
+    assert source_of(page, base_url, local_user["name"], "MyPrograms", prog) is None
+
+
 def test_copy_program_to_other_folder(page: Page, base_url, local_user):
     prog = uniq("P"); make(page, base_url, local_user, prog)
     my_programs(page, base_url, local_user)

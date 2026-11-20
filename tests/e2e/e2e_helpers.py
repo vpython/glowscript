@@ -10,6 +10,18 @@ def is_local(base_url):
     """True only for http://localhost[:port]. local_only tests write data, so anything else is refused."""
     return bool(base_url) and urlparse(base_url).hostname == "localhost"
 
+
+def skip_reason(nodeid, local_only, base_url):
+    """Why tests/e2e/conftest.py skips a test, or None to run it."""
+    path = nodeid.replace("\\", "/")
+    if not path.startswith("tests/e2e/") or path.startswith("tests/e2e/test_guard.py"):
+        return None  # only browser tests need a URL; the guard's own tests don't
+    if not base_url:
+        return "browser test: pass --base-url"
+    if local_only and not is_local(base_url):
+        return "local_only: writes data; runs only against http://localhost"
+    return None
+
 # Steve's picks, 2026-11-19. Value = how the test knows the demo worked.
 DEMOS = {
     "VPythonObjects-VPython": "drawing",
@@ -20,6 +32,14 @@ DEMOS = {
 
 # Console errors that are not ours. Each entry needs a comment saying where it comes from.
 KNOWN_NOISE = []
+
+
+def demo_source(request, base_url, user, name):
+    """The demo's source, read through the API (a GET); fails naming the demo if it has gone.
+    Otherwise the IDE only alert()s, and the test would end as a blank canvas."""
+    d = request.get(f"{base_url}/api/user/{user}/folder/Examples/program/{name}").json()
+    assert "source" in d and "error" not in d, f"demo {name} no longer exists under {user}/Examples: {d.get('error')}"
+    return d["source"]
 
 
 def program_url(base_url, user, folder, program, page="run"):
@@ -45,7 +65,9 @@ def run_frame(page):
 _CANVAS_COLORS = """async () => {
     const scene = (window.canvas && canvas.activated || []).find(c => c)
     if (!scene) return -1
-    const img = await scene.__renderer.screenshot()
+    // screenshot() waits for a draw that a stalled renderer never makes: give up after 5 s.
+    const img = await Promise.race([scene.__renderer.screenshot(), new Promise(r => setTimeout(() => r(null), 5000))])
+    if (!img) return 0
     if (img.decode) await img.decode().catch(() => {})  // a fresh <img> can still be 0x0
     if (!img.width || !img.height) return 0
     const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height
