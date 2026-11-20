@@ -36,3 +36,24 @@ def test_broken_package_is_caught(page: Page, base_url, demo_user):
     page.goto(program_url(base_url, demo_user, "Examples", "Extrusions"))
     with pytest.raises(Exception):
         wait_for_drawing(run_frame(page))
+
+
+from tests.test_rate_timing import LOOP
+
+
+@pytest.mark.parametrize("n,body_ms", [(60, 8)])
+def test_rate_counts_loop_body_time(page: Page, base_url, writes, n, body_ms):
+    """#235 on the deployed package: an 8 ms body must not slow rate(60) below 85% of 60."""
+    page.goto(f"{base_url}/docs/VPythonDocs/index.html")  # any page on the server's origin
+    page.set_content(f'<script src="{base_url}/lib/jquery/2.1/jquery.min.js"></script>'
+                     f'<script src="{base_url}/package/glow.3.2.min.js"></script>')
+    page.wait_for_function("typeof rate == 'function'", timeout=20_000)
+    # Best of 3: one run in a few is slowed by the machine (seen once in WebKit, 38/s), while
+    # the #235 bug gives about 40/s every time.
+    rates = []
+    for _ in range(3):
+        rates.append(page.evaluate(LOOP, [n, body_ms, 60]))
+        if rates[-1] >= 0.85 * n:
+            break
+    assert max(rates) >= 0.85 * n, f"rate({n}) with a {body_ms} ms body ran at {rates} per second"
+    assert writes == []
