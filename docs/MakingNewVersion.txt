@@ -15,7 +15,8 @@ Run it on an unmodified master first: every package should come out "same".
 A change to lib/ reaches users only through the rebuilt package/*.min.js, so commit
 both together.
 
-Before switching traffic to a new version, run the browser smoke tests against it, and
+Before switching traffic to a new version, run the browser smoke tests against it
+(./run_smoke.sh URL), and
 ./run_e2e.sh before merging; see tests/e2e/README.md.
 
 --------------------------------------------------------------------------

@@ -5,11 +5,19 @@ Two sets, both Playwright (pytest-playwright), both run in Docker.
 **Smoke (A), `test_smoke.py`: safe against any server.** Anonymous and read-only (each test
 asserts no request but GET was sent). Runs four GlowScriptDemos programs and checks rate().
 
-    # before switching traffic, against the --no-promote candidate:
-    pytest tests/e2e/test_smoke.py tests/test_e2e.py --base-url https://VERSION-dot-glowscript.appspot.com \
+    # before switching traffic, against the --no-promote candidate (needs only Docker):
+    ./run_smoke.sh https://VERSION-dot-glowscript.appspot.com
+    # and once right after the switch (the only run that goes through the real
+    # cross-origin sandbox):
+    ./run_smoke.sh https://glowscript.org
+
+`run_smoke.sh` runs this, both browsers, in the Playwright image:
+
+    pytest tests/e2e/test_smoke.py tests/test_e2e.py --base-url URL \
         --browser chromium --browser webkit --screenshot only-on-failure --output e2e-artifacts
-    # and once right after the switch, against https://glowscript.org (the only run that
-    # goes through the real cross-origin sandbox)
+
+A staging project with its own Datastore may lack a demo (glowscript-py38 has no
+`VPythonObjects-VPython`); the test fails naming it, and `-k "not VPythonObjects"` skips it.
 
 **Local (B1), `test_local_*.py`: one user's whole workflow, on a throwaway stack.**
 

@@ -6,8 +6,7 @@ https://glowscript.org right after. Candidate (-dot-) URLs run programs same-ori
 only glowscript.org uses the cross-origin sandbox, so the post-switch run is the only
 check of the real sandbox.
 
-    pytest tests/e2e/test_smoke.py --base-url https://VERSION-dot-glowscript.appspot.com \
-        --browser chromium --browser webkit --screenshot only-on-failure --output e2e-artifacts
+    ./run_smoke.sh https://VERSION-dot-glowscript.appspot.com    # Docker; see tests/e2e/README.md
 """
 import pytest
 from playwright.sync_api import Page
